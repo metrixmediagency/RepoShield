@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share Your Feedback</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="portal.css">
+</head>
+<body>
+    <div class="blob-1" id="accent-blob-1"></div>
+    <div class="blob-2" id="accent-blob-2"></div>
+
+    <div class="portal-container">
+        <!-- Main Gating Card -->
+        <div class="portal-card" id="rating-card">
+            <!-- Brand/Logo Section -->
+            <div class="brand-section">
+                <div class="logo-wrapper" id="logo-container">
+                    <i class="fa-solid fa-store" id="category-icon"></i>
+                </div>
+                <h2 id="business-name">Business Name</h2>
+                <p class="tagline">Thank you for visiting us today! We value your feedback.</p>
+            </div>
+
+            <!-- Star Rating Input Screen -->
+            <div class="rating-screen" id="rating-screen">
+                <h3>How was your experience?</h3>
+                <div class="stars-container">
+                    <button class="star-btn" data-rating="1" aria-label="1 star"><i class="fa-regular fa-star"></i></button>
+                    <button class="star-btn" data-rating="2" aria-label="2 stars"><i class="fa-regular fa-star"></i></button>
+                    <button class="star-btn" data-rating="3" aria-label="3 stars"><i class="fa-regular fa-star"></i></button>
+                    <button class="star-btn" data-rating="4" aria-label="4 stars"><i class="fa-regular fa-star"></i></button>
+                    <button class="star-btn" data-rating="5" aria-label="5 stars"><i class="fa-regular fa-star"></i></button>
+                </div>
+                <p class="rating-helper-text" id="rating-helper">Tap a star to rate</p>
+            </div>
+
+            <!-- Private Negative Feedback Screen (Hidden by Default) -->
+            <div class="feedback-screen" id="feedback-screen">
+                <div class="screen-header">
+                    <button class="back-btn" id="back-to-stars" aria-label="Go back"><i class="fa-solid fa-arrow-left"></i></button>
+                    <h3>We'd love to make it right</h3>
+                </div>
+                <p class="feedback-subtitle">We are sorry your experience wasn't perfect. Please tell us what we can do better, and our manager will contact you directly to resolve this.</p>
+                
+                <form id="feedback-form" class="feedback-form">
+                    <div class="input-row">
+                        <div class="form-group">
+                            <label for="client-name">Your Name</label>
+                            <input type="text" id="client-name" placeholder="e.g. Rahul Sharma" required autocomplete="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="client-phone">Phone Number</label>
+                            <input type="tel" id="client-phone" placeholder="e.g. +91 9876543210" required autocomplete="tel">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="client-message">How can we improve?</label>
+                        <textarea id="client-message" rows="4" placeholder="Please describe the issue..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn" id="btn-submit-feedback">
+                        Submit Private Feedback <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Success/Confirmation Screen (Hidden by Default) -->
+            <div class="success-screen" id="success-screen">
+                <div class="success-checkmark">
+                    <div class="check-icon">
+                        <span class="icon-line line-tip"></span>
+                        <span class="icon-line line-long"></span>
+                        <div class="icon-circle"></div>
+                        <div class="icon-fix"></div>
+                    </div>
+                </div>
+                <h3>Thank You!</h3>
+                <p id="success-message">Your feedback has been sent directly to our management team. We value your input and will look into this immediately to serve you better next time.</p>
+                <div class="footer-brand">
+                    <i class="fa-solid fa-shield-halved"></i> Secured by RepuShield
+                </div>
+            </div>
+        </div>
+
+        <!-- Positive Redirection Notification overlay -->
+        <div class="redirect-overlay" id="redirect-overlay">
+            <div class="redirect-card">
+                <div class="spinner-accent"></div>
+                <div class="redirect-icon-wrapper">
+                    <i class="fa-solid fa-heart-pulse"></i>
+                </div>
+                <h2>Fantastic!</h2>
+                <p>We are thrilled you loved your experience! We are redirecting you to Google to share your 5-star rating with the world.</p>
+                <span class="redirect-timer">Redirecting in <strong id="timer-count">3</strong> seconds...</span>
+                <a href="#" id="direct-gmb-link" class="btn-direct-redirect">Click here if not redirected automatically</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="portal.js"></script>
+</body>
+</html>

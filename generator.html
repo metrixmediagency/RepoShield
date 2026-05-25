@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RepuShield - AI Google Review Gater & Campaign Dashboard</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="generator.css">
+</head>
+<body>
+    <div class="glow-bg-1"></div>
+    <div class="glow-bg-2"></div>
+
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <div class="brand-text">
+                    <h1>RepuShield</h1>
+                    <span>AI Review Gater</span>
+                </div>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active" data-tab="create">
+                    <i class="fa-solid fa-plus"></i> Create Campaign
+                </a>
+                <a href="#" class="nav-item" data-tab="campaigns">
+                    <i class="fa-solid fa-list-check"></i> Active Campaigns
+                </a>
+                <a href="#" class="nav-item" data-tab="academy">
+                    <i class="fa-solid fa-graduation-cap"></i> Sales Playbook
+                </a>
+            </nav>
+
+            <div class="partner-card">
+                <div class="partner-avatar">
+                    <i class="fa-solid fa-robot"></i>
+                </div>
+                <div class="partner-info">
+                    <h4>Antigravity AI</h4>
+                    <p>Co-Pilot Active</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Dashboard Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="content-header">
+                <div class="header-title">
+                    <h2 id="tab-title">Generate GMB Review Campaign</h2>
+                    <p id="tab-subtitle">Enter local business details to instantly generate custom review gaters and print-ready QR standees.</p>
+                </div>
+                <div class="stats-badge">
+                    <i class="fa-solid fa-indian-rupee-sign text-emerald"></i>
+                    <span>Target: Rs. 100k/mo</span>
+                </div>
+            </header>
+
+            <!-- Tab 1: Create Campaign -->
+            <section id="tab-create-content" class="tab-content active">
+                <div class="grid-layout">
+                    <!-- Left Column: Inputs Form -->
+                    <div class="glass-card form-column">
+                        <div class="card-header">
+                            <i class="fa-solid fa-sliders text-indigo"></i>
+                            <h3>Campaign Parameters</h3>
+                        </div>
+                        
+                        <form id="campaign-form" class="campaign-form">
+                            <!-- Local Warning Banner -->
+                            <div class="local-warning-banner" id="local-warning" style="display: none;">
+                                <i class="fa-solid fa-circle-exclamation"></i>
+                                <div>
+                                    <strong>Local Offline Mode Active</strong>
+                                    <p>Scanning QR codes on your phone will not work because they point to your local hard drive (<code>file://</code>). To test on mobile, host your folder for free or enter a custom URL below.</p>
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="biz-name">Business Name</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-store input-icon"></i>
+                                    <input type="text" id="biz-name" placeholder="e.g., The Roasted Bean Cafe" required autocomplete="off">
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="biz-gmb">Google Review URL</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-brands fa-google input-icon"></i>
+                                    <input type="url" id="biz-gmb" placeholder="e.g., https://g.page/r/XYZ/review" required autocomplete="off">
+                                </div>
+                                <span class="input-tip"><i class="fa-solid fa-circle-info"></i> Paste their direct Google Review prompt link.</span>
+                            </div>
+
+                            <div class="grid-2-col">
+                                <div class="input-group">
+                                    <label for="biz-accent">Accent Color</label>
+                                    <div class="color-picker-wrapper">
+                                        <input type="color" id="biz-accent" value="#6366f1">
+                                        <input type="text" id="biz-accent-hex" value="#6366f1" placeholder="#6366f1">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label for="biz-category">Category</label>
+                                    <div class="input-wrapper">
+                                        <select id="biz-category">
+                                            <option value="cafe">☕ Cafe / Restaurant</option>
+                                            <option value="dental">🦷 Dental / Medical Clinic</option>
+                                            <option value="gym">💪 Fitness Gym</option>
+                                            <option value="salon">✂️ Salon / Spa</option>
+                                            <option value="law">⚖️ Law Firm</option>
+                                            <option value="other">💼 Professional Services</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="biz-email">Owner Email (for private feedback)</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-envelope input-icon"></i>
+                                    <input type="email" id="biz-email" placeholder="e.g., owner@cafe.com" required autocomplete="off">
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="biz-logo">Logo Image URL (Optional)</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-image input-icon"></i>
+                                    <input type="url" id="biz-logo" placeholder="e.g., https://domain.com/logo.png" autocomplete="off">
+                                </div>
+                                <span class="input-tip"><i class="fa-solid fa-circle-info"></i> Leave empty to use beautiful typography branding instead.</span>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="biz-base-url">Deployment / Base URL (Optional)</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-globe input-icon"></i>
+                                    <input type="url" id="biz-base-url" placeholder="e.g., https://repushield-agency.vercel.app" autocomplete="off">
+                                </div>
+                                <span class="input-tip"><i class="fa-solid fa-circle-info"></i> Once deployed, enter your domain here. The generated QR codes will instantly point to your public site!</span>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary" id="btn-generate">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i> Build Campaign Assets
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Right Column: Interactive Simulators -->
+                    <div class="preview-column">
+                        <!-- Toggle Buttons -->
+                        <div class="preview-toggles">
+                            <button class="toggle-btn active" data-preview="mobile">
+                                <i class="fa-solid fa-mobile-screen-button"></i> Mobile Portal Gater
+                            </button>
+                            <button class="toggle-btn" data-preview="flyer">
+                                <i class="fa-solid fa-print"></i> Counter Standee
+                            </button>
+                        </div>
+
+                        <!-- Mobile Simulator Mockup -->
+                        <div id="preview-mobile-wrapper" class="simulator-wrapper mobile-active">
+                            <div class="phone-frame">
+                                <div class="phone-speaker"></div>
+                                <div class="phone-screen">
+                                    <!-- Embedded Portal Frame -->
+                                    <iframe id="portal-iframe" src="about:blank"></iframe>
+                                </div>
+                                <div class="phone-home"></div>
+                            </div>
+                        </div>
+
+                        <!-- Flyer Simulator Mockup -->
+                        <div id="preview-flyer-wrapper" class="simulator-wrapper">
+                            <div class="flyer-card-preview">
+                                <div class="flyer-card-header">
+                                    <i class="fa-solid fa-store text-accent" id="preview-flyer-icon"></i>
+                                    <h4 id="preview-flyer-biz-name">Your Business Name</h4>
+                                </div>
+                                <div class="flyer-card-content">
+                                    <h3>Love Our Service?</h3>
+                                    <p>Scan to share your experience with us on Google and unlock a surprise!</p>
+                                    <div class="flyer-qr-mock">
+                                        <div class="qr-spinner">
+                                            <i class="fa-solid fa-qrcode"></i>
+                                            <span>Enter details to generate QR</span>
+                                        </div>
+                                    </div>
+                                    <div class="flyer-card-footer">
+                                        <div class="stars-row">
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                        </div>
+                                        <p>Help us serve you better!</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab 2: Active Campaigns -->
+            <section id="tab-campaigns-content" class="tab-content">
+                <div class="glass-card card-full">
+                    <div class="card-header">
+                        <i class="fa-solid fa-circle-check text-emerald"></i>
+                        <h3>Active Portals & Campaigns</h3>
+                    </div>
+                    <div class="table-container">
+                        <table class="campaigns-table" id="campaigns-table">
+                            <thead>
+                                <tr>
+                                    <th>Business Name</th>
+                                    <th>Category</th>
+                                    <th>Target Destination</th>
+                                    <th>Generated Links</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="campaign-list-body">
+                                <tr>
+                                    <td colspan="5" class="empty-state">
+                                        <i class="fa-solid fa-box-open"></i>
+                                        <p>No campaigns generated yet. Create your first campaign above!</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab 3: Sales Playbook Academy -->
+            <section id="tab-academy-content" class="tab-content">
+                <div class="glass-card card-full academy-card">
+                    <div class="card-header">
+                        <i class="fa-solid fa-graduation-cap text-indigo"></i>
+                        <h3>The 10k to 100k Sales Academy Playbook</h3>
+                    </div>
+                    <div class="academy-content">
+                        <!-- Left Navigation Sub-Menu -->
+                        <div class="academy-tabs">
+                            <button class="academy-nav active" data-subtab="prospect">1. Finding Clients</button>
+                            <button class="academy-nav" data-subtab="pitch">2. Outreaching</button>
+                            <button class="academy-nav" data-subtab="close">3. Closing the Deal</button>
+                            <button class="academy-nav" data-subtab="delivery">4. Quick Delivery</button>
+                        </div>
+                        <!-- Right Dynamic Info Content -->
+                        <div class="academy-body">
+                            <div id="subtab-prospect" class="academy-subtabactive">
+                                <h4>🎯 How to Find 50 High-Probability Prospects in 30 Minutes</h4>
+                                <ol class="playbook-list">
+                                    <li>Open Google Maps and search for a niche + city, e.g., <code>"Dental clinic Indiranagar, Bangalore"</code> or <code>"Cafe Bandra, Mumbai"</code>.</li>
+                                    <li>Filter for businesses that have a rating between **3.8 and 4.3 stars** with at least 15 reviews.
+                                        <ul>
+                                            <li>*Why?* They are actively getting customers but suffering from negative reviews pulling down their average. They are desperate for more positive reviews.</li>
+                                        </ul>
+                                    </li>
+                                    <li>Look at their website link: If they have a basic or outdated website, they are an even higher-value target!</li>
+                                    <li>Note down their business name, GMB link, and email/social handles (usually listed on their site).</li>
+                                    <li>Use this **RepuShield Dashboard** to instantly generate a custom portal and QR Standee preview for them. Having a completed mockup ready *before* reaching out increases response rates by 400%.</li>
+                                </ol>
+                            </div>
+                            <!-- More Sub-tabs will be populated statically -->
+                            <div id="subtab-pitch" style="display: none;">
+                                <h4>✉️ High-Converting Pitch Email (The "Value-First" Script)</h4>
+                                <p>Copy this template, fill in the brackets, and send it to the business email you scraped. Keep it short, focused on their revenue loss, and attach their custom preview link.</p>
+                                <div class="code-box">
+<pre>Subject: Feedback issue on Google Maps for [Business Name]
+
+Hi [Owner Name],
+
+I was looking at places to visit in [Area] and noticed [Business Name] has a [Current Rating]-star rating on Google Maps. You have fantastic reviews, but a few disgruntled 1-star ratings are dragging down your ranking and costing you high-paying customers.
+
+To help local businesses, I built a custom "Review Gater & Booster" system for you. 
+
+When customers scan it, it automatically sends 4/5-star happy reviews straight to Google, while negative feedback (1-3 stars) is sent privately to you so you can fix the issue before it goes public.
+
+I’ve already generated your live demo. You can test it on your phone here:
+👉 [Your Deployed Gating URL]
+
+I also designed a printable table standee card containing your custom QR code:
+👉 [Your Deployed Flyer URL]
+
+I'd love to activate this for your counter. Normally we charge Rs. 4,999, but I want to give it to you for just Rs. 1,999 one-time setup fee so you can experience it. 
+
+If you'd like to put this up at your cashier counter today, just reply to this email, and I'll send over the active high-resolution files.
+
+Best,
+[Your Name]
+RepuShield Digital</pre>
+                                </div>
+                            </div>
+                            <div id="subtab-close" style="display: none;">
+                                <h4>🤝 Handling Objections & Closing</h4>
+                                <ul class="playbook-list">
+                                    <li><strong>Objection: "Is Google review gating allowed?"</strong>
+                                        <ul>
+                                            <li><em>Response:</em> "Our portal simply asks for their initial rating to route customer experience. We are providing a private feedback channel for unsatisfied customers, which every excellent business has. Google encourages businesses to actively gather reviews, and our system ensures your happiest customers do so on the spot."</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>Objection: "Can I just print a QR code linking directly to Google Reviews?"</strong>
+                                        <ul>
+                                            <li><em>Response:</em> "You can, but that is extremely risky. An angry customer can scan that and post a 1-star review on the spot. Our system gates that, routing angry customers to a private suggestion form, protecting your brand reputation."</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>Closing Pitch:</strong> Offer a **10-day risk-free trial**. Send them the active QR standee, let them print it, and pay you *only* after they see their first three 5-star reviews on Google Maps. This removes 100% of their friction!</li>
+                                </ul>
+                            </div>
+                            <div id="subtab-delivery" style="display: none;">
+                                <h4>🚀 Fulfilling Your Orders in 5 Minutes</h4>
+                                <ol class="playbook-list">
+                                    <li>When a client agrees, open this RepuShield Dashboard.</li>
+                                    <li>Verify the Campaign details are correct. Copy the generated **Review Portal Link** and **Flyer Link**.</li>
+                                    <li>Use a free QR code generator or print the Flyer directly from our **Flyer URL**. You can export/save the flyer page as a high-quality PDF from your browser (Control + P -> Save as PDF).</li>
+                                    <li>Send the PDF flyer and the digital link to the client. Ask them to print it out in color and place it right next to their cash register or on tables.</li>
+                                    <li>Collect your Rs. 1,999 payment via Google Pay, UPI, or Stripe/Gumroad!</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <i class="fa-solid fa-circle-check"></i>
+        <span id="toast-message">Campaign Generated Successfully!</span>
+    </div>
+
+    <script src="generator.js"></script>
+</body>
+</html>
