@@ -22,7 +22,7 @@ Finding businesses that are desperate for reviews is an exact science. You will 
    * **Rating:** Between **3.7 and 4.3 stars**. (Perfect targets! They have solid businesses but are suffering from a few bad reviews pulling down their average rating. They are desperate to recover).
    * **Review Count:** Between **15 and 80 reviews**. (If they have 1,000 reviews, a single 5-star won't move their rating. If they have 5 reviews, they might be inactive. 15–80 reviews is the sweet spot where adding just 10 positive reviews will skyrocket their score!).
 4. **Scrape Contacts**: Click their website link, and note down their **email address**, **Instagram/Facebook handle**, and **business name**.
-5. **Generate Mockups**: Open your `generator.html` dashboard, input their details, and hit generate. Note down their unique **Review Portal Link** and **Flyer Link**.
+5. **Generate Mockups**: Open your `index.html` dashboard, input their details, and hit generate. Note down their unique **Review Portal Link** and **Flyer Link**.
 
 ---
 

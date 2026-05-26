@@ -34,10 +34,10 @@ Write-Host "   RepuShield Local Server RUNNING" -ForegroundColor Green
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "  Dashboard URL (this PC):" -ForegroundColor White
-Write-Host "  http://localhost:$port/generator.html" -ForegroundColor Yellow
+Write-Host "  http://localhost:$port/index.html" -ForegroundColor Yellow
 Write-Host ""
 Write-Host "  QR Code / Phone URL (on same Wi-Fi):" -ForegroundColor White
-Write-Host "  http://${localIP}:$port/generator.html" -ForegroundColor Green
+Write-Host "  http://${localIP}:$port/index.html" -ForegroundColor Green
 Write-Host ""
 Write-Host "  *** COPY THIS into the 'Deployment Base URL' field ***" -ForegroundColor Cyan
 Write-Host "  http://${localIP}:${port}" -ForegroundColor Magenta
@@ -70,7 +70,7 @@ while ($listener.IsListening) {
         $response = $context.Response
 
         $rawUrl = $request.Url.LocalPath
-        if ($rawUrl -eq "/") { $rawUrl = "/generator.html" }
+        if ($rawUrl -eq "/") { $rawUrl = "/index.html" }
 
         # URL-decode the path
         $decodedPath = [System.Uri]::UnescapeDataString($rawUrl)
