@@ -13,6 +13,24 @@
     <link rel="stylesheet" href="generator.css">
 </head>
 <body>
+    <!-- Passcode Security Gate -->
+    <div id="passcode-gate" class="passcode-gate">
+        <div class="passcode-card">
+            <div class="brand-icon pass-icon">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            <h2>Agency Dashboard</h2>
+            <p>Please enter your access key to continue.</p>
+            <form id="passcode-form">
+                <div class="pass-input-wrapper">
+                    <input type="password" id="passcode-input" placeholder="Enter Access Key" autocomplete="off" required>
+                    <button type="submit" class="btn btn-primary pass-btn">Unlock <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+                <p id="passcode-error" class="passcode-error">Incorrect passcode. Access denied.</p>
+            </form>
+        </div>
+    </div>
+
     <div class="glow-bg-1"></div>
     <div class="glow-bg-2"></div>
 

@@ -1,5 +1,41 @@
 document.addEventListener('DOMContentLoaded', () => {
     // ----------------------------------------------------
+    // Passcode Security Gate Logic
+    // ----------------------------------------------------
+    const passcodeGate = document.getElementById('passcode-gate');
+    const passcodeForm = document.getElementById('passcode-form');
+    const passcodeInput = document.getElementById('passcode-input');
+    const passcodeError = document.getElementById('passcode-error');
+    
+    // Check if already unlocked in this session
+    if (sessionStorage.getItem('repushield_unlocked') === 'true') {
+        if (passcodeGate) passcodeGate.classList.add('unlocked');
+    }
+
+    if (passcodeForm) {
+        passcodeForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const enteredPasscode = passcodeInput.value.trim();
+            
+            // The VIP Access Key
+            if (enteredPasscode === 'REPUSHIELD-VIP') {
+                sessionStorage.setItem('repushield_unlocked', 'true');
+                passcodeGate.classList.add('unlocked');
+                passcodeError.classList.remove('show');
+            } else {
+                passcodeError.classList.add('show');
+                passcodeInput.value = ''; // clear input
+                // Shake animation for error feedback
+                passcodeForm.style.transform = 'translateX(-10px)';
+                setTimeout(() => passcodeForm.style.transform = 'translateX(10px)', 100);
+                setTimeout(() => passcodeForm.style.transform = 'translateX(-10px)', 200);
+                setTimeout(() => passcodeForm.style.transform = 'translateX(10px)', 300);
+                setTimeout(() => passcodeForm.style.transform = 'translateX(0)', 400);
+            }
+        });
+    }
+
+    // ----------------------------------------------------
     // Mobile Sidebar Drawer Logic
     // ----------------------------------------------------
     const menuToggle = document.getElementById('menu-toggle');
