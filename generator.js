@@ -74,6 +74,10 @@ document.addEventListener('DOMContentLoaded', () => {
         academy: {
             title: 'The 100k Agency Academy',
             subtitle: 'Your step-by-step blueprint to signing clients, performing outreach, and hitting your income goals.'
+        },
+        billing: {
+            title: 'Billing & Subscriptions',
+            subtitle: 'Generate secure payment links for your clients.'
         }
     };
 
