@@ -11,6 +11,7 @@
     <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="generator.css">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 <body>
     <!-- Passcode Security Gate -->
@@ -80,6 +81,7 @@
                     <i class="fa-solid fa-graduation-cap"></i> Sales Playbook
                 </a>
                 <a href="#" class="nav-item" data-tab="billing">
+                <a href="#" class="nav-item" data-tab="clients">
                     <i class="fa-solid fa-credit-card"></i> Billing
                 </a>
             </nav>
@@ -384,8 +386,48 @@ RepuShield Digital</pre>
             <!-- Tab 4: Billing -->
             <section id="tab-billing-content" class="tab-content">
                 <div class="glass-card">
-                    <h3>Billing & Subscriptions</h3>
+                    <h3>Billing &amp; Subscriptions</h3>
                     <p>Generate secure payment links for your clients.</p>
+                    <form id="billing-form" class="billing-form">
+                        <div class="input-group">
+                            <label for="billing-email">Client Email</label>
+                            <input type="email" id="billing-email" placeholder="e.g., client@example.com" required />
+                        </div>
+                        <div class="input-group">
+                            <label for="billing-amount">Amount (INR)</label>
+                            <input type="number" id="billing-amount" placeholder="e.g., 1999" min="1" required />
+                        </div>
+                        <div class="input-group">
+                            <label for="billing-description">Description (optional)</label>
+                            <input type="text" id="billing-description" placeholder="Monthly subscription" />
+                        </div>
+                        <button type="submit" class="btn btn-primary">Create Payment Link</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Tab 5: Clients -->
+            <section id="tab-clients-content" class="tab-content">
+                <div class="glass-card">
+                    <div class="card-header">
+                        <h3>Clients</h3>
+                        <button id="add-client-btn" class="btn btn-primary">Add Client</button>
+                    </div>
+                    <div id="clients-table-container" class="clients-table-container"></div>
+                </div>
+                <!-- Modal for Add/Edit Client -->
+                <div id="client-modal" class="modal" style="display:none;">
+                    <div class="modal-content">
+                        <span class="modal-close" id="client-modal-close">&times;</span>
+                        <h3 id="client-modal-title">Add Client</h3>
+                        <form id="client-form">
+                            <div class="input-group"><label for="client-name">Name</label><input type="text" id="client-name" required></div>
+                            <div class="input-group"><label for="client-email">Email</label><input type="email" id="client-email" required></div>
+                            <div class="input-group"><label for="client-amount">Monthly Amount (INR)</label><input type="number" id="client-amount" min="1" required></div>
+                            <div class="input-group"><label for="client-description">Description (optional)</label><input type="text" id="client-description"></div>
+                            <button type="submit" class="btn btn-primary" id="client-save-btn">Save</button>
+                        </form>
+                    </div>
                 </div>
             </section>
         </main>

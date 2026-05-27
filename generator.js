@@ -25,7 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 passcodeError.classList.add('show');
                 passcodeInput.value = ''; // clear input
-                // Shake animation for error feedback
+                // Removed misplaced CSS definitions that were incorrectly placed in JS
+
+feedback
                 passcodeForm.style.transform = 'translateX(-10px)';
                 setTimeout(() => passcodeForm.style.transform = 'translateX(10px)', 100);
                 setTimeout(() => passcodeForm.style.transform = 'translateX(-10px)', 200);
@@ -455,4 +457,158 @@ document.addEventListener('DOMContentLoaded', () => {
             showToast('Campaign deleted successfully.');
         }
     }
+// ----------------------------------------------------
+// Clients Management Logic
+// ----------------------------------------------------
+const clientsKey = 'repushield_clients';
+let clients = JSON.parse(localStorage.getItem(clientsKey)) || [];
+
+function saveClients() {
+    localStorage.setItem(clientsKey, JSON.stringify(clients));
+}
+
+function renderClientsTable() {
+    const container = document.getElementById('clients-table-container');
+    if (!container) return;
+    if (clients.length === 0) {
+        container.innerHTML = `<p class="empty-state">No clients added yet. Click "Add Client" to create one.</p>`;
+        return;
+    }
+    const table = document.createElement('table');
+    table.className = 'clients-table';
+    const thead = document.createElement('thead');
+    thead.innerHTML = `<tr>
+        <th>Name</th><th>Email</th><th>Monthly Amount (INR)</th><th>Description</th><th>Actions</th>
+    </tr>`;
+    const tbody = document.createElement('tbody');
+    clients.forEach(client => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${client.name}</td>
+            <td>${client.email}</td>
+            <td>${client.amount}</td>
+            <td>${client.description || ''}</td>
+            <td class="client-actions">
+                <button class="btn btn-primary btn-sm edit-client" data-id="${client.id}">Edit</button>
+                <button class="btn btn-primary btn-sm delete-client" data-id="${client.id}">Delete</button>
+                <button class="btn btn-primary btn-sm payment-link" data-id="${client.id}">Payment Link</button>
+            </td>`;
+        tbody.appendChild(tr);
+    });
+    table.appendChild(thead);
+    table.appendChild(tbody);
+    container.innerHTML = '';
+    container.appendChild(table);
+
+    // Attach listeners
+    container.querySelectorAll('.edit-client').forEach(btn => {
+        btn.addEventListener('click', () => openClientModal(btn.getAttribute('data-id')));
+    });
+    container.querySelectorAll('.delete-client').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const id = btn.getAttribute('data-id');
+            if (confirm('Delete this client?')) {
+                clients = clients.filter(c => c.id !== id);
+                saveClients();
+                renderClientsTable();
+                showToast('Client deleted.');
+            }
+        });
+    });
+    container.querySelectorAll('.payment-link').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const client = clients.find(c => c.id === btn.getAttribute('data-id'));
+            if (!client) return;
+            const options = {
+                key: RAZORPAY_KEY_ID,
+                amount: client.amount * 100,
+                currency: 'INR',
+                name: 'RepoShield',
+                description: client.description || 'Monthly subscription',
+                prefill: { email: client.email },
+                handler: function (response) {
+                    alert('Payment successful! ID: ' + response.razorpay_payment_id);
+                },
+                theme: { color: '#6366f1' }
+            };
+            const rzp = new Razorpay(options);
+            rzp.open();
+        });
+    });
+}
+
+// Modal handling
+const clientModal = document.getElementById('client-modal');
+const clientModalClose = document.getElementById('client-modal-close');
+const clientForm = document.getElementById('client-form');
+let editingClientId = null;
+
+function openClientModal(id) {
+    editingClientId = id || null;
+    if (editingClientId) {
+        const client = clients.find(c => c.id === editingClientId);
+        document.getElementById('client-modal-title').textContent = 'Edit Client';
+        clientForm['client-name'].value = client.name;
+        clientForm['client-email'].value = client.email;
+        clientForm['client-amount'].value = client.amount;
+        clientForm['client-description'].value = client.description || '';
+    } else {
+        document.getElementById('client-modal-title').textContent = 'Add Client';
+        clientForm.reset();
+    }
+    clientModal.style.display = 'flex';
+}
+
+if (clientModalClose) {
+    clientModalClose.addEventListener('click', () => {
+        clientModal.style.display = 'none';
+    });
+}
+
+const addClientBtn = document.getElementById('add-client-btn');
+if (addClientBtn) {
+    addClientBtn.addEventListener('click', () => openClientModal());
+}
+
+if (clientForm) {
+    clientForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = clientForm['client-name'].value.trim();
+        const email = clientForm['client-email'].value.trim();
+        const amount = parseFloat(clientForm['client-amount'].value);
+        const description = clientForm['client-description'].value.trim();
+        if (editingClientId) {
+            const client = clients.find(c => c.id === editingClientId);
+            client.name = name;
+            client.email = email;
+            client.amount = amount;
+            client.description = description;
+        } else {
+            const newClient = {
+                id: Date.now().toString(),
+                name,
+                email,
+                amount,
+                description,
+                createdAt: new Date().toLocaleDateString()
+            };
+            clients.unshift(newClient);
+        }
+        saveClients();
+        renderClientsTable();
+        clientModal.style.display = 'none';
+        showToast(editingClientId ? 'Client updated.' : 'Client added.');
+    });
+}
+
+// Update tab navigation to handle clients rendering
+navItems.forEach(item => {
+    item.addEventListener('click', (e) => {
+        // existing logic ...
+        const tabId = item.getAttribute('data-tab');
+        if (tabId === 'clients') {
+            renderClientsTable();
+        }
+    });
+});
+
 });
