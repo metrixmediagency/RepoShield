@@ -16,9 +16,28 @@
     <div class="glow-bg-1"></div>
     <div class="glow-bg-2"></div>
 
+    <!-- Mobile Header Top Bar -->
+    <header class="mobile-header">
+        <div class="brand">
+            <div class="brand-icon">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <div class="brand-text">
+                <h1>RepuShield</h1>
+                <span>AI Review Gater</span>
+            </div>
+        </div>
+        <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </header>
+
     <div class="dashboard-container">
+        <!-- Sidebar Navigation Overlay -->
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
         <!-- Sidebar Navigation -->
-        <aside class="sidebar">
+        <aside class="sidebar" id="sidebar">
             <div class="brand">
                 <div class="brand-icon">
                     <i class="fa-solid fa-shield-halved"></i>
@@ -27,6 +46,9 @@
                     <h1>RepuShield</h1>
                     <span>AI Review Gater</span>
                 </div>
+                <button class="sidebar-close" id="sidebar-close" aria-label="Close menu">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
             </div>
             
             <nav class="nav-menu">

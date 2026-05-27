@@ -1,5 +1,24 @@
 document.addEventListener('DOMContentLoaded', () => {
     // ----------------------------------------------------
+    // Mobile Sidebar Drawer Logic
+    // ----------------------------------------------------
+    const menuToggle = document.getElementById('menu-toggle');
+    const sidebarClose = document.getElementById('sidebar-close');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
+    const sidebar = document.getElementById('sidebar');
+
+    function toggleSidebar() {
+        sidebar.classList.toggle('open');
+        sidebarOverlay.classList.toggle('open');
+    }
+
+    if (menuToggle && sidebarClose && sidebarOverlay && sidebar) {
+        menuToggle.addEventListener('click', toggleSidebar);
+        sidebarClose.addEventListener('click', toggleSidebar);
+        sidebarOverlay.addEventListener('click', toggleSidebar);
+    }
+
+    // ----------------------------------------------------
     // Tab Navigation Logic
     // ----------------------------------------------------
     const navItems = document.querySelectorAll('.nav-item');
@@ -44,6 +63,11 @@ document.addEventListener('DOMContentLoaded', () => {
             // If active campaigns tab, render list
             if (tabId === 'campaigns') {
                 renderCampaignsList();
+            }
+
+            // Close sidebar drawer on mobile item click
+            if (sidebar && sidebar.classList.contains('open')) {
+                toggleSidebar();
             }
         });
     });
