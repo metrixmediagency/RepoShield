@@ -37,6 +37,14 @@ body {
     position: relative;
 }
 
+/* Ensure scrollability on short screens / when keyboard is open */
+@media (max-height: 600px) or (max-width: 480px) {
+    body {
+        align-items: flex-start;
+        padding: 2rem 1rem;
+    }
+}
+
 /* Background Accents */
 .blob-1 {
     position: absolute;
@@ -176,8 +184,10 @@ body {
     outline: none;
 }
 
-.star-btn:hover {
-    transform: scale(1.2);
+@media (hover: hover) {
+    .star-btn:hover {
+        transform: scale(1.2);
+    }
 }
 
 .star-btn.active {
@@ -256,7 +266,7 @@ body {
     gap: 1rem;
 }
 
-@media (min-width: 360px) {
+@media (min-width: 480px) {
     .input-row {
         grid-template-columns: 1fr 1fr;
     }
@@ -574,3 +584,40 @@ body {
     84% { width: 55px; right: 0px; top: 35px; }
     100% { width: 47px; right: 17px; top: 38px; }
 }
+
+/* Mobile Media Queries for Better Spacing */
+@media (max-width: 480px) {
+    .portal-card {
+        padding: 1.75rem 1.25rem;
+        border-radius: 20px;
+    }
+    
+    .brand-section {
+        margin-bottom: 1.5rem;
+    }
+    
+    .logo-wrapper {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 1rem;
+    }
+    
+    .brand-section h2 {
+        font-size: 1.35rem;
+    }
+    
+    .tagline {
+        font-size: 0.8rem;
+    }
+    
+    .star-btn {
+        font-size: 2.1rem;
+        gap: 0.35rem;
+    }
+
+    .redirect-card {
+        padding: 2rem 1.25rem;
+        border-radius: 20px;
+    }
+}
+
