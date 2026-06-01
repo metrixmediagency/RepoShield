@@ -27,7 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 passcodeInput.value = ''; // clear input
                 // Removed misplaced CSS definitions that were incorrectly placed in JS
 
-feedback
                 passcodeForm.style.transform = 'translateX(-10px)';
                 setTimeout(() => passcodeForm.style.transform = 'translateX(10px)', 100);
                 setTimeout(() => passcodeForm.style.transform = 'translateX(-10px)', 200);
@@ -156,7 +155,7 @@ feedback
     });
 
     // ----------------------------------------------------
-    // Real-Time Simulator Input Syncing
+    // Real-Time Simulator Input Syncing & Segment Handling
     // ----------------------------------------------------
     const bizNameInput = document.getElementById('biz-name');
     const bizGmbInput = document.getElementById('biz-gmb');
@@ -169,28 +168,146 @@ feedback
     const localWarning = document.getElementById('local-warning');
     const portalIframe = document.getElementById('portal-iframe');
 
-    // Display local file:// protocol warning
-    if (window.location.protocol === 'file:') {
-        localWarning.style.display = 'flex';
-    }
-
+    // UI elements that change based on segment
+    const nameLabel = document.getElementById('name-label');
+    const nameIcon = document.getElementById('name-icon');
+    const destinationLabel = document.getElementById('destination-label');
+    const destinationIcon = document.getElementById('destination-icon');
+    const destinationTip = document.getElementById('destination-tip');
+    const categoryLabel = document.getElementById('category-label');
 
     // Flyer Mockup DOM elements
     const previewFlyerBizName = document.getElementById('preview-flyer-biz-name');
     const previewFlyerIcon = document.getElementById('preview-flyer-icon');
+    const flyerCardPreview = document.getElementById('flyer-card-preview');
+    const btnPrintToggle = document.getElementById('btn-print-toggle');
+
+    // Display local file:// protocol warning
+    if (window.location.protocol === 'file:') {
+        if (localWarning) localWarning.style.display = 'flex';
+    }
+
+    let activeCampaignType = 'gmb';
+    const segmentButtons = document.querySelectorAll('.segment-btn');
+
+    const campaignOptions = {
+        gmb: {
+            nameLabel: 'Business Name',
+            nameIcon: 'fa-solid fa-store',
+            namePlaceholder: 'e.g., The Roasted Bean Cafe',
+            destLabel: 'Google Review URL',
+            destIcon: 'fa-brands fa-google',
+            destPlaceholder: 'e.g., https://g.page/r/XYZ/review',
+            destTip: '<i class="fa-solid fa-circle-info"></i> Paste their direct Google Review prompt link.',
+            printToggleLabel: '<i class="fa-solid fa-print"></i> Counter Standee',
+            headline: 'Love Our Service?',
+            subheadline: 'Scan to share your experience with us on Google and unlock a surprise!',
+            footer: 'Help us serve you better!',
+            categories: `
+                <option value="cafe">☕ Cafe / Restaurant</option>
+                <option value="dental">🦷 Dental / Medical Clinic</option>
+                <option value="gym">💪 Fitness Gym</option>
+                <option value="salon">✂️ Salon / Spa</option>
+                <option value="law">⚖️ Law Firm</option>
+                <option value="other">💼 Professional Services</option>
+            `
+        },
+        ecommerce: {
+            nameLabel: 'Product Name',
+            nameIcon: 'fa-solid fa-box-open',
+            namePlaceholder: 'e.g., UltraBass Wireless Headphones',
+            destLabel: 'Product Review URL (Amazon/Shopify)',
+            destIcon: 'fa-solid fa-cart-shopping',
+            destPlaceholder: 'e.g., https://www.amazon.in/review/create-review/?asin=B0XXXXXX',
+            destTip: '<i class="fa-solid fa-circle-info"></i> Paste the Amazon customer review creation page or Shopify product review URL.',
+            printToggleLabel: '<i class="fa-solid fa-box-open"></i> Package Insert',
+            headline: 'Activate Your Warranty',
+            subheadline: 'Scan to register your 1-year warranty and claim your free replacement or gift!',
+            footer: 'Thank you for your purchase!',
+            categories: `
+                <option value="electronics">💻 Electronics & Gadgets</option>
+                <option value="beauty">💄 Beauty & Personal Care</option>
+                <option value="apparel">👕 Apparel & Fashion</option>
+                <option value="home">🏠 Home & Kitchen</option>
+                <option value="health">🌿 Health & Supplements</option>
+                <option value="other">📦 Other Products</option>
+            `
+        },
+        delivery: {
+            nameLabel: 'Restaurant Name',
+            nameIcon: 'fa-solid fa-utensils',
+            namePlaceholder: 'e.g., Punjabi Dhaba Express',
+            destLabel: 'App Review/Store URL (Zomato/Swiggy)',
+            destIcon: 'fa-solid fa-motorcycle',
+            destPlaceholder: 'e.g., https://www.zomato.com/ncr/punjabi-dhaba',
+            destTip: '<i class="fa-solid fa-circle-info"></i> Paste the restaurant listing URL on Zomato or Swiggy.',
+            printToggleLabel: '<i class="fa-solid fa-ticket"></i> Packaging Sticker',
+            headline: 'Was Your Food Delicious?',
+            subheadline: 'Scan to rate your delivery meal and instantly unlock a free dessert or discount code on your next order!',
+            footer: 'Made with love & delivered fresh!',
+            categories: `
+                <option value="cafe">🍔 Fast Food & Quick Service</option>
+                <option value="cafe_premium">🍽️ Premium Cuisine</option>
+                <option value="bakery">🍰 Bakery & Desserts</option>
+                <option value="beverage">🥤 Cafe & Beverages</option>
+                <option value="other">🍲 Other Cuisine</option>
+            `
+        }
+    };
 
     // Category Icon Map
     const categoryIcons = {
         cafe: 'fa-solid fa-mug-hot',
+        cafe_premium: 'fa-solid fa-utensils',
+        bakery: 'fa-solid fa-cake-slice',
+        beverage: 'fa-solid fa-glass-water',
         dental: 'fa-solid fa-tooth',
         gym: 'fa-solid fa-dumbbell',
         salon: 'fa-solid fa-scissors',
         law: 'fa-solid fa-scale-balanced',
+        electronics: 'fa-solid fa-laptop-code',
+        beauty: 'fa-solid fa-sparkles',
+        apparel: 'fa-solid fa-shirt',
+        home: 'fa-solid fa-house-laptop',
+        health: 'fa-solid fa-leaf',
         other: 'fa-solid fa-briefcase'
     };
 
+    segmentButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            segmentButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            activeCampaignType = btn.getAttribute('data-type');
+            applyCampaignTypeConfig(activeCampaignType);
+        });
+    });
+
+    function applyCampaignTypeConfig(type) {
+        const config = campaignOptions[type];
+        if (!config) return;
+        
+        nameLabel.textContent = config.nameLabel;
+        nameIcon.className = `${config.nameIcon} input-icon`;
+        bizNameInput.placeholder = config.namePlaceholder;
+        
+        destinationLabel.textContent = config.destLabel;
+        destinationIcon.className = `${config.destIcon} input-icon`;
+        bizGmbInput.placeholder = config.destPlaceholder;
+        destinationTip.innerHTML = config.destTip;
+        
+        btnPrintToggle.innerHTML = config.printToggleLabel;
+        bizCategorySelect.innerHTML = config.categories;
+        
+        // Remove old classes and add active type class to mockup flyer card
+        flyerCardPreview.classList.remove('type-gmb', 'type-ecommerce', 'type-delivery');
+        flyerCardPreview.classList.add(`type-${type}`);
+        
+        updateSimulators();
+    }
+
     function updateSimulators() {
-        const name = bizNameInput.value || 'Your Business Name';
+        const name = bizNameInput.value || (activeCampaignType === 'ecommerce' ? 'Your Product Name' : 'Your Business Name');
         const accent = bizAccentInput.value;
         const category = bizCategorySelect.value;
         const logo = bizLogoInput.value || '';
@@ -199,17 +316,21 @@ feedback
 
         // 1. Update Flyer preview
         previewFlyerBizName.textContent = name;
-        previewFlyerIcon.className = `${categoryIcons[category]} text-accent`;
+        
+        const config = campaignOptions[activeCampaignType];
+        document.getElementById('preview-flyer-headline').textContent = config.headline;
+        document.getElementById('preview-flyer-subheadline').textContent = config.subheadline;
+        document.getElementById('preview-flyer-footer-text').textContent = config.footer;
+        
+        previewFlyerIcon.className = `${categoryIcons[category] || 'fa-solid fa-briefcase'} text-accent`;
         previewFlyerIcon.style.color = accent;
 
-        // Apply accent color variable to flyer folding card border
+        // Apply accent color variable to flyer card border
         document.documentElement.style.setProperty('--primary', accent);
 
-        // 2. Update Mobile frame iframe (only trigger if we have basic parameters)
-        // Since we pass parameters via URL query params, we update the iframe src!
+        // 2. Update Mobile frame iframe
         const baseLocation = window.location.href.substring(0, window.location.href.lastIndexOf('/'));
         
-        // Assemble query params
         const params = new URLSearchParams({
             name: name,
             url: gmb,
@@ -217,10 +338,10 @@ feedback
             email: email,
             category: category,
             logo: logo,
-            demo: 'true' // tells portal.html to operate in demo/sandbox mode
+            type: activeCampaignType,
+            demo: 'true'
         });
 
-        // Set source of iframe
         portalIframe.src = `${baseLocation}/portal.html?${params.toString()}`;
     }
 
@@ -290,15 +411,16 @@ feedback
             color: accent,
             email: email,
             category: category,
-            logo: logo
+            logo: logo,
+            type: activeCampaignType // Include campaign type
         });
         const finalPortalUrl = `${baseLocation}/portal.html?${portalUrlParams.toString()}`;
-
 
         const flyerUrlParams = new URLSearchParams({
             name: name,
             category: category,
             color: accent,
+            type: activeCampaignType, // Include campaign type
             portalUrl: finalPortalUrl
         });
         const finalFlyerUrl = `${baseLocation}/flyer.html?${flyerUrlParams.toString()}`;
@@ -312,6 +434,7 @@ feedback
             category,
             email,
             logo,
+            type: activeCampaignType, // Store campaign type
             portalUrl: finalPortalUrl,
             flyerUrl: finalFlyerUrl,
             createdAt: new Date().toLocaleDateString()
@@ -334,7 +457,12 @@ feedback
         // Reset defaults and simulators
         bizAccentInput.value = '#6366f1';
         bizAccentHexInput.value = '#6366f1';
-        updateSimulators();
+        activeCampaignType = 'gmb';
+        
+        // Reset segments UI
+        segmentButtons.forEach(b => b.classList.remove('active'));
+        if (segmentButtons[0]) segmentButtons[0].classList.add('active');
+        applyCampaignTypeConfig('gmb');
     });
 
     // ----------------------------------------------------
@@ -363,14 +491,40 @@ feedback
             
             // Icon mapping badge
             const categoryLabels = {
-                cafe: '☕ Cafe',
+                cafe: '☕ Cafe / Quick Service',
+                cafe_premium: '🍽️ Premium Dine',
+                bakery: '🍰 Bakery & Dessert',
+                beverage: '🥤 Cafe & Drinks',
                 dental: '🦷 Dental',
                 gym: '💪 Gym',
                 salon: '✂️ Salon',
                 law: '⚖️ Law',
+                electronics: '💻 Electronics',
+                beauty: '💄 Beauty Care',
+                apparel: '👕 Fashion & Style',
+                home: '🏠 Home & Kitchen',
+                health: '🌿 Health & Supps',
                 other: '💼 Professional'
             };
             const badgeClass = `badge badge-${campaign.category}`;
+
+            // Destination text and icons mapping based on campaign type
+            let destinationText = 'Google Maps Review';
+            let destinationIconHtml = '<i class="fa-brands fa-google"></i>';
+            let printToggleText = 'Copy Standee Flyer Link';
+            let printIconClass = 'fa-solid fa-print';
+            
+            if (campaign.type === 'ecommerce') {
+                destinationText = 'Amazon/Shopify Review';
+                destinationIconHtml = '<i class="fa-solid fa-cart-shopping"></i>';
+                printToggleText = 'Copy Box Insert Link';
+                printIconClass = 'fa-solid fa-box-open';
+            } else if (campaign.type === 'delivery') {
+                destinationText = 'Zomato/Swiggy Store';
+                destinationIconHtml = '<i class="fa-solid fa-motorcycle"></i>';
+                printToggleText = 'Copy Bag Sticker Link';
+                printIconClass = 'fa-solid fa-ticket';
+            }
 
             tr.innerHTML = `
                 <td>
@@ -384,7 +538,7 @@ feedback
                 </td>
                 <td>
                     <a href="${campaign.gmb}" target="_blank" class="destination-link">
-                        <i class="fa-brands fa-google"></i> Google Maps Review
+                        ${destinationIconHtml} ${destinationText}
                     </a>
                 </td>
                 <td>
@@ -393,7 +547,7 @@ feedback
                             <i class="fa-solid fa-mobile-screen"></i> Copy Mobile Portal Link
                         </button>
                         <button class="copy-link-btn" data-url="${campaign.flyerUrl}">
-                            <i class="fa-solid fa-print"></i> Copy Standee Flyer Link
+                            <i class="${printIconClass}"></i> ${printToggleText}
                         </button>
                     </div>
                 </td>
@@ -402,7 +556,7 @@ feedback
                         <a href="${campaign.portalUrl}" target="_blank" class="action-icon-btn" title="View Portal">
                             <i class="fa-solid fa-eye"></i>
                         </a>
-                        <a href="${campaign.flyerUrl}" target="_blank" class="action-icon-btn" title="View Flyer & Print">
+                        <a href="${campaign.flyerUrl}" target="_blank" class="action-icon-btn" title="View & Print Asset">
                             <i class="fa-solid fa-print"></i>
                         </a>
                         <button class="action-icon-btn btn-delete" data-id="${campaign.id}" title="Delete Campaign">

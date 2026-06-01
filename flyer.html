@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Print Standee Flyer - RepuShield</title>
+    <title>Print Assets - MetrixMedia</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -114,8 +114,8 @@
         /* Printable Page Frame Layout */
         .print-page {
             background: var(--bg-print);
-            width: 210mm; /* standard A4 width */
-            min-height: 297mm; /* standard A4 height */
+            width: 210mm; /* A4 standard width */
+            min-height: 297mm; /* A4 standard height */
             padding: 15mm;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
             margin: 2rem 0;
@@ -127,11 +127,11 @@
             border-radius: 8px;
         }
 
-        /* Folding Standee Layout */
+        /* FOLDING STANDEE LAYOUT (GMB MODE) */
         .standee-container {
-            display: flex;
+            display: none;
             flex-direction: column;
-            width: 140mm; /* Optimized printable width */
+            width: 140mm;
             border: 1px dashed var(--border-fold);
             border-radius: 24px;
             overflow: hidden;
@@ -139,7 +139,6 @@
             background: white;
         }
 
-        /* Double Card Sides (Front and Back Faces for Folding) */
         .standee-face {
             height: 120mm;
             padding: 12mm 10mm;
@@ -151,7 +150,6 @@
             position: relative;
         }
 
-        /* Top Face is inverted so when folded it stands upright! */
         .face-top {
             transform: rotate(180deg);
             border-bottom: 2px dashed var(--border-fold);
@@ -174,17 +172,9 @@
             margin: 0 auto;
         }
 
-        .fold-top-label {
-            bottom: -6px;
-            z-index: 10;
-        }
+        .fold-top-label { bottom: -6px; z-index: 10; }
+        .fold-bottom-label { top: -6px; z-index: 10; }
 
-        .fold-bottom-label {
-            top: -6px;
-            z-index: 10;
-        }
-
-        /* Decorative top accents colored dynamically */
         .face-accent-bar {
             position: absolute;
             top: 0;
@@ -194,7 +184,6 @@
             background: var(--primary);
         }
 
-        /* Header elements on face */
         .standee-header {
             display: flex;
             flex-direction: column;
@@ -202,11 +191,7 @@
             gap: 0.4rem;
         }
 
-        .standee-header i {
-            font-size: 2.2rem;
-            color: var(--primary);
-        }
-
+        .standee-header i { font-size: 2.2rem; color: var(--primary); }
         .standee-header h2 {
             font-family: 'Outfit', sans-serif;
             font-size: 1.4rem;
@@ -215,7 +200,6 @@
             letter-spacing: -0.5px;
         }
 
-        /* Main core body */
         .standee-body h3 {
             font-family: 'Outfit', sans-serif;
             font-size: 1.7rem;
@@ -231,7 +215,6 @@
             font-weight: 600;
         }
 
-        /* Interactive QR center */
         .qr-wrapper {
             width: 160px;
             height: 160px;
@@ -246,12 +229,8 @@
             margin: 0.8rem 0;
         }
 
-        .qr-wrapper img {
-            width: 100%;
-            height: 100%;
-        }
+        .qr-wrapper img { width: 100%; height: 100%; }
 
-        /* Card footer stars row */
         .standee-footer {
             border-top: 1px solid #f1f5f9;
             padding-top: 0.8rem;
@@ -262,16 +241,8 @@
             gap: 0.35rem;
         }
 
-        .stars-row {
-            display: flex;
-            gap: 0.3rem;
-            color: var(--star-gold);
-        }
-
-        .stars-row i {
-            font-size: 1.05rem;
-        }
-
+        .stars-row { display: flex; gap: 0.3rem; color: var(--star-gold); }
+        .stars-row i { font-size: 1.05rem; }
         .standee-footer p {
             font-size: 0.75rem;
             font-weight: 700;
@@ -280,7 +251,158 @@
             letter-spacing: 1px;
         }
 
-        /* Outer borders helper */
+        /* E-COMMERCE PACKAGE INSERTS (4x6 CARDS) */
+        .ecommerce-container {
+            display: none;
+            flex-direction: column;
+            gap: 20px;
+            width: 152mm; /* standard 6 inch */
+            align-items: center;
+        }
+
+        .insert-card {
+            width: 152mm; /* 6 inches */
+            height: 101mm; /* 4 inches */
+            background: linear-gradient(135deg, #1e1e2f 0%, #0d0d15 100%);
+            color: white;
+            border: 3px solid var(--primary);
+            border-radius: 16px;
+            padding: 10mm;
+            display: grid;
+            grid-template-columns: 1.3fr 0.7fr;
+            gap: 15px;
+            align-items: center;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .insert-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(to right, var(--primary), #818cf8);
+        }
+
+        .insert-left {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            text-align: left;
+        }
+
+        .insert-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #818cf8;
+        }
+
+        .insert-brand i { font-size: 1.5rem; color: var(--primary); }
+        .insert-brand h4 { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: white; }
+
+        .insert-left h3 { font-family: 'Outfit', sans-serif; font-size: 1.6rem; font-weight: 800; line-height: 1.2; }
+        .insert-left p { font-size: 0.85rem; color: #cbd5e1; line-height: 1.4; }
+
+        .insert-right {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .insert-qr-mock {
+            width: 110px;
+            height: 110px;
+            background: white;
+            border-radius: 12px;
+            padding: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .insert-qr-mock img { width: 100%; height: 100%; }
+
+        .insert-card-footer {
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding-top: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            grid-column: span 2;
+        }
+
+        .insert-card-footer span { font-size: 0.72rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        /* FOOD DELIVERY STICKERS (ROUND LABELS) */
+        .delivery-container {
+            display: none;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            width: 175mm;
+            justify-content: center;
+        }
+
+        .sticker-card {
+            width: 75mm;
+            height: 75mm;
+            background: white;
+            color: #0f172a;
+            border-radius: 50%;
+            border: 4px double var(--primary);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            aspect-ratio: 1/1;
+        }
+
+        .sticker-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .sticker-header i { font-size: 1.3rem; color: var(--primary); }
+        .sticker-header h4 { font-family: 'Outfit', sans-serif; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; }
+
+        .sticker-card h3 { font-family: 'Outfit', sans-serif; font-size: 1.05rem; font-weight: 800; line-height: 1.2; color: #0f172a; }
+        .sticker-card p { font-size: 0.65rem; color: #475569; font-weight: 600; }
+
+        .sticker-qr {
+            width: 82px;
+            height: 82px;
+            background: white;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sticker-qr img { width: 100%; height: 100%; }
+
+        .sticker-footer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .sticker-footer p { font-size: 0.58rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        /* Left Hand Instructions Block */
         .folding-guide-lines {
             position: absolute;
             top: 2rem;
@@ -297,16 +419,10 @@
             margin-bottom: 0.25rem;
         }
 
-        /* PRINT STYLES - Hides interfaces, centers sheet on page */
+        /* PRINT STYLES */
         @media print {
-            body {
-                background: white;
-            }
-
-            .toolbar, .folding-guide-lines {
-                display: none !important;
-            }
-
+            body { background: white; }
+            .toolbar, .folding-guide-lines { display: none !important; }
             .print-page {
                 box-shadow: none;
                 margin: 0;
@@ -314,13 +430,9 @@
                 width: 210mm;
                 height: 297mm;
             }
-
-            .standee-container {
-                border: 1px dashed var(--border-fold);
+            .standee-container, .ecommerce-container, .delivery-container {
                 margin: auto;
             }
-
-            /* Force backgrounds to print colors */
             * {
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
@@ -333,7 +445,7 @@
     <div class="toolbar">
         <div class="toolbar-brand">
             <i class="fa-solid fa-shield-halved"></i>
-            <h1>RepuShield Standee Builder</h1>
+            <h1 id="toolbar-title">MetrixMedia Asset Center</h1>
         </div>
         <div class="toolbar-instructions">
             <div class="instruction-step">
@@ -347,41 +459,35 @@
             </div>
         </div>
         <button class="btn-print" onclick="window.print()">
-            <i class="fa-solid fa-print"></i> Save PDF / Print Card
+            <i class="fa-solid fa-print"></i> Save PDF / Print Asset
         </button>
     </div>
 
     <!-- Page Content Container -->
     <div class="print-page">
         <!-- Floating Guide info on screen -->
-        <div class="folding-guide-lines">
-            <h4>✂️ Fold Instructions:</h4>
-            <p>1. Print out in color on high-quality thicker paper or cardstock.</p>
-            <p style="margin-top: 4px;">2. Fold along the center dashed line.</p>
-            <p style="margin-top: 4px;">3. Secure the two bottom panels together with tape to make a standing triangular prism on your counter.</p>
+        <div class="folding-guide-lines" id="print-guide">
+            <h4>✂️ Instructions:</h4>
+            <p id="guide-text">Print out on high-quality paper or cardstock.</p>
         </div>
 
-        <!-- The Foldable Card Standee Box -->
-        <div class="standee-container">
-            <!-- 1. Top Face (Inverted upside down) -->
+        <!-- 1. The Foldable Card Standee Box (GMB Mode) -->
+        <div class="standee-container" id="gmb-asset">
+            <!-- Top Face (Inverted) -->
             <div class="standee-face face-top">
                 <div class="face-accent-bar"></div>
                 <span class="fold-indicator fold-top-label">Fold line (Center)</span>
-                
                 <div class="standee-header">
-                    <i class="fa-solid fa-store" id="top-icon"></i>
+                    <i class="fa-solid fa-store icon-placeholder"></i>
                     <h2 class="biz-title-placeholder">Business Name</h2>
                 </div>
-                
                 <div class="standee-body">
                     <h3>Love Our Service?</h3>
                     <p>Scan to share your experience with us on Google!</p>
                 </div>
-                
                 <div class="qr-wrapper">
                     <img class="qr-placeholder" src="" alt="Campaign QR Code">
                 </div>
-                
                 <div class="standee-footer">
                     <div class="stars-row">
                         <i class="fa-solid fa-star"></i>
@@ -394,25 +500,21 @@
                 </div>
             </div>
 
-            <!-- 2. Bottom Face (Right side up) -->
+            <!-- Bottom Face (Right side up) -->
             <div class="standee-face">
                 <div class="face-accent-bar"></div>
                 <span class="fold-indicator fold-bottom-label">Fold line (Center)</span>
-                
                 <div class="standee-header">
-                    <i class="fa-solid fa-store" id="bottom-icon"></i>
+                    <i class="fa-solid fa-store icon-placeholder"></i>
                     <h2 class="biz-title-placeholder">Business Name</h2>
                 </div>
-                
                 <div class="standee-body">
                     <h3>Love Our Service?</h3>
                     <p>Scan to share your experience with us on Google!</p>
                 </div>
-                
                 <div class="qr-wrapper">
                     <img class="qr-placeholder" src="" alt="Campaign QR Code">
                 </div>
-                
                 <div class="standee-footer">
                     <div class="stars-row">
                         <i class="fa-solid fa-star"></i>
@@ -422,6 +524,128 @@
                         <i class="fa-solid fa-star"></i>
                     </div>
                     <p>Help us serve you better!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. E-Commerce Package Insert Layout -->
+        <div class="ecommerce-container" id="ecommerce-asset">
+            <!-- Front Face -->
+            <div class="insert-card">
+                <div class="insert-left">
+                    <div class="insert-brand">
+                        <i class="fa-solid fa-box-open icon-placeholder"></i>
+                        <h4 class="biz-title-placeholder">Product Brand</h4>
+                    </div>
+                    <h3>Activate Your Warranty</h3>
+                    <p>Scan the QR code to register your 1-year product warranty and claim a free replacement or premium brand accessory!</p>
+                </div>
+                <div class="insert-right">
+                    <div class="insert-qr-mock">
+                        <img class="qr-placeholder" src="" alt="QR">
+                    </div>
+                </div>
+                <div class="insert-card-footer">
+                    <div class="stars-row">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <span>Register within 10 days of delivery</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Food Delivery Stickers Layout (Sheet of 4) -->
+        <div class="delivery-container" id="delivery-asset">
+            <!-- Sticker 1 -->
+            <div class="sticker-card">
+                <div class="sticker-header">
+                    <i class="fa-solid fa-utensils icon-placeholder"></i>
+                    <h4 class="biz-title-placeholder">Kitchen</h4>
+                </div>
+                <h3>Was it Delicious?</h3>
+                <p>Scan to rate us and unlock a free dessert or discount code on your next order!</p>
+                <div class="sticker-qr">
+                    <img class="qr-placeholder" src="" alt="QR">
+                </div>
+                <div class="sticker-footer">
+                    <div class="stars-row">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p>Made fresh with love</p>
+                </div>
+            </div>
+            <!-- Sticker 2 -->
+            <div class="sticker-card">
+                <div class="sticker-header">
+                    <i class="fa-solid fa-utensils icon-placeholder"></i>
+                    <h4 class="biz-title-placeholder">Kitchen</h4>
+                </div>
+                <h3>Was it Delicious?</h3>
+                <p>Scan to rate us and unlock a free dessert or discount code on your next order!</p>
+                <div class="sticker-qr">
+                    <img class="qr-placeholder" src="" alt="QR">
+                </div>
+                <div class="sticker-footer">
+                    <div class="stars-row">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p>Made fresh with love</p>
+                </div>
+            </div>
+            <!-- Sticker 3 -->
+            <div class="sticker-card">
+                <div class="sticker-header">
+                    <i class="fa-solid fa-utensils icon-placeholder"></i>
+                    <h4 class="biz-title-placeholder">Kitchen</h4>
+                </div>
+                <h3>Was it Delicious?</h3>
+                <p>Scan to rate us and unlock a free dessert or discount code on your next order!</p>
+                <div class="sticker-qr">
+                    <img class="qr-placeholder" src="" alt="QR">
+                </div>
+                <div class="sticker-footer">
+                    <div class="stars-row">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p>Made fresh with love</p>
+                </div>
+            </div>
+            <!-- Sticker 4 -->
+            <div class="sticker-card">
+                <div class="sticker-header">
+                    <i class="fa-solid fa-utensils icon-placeholder"></i>
+                    <h4 class="biz-title-placeholder">Kitchen</h4>
+                </div>
+                <h3>Was it Delicious?</h3>
+                <p>Scan to rate us and unlock a free dessert or discount code on your next order!</p>
+                <div class="sticker-qr">
+                    <img class="qr-placeholder" src="" alt="QR">
+                </div>
+                <div class="sticker-footer">
+                    <div class="stars-row">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p>Made fresh with love</p>
                 </div>
             </div>
         </div>
@@ -431,32 +655,64 @@
         document.addEventListener('DOMContentLoaded', () => {
             // Parse parameters
             const urlParams = new URLSearchParams(window.location.search);
-            const name = urlParams.get('name') || 'Your Business Name';
+            const name = urlParams.get('name') || 'MetrixMedia Brand';
             const category = urlParams.get('category') || 'other';
             const color = urlParams.get('color') || '#6366f1';
+            const campaignType = urlParams.get('type') || 'gmb';
             const portalUrl = urlParams.get('portalUrl') || 'https://google.com';
 
             // Set Brand Color dynamically
             document.documentElement.style.setProperty('--primary', color);
+
+            // Toggle active asset container based on campaign type
+            const gmbAsset = document.getElementById('gmb-asset');
+            const ecommerceAsset = document.getElementById('ecommerce-asset');
+            const deliveryAsset = document.getElementById('delivery-asset');
+            const toolbarTitle = document.getElementById('toolbar-title');
+            
+            const guideText = document.getElementById('guide-text');
+
+            if (campaignType === 'ecommerce') {
+                ecommerceAsset.style.display = 'flex';
+                toolbarTitle.textContent = 'MetrixMedia Package Insert Builder';
+                guideText.innerHTML = '<strong>✂️ Package Insert Instructions:</strong><br>1. Print in color on standard 4" x 6" cardstock paper.<br>2. Place directly inside every shipped package box.<br>3. Track leads and reviews via your MetrixMedia dashboard.';
+            } else if (campaignType === 'delivery') {
+                deliveryAsset.style.display = 'grid';
+                toolbarTitle.textContent = 'MetrixMedia Delivery Sticker sheet';
+                guideText.innerHTML = '<strong>✂️ Packaging Sticker Instructions:</strong><br>1. Print on round adhesive label sheets or standard paper.<br>2. Cut along the circular borders.<br>3. Stick to paper bags or container lids before delivery.';
+            } else {
+                gmbAsset.style.display = 'flex';
+                toolbarTitle.textContent = 'MetrixMedia Table Standee Builder';
+                guideText.innerHTML = '<strong>✂️ Fold Instructions:</strong><br>1. Print in color on standard A4 cardstock.<br>2. Fold along the center dashed line.<br>3. Tape bottom panels together to form a standing triangular standee.';
+            }
 
             // Populate titles
             document.querySelectorAll('.biz-title-placeholder').forEach(el => {
                 el.textContent = name;
             });
 
-            // Populate category icons
+            // Populate category icons across all assets
             const iconClasses = {
                 cafe: 'fa-solid fa-mug-hot',
+                cafe_premium: 'fa-solid fa-utensils',
+                bakery: 'fa-solid fa-cake-slice',
+                beverage: 'fa-solid fa-glass-water',
                 dental: 'fa-solid fa-tooth',
                 gym: 'fa-solid fa-dumbbell',
                 salon: 'fa-solid fa-scissors',
                 law: 'fa-solid fa-scale-balanced',
+                electronics: 'fa-solid fa-laptop-code',
+                beauty: 'fa-solid fa-sparkles',
+                apparel: 'fa-solid fa-shirt',
+                home: 'fa-solid fa-house-laptop',
+                health: 'fa-solid fa-leaf',
                 other: 'fa-solid fa-store'
             };
 
             const selectedIcon = iconClasses[category] || iconClasses.other;
-            document.getElementById('top-icon').className = selectedIcon;
-            document.getElementById('bottom-icon').className = selectedIcon;
+            document.querySelectorAll('.icon-placeholder').forEach(el => {
+                el.className = `${selectedIcon} icon-placeholder`;
+            });
 
             // Generate real QR pointing to dynamic portal gating URL
             const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(portalUrl)}`;

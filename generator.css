@@ -311,6 +311,58 @@ body {
     gap: 1.25rem;
 }
 
+/* Campaign Type Toggle Segment Selector */
+.campaign-type-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.campaign-type-selector label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.segment-control {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    background: rgba(7, 9, 19, 0.6);
+    border: 1px solid var(--border-color);
+    padding: 0.35rem;
+    border-radius: 12px;
+    gap: 0.25rem;
+}
+
+.segment-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.65rem 0.5rem;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.82rem;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: var(--transition-smooth);
+}
+
+.segment-btn:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.segment-btn.active {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 4px 12px var(--primary-glow);
+}
+
 .input-group {
     display: flex;
     flex-direction: column;
@@ -692,6 +744,116 @@ body {
     color: #94a3b8;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+}
+
+/* E-commerce Package Insert Card Style */
+.flyer-card-preview.type-ecommerce {
+    background: linear-gradient(135deg, #1e1e2f 0%, #11111b 100%) !important;
+    color: #f8fafc !important;
+    border: 1.5px solid var(--primary) !important;
+    box-shadow: 0 25px 65px -10px rgba(99, 102, 241, 0.3) !important;
+}
+
+.flyer-card-preview.type-ecommerce::before {
+    background: linear-gradient(to right, var(--primary), #a78bfa) !important;
+    height: 6px !important;
+}
+
+.flyer-card-preview.type-ecommerce .flyer-card-header h4 {
+    color: #f8fafc !important;
+}
+
+.flyer-card-preview.type-ecommerce .flyer-card-content h3 {
+    color: white !important;
+}
+
+.flyer-card-preview.type-ecommerce .flyer-card-content p {
+    color: #cbd5e1 !important;
+}
+
+.flyer-card-preview.type-ecommerce .flyer-qr-mock {
+    background: rgba(7, 9, 19, 0.7) !important;
+    border-color: rgba(99, 102, 241, 0.3) !important;
+}
+
+.flyer-card-preview.type-ecommerce .flyer-card-footer {
+    border-top-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.flyer-card-preview.type-ecommerce .stars-row {
+    color: #fbbf24 !important; /* Golden stars for inserts! */
+}
+
+/* Zomato/Swiggy Delivery Packaging Sticker Style */
+.flyer-card-preview.type-delivery {
+    background: #ffffff !important;
+    color: #1e293b !important;
+    border-radius: 50% !important; /* Circle packaging sticker design! */
+    aspect-ratio: 1 / 1 !important;
+    height: 310px !important;
+    width: 310px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    border: 5px double var(--primary) !important;
+    padding: 2.2rem !important;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4) !important;
+}
+
+.flyer-card-preview.type-delivery::before {
+    display: none !important; /* Hide header strip for stickers */
+}
+
+.flyer-card-preview.type-delivery .flyer-card-header {
+    margin-top: 0 !important;
+    gap: 0.15rem !important;
+}
+
+.flyer-card-preview.type-delivery .flyer-card-header i {
+    font-size: 1.5rem !important;
+}
+
+.flyer-card-preview.type-delivery .flyer-card-header h4 {
+    font-size: 0.85rem !important;
+    letter-spacing: 0.5px !important;
+    text-transform: uppercase !important;
+}
+
+.flyer-card-preview.type-delivery .flyer-card-content h3 {
+    font-size: 1.1rem !important;
+    font-weight: 800 !important;
+}
+
+.flyer-card-preview.type-delivery .flyer-card-content p {
+    font-size: 0.65rem !important;
+    margin-top: 0.15rem !important;
+}
+
+.flyer-card-preview.type-delivery .flyer-qr-mock {
+    width: 95px !important;
+    height: 95px !important;
+    margin: 0.5rem auto !important;
+    border-radius: 12px !important;
+}
+
+.flyer-card-preview.type-delivery .flyer-qr-mock img {
+    border-radius: 8px !important;
+    padding: 0.25rem !important;
+}
+
+.flyer-card-preview.type-delivery .flyer-card-footer {
+    border-top: none !important;
+    padding-top: 0 !important;
+    gap: 0.1rem !important;
+}
+
+.flyer-card-preview.type-delivery .stars-row i {
+    font-size: 0.75rem !important;
+}
+
+.flyer-card-preview.type-delivery .flyer-card-footer p {
+    font-size: 0.6rem !important;
 }
 
 /* Tab contents base display toggles */

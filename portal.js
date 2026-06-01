@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const bizEmail = urlParams.get('email') || 'owner@business.com';
     const category = urlParams.get('category') || 'other';
     const logoUrl = urlParams.get('logo') || '';
+    const campaignType = urlParams.get('type') || 'gmb'; // Parse campaign type
     const isDemo = urlParams.get('demo') === 'true'; // Sandbox editor preview flag
 
     // Apply Brand Accent Color dynamically
@@ -19,17 +20,75 @@ document.addEventListener('DOMContentLoaded', () => {
     // Set Business Details in DOM
     document.getElementById('business-name').textContent = bizName;
 
+    // Type Configs for dynamic content
+    const typeConfigs = {
+        gmb: {
+            tagline: "Thank you for visiting us today! We value your feedback.",
+            ratingTitle: "How was your experience?",
+            feedbackTitle: "We'd love to make it right",
+            feedbackSubtitle: "We are sorry your experience wasn't perfect. Please tell us what we can do better, and our manager will contact you directly to resolve this.",
+            redirectTitle: "Fantastic!",
+            redirectText: `We are thrilled you loved your experience! We are redirecting you to Google to share your 5-star rating with the world.`,
+            redirectBtn: "Click here if not redirected automatically"
+        },
+        ecommerce: {
+            tagline: "Thank you for your purchase! Register your warranty here.",
+            ratingTitle: "How do you rate your product?",
+            feedbackTitle: "Let us make it right!",
+            feedbackSubtitle: "We are sorry your product wasn't perfect! Please share what went wrong and we will ship you a free replacement or process a full refund instantly.",
+            redirectTitle: "Excellent!",
+            redirectText: `We are thrilled you love your product! We are redirecting you to our product page to submit your warranty review.`,
+            redirectBtn: "Click here to submit review & activate warranty"
+        },
+        delivery: {
+            tagline: "Hope you loved your meal! Unlock a free reward below.",
+            ratingTitle: "Was your food delicious?",
+            feedbackTitle: "We apologize for the meal!",
+            feedbackSubtitle: "We are sorry the meal wasn't perfect. Was it cold? Taste off? Tell us here privately and we will send a fresh meal or refund you immediately.",
+            redirectTitle: "Delicious!",
+            redirectText: `We are so happy you enjoyed your food! Redirecting you to Zomato/Swiggy to submit your rating and unlock your free dessert!`,
+            redirectBtn: "Click here to claim your reward"
+        }
+    };
+
+    const currentConfig = typeConfigs[campaignType] || typeConfigs.gmb;
+
+    // Inject dynamic texts safely
+    const taglineEl = document.querySelector('.tagline');
+    const ratingTitleEl = document.querySelector('#rating-screen h3');
+    const feedbackTitleEl = document.querySelector('#feedback-screen h3');
+    const feedbackSubtitleEl = document.querySelector('.feedback-subtitle');
+    const redirectTitleEl = document.querySelector('#redirect-overlay h2');
+    const redirectTextEl = document.querySelector('#redirect-overlay p');
+    const directLinkEl = document.getElementById('direct-gmb-link');
+
+    if (taglineEl) taglineEl.textContent = currentConfig.tagline;
+    if (ratingTitleEl) ratingTitleEl.textContent = currentConfig.ratingTitle;
+    if (feedbackTitleEl) feedbackTitleEl.textContent = currentConfig.feedbackTitle;
+    if (feedbackSubtitleEl) feedbackSubtitleEl.textContent = currentConfig.feedbackSubtitle;
+    if (redirectTitleEl) redirectTitleEl.textContent = currentConfig.redirectTitle;
+    if (redirectTextEl) redirectTextEl.textContent = currentConfig.redirectText;
+    if (directLinkEl) directLinkEl.textContent = currentConfig.redirectBtn;
+
     // Logo / Icon rendering logic
     const logoContainer = document.getElementById('logo-container');
     const categoryIcon = document.getElementById('category-icon');
 
-    // Category icon mapping
+    // Category icon mapping across all types
     const iconClasses = {
         cafe: 'fa-solid fa-mug-hot',
+        cafe_premium: 'fa-solid fa-utensils',
+        bakery: 'fa-solid fa-cake-slice',
+        beverage: 'fa-solid fa-glass-water',
         dental: 'fa-solid fa-tooth',
         gym: 'fa-solid fa-dumbbell',
         salon: 'fa-solid fa-scissors',
         law: 'fa-solid fa-scale-balanced',
+        electronics: 'fa-solid fa-laptop-code',
+        beauty: 'fa-solid fa-sparkles',
+        apparel: 'fa-solid fa-shirt',
+        home: 'fa-solid fa-house-laptop',
+        health: 'fa-solid fa-leaf',
         other: 'fa-solid fa-store'
     };
 
@@ -115,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function routeRating(rating) {
         if (rating >= 4) {
-            // Positive Routing: Redirect to Google Review
+            // Positive Routing: Redirect to destination review URL
             directGmbLink.href = gmbUrl;
             redirectOverlay.classList.add('show');
 
@@ -129,7 +188,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (count <= 0) {
                     clearInterval(interval);
                     if (isDemo) {
-                        alert(`[DEMO MODE ACTIVE]\nIn a live setting, this would now redirect the customer directly to the business Google Maps Review page:\n\n${gmbUrl}`);
+                        const destinationNames = {
+                            gmb: 'Google Maps Review page',
+                            ecommerce: 'Amazon/Shopify Product Review page',
+                            delivery: 'Zomato/Swiggy order rating page'
+                        };
+                        const destName = destinationNames[campaignType] || 'Review page';
+                        alert(`[DEMO MODE ACTIVE]\nIn a live setting, this would now redirect the customer directly to the business ${destName}:\n\n${gmbUrl}`);
                         redirectOverlay.classList.remove('show');
                         // Reset selection
                         selectedRating = 0;
