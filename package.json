@@ -1,0 +1,11 @@
+{
+  "name": "metrixmedia",
+  "version": "1.0.0",
+  "description": "MetrixMedia Agency",
+  "scripts": {
+    "build": "echo \"No build step required\""
+  },
+  "dependencies": {
+    "@netlify/functions": "^2.0.0"
+  }
+}
