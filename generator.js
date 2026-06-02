@@ -229,8 +229,8 @@ document.addEventListener('DOMContentLoaded', () => {
             destPlaceholder: 'e.g., https://www.amazon.in/review/create-review/?asin=B0XXXXXX',
             destTip: '<i class="fa-solid fa-circle-info"></i> Paste the Amazon customer review creation page or Shopify product review URL.',
             printToggleLabel: '<i class="fa-solid fa-box-open"></i> Package Insert',
-            headline: 'Activate Your Warranty',
-            subheadline: 'Scan to register your 1-year warranty and claim your free replacement or gift!',
+            headline: 'Love or Fix It?',
+            subheadline: 'Scan to let us know. If you love it, get a surprise! If it needs fixing, we will make it right instantly.',
             footer: 'Thank you for your purchase!',
             categories: `
                 <option value="electronics">💻 Electronics & Gadgets</option>
