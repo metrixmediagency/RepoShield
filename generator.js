@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
             destTip: '<i class="fa-solid fa-circle-info"></i> Paste their direct Google Review prompt link.',
             printToggleLabel: '<i class="fa-solid fa-print"></i> Counter Standee',
             headline: 'Love Our Service?',
-            subheadline: 'Scan to share your experience with us on Google and unlock a surprise!',
+            subheadline: 'Scan to share your experience with us on Google!',
             footer: 'Help us serve you better!',
             categories: `
                 <option value="cafe">☕ Cafe / Restaurant</option>
@@ -230,7 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
             destTip: '<i class="fa-solid fa-circle-info"></i> Paste the Amazon customer review creation page or Shopify product review URL.',
             printToggleLabel: '<i class="fa-solid fa-box-open"></i> Package Insert',
             headline: 'Love or Fix It?',
-            subheadline: 'Scan to let us know. If you love it, get a surprise! If it needs fixing, we will make it right instantly.',
+            subheadline: 'Scan to let us know. If you love it, leave a review! If it needs fixing, we will make it right instantly.',
             footer: 'Thank you for your purchase!',
             categories: `
                 <option value="electronics">💻 Electronics & Gadgets</option>
@@ -251,7 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
             destTip: '<i class="fa-solid fa-circle-info"></i> Paste the restaurant listing URL on Zomato or Swiggy.',
             printToggleLabel: '<i class="fa-solid fa-ticket"></i> Packaging Sticker',
             headline: 'Was Your Food Delicious?',
-            subheadline: 'Scan to rate your delivery meal and instantly unlock a free dessert or discount code on your next order!',
+            subheadline: 'Scan to rate your delivery meal and help us serve you better!',
             footer: 'Made with love & delivered fresh!',
             categories: `
                 <option value="cafe">🍔 Fast Food & Quick Service</option>
