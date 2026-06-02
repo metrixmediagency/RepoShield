@@ -79,6 +79,10 @@ document.addEventListener('DOMContentLoaded', () => {
         billing: {
             title: 'Billing & Subscriptions',
             subtitle: 'Generate secure payment links for your clients.'
+        },
+        clients: {
+            title: 'Client Management CRM',
+            subtitle: 'Manage your clients, their active campaigns, and billing statuses.'
         }
     };
 
@@ -104,6 +108,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // If active campaigns tab, render list
             if (tabId === 'campaigns') {
                 renderCampaignsList();
+            } else if (tabId === 'clients') {
+                renderClientsList();
             }
 
             // Close sidebar drawer on mobile item click
@@ -656,14 +662,97 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function deleteCampaign(id) {
-        if (confirm('Are you sure you want to delete this campaign? This will remove its configuration.')) {
-            let campaigns = JSON.parse(localStorage.getItem('repushield_campaigns')) || [];
-            campaigns = campaigns.filter(c => c.id !== id);
-            localStorage.setItem('repushield_campaigns', JSON.stringify(campaigns));
-            renderCampaignsList();
-            showToast('Campaign deleted successfully.');
-        }
+        if (!confirm('Are you sure you want to delete this campaign?')) return;
+        let campaigns = JSON.parse(localStorage.getItem('repushield_campaigns')) || [];
+        campaigns = campaigns.filter(c => c.id !== id);
+        localStorage.setItem('repushield_campaigns', JSON.stringify(campaigns));
+        renderCampaignsList();
+        showToast('Campaign deleted successfully.');
     }
+
+    // ----------------------------------------------------
+    // Clients CRM and Billing Logic
+    // ----------------------------------------------------
+    const clientsContainer = document.getElementById('clients-table-container');
+    const billingForm = document.getElementById('billing-form');
+
+    function renderClientsList() {
+        if (!clientsContainer) return;
+        const campaigns = JSON.parse(localStorage.getItem('repushield_campaigns')) || [];
+        
+        if (campaigns.length === 0) {
+            clientsContainer.innerHTML = `
+                <div class="empty-state" style="padding: 3rem; text-align: center;">
+                    <i class="fa-solid fa-users" style="font-size: 3rem; color: var(--text-muted); margin-bottom: 1rem;"></i>
+                    <p style="color: var(--text-muted);">No clients found. Create a campaign first to automatically generate a client profile.</p>
+                </div>
+            `;
+            return;
+        }
+
+        // Group campaigns by email to form "Clients"
+        const clients = {};
+        campaigns.forEach(c => {
+            const email = c.email || 'unknown@client.com';
+            if (!clients[email]) {
+                clients[email] = {
+                    email: email,
+                    name: c.name.split(' ')[0], // simple guess for client name
+                    campaignsCount: 0,
+                    status: c.status || 'active'
+                };
+            }
+            clients[email].campaignsCount++;
+        });
+
+        let tableHtml = `
+            <table class="campaigns-table">
+                <thead>
+                    <tr>
+                        <th>Client Email</th>
+                        <th>Associated Name</th>
+                        <th>Active Portals</th>
+                        <th>Overall Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+
+        Object.values(clients).forEach(client => {
+            let statusBadge = '<span class="badge" style="background: rgba(52, 211, 153, 0.2); color: #34d399;">Good Standing</span>';
+            if (client.status === 'grace') statusBadge = '<span class="badge" style="background: rgba(245, 158, 11, 0.2); color: #f59e0b;">Payment Overdue</span>';
+            if (client.status === 'suspended') statusBadge = '<span class="badge" style="background: rgba(239, 68, 68, 0.2); color: #ef4444;">Suspended</span>';
+
+            tableHtml += `
+                <tr>
+                    <td><strong>${client.email}</strong></td>
+                    <td>${client.name}</td>
+                    <td>${client.campaignsCount}</td>
+                    <td>${statusBadge}</td>
+                    <td>
+                        <button class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.8rem;" onclick="document.querySelector('[data-tab=\\'billing\\']').click(); document.getElementById('billing-email').value='${client.email}';">
+                            <i class="fa-solid fa-file-invoice"></i> Bill Now
+                        </button>
+                    </td>
+                </tr>
+            `;
+        });
+
+        tableHtml += `</tbody></table>`;
+        clientsContainer.innerHTML = tableHtml;
+    }
+
+    if (billingForm) {
+        billingForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('billing-email').value;
+            const amount = document.getElementById('billing-amount').value;
+            showToast(`Payment link for Rs. ${amount} generated and sent to ${email}!`);
+            billingForm.reset();
+        });
+    }
+
 // ----------------------------------------------------
 // Clients Management Logic
 // ----------------------------------------------------
