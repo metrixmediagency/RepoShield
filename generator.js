@@ -159,6 +159,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // ----------------------------------------------------
     const bizNameInput = document.getElementById('biz-name');
     const bizGmbInput = document.getElementById('biz-gmb');
+    const ecommerceTierInput = document.getElementById('ecommerce-tier');
+    const productTierGroup = document.getElementById('product-tier-group');
     const bizAccentInput = document.getElementById('biz-accent');
     const bizAccentHexInput = document.getElementById('biz-accent-hex');
     const bizCategorySelect = document.getElementById('biz-category');
@@ -303,6 +305,12 @@ document.addEventListener('DOMContentLoaded', () => {
         flyerCardPreview.classList.remove('type-gmb', 'type-ecommerce', 'type-delivery');
         flyerCardPreview.classList.add(`type-${type}`);
         
+        if (type === 'ecommerce' && productTierGroup) {
+            productTierGroup.style.display = 'flex';
+        } else if (productTierGroup) {
+            productTierGroup.style.display = 'none';
+        }
+
         updateSimulators();
     }
 
@@ -338,6 +346,7 @@ document.addEventListener('DOMContentLoaded', () => {
             email: email,
             category: category,
             logo: logo,
+            tier: ecommerceTierInput ? ecommerceTierInput.value : '',
             type: activeCampaignType,
             demo: 'true'
         });
@@ -348,6 +357,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Sync input events
     bizNameInput.addEventListener('input', updateSimulators);
     bizGmbInput.addEventListener('input', updateSimulators);
+    if(ecommerceTierInput) ecommerceTierInput.addEventListener('input', updateSimulators);
     bizLogoInput.addEventListener('input', updateSimulators);
     bizEmailInput.addEventListener('input', updateSimulators);
     bizCategorySelect.addEventListener('change', updateSimulators);
@@ -392,6 +402,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const category = bizCategorySelect.value;
         const email = bizEmailInput.value;
         const logo = bizLogoInput.value || '';
+        const tier = ecommerceTierInput ? ecommerceTierInput.value : '';
         const id = Date.now().toString(); // unique id
 
         let baseLocation = bizBaseUrlInput.value.trim();
@@ -412,6 +423,7 @@ document.addEventListener('DOMContentLoaded', () => {
             email: email,
             category: category,
             logo: logo,
+            tier: tier,
             type: activeCampaignType // Include campaign type
         });
         const finalPortalUrl = `${baseLocation}/portal.html?${portalUrlParams.toString()}`;
@@ -421,6 +433,7 @@ document.addEventListener('DOMContentLoaded', () => {
             category: category,
             color: accent,
             type: activeCampaignType, // Include campaign type
+            tier: tier,
             portalUrl: finalPortalUrl
         });
         const finalFlyerUrl = `${baseLocation}/flyer.html?${flyerUrlParams.toString()}`;
@@ -434,7 +447,9 @@ document.addEventListener('DOMContentLoaded', () => {
             category,
             email,
             logo,
+            tier,
             type: activeCampaignType, // Store campaign type
+            status: 'active', // default billing status
             portalUrl: finalPortalUrl,
             flyerUrl: finalFlyerUrl,
             createdAt: new Date().toLocaleDateString()
@@ -531,6 +546,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="table-biz-info">
                         <h5>${campaign.name}</h5>
                         <span>Created: ${campaign.createdAt}</span>
+                        ${campaign.tier ? `<span style="font-size:0.75rem; color:var(--primary); display:block; margin-top:2px;"><i class="fa-solid fa-layer-group"></i> ${campaign.tier}</span>` : ''}
                     </div>
                 </td>
                 <td>
@@ -552,6 +568,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </td>
                 <td>
+                    ${campaign.status === 'suspended' ? 
+                        `<span class="badge" style="background: rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.5); color: #ef4444;"><i class="fa-solid fa-ban"></i> Suspended</span>` : 
+                     campaign.status === 'grace' ? 
+                        `<span class="badge" style="background: rgba(245, 158, 11, 0.2); border: 1px solid rgba(245, 158, 11, 0.5); color: #f59e0b;"><i class="fa-solid fa-clock"></i> Grace Period</span>` :
+                        `<span class="badge" style="background: rgba(52, 211, 153, 0.2); border: 1px solid rgba(52, 211, 153, 0.5); color: #34d399;"><i class="fa-solid fa-check"></i> Active</span>`
+                    }
+                </td>
+                <td>
                     <div class="actions-cell">
                         <a href="${campaign.portalUrl}" target="_blank" class="action-icon-btn" title="View Portal">
                             <i class="fa-solid fa-eye"></i>
@@ -559,6 +583,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         <a href="${campaign.flyerUrl}" target="_blank" class="action-icon-btn" title="View & Print Asset">
                             <i class="fa-solid fa-print"></i>
                         </a>
+                        <button class="action-icon-btn btn-status-toggle" data-id="${campaign.id}" title="Toggle Billing Status">
+                            <i class="fa-solid fa-power-off"></i>
+                        </button>
                         <button class="action-icon-btn btn-delete" data-id="${campaign.id}" title="Delete Campaign">
                             <i class="fa-solid fa-trash-can"></i>
                         </button>
@@ -600,6 +627,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 deleteCampaign(id);
             });
         });
+
+        // Add Event Listener for Toggle Status Override
+        const statusBtns = campaignListBody.querySelectorAll('.btn-status-toggle');
+        statusBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = btn.getAttribute('data-id');
+                toggleCampaignStatus(id);
+            });
+        });
+    }
+
+    function toggleCampaignStatus(id) {
+        let campaigns = JSON.parse(localStorage.getItem('repushield_campaigns')) || [];
+        const index = campaigns.findIndex(c => c.id === id);
+        if (index > -1) {
+            const currentStatus = campaigns[index].status || 'active';
+            if (currentStatus === 'active') {
+                campaigns[index].status = 'grace';
+            } else if (currentStatus === 'grace') {
+                campaigns[index].status = 'suspended';
+            } else {
+                campaigns[index].status = 'active';
+            }
+            localStorage.setItem('repushield_campaigns', JSON.stringify(campaigns));
+            renderCampaignsList();
+        }
     }
 
     function deleteCampaign(id) {

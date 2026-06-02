@@ -1,42 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MetrixMedia – Refund Policy</title>
-  <link rel="stylesheet" href="generator.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refund Policy - MetrixMedia Agency</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="generator.css">
+    <style>
+        body { background-color: var(--bg-dark); }
+        .page-header {
+            padding: 4rem 2rem 2rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #ffffff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .content-section {
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto 5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            box-shadow: var(--shadow-premium);
+            backdrop-filter: blur(var(--blur-strength));
+        }
+        .content-section h3 {
+            color: white;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+        .content-section p, .content-section ul {
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+        .content-section ul {
+            padding-left: 1.5rem;
+        }
+        .content-section li {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Navbar & Footer (Shared) */
+        .navbar {
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .navbar .brand { display: flex; align-items: center; gap: 1rem; text-decoration: none; }
+        .navbar .brand-icon { width: 40px; height: 40px; margin: 0; }
+        .navbar .brand-text h1 { margin: 0; }
+        
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 3rem 2rem;
+            text-align: center;
+            color: var(--text-muted);
+        }
+        footer a { color: var(--primary); text-decoration: none; margin: 0 1rem; transition: var(--transition-smooth); }
+        footer a:hover { color: white; }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>MetrixMedia – Refund Policy</h1>
-  </header>
-  <section>
-    <p>Last updated: May 27, 2026</p>
-    <h2>1. Overview</h2>
-    <p>MetrixMedia provides digital tools and services to help businesses gather and manage customer reviews. Because our offerings are primarily SaaS‑based and delivered instantly, refunds are limited to exceptional circumstances.</p>
-    <h2>2. Eligibility for Refunds</h2>
-    <ul>
-      <li>Service not delivered due to a critical technical failure on our side within 48 hours of purchase.</li>
-      <li>Duplicate payment or billing error confirmed by the payment processor.</li>
-    </ul>
-    <h2>3. Refund Process</h2>
-    <ol>
-      <li>Contact support at <a href="mailto:support@metrixmedia.com">support@metrixmedia.com</a> within 7 days of the transaction.</li>
-      <li>Provide the order ID, payment receipt, and a brief description of the issue.</li>
-      <li>Our team will review the request and respond within 3 business days.</li>
-      <li>If approved, the refund will be issued to the original payment method within 5‑10 business days.</li>
-    </ol>
-    <h2>4. Non‑Refundable Items</h2>
-    <p>Custom integration work, one‑off consulting hours, and any usage‑based fees incurred prior to the refund request are non‑refundable.</p>
-    <h2>5. Changes to This Policy</h2>
-<p>We may update this Refund Policy from time to time. The latest version will be posted on this page with an updated date.</p>
-<h2>6. Governing Law & Dispute Resolution</h2>
-<p>These terms are governed by the laws of India. Any dispute shall be resolved through binding arbitration in Bengaluru, India.</p>
-<h2>7. Contact</h2>
-<p>For questions regarding refunds, please contact <a href="mailto:support@metrixmedia.com">support@metrixmedia.com</a>.</p>
-  </section>
-  <footer>
-    <p>&copy; 2026 MetrixMedia. All rights reserved.</p>
-  </footer>
+    <div class="glow-bg-1"></div>
+
+    <nav class="navbar">
+        <a href="/" class="brand">
+            <div class="brand-icon">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <div class="brand-text">
+                <h1>MetrixMedia</h1>
+                <span>Digital Agency</span>
+            </div>
+        </a>
+    </nav>
+
+    <div class="page-header">
+        <h1>Refund Policy</h1>
+        <p style="color: var(--text-muted);">Last Updated: June 02, 2026</p>
+    </div>
+
+    <section class="content-section">
+        <p>At MetrixMedia, we strive to deliver premium digital marketing services that drive growth. Because our services involve digital setups and recurring labor, our refund terms are outlined as follows:</p>
+        
+        <h3>1. One-Time Setup Fees</h3>
+        <ul>
+            <li>Any one-time fees paid for custom website development, graphic designs, initial SEO setups, or printable asset creations are non-refundable once design and development work has commenced.</li>
+            <li>If you cancel a setup request <em>before</em> our team starts working on your assets, you are eligible for a 100% refund.</li>
+        </ul>
+
+        <h3>2. Monthly Subscription Services</h3>
+        <ul>
+            <li><strong>No Pro-Rata Refunds:</strong> Monthly subscription payments for active campaigns (including review portals, serverless hosting, and daily reporting) are billed in advance. We do not offer partial or pro-rata refunds for mid-month cancellations.</li>
+            <li><strong>Cancellation Policy:</strong> You can cancel your subscription at any time through your client billing link or by contacting us directly. Once cancelled, your service will remain active until the end of your current paid billing cycle, and you will not be charged again.</li>
+        </ul>
+
+        <h3>3. Non-Payment & Grace Period</h3>
+        <ul>
+            <li>If a payment fails on your monthly renewal date, you will receive notifications to clear the balance.</li>
+            <li>No fees are refunded or discounted for days during which your campaigns were suspended due to overdue invoices. Access will be instantly restored once the payment is cleared through Cashfree.</li>
+        </ul>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 MetrixMedia Agency. All rights reserved.</p>
+        <p style="margin-top: 1.5rem; display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem;">
+            <a href="/terms.html">Terms of Service</a>
+            <a href="/privacy.html">Privacy Policy</a>
+            <a href="/refund.html">Refund Policy</a>
+            <a href="/admin.html">Admin Login</a>
+        </p>
+        <p style="margin-top: 1.5rem; color: var(--text-muted); font-size: 0.9rem;">Contact: info@metrixmedia.agency</p>
+    </footer>
 </body>
 </html>

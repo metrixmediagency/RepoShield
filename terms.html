@@ -1,40 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MetrixMedia – Terms & Conditions</title>
-  <link rel="stylesheet" href="generator.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - MetrixMedia Agency</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="generator.css">
+    <style>
+        body { background-color: var(--bg-dark); }
+        .page-header {
+            padding: 4rem 2rem 2rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #ffffff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .content-section {
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto 5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            box-shadow: var(--shadow-premium);
+            backdrop-filter: blur(var(--blur-strength));
+        }
+        .content-section h3 {
+            color: white;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+        .content-section p, .content-section ul {
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+        .content-section ul {
+            padding-left: 1.5rem;
+        }
+        .content-section li {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Navbar & Footer (Shared) */
+        .navbar {
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .navbar .brand { display: flex; align-items: center; gap: 1rem; text-decoration: none; }
+        .navbar .brand-icon { width: 40px; height: 40px; margin: 0; }
+        .navbar .brand-text h1 { margin: 0; }
+        
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 3rem 2rem;
+            text-align: center;
+            color: var(--text-muted);
+        }
+        footer a { color: var(--primary); text-decoration: none; margin: 0 1rem; transition: var(--transition-smooth); }
+        footer a:hover { color: white; }
+    </style>
 </head>
 <body>
-  <header><h1>MetrixMedia – Terms & Conditions</h1></header>
-  <section>
-    <p>Last updated: May 27, 2026</p>
-    <h2>1. Acceptance of Terms</h2>
-    <p>By accessing or using the MetrixMedia platform you agree to be bound by these Terms and Conditions.</p>
-    <h2>2. Use of Service</h2>
-    <p>MetrixMedia provides tools for generating review‑gating portals and QR standees. You may not misuse the service for illegal activities or to manipulate reviews in violation of Google policies.</p>
-    <h2>3. Account Registration</h2>
-    <p>You must provide accurate information when creating an account. You are responsible for all activity under your account and must keep your password confidential.</p>
-    <h2>4. Payments & Refunds</h2>
-    <p>All fees are payable in advance via the payment methods supported in the Billing tab. Refunds are only provided in accordance with our Refund Policy.</p>
-    <h2>5. Intellectual Property</h2>
-    <p>All code, designs, and branding belonging to MetrixMedia remain the exclusive property of MetrixMedia unless expressly licensed.</p>
-    <h2>6. Limitation of Liability</h2>
-    <p>MetrixMedia is not liable for any indirect, consequential, or punitive damages arising from the use of the service.</p>
-    <h2>7. Indemnification</h2>
-    <p>You agree to indemnify and hold harmless MetrixMedia and its affiliates from any claims, losses, or damages arising out of your use of the service.</p>
-    <h2>8. Termination</h2>
-    <p>We may suspend or terminate your access at any time for breach of these terms or for any reason with thirty (30) days notice.</p>
-    <h2>9. Governing Law & Dispute Resolution</h2>
-    <p>These terms are governed by the laws of India. Any dispute shall be resolved through binding arbitration in Bengaluru, India.</p>
-    <h2>10. Changes to Terms</h2>
-    <p>We reserve the right to modify these Terms at any time. The latest version will be posted on this page with an updated date.</p>
-    <h2>11. Contact</h2>
-    <p>For any questions regarding these Terms, please contact <a href="mailto:legal@metrixmedia.com">legal@metrixmedia.com</a>.</p>
-  </section>
-  <footer>
-    <p>&copy; 2026 MetrixMedia. All rights reserved.</p>
-  </footer>
+    <div class="glow-bg-1"></div>
+
+    <nav class="navbar">
+        <a href="/" class="brand">
+            <div class="brand-icon">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <div class="brand-text">
+                <h1>MetrixMedia</h1>
+                <span>Digital Agency</span>
+            </div>
+        </a>
+    </nav>
+
+    <div class="page-header">
+        <h1>Terms of Service</h1>
+        <p style="color: var(--text-muted);">Last Updated: June 02, 2026</p>
+    </div>
+
+    <section class="content-section">
+        <p>Welcome to MetrixMedia. These Terms of Service ("Terms") govern your use of the website, software tools, marketing campaigns, and digital services (collectively, the "Services") provided by MetrixMedia ("Agency", "we", "us", or "our"). By accessing or using our Services, you agree to be bound by these Terms.</p>
+        
+        <h3>1. Services & Subscriptions</h3>
+        <ul>
+            <li><strong>Scope of Services:</strong> MetrixMedia provides digital marketing services, including but not limited to Online Reputation Engineering, GMB/Local SEO optimization, Custom Web Development, Paid Advertising, and Social Media Marketing.</li>
+            <li><strong>Subscription Model:</strong> Certain Services are billed on a recurring monthly subscription basis. Active subscriptions grant you license to use generated assets (such as review gating portals, print assets, and QR codes) for your registered business locations.</li>
+            <li><strong>Fair Use & Account Limits:</strong> Your subscription tier defines the limit on active campaigns, product listings, or GMB locations. Exceeding these limits requires upgrading your subscription tier.</li>
+        </ul>
+
+        <h3>2. Payments & Billing</h3>
+        <ul>
+            <li><strong>Payment Processing:</strong> All payments are securely processed through Cashfree, our third-party payment gateway. By initiating a subscription, you authorize automatic recurring billing on your designated monthly due date.</li>
+            <li><strong>Late Payments & Grace Period:</strong> If a monthly payment fails, you will enter a <strong>3-day grace period</strong>. During this period, your campaigns and services will remain active.</li>
+            <li><strong>Suspension:</strong> If payments are not cleared by the end of the 3-day grace period, all active portals, campaign links, and digital marketing services will be automatically suspended or put on hold until full payment is received.</li>
+        </ul>
+
+        <h3>3. Client Responsibilities</h3>
+        <ul>
+            <li>You are solely responsible for the links, logos, descriptions, and business information you provide for your campaigns.</li>
+            <li>You agree not to use our Services for any fraudulent, deceptive, or malicious marketing practices.</li>
+            <li><strong>Platform Compliance:</strong> While our reputation gating system is designed to route customer feedback organically, you acknowledge that you are responsible for complying with the guidelines of third-party platforms (like Google Maps, Amazon, Swiggy, or Zomato) regarding customer reviews.</li>
+        </ul>
+
+        <h3>4. Limitation of Liability</h3>
+        <p>MetrixMedia is not responsible for any search ranking changes, account suspensions, or loss of revenue resulting from third-party platform algorithm updates or review policy modifications. Our total liability under these Terms will not exceed the amount paid by you in the single month preceding the event giving rise to liability.</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 MetrixMedia Agency. All rights reserved.</p>
+        <p style="margin-top: 1.5rem; display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem;">
+            <a href="/terms.html">Terms of Service</a>
+            <a href="/privacy.html">Privacy Policy</a>
+            <a href="/refund.html">Refund Policy</a>
+            <a href="/admin.html">Admin Login</a>
+        </p>
+        <p style="margin-top: 1.5rem; color: var(--text-muted); font-size: 0.9rem;">Contact: info@metrixmedia.agency</p>
+    </footer>
 </body>
 </html>
