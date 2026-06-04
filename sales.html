@@ -609,9 +609,11 @@ MetrixMedia Digital</span>
 
             <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 2rem;">Scan the secure UPI QR code above to pay instantly on the spot.</p>
 
-            <div style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 1.5rem;">
-                <!-- Simulated successful payment webhook callback for demo testing -->
-                <button type="button" class="btn btn-primary" id="btn-simulate-success" style="width: 100%; justify-content: center; background: #3399cc; border-color: #3399cc;">
+            <div style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
+                <button type="button" class="btn btn-primary" id="btn-real-pay" style="width: 100%; justify-content: center; background: #3399cc; border-color: #3399cc;">
+                    Pay via Razorpay Gateway <i class="fa-solid fa-credit-card" style="margin-left: 0.5rem;"></i>
+                </button>
+                <button type="button" class="btn btn-primary" id="btn-simulate-success" style="width: 100%; justify-content: center; background: rgba(52, 211, 153, 0.15); border-color: rgba(52, 211, 153, 0.3); color: #34d399;">
                     Simulate Payment Success <i class="fa-solid fa-circle-check" style="margin-left: 0.5rem;"></i>
                 </button>
             </div>
@@ -625,6 +627,8 @@ MetrixMedia Digital</span>
     </div>
 
     <!-- Scripts -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="razorpay_config.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Check auth state from memory
@@ -804,6 +808,46 @@ MetrixMedia Digital</span>
                 qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(cleanUpiString)}`;
 
                 rzpModal.style.display = 'flex';
+            });
+
+            // Trigger Real Razorpay Payment
+            document.getElementById('btn-real-pay').addEventListener('click', () => {
+                if (!currentOnboardingCampaign) return;
+                
+                const planValue = document.getElementById('onboard-biz-plan').value;
+                const plan = getPlanDetails(planValue);
+                const options = {
+                    key: window.RAZORPAY_KEY_ID || 'rzp_test_YourKeyIdHere',
+                    amount: plan.total * 100, // in paisa
+                    currency: 'INR',
+                    name: 'MetrixMedia Digital',
+                    description: `${plan.name} Setup + Month 1`,
+                    prefill: {
+                        email: currentOnboardingCampaign.email
+                    },
+                    handler: function (response) {
+                        // Payment Successful! Save campaign as active
+                        let campaigns = JSON.parse(localStorage.getItem('repushield_campaigns')) || [];
+                        currentOnboardingCampaign.status = 'active';
+                        campaigns.unshift(currentOnboardingCampaign);
+                        localStorage.setItem('repushield_campaigns', JSON.stringify(campaigns));
+
+                        onboardForm.reset();
+                        rzpModal.style.display = 'none';
+                        showToastNotification('Payment captured! Campaign is now Active.');
+
+                        setTimeout(() => {
+                            const pipelineTab = document.querySelector('[data-tab="pipeline"]');
+                            if (pipelineTab) pipelineTab.click();
+                        }, 1000);
+                    },
+                    theme: {
+                        color: '#3b82f6'
+                    }
+                };
+                
+                const rzp = new Razorpay(options);
+                rzp.open();
             });
 
             // Simulate successful payment webhook callback
