@@ -773,7 +773,9 @@ MetrixMedia Digital</span>
 
             // Action B: Launch & Request Payment
             let currentOnboardingCampaign = null;
-            onboardForm.addEventListener('submit', (e) => {
+            let currentSubscriptionId = null;
+
+            onboardForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 
                 const name = document.getElementById('onboard-biz-name').value.trim();
@@ -784,6 +786,8 @@ MetrixMedia Digital</span>
                 const planValue = document.getElementById('onboard-biz-plan').value;
 
                 const plan = getPlanDetails(planValue);
+
+                showToastNotification("Generating secure subscription mandate...");
 
                 // Prepare draft Campaign structure
                 currentOnboardingCampaign = {
@@ -802,32 +806,54 @@ MetrixMedia Digital</span>
                     createdAt: new Date().toLocaleDateString()
                 };
 
-                // Display Razorpay details
-                document.getElementById('rzp-amount-display').textContent = `₹${plan.total}`;
-                
-                // Dynamically update QR code with correct UPI payment URL
-                const qrImg = document.getElementById('rzp-qr-container').querySelector('img');
-                const cleanUpiString = `upi://pay?pa=metrixmedia@pay&am=${plan.total}&cu=INR&tn=MetrixMedia%20${encodeURIComponent(name)}`;
-                qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(cleanUpiString)}`;
+                let activePlanId = window.DEFAULT_PLAN_ID; // plan_SxXGPbmJTScjA5
 
-                rzpModal.style.display = 'flex';
+                try {
+                    const response = await fetch('/api/create-subscription', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            planId: activePlanId,
+                            setupFee: plan.setup,
+                            businessName: name,
+                            customerEmail: email
+                        })
+                    });
+
+                    const data = await response.json();
+                    
+                    if (data.error) {
+                        alert(`Error creating Razorpay Subscription: ${data.error}`);
+                        return;
+                    }
+
+                    currentSubscriptionId = data.subscriptionId;
+
+                    // Display Razorpay details
+                    document.getElementById('rzp-amount-display').textContent = `₹${plan.total}`;
+                    
+                    // Dynamically update QR code with correct UPI payment URL
+                    const qrImg = document.getElementById('rzp-qr-container').querySelector('img');
+                    qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(data.shortUrl || '')}`;
+
+                    rzpModal.style.display = 'flex';
+                } catch (err) {
+                    console.error("Subscription Generation Error:", err);
+                    alert("Failed to connect to Razorpay to generate auto-pay subscription. Please check your Netlify environment variables.");
+                }
             });
 
             // Trigger Real Razorpay Payment
             document.getElementById('btn-real-pay').addEventListener('click', () => {
-                if (!currentOnboardingCampaign) return;
+                if (!currentOnboardingCampaign || !currentSubscriptionId) return;
                 
-                const planValue = document.getElementById('onboard-biz-plan').value;
-                const plan = getPlanDetails(planValue);
                 const options = {
                     key: window.RAZORPAY_KEY_ID || 'rzp_test_YourKeyIdHere',
-                    amount: plan.total * 100, // in paisa
-                    currency: 'INR',
+                    subscription_id: currentSubscriptionId,
                     name: 'MetrixMedia Digital',
-                    description: `${plan.name} Setup + Month 1`,
-                    prefill: {
-                        email: currentOnboardingCampaign.email
-                    },
+                    description: `${currentOnboardingCampaign.plan} Auto-Pay Mandate`,
                     handler: function (response) {
                         // Payment Successful! Save campaign as active
                         let campaigns = JSON.parse(localStorage.getItem('repushield_campaigns')) || [];
@@ -837,7 +863,7 @@ MetrixMedia Digital</span>
 
                         onboardForm.reset();
                         rzpModal.style.display = 'none';
-                        showToastNotification('Payment captured! Campaign is now Active.');
+                        showToastNotification('Auto-pay subscription activated!');
 
                         setTimeout(() => {
                             const pipelineTab = document.querySelector('[data-tab="pipeline"]');
