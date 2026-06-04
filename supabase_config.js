@@ -1,7 +1,7 @@
 // Supabase Client Initialization Configuration
 // Replace these with your actual Supabase URL and Anon Key from the Supabase dashboard settings.
-window.SUPABASE_URL = "https://your-project.supabase.co"; 
-window.SUPABASE_ANON_KEY = "your-anon-key";
+window.SUPABASE_URL = "https://emxhibjyofqqvuwtdevo.supabase.co"; 
+window.SUPABASE_ANON_KEY = "sb_publishable_b9x83p-5jrIoFJnYYGMWFg_zBKv8JHC";
 
 // Initialize Supabase Client if configured
 let supabaseClient = null;
