@@ -83,6 +83,10 @@ document.addEventListener('DOMContentLoaded', () => {
         clients: {
             title: 'Client Management CRM',
             subtitle: 'Manage your clients, their active campaigns, and billing statuses.'
+        },
+        agents: {
+            title: 'Sales Partner Dashboard',
+            subtitle: 'Manage your freelance sales network, register new agents, and approve commission payouts.'
         }
     };
 
@@ -899,12 +903,203 @@ if (clientForm) {
 // Update tab navigation to handle clients rendering
 navItems.forEach(item => {
     item.addEventListener('click', (e) => {
-        // existing logic ...
         const tabId = item.getAttribute('data-tab');
         if (tabId === 'clients') {
             renderClientsTable();
+        } else if (tabId === 'agents') {
+            renderAgentsTable();
+            renderPayoutsTable();
         }
     });
 });
+
+// ----------------------------------------------------
+// Sales Partner & Payouts Management Logic (Admin Panel)
+// ----------------------------------------------------
+const agentsKey = 'repushield_agents';
+let agents = JSON.parse(localStorage.getItem(agentsKey)) || [];
+
+function saveAgents() {
+    localStorage.setItem(agentsKey, JSON.stringify(agents));
+}
+
+function renderAgentsTable() {
+    const container = document.getElementById('agents-table-container');
+    if (!container) return;
+    if (agents.length === 0) {
+        container.innerHTML = `<p class="empty-state">No sales partners added yet. Click "Add Sales Partner" to register one.</p>`;
+        return;
+    }
+    const table = document.createElement('table');
+    table.className = 'clients-table';
+    const thead = document.createElement('thead');
+    thead.innerHTML = `<tr>
+        <th>Name</th><th>User ID</th><th>Password</th><th>UPI ID</th><th>Actions</th>
+    </tr>`;
+    const tbody = document.createElement('tbody');
+    agents.forEach(agent => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${agent.name}</td>
+            <td><code>${agent.username}</code></td>
+            <td><code>${agent.password}</code></td>
+            <td><code>${agent.upi}</code></td>
+            <td class="client-actions">
+                <button class="btn btn-primary btn-sm edit-agent" data-id="${agent.id}">Edit</button>
+                <button class="btn btn-primary btn-sm delete-agent" data-id="${agent.id}">Delete</button>
+            </td>`;
+        tbody.appendChild(tr);
+    });
+    table.appendChild(thead);
+    table.appendChild(tbody);
+    container.innerHTML = '';
+    container.appendChild(table);
+
+    // Attach listeners
+    container.querySelectorAll('.edit-agent').forEach(btn => {
+        btn.addEventListener('click', () => openAgentModal(btn.getAttribute('data-id')));
+    });
+    container.querySelectorAll('.delete-agent').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const id = btn.getAttribute('data-id');
+            if (confirm('Delete this sales partner?')) {
+                agents = agents.filter(a => a.id !== id);
+                saveAgents();
+                renderAgentsTable();
+                showToast('Sales partner deleted.');
+            }
+        });
+    });
+}
+
+function renderPayoutsTable() {
+    const tbody = document.getElementById('admin-payouts-body');
+    if (!tbody) return;
+    
+    // We scan campaigns for referredBy tag
+    const campaignsList = JSON.parse(localStorage.getItem('repushield_campaigns')) || [];
+    const referralCampaigns = campaignsList.filter(c => c.referredBy);
+    
+    if (referralCampaigns.length === 0) {
+        tbody.innerHTML = `<tr>
+            <td colspan="6" class="empty-state">
+                <i class="fa-solid fa-receipt"></i>
+                <p>No commissions logged yet.</p>
+            </td>
+        </tr>`;
+        return;
+    }
+    
+    tbody.innerHTML = '';
+    referralCampaigns.forEach(campaign => {
+        const agent = agents.find(a => a.username === campaign.referredBy) || { name: campaign.referredBy, upi: 'Not Found' };
+        
+        // Setup commission status
+        const isPaid = campaign.commissionStatus === 'paid';
+        const statusBadge = isPaid 
+            ? `<span class="badge" style="background: rgba(52, 211, 153, 0.2); border: 1px solid rgba(52, 211, 153, 0.5); color: #34d399;"><i class="fa-solid fa-check-double"></i> Paid</span>`
+            : `<span class="badge" style="background: rgba(251, 191, 36, 0.2); border: 1px solid rgba(251, 191, 36, 0.5); color: #fbbf24;"><i class="fa-solid fa-hourglass-half"></i> Pending</span>`;
+            
+        const actionBtn = isPaid 
+            ? `<button class="btn btn-primary btn-sm" disabled style="opacity: 0.5;">Cleared</button>`
+            : `<button class="btn btn-primary btn-sm clear-payout-btn" data-id="${campaign.id}">Clear Payout</button>`;
+            
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td><strong>${campaign.name}</strong></td>
+            <td>${agent.name} (<code>${campaign.referredBy}</code>)</td>
+            <td>₹1,000</td>
+            <td><code>${agent.upi}</code></td>
+            <td>${statusBadge}</td>
+            <td>${actionBtn}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+    
+    // Attach listener for clear payout
+    tbody.querySelectorAll('.clear-payout-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const campaignId = btn.getAttribute('data-id');
+            const campaignsList = JSON.parse(localStorage.getItem('repushield_campaigns')) || [];
+            const idx = campaignsList.findIndex(c => c.id === campaignId);
+            if (idx !== -1) {
+                campaignsList[idx].commissionStatus = 'paid';
+                localStorage.setItem('repushield_campaigns', JSON.stringify(campaignsList));
+                renderPayoutsTable();
+                showToast('Commission payout cleared.');
+            }
+        });
+    });
+}
+
+// Modal handling for Agent
+const agentModal = document.getElementById('agent-modal');
+const agentModalClose = document.getElementById('agent-modal-close');
+const agentForm = document.getElementById('agent-form');
+let editingAgentId = null;
+
+function openAgentModal(id) {
+    editingAgentId = id || null;
+    if (editingAgentId) {
+        const agent = agents.find(a => a.id === editingAgentId);
+        document.getElementById('agent-modal-title').textContent = 'Edit Sales Partner';
+        agentForm['agent-name'].value = agent.name;
+        agentForm['agent-username'].value = agent.username;
+        agentForm['agent-username'].disabled = true; // username shouldn't be changed
+        agentForm['agent-password'].value = agent.password;
+        agentForm['agent-upi'].value = agent.upi;
+    } else {
+        document.getElementById('agent-modal-title').textContent = 'Add Sales Partner';
+        agentForm.reset();
+        agentForm['agent-username'].disabled = false;
+    }
+    agentModal.style.display = 'flex';
+}
+
+if (agentModalClose) {
+    agentModalClose.addEventListener('click', () => {
+        agentModal.style.display = 'none';
+    });
+}
+
+const addAgentBtn = document.getElementById('add-agent-btn');
+if (addAgentBtn) {
+    addAgentBtn.addEventListener('click', () => openAgentModal());
+}
+
+if (agentForm) {
+    agentForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = agentForm['agent-name'].value.trim();
+        const username = agentForm['agent-username'].value.trim().toLowerCase();
+        const password = agentForm['agent-password'].value.trim();
+        const upi = agentForm['agent-upi'].value.trim();
+        
+        if (editingAgentId) {
+            const agent = agents.find(a => a.id === editingAgentId);
+            agent.name = name;
+            agent.password = password;
+            agent.upi = upi;
+        } else {
+            // Check for duplicate username
+            if (agents.some(a => a.username === username)) {
+                alert('Username already exists. Please choose a different User ID.');
+                return;
+            }
+            const newAgent = {
+                id: Date.now().toString(),
+                name,
+                username,
+                password,
+                upi,
+                createdAt: new Date().toLocaleDateString()
+            };
+            agents.unshift(newAgent);
+        }
+        saveAgents();
+        renderAgentsTable();
+        agentModal.style.display = 'none';
+        showToast(editingAgentId ? 'Sales partner updated.' : 'Sales partner added.');
+    });
+}
 
 });

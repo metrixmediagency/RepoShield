@@ -86,9 +86,12 @@
                 <a href="#" class="nav-item" data-tab="clients">
                     <i class="fa-solid fa-users"></i> Clients
                 </a>
+                <a href="#" class="nav-item" data-tab="agents">
+                    <i class="fa-solid fa-user-tie"></i> Sales Partners
+                </a>
                 <a href="terms.html" class="nav-item"><i class="fa-solid fa-file-contract"></i> Terms</a>
-<a href="refund.html" class="nav-item"><i class="fa-solid fa-hand-holding-usd"></i> Refund</a>
-<a href="privacy.html" class="nav-item"><i class="fa-solid fa-user-shield"></i> Privacy</a>
+                <a href="refund.html" class="nav-item"><i class="fa-solid fa-hand-holding-usd"></i> Refund</a>
+                <a href="privacy.html" class="nav-item"><i class="fa-solid fa-user-shield"></i> Privacy</a>
             </nav>
 
             <div class="partner-card">
@@ -458,6 +461,72 @@ MetrixMedia Digital</pre>
                             <div class="input-group"><label for="client-description">Description (optional)</label><input type="text" id="client-description"></div>
                             <button type="submit" class="btn btn-primary" id="client-save-btn">Save</button>
                         </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab 6: Sales Partners -->
+            <section id="tab-agents-content" class="tab-content">
+                <div class="glass-card">
+                    <div class="card-header">
+                        <h3>Sales Partners</h3>
+                        <button id="add-agent-btn" class="btn btn-primary">Add Sales Partner</button>
+                    </div>
+                    <div id="agents-table-container" class="agents-table-container"></div>
+                </div>
+
+                <!-- Modal for Add/Edit Agent -->
+                <div id="agent-modal" class="modal" style="display:none;">
+                    <div class="modal-content">
+                        <span class="modal-close" id="agent-modal-close">&times;</span>
+                        <h3 id="agent-modal-title">Add Sales Partner</h3>
+                        <form id="agent-form">
+                            <div class="input-group">
+                                <label for="agent-name">Name</label>
+                                <input type="text" id="agent-name" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="agent-username">User ID / Username</label>
+                                <input type="text" id="agent-username" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="agent-password">Password</label>
+                                <input type="password" id="agent-password" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="agent-upi">UPI ID</label>
+                                <input type="text" id="agent-upi" placeholder="e.g. agent@upi" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary" id="agent-save-btn">Save Partner</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Commission pipeline log for Admin review -->
+                <div class="glass-card" style="margin-top: 2rem;">
+                    <h3>Sales Pipeline Payouts</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Review and clear pending commissions for closed sales.</p>
+                    <div class="table-container">
+                        <table class="campaigns-table">
+                            <thead>
+                                <tr>
+                                    <th>Client Business</th>
+                                    <th>Sales Partner</th>
+                                    <th>Commission Due</th>
+                                    <th>UPI ID</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-payouts-body">
+                                <tr>
+                                    <td colspan="6" class="empty-state">
+                                        <i class="fa-solid fa-receipt"></i>
+                                        <p>No commissions logged yet.</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </section>

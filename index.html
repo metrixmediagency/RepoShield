@@ -117,6 +117,118 @@
             .hero h1 { font-size: 2.5rem; }
             .navbar { padding: 1rem 1.5rem; }
         }
+
+        /* Pricing CSS Styles */
+        .pricing-section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        .pricing-card {
+            padding: 3rem 2rem;
+            text-align: left;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            transition: var(--transition-smooth);
+        }
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 15px 30px rgba(59, 130, 246, 0.15);
+        }
+        .pricing-card.featured {
+            border: 2px solid var(--primary);
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+        }
+        .badge-featured {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .pricing-header h3 {
+            font-size: 1.75rem;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+        .pricing-price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: white;
+            margin: 1.5rem 0 0.5rem;
+            display: flex;
+            align-items: baseline;
+        }
+        .pricing-price span {
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-left: 0.25rem;
+        }
+        .setup-fee {
+            font-size: 0.9rem;
+            color: var(--accent-emerald);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+        .pricing-features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 2rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            flex-grow: 1;
+        }
+        .pricing-features li {
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.95rem;
+        }
+        .pricing-features i {
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        .pricing-features i.fa-xmark {
+            color: var(--text-muted);
+        }
+        .pricing-sub-selector {
+            margin: 1rem 0;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .pricing-sub-selector select {
+            background: transparent;
+            border: none;
+            color: white;
+            font-weight: 600;
+            outline: none;
+            cursor: pointer;
+            width: 100%;
+            padding: 0.25rem;
+        }
     </style>
 </head>
 <body>
@@ -216,6 +328,99 @@
         </div>
     </section>
 
+    <!-- Pricing Section -->
+    <section class="section pricing-section" id="pricing">
+        <div class="section-header">
+            <h2>Clear, Simple Pricing Plans</h2>
+            <p style="color: var(--text-muted);">No hidden fees. Suspend or cancel anytime.</p>
+        </div>
+        
+        <div class="pricing-grid">
+            <!-- Local GMB Card -->
+            <div class="glass-card pricing-card">
+                <div>
+                    <div class="pricing-header">
+                        <h3>Local GMB Booster</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Ideal for local retail stores and salons.</p>
+                    </div>
+                    <div class="pricing-price">
+                        ₹999<span>/month</span>
+                    </div>
+                    <div class="setup-fee">
+                        + ₹1,999 setup fee (promo rate)
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fa-solid fa-circle-check"></i> 1 Counter QR standee design</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Private negative feedback gating</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Automated daily visitor logs</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Google Maps profile SEO audit</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Basic analytics dashboard</li>
+                    </ul>
+                </div>
+                <a href="#contact" class="btn btn-primary pricing-btn">Get Started</a>
+            </div>
+
+            <!-- E-Com Tiers Card -->
+            <div class="glass-card pricing-card featured">
+                <span class="badge-featured">Most Popular</span>
+                <div>
+                    <div class="pricing-header">
+                        <h3>D2C E-Com Suite</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Designed for D2C brands & Shopify sellers.</p>
+                    </div>
+                    
+                    <!-- Interactive Tier Selector -->
+                    <div class="pricing-sub-selector">
+                        <select id="ecom-tier-select" onchange="updateEcomPricing(this.value)">
+                            <option value="starter">Starter Plan (1 Product)</option>
+                            <option value="growth" selected>Growth Plan (Up to 5 Products)</option>
+                            <option value="enterprise">Enterprise Plan (Up to 15 Products)</option>
+                        </select>
+                    </div>
+
+                    <div class="pricing-price" id="ecom-price-display">
+                        ₹2,999<span>/month</span>
+                    </div>
+                    <div class="setup-fee">
+                        No Setup Fee (Fully Waived)
+                    </div>
+                    <ul class="pricing-features">
+                        <li id="ecom-feature-products"><i class="fa-solid fa-circle-check"></i> Up to 5 Active Product Portals</li>
+                        <li><i class="fa-solid fa-circle-check"></i> <strong>Dynamic Redirects</strong> (change URLs anytime)</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Instant email alerts for 1-3 star ratings</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Store theme color matching & brand logo</li>
+                        <li id="ecom-feature-domain"><i class="fa-solid fa-circle-check"></i> Shared metrixmedia.agency/portal subdomain</li>
+                    </ul>
+                </div>
+                <a href="#contact" class="btn btn-primary pricing-btn" style="background: white; color: var(--bg-dark);">Select Plan</a>
+            </div>
+
+            <!-- Food Delivery Card -->
+            <div class="glass-card pricing-card">
+                <div>
+                    <div class="pricing-header">
+                        <h3>Food Delivery Gater</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Tailored for cloud kitchens and restaurants.</p>
+                    </div>
+                    <div class="pricing-price">
+                        ₹1,499<span>/month</span>
+                    </div>
+                    <div class="setup-fee">
+                        + ₹2,499 setup fee
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fa-solid fa-circle-check"></i> Swiggy & Zomato gating portals</li>
+                        <li><i class="fa-solid fa-circle-check"></i> QR delivery packaging sticker designs</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Dine-in counter QR standee</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Manager SMS/Email alerts for bad reviews</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Monthly reputation performance reports</li>
+                    </ul>
+                </div>
+                <a href="#contact" class="btn btn-primary pricing-btn">Get Started</a>
+            </div>
+        </div>
+    </section>
+
     <section class="section">
         <div class="section-header">
             <h2>How It Works</h2>
@@ -289,9 +494,31 @@
             <a href="/terms.html">Terms of Service</a>
             <a href="/privacy.html">Privacy Policy</a>
             <a href="/refund.html">Refund Policy</a>
-            <a href="/admin.html">Admin Login</a>
+            <a href="/sales.html">Sales Partner Login</a>
         </p>
         <p style="margin-top: 1.5rem; color: var(--text-muted); font-size: 0.9rem;">Contact: info@metrixmedia.agency</p>
     </footer>
+
+    <script>
+        function updateEcomPricing(tier) {
+            const priceEl = document.getElementById('ecom-price-display');
+            const productsEl = document.getElementById('ecom-feature-products');
+            const domainEl = document.getElementById('ecom-feature-domain');
+            
+            if (tier === 'starter') {
+                priceEl.innerHTML = '₹999<span>/month</span>';
+                productsEl.innerHTML = '<i class="fa-solid fa-circle-check"></i> 1 Active Product Portal';
+                domainEl.innerHTML = '<i class="fa-solid fa-circle-check"></i> Shared metrixmedia.agency/portal subdomain';
+            } else if (tier === 'growth') {
+                priceEl.innerHTML = '₹2,999<span>/month</span>';
+                productsEl.innerHTML = '<i class="fa-solid fa-circle-check"></i> Up to 5 Active Product Portals';
+                domainEl.innerHTML = '<i class="fa-solid fa-circle-check"></i> Shared metrixmedia.agency/portal subdomain';
+            } else if (tier === 'enterprise') {
+                priceEl.innerHTML = '₹5,999<span>/month</span>';
+                productsEl.innerHTML = '<i class="fa-solid fa-circle-check"></i> Up to 15 Active Product Portals';
+                domainEl.innerHTML = '<i class="fa-solid fa-circle-check"></i> <strong>Dedicated Custom Domain</strong>';
+            }
+        }
+    </script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-// Netlify Function for handling Cashfree Webhooks
+// Netlify Function for handling Razorpay Webhooks
 exports.handler = async function(event, context) {
     if (event.httpMethod !== "POST") {
         return { statusCode: 405, body: "Method Not Allowed" };
@@ -8,14 +8,14 @@ exports.handler = async function(event, context) {
         const payload = JSON.parse(event.body);
         
         // Pseudo-code logic for the backend:
-        // 1. Verify Cashfree Webhook Signature
-        // 2. Extract order_id and payment_status
-        // 3. If payment_status === 'SUCCESS':
-        //    a. Find the subscription in Supabase by order_id/customer_id
+        // 1. Verify Razorpay Webhook Signature (using the webhook secret)
+        // 2. Extract event type (e.g., payment.captured or subscription.charged)
+        // 3. Update status in database:
+        //    a. Find the subscription in Supabase by client email/id or subscription_id
         //    b. Set status = 'active'
         //    c. Update next_renewal_date
         
-        console.log("Received Cashfree Webhook:", payload.order_id, payload.payment_status);
+        console.log("Received Razorpay Webhook Event:", payload.event);
 
         return {
             statusCode: 200,

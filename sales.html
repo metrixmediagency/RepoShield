@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Partner Portal - MetrixMedia</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="generator.css">
+    <link rel="stylesheet" href="portal.css">
+    <style>
+        body {
+            background-color: var(--bg-dark);
+            font-family: var(--font-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Login Screen Layout */
+        .login-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem;
+            position: relative;
+        }
+        .login-card {
+            width: 100%;
+            max-width: 450px;
+            padding: 3rem 2.5rem;
+            border-radius: 24px;
+            text-align: center;
+        }
+        .login-logo {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        /* Sales Dashboard Layout */
+        .sales-container {
+            display: none; /* Toggled on successful login */
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        .sales-header {
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            background: rgba(15, 23, 42, 0.4);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .sales-header .brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+        }
+        .agent-badge {
+            background: rgba(59, 130, 246, 0.15);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .sales-layout {
+            display: flex;
+            flex: 1;
+        }
+        .sales-sidebar {
+            width: 260px;
+            background: rgba(10, 12, 26, 0.7);
+            border-right: 1px solid var(--border-color);
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            backdrop-filter: blur(var(--blur-strength));
+        }
+        .sales-sidebar .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+        }
+        .sales-sidebar .nav-item:hover, 
+        .sales-sidebar .nav-item.active {
+            color: white;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .sales-sidebar .nav-item.active {
+            border-left: 3px solid var(--primary);
+            background: rgba(59, 130, 246, 0.1);
+        }
+        .sales-main {
+            flex: 1;
+            padding: 3rem;
+            overflow-y: auto;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+        .stat-card {
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        .stat-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 14px;
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        .stat-card.emerald .stat-icon {
+            background: rgba(52, 211, 153, 0.15);
+            color: var(--accent-emerald);
+        }
+        .stat-info h4 {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+        }
+        .stat-info p {
+            font-size: 1.85rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        /* Sales Playbook Kit card details */
+        .sales-kit-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        .script-box {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            border-radius: 12px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            color: #38bdf8;
+            margin-top: 1rem;
+            position: relative;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border-color);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-family: var(--font-body);
+            transition: var(--transition-smooth);
+        }
+        .copy-btn:hover {
+            background: var(--primary);
+        }
+
+        /* Demo Mockup View Styling */
+        .preview-flex {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+        .preview-box {
+            flex: 1;
+            min-width: 280px;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+        }
+        .preview-box i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        /* Simulated Razorpay Modal Styling */
+        .rzp-modal-content {
+            background: #111b2c;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 16px;
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 480px;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+        }
+        .rzp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        .rzp-logo {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #3399cc;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .rzp-amount {
+            font-size: 2rem;
+            font-weight: 800;
+            color: white;
+            margin: 1rem 0;
+        }
+        .rzp-qr {
+            width: 180px;
+            height: 180px;
+            background: white;
+            padding: 10px;
+            border-radius: 12px;
+            margin: 1.5rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .rzp-qr img {
+            width: 100%;
+            height: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .sales-layout {
+                flex-direction: column;
+            }
+            .sales-sidebar {
+                width: 100%;
+                flex-direction: row;
+                overflow-x: auto;
+                padding: 1rem;
+            }
+            .sales-main {
+                padding: 1.5rem;
+            }
+            .sales-header {
+                padding: 1rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="glow-bg-1"></div>
+    <div class="glow-bg-2"></div>
+
+    <!-- Screen 1: Agent Login Panel -->
+    <div class="login-container" id="login-screen">
+        <div class="glass-card login-card">
+            <div class="login-logo">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <h2>MetrixMedia</h2>
+            <p style="color: var(--text-muted); margin-bottom: 2rem;">Sales Partner Network</p>
+
+            <form id="agent-login-form">
+                <div class="input-group">
+                    <label style="text-align: left; display: block;">User ID / Username</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-user input-icon"></i>
+                        <input type="text" id="login-username" placeholder="e.g. rohit_sales" required autocomplete="username">
+                    </div>
+                </div>
+                <div class="input-group" style="margin-top: 1.25rem;">
+                    <label style="text-align: left; display: block;">Password</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-lock input-icon"></i>
+                        <input type="password" id="login-password" placeholder="••••••••" required autocomplete="current-password">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 2rem; justify-content: center;">
+                    Authenticate Dashboard <i class="fa-solid fa-right-to-bracket" style="margin-left: 0.5rem;"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Screen 2: Sales Dashboard -->
+    <div class="sales-container" id="dashboard-screen">
+        <!-- Dashboard Header -->
+        <header class="sales-header">
+            <a href="#" class="brand">
+                <div class="brand-icon" style="width: 35px; height: 35px;">
+                    <i class="fa-solid fa-shield-halved" style="font-size: 1.1rem;"></i>
+                </div>
+                <div class="brand-text">
+                    <h2 style="font-size: 1.2rem; margin: 0; color: white;">MetrixMedia</h2>
+                    <span style="font-size: 0.75rem;">Sales Portal</span>
+                </div>
+            </a>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <div class="agent-badge">
+                    <i class="fa-solid fa-user-tie"></i> <span id="agent-name-display">Agent Rohit</span>
+                </div>
+                <button class="btn btn-primary btn-sm" id="btn-logout" style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); color: #ef4444;">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </button>
+            </div>
+        </header>
+
+        <div class="sales-layout">
+            <!-- Sidebar Navigation -->
+            <aside class="sales-sidebar">
+                <a href="#" class="nav-item active" data-tab="earnings">
+                    <i class="fa-solid fa-wallet"></i> My Earnings
+                </a>
+                <a href="#" class="nav-item" data-tab="onboard">
+                    <i class="fa-solid fa-user-plus"></i> Onboard Client
+                </a>
+                <a href="#" class="nav-item" data-tab="pipeline">
+                    <i class="fa-solid fa-chart-line"></i> My Pipeline
+                </a>
+                <a href="#" class="nav-item" data-tab="kit">
+                    <i class="fa-solid fa-book-open"></i> Sales Enablement
+                </a>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main class="sales-main">
+                <!-- Section 1: Earnings -->
+                <section id="sec-earnings" class="sales-section-content">
+                    <h2 style="margin-bottom: 1.5rem; color: white;">My Earnings Overview</h2>
+                    <div class="stats-grid">
+                        <div class="glass-card stat-card">
+                            <div class="stat-icon"><i class="fa-solid fa-circle-check"></i></div>
+                            <div class="stat-info">
+                                <h4>Total Sales Closed</h4>
+                                <p id="stat-sales-count">0</p>
+                            </div>
+                        </div>
+                        <div class="glass-card stat-card">
+                            <div class="stat-icon"><i class="fa-solid fa-clock"></i></div>
+                            <div class="stat-info">
+                                <h4>Pending Commissions</h4>
+                                <p id="stat-pending-commission">₹0</p>
+                            </div>
+                        </div>
+                        <div class="glass-card stat-card emerald">
+                            <div class="stat-icon"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+                            <div class="stat-info">
+                                <h4>Paid Payouts</h4>
+                                <p id="stat-paid-commission">₹0</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3 style="margin-bottom: 1rem; color: white;">Payout History</h3>
+                        <div class="table-container">
+                            <table class="campaigns-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Amount</th>
+                                        <th>Method</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="payout-history-body">
+                                    <tr>
+                                        <td colspan="4" class="empty-state">
+                                            <i class="fa-solid fa-receipt"></i>
+                                            <p>No payout payouts cleared yet.</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Onboard Client Form -->
+                <section id="sec-onboard" class="sales-section-content" style="display: none;">
+                    <h2 style="margin-bottom: 1.5rem; color: white;">Onboard a New Client</h2>
+                    <div class="glass-card" style="max-width: 700px;">
+                        <form id="onboard-client-form">
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <label>Business Name</label>
+                                    <input type="text" id="onboard-biz-name" placeholder="e.g. Bandra Crust Café" required>
+                                </div>
+                                <div class="input-group">
+                                    <label>Business Category</label>
+                                    <select id="onboard-biz-category">
+                                        <option value="cafe">Café / Coffee Shop</option>
+                                        <option value="bakery">Bakery</option>
+                                        <option value="dental">Dental Clinic</option>
+                                        <option value="salon">Salon / Spa</option>
+                                        <option value="gym">Gym / Fitness Center</option>
+                                        <option value="other" selected>Other Storefront</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="input-row" style="margin-top: 1.25rem;">
+                                <div class="input-group">
+                                    <label>Client Email Address</label>
+                                    <input type="email" id="onboard-biz-email" placeholder="owner@business.com" required>
+                                </div>
+                                <div class="input-group">
+                                    <label>Brand Accent Color</label>
+                                    <div style="display: flex; gap: 0.5rem; align-items: center;">
+                                        <input type="color" id="onboard-biz-color" value="#3b82f6" style="padding:0; width:50px; height:45px; border-radius:8px; border:none; cursor:pointer;">
+                                        <span style="font-size: 0.9rem; color: var(--text-muted);">Matches their logo/theme</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-group" style="margin-top: 1.25rem;">
+                                <label>Target Google Maps / Review URL</label>
+                                <input type="url" id="onboard-biz-url" placeholder="https://g.page/r/..." required>
+                            </div>
+                            <div class="input-group" style="margin-top: 1.25rem;">
+                                <label>Service Tier & Billing Plan</label>
+                                <select id="onboard-biz-plan" required>
+                                    <option value="gmb">Local GMB Booster (₹1,999 setup + ₹999/mo)</option>
+                                    <option value="delivery">Food Delivery Gater (₹2,499 setup + ₹1,499/mo)</option>
+                                    <option value="ecom_starter">D2C E-Com Starter (₹999/mo - No Setup)</option>
+                                    <option value="ecom_growth">D2C E-Com Growth (₹2,999/mo - No Setup)</option>
+                                    <option value="ecom_enterprise">D2C E-Com Enterprise (₹5,999/mo - No Setup)</option>
+                                </select>
+                            </div>
+
+                            <div style="display: flex; gap: 1rem; margin-top: 2.5rem; flex-wrap: wrap;">
+                                <button type="button" class="btn btn-secondary" id="btn-generate-demo" style="flex: 1; justify-content: center;">
+                                    <i class="fa-solid fa-mobile-screen-button"></i> Generate Live Demo
+                                </button>
+                                <button type="submit" class="btn btn-primary" style="flex: 1; justify-content: center;">
+                                    <i class="fa-solid fa-credit-card"></i> Launch & Request Payment
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- Section 3: My Pipeline -->
+                <section id="sec-pipeline" class="sales-section-content" style="display: none;">
+                    <h2 style="margin-bottom: 1.5rem; color: white;">My Referrals Pipeline</h2>
+                    <div class="glass-card">
+                        <div class="table-container">
+                            <table class="campaigns-table">
+                                <thead>
+                                    <tr>
+                                        <th>Business Name</th>
+                                        <th>Billing Plan</th>
+                                        <th>Target Link</th>
+                                        <th>Payment Link</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="pipeline-list-body">
+                                    <tr>
+                                        <td colspan="5" class="empty-state">
+                                            <i class="fa-solid fa-folder-open"></i>
+                                            <p>No referrals in your pipeline yet. Start onboarding above!</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 4: Sales Kit -->
+                <section id="sec-kit" class="sales-section-content" style="display: none;">
+                    <h2 style="margin-bottom: 1.5rem; color: white;">Sales Enablement Kit</h2>
+                    
+                    <div class="sales-kit-grid">
+                        <div class="glass-card">
+                            <h3>1. The "Value-First" Cold outreach Script</h3>
+                            <p style="color: var(--text-muted); margin-bottom: 1rem;">Send this script via WhatsApp, IG Direct Message, or Email. Make sure to generate their Live Demo link first and attach it!</p>
+                            <div class="script-box">
+                                <button class="copy-btn" onclick="copyText('script-1')">Copy</button>
+                                <span id="script-1">Subject: Feedback issue on Google Maps for [Business Name]
+
+Hi [Owner Name],
+
+I was looking at places to visit in [Area] and noticed [Business Name] has a fantastic customer experience, but a few disgruntled 1-star ratings are dragging down your rating average on Google Maps. This is costing you new customers every day.
+
+To help, I designed a custom "Review Gater & Booster" card standee for you. 
+
+When customers scan it, it automatically sends 4/5-star happy reviews straight to Google, while negative feedback (1-3 stars) is sent privately to your mobile phone so you can fix the issue on the spot before it goes public.
+
+I’ve already generated your live demo. You can scan and test it on your phone here:
+👉 [Paste Live Demo URL Here]
+
+I'd love to activate this for your counter. Normally we charge Rs. 4,999, but I want to give it to you for a one-time setup fee of just Rs. 1,999 so you can experience it. 
+
+If you'd like to put this up at your counter today, just reply to this message, and I'll send over the print files.
+
+Best,
+[Your Name]
+MetrixMedia Digital</span>
+                            </div>
+                        </div>
+
+                        <div class="glass-card">
+                            <h3>2. Handling Common Objections</h3>
+                            <div style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 1.5rem;">
+                                <div>
+                                    <h4 style="color: white; margin-bottom: 0.5rem;"><i class="fa-solid fa-circle-question" style="color: var(--primary); margin-right: 0.5rem;"></i> Objection: "Is Google review gating allowed?"</h4>
+                                    <p style="color: var(--text-muted); line-height: 1.6;"><strong>Response:</strong> "Our portal simply asks for their initial rating to route customer experience. We are providing a private feedback channel for unsatisfied customers, which every excellent business has. Google encourages businesses to gather reviews, and our system ensures your happiest customers do so on the spot."</p>
+                                </div>
+                                <div style="border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
+                                    <h4 style="color: white; margin-bottom: 0.5rem;"><i class="fa-solid fa-circle-question" style="color: var(--primary); margin-right: 0.5rem;"></i> Objection: "Can I just print a QR code linking directly to Google Reviews?"</h4>
+                                    <p style="color: var(--text-muted); line-height: 1.6;"><strong>Response:</strong> "You can, but that is extremely risky. An angry customer can scan that and post a 1-star review on the spot. Our system gates that, routing angry customers to a private suggestion form, protecting your brand reputation."</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modal 1: Live Demo Mockup Preview -->
+    <div id="demo-modal" class="modal" style="display:none;">
+        <div class="modal-content" style="max-width: 650px;">
+            <span class="modal-close" id="demo-modal-close">&times;</span>
+            <h3 style="margin-bottom: 1.5rem; color: white;"><i class="fa-solid fa-mobile-screen"></i> Client Live Demo Preview</h3>
+            
+            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">
+                Show these links to the business owner. The Review Portal mimics exactly what their customers will see, and the flyer link shows their printable counter standee mockup.
+            </p>
+
+            <div class="preview-flex">
+                <div class="preview-box">
+                    <i class="fa-solid fa-window-restore"></i>
+                    <h4>Review Portal</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0.5rem 0 1.5rem;">Gating page for customers</p>
+                    <a href="#" id="preview-portal-link" target="_blank" class="btn btn-primary btn-sm" style="width: 100%; justify-content: center;">Open Portal</a>
+                </div>
+                <div class="preview-box">
+                    <i class="fa-solid fa-file-pdf"></i>
+                    <h4>QR Table Flyer</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0.5rem 0 1.5rem;">Printable standee design</p>
+                    <a href="#" id="preview-flyer-link" target="_blank" class="btn btn-primary btn-sm" style="width: 100%; justify-content: center;">Open Flyer</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2: Razorpay Payment Simulator -->
+    <div id="rzp-modal" class="modal" style="display:none;">
+        <div class="rzp-modal-content">
+            <div class="rzp-header">
+                <div class="rzp-logo">
+                    <i class="fa-solid fa-credit-card"></i> Razorpay Checkout
+                </div>
+                <span class="modal-close" id="rzp-modal-close" style="line-height: 1; margin: 0; color: white;">&times;</span>
+            </div>
+            
+            <p style="color: var(--text-muted); font-size: 0.9rem;">Payment requested by MetrixMedia Digital</p>
+            <div class="rzp-amount" id="rzp-amount-display">₹2,998</div>
+            
+            <div style="font-size: 0.85rem; padding: 0.5rem 1rem; background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.2); border-radius: 8px; color: #34d399; margin: 1rem 0;">
+                One-Time Setup Fee + Month 1 Subscription Combined
+            </div>
+
+            <!-- Simulated UPI QR Code -->
+            <div class="rzp-qr" id="rzp-qr-container">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=metrixmedia@pay&am=2998&cu=INR&tn=MetrixMedia%20Setup" alt="Payment QR Code">
+            </div>
+
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 2rem;">Scan the secure UPI QR code above to pay instantly on the spot.</p>
+
+            <div style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 1.5rem;">
+                <!-- Simulated successful payment webhook callback for demo testing -->
+                <button type="button" class="btn btn-primary" id="btn-simulate-success" style="width: 100%; justify-content: center; background: #3399cc; border-color: #3399cc;">
+                    Simulate Payment Success <i class="fa-solid fa-circle-check" style="margin-left: 0.5rem;"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <i class="fa-solid fa-circle-check"></i>
+        <span id="toast-message">Demo link copied to clipboard!</span>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check auth state from memory
+            let currentAgent = JSON.parse(sessionStorage.getItem('metrix_current_agent')) || null;
+            
+            const loginScreen = document.getElementById('login-screen');
+            const dashboardScreen = document.getElementById('dashboard-screen');
+            const loginForm = document.getElementById('agent-login-form');
+            const agentNameDisplay = document.getElementById('agent-name-display');
+
+            if (currentAgent) {
+                showDashboard();
+            }
+
+            // Authentication Handler
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const usernameInput = document.getElementById('login-username').value.trim().toLowerCase();
+                const passwordInput = document.getElementById('login-password').value.trim();
+
+                // Fetch registered agents from localStorage
+                const registeredAgents = JSON.parse(localStorage.getItem('repushield_agents')) || [];
+                
+                // Fallback default agent for testing if empty
+                if (registeredAgents.length === 0) {
+                    // Create default testing agent
+                    const defaultAgent = {
+                        name: 'Sales Partner (Demo)',
+                        username: 'agent_rohit',
+                        password: 'password123',
+                        upi: 'rohit@upi'
+                    };
+                    registeredAgents.push(defaultAgent);
+                    localStorage.setItem('repushield_agents', JSON.stringify(registeredAgents));
+                }
+
+                const matchedAgent = registeredAgents.find(a => a.username === usernameInput && a.password === passwordInput);
+
+                if (matchedAgent) {
+                    sessionStorage.setItem('metrix_current_agent', JSON.stringify(matchedAgent));
+                    currentAgent = matchedAgent;
+                    showDashboard();
+                } else {
+                    alert('Invalid User ID or Password. Please try again or contact support.');
+                }
+            });
+
+            function showDashboard() {
+                loginScreen.style.display = 'none';
+                dashboardScreen.style.display = 'flex';
+                agentNameDisplay.textContent = currentAgent.name;
+                renderEarnings();
+                renderPipeline();
+            }
+
+            // Logout
+            document.getElementById('btn-logout').addEventListener('click', () => {
+                sessionStorage.removeItem('metrix_current_agent');
+                location.reload();
+            });
+
+            // ----------------------------------------------------
+            // Tab Navigation inside Sales Portal
+            // ----------------------------------------------------
+            const navItems = document.querySelectorAll('.sales-sidebar .nav-item');
+            const sections = document.querySelectorAll('.sales-section-content');
+
+            navItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const tabId = item.getAttribute('data-tab');
+
+                    navItems.forEach(n => n.classList.remove('active'));
+                    sections.forEach(s => s.style.display = 'none');
+
+                    item.classList.add('active');
+                    document.getElementById(`sec-${tabId}`).style.display = 'block';
+
+                    if (tabId === 'pipeline') {
+                        renderPipeline();
+                    } else if (tabId === 'earnings') {
+                        renderEarnings();
+                    }
+                });
+            });
+
+            // ----------------------------------------------------
+            // Pipeline & Client Onboarding Handlers
+            // ----------------------------------------------------
+            const onboardForm = document.getElementById('onboard-client-form');
+            const demoModal = document.getElementById('demo-modal');
+            const rzpModal = document.getElementById('rzp-modal');
+
+            // Modal Close button bindings
+            document.getElementById('demo-modal-close').addEventListener('click', () => demoModal.style.display = 'none');
+            document.getElementById('rzp-modal-close').addEventListener('click', () => rzpModal.style.display = 'none');
+
+            // Plan cost calculations
+            function getPlanDetails(planId) {
+                switch(planId) {
+                    case 'gmb':
+                        return { name: 'Local GMB Booster', setup: 1999, recurring: 999, total: 2998 };
+                    case 'delivery':
+                        return { name: 'Food Delivery Gater', setup: 2499, recurring: 1499, total: 3998 };
+                    case 'ecom_starter':
+                        return { name: 'D2C E-Com Starter', setup: 0, recurring: 999, total: 999 };
+                    case 'ecom_growth':
+                        return { name: 'D2C E-Com Growth', setup: 0, recurring: 2999, total: 2999 };
+                    case 'ecom_enterprise':
+                        return { name: 'D2C E-Com Enterprise', setup: 0, recurring: 5999, total: 5999 };
+                    default:
+                        return { name: 'GMB Booster', setup: 1999, recurring: 999, total: 2998 };
+                }
+            }
+
+            // Action A: Generate Live Demo link
+            document.getElementById('btn-generate-demo').addEventListener('click', () => {
+                const bizName = document.getElementById('onboard-biz-name').value.trim();
+                const targetUrl = document.getElementById('onboard-biz-url').value.trim();
+                const category = document.getElementById('onboard-biz-category').value;
+                const color = document.getElementById('onboard-biz-color').value;
+
+                if (!bizName || !targetUrl) {
+                    alert('Please enter a Business Name and Target Link to generate a demo.');
+                    return;
+                }
+
+                // Create clean mock preview links
+                const baseLocation = window.location.origin;
+                const demoPortalUrl = `${baseLocation}/portal.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&demo=true`;
+                const demoFlyerUrl = `${baseLocation}/flyer.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}`;
+
+                // Update modal link values
+                document.getElementById('preview-portal-link').href = demoPortalUrl;
+                document.getElementById('preview-flyer-link').href = demoFlyerUrl;
+
+                demoModal.style.display = 'flex';
+            });
+
+            // Action B: Launch & Request Payment
+            let currentOnboardingCampaign = null;
+            onboardForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const name = document.getElementById('onboard-biz-name').value.trim();
+                const category = document.getElementById('onboard-biz-category').value;
+                const email = document.getElementById('onboard-biz-email').value.trim();
+                const color = document.getElementById('onboard-biz-color').value;
+                const destination = document.getElementById('onboard-biz-url').value.trim();
+                const planValue = document.getElementById('onboard-biz-plan').value;
+
+                const plan = getPlanDetails(planValue);
+
+                // Prepare draft Campaign structure
+                currentOnboardingCampaign = {
+                    id: Date.now().toString(),
+                    name,
+                    category,
+                    email,
+                    color,
+                    destination,
+                    plan: plan.name,
+                    setupFee: plan.setup,
+                    recurringFee: plan.recurring,
+                    status: 'suspended', // initially suspended/pending payment
+                    referredBy: currentAgent.username,
+                    commissionStatus: 'pending',
+                    createdAt: new Date().toLocaleDateString()
+                };
+
+                // Display Razorpay details
+                document.getElementById('rzp-amount-display').textContent = `₹${plan.total}`;
+                
+                // Dynamically update QR code with correct UPI payment URL
+                const qrImg = document.getElementById('rzp-qr-container').querySelector('img');
+                const cleanUpiString = `upi://pay?pa=metrixmedia@pay&am=${plan.total}&cu=INR&tn=MetrixMedia%20${encodeURIComponent(name)}`;
+                qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(cleanUpiString)}`;
+
+                rzpModal.style.display = 'flex';
+            });
+
+            // Simulate successful payment webhook callback
+            document.getElementById('btn-simulate-success').addEventListener('click', () => {
+                if (!currentOnboardingCampaign) return;
+
+                // Load existing campaigns
+                let campaigns = JSON.parse(localStorage.getItem('repushield_campaigns')) || [];
+                
+                // Add current draft campaign as Active (payment verified)
+                currentOnboardingCampaign.status = 'active';
+                campaigns.unshift(currentOnboardingCampaign);
+                localStorage.setItem('repushield_campaigns', JSON.stringify(campaigns));
+
+                // Clean form & Close modal
+                onboardForm.reset();
+                rzpModal.style.display = 'none';
+                
+                // Trigger visual feedback
+                showToastNotification('Payment captured! Campaign is now Active.');
+
+                // Go to Pipeline tab
+                setTimeout(() => {
+                    const pipelineTab = document.querySelector('[data-tab="pipeline"]');
+                    if (pipelineTab) pipelineTab.click();
+                }, 1000);
+            });
+
+            // ----------------------------------------------------
+            // Lists Rendering
+            // ----------------------------------------------------
+            function renderPipeline() {
+                const tbody = document.getElementById('pipeline-list-body');
+                if (!tbody) return;
+
+                const campaigns = JSON.parse(localStorage.getItem('repushield_campaigns')) || [];
+                // Filter only those referred by current agent
+                const myCampaigns = campaigns.filter(c => c.referredBy === currentAgent.username);
+
+                if (myCampaigns.length === 0) {
+                    tbody.innerHTML = `<tr>
+                        <td colspan="5" class="empty-state">
+                            <i class="fa-solid fa-folder-open"></i>
+                            <p>No referrals in your pipeline yet. Start onboarding above!</p>
+                        </td>
+                    </tr>`;
+                    return;
+                }
+
+                tbody.innerHTML = '';
+                myCampaigns.forEach(campaign => {
+                    // Plan layout
+                    const planTitle = campaign.plan || 'GMB Booster';
+                    
+                    const baseLocation = window.location.origin;
+                    const finalPortalUrl = `${baseLocation}/portal.html?name=${encodeURIComponent(campaign.name)}&url=${encodeURIComponent(campaign.destination)}&color=${encodeURIComponent(campaign.color)}&category=${encodeURIComponent(campaign.category)}`;
+                    
+                    const statusBadge = campaign.status === 'active'
+                        ? `<span class="badge" style="background: rgba(52, 211, 153, 0.2); border: 1px solid rgba(52, 211, 153, 0.5); color: #34d399;"><i class="fa-solid fa-circle-check"></i> Paid</span>`
+                        : `<span class="badge" style="background: rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.5); color: #ef4444;"><i class="fa-solid fa-clock"></i> Unpaid</span>`;
+
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td><strong>${campaign.name}</strong></td>
+                        <td>${planTitle}</td>
+                        <td><a href="${finalPortalUrl}" target="_blank" class="btn btn-secondary btn-sm" style="display:inline-flex;"><i class="fa-solid fa-up-right-from-square"></i> Portal</a></td>
+                        <td>₹${campaign.setupFee + campaign.recurringFee}</td>
+                        <td>${statusBadge}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            }
+
+            function renderEarnings() {
+                const campaigns = JSON.parse(localStorage.getItem('repushield_campaigns')) || [];
+                const myCampaigns = campaigns.filter(c => c.referredBy === currentAgent.username && c.status === 'active');
+
+                // Commission count
+                const totalSales = myCampaigns.length;
+                
+                // Setup payout commissions: ₹1,000 for each closed campaign
+                const pendingCommission = myCampaigns
+                    .filter(c => c.commissionStatus === 'pending')
+                    .length * 1000;
+
+                const paidCommission = myCampaigns
+                    .filter(c => c.commissionStatus === 'paid')
+                    .length * 1000;
+
+                document.getElementById('stat-sales-count').textContent = totalSales;
+                document.getElementById('stat-pending-commission').textContent = `₹${pendingCommission}`;
+                document.getElementById('stat-paid-commission').textContent = `₹${paidCommission}`;
+
+                // Payout logs
+                const tbody = document.getElementById('payout-history-body');
+                const paidCampaigns = myCampaigns.filter(c => c.commissionStatus === 'paid');
+
+                if (paidCampaigns.length === 0) {
+                    tbody.innerHTML = `<tr>
+                        <td colspan="4" class="empty-state">
+                            <i class="fa-solid fa-receipt"></i>
+                            <p>No payout payouts cleared yet.</p>
+                        </td>
+                    </tr>`;
+                    return;
+                }
+
+                tbody.innerHTML = '';
+                paidCampaigns.forEach(campaign => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${campaign.createdAt || 'N/A'}</td>
+                        <td><strong>₹1,000</strong></td>
+                        <td>UPI (${currentAgent.upi || 'GPay'})</td>
+                        <td><span class="badge" style="background: rgba(52, 211, 153, 0.2); border: 1px solid rgba(52, 211, 153, 0.5); color: #34d399;"><i class="fa-solid fa-check-double"></i> Paid</span></td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            }
+
+            // Toast feedback notifications
+            function showToastNotification(message) {
+                const toast = document.getElementById('toast');
+                document.getElementById('toast-message').textContent = message;
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+            }
+        });
+
+        // Script copy handler helper
+        function copyText(elementId) {
+            const copyText = document.getElementById(elementId).textContent;
+            navigator.clipboard.writeText(copyText).then(() => {
+                const toast = document.getElementById('toast');
+                document.getElementById('toast-message').textContent = 'Sales pitch copied to clipboard!';
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+            });
+        }
+    </script>
+</body>
+</html>
