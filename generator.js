@@ -913,6 +913,20 @@ navItems.forEach(item => {
     });
 });
 
+// Sync UI when cloud data updates
+window.addEventListener('dbSyncComplete', () => {
+    const activeItem = document.querySelector('.nav-item.active');
+    if (activeItem) {
+        const tabId = activeItem.getAttribute('data-tab');
+        if (tabId === 'campaigns') renderCampaignsList();
+        if (tabId === 'clients') renderClientsTable();
+        if (tabId === 'agents') {
+            renderAgentsTable();
+            renderPayoutsTable();
+        }
+    }
+});
+
 // ----------------------------------------------------
 // Sales Partner & Payouts Management Logic (Admin Panel)
 // ----------------------------------------------------
