@@ -463,6 +463,7 @@
                                     <option value="ecom_starter">D2C E-Com Starter (₹999/mo - No Setup)</option>
                                     <option value="ecom_growth">D2C E-Com Growth (₹2,999/mo - No Setup)</option>
                                     <option value="ecom_enterprise">D2C E-Com Enterprise (₹5,999/mo - No Setup)</option>
+                                    <option value="test_live">Live Test Plan (₹2 setup + ₹1/mo)</option>
                                 </select>
                             </div>
 
@@ -739,6 +740,8 @@ MetrixMedia Digital</span>
                         return { name: 'D2C E-Com Growth', setup: 0, recurring: 2999, total: 2999 };
                     case 'ecom_enterprise':
                         return { name: 'D2C E-Com Enterprise', setup: 0, recurring: 5999, total: 5999 };
+                    case 'test_live':
+                        return { name: 'Live Test Plan', setup: 2, recurring: 1, total: 3 };
                     default:
                         return { name: 'GMB Booster', setup: 1999, recurring: 999, total: 2998 };
                 }
