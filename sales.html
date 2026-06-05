@@ -811,7 +811,7 @@ MetrixMedia Digital</span>
                 let activePlanId = window.DEFAULT_PLAN_ID; // plan_SxXGPbmJTScjA5
 
                 try {
-                    const response = await fetch('/api/create-subscription', {
+                    const response = await fetch('/.netlify/functions/create-subscription', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
