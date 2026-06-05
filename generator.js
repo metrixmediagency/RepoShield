@@ -1116,4 +1116,16 @@ if (agentForm) {
     });
 }
 
+// Listen for Supabase initial pull completion to reload state
+window.addEventListener('dbSyncComplete', () => {
+    campaigns = JSON.parse(localStorage.getItem('repushield_campaigns')) || [];
+    agents = JSON.parse(localStorage.getItem('repushield_agents')) || [];
+    clients = JSON.parse(localStorage.getItem('repushield_clients')) || [];
+    renderCampaignsTable();
+    renderClientsTable();
+    renderAgentsTable();
+    renderPayoutsTable();
+    updateBillingMetrics();
+});
+
 });
