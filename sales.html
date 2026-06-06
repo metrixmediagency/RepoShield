@@ -757,10 +757,20 @@ MetrixMedia Digital</span>
                     'ecom_enterprise': 'D2C E-Com Enterprise'
                 };
 
+                const setupFees = {
+                    'gmb': 1500,
+                    'delivery': 2000,
+                    'ecom_basic': 4000,
+                    'ecom_starter': 4000,
+                    'ecom_growth': 4000,
+                    'ecom_enterprise': 4000
+                };
+
                 const cost = pricing[planId]?.[cycle] || 0;
+                const setup = setupFees[planId] || 0;
                 const planName = names[planId] || 'Unknown Plan';
 
-                return { name: `${planName} (${cycle})`, setup: 0, recurring: cost, total: cost };
+                return { name: `${planName} (${cycle})`, setup: setup, recurring: cost, total: cost + setup };
             }
 
             // Action A: Generate Live Demo link
@@ -867,37 +877,45 @@ MetrixMedia Digital</span>
             });
 
             // Trigger Real Razorpay Payment
-            document.getElementById('btn-real-pay').addEventListener('click', () => {
+            document.getElementById('btn-real-pay').addEventListener('click', (e) => {
+                e.preventDefault();
                 if (!currentOnboardingCampaign || !currentSubscriptionId) return;
                 
-                const options = {
-                    key: window.RAZORPAY_KEY_ID || 'rzp_test_YourKeyIdHere',
-                    subscription_id: currentSubscriptionId,
-                    name: 'MetrixMedia Digital',
-                    description: `${currentOnboardingCampaign.plan} Auto-Pay Mandate`,
-                    handler: function (response) {
-                        // Payment Successful! Save campaign as active
-                        let campaigns = JSON.parse(localStorage.getItem('repushield_campaigns')) || [];
-                        currentOnboardingCampaign.status = 'active';
-                        campaigns.unshift(currentOnboardingCampaign);
-                        localStorage.setItem('repushield_campaigns', JSON.stringify(campaigns));
+                try {
+                    const options = {
+                        key: window.RAZORPAY_KEY_ID || 'rzp_test_YourKeyIdHere',
+                        subscription_id: currentSubscriptionId,
+                        name: 'MetrixMedia Digital',
+                        description: `${currentOnboardingCampaign.plan} Auto-Pay Mandate`,
+                        handler: function (response) {
+                            // Payment Successful! Save campaign as active
+                            let campaigns = JSON.parse(localStorage.getItem('repushield_campaigns')) || [];
+                            currentOnboardingCampaign.status = 'active';
+                            campaigns.unshift(currentOnboardingCampaign);
+                            localStorage.setItem('repushield_campaigns', JSON.stringify(campaigns));
 
-                        onboardForm.reset();
-                        rzpModal.style.display = 'none';
-                        showToastNotification('Auto-pay subscription activated!');
+                            onboardForm.reset();
+                            rzpModal.style.display = 'none';
+                            showToastNotification('Auto-pay subscription activated!');
 
-                        setTimeout(() => {
-                            const pipelineTab = document.querySelector('[data-tab="pipeline"]');
-                            if (pipelineTab) pipelineTab.click();
-                        }, 1000);
-                    },
-                    theme: {
-                        color: '#3b82f6'
-                    }
-                };
-                
-                const rzp = new Razorpay(options);
-                rzp.open();
+                            setTimeout(() => {
+                                const pipelineTab = document.querySelector('[data-tab="pipeline"]');
+                                if (pipelineTab) pipelineTab.click();
+                            }, 1000);
+                        },
+                        theme: {
+                            color: '#3b82f6'
+                        }
+                    };
+                    
+                    const rzp = new Razorpay(options);
+                    rzp.on('payment.failed', function (response){
+                        alert("Razorpay Error: " + response.error.description);
+                    });
+                    rzp.open();
+                } catch (err) {
+                    alert("Error opening Razorpay: " + err.message);
+                }
             });
 
             // Simulate successful payment webhook callback
