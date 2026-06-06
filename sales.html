@@ -278,9 +278,12 @@
                 overflow-x: auto;
                 padding: 1rem;
                 white-space: nowrap;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
             }
             .sales-sidebar .nav-item {
                 flex: 0 0 auto;
+                padding: 0.75rem 1rem;
             }
             .sales-main {
                 padding: 1rem;
@@ -300,9 +303,13 @@
             .table-container {
                 overflow-x: auto;
                 width: 100%;
+                -webkit-overflow-scrolling: touch;
             }
-            .clients-table th, .clients-table td {
-                padding: 1rem;
+            .campaigns-table {
+                min-width: 600px;
+            }
+            .campaigns-table th, .campaigns-table td {
+                padding: 0.75rem;
                 font-size: 0.85rem;
             }
             .rzp-modal-content {
