@@ -644,7 +644,7 @@ MetrixMedia Digital</span>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Check auth state from memory
-            let currentAgent = JSON.parse(sessionStorage.getItem('metrix_current_agent')) || null;
+            let currentAgent = JSON.parse(localStorage.getItem('metrix_current_agent')) || null;
             
             const loginScreen = document.getElementById('login-screen');
             const dashboardScreen = document.getElementById('dashboard-screen');
@@ -680,7 +680,7 @@ MetrixMedia Digital</span>
                 const matchedAgent = registeredAgents.find(a => a.username === usernameInput && a.password === passwordInput);
 
                 if (matchedAgent) {
-                    sessionStorage.setItem('metrix_current_agent', JSON.stringify(matchedAgent));
+                    localStorage.setItem('metrix_current_agent', JSON.stringify(matchedAgent));
                     currentAgent = matchedAgent;
                     showDashboard();
                 } else {
@@ -698,7 +698,7 @@ MetrixMedia Digital</span>
 
             // Logout
             document.getElementById('btn-logout').addEventListener('click', () => {
-                sessionStorage.removeItem('metrix_current_agent');
+                localStorage.removeItem('metrix_current_agent');
                 location.reload();
             });
 
