@@ -1,11 +1,10 @@
-// Netlify Function for handling Razorpay Webhooks
-exports.handler = async function(event, context) {
-    if (event.httpMethod !== "POST") {
-        return { statusCode: 405, body: "Method Not Allowed" };
+export default async function handler(req, res) {
+    if (req.method !== "POST") {
+        return res.status(405).send("Method Not Allowed");
     }
 
     try {
-        const payload = JSON.parse(event.body);
+        const payload = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
         
         // Pseudo-code logic for the backend:
         // 1. Verify Razorpay Webhook Signature (using the webhook secret)
@@ -17,15 +16,9 @@ exports.handler = async function(event, context) {
         
         console.log("Received Razorpay Webhook Event:", payload.event);
 
-        return {
-            statusCode: 200,
-            body: JSON.stringify({ received: true })
-        };
+        return res.status(200).json({ received: true });
     } catch (error) {
         console.error("Webhook Error:", error);
-        return {
-            statusCode: 400,
-            body: `Webhook Error: ${error.message}`
-        };
+        return res.status(400).send(`Webhook Error: ${error.message}`);
     }
-};
+}

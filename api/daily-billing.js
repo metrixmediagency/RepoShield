@@ -1,8 +1,7 @@
-// This is a Netlify Scheduled Function (Cron Job)
-// Scheduled to run every day at midnight to check billing statuses
-const { schedule } = require("@netlify/functions");
-
-const handler = async function(event, context) {
+export default async function handler(req, res) {
+    // Vercel Cron Authentication: 
+    // You should verify req.headers.authorization matches your CRON_SECRET if you configure one in Vercel.
+    
     console.log("Running Daily Billing Check...");
     
     // Pseudo-code logic for the backend:
@@ -13,11 +12,5 @@ const handler = async function(event, context) {
     //    c. If overdue > 3 days, set status = 'suspended'
     // 3. Save updated statuses back to Supabase
     
-    return {
-        statusCode: 200,
-        body: JSON.stringify({ message: "Billing check completed." })
-    };
-};
-
-// Runs every day at 00:00 UTC
-exports.handler = schedule("@daily", handler);
+    return res.status(200).json({ message: "Billing check completed." });
+}

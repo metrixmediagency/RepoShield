@@ -1,33 +1,29 @@
 const axios = require('axios');
 
-exports.handler = async function(event, context) {
+export default async function handler(req, res) {
     // Enable CORS
-    const headers = {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Content-Type',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS'
-    };
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
 
-    if (event.httpMethod === "OPTIONS") {
-        return { statusCode: 200, headers, body: "" };
+    if (req.method === "OPTIONS") {
+        return res.status(200).end();
     }
 
-    if (event.httpMethod !== "POST") {
-        return { statusCode: 405, headers, body: "Method Not Allowed" };
+    if (req.method !== "POST") {
+        return res.status(405).send("Method Not Allowed");
     }
 
     try {
-        const { planId, setupFee, businessName, customerEmail } = JSON.parse(event.body);
+        // In Vercel, req.body is already parsed if it's application/json
+        const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
+        const { planId, setupFee, businessName, customerEmail } = body;
 
         const keyId = process.env.RAZORPAY_KEY_ID;
         const keySecret = process.env.RAZORPAY_KEY_SECRET;
 
         if (!keyId || !keySecret) {
-            return {
-                statusCode: 500,
-                headers,
-                body: JSON.stringify({ error: "Razorpay credentials not configured in Netlify environment variables." })
-            };
+            return res.status(500).json({ error: "Razorpay credentials not configured in Vercel environment variables." });
         }
 
         const authString = Buffer.from(`${keyId}:${keySecret}`).toString('base64');
@@ -62,23 +58,15 @@ exports.handler = async function(event, context) {
             }
         });
 
-        return {
-            statusCode: 200,
-            headers,
-            body: JSON.stringify({
-                subscriptionId: response.data.id,
-                shortUrl: response.data.short_url
-            })
-        };
+        return res.status(200).json({
+            subscriptionId: response.data.id,
+            shortUrl: response.data.short_url
+        });
     } catch (error) {
         console.error("Error creating Razorpay subscription:", error.response ? error.response.data : error.message);
-        return {
-            statusCode: 500,
-            headers,
-            body: JSON.stringify({
-                error: "Failed to generate Razorpay subscription.",
-                details: error.response ? error.response.data : error.message
-            })
-        };
+        return res.status(500).json({
+            error: "Failed to generate Razorpay subscription.",
+            details: error.response ? error.response.data : error.message
+        });
     }
-};
+}

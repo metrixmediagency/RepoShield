@@ -6,7 +6,6 @@
     "build": "echo \"No build step required\""
   },
   "dependencies": {
-    "@netlify/functions": "^2.0.0",
     "axios": "^1.6.8"
   }
 }

@@ -825,7 +825,7 @@ MetrixMedia Digital</span>
                 showToastNotification("Generating secure subscription mandate...");
 
                 try {
-                    const response = await fetch('/.netlify/functions/create-subscription', {
+                    const response = await fetch('/api/create-subscription', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
