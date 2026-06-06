@@ -372,10 +372,14 @@
                     <!-- Interactive Tier Selector -->
                     <div class="pricing-sub-selector">
                         <select id="ecom-tier-select" onchange="updateEcomPricing(this.value)">
-                            <option value="starter">Starter Plan (1 Product)</option>
-                            <option value="growth" selected>Growth Plan (Up to 5 Products)</option>
-                            <option value="enterprise">Enterprise Plan (Up to 15 Products)</option>
+                            <option value="basic">Basic Plan (1 Product)</option>
+                            <option value="starter">Starter Plan (3 Products)</option>
+                            <option value="growth" selected>Growth Plan (5 Products)</option>
+                            <option value="enterprise">Enterprise Plan (15 Products)</option>
                         </select>
+                        <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">
+                            Available in Monthly, Quarterly, Half-Yearly, and Annual billing cycles!
+                        </div>
                     </div>
 
                     <div class="pricing-price" id="ecom-price-display">

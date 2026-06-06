@@ -456,14 +456,23 @@
                                 <input type="url" id="onboard-biz-url" placeholder="https://g.page/r/..." required>
                             </div>
                             <div class="input-group" style="margin-top: 1.25rem;">
-                                <label>Service Tier & Billing Plan</label>
+                                <label>Service Tier</label>
                                 <select id="onboard-biz-plan" required>
-                                    <option value="gmb">Local GMB Booster (₹1,999 setup + ₹999/mo)</option>
-                                    <option value="delivery">Food Delivery Gater (₹2,499 setup + ₹1,499/mo)</option>
-                                    <option value="ecom_starter">D2C E-Com Starter (₹999/mo - No Setup)</option>
-                                    <option value="ecom_growth">D2C E-Com Growth (₹2,999/mo - No Setup)</option>
-                                    <option value="ecom_enterprise">D2C E-Com Enterprise (₹5,999/mo - No Setup)</option>
-                                    <option value="test_live">Live Test Plan (₹2 setup + ₹1/mo)</option>
+                                    <option value="gmb">Local GMB Booster</option>
+                                    <option value="delivery">Food Delivery Gater</option>
+                                    <option value="ecom_basic">D2C E-Com Basic (1 Product)</option>
+                                    <option value="ecom_starter">D2C E-Com Starter (3 Products)</option>
+                                    <option value="ecom_growth">D2C E-Com Growth (5 Products)</option>
+                                    <option value="ecom_enterprise">D2C E-Com Enterprise (15 Products)</option>
+                                </select>
+                            </div>
+                            <div class="input-group" style="margin-top: 1.25rem;">
+                                <label>Billing Cycle</label>
+                                <select id="onboard-billing-cycle" required>
+                                    <option value="monthly">Monthly</option>
+                                    <option value="quarterly">Quarterly</option>
+                                    <option value="half-yearly">Half-Yearly</option>
+                                    <option value="annual">Annual</option>
                                 </select>
                             </div>
 
@@ -729,23 +738,23 @@ MetrixMedia Digital</span>
             document.getElementById('demo-modal-close').addEventListener('click', () => demoModal.style.display = 'none');
             document.getElementById('rzp-modal-close').addEventListener('click', () => rzpModal.style.display = 'none');
 
-            // Plan cost calculations
-            function getPlanDetails(planId) {
+                     function getPlanDetails(planId, cycle) {
+                // Since exact pricing wasn't given, returning generic labels for now. You can adjust prices later.
                 switch(planId) {
                     case 'gmb':
-                        return { name: 'Local GMB Booster', setup: 1999, recurring: 999, total: 2998 };
+                        return { name: `Local GMB Booster (${cycle})`, setup: 1999, recurring: cycle === 'monthly' ? 999 : 0, total: cycle === 'monthly' ? 2998 : 0 };
                     case 'delivery':
-                        return { name: 'Food Delivery Gater', setup: 2499, recurring: 1499, total: 3998 };
+                        return { name: `Food Delivery Gater (${cycle})`, setup: 2499, recurring: cycle === 'monthly' ? 1499 : 0, total: cycle === 'monthly' ? 3998 : 0 };
+                    case 'ecom_basic':
+                        return { name: `D2C E-Com Basic (${cycle})`, setup: 0, recurring: cycle === 'monthly' ? 499 : 0, total: cycle === 'monthly' ? 499 : 0 };
                     case 'ecom_starter':
-                        return { name: 'D2C E-Com Starter', setup: 0, recurring: 999, total: 999 };
+                        return { name: `D2C E-Com Starter (${cycle})`, setup: 0, recurring: cycle === 'monthly' ? 999 : 0, total: cycle === 'monthly' ? 999 : 0 };
                     case 'ecom_growth':
-                        return { name: 'D2C E-Com Growth', setup: 0, recurring: 2999, total: 2999 };
+                        return { name: `D2C E-Com Growth (${cycle})`, setup: 0, recurring: cycle === 'monthly' ? 2999 : 0, total: cycle === 'monthly' ? 2999 : 0 };
                     case 'ecom_enterprise':
-                        return { name: 'D2C E-Com Enterprise', setup: 0, recurring: 5999, total: 5999 };
-                    case 'test_live':
-                        return { name: 'Live Test Plan', setup: 2, recurring: 1, total: 3 };
+                        return { name: `D2C E-Com Enterprise (${cycle})`, setup: 0, recurring: cycle === 'monthly' ? 5999 : 0, total: cycle === 'monthly' ? 5999 : 0 };
                     default:
-                        return { name: 'GMB Booster', setup: 1999, recurring: 999, total: 2998 };
+                        return { name: 'Unknown Plan', setup: 0, recurring: 0, total: 0 };
                 }
             }
 
@@ -786,12 +795,17 @@ MetrixMedia Digital</span>
                 const color = document.getElementById('onboard-biz-color').value;
                 const destination = document.getElementById('onboard-biz-url').value.trim();
                 const planValue = document.getElementById('onboard-biz-plan').value;
+                const cycleValue = document.getElementById('onboard-billing-cycle').value;
+                const plan = getPlanDetails(planValue, cycleValue);
+                
+                // Get the actual razorpay Plan ID based on user selection
+                let activePlanId = window.RAZORPAY_PLANS[planValue][cycleValue];
 
-                const plan = getPlanDetails(planValue);
+                if (!activePlanId) {
+                    alert('Configuration Error: Razorpay Plan ID not found for this combination.');
+                    return;
+                }
 
-                showToastNotification("Generating secure subscription mandate...");
-
-                // Prepare draft Campaign structure
                 currentOnboardingCampaign = {
                     id: Date.now().toString(),
                     name,
@@ -808,7 +822,7 @@ MetrixMedia Digital</span>
                     createdAt: new Date().toLocaleDateString()
                 };
 
-                let activePlanId = window.DEFAULT_PLAN_ID; // plan_SxXGPbmJTScjA5
+                showToastNotification("Generating secure subscription mandate...");
 
                 try {
                     const response = await fetch('/.netlify/functions/create-subscription', {
