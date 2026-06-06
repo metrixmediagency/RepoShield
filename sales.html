@@ -739,27 +739,28 @@ MetrixMedia Digital</span>
             document.getElementById('rzp-modal-close').addEventListener('click', () => rzpModal.style.display = 'none');
 
             function getPlanDetails(planId, cycle) {
-                let multiplier = 1;
-                if (cycle === 'quarterly') multiplier = 3;
-                if (cycle === 'half-yearly') multiplier = 6;
-                if (cycle === 'annual') multiplier = 12;
+                const pricing = {
+                    'gmb': { 'monthly': 1200, 'quarterly': 3249.99, 'half-yearly': 5999.94, 'annual': 9999.96 },
+                    'delivery': { 'monthly': 1499.99, 'quarterly': 3999.99, 'half-yearly': 6999.96, 'annual': 11999 },
+                    'ecom_basic': { 'monthly': 1999.99, 'quarterly': 5249.97, 'half-yearly': 8999.94, 'annual': 14999 },
+                    'ecom_starter': { 'monthly': 4166.66, 'quarterly': 11249.97, 'half-yearly': 19999.98, 'annual': 34999 },
+                    'ecom_growth': { 'monthly': 5833.33, 'quarterly': 16749.99, 'half-yearly': 29999.94, 'annual': 49999 },
+                    'ecom_enterprise': { 'monthly': 33333.33, 'quarterly': 87499.98, 'half-yearly': 149999.94, 'annual': 249999 }
+                };
+                
+                const names = {
+                    'gmb': 'Local GMB Booster',
+                    'delivery': 'Food Delivery Gater',
+                    'ecom_basic': 'D2C E-Com Basic',
+                    'ecom_starter': 'D2C E-Com Starter',
+                    'ecom_growth': 'D2C E-Com Growth',
+                    'ecom_enterprise': 'D2C E-Com Enterprise'
+                };
 
-                switch(planId) {
-                    case 'gmb':
-                        return { name: `Local GMB Booster (${cycle})`, setup: 1999, recurring: 999 * multiplier, total: 1999 + (999 * multiplier) };
-                    case 'delivery':
-                        return { name: `Food Delivery Gater (${cycle})`, setup: 2499, recurring: 1499 * multiplier, total: 2499 + (1499 * multiplier) };
-                    case 'ecom_basic':
-                        return { name: `D2C E-Com Basic (${cycle})`, setup: 0, recurring: 499 * multiplier, total: 499 * multiplier };
-                    case 'ecom_starter':
-                        return { name: `D2C E-Com Starter (${cycle})`, setup: 0, recurring: 999 * multiplier, total: 999 * multiplier };
-                    case 'ecom_growth':
-                        return { name: `D2C E-Com Growth (${cycle})`, setup: 0, recurring: 2999 * multiplier, total: 2999 * multiplier };
-                    case 'ecom_enterprise':
-                        return { name: `D2C E-Com Enterprise (${cycle})`, setup: 0, recurring: 5999 * multiplier, total: 5999 * multiplier };
-                    default:
-                        return { name: 'Unknown Plan', setup: 0, recurring: 0, total: 0 };
-                }
+                const cost = pricing[planId]?.[cycle] || 0;
+                const planName = names[planId] || 'Unknown Plan';
+
+                return { name: `${planName} (${cycle})`, setup: 0, recurring: cost, total: cost };
             }
 
             // Action A: Generate Live Demo link
