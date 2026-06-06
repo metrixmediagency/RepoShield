@@ -923,6 +923,7 @@ MetrixMedia Digital</span>
                     const options = {
                         key: window.RAZORPAY_KEY_ID || 'rzp_test_YourKeyIdHere',
                         subscription_id: currentSubscriptionId,
+                        amount: Math.round(currentOnboardingCampaign.setupFee + currentOnboardingCampaign.recurringFee) * 100, // Combine for UI display
                         name: 'MetrixMedia Digital',
                         description: `${currentOnboardingCampaign.plan} Auto-Pay Mandate`,
                         handler: function (response) {
