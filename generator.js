@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const tabHeaders = {
         create: {
             title: 'Generate GMB Review Campaign',
-            subtitle: 'Enter local business details to instantly generate custom review gaters and print-ready QR standees.'
+            subtitle: 'Enter local business details to instantly generate custom Aegis Protocol portals and print-ready QR standees.'
         },
         campaigns: {
             title: 'Active GMB Campaigns',
@@ -822,7 +822,7 @@ function renderClientsTable() {
                 key: RAZORPAY_KEY_ID,
                 amount: client.amount * 100,
                 currency: 'INR',
-                name: 'RepoShield',
+                name: 'Aegis Protocol',
                 description: client.description || 'Monthly subscription',
                 prefill: { email: client.email },
                 handler: function (response) {
