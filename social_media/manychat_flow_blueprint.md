@@ -14,7 +14,10 @@ Instead of building complex question blocks and saving data inside ManyChat (whi
   * `CAFE`
   * `CLINIC`
   * `ZOMATO`
+  * `SWIGGY`
   * `AMAZON`
+  * `FLIPKART`
+  * `MEESHO`
   * `SELLER`
 
 ---

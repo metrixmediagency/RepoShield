@@ -59,8 +59,8 @@ We establish a single keyword trigger rule in ManyChat that fires if the user DM
 * `AEGIS` (Universal / General)
 * `CAFE` (Cafe & Restaurant niche)
 * `CLINIC` (Clinics & Wellness niche)
-* `ZOMATO` (Cloud Kitchens / Food Delivery niche)
-* `AMAZON` / `SELLER` (E-commerce Sellers niche)
+* `ZOMATO` / `SWIGGY` (Cloud Kitchens & Food Delivery niche)
+* `AMAZON` / `FLIPKART` / `MEESHO` / `SELLER` (E-commerce Sellers niche)
 
 ### 2. Conversational Redirect (1-Step Flow)
 Once triggered, the chatbot automatically sends a single, high-converting universal card response:
