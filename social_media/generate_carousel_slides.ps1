@@ -299,8 +299,8 @@ $g.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::AntiAlias
 $g.Clear($bgColor)
 Draw-HeaderFooter $g "CAFE & RESTAURANT STRATEGY"
 
-$g.DrawString("CLAIM YOUR 10-DAY TRIAL", $fontTitle, $greenBrush, 80, 180)
-$g.DrawString("Risk-free test for local restaurants in Goa.", $fontSubTitle, $grayBrush, 80, 245)
+$g.DrawString("7-DAY REFUND GUARANTEE", $fontTitle, $greenBrush, 80, 180)
+$g.DrawString("Try the system risk-free for local restaurants in Goa.", $fontSubTitle, $grayBrush, 80, 245)
 
 $rectCTA = New-Object System.Drawing.RectangleF(80, 310, 920, 560)
 Fill-RoundedRectangle $g $cardBrush $rectCTA 16
@@ -308,16 +308,16 @@ Draw-RoundedRectangle $g $cardBorderPen $rectCTA 16
 
 $g.DrawString("WHAT WE DO:", $fontTextBold, $cyanBrush, 120, 350)
 $g.DrawString("1. We design and host your custom cafe review portal.", $fontTextSemibold, $whiteBrush, 120, 400)
-$g.DrawString("2. We print and ship your physical counter QR standees.", $fontTextSemibold, $whiteBrush, 120, 450)
-$g.DrawString("3. You place them at your checkout and test it for 10 days.", $fontTextSemibold, $whiteBrush, 120, 500)
+$g.DrawString("2. We send your print-ready digital QR standee PDF.", $fontTextSemibold, $whiteBrush, 120, 450)
+$g.DrawString("3. Print it out, place at checkout, and get reviews.", $fontTextSemibold, $whiteBrush, 120, 500)
 
 $rectPrice = New-Object System.Drawing.RectangleF(120, 570, 840, 80)
 $g.FillRectangle($bgBrush, $rectPrice)
-$g.DrawString("Pay only Rs. 1,999 after you receive at least 3 new 5-star reviews.", $fontTextBold, $greenBrush, 140, 595)
+$g.DrawString("Pay Rs. 1,999 setup fee. Fully backed by our 7-day refund guarantee.", $fontTextBold, $greenBrush, 140, 595)
 
-$ctaText = "$handRight DM US 'CAFE' TO CLAIM YOUR STANDEE TODAY"
+$ctaText = "$handRight DM US 'CAFE' TO SETUP YOUR PORTAL TODAY"
 $g.DrawString($ctaText, $fontCardTitle, $cyanBrush, 120, 690)
-$g.DrawString("Limited to 5 local spots for this batch.", $fontText, $grayBrush, 120, 740)
+$g.DrawString("Get your custom digital QR standee setup in 24 hours.", $fontText, $grayBrush, 120, 740)
 
 $bmp.Save((Join-Path $outputDir "post2_slide5.png"), [System.Drawing.Imaging.ImageFormat]::Png)
 $bmp.Dispose()
@@ -484,8 +484,8 @@ $g.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::AntiAlias
 $g.Clear($bgColor)
 Draw-HeaderFooter $g "CLINICAL TRUST AUDIT"
 
-$g.DrawString("10-DAY PRACTICE TRIAL", $fontTitle, $cyanBrush, 80, 180)
-$g.DrawString("Risk-free reputational audit for Goa medical clinics.", $fontSubTitle, $grayBrush, 80, 245)
+$g.DrawString("7-DAY REFUND GUARANTEE", $fontTitle, $cyanBrush, 80, 180)
+$g.DrawString("Try the system risk-free for Goa medical clinics.", $fontSubTitle, $grayBrush, 80, 245)
 
 $rectCTA = New-Object System.Drawing.RectangleF(80, 310, 920, 560)
 Fill-RoundedRectangle $g $cardBrush $rectCTA 16
@@ -493,23 +493,430 @@ Draw-RoundedRectangle $g $cardBorderPen $rectCTA 16
 
 $g.DrawString("THE INTEGRATION PROCESS:", $fontTextBold, $cyanBrush, 120, 350)
 $g.DrawString("1. We build and host your custom patient feedback portal.", $fontTextSemibold, $whiteBrush, 120, 400)
-$g.DrawString("2. We design and ship your reception desk QR cards.", $fontTextSemibold, $whiteBrush, 120, 450)
-$g.DrawString("3. Run the portal for 10 days and verify the results.", $fontTextSemibold, $whiteBrush, 120, 500)
+$g.DrawString("2. We send your print-ready digital QR standee PDF.", $fontTextSemibold, $whiteBrush, 120, 450)
+$g.DrawString("3. Place at reception, capture reviews, and build trust.", $fontTextSemibold, $whiteBrush, 120, 500)
 
 $rectPrice = New-Object System.Drawing.RectangleF(120, 570, 840, 80)
 $g.FillRectangle($bgBrush, $rectPrice)
-$g.DrawString("Pay only Rs. 2,499 after you receive at least 3 new 5-star reviews.", $fontTextBold, $greenBrush, 140, 595)
+$g.DrawString("Pay Rs. 2,499 setup fee. Fully backed by our 7-day refund guarantee.", $fontTextBold, $greenBrush, 140, 595)
 
-$ctaText3 = "$handRight DM US 'CLINIC' TO SECURE YOUR PRACTICE TRIAL"
+$ctaText3 = "$handRight DM US 'CLINIC' TO SETUP YOUR PRACTICE PORTAL"
 $g.DrawString($ctaText3, $fontCardTitle, $cyanBrush, 120, 690)
-$g.DrawString("Limited setup slots available for this batch.", $fontText, $grayBrush, 120, 740)
+$g.DrawString("Get your custom digital clinical QR setup in 24 hours.", $fontText, $grayBrush, 120, 740)
 
 $bmp.Save((Join-Path $outputDir "post3_slide5.png"), [System.Drawing.Imaging.ImageFormat]::Png)
 $bmp.Dispose()
 $g.Dispose()
 
+
+# ==========================================
+# ============== POST 4 SLIDES =============
+# ==========================================
+
+# --- Slide 1: Cover ---
+$bmp = New-Object System.Drawing.Bitmap(1080, 1080)
+$g = [System.Drawing.Graphics]::FromImage($bmp)
+$g.TextRenderingHint = [System.Drawing.Text.TextRenderingHint]::AntiAliasGridFit
+$g.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::AntiAlias
+$g.Clear($bgColor)
+Draw-HeaderFooter $g "DELIVERY APP OPTIMIZATION"
+
+$y = 190
+$g.DrawString("YOUR FOOD IS ", $fontTitle, $whiteBrush, 80, $y)
+$wFood = Measure-TextWidth $g "YOUR FOOD IS " $fontTitle
+$g.DrawString("10/10.", $fontTitle, $greenBrush, (80 + $wFood), $y)
+
+$y += 80
+$g.DrawString("YOUR APP RATING", $fontTitle, $whiteBrush, 80, $y)
+
+$y += 80
+$g.DrawString("IS A ", $fontTitle, $whiteBrush, 80, $y)
+$wIsA = Measure-TextWidth $g "IS A " $fontTitle
+$g.DrawString("3.9.", $fontTitle, $redBrush, (80 + $wIsA), $y)
+$wRating = Measure-TextWidth $g "3.9." $fontTitle
+$g.DrawString(" WHY?", $fontTitle, $yellowBrush, (80 + $wIsA + $wRating), $y)
+
+$cardRect = New-Object System.Drawing.RectangleF(80, 480, 920, 400)
+Fill-RoundedRectangle $g $cardBrush $cardRect 16
+Draw-RoundedRectangle $g $cardBorderPen $cardRect 16
+$g.DrawLine($cardBorderPen, 120, 660, 960, 660)
+
+$g.DrawString("THE DELIVERY DISCONNECT", $fontCardTitle, $cyanBrush, 120, 520)
+$g.DrawString("Why online orders dry up even if your kitchen is top-tier", $fontCardSub, $grayBrush, 120, 565)
+
+$col1X = 120
+$rowY = 700
+$g.DrawString("Customer Taste Reality", $fontTextSemibold, $whiteBrush, $col1X, $rowY)
+$stars5 = "$starSolid$starSolid$starSolid$starSolid$starSolid"
+$g.DrawString($stars5, $fontTextSemibold, $greenBrush, $col1X, ($rowY + 45))
+$g.DrawString("Diners love your menu items.", $fontText, $grayBrush, $col1X, ($rowY + 95))
+
+$col2X = 560
+$g.DrawString("Zomato/Swiggy Rating", $fontTextSemibold, $whiteBrush, $col2X, $rowY)
+$stars3 = "$starSolid$starSolid$starSolid$starEmpty$starEmpty"
+$g.DrawString($stars3, $fontTextSemibold, $redBrush, $col2X, ($rowY + 45))
+$g.DrawString("Algorithmic visibility drop.", $fontText, $grayBrush, $col2X, ($rowY + 95))
+
+$bmp.Save((Join-Path $outputDir "post4_slide1.png"), [System.Drawing.Imaging.ImageFormat]::Png)
+$bmp.Dispose()
+$g.Dispose()
+
+# --- Slide 2: The App Penalty ---
+$bmp = New-Object System.Drawing.Bitmap(1080, 1080)
+$g = [System.Drawing.Graphics]::FromImage($bmp)
+$g.TextRenderingHint = [System.Drawing.Text.TextRenderingHint]::AntiAliasGridFit
+$g.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::AntiAlias
+$g.Clear($bgColor)
+Draw-HeaderFooter $g "DELIVERY APP OPTIMIZATION"
+
+$g.DrawString("THE ALGORITHM PENALTY", $fontTitle, $whiteBrush, 80, 180)
+$g.DrawString("How rating thresholds dictate food app orders:", $fontSubTitle, $grayBrush, 80, 245)
+
+# High Trust
+$rectZ1 = New-Object System.Drawing.RectangleF(80, 310, 920, 160)
+Fill-RoundedRectangle $g $cardBrush $rectZ1 12
+Draw-RoundedRectangle $g $greenPen $rectZ1 12
+$g.DrawString("THE TRUST ZONE (4.3 - 5.0 Stars)", $fontTextBold, $greenBrush, 120, 335)
+$g.DrawString("Zomato/Swiggy algorithms actively boost you in search results.", $fontText, $whiteBrush, 120, 375)
+$g.DrawString("You win the high-visibility banners and top listings.", $fontText, $whiteBrush, 120, 405)
+
+# Danger Zone
+$rectZ2 = New-Object System.Drawing.RectangleF(80, 490, 920, 160)
+Fill-RoundedRectangle $g $cardBrush $rectZ2 12
+Draw-RoundedRectangle $g $yellowPen $rectZ2 12
+$g.DrawString("THE DANGER ZONE (4.0 - 4.2 Stars)", $fontTextBold, $yellowBrush, 120, 515)
+$g.DrawString("Your kitchen drops in search rank. Customers hesitate as they see", $fontText, $whiteBrush, 120, 555)
+$g.DrawString("competitors with 4.5+ stars featured above you.", $fontText, $whiteBrush, 120, 585)
+
+# Penalty Zone
+$rectZ3 = New-Object System.Drawing.RectangleF(80, 670, 920, 160)
+Fill-RoundedRectangle $g $cardBrush $rectZ3 12
+Draw-RoundedRectangle $g $redPen $rectZ3 12
+$g.DrawString("THE PENALTY ZONE (Under 3.9 Stars)", $fontTextBold, $redBrush, 120, 695)
+$g.DrawString("The algorithm suppresses your kitchen. Orders drop by up to 60%", $fontText, $whiteBrush, 120, 735)
+$g.DrawString("as you get pushed to the bottom of the feed.", $fontText, $whiteBrush, 120, 765)
+
+$bmp.Save((Join-Path $outputDir "post4_slide2.png"), [System.Drawing.Imaging.ImageFormat]::Png)
+$bmp.Dispose()
+$g.Dispose()
+
+# --- Slide 3: The Spilled Gravy Trap ---
+$bmp = New-Object System.Drawing.Bitmap(1080, 1080)
+$g = [System.Drawing.Graphics]::FromImage($bmp)
+$g.TextRenderingHint = [System.Drawing.Text.TextRenderingHint]::AntiAliasGridFit
+$g.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::AntiAlias
+$g.Clear($bgColor)
+Draw-HeaderFooter $g "DELIVERY APP OPTIMIZATION"
+
+$g.DrawString("THE SPILLED GRAVY TRAP", $fontTitle, $whiteBrush, 80, 180)
+$g.DrawString("Why cloud kitchens bleed rating points:", $fontSubTitle, $grayBrush, 80, 245)
+
+$rectBleed = New-Object System.Drawing.RectangleF(80, 310, 920, 560)
+Fill-RoundedRectangle $g $cardBrush $rectBleed 16
+Draw-RoundedRectangle $g $cardBorderPen $rectBleed 16
+
+$g.DrawString("1. Courier Mistakes Ruin Your Rep", $fontTextBold, $cyanBrush, 120, 350)
+$g.DrawString("If a delivery rider is late or spills a gravy container, the customer", $fontText, $whiteBrush, 120, 390)
+$g.DrawString("leaves a public 1-star rating on the food app - even if the recipe was perfect.", $fontText, $whiteBrush, 120, 420)
+
+$g.DrawString("2. Happy Diners Eat Silently", $fontTextBold, $cyanBrush, 120, 490)
+$g.DrawString("Diners who have an exceptional meal consume it happily and go about their day.", $fontText, $whiteBrush, 120, 530)
+$g.DrawString("They almost never open the app to review unless they have a complaint.", $fontText, $whiteBrush, 120, 560)
+
+$g.DrawString("3. The Solution", $fontTextBold, $greenBrush, 120, 630)
+$g.DrawString("Provide an instant pathway for happy foodies to rate, and redirect", $fontText, $whiteBrush, 120, 670)
+$g.DrawString("courier or temperature issues directly to your manager privately.", $fontText, $whiteBrush, 120, 700)
+
+$bmp.Save((Join-Path $outputDir "post4_slide3.png"), [System.Drawing.Imaging.ImageFormat]::Png)
+$bmp.Dispose()
+$g.Dispose()
+
+# --- Slide 4: Process Flow ---
+$bmp = New-Object System.Drawing.Bitmap(1080, 1080)
+$g = [System.Drawing.Graphics]::FromImage($bmp)
+$g.TextRenderingHint = [System.Drawing.Text.TextRenderingHint]::AntiAliasGridFit
+$g.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::AntiAlias
+$g.Clear($bgColor)
+Draw-HeaderFooter $g "DELIVERY APP OPTIMIZATION"
+
+$g.DrawString("THE DELIVERY BAG SHIELD", $fontTitle, $whiteBrush, 80, 180)
+$g.DrawString("Slip a custom feedback QR card inside your delivery packages.", $fontSubTitle, $grayBrush, 80, 245)
+
+# Scanner Node
+$rectScan = New-Object System.Drawing.RectangleF(390, 310, 300, 120)
+Fill-RoundedRectangle $g $cardBrush $rectScan 16
+Draw-RoundedRectangle $g $cyanPen $rectScan 16
+$g.DrawString("Diner Scans", $fontTextBold, $cyanBrush, 470, 340)
+$g.DrawString("Bag Insert Card", $fontTextSemibold, $whiteBrush, 455, 380)
+
+# Paths
+$g.DrawLine($cardBorderPen, 250, 370, 390, 370)
+$g.DrawLine($cardBorderPen, 250, 370, 250, 520)
+$g.FillPolygon($greenBrush, @([System.Drawing.PointF]::new(245,510), [System.Drawing.PointF]::new(255,510), [System.Drawing.PointF]::new(250,520)))
+
+$g.DrawLine($cardBorderPen, 690, 370, 830, 370)
+$g.DrawLine($cardBorderPen, 830, 370, 830, 520)
+$g.FillPolygon($redBrush, @([System.Drawing.PointF]::new(825,510), [System.Drawing.PointF]::new(835,510), [System.Drawing.PointF]::new(830,520)))
+
+# Left card (Happy)
+$rectH = New-Object System.Drawing.RectangleF(80, 530, 420, 350)
+Fill-RoundedRectangle $g $cardBrush $rectH 16
+Draw-RoundedRectangle $g $greenPen $rectH 16
+$happyTitle = "$circleGreen  Loved the Meal?"
+$g.DrawString($happyTitle, $fontTextBold, $greenBrush, 110, 560)
+$g.DrawString("Auto-routes customer", $fontText, $whiteBrush, 110, 610)
+$g.DrawString("directly to Zomato/Swiggy", $fontText, $whiteBrush, 110, 645)
+$g.DrawString("to leave a 5-star review.", $fontText, $whiteBrush, 110, 680)
+$g.DrawString("Result: Sales rank climbs.", $fontTextSemibold, $greenBrush, 110, 750)
+
+# Right card (Unhappy)
+$rectU = New-Object System.Drawing.RectangleF(580, 530, 420, 350)
+Fill-RoundedRectangle $g $cardBrush $rectU 16
+Draw-RoundedRectangle $g $redPen $rectU 16
+$unhappyTitle = "$circleRed  Cold or Spilled?"
+$g.DrawString($unhappyTitle, $fontTextBold, $redBrush, 610, 560)
+$g.DrawString("Redirects to your private", $fontText, $whiteBrush, 610, 610)
+$g.DrawString("form so you can refund", $fontText, $whiteBrush, 610, 645)
+$g.DrawString("or replace the food.", $fontText, $whiteBrush, 610, 680)
+$g.DrawString("Result: App ratings safe.", $fontTextSemibold, $redBrush, 610, 750)
+
+$bmp.Save((Join-Path $outputDir "post4_slide4.png"), [System.Drawing.Imaging.ImageFormat]::Png)
+$bmp.Dispose()
+$g.Dispose()
+
+# --- Slide 5: CTA ---
+$bmp = New-Object System.Drawing.Bitmap(1080, 1080)
+$g = [System.Drawing.Graphics]::FromImage($bmp)
+$g.TextRenderingHint = [System.Drawing.Text.TextRenderingHint]::AntiAliasGridFit
+$g.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::AntiAlias
+$g.Clear($bgColor)
+Draw-HeaderFooter $g "DELIVERY APP OPTIMIZATION"
+
+$g.DrawString("7-DAY REFUND GUARANTEE", $fontTitle, $greenBrush, 80, 180)
+$g.DrawString("Try the system risk-free for your cloud kitchen.", $fontSubTitle, $grayBrush, 80, 245)
+
+$rectCTA = New-Object System.Drawing.RectangleF(80, 310, 920, 560)
+Fill-RoundedRectangle $g $cardBrush $rectCTA 16
+Draw-RoundedRectangle $g $cardBorderPen $rectCTA 16
+
+$g.DrawString("HOW TO GET STARTED:", $fontTextBold, $cyanBrush, 120, 350)
+$g.DrawString("1. We host your custom review redirection portal.", $fontTextSemibold, $whiteBrush, 120, 400)
+$g.DrawString("2. We send your print-ready digital QR bag insert PDF.", $fontTextSemibold, $whiteBrush, 120, 450)
+$g.DrawString("3. Add the inserts to your orders and get 5-star ratings.", $fontTextSemibold, $whiteBrush, 120, 500)
+
+$rectPrice = New-Object System.Drawing.RectangleF(120, 570, 840, 80)
+$g.FillRectangle($bgBrush, $rectPrice)
+$g.DrawString("Pay Rs. 1,999 setup fee. Fully backed by our 7-day refund guarantee.", $fontTextBold, $greenBrush, 140, 595)
+
+$ctaText = "$handRight DM 'ZOMATO' OR 'SWIGGY' TO START TODAY"
+$g.DrawString($ctaText, $fontCardTitle, $cyanBrush, 120, 690)
+$g.DrawString("Get your custom digital QR bag inserts in 24 hours.", $fontText, $grayBrush, 120, 740)
+
+$bmp.Save((Join-Path $outputDir "post4_slide5.png"), [System.Drawing.Imaging.ImageFormat]::Png)
+$bmp.Dispose()
+$g.Dispose()
+
+
+# ==========================================
+# ============== POST 5 SLIDES =============
+# ==========================================
+
+# --- Slide 1: Cover ---
+$bmp = New-Object System.Drawing.Bitmap(1080, 1080)
+$g = [System.Drawing.Graphics]::FromImage($bmp)
+$g.TextRenderingHint = [System.Drawing.Text.TextRenderingHint]::AntiAliasGridFit
+$g.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::AntiAlias
+$g.Clear($bgColor)
+Draw-HeaderFooter $g "E-COMMERCE SELLER SHIELD"
+
+$y = 190
+$g.DrawString("THE 1-STAR REVIEW", $fontTitle, $whiteBrush, 80, $y)
+
+$y += 80
+$g.DrawString("THAT KILLS YOUR", $fontTitle, $whiteBrush, 80, $y)
+
+$y += 80
+$g.DrawString("AMAZON LISTING.", $fontTitle, $redBrush, 80, $y)
+
+$cardRect = New-Object System.Drawing.RectangleF(80, 480, 920, 400)
+Fill-RoundedRectangle $g $cardBrush $cardRect 16
+Draw-RoundedRectangle $g $cardBorderPen $cardRect 16
+$g.DrawLine($cardBorderPen, 120, 660, 960, 660)
+
+$g.DrawString("THE SELLER RISK", $fontCardTitle, $cyanBrush, 120, 520)
+$g.DrawString("Why marketplace algorithms destroy low-rated product rankings", $fontCardSub, $grayBrush, 120, 565)
+
+$col1X = 120
+$rowY = 700
+$g.DrawString("Listing Performance", $fontTextSemibold, $whiteBrush, $col1X, $rowY)
+$stars5 = "$starSolid$starSolid$starSolid$starSolid$starSolid"
+$g.DrawString($stars5, $fontTextSemibold, $greenBrush, $col1X, ($rowY + 45))
+$g.DrawString("Top rank & organic sales flow.", $fontText, $grayBrush, $col1X, ($rowY + 95))
+
+$col2X = 560
+$g.DrawString("Low Rating Penalty", $fontTextSemibold, $whiteBrush, $col2X, $rowY)
+$stars3 = "$starSolid$starSolid$starSolid$starEmpty$starEmpty"
+$g.DrawString($stars3, $fontTextSemibold, $redBrush, $col2X, ($rowY + 45))
+$g.DrawString("Ad costs double, rank drops.", $fontText, $grayBrush, $col2X, ($rowY + 95))
+
+$bmp.Save((Join-Path $outputDir "post5_slide1.png"), [System.Drawing.Imaging.ImageFormat]::Png)
+$bmp.Dispose()
+$g.Dispose()
+
+# --- Slide 2: The Death Spiral ---
+$bmp = New-Object System.Drawing.Bitmap(1080, 1080)
+$g = [System.Drawing.Graphics]::FromImage($bmp)
+$g.TextRenderingHint = [System.Drawing.Text.TextRenderingHint]::AntiAliasGridFit
+$g.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::AntiAlias
+$g.Clear($bgColor)
+Draw-HeaderFooter $g "E-COMMERCE SELLER SHIELD"
+
+$g.DrawString("THE RATING DEATH SPIRAL", $fontTitle, $whiteBrush, 80, 180)
+$g.DrawString("How Amazon/Flipkart algorithms treat ratings under 4.2:", $fontSubTitle, $grayBrush, 80, 245)
+
+# High Trust
+$rectZ1 = New-Object System.Drawing.RectangleF(80, 310, 920, 240)
+Fill-RoundedRectangle $g $cardBrush $rectZ1 12
+Draw-RoundedRectangle $g $greenPen $rectZ1 12
+$g.DrawString("THE 4.5+ STAR SUCCESS LOOP", $fontTextBold, $greenBrush, 120, 335)
+$g.DrawString("$bulletChar Higher conversion rate -> lower PPC (Pay-Per-Click) ad costs.", $fontText, $whiteBrush, 120, 380)
+$g.DrawString("$bulletChar Algorithms reward listings with organic search visibility.", $fontText, $whiteBrush, 120, 420)
+$g.DrawString("$bulletChar Secure Buy-Box ownership and scale daily sales passively.", $fontText, $whiteBrush, 120, 460)
+
+# Death Spiral
+$rectZ2 = New-Object System.Drawing.RectangleF(80, 590, 920, 240)
+Fill-RoundedRectangle $g $cardBrush $rectZ2 12
+Draw-RoundedRectangle $g $redPen $rectZ2 12
+$g.DrawString("THE UNDER 4.2 STAR DEATH SPIRAL", $fontTextBold, $redBrush, 120, 615)
+$g.DrawString("$bulletChar Conversion drops -> PPC ad costs double to maintain sales.", $fontText, $whiteBrush, 120, 660)
+$g.DrawString("$bulletChar Organic visibility drops as competitors rank above your listing.", $fontText, $whiteBrush, 120, 700)
+$g.DrawString("$bulletChar High threat of listing suspension due to negative feedback ratios.", $fontText, $whiteBrush, 120, 740)
+
+$bmp.Save((Join-Path $outputDir "post5_slide2.png"), [System.Drawing.Imaging.ImageFormat]::Png)
+$bmp.Dispose()
+$g.Dispose()
+
+# --- Slide 3: Package Insert Trap ---
+$bmp = New-Object System.Drawing.Bitmap(1080, 1080)
+$g = [System.Drawing.Graphics]::FromImage($bmp)
+$g.TextRenderingHint = [System.Drawing.Text.TextRenderingHint]::AntiAliasGridFit
+$g.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::AntiAlias
+$g.Clear($bgColor)
+Draw-HeaderFooter $g "E-COMMERCE SELLER SHIELD"
+
+$g.DrawString("THE PACKAGE INSERT TRAP", $fontTitle, $whiteBrush, 80, 180)
+$g.DrawString("Why typical warranty and package insert cards fail:", $fontSubTitle, $grayBrush, 80, 245)
+
+$rectBleed = New-Object System.Drawing.RectangleF(80, 310, 920, 560)
+Fill-RoundedRectangle $g $cardBrush $rectBleed 16
+Draw-RoundedRectangle $g $cardBorderPen $rectBleed 16
+
+$g.DrawString("1. Plain Inserts Get Ignored", $fontTextBold, $cyanBrush, 120, 350)
+$g.DrawString("Standard paper slips with 'thank you' notes are thrown in the trash", $fontText, $whiteBrush, 120, 390)
+$g.DrawString("instantly. Buyers need a direct incentive to scan (like warranty activation).", $fontText, $whiteBrush, 120, 420)
+
+$g.DrawString("2. Direct Review Requests Violate TOS", $fontTextBold, $redBrush, 120, 490)
+$g.DrawString("Asking for review manipulation or offering money on inserts is against", $fontText, $whiteBrush, 120, 530)
+$g.DrawString("Amazon/Flipkart terms, and can get your entire seller account permanently banned.", $fontText, $whiteBrush, 120, 560)
+
+$g.DrawString("3. The Solution", $fontTextBold, $greenBrush, 120, 630)
+$g.DrawString("A clean, compliant warranty portal. Happy buyers go to reviews.", $fontText, $whiteBrush, 120, 670)
+$g.DrawString("Unhappy buyers go to customer care for replacements.", $fontText, $whiteBrush, 120, 700)
+
+$bmp.Save((Join-Path $outputDir "post5_slide3.png"), [System.Drawing.Imaging.ImageFormat]::Png)
+$bmp.Dispose()
+$g.Dispose()
+
+# --- Slide 4: Process Flow ---
+$bmp = New-Object System.Drawing.Bitmap(1080, 1080)
+$g = [System.Drawing.Graphics]::FromImage($bmp)
+$g.TextRenderingHint = [System.Drawing.Text.TextRenderingHint]::AntiAliasGridFit
+$g.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::AntiAlias
+$g.Clear($bgColor)
+Draw-HeaderFooter $g "E-COMMERCE SELLER SHIELD"
+
+$g.DrawString("SMART WARRANTY ROUTING", $fontTitle, $whiteBrush, 80, 180)
+$g.DrawString("Reputation shield integrated into warranty registration.", $fontSubTitle, $grayBrush, 80, 245)
+
+# Scanner Node
+$rectScan = New-Object System.Drawing.RectangleF(390, 310, 300, 120)
+Fill-RoundedRectangle $g $cardBrush $rectScan 16
+Draw-RoundedRectangle $g $cyanPen $rectScan 16
+$g.DrawString("Buyer Scans", $fontTextBold, $cyanBrush, 470, 340)
+$g.DrawString("Warranty QR Card", $fontTextSemibold, $whiteBrush, 455, 380)
+
+# Paths
+$g.DrawLine($cardBorderPen, 250, 370, 390, 370)
+$g.DrawLine($cardBorderPen, 250, 370, 250, 520)
+$g.FillPolygon($greenBrush, @([System.Drawing.PointF]::new(245,510), [System.Drawing.PointF]::new(255,510), [System.Drawing.PointF]::new(250,520)))
+
+$g.DrawLine($cardBorderPen, 690, 370, 830, 370)
+$g.DrawLine($cardBorderPen, 830, 370, 830, 520)
+$g.FillPolygon($redBrush, @([System.Drawing.PointF]::new(825,510), [System.Drawing.PointF]::new(835,510), [System.Drawing.PointF]::new(830,520)))
+
+# Left card (Happy)
+$rectH = New-Object System.Drawing.RectangleF(80, 530, 420, 350)
+Fill-RoundedRectangle $g $cardBrush $rectH 16
+Draw-RoundedRectangle $g $greenPen $rectH 16
+$happyTitle = "$circleGreen  Loved the Product?"
+$g.DrawString($happyTitle, $fontTextBold, $greenBrush, 110, 560)
+$g.DrawString("Auto-routes buyer to", $fontText, $whiteBrush, 110, 610)
+$g.DrawString("Amazon or Flipkart to", $fontText, $whiteBrush, 110, 645)
+$g.DrawString("leave a product review.", $fontText, $whiteBrush, 110, 680)
+$g.DrawString("Result: Listing rank rises.", $fontTextSemibold, $greenBrush, 110, 750)
+
+# Right card (Unhappy)
+$rectU = New-Object System.Drawing.RectangleF(580, 530, 420, 350)
+Fill-RoundedRectangle $g $cardBrush $rectU 16
+Draw-RoundedRectangle $g $redPen $rectU 16
+$unhappyTitle = "$circleRed  Damaged or Broken?"
+$g.DrawString($unhappyTitle, $fontTextBold, $redBrush, 610, 560)
+$g.DrawString("Routes buyer to private support", $fontText, $whiteBrush, 610, 610)
+$g.DrawString("to receive an instant", $fontText, $whiteBrush, 610, 645)
+$g.DrawString("replacement or refund.", $fontText, $whiteBrush, 610, 680)
+$g.DrawString("Result: Negative reviews blocked.", $fontTextSemibold, $redBrush, 610, 750)
+
+$bmp.Save((Join-Path $outputDir "post5_slide4.png"), [System.Drawing.Imaging.ImageFormat]::Png)
+$bmp.Dispose()
+$g.Dispose()
+
+# --- Slide 5: CTA ---
+$bmp = New-Object System.Drawing.Bitmap(1080, 1080)
+$g = [System.Drawing.Graphics]::FromImage($bmp)
+$g.TextRenderingHint = [System.Drawing.Text.TextRenderingHint]::AntiAliasGridFit
+$g.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::AntiAlias
+$g.Clear($bgColor)
+Draw-HeaderFooter $g "E-COMMERCE SELLER SHIELD"
+
+$g.DrawString("7-DAY REFUND GUARANTEE", $fontTitle, $cyanBrush, 80, 180)
+$g.DrawString("Try the system risk-free for your e-commerce store.", $fontSubTitle, $grayBrush, 80, 245)
+
+$rectCTA = New-Object System.Drawing.RectangleF(80, 310, 920, 560)
+Fill-RoundedRectangle $g $cardBrush $rectCTA 16
+Draw-RoundedRectangle $g $cardBorderPen $rectCTA 16
+
+$g.DrawString("THE SELLER ONBOARDING PROCESS:", $fontTextBold, $cyanBrush, 120, 350)
+$g.DrawString("1. We set up your custom product warranty portal.", $fontTextSemibold, $whiteBrush, 120, 400)
+$g.DrawString("2. We send your print-ready digital QR package insert PDF.", $fontTextSemibold, $whiteBrush, 120, 450)
+$g.DrawString("3. Include the inserts in packages to claim 5-star reviews.", $fontTextSemibold, $whiteBrush, 120, 500)
+
+$rectPrice = New-Object System.Drawing.RectangleF(120, 570, 840, 80)
+$g.FillRectangle($bgBrush, $rectPrice)
+$g.DrawString("Pay Rs. 1,999 setup fee. Fully backed by our 7-day refund guarantee.", $fontTextBold, $greenBrush, 140, 595)
+
+$ctaText3 = "$handRight DM 'AMAZON', 'FLIPKART', OR 'MEESHO' TO START"
+$g.DrawString($ctaText3, $fontCardTitle, $cyanBrush, 120, 690)
+$g.DrawString("Get your custom digital QR insert designs in 24 hours.", $fontText, $grayBrush, 120, 740)
+
+$bmp.Save((Join-Path $outputDir "post5_slide5.png"), [System.Drawing.Imaging.ImageFormat]::Png)
+$bmp.Dispose()
+$g.Dispose()
+
+
 # Create duplicates to match the cover slides
 Copy-Item -Path (Join-Path $outputDir "post2_cover.png") -Destination (Join-Path $outputDir "post2_slide1.png") -Force
 Copy-Item -Path (Join-Path $outputDir "post3_cover.png") -Destination (Join-Path $outputDir "post3_slide1.png") -Force
+Copy-Item -Path (Join-Path $outputDir "post4_slide1.png") -Destination (Join-Path $outputDir "post4_cover.png") -Force
+Copy-Item -Path (Join-Path $outputDir "post5_slide1.png") -Destination (Join-Path $outputDir "post5_cover.png") -Force
 
 Write-Host "Carousel slides generated successfully!"

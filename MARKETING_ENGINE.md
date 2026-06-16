@@ -84,11 +84,11 @@ Below are niche-specific, psychological sales scripts. Copy, customize the brack
 > And a printable reception desk card mockup:
 > 👉 **[Your Deployed Flyer URL]**
 >
-> We would love to activate this for [Clinic Name] for a single **one-time integration fee of Rs. 2,499**.
+> We would love to activate this for [Clinic Name] for a single **one-time integration fee of Rs. 2,499**, fully backed by our **7-day money-back guarantee**.
 >
-> If you are open to experiencing the system, I can offer you a **10-day risk-free trial**. We will send the high-res standee files, and you only pay after you receive your first three 5-star patient reviews.
+> If you are open to experiencing the system, we will configure your custom patient portal and send you the high-resolution print-ready digital QR standee PDF. If you aren't completely satisfied with the results within 7 days, simply email us for a 100% immediate refund.
 >
-> Would you be open to a quick call this week to activate your trial?
+> Would you be open to a quick call this week to set this up for your clinic?
 >
 > Warm regards,
 > [Your Name]
@@ -106,9 +106,9 @@ Below are niche-specific, psychological sales scripts. Copy, customize the brack
 >
 > Here's a 10-second live demo I created using your logo: [Link]
 >
-> I can send you the printable cashier standee card (looks like this: [Link]) today so you can start double-boosting your Google Reviews. Only Rs. 1,999 one-time cost. 
+> I can send you the printable cashier standee card (looks like this: [Link]) today so you can start double-boosting your Google Reviews. Only Rs. 1,999 one-time cost, fully backed by our 7-day money-back guarantee.
 >
-> Interested in a 10-day free trial to see if it works?"
+> Interested in setting this up to see if it works?"
 
 ---
 
@@ -117,17 +117,17 @@ If you are starting out, the absolute fastest way to secure 10 clients in 7 days
 
 ### The Offer:
 If a business owner is skeptical, say this:
-> *"I understand you want to make sure this actually works. Let’s do this: I will activate your portal and send you the high-resolution printable table standee today for FREE. 
+> *"I understand you want to make sure this actually works. Let’s do this: we will set up your portal and send you the high-resolution, print-ready table standee PDF today. 
 > 
 > You print it out, fold it, and place it at your billing counter. 
 > 
-> Use it for 10 days. Once you see **at least three new 5-star reviews** show up on your Google Maps page, and confirm no bad reviews got through, you can pay me the Rs. 1,999. If you don't like it, you pay nothing and keep the standee."*
+> It is backed by a **7-day money-back guarantee**. If you aren't completely satisfied with the influx of new 5-star reviews or our bad-review intercept within the first 7 days, just let us know and we will issue a full, instant refund. You keep the printable file."*
 
 ### Why this works:
-* They have **zero risk**.
-* Printing a piece of paper costs them Rs. 5.
-* Google reviews are highly valuable (one customer is worth Rs. 5,000+ to them).
-* Once the standee is on the counter and starts printing 5-star reviews, **they will happily pay you Rs. 2,000 to keep it active**. They will never ask you to take it down!
+* The financial risk is **completely removed** by the refund policy.
+* Printing a piece of paper is simple and costs them less than Rs. 5.
+* Google reviews are highly valuable (one new loyal customer can be worth Rs. 5,000+ to them).
+* Once the standee is on the counter and they see how easy it is for customers to scan and review, they will realize it pays for itself in the first 48 hours.
 
 ---
 

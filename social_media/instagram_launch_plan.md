@@ -53,12 +53,12 @@ It is a simple, smart review gating system that sits at your cash counter or fro
 
 You handle their complaints privately. They get resolved. Their 1-star review never hits the internet. Your rating climbs.
 
-📈 RISK-FREE TRIAL FOR GOA BUSINESSES:
-Normally we charge a monthly setup fee. For this launch week, we are selecting 5 local businesses to test the Aegis Protocol for 10 Days completely FREE. We configure your portal, print your high-res standees, and set it up. 
+🛡️ 7-DAY MONEY-BACK GUARANTEE FOR GOA BUSINESSES:
+Normally we charge a monthly setup fee. For this launch week, we are backing all setups with a **7-Day Money-Back Guarantee**. We configure your custom review portal and deliver your high-resolution print-ready digital QR standee PDF.
 
-You only pay Rs. 1,999 after you receive at least 3 new 5-star reviews and confirm no bad reviews got through.
+Pay only a one-time ₹1,999 setup fee. If you aren't completely satisfied with the results within 7 days, we'll issue a 100% immediate refund.
 
-👉 DM us "AEGIS" right now to secure your trial.
+👉 DM us "AEGIS" right now to set up your portal today.
 ```
 * **Hashtags**: `#LocalBusiness #GoogleMyBusiness #GMBSEO #CustomerReviews #BusinessGrowth #RestaurantMarketing #DentalMarketing #SalonOwner #ReputationManagement #AegisProtocol #MetrixMedia`
 
@@ -71,7 +71,7 @@ You only pay Rs. 1,999 after you receive at least 3 new 5-star reviews and confi
   * *Slide 2*: "Because happy customers forget to review. Annoyed customers don't. A single 1-star review about a slow waiter drags down your rating, even if the food was perfect."
   * *Slide 3*: "The Cost: A lower rating drops your ranking in 'best cafes in Goa'. Tourists and new walk-ins choose the 4.7-star spot next door."
   * *Slide 4*: "The Fix: Aegis Protocol counter standee. Happy diners go to Google. Disgruntled diners go to a private manager alert. Save the customer, save your rating."
-  * *Slide 5 (CTA)*: Screenshot of a custom cafe review portal. "DM 'CAFE' for a Free 10-Day Standee Setup."
+  * *Slide 5 (CTA)*: Screenshot of a custom cafe review portal. "DM 'CAFE' for a 7-Day Risk-Free Setup."
 * **Caption**:
 ```text
 You spent lakhs on the interior, the lighting, the premium ingredients, and the chef. 
@@ -93,9 +93,9 @@ When customers pay at your billing counter, they scan a custom QR code:
 You receive a notification instantly, handle the issue privately, and keep their frustration off Google.
 
 🔥 ACTIVATE YOUR COUNTER TODAY:
-We will design, host, and print your custom QR standee. Use it for 10 days at your billing counter. If you don't get at least 3 new 5-star Google reviews (and intercept any complaints), you pay nothing. If it works, it's just a one-time setup fee of Rs. 1,999.
+We will design and host your custom cafe review portal and send you a high-resolution, print-ready digital QR standee PDF. Try it at your billing counter risk-free for 7 days. If you aren't completely satisfied with the results, get a 100% refund of your setup fee (one-time fee of Rs. 1,999).
 
-👉 DM us "CAFE" to claim your free 10-day trial before the weekend rush!
+👉 DM us "CAFE" to set up your portal today!
 ```
 * **Hashtags**: `#GoaCafes #CafeOwner #RestaurantMarketing #RestaurantLife #GoaFood #LocalSEO #CustomerFeedback #RestaurantOwner #FoodieReviews #MetrixMedia`
 
@@ -108,7 +108,7 @@ We will design, host, and print your custom QR standee. Use it for 10 days at yo
   * *Slide 2*: "The Patient Filter: In healthcare and wellness, trust is everything. A rating below 4.4 stars costs local clinics an average of 3-5 patient bookings every week."
   * *Slide 3*: "Why clinics suffer: Patients love your care, but complain on Google about administrative issues (waiting times, billing, parking). That shouldn't ruin your clinical reputation."
   * *Slide 4*: "The HIPAA-Compliant Solution: A neat acrylic standee at the reception desk. Happy patients auto-route to Google. Patient complaints go to a private director portal."
-  * *Slide 5 (CTA)*: Mockup of clinic standee. "DM 'CLINIC' to claim your 10-Day Risk-Free Practice Setup."
+  * *Slide 5 (CTA)*: Mockup of clinic standee. "DM 'CLINIC' to claim your 7-Day Risk-Free Setup."
 * **Caption**:
 ```text
 In healthcare and high-end personal care, reputation isn't just marketing—it's clinical trust. 
@@ -128,8 +128,8 @@ We install a professional, HIPAA-compliant Patient Feedback desk card at your ch
 
 Protect your hard-earned reputation.
 
-🎁 10-DAY RISK-FREE PRACTICE TRIAL:
-We will configure your custom clinical portal and ship your reception desk standee for free. Pay the one-time integration fee of Rs. 2,499 only AFTER you receive your first three 5-star patient reviews. 
+🎁 7-DAY RISK-FREE PRACTICE RUN:
+We will configure your custom clinical portal and deliver your high-resolution, print-ready reception desk digital QR standee PDF. Pay the one-time integration fee of Rs. 2,499. If you aren't completely satisfied with the results within 7 days, get a 100% refund.
 
 👉 DM us "CLINIC" to set up your practice portal today.
 ```

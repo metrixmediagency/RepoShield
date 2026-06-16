@@ -36,12 +36,12 @@ It is a simple, smart review gating system that sits at your cash counter or fro
 
 You handle their complaints privately. They get resolved. Their 1-star review never hits the internet. Your rating climbs.
 
-📈 RISK-FREE TRIAL FOR GOA BUSINESSES:
-Normally we charge a monthly setup fee. For this launch week, we are selecting 5 local businesses to test the Aegis Protocol for 10 Days completely FREE. We configure your portal, print your high-res standees, and set it up. 
+🛡️ 7-DAY MONEY-BACK GUARANTEE FOR GOA BUSINESSES:
+Normally we charge a monthly setup fee. For this launch week, we are backing all setups with a **7-Day Money-Back Guarantee**. We configure your custom review portal and deliver your high-resolution print-ready digital QR standee PDF.
 
-You only pay Rs. 1,999 after you receive at least 3 new 5-star reviews and confirm no bad reviews got through.
+Pay only a one-time ₹1,999 setup fee. If you aren't completely satisfied with the results within 7 days, we'll issue a 100% immediate refund.
 
-👉 DM us "AEGIS" right now to secure your trial.
+👉 DM us "AEGIS" right now to set up your portal today.
 
 #LocalBusiness #GoogleMyBusiness #GMBSEO #CustomerReviews #BusinessGrowth #RestaurantMarketing #DentalMarketing #SalonOwner #ReputationManagement #AegisProtocol #MetrixMedia
 ```
@@ -75,11 +75,11 @@ You only pay Rs. 1,999 after you receive at least 3 new 5-star reviews and confi
     * "Intercept grievances internally before they become 1-star reviews."
 * **Slide 5: Call to Action (CTA)**
   * **Visual**: Styled DM input card matching Instagram's interface.
-  * **Main Text**: "FREE 10-DAY TRIAL" (Neon Green)
+  * **Main Text**: "7-DAY REFUND GUARANTEE" (Neon Green)
   * **Supporting Copy**:
-    * "We configure your portal, print your high-res counter standees, and set it up for free."
-    * "Pay only Rs. 1,999 after you receive at least 3 new 5-star reviews."
-    * "👉 DM 'AEGIS' to secure your trial."
+    * "We configure your portal and send your print-ready digital QR standee PDF."
+    * "Pay Rs. 1,999 setup fee. Covered by a 7-day money-back guarantee."
+    * "👉 DM 'AEGIS' to setup your portal today."
 
 ---
 
@@ -106,9 +106,9 @@ When customers pay at your billing counter, they scan a custom QR code:
 You receive a notification instantly, handle the issue privately, and keep their frustration off Google.
 
 🔥 ACTIVATE YOUR COUNTER TODAY:
-We will design, host, and print your custom QR standee. Use it for 10 days at your billing counter. If you don't get at least 3 new 5-star Google reviews (and intercept any complaints), you pay nothing. If it works, it's just a one-time setup fee of Rs. 1,999.
+We will design and host your custom cafe review portal and send you a high-resolution, print-ready digital QR standee PDF. Try it at your billing counter risk-free for 7 days. If you aren't completely satisfied with the results, get a 100% refund of your setup fee (one-time fee of Rs. 1,999).
 
-👉 DM us "CAFE" to claim your free 10-day trial before the weekend rush!
+👉 DM us "CAFE" to set up your portal today!
 
 #GoaCafes #CafeOwner #RestaurantMarketing #RestaurantLife #GoaFood #LocalSEO #CustomerFeedback #RestaurantOwner #FoodieReviews #MetrixMedia
 ```
@@ -125,7 +125,7 @@ We will design, host, and print your custom QR standee. Use it for 10 days at yo
 * **Slide 4: The Aegis Counter Shield** (Uses [post2_slide4.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post2_slide4.png))
   * **Visual**: Process flow diagram showing scan routing paths. Happy experiences are auto-routed to Google, while complaints are directed to a private manager page.
 * **Slide 5: Call to Action (CTA)** (Uses [post2_slide5.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post2_slide5.png))
-  * **Visual**: Structured details card for the 10-Day Free Trial. Prompts the owner to DM 'CAFE' to claim their counter standee.
+  * **Visual**: Structured details card for the 7-Day Refund Guarantee. Prompts the owner to DM 'CAFE' to start their setup.
 
 ---
 
@@ -150,8 +150,8 @@ We install a professional, HIPAA-compliant Patient Feedback desk card at your ch
 
 Protect your hard-earned reputation.
 
-🎁 10-DAY RISK-FREE PRACTICE TRIAL:
-We will configure your custom clinical portal and ship your reception desk standee for free. Pay the one-time integration fee of Rs. 2,499 only AFTER you receive your first three 5-star patient reviews. 
+🎁 7-DAY RISK-FREE PRACTICE RUN:
+We will configure your custom clinical portal and deliver your high-resolution, print-ready reception desk digital QR standee PDF. Pay the one-time integration fee of Rs. 2,499. If you aren't completely satisfied with the results within 7 days, get a 100% refund.
 
 👉 DM us "CLINIC" to set up your practice portal today.
 
@@ -168,7 +168,7 @@ We will configure your custom clinical portal and ship your reception desk stand
 * **Slide 4: HIPAA-Compliant Review Routing** (Uses [post3_slide4.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post3_slide4.png))
   * **Visual**: Clinical routing flow diagram. Happy patient feedback is routed to Google Maps, while private grievances are sent confidential to the practice manager.
 * **Slide 5: Call to Action (CTA)** (Uses [post3_slide5.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post3_slide5.png))
-  * **Visual**: Details card outlining the 10-Day Clinical Trial. Prompts medical practices to DM 'CLINIC' to claim their reception desk standees.
+  * **Visual**: Details card outlining the 7-Day Refund Guarantee. Prompts medical practices to DM 'CLINIC' to setup.
 
 ---
 
@@ -213,9 +213,9 @@ By placing a simple feedback card inside every delivery bag:
 You get notified instantly, issue a refund or discount, and keep their frustration completely off the delivery apps.
 
 🔥 PROTECT YOUR DAILY ORDERS:
-We will host your portal and design your custom delivery bag QR cards. Use it risk-free for 10 days. If you don't get at least 3 new 5-star ratings and intercept bad reviews, you pay nothing. If it works, it's just a one-time setup fee of Rs. 1,999.
+We will host your portal and design your custom digital QR bag insert cards. All orders are backed by a **7-Day Money-Back Guarantee**. Pay a one-time ₹1,999 setup fee. If you aren't completely satisfied within 7 days, get a full refund.
 
-👉 DM us "ZOMATO" or "SWIGGY" to claim your free trial!
+👉 DM us "ZOMATO" or "SWIGGY" to set up your inserts today!
 
 #CloudKitchen #ZomatoIndia #SwiggyIndia #FoodDelivery #RestaurantMarketing #RestaurantOwner #CloudKitchenOwner #FoodieReviews #AegisProtocol #MetrixMedia
 ```
@@ -231,7 +231,7 @@ We will host your portal and design your custom delivery bag QR cards. Use it ri
 * **Slide 4: The Delivery Bag Shield** (Uses [post4_slide4.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post4_slide4.png))
   * **Visual**: Process flow diagram. Happy experiences go to Zomato/Swiggy reviews. Spills or delays go to private owner alerts.
 * **Slide 5: Call to Action (CTA)** (Uses [post4_slide5.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post4_slide5.png))
-  * **Visual**: Details card outlining the 10-Day Free Kitchen Trial. Prompts cloud kitchens to DM 'ZOMATO' or 'SWIGGY' to start.
+  * **Visual**: Details card outlining the 7-Day Refund Guarantee. Prompts cloud kitchens to DM 'ZOMATO' or 'SWIGGY' to start.
 
 ---
 
@@ -254,7 +254,7 @@ By placing a professional, compliant warranty activation card inside your produc
 You resolve their issues instantly by sending a replacement, keeping negative ratings off your listing.
 
 🛡️ 100% PLATFORM COMPLIANT:
-Our system operates entirely within platform Terms of Service (TOS) to protect your seller account. We build your warranty registration page and design your insert cards. Run it for 10 days risk-free. Pay the one-time ₹1,999 setup fee only after you secure 3 positive reviews.
+Our system operates entirely within platform Terms of Service (TOS) to protect your seller account. We build your warranty registration page and design your digital insert cards. Backed by a **7-Day Money-Back Guarantee**. Pay a one-time ₹1,999 setup fee; if not satisfied, request a 100% refund within 7 days.
 
 👉 DM us "AMAZON" or "FLIPKART" to secure your listing today!
 
@@ -271,7 +271,7 @@ Our system operates entirely within platform Terms of Service (TOS) to protect y
 * **Slide 4: Smart Warranty Routing** (Uses [post5_slide4.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post5_slide4.png))
   * **Visual**: Process flow diagram. Happy product experiences go to Amazon/Flipkart reviews. Damaged or defective items go to private support.
 * **Slide 5: Call to Action (CTA)** (Uses [post5_slide5.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post5_slide5.png))
-  * **Visual**: Details card outlining the 10-Day E-commerce Seller Trial. Prompts sellers to DM 'AMAZON', 'FLIPKART', or 'MEESHO' to setup.
+  * **Visual**: Details card outlining the 7-Day Refund Guarantee. Prompts sellers to DM 'AMAZON', 'FLIPKART', or 'MEESHO' to setup.
 
 ---
 

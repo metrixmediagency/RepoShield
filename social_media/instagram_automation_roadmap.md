@@ -66,7 +66,7 @@ We establish a single keyword trigger rule in ManyChat that fires if the user DM
 Once triggered, the chatbot automatically sends a single, high-converting universal card response:
 > "Hey there! 🛡️ Let's get your business out of the Google Maps review 'Danger Zone' and generate your custom review-gating portal.
 > 
-> Click the button below to set up your profile and generate your live review portal + custom desk standee in 10 seconds!"
+> Click the button below to set up your profile and generate your live review portal + print-ready digital QR standee PDF in 10 seconds!"
 * **Button Label**: `🛡️ Generate Free Demo`
 * **Target Link**: `https://metrixmedia.vercel.app/try.html`
 
@@ -120,7 +120,7 @@ Before launching any content, run through this dry-run checklist to ensure absol
 - [ ] **Analytics Baseline**: Set up ManyChat Dashboard bookmarks to track:
   - *Trigger Conversion Rate* (Sends / Completes)
   - *CTR of Portal Demo Button* (Goal: > 45%)
-  - *Lead-to-Client Conversion Rate* (Goal: 10% from DM demo to free trial sign-up)
+  - *Lead-to-Client Conversion Rate* (Goal: 10% from DM demo to setup sign-up)
 
 ---
 > [!NOTE]

@@ -1,0 +1,8 @@
+# Project Rules & Guidelines
+
+## Strict Execution Rules
+1. **No Unprompted File Edits**: The AI assistant must NEVER create, edit, delete, or modify any files (including project files, scripts, task lists, templates, or documentation) without first asking the user and receiving explicit approval.
+2. **Permission Process**:
+   - The AI must present the proposed change/draft to the user in the chat first.
+   - The AI must ask the user: "Would you like me to apply these changes?"
+   - The AI must wait for the user's approval before calling any file modification tools (e.g., `write_to_file`, `replace_file_content`, `multi_replace_file_content`).

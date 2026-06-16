@@ -28,7 +28,7 @@ When a user triggers the chatbot with any of the launch keywords, they receive a
 ### DM Text:
 > "Hey there! 🛡️ Let's get your business out of the Google Maps review 'Danger Zone' and generate your custom review-gating portal.
 > 
-> Click the button below to set up your profile and generate your live review portal + custom desk standee in 10 seconds!"
+> Click the button below to set up your profile and generate your live review portal + print-ready digital QR standee PDF in 10 seconds!"
 
 ### Button Configuration:
 * **Button Text**: `🛡️ Generate Free Demo`
