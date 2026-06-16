@@ -302,3 +302,54 @@ The following graphics have been generated and configured in the workspace under
    * [post5_slide3.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post5_slide3.png) (Slide 3: Package Insert Trap)
    * [post5_slide4.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post5_slide4.png) (Slide 4: Smart Warranty Routing)
    * [post5_slide5.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post5_slide5.png) (Slide 5: CTA Card)
+6. **Wellness Carousel Package (Post 6)**:
+   * [post6_slide1.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post6_slide1.png) (Cover Slide)
+   * [post6_slide2.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post6_slide2.png) (Slide 2: Membership Filter)
+   * [post6_slide3.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post6_slide3.png) (Slide 3: Facilities Trap)
+   * [post6_slide4.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post6_slide4.png) (Slide 4: Process Flow)
+   * [post6_slide5.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post6_slide5.png) (Slide 5: CTA Card)
+
+---
+
+## 🧘 Post #6: Wellness & Beauty (Salons, Spas, & Gyms)
+
+### 1️⃣ Copy-Pasteable Caption
+```text
+You spent lakhs on premium gym equipment, upscale spa interiors, and hiring the best trainers and stylists. 
+
+But a client who had a minor billing confusion at the desk or found a locker room towel slightly damp just went straight to Google Maps and left an angry 1-star review.
+
+And just like that, your rating drops to a 4.1. 
+
+In the beauty and fitness industry, reputation is everything. Prospective members search for "best gym in Goa" or "luxury spa near me." If they see a 4.1 or 4.2 rating, they assume poor hygiene, bad management, or rude staff. They book with the 4.7-star competitor down the street. 
+
+The worst part? Your services are top-tier. These minor facility or front-desk bottlenecks shouldn't ruin your hard-earned reputation.
+
+Aegis Protocol shields your wellness space.
+
+We set up a professional, clean Patient/Client Feedback QR standee at your checkout counter:
+✅ Delighted clients scan and are auto-routed to leave a public 5-star Google review.
+⚠️ Clients with complaints (wait time, cleanliness, billing) are sent to a private, confidential suggestion form.
+
+You receive an alert instantly, handle the issue privately, and keep their frustration completely off Google Maps.
+
+🛡️ 7-DAY MONEY-BACK GUARANTEE:
+We configure your custom wellness portal and send you a high-resolution, print-ready digital QR standee PDF. Try it at your reception desk risk-free for 7 days. Pay a one-time ₹1,999 setup fee; if not satisfied, request a 100% refund.
+
+👉 DM us "SALON" or "GYM" to secure your booking shield today!
+
+#GoaSalon #GoaSpa #GoaGym #SalonOwner #GymOwner #FitnessMarketing #SpaMarketing #ReputationManagement #AegisProtocol #MetrixMedia
+```
+
+### 2️⃣ Slide-by-Slide Carousel Blueprint (5 Slides)
+* **Slide 1: Hook / Cover** (Uses `social_media/post6_slide1.png`)
+  * **Visual**: Clean premium wellness space header card stating: "HOW A BAD RATING KILLS GYM & SALON BOOKINGS DAILY."
+* **Slide 2: The Membership Filter** (Uses `social_media/post6_slide2.png`)
+  * **Visual**: High-contrast comparison cards detailing the 4.5+ Star Success Loop vs the Under 4.4 Star Reputation Leak.
+* **Slide 3: The Facilities Trap** (Uses `social_media/post6_slide3.png`)
+  * **Visual**: Structured text boxes explaining facility grievances, public shaming, and our private redirect solution.
+* **Slide 4: Process Flow** (Uses `social_media/post6_slide4.png`)
+  * **Visual**: Process flow diagram. Happy client experiences go to Google Reviews. Grievances go to private manager alerts.
+* **Slide 5: Call to Action (CTA)** (Uses `social_media/post6_slide5.png`)
+  * **Visual**: Details card outlining the 7-Day Refund Guarantee. Prompts owners to DM 'SALON' or 'GYM' to setup.
+

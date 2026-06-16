@@ -22,6 +22,8 @@
 | **Week 1** | **Friday** | Carousel (5 Slides) | Clinics & Salons GMB | Patient Trust & The 3-Second Filter | `social_media/post3_slide1.png` |
 | **Week 2** | **Monday** | Carousel (5 Slides) | Cloud Kitchens (Food Delivery) | Zomato/Swiggy Spilled Gravy & App Penalties | `social_media/post4_slide1.png` |
 | **Week 2** | **Wednesday** | Carousel (5 Slides) | E-commerce (Amazon/Flipkart) | The 1-Star Review that Kills Your Listing | `social_media/post5_slide1.png` |
+| **Week 2** | **Friday** | Carousel (5 Slides) | Salons, Spas & Gyms GMB | Clean Towels, Rude Staff & Member Churn | `social_media/post6_slide1.png` |
+
 
 ---
 
