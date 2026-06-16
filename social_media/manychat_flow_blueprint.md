@@ -13,6 +13,9 @@ Instead of building complex question blocks and saving data inside ManyChat (whi
   * `AEGIS`
   * `CAFE`
   * `CLINIC`
+  * `ZOMATO`
+  * `AMAZON`
+  * `SELLER`
 
 ---
 

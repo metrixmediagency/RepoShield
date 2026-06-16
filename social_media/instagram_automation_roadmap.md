@@ -56,9 +56,11 @@ To keep operational costs at zero (avoiding ManyChat's Pro-tier billing for cust
 
 ### 1. Trigger Words Setup
 We establish a single keyword trigger rule in ManyChat that fires if the user DMs any of the following keywords (case-insensitive):
-* `AEGIS` (Universal)
+* `AEGIS` (Universal / General)
 * `CAFE` (Cafe & Restaurant niche)
 * `CLINIC` (Clinics & Wellness niche)
+* `ZOMATO` (Cloud Kitchens / Food Delivery niche)
+* `AMAZON` / `SELLER` (E-commerce Sellers niche)
 
 ### 2. Conversational Redirect (1-Step Flow)
 Once triggered, the chatbot automatically sends a single, high-converting universal card response:
