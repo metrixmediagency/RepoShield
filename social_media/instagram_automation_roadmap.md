@@ -52,67 +52,27 @@ graph TD
 ---
 
 ## 🔗 Phase 2: Aegis Review Portal Integration
-The review portal (`portal.html`) dynamically adjusts its text, colors, icons, and redirect links using URL query parameters parsed by `portal.js`. We will utilize ManyChat to collect these variables from the prospect, construct a personalized URL, and send a live demo in the DMs.
+To keep operational costs at zero (avoiding ManyChat's Pro-tier billing for custom input fields and webhooks), we bypass ManyChat data collection entirely. Instead, ManyChat triggers a single response redirecting all prospects to our hosted generator: [try.html](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/try.html).
 
 ### 1. Trigger Words Setup
-We will establish three keyword triggers in ManyChat corresponding to the campaign niches outlined in the content plan:
-* **Trigger 1**: `"AEGIS"` (General local businesses)
-* **Trigger 2**: `"CAFE"` (Restaurants, Cafes, and Eateries)
-* **Trigger 3**: `"CLINIC"` (Dental clinics, medical practices, salons, and spas)
+We establish a single keyword trigger rule in ManyChat that fires if the user DMs any of the following keywords (case-insensitive):
+* `AEGIS` (Universal)
+* `CAFE` (Cafe & Restaurant niche)
+* `CLINIC` (Clinics & Wellness niche)
 
-These triggers will be case-insensitive and configured to fire when a user sends the standalone word or includes it in a sentence (e.g., *"Send me the cafe link"*).
+### 2. Conversational Redirect (1-Step Flow)
+Once triggered, the chatbot automatically sends a single, high-converting universal card response:
+> "Hey there! 🛡️ Let's get your business out of the Google Maps review 'Danger Zone' and generate your custom review-gating portal.
+> 
+> Click the button below to set up your profile and generate your live review portal + custom desk standee in 10 seconds!"
+* **Button Label**: `🛡️ Generate Free Demo`
+* **Target Link**: `https://metrixmedia.vercel.app/try.html`
 
-### 2. Conversational Qualification Funnel
-Once a trigger fires, ManyChat will guide the user through a quick 4-step conversation to gather setup parameters:
-
-```text
-[Trigger: "CAFE"] 
-   └── ☕ "Hey there! Ready to stop 1-star coffee complaints from hurting your rating? Let's generate a live demo of your Aegis Portal right now. What is the official name of your Cafe?"
-        └── (User inputs Business Name -> Saved to Custom User Field: {{business_name}})
-             └── 📩 "Perfect. What is the business email where you want to receive private customer complaints?"
-                  └── (User inputs Email -> Saved to Custom User Field: {{business_email}})
-                       └── 🔗 "Got it! Paste your current Google Maps Review Link so we can route happy diners there:"
-                            └── (User inputs URL -> Saved to Custom User Field: {{gmb_url}})
-```
-
-### 3. Dynamic Portal URL Construction
-Using the variables saved in ManyChat, we will construct a custom link containing the query parameters parsed by `portal.js`. 
-
-The variables correspond directly to the JS URL parameters:
-* `name`: `{{business_name}}`
-* `url`: `{{gmb_url}}` (URL-encoded)
-* `email`: `{{business_email}}`
-* `color`: Accent color matching their brand (e.g., `#00F2FE` for neon cyan or `#FFB300` for cafes). We can set this dynamically or default to our brand neon cyan.
-* `category`: Determined by the trigger word (`cafe` for "CAFE", `dental` or `salon` for "CLINIC").
-* `demo`: `true` (This forces a browser alert explaining GMB redirection to show the user how the system works without forcing them off the demo).
-
-**Generated URL Template:**
-```text
-https://metrixmedia.agency/portal.html?name={{business_name}}&url={{gmb_url}}&email={{business_email}}&category={{category}}&color=%2300F2FE&demo=true
-```
-
-**Delivery Message in ManyChat:**
-> ⚡ **"Your portal is ready! Tap below to open your customized, live review-gating demo. Try selecting 5 stars to see the Google redirect, or select 2 stars to see how we route complaints to your inbox."**  
-> `[Button: Open Live Demo 🔗]` *(Links to the constructed URL)*
-
-### 4. Lead Synchronization (CRM & Supabase Webhook)
-To prevent leads from staying trapped in ManyChat, we will insert an **External Request** block at the end of the flow.
-* **HTTP Method**: `POST`
-* **Request URL**: `https://metrixmedia.agency/api/leads`
-* **Headers**: `Content-Type: application/json`, `Authorization: Bearer {{api_key}}`
-* **Payload Body**:
-```json
-{
-  "name": "{{business_name}}",
-  "email": "{{business_email}}",
-  "phone": "{{user_phone_number}}",
-  "gmb_link": "{{gmb_url}}",
-  "source": "Instagram DM",
-  "niche": "{{category}}",
-  "created_at": "2026-06-15T17:21:33Z"
-}
-```
-*Action: This triggers a database insert on Supabase, notifying the agency sales representative to follow up with the prospect.*
+### 3. Dynamic Form Processing (try.html)
+The web form handles all styling, categorization, pricing, and database logging:
+* **Niche Mapping**: The prospect selects their category (Cafe, Dental Clinic, Salon, or Other) on the form. This automatically maps the theme colors, icons (coffee cup, tooth, scissors, shop), and setup fee pricing (Rs 1,999 vs Rs 2,499) dynamically.
+* **Lead Sync**: The form makes a POST request to `/api/leads.js` to store the lead record directly in our Supabase database.
+* **Demo Generation**: It displays the customized links instantly on the screen for the prospect to test on their smartphone.
 
 ---
 
