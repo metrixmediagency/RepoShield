@@ -114,36 +114,18 @@ We will design, host, and print your custom QR standee. Use it for 10 days at yo
 ```
 
 ### 2️⃣ Slide-by-Slide Carousel Blueprint (5 Slides)
-* **Slide 1: Hook / Cover**
-  * **Visual**: Deep Navy (`#0A0F1E`) background. Features the high-contrast UI disconnect card. (Uses the generated asset: `social_media/post2_cover.png`)
+* **Slide 1: Hook / Cover** (Uses [post2_slide1.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post2_slide1.png))
+  * **Visual**: High-fidelity illustration of payment terminals and mobile alert screen.
   * **Main Title**: "YOUR FOOD IS 10/10. YOUR GOOGLE RATING IS A 4.1. WHY?"
-  * **Visual Layout**: Displays the comparison card showing inside experience (10/10 Food & Vibe) vs Google Maps rating (4.1 Danger Zone).
-* **Slide 2: The Diner Experience Disconnect**
-  * **Visual**: Split illustration. Left: A couple enjoying a fantastic meal. Right: A customer looking annoyed at a slow drink service.
-  * **Main Copy**:
-    * "95% of delighted foodies leave happy and say nothing online."
-    * "1 customer who waited 5 mins too long for a bill will leave a 1-star review instantly."
-    * "One bad review overrides 10 happy, silent diners."
-* **Slide 3: The Revenue Leak**
-  * **Visual**: Map visualization representing local cafe searches in Goa.
-  * **Main Copy**:
-    * "Tourists and new walk-ins search 'best cafes near me' and filter for 4.5+ stars."
-    * "A 4.1 rating drops your ranking on Google Maps."
-    * "Customers walk past your stunning interior straight to the 4.7-star competitor next door."
-* **Slide 4: The Aegis Counter Shield**
-  * **Visual**: Standee mock-up placed right on a cafe payment counter.
-  * **Main Copy**:
-    * "Place a custom QR standee at your payment desk."
-    * "🌟 Happy diners scan and auto-route to Google to share their experience."
-    * "📩 Disgruntled diners go to a private internal manager alert."
-    * "Solve issues before the diner leaves your restaurant."
-* **Slide 5: Call to Action (CTA)**
-  * **Visual**: Smartphone displaying a branded review portal tailored for cafes.
-  * **Main Text**: "DM 'CAFE' for your Free 10-Day Standee" (Neon Yellow)
-  * **Supporting Copy**:
-    * "We will design, host, and print your custom QR standees."
-    * "Test it risk-free. Pay only Rs. 1,999 after securing 3 new 5-star reviews."
-    * "👉 Send us a DM with 'CAFE' to claim yours."
+* **Slide 2: The Diner Experience Disconnect** (Uses [post2_slide2.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post2_slide2.png))
+  * **Visual**: Side-by-side cards comparing Diner Experience (5 stars) vs Google Maps Rating (4 stars and 1 empty star).
+  * **Main Text**: Highlights the gap where 95% of satisfied diners leave silently, while a single minor issue triggers a negative review.
+* **Slide 3: The Revenue Leak** (Uses [post2_slide3.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post2_slide3.png))
+  * **Visual**: Three colored indicator cards representing the Trust Zone (green, 4.5+), Danger Zone (yellow, 4.0-4.4), and Invisible Zone (red, under 3.9).
+* **Slide 4: The Aegis Counter Shield** (Uses [post2_slide4.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post2_slide4.png))
+  * **Visual**: Process flow diagram showing scan routing paths. Happy experiences are auto-routed to Google, while complaints are directed to a private manager page.
+* **Slide 5: Call to Action (CTA)** (Uses [post2_slide5.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post2_slide5.png))
+  * **Visual**: Structured details card for the 10-Day Free Trial. Prompts the owner to DM 'CAFE' to claim their counter standee.
 
 ---
 
@@ -177,41 +159,31 @@ We will configure your custom clinical portal and ship your reception desk stand
 ```
 
 ### 2️⃣ Slide-by-Slide Carousel Blueprint (5 Slides)
-* **Slide 1: Hook / Cover**
-  * **Visual**: Clean clinic trust header. Deep Navy (`#0A0F1E`) background. (Uses the generated asset: `social_media/post3_cover.png`)
-  * **Main Title**: "92% OF NEW PATIENTS CHECK REVIEWS BEFORE BOOKING A DOCTOR."
-  * **Visual Layout**: Displays the 3-Second Patient Filter card showing the green "PASS" zone (4.5 to 5.0 stars) vs the red "FILTERED OUT" zone (Under 4.4 stars).
-* **Slide 2: The Patient Trust Filter**
-  * **Visual**: Icons representing clinical trust, booking calendar, and stars.
-  * **Main Copy**:
-    * "In medicine and wellness, a rating below 4.4 stars translates to 'substandard care'."
-    * "Prospective patients filter out lower ratings immediately to avoid perceived risk."
-    * "This trust filter costs average clinics 3-5 bookings every single week."
-* **Slide 3: Why Clinical Reputations Bleed**
-  * **Visual**: List of typical administrative complaints (wait times, receptionist attitude, billing) contrasting with high-quality medical care.
-  * **Main Copy**:
-    * "90% of clinic negative reviews have nothing to do with medical expertise."
-    * "They are about parking, wait times, or billing confusion."
-    * "Do not let reception bottlenecks ruin your clinic's hard-earned clinical reputation."
-* **Slide 4: HIPAA-Compliant Review Routing**
-  * **Visual**: An elegant acrylic desk standee at the reception checkout desk.
-  * **Main Copy**:
-    * "Install a professional desk card at reception."
-    * "👩‍⚕️ Patients scan the QR code before they leave."
-    * "🌟 Happy patients are routed to Google to share their experience."
-    * "📩 Grievances are routed to a private manager portal to maintain patient confidentiality."
-* **Slide 5: Call to Action (CTA)**
-  * **Visual**: Dynamic clinic review portal preview on a tablet.
-  * **Main Text**: "DM 'CLINIC' for a 10-Day Practice Trial" (Neon Cyan)
-  * **Supporting Copy**:
-    * "Free setup & high-res standee printing."
-    * "Verify the results first. Pay the one-time integration fee of Rs. 2,499 only after securing 3 new 5-star reviews."
-    * "👉 DM 'CLINIC' to protect your clinical reputation today."
+* **Slide 1: Hook / Cover** (Uses [post3_slide1.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post3_slide1.png))
+  * **Visual**: High-contrast header stating "92% OF NEW PATIENTS CHECK REVIEWS BEFORE BOOKING."
+* **Slide 2: The Patient Trust Filter** (Uses [post3_slide2.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post3_slide2.png))
+  * **Visual**: Side-by-side comparison of the green PASS zone (4.5 to 5.0 stars) vs the red FILTERED OUT zone (under 4.4 stars).
+* **Slide 3: Why Clinical Reputations Bleed** (Uses [post3_slide3.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post3_slide3.png))
+  * **Visual**: Structured text boxes explaining that 90% of clinic negative reviews focus on administrative bottlenecks (parking, reception wait times, billing) rather than medical care.
+* **Slide 4: HIPAA-Compliant Review Routing** (Uses [post3_slide4.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post3_slide4.png))
+  * **Visual**: Clinical routing flow diagram. Happy patient feedback is routed to Google Maps, while private grievances are sent confidential to the practice manager.
+* **Slide 5: Call to Action (CTA)** (Uses [post3_slide5.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post3_slide5.png))
+  * **Visual**: Details card outlining the 10-Day Clinical Trial. Prompts medical practices to DM 'CLINIC' to claim their reception desk standees.
 
 ---
 
 ## 🎨 Asset Summary
 The following graphics have been generated and configured in the workspace under the `social_media/` directory:
-1. `social_media/post1_mockup.png` (Universal Review Gating Infographic)
-2. `social_media/post2_cover.png` (Cafe Disconnect Cover - Headline and Table UI)
-3. `social_media/post3_cover.png` (Clinical Trust Filter Cover - Headline and Pass/Fail Badge UI)
+1. `social_media/post1_mockup.png` (Universal Review Gating Infographic - Single Post)
+2. **Cafe Carousel Package (Post 2)**:
+   * [post2_slide1.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post2_slide1.png) (Cover Slide / Cover image)
+   * [post2_slide2.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post2_slide2.png) (Slide 2: Reality Gap)
+   * [post2_slide3.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post2_slide3.png) (Slide 3: Revenue Leak)
+   * [post2_slide4.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post2_slide4.png) (Slide 4: Process Flow)
+   * [post2_slide5.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post2_slide5.png) (Slide 5: CTA Card)
+3. **Clinic Carousel Package (Post 3)**:
+   * [post3_slide1.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post3_slide1.png) (Cover Slide / Cover image)
+   * [post3_slide2.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post3_slide2.png) (Slide 2: Trust Filter)
+   * [post3_slide3.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post3_slide3.png) (Slide 3: Reputation Bleed)
+   * [post3_slide4.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post3_slide4.png) (Slide 4: HIPAA Routing)
+   * [post3_slide5.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post3_slide5.png) (Slide 5: CTA Card)
