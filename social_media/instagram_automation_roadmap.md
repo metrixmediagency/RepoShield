@@ -5,11 +5,11 @@
 ---
 
 ## 📌 Executive Summary
-To scale client acquisition for the **Aegis Protocol**, we are launching a conversational Instagram funnel. When local business prospects engage with our content (reels, posts, or stories) and DM specific keywords, ManyChat will instantly qualify them, generate a personalized live preview of their Aegis Review Portal, and sync their lead data to our database.
+To scale client acquisition for the **Aegis Protocol**, we are launching a conversational Instagram funnel. When local business prospects engage with our content (reels, posts, or stories) and DM specific keywords, ManyChat will instantly route them to our custom web generator (try.html) to set up their profile, generate a personalized live preview of their Aegis Review Portal, and sync their lead data to our database.
 
 This roadmap details:
 1. **Infrastructure**: Linking Instagram to Meta APIs and ManyChat.
-2. **Technical Integration**: Directing ManyChat inputs into the `portal.html` dynamic parameters to generate real-time lead demos.
+2. **Technical Integration**: Linking the DM button to the `try.html` web form to generate live lead demos.
 3. **Control Workflow**: The collaborative approval loop between the SMM and the CEO to ensure brand safety, design quality, and bug-free automation.
 
 ---
@@ -99,9 +99,9 @@ sequenceDiagram
 | Stage | Owner | Action Details | Deliverables / Tools |
 | :--- | :--- | :--- | :--- |
 | **1. Ideation & Assets** | SMM | • Drafts graphic designs (mockups/carousels) in the workspace directory under `social_media/`. <br>• Drafts post captions, hashtags, and specific keyword trigger lists. | `social_media/post1_mockup.png`<br>`social_media/instagram_launch_plan.md` |
-| **2. Flow Drafting** | SMM | • Creates a new flow draft in ManyChat.<br>• Map user input fields to variables. Set up the dynamic URL builder button.<br>• Copy the ManyChat **Test Flow Link**. | ManyChat Flow Draft Link |
-| **3. Code Adjustments** | SMM | • If the portal JS/HTML needs template modifications or styling tweaks, write updates to `portal.html` or `portal.js`.<br>• Push changes to git branch `feature/ig-automation` and open a Pull Request (PR). | GitHub Pull Request |
-| **4. Technical Testing** | CEO | • Clicks SMM’s ManyChat test link to trigger the automation on the CEO's personal Instagram account.<br>• Verifies: Triggers work, dynamic URL builds properly, custom logo/branding loads, Swiggy/Google redirect behaves correctly, and lead data is written to database. | QA Checklist Signoff |
+| **2. Flow Drafting** | SMM | • Creates a new flow draft in ManyChat.<br>• Sets up a single response message with a button redirecting users to `try.html`.<br>• Copy the ManyChat **Test Flow Link**. | ManyChat Flow Draft Link |
+| **3. Code Adjustments** | SMM | • If the portal JS/HTML needs template modifications or styling tweaks, write updates to `portal.html`, `portal.js`, or `try.html`.<br>• Push changes to git branch `feature/ig-automation` and open a Pull Request (PR). | GitHub Pull Request |
+| **4. Technical Testing** | CEO | • Clicks SMM’s ManyChat test link to trigger the automation on the CEO's personal Instagram account.<br>• Verifies: Triggers work, form loads correctly, custom logo/branding displays, GMB redirect behaves correctly, and lead data is written to database. | QA Checklist Signoff |
 | **5. Design & Copy Review** | CEO | • Reviews copywriting, design templates, and overall aesthetics in the branch/PR.<br>• Requests adjustments on copywriting hooks, contrast adjustments, or formatting. | GitHub Code Review / Comments |
 | **6. Deployment & Launch** | CEO | • Merges the PR to the `main` branch to push portal updates to production.<br>• Sets the ManyChat flow draft to **Active** (publishing it live).<br>• Publishes/schedules the post graphic and caption on Meta Business Suite. | Production Release |
 
