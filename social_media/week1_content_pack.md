@@ -187,3 +187,118 @@ The following graphics have been generated and configured in the workspace under
    * [post3_slide3.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post3_slide3.png) (Slide 3: Reputation Bleed)
    * [post3_slide4.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post3_slide4.png) (Slide 4: HIPAA Routing)
    * [post3_slide5.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post3_slide5.png) (Slide 5: CTA Card)
+
+---
+
+## 🛵 Post #4: Zomato & Swiggy Delivery Edition
+
+### 1️⃣ Copy-Pasteable Caption
+```text
+You cook the perfect biryani, pack it carefully, and send it out. 
+
+But the delivery rider gets stuck in traffic, takes 45 minutes, and delivers a cold package. Or a container leaks in transit. 
+
+What happens? The customer doesn't blame the rider. They open Zomato or Swiggy and leave an angry 1-star rating on your kitchen profile.
+
+It’s not fair, but it’s how the delivery economy works.
+
+When your rating falls below 4.0, the app algorithms start penalizing you. They push your kitchen to the bottom of the feed. Orders drop by up to 60% overnight.
+
+Aegis Protocol shields your cloud kitchen.
+
+By placing a simple feedback card inside every delivery bag:
+✅ Happy diners scan and are auto-routed to Zomato/Swiggy to share their 5-star experience.
+⚠️ Annoyed diners (spilled food, delay, cold temp) are routed to a private mobile form.
+
+You get notified instantly, issue a refund or discount, and keep their frustration completely off the delivery apps.
+
+🔥 PROTECT YOUR DAILY ORDERS:
+We will host your portal and design your custom delivery bag QR cards. Use it risk-free for 10 days. If you don't get at least 3 new 5-star ratings and intercept bad reviews, you pay nothing. If it works, it's just a one-time setup fee of Rs. 1,999.
+
+👉 DM us "ZOMATO" or "SWIGGY" to claim your free trial!
+
+#CloudKitchen #ZomatoIndia #SwiggyIndia #FoodDelivery #RestaurantMarketing #RestaurantOwner #CloudKitchenOwner #FoodieReviews #AegisProtocol #MetrixMedia
+```
+
+### 2️⃣ Slide-by-Slide Carousel Blueprint (5 Slides)
+* **Slide 1: Hook / Cover** (Uses [post4_slide1.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post4_slide1.png))
+  * **Visual**: High-contrast illustration showing Diner Taste Reality (10/10) vs Zomato/Swiggy rating (3.9 Danger Zone).
+  * **Main Title**: "YOUR FOOD IS 10/10. YOUR APP RATING IS A 3.9. WHY?"
+* **Slide 2: The Algorithm Penalty** (Uses [post4_slide2.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post4_slide2.png))
+  * **Visual**: Three colored indicator cards representing the Trust Zone (green, 4.3+), Danger Zone (yellow, 4.0-4.2), and Penalty Zone (red, under 3.9).
+* **Slide 3: The Spilled Gravy Trap** (Uses [post4_slide3.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post4_slide3.png))
+  * **Visual**: Detailed explanation cards detailing rider delays, spilled packaging, and silent happy diners.
+* **Slide 4: The Delivery Bag Shield** (Uses [post4_slide4.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post4_slide4.png))
+  * **Visual**: Process flow diagram. Happy experiences go to Zomato/Swiggy reviews. Spills or delays go to private owner alerts.
+* **Slide 5: Call to Action (CTA)** (Uses [post4_slide5.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post4_slide5.png))
+  * **Visual**: Details card outlining the 10-Day Free Kitchen Trial. Prompts cloud kitchens to DM 'ZOMATO' or 'SWIGGY' to start.
+
+---
+
+## 📦 Post #5: E-commerce Seller Edition
+
+### 1️⃣ Copy-Pasteable Caption
+```text
+E-commerce sellers, you know the feeling. A single 1-star product review on Amazon, Flipkart, or Meesho can kill your listing ranking. 
+
+Your conversion rate drops, your PPC ad costs double, and your listing falls off page 1. In worst cases, the platform suspends your product listing entirely.
+
+But most negative reviews aren't even about product quality—they are about shipping damage, missing parts, or user confusion.
+
+Aegis Protocol protects your e-commerce listings.
+
+By placing a professional, compliant warranty activation card inside your product packaging:
+✅ Delighted buyers scan and are auto-routed to leave a positive review on Amazon/Flipkart.
+⚠️ Annoyed buyers (defects, shipping damage, missing manual) go to a private support portal.
+
+You resolve their issues instantly by sending a replacement, keeping negative ratings off your listing.
+
+🛡️ 100% PLATFORM COMPLIANT:
+Our system operates entirely within platform Terms of Service (TOS) to protect your seller account. We build your warranty registration page and design your insert cards. Run it for 10 days risk-free. Pay the one-time ₹1,999 setup fee only after you secure 3 positive reviews.
+
+👉 DM us "AMAZON" or "FLIPKART" to secure your listing today!
+
+#AmazonSeller #FlipkartSeller #MeeshoSeller #EcommerceBusiness #AmazonFBA #OnlineSeller #EcommerceReputation #ProductReviews #AegisProtocol #MetrixMedia
+```
+
+### 2️⃣ Slide-by-Slide Carousel Blueprint (5 Slides)
+* **Slide 1: Hook / Cover** (Uses [post5_slide1.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post5_slide1.png))
+  * **Visual**: Warning header card displaying: "THE 1-STAR REVIEW THAT KILLS YOUR AMAZON LISTING."
+* **Slide 2: The Death Spiral** (Uses [post5_slide2.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post5_slide2.png))
+  * **Visual**: Comparison cards detailing the 4.5+ Star Success Loop vs the Under 4.2 Star Death Spiral (low rank, high PPC costs).
+* **Slide 3: The Package Insert Trap** (Uses [post5_slide3.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post5_slide3.png))
+  * **Visual**: Structured text boxes explaining plain inserts vs review manipulation bans vs our compliant warranty redirect solution.
+* **Slide 4: Smart Warranty Routing** (Uses [post5_slide4.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post5_slide4.png))
+  * **Visual**: Process flow diagram. Happy product experiences go to Amazon/Flipkart reviews. Damaged or defective items go to private support.
+* **Slide 5: Call to Action (CTA)** (Uses [post5_slide5.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post5_slide5.png))
+  * **Visual**: Details card outlining the 10-Day E-commerce Seller Trial. Prompts sellers to DM 'AMAZON', 'FLIPKART', or 'MEESHO' to setup.
+
+---
+
+## 🎨 Asset Summary
+The following graphics have been generated and configured in the workspace under the `social_media/` directory:
+1. `social_media/post1_mockup.png` (Universal Review Gating Infographic - Single Post)
+2. **Cafe Carousel Package (Post 2)**:
+   * [post2_slide1.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post2_slide1.png) (Cover Slide)
+   * [post2_slide2.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post2_slide2.png) (Slide 2: Reality Gap)
+   * [post2_slide3.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post2_slide3.png) (Slide 3: Revenue Leak)
+   * [post2_slide4.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post2_slide4.png) (Slide 4: Process Flow)
+   * [post2_slide5.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post2_slide5.png) (Slide 5: CTA Card)
+3. **Clinic Carousel Package (Post 3)**:
+   * [post3_slide1.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post3_slide1.png) (Cover Slide)
+   * [post3_slide2.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post3_slide2.png) (Slide 2: Trust Filter)
+   * [post3_slide3.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post3_slide3.png) (Slide 3: Reputation Bleed)
+   * [post3_slide4.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post3_slide4.png) (Slide 4: HIPAA Routing)
+   * [post3_slide5.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post3_slide5.png) (Slide 5: CTA Card)
+4. **Cloud Kitchen Carousel Package (Post 4)**:
+   * [post4_slide1.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post4_slide1.png) (Cover Slide)
+   * [post4_slide2.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post4_slide2.png) (Slide 2: App Penalty)
+   * [post4_slide3.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post4_slide3.png) (Slide 3: Spilled Gravy Trap)
+   * [post4_slide4.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post4_slide4.png) (Slide 4: Delivery Bag Shield)
+   * [post4_slide5.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post4_slide5.png) (Slide 5: CTA Card)
+5. **E-commerce Seller Carousel Package (Post 5)**:
+   * [post5_slide1.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post5_slide1.png) (Cover Slide)
+   * [post5_slide2.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post5_slide2.png) (Slide 2: Death Spiral)
+   * [post5_slide3.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post5_slide3.png) (Slide 3: Package Insert Trap)
+   * [post5_slide4.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post5_slide4.png) (Slide 4: Smart Warranty Routing)
+   * [post5_slide5.png](file:///c:/Users/sunny/.gemini/antigravity/scratch/MetrixMedia/social_media/post5_slide5.png) (Slide 5: CTA Card)
