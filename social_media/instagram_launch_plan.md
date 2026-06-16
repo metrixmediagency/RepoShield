@@ -12,14 +12,16 @@
 
 ---
 
-## 📅 The 1-Week Launch Schedule
+## 📅 The 2-Week Launch Schedule (Niche-Expanded)
 
 ### 🗺️ Overview
-| Day | Content Type | Niche Target | Topic | Primary Asset |
-| :--- | :--- | :--- | :--- | :--- |
-| **Monday** | Single Post (Infographic) | Universal / All Niches | Is a 4.1 Rating Killing Your Revenue? | `social_media/post1_mockup.png` |
-| **Wednesday** | Carousel (5 Slides) | Cafes & Restaurants | Your Food is 10/10, But Your Rating is 4.1 | Visual Carousel Outline |
-| **Friday** | Carousel (5 Slides) | Clinics & Salons | Patient Trust & The 3-Second Filter | Visual Carousel Outline |
+| Week | Day | Content Type | Niche Target | Topic | Primary Asset |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Week 1** | **Monday** | Single Post (Infographic) | Universal GMB | Is a 4.1 Rating Killing Your Revenue? | `social_media/post1_mockup.png` |
+| **Week 1** | **Wednesday** | Carousel (5 Slides) | Cafes & Restaurants GMB | Your Food is 10/10, But Your Rating is 4.1 | `social_media/post2_slide1.png` |
+| **Week 1** | **Friday** | Carousel (5 Slides) | Clinics & Salons GMB | Patient Trust & The 3-Second Filter | `social_media/post3_slide1.png` |
+| **Week 2** | **Monday** | Carousel (5 Slides) | Cloud Kitchens (Food Delivery) | Zomato/Swiggy Spilled Gravy & App Penalties | `social_media/post4_slide1.png` |
+| **Week 2** | **Wednesday** | Carousel (5 Slides) | E-commerce (Amazon/Flipkart) | The 1-Star Review that Kills Your Listing | `social_media/post5_slide1.png` |
 
 ---
 
