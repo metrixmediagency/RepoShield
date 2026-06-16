@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aegis Protocol - Instant Demo Generator</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-dark: #090d16;
+            --bg-card: rgba(15, 23, 42, 0.65);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-focus: rgba(59, 130, 246, 0.4);
+            
+            --primary: #3b82f6; /* Azure Blue */
+            --primary-glow: rgba(59, 130, 246, 0.25);
+            --primary-dark: #1d4ed8;
+            
+            --accent-emerald: #10b981; /* Mint Green */
+            --accent-cyan: #0ea5e9;
+            
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            
+            --font-heading: 'Outfit', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow-premium: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+            --blur-strength: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 550px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2.5rem;
+            backdrop-filter: blur(var(--blur-strength));
+            box-shadow: var(--shadow-premium);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent-cyan) 50%, var(--accent-emerald) 100%);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .logo-icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .logo-text {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 1.25rem;
+            letter-spacing: 0.05em;
+        }
+
+        h1 {
+            font-family: var(--font-heading);
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Form styling */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        input, select {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            color: #fff;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            transition: var(--transition-smooth);
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        .niche-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+
+        .niche-option {
+            border: 1px solid var(--border-color);
+            background: rgba(15, 23, 42, 0.4);
+            padding: 0.75rem;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .niche-option i {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            transition: var(--transition-smooth);
+        }
+
+        .niche-option.active {
+            border-color: var(--primary);
+            background: rgba(59, 130, 246, 0.1);
+            color: #fff;
+        }
+
+        .niche-option.active i {
+            color: var(--primary);
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: var(--transition-smooth);
+            box-shadow: 0 4px 12px var(--primary-glow);
+            margin-top: 0.5rem;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Result Panel */
+        .result-panel {
+            display: none;
+            text-align: center;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .success-icon {
+            font-size: 3rem;
+            color: var(--accent-emerald);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .result-title {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 2rem;
+        }
+
+        .actions-vertical {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .btn-action {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid var(--border-color);
+            color: #fff;
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-action:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .btn-action.featured {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(14, 165, 233, 0.1) 100%);
+            border-color: var(--primary);
+        }
+
+        .footer {
+            margin-top: 2rem;
+            font-size: 0.75rem;
+            color: rgba(148, 163, 184, 0.4);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- FORM PANEL -->
+        <div id="form-panel">
+            <div class="header">
+                <div class="logo-area">
+                    <i class="fa-solid fa-shield-halved logo-icon"></i>
+                    <span class="logo-text">AEGIS PROTOCOL</span>
+                </div>
+                <h1>Generate Your Free Demo</h1>
+                <p class="subtitle">Experience how Aegis Protocol filters negative reviews and boosts your 5-star Google rating on autopilot.</p>
+            </div>
+            
+            <form id="demo-form" onsubmit="generateDemo(event)">
+                <div class="form-group">
+                    <label for="biz-name">Business Name</label>
+                    <input type="text" id="biz-name" placeholder="e.g. Bean & Brew Cafe" required autocomplete="off">
+                </div>
+
+                <div class="form-group">
+                    <label for="biz-email">Business Email</label>
+                    <input type="email" id="biz-email" placeholder="e.g. feedback@beanandbrew.com" required autocomplete="off">
+                </div>
+
+                <div class="form-group">
+                    <label for="biz-gmb">Google Review URL</label>
+                    <input type="url" id="biz-gmb" placeholder="e.g. https://g.page/r/XYZ/review" required autocomplete="off">
+                </div>
+
+                <div class="form-group">
+                    <label>Select Category</label>
+                    <div class="niche-grid">
+                        <div class="niche-option active" data-niche="cafe" data-color="#FFB300" onclick="selectNiche(this)">
+                            <i class="fa-solid fa-mug-hot"></i>
+                            <span>Cafe / Eatery</span>
+                        </div>
+                        <div class="niche-option" data-niche="dental" data-color="#00FF87" onclick="selectNiche(this)">
+                            <i class="fa-solid fa-tooth"></i>
+                            <span>Dental / Clinic</span>
+                        </div>
+                        <div class="niche-option" data-niche="salon" data-color="#FF3366" onclick="selectNiche(this)">
+                            <i class="fa-solid fa-scissors"></i>
+                            <span>Salon / Spa</span>
+                        </div>
+                        <div class="niche-option" data-niche="other" data-color="#00F2FE" onclick="selectNiche(this)">
+                            <i class="fa-solid fa-store"></i>
+                            <span>Other Business</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit" id="btn-submit">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Free Demo
+                </button>
+            </form>
+        </div>
+
+        <!-- RESULT PANEL -->
+        <div id="result-panel" class="result-panel">
+            <i class="fa-solid fa-circle-check success-icon"></i>
+            <div class="result-title">Your Demo is Ready!</div>
+            <p class="result-desc">We have initialized your Aegis Protocol shield. Click the buttons below on your phone to test the integrations:</p>
+            
+            <div class="actions-vertical">
+                <a href="#" id="link-portal" target="_blank" class="btn-action featured">
+                    <i class="fa-solid fa-mobile-screen"></i> 📱 Open Gating Portal Demo
+                </a>
+                <a href="#" id="link-flyer" target="_blank" class="btn-action">
+                    <i class="fa-solid fa-file-pdf"></i> 🖨️ View Counter Standee Flyer
+                </a>
+            </div>
+
+            <div style="margin-top: 1.75rem; font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1.25rem;">
+                👉 **Testing Steps**:
+                <br>1. Tap the **Portal Demo**, select **5 stars** to see Google redirect.
+                <br>2. Open it again, select **2 stars**, write a complaint, and click submit. Check your email at <strong id="sent-email-holder" style="color:#fff;"></strong> to see the private alert!
+            </div>
+        </div>
+
+        <div class="footer">
+            MetrixMedia Digital Agency &copy; 2026. Aegis Protocol Secure Shield.
+        </div>
+    </div>
+
+    <script>
+        let selectedNiche = 'cafe';
+        let selectedColor = '#FFB300';
+
+        function selectNiche(element) {
+            document.querySelectorAll('.niche-option').forEach(opt => opt.classList.remove('active'));
+            element.classList.add('active');
+            selectedNiche = element.getAttribute('data-niche');
+            selectedColor = element.getAttribute('data-color');
+        }
+
+        async function generateDemo(event) {
+            event.preventDefault();
+            const btnSubmit = document.getElementById('btn-submit');
+            btnSubmit.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Generating...`;
+            btnSubmit.disabled = true;
+
+            const name = document.getElementById('biz-name').value.trim();
+            const email = document.getElementById('biz-email').value.trim();
+            const gmb = document.getElementById('biz-gmb').value.trim();
+
+            const payload = {
+                name: name,
+                email: email,
+                phone: "+919999999999", // Placeholder for public form
+                gmb_link: gmb,
+                source: "Instagram Self-Onboard",
+                niche: selectedNiche,
+                color: selectedColor
+            };
+
+            try {
+                // Call our serverless function to write lead to database
+                const response = await fetch('/api/leads', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                const result = await response.json();
+
+                if (result.success) {
+                    // Map results to links
+                    document.getElementById('link-portal').href = result.portalUrl;
+                    document.getElementById('link-flyer').href = result.flyerUrl;
+                    document.getElementById('sent-email-holder').innerText = email;
+
+                    // Transition panels
+                    document.getElementById('form-panel').style.display = 'none';
+                    document.getElementById('result-panel').style.display = 'block';
+                } else {
+                    alert("Error: " + (result.error || "Failed to generate demo."));
+                    resetButton();
+                }
+            } catch (err) {
+                console.error("Generation failed, falling back to local client URLs:", err);
+                
+                // Fallback local URL builder if Vercel serverless function fails
+                const portalUrl = `https://metrixmedia.vercel.app/portal.html?name=${encodeURIComponent(name)}&url=${encodeURIComponent(gmb)}&email=${encodeURIComponent(email)}&category=${encodeURIComponent(selectedNiche)}&color=${encodeURIComponent(selectedColor)}&demo=true`;
+                const flyerUrl = `https://metrixmedia.vercel.app/flyer.html?name=${encodeURIComponent(name)}&category=${encodeURIComponent(selectedNiche)}&color=${encodeURIComponent(selectedColor)}&type=gmb&portalUrl=${encodeURIComponent(portalUrl)}`;
+                
+                document.getElementById('link-portal').href = portalUrl;
+                document.getElementById('link-flyer').href = flyerUrl;
+                document.getElementById('sent-email-holder').innerText = email;
+
+                document.getElementById('form-panel').style.display = 'none';
+                document.getElementById('result-panel').style.display = 'block';
+            }
+        }
+
+        function resetButton() {
+            const btnSubmit = document.getElementById('btn-submit');
+            btnSubmit.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles"></i> Generate Free Demo`;
+            btnSubmit.disabled = false;
+        }
+    </script>
+</body>
+</html>

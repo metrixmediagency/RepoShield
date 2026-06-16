@@ -1,0 +1,1520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aegis Protocol - Elite Sales Presentation & Pricing Sheets</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* CSS variables based on Aegis Protocol design system */
+        :root {
+            --bg-dark: #090d16;
+            --bg-card: rgba(15, 23, 42, 0.65);
+            --bg-card-hover: rgba(30, 41, 59, 0.8);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-focus: rgba(59, 130, 246, 0.4);
+            
+            --primary: #3b82f6; /* Azure Blue */
+            --primary-glow: rgba(59, 130, 246, 0.25);
+            --primary-dark: #1d4ed8;
+            
+            --accent-emerald: #10b981; /* Mint Green */
+            --accent-emerald-glow: rgba(16, 185, 129, 0.15);
+            --accent-cyan: #0ea5e9;
+            --accent-orange: #f59e0b;
+            
+            --text-main: #f8fafc; /* Silver Slate */
+            --text-muted: #94a3b8;
+            --text-inverse: #0f172a;
+            
+            --font-heading: 'Outfit', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow-premium: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+            --blur-strength: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+
+        header.no-print {
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(9, 13, 22, 0.8);
+            backdrop-filter: blur(var(--blur-strength));
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-icon {
+            font-size: 1.75rem;
+            color: var(--primary);
+            text-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        .logo-text {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: 0.05em;
+            background: linear-gradient(135deg, #fff 40%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-badge {
+            font-size: 0.65rem;
+            background: rgba(59, 130, 246, 0.15);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: var(--primary);
+            padding: 0.15rem 0.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn-print {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-family: var(--font-heading);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition-smooth);
+            box-shadow: 0 4px 12px var(--primary-glow);
+        }
+
+        .btn-print:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Sales Mode Switcher */
+        .tabs-container {
+            max-width: 1200px;
+            margin: 2rem auto 1rem auto;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .tabs-wrapper {
+            display: flex;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid var(--border-color);
+            padding: 0.35rem;
+            border-radius: 9999px;
+            width: 100%;
+            max-width: 650px;
+            box-shadow: var(--shadow-premium);
+        }
+
+        .tab-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 0.75rem 1rem;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(14, 165, 233, 0.1) 100%);
+            border: 1px solid rgba(59, 130, 246, 0.25);
+            color: var(--text-main);
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+        }
+
+        .tab-btn:hover:not(.active) {
+            color: var(--text-main);
+        }
+
+        /* 4-Way Billing Cycle Controller */
+        .cycle-container {
+            max-width: 1200px;
+            margin: 0.5rem auto 2.5rem auto;
+            padding: 0 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .cycle-selector-wrapper {
+            display: flex;
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid var(--border-color);
+            padding: 0.3rem;
+            border-radius: 9999px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: var(--shadow-premium);
+        }
+
+        .cycle-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 0.5rem 0.75rem;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 0.85rem;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            text-align: center;
+        }
+
+        .cycle-btn.active {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 0 12px var(--primary-glow);
+        }
+
+        .cycle-btn:hover:not(.active) {
+            color: var(--text-main);
+        }
+
+        .savings-badge {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent-emerald);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            font-size: 0.75rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 700;
+            animation: pulse-slow 3s infinite;
+        }
+
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Sheet Presentation Layout */
+        .sheets-container {
+            max-width: 1200px;
+            margin: 0 auto 4rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .pricing-sheet {
+            display: none;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2.5rem;
+            backdrop-filter: blur(var(--blur-strength));
+            box-shadow: var(--shadow-premium);
+            transition: var(--transition-smooth);
+            animation: fadeIn 0.4s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-sheet.active {
+            display: block;
+        }
+
+        .pricing-sheet::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent-cyan) 50%, var(--accent-emerald) 100%);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Sheet Header */
+        .sheet-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 1.5rem;
+        }
+
+        .sheet-title-area h1 {
+            font-family: var(--font-heading);
+            font-size: 2.25rem;
+            font-weight: 800;
+            line-height: 1.2;
+            color: #fff;
+            margin-bottom: 0.25rem;
+        }
+
+        .sheet-subtitle {
+            font-size: 0.85rem;
+            color: var(--accent-cyan);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        /* Badges */
+        .badge-row {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        .refund-badge {
+            background: rgba(16, 185, 129, 0.12);
+            color: var(--accent-emerald);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            font-size: 0.7rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .sheet-meta {
+            text-align: right;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-family: var(--font-heading);
+        }
+
+        .sheet-meta div {
+            margin-bottom: 0.2rem;
+        }
+
+        .confidential-stamp {
+            color: var(--accent-orange);
+            font-weight: 700;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            background: rgba(245, 158, 11, 0.08);
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            display: inline-block;
+            letter-spacing: 0.05em;
+        }
+
+        /* Brief description */
+        .sheet-pitch {
+            background: rgba(30, 41, 59, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            padding: 1.25rem 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+            font-size: 0.95rem;
+            color: #cbd5e1;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .sheet-pitch i {
+            font-size: 2rem;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        /* Layout grids */
+        .sheet-content-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+        }
+
+        @media (min-width: 992px) {
+            .sheet-content-grid {
+                grid-template-columns: 1.1fr 0.9fr;
+            }
+        }
+
+        /* Pricing Card Display */
+        .price-hero-card {
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            border-radius: 12px;
+            padding: 2rem;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 1.5rem;
+        }
+
+        .price-hero-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .price-badge {
+            align-self: flex-start;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-numbers-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        @media (min-width: 576px) {
+            .pricing-numbers-grid {
+                grid-template-columns: 1.2fr 1fr;
+            }
+        }
+
+        .main-rate-display {
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
+            padding-right: 1rem;
+        }
+
+        @media (max-width: 575px) {
+            .main-rate-display {
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+                padding-right: 0;
+                padding-bottom: 1rem;
+            }
+        }
+
+        .setup-fee-title, .rate-title {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .rate-value {
+            font-family: var(--font-heading);
+            font-size: 2.75rem;
+            font-weight: 800;
+            color: #fff;
+            display: flex;
+            align-items: baseline;
+            line-height: 1;
+        }
+
+        .currency-symbol {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-right: 0.15rem;
+        }
+
+        .rate-period {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-left: 0.25rem;
+        }
+
+        .billed-cycle-detail {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+            display: block;
+        }
+
+        .setup-value {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            font-weight: 700;
+            color: #e2e8f0;
+        }
+
+        /* Combined Total Payment */
+        .total-payment-box {
+            background: rgba(30, 41, 59, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .total-payment-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .total-payment-value {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+        }
+
+        .savings-summary {
+            font-size: 0.85rem;
+            color: var(--accent-emerald);
+            background: rgba(16, 185, 129, 0.08);
+            border-left: 3px solid var(--accent-emerald);
+            padding: 0.5rem 0.75rem;
+            border-radius: 0 4px 4px 0;
+            margin-top: 0.5rem;
+            display: none; /* Shown dynamically for saving cycles */
+        }
+
+        .trial-guarantee-box {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.8) 100%);
+            border: 1px dashed rgba(16, 185, 129, 0.3);
+            border-radius: 8px;
+            padding: 1.25rem;
+            position: relative;
+        }
+
+        .trial-badge {
+            position: absolute;
+            top: -10px;
+            right: 15px;
+            background: var(--accent-emerald);
+            color: var(--text-inverse);
+            font-weight: 800;
+            font-size: 0.65rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .trial-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--accent-emerald);
+            margin-bottom: 0.35rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .trial-text {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Features List Styling */
+        .features-card {
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .features-title {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 0.75rem;
+        }
+
+        .features-title i {
+            color: var(--primary);
+        }
+
+        .features-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .features-list li {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            color: #cbd5e1;
+        }
+
+        .check-icon {
+            color: var(--accent-emerald);
+            margin-top: 0.2rem;
+            font-size: 0.95rem;
+            flex-shrink: 0;
+        }
+
+        .feature-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .feature-name {
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 0.1rem;
+        }
+
+        .feature-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* D2C E-Com Multi-Tier Table */
+        .ecom-table-container {
+            width: 100%;
+            overflow-x: auto;
+            margin-top: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            background: rgba(15, 23, 42, 0.6);
+        }
+
+        .ecom-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.85rem;
+            min-width: 750px;
+        }
+
+        .ecom-table th {
+            font-family: var(--font-heading);
+            background: rgba(15, 23, 42, 0.9);
+            color: #fff;
+            font-weight: 700;
+            padding: 1rem;
+            border-bottom: 2px solid rgba(59, 130, 246, 0.2);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+
+        .ecom-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: #cbd5e1;
+            vertical-align: middle;
+        }
+
+        .ecom-table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .ecom-table tr.recommended-row td {
+            background: rgba(59, 130, 246, 0.04);
+        }
+
+        .ecom-table tr.recommended-row {
+            border-left: 3px solid var(--primary);
+        }
+
+        .ecom-tier-name {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1rem;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tier-badge {
+            background: var(--primary);
+            color: #fff;
+            font-size: 0.6rem;
+            font-weight: 800;
+            padding: 0.15rem 0.4rem;
+            border-radius: 3px;
+            text-transform: uppercase;
+        }
+
+        .ecom-price-cell {
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .ecom-price-cell span {
+            color: var(--text-muted);
+            font-weight: 400;
+            font-size: 0.75rem;
+        }
+
+        .ecom-savings-val {
+            color: var(--accent-emerald);
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: block;
+        }
+
+        /* Sales meeting pointers banner */
+        .sales-tips-banner {
+            background: rgba(59, 130, 246, 0.05);
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            border-radius: 10px;
+            padding: 1.5rem;
+            max-width: 1200px;
+            margin: 2rem auto 4rem auto;
+        }
+
+        .sales-tips-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .sales-tips-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .sales-tips-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .tip-card {
+            font-size: 0.8rem;
+            line-height: 1.5;
+            color: var(--text-muted);
+        }
+
+        .tip-card strong {
+            color: #fff;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        /* Print Media Styles (A4 Page Break Logic for PDF creation) */
+        @media print {
+            body {
+                background: #ffffff !important;
+                color: #0f172a !important;
+                font-size: 10pt !important;
+            }
+
+            header, .no-print, .tabs-container, .cycle-container, .sales-tips-banner {
+                display: none !important;
+            }
+
+            .sheets-container {
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            .pricing-sheet {
+                display: block !important;
+                background: #ffffff !important;
+                color: #0f172a !important;
+                border: 2px solid #e2e8f0 !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                padding: 2.2cm !important;
+                page-break-after: always !important; /* Force page break so each category is a single PDF sheet */
+                height: 297mm !important; /* Standard A4 height */
+                width: 210mm !important;  /* Standard A4 width */
+                margin: 0 auto !important;
+                box-sizing: border-box !important;
+                position: relative !important;
+            }
+
+            .pricing-sheet:last-of-type {
+                page-break-after: avoid !important;
+            }
+
+            .pricing-sheet::before {
+                height: 8px !important;
+                background: #0f172a !important;
+            }
+
+            .sheet-header h1 {
+                color: #0f172a !important;
+                font-size: 26pt !important;
+            }
+
+            .sheet-subtitle {
+                color: #2563eb !important;
+            }
+
+            .refund-badge {
+                border: 1px solid #16a34a !important;
+                background: #f0fdf4 !important;
+                color: #16a34a !important;
+            }
+
+            .sheet-pitch {
+                background: #f8fafc !important;
+                border: 1px solid #e2e8f0 !important;
+                color: #334155 !important;
+            }
+
+            .sheet-pitch i {
+                color: #2563eb !important;
+            }
+
+            .price-hero-card {
+                background: #f8fafc !important;
+                border: 1.5px solid #cbd5e1 !important;
+                color: #0f172a !important;
+                box-shadow: none !important;
+            }
+
+            .rate-value {
+                color: #0f172a !important;
+            }
+
+            .setup-value {
+                color: #1e293b !important;
+            }
+
+            .total-payment-box {
+                background: #e2e8f0 !important;
+                border: 1px solid #cbd5e1 !important;
+            }
+
+            .total-payment-value {
+                color: #1d4ed8 !important;
+            }
+
+            .features-card {
+                background: #ffffff !important;
+                border: 1.5px solid #cbd5e1 !important;
+            }
+
+            .features-title {
+                color: #0f172a !important;
+                border-bottom: 1.5px solid #cbd5e1 !important;
+            }
+
+            .feature-name {
+                color: #0f172a !important;
+            }
+
+            .feature-desc {
+                color: #475569 !important;
+            }
+
+            .trial-guarantee-box {
+                background: #f0fdf4 !important;
+                border: 1.5px dashed #16a34a !important;
+            }
+
+            .trial-title {
+                color: #16a34a !important;
+            }
+
+            .trial-text {
+                color: #166534 !important;
+            }
+
+            .ecom-table-container {
+                border: 1.5px solid #cbd5e1 !important;
+                background: #ffffff !important;
+            }
+
+            .ecom-table th {
+                background: #f1f5f9 !important;
+                color: #0f172a !important;
+                border-bottom: 2.5px solid #cbd5e1 !important;
+            }
+
+            .ecom-table td {
+                color: #334155 !important;
+                border-bottom: 1.5px solid #cbd5e1 !important;
+            }
+
+            .ecom-tier-name {
+                color: #0f172a !important;
+            }
+
+            .ecom-price-cell {
+                color: #0f172a !important;
+            }
+
+            .savings-summary {
+                background: #f0fdf4 !important;
+                border-left: 3px solid #16a34a !important;
+                color: #16a34a !important;
+            }
+
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header (No Print) -->
+    <header class="no-print">
+        <div class="logo-area">
+            <i class="fa-solid fa-shield-halved logo-icon"></i>
+            <span class="logo-text">AEGIS PROTOCOL</span>
+            <span class="logo-badge">Sales Engine</span>
+        </div>
+        <div class="header-actions">
+            <button class="btn-print" onclick="window.print()">
+                <i class="fa-solid fa-file-pdf"></i> Export to PDF / Print
+            </button>
+        </div>
+    </header>
+
+    <!-- Category Tabs (No Print) -->
+    <div class="tabs-container no-print">
+        <div class="tabs-wrapper">
+            <button class="tab-btn active" onclick="switchTab('gmb', this)">
+                <i class="fa-solid fa-map-location-dot"></i> Local GMB Booster
+            </button>
+            <button class="tab-btn" onclick="switchTab('food', this)">
+                <i class="fa-solid fa-utensils"></i> Food Delivery Gater
+            </button>
+            <button class="tab-btn" onclick="switchTab('ecom', this)">
+                <i class="fa-solid fa-cart-shopping"></i> D2C E-Com Suite
+            </button>
+        </div>
+    </div>
+
+    <!-- 4-Way Billing Cycle Controller (No Print) -->
+    <div class="cycle-container no-print">
+        <div class="cycle-selector-wrapper">
+            <button id="btn-cycle-monthly" class="cycle-btn active" onclick="setBillingCycle('monthly')">Monthly</button>
+            <button id="btn-cycle-quarterly" class="cycle-btn" onclick="setBillingCycle('quarterly')">Quarterly</button>
+            <button id="btn-cycle-half-yearly" class="cycle-btn" onclick="setBillingCycle('half-yearly')">Half-Yearly</button>
+            <button id="btn-cycle-annual" class="cycle-btn" onclick="setBillingCycle('annual')">Annual</button>
+        </div>
+        <div id="master-savings-badge" class="savings-badge">Standard Pricing Active</div>
+    </div>
+
+    <!-- Sheets Container -->
+    <div class="sheets-container">
+
+        <!-- SHEET 1: LOCAL GMB BOOSTER -->
+        <div id="sheet-gmb" class="pricing-sheet active">
+            <div class="sheet-header">
+                <div class="sheet-title-area">
+                    <span class="sheet-subtitle">Strategic Collateral</span>
+                    <h1>Local GMB Booster</h1>
+                    <div class="badge-row">
+                        <span class="refund-badge"><i class="fa-solid fa-rotate-left"></i> 7-Day Refund Guarantee</span>
+                        <span class="refund-badge" style="background: rgba(59, 130, 246, 0.1); color: var(--accent-cyan); border: 1px solid rgba(59, 130, 246, 0.2);"><i class="fa-solid fa-shield-check"></i> SSL Secure Routing</span>
+                    </div>
+                </div>
+                <div class="sheet-meta">
+                    <span class="confidential-stamp">CONFIDENTIAL SALES COPY</span>
+                    <div style="margin-top: 0.5rem;">Protocol ID: <strong>AP-GMB-102</strong></div>
+                    <div>Target: Local Service & Retail Pack</div>
+                </div>
+            </div>
+
+            <div class="sheet-pitch">
+                <i class="fa-solid fa-map-location-dot"></i>
+                <div>
+                    <strong>Maximum Authority on Google Maps.</strong> Engineered for local storefronts (clinics, salons, restaurants, gyms) looking to filter out bad reviews and rank inside the Google Maps 3-Pack. Captures positive reviews on the spot via custom physical standees.
+                </div>
+            </div>
+
+            <div class="sheet-content-grid">
+                <!-- Left Column: Pricing display & trial -->
+                <div class="price-hero-card">
+                    <div>
+                        <span class="price-badge">Service Retainer</span>
+                        
+                        <div class="pricing-numbers-grid">
+                            <div class="main-rate-display">
+                                <span class="rate-title">
+                                    <i class="fa-regular fa-calendar"></i> Effective Rate
+                                </span>
+                                <div class="rate-value">
+                                    <span class="currency-symbol">₹</span>
+                                    <span id="gmb-price-val">1,200</span>
+                                    <span class="rate-period">/mo</span>
+                                </div>
+                                <span id="gmb-billed-detail" class="billed-cycle-detail">Billed monthly</span>
+                            </div>
+                            <div>
+                                <span class="setup-fee-title">
+                                    <i class="fa-solid fa-screwdriver-wrench"></i> Setup & Standee
+                                </span>
+                                <div class="setup-value">₹1,500</div>
+                                <span class="rate-period" style="font-size: 0.75rem;">One-time onboarding</span>
+                            </div>
+                        </div>
+
+                        <!-- Total Payment summary -->
+                        <div class="total-payment-box">
+                            <span class="total-payment-label">Total First Payment</span>
+                            <span id="gmb-total-first-payment" class="total-payment-value">₹2,700</span>
+                        </div>
+
+                        <div id="gmb-savings-summary" class="savings-summary">
+                            <!-- Injected dynamically -->
+                        </div>
+                    </div>
+
+                    <div class="trial-guarantee-box">
+                        <span class="trial-badge" style="background: var(--accent-emerald); color: var(--text-inverse);">100% Risk Free</span>
+                        <span class="trial-title">
+                            <i class="fa-solid fa-rotate-left"></i> 7-Day Refund + 10-Day Trial
+                        </span>
+                        <div class="trial-text">
+                            <strong>7-Day No-Questions Refund:</strong> Cancel and claim a full refund of your subscription fee within the first 7 days if you aren't completely satisfied.
+                            <br><strong style="display:block; margin-top: 0.35rem;">10-Day Standee Trial:</strong> We ship your physical counter standee within 24 hours. Get at least three 5-star reviews within 10 days, or pay nothing.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Features Checklist -->
+                <div class="features-card">
+                    <span class="features-title">
+                        <i class="fa-solid fa-circle-nodes"></i> Included Protocols
+                    </span>
+                    <ul class="features-list">
+                        <li>
+                            <i class="fa-solid fa-square-check check-icon"></i>
+                            <div class="feature-details">
+                                <span class="feature-name">Aegis Smart QR Counter Standee</span>
+                                <span class="feature-desc">Professional-grade foldable layout optimized for reception desks.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-square-check check-icon"></i>
+                            <div class="feature-details">
+                                <span class="feature-name">Double-Filter Routing Logic</span>
+                                <span class="feature-desc">Instantly routes 4-5★ diners/patients to Google; routes 1-3★ to private form.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-square-check check-icon"></i>
+                            <div class="feature-details">
+                                <span class="feature-name">Instant Escalation Alerts</span>
+                                <span class="feature-desc">Sends immediate emails to management when a low rating is submitted privately.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-square-check check-icon"></i>
+                            <div class="feature-details">
+                                <span class="feature-name">Full Branding Customization</span>
+                                <span class="feature-desc">Matches your business colors, logo, and welcome message on the portal.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-square-check check-icon"></i>
+                            <div class="feature-details">
+                                <span class="feature-name">Basic Monthly Analytics</span>
+                                <span class="feature-desc">Full reports on scanned volume, captured emails, and redirected reviews.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-square-check check-icon"></i>
+                            <div class="feature-details">
+                                <span class="feature-name">HIPAA & GDPR Compliance Shield</span>
+                                <span class="feature-desc">Keeps client communications secure, private, and within guidelines.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SHEET 2: FOOD DELIVERY GATER -->
+        <div id="sheet-food" class="pricing-sheet">
+            <div class="sheet-header">
+                <div class="sheet-title-area">
+                    <span class="sheet-subtitle">Strategic Collateral</span>
+                    <h1>Food Delivery Gater</h1>
+                    <div class="badge-row">
+                        <span class="refund-badge"><i class="fa-solid fa-rotate-left"></i> 7-Day Refund Guarantee</span>
+                        <span class="refund-badge" style="background: rgba(59, 130, 246, 0.1); color: var(--accent-cyan); border: 1px solid rgba(59, 130, 246, 0.2);"><i class="fa-solid fa-pizza-slice"></i> Aggregator Intercept</span>
+                    </div>
+                </div>
+                <div class="sheet-meta">
+                    <span class="confidential-stamp">CONFIDENTIAL SALES COPY</span>
+                    <div style="margin-top: 0.5rem;">Protocol ID: <strong>AP-FOOD-203</strong></div>
+                    <div>Target: Restaurants & Cloud Kitchen Delivery</div>
+                </div>
+            </div>
+
+            <div class="sheet-pitch">
+                <i class="fa-solid fa-utensils"></i>
+                <div>
+                    <strong>Intercept Bad Delivery Reviews.</strong> Created specifically for restaurants, cloud kitchens, and cafes shipping delivery orders. Intercepts unhappy diners before they leave bad ratings on Zomato, Swiggy, or Google, and builds your own marketing list.
+                </div>
+            </div>
+
+            <div class="sheet-content-grid">
+                <!-- Left Column: Pricing display & trial -->
+                <div class="price-hero-card">
+                    <div>
+                        <span class="price-badge">Delivery Retainer</span>
+                        
+                        <div class="pricing-numbers-grid">
+                            <div class="main-rate-display">
+                                <span class="rate-title">
+                                    <i class="fa-regular fa-calendar"></i> Effective Rate
+                                </span>
+                                <div class="rate-value">
+                                    <span class="currency-symbol">₹</span>
+                                    <span id="food-price-val">1,499.99</span>
+                                    <span class="rate-period">/mo</span>
+                                </div>
+                                <span id="food-billed-detail" class="billed-cycle-detail">Billed monthly</span>
+                            </div>
+                            <div>
+                                <span class="setup-fee-title">
+                                    <i class="fa-solid fa-screwdriver-wrench"></i> Design & Integration
+                                </span>
+                                <div class="setup-value">₹2,000</div>
+                                <span class="rate-period" style="font-size: 0.75rem;">One-time onboarding</span>
+                            </div>
+                        </div>
+
+                        <!-- Total Payment summary -->
+                        <div class="total-payment-box">
+                            <span class="total-payment-label">Total First Payment</span>
+                            <span id="food-total-first-payment" class="total-payment-value">₹3,499.99</span>
+                        </div>
+
+                        <div id="food-savings-summary" class="savings-summary">
+                            <!-- Injected dynamically -->
+                        </div>
+                    </div>
+
+                    <div class="trial-guarantee-box">
+                        <span class="trial-badge" style="background: var(--accent-emerald); color: var(--text-inverse);">100% Risk Free</span>
+                        <span class="trial-title">
+                            <i class="fa-solid fa-rotate-left"></i> 7-Day Safeguard Policy
+                        </span>
+                        <div class="trial-text">
+                            <strong>7-Day Refund Guarantee:</strong> If the review routing doesn't start deflecting 1-star delivery reviews within 7 days, get a full refund of your subscription.
+                            <br><strong style="display:block; margin-top: 0.35rem;">Includes Packaging Flyer Setup:</strong> Receive 3 custom QR flyer designs. Put them in your packaging bags risk-free.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Features Checklist -->
+                <div class="features-card">
+                    <span class="features-title">
+                        <i class="fa-solid fa-circle-nodes"></i> Included Protocols
+                    </span>
+                    <ul class="features-list">
+                        <li>
+                            <i class="fa-solid fa-square-check check-icon"></i>
+                            <div class="feature-details">
+                                <span class="feature-name">3x Custom Delivery-Bag Flyers</span>
+                                <span class="feature-desc">Specifically styled templates designed to fit packaging sizes.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-square-check check-icon"></i>
+                            <div class="feature-details">
+                                <span class="feature-name">Smart Food Aggregator Redirect</span>
+                                <span class="feature-desc">Redirects positive feedback directly to Swiggy, Zomato, or Google Maps.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-square-check check-icon"></i>
+                            <div class="feature-details">
+                                <span class="feature-name">Instant Resolution Workflow</span>
+                                <span class="feature-desc">Private complaints go straight to a dashboard allowing instant customer support.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-square-check check-icon"></i>
+                            <div class="feature-details">
+                                <span class="feature-name">Customer Retargeting List Builder</span>
+                                <span class="feature-desc">Automatically compiles a secure sheet of diner emails and numbers for future marketing.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-square-check check-icon"></i>
+                            <div class="feature-details">
+                                <span class="feature-name">Weekly Automated Summary</span>
+                                <span class="feature-desc">Detailed reporting on order feedback, rating trends, and intercept stats.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-square-check check-icon"></i>
+                            <div class="feature-details">
+                                <span class="feature-name">Priority Onboarding Setup</span>
+                                <span class="feature-desc">Custom QR routing configuration set up and running in under 24 hours.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SHEET 3: D2C E-COM SUITE -->
+        <div id="sheet-ecom" class="pricing-sheet">
+            <div class="sheet-header">
+                <div class="sheet-title-area">
+                    <span class="sheet-subtitle">Enterprise Protocol</span>
+                    <h1>D2C E-Commerce Suite</h1>
+                    <div class="badge-row">
+                        <span class="refund-badge"><i class="fa-solid fa-rotate-left"></i> 7-Day Refund Guarantee</span>
+                        <span class="refund-badge" style="background: rgba(59, 130, 246, 0.1); color: var(--accent-cyan); border: 1px solid rgba(59, 130, 246, 0.2);"><i class="fa-solid fa-envelope"></i> Post-Purchase Integrations</span>
+                    </div>
+                </div>
+                <div class="sheet-meta">
+                    <span class="confidential-stamp">CONFIDENTIAL SALES COPY</span>
+                    <div style="margin-top: 0.5rem;">Protocol ID: <strong>AP-ECOM-304</strong></div>
+                    <div>Target: E-commerce, Shopify, and Amazon Brands</div>
+                </div>
+            </div>
+
+            <div class="sheet-pitch">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <div>
+                    <strong>Enterprise Reputation Deflector.</strong> Developed for growing Shopify, WooCommerce, and Amazon/Flipkart brands. Integrates into post-purchase email & SMS workflows to intercept unsatisfied customers, offer rapid resolutions, and drive 5-star product reviews. All subscriptions backed by a 7-day refund guarantee.
+                </div>
+            </div>
+
+            <div class="ecom-table-container">
+                <table class="ecom-table">
+                    <thead>
+                        <tr>
+                            <th>Plan Tier</th>
+                            <th>Features & Limits</th>
+                            <th>Setup Fee</th>
+                            <th>Effective Rate (per month)</th>
+                            <th>Total Billed per Cycle</th>
+                            <th>Cycle Savings</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ecom-table-body">
+                        <!-- Dynamic rows injected by JS -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="margin-top: 2rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--text-muted); flex-wrap: wrap; gap: 1rem;">
+                <div>* All E-com plans include our <strong>7-Day No-Questions Refund Guarantee</strong>.</div>
+                <div>* Setup fee includes API mapping and post-purchase email configuration.</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Sales Tips Banner (No Print) -->
+    <div class="sales-tips-banner no-print">
+        <span class="sales-tips-title">
+            <i class="fa-solid fa-bullhorn"></i> Sales Meeting Strategy Playbook
+        </span>
+        <div class="sales-tips-grid">
+            <div class="tip-card">
+                <strong>1. Lead with the 7-Day Refund</strong>
+                Highlight the "7-Day No-Questions-Asked Refund". Explain that it eliminates all financial friction and proves our absolute confidence in Aegis Protocol.
+            </div>
+            <div class="tip-card">
+                <strong>2. Sell the Setup Value</strong>
+                Explain that the setup fee covers professional custom graphic layouts, packaging alignment, and immediate API integration for review capture.
+            </div>
+            <div class="tip-card">
+                <strong>3. Focus on Cycle ROI</strong>
+                Demonstrate the difference between Monthly and Annual cycles. Showing savings of up to ₹1,50,000/yr (Enterprise) makes adopting longer billing cycles highly attractive.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Full pricing plans details for all categories and billing cycles
+        const pricingPlans = {
+            gmb: {
+                setup: 1500,
+                monthly: { price: 1200, total: 1200, label: "Billed monthly", savings: 0 },
+                quarterly: { price: 1083.33, total: 3249.99, label: "Billed quarterly (₹3,249.99)", savings: 350 },
+                "half-yearly": { price: 1000, total: 5999.94, label: "Billed half-yearly (₹5,999.94)", savings: 1200 },
+                annual: { price: 833.33, total: 9999.96, label: "Billed annually (₹9,999.96)", savings: 4400 }
+            },
+            food: {
+                setup: 2000,
+                monthly: { price: 1499.99, total: 1499.99, label: "Billed monthly", savings: 0 },
+                quarterly: { price: 1333.33, total: 3999.99, label: "Billed quarterly (₹3,999.99)", savings: 500 },
+                "half-yearly": { price: 1166.66, total: 6999.96, label: "Billed half-yearly (₹6,999.96)", savings: 2000 },
+                annual: { price: 999.91, total: 11999.00, label: "Billed annually (₹11,999)", savings: 6000 }
+            },
+            ecom: {
+                setup: 4000,
+                tiers: [
+                    {
+                        name: "D2C Basic",
+                        desc: "Up to 5 product redirect links. Standard email templates, Gating dashboard.",
+                        monthly: { price: 1999.99, total: 1999.99, savings: 0 },
+                        quarterly: { price: 1749.99, total: 5249.97, savings: 750 },
+                        "half-yearly": { price: 1500.00, total: 8999.94, savings: 3000 },
+                        annual: { price: 1249.91, total: 14999.00, savings: 9000 }
+                    },
+                    {
+                        name: "D2C Starter",
+                        badge: "Popular",
+                        desc: "Up to 15 product redirect links. Shopify flow integration, SMS feedback triggers.",
+                        monthly: { price: 4166.66, total: 4166.66, savings: 0 },
+                        quarterly: { price: 3749.99, total: 11249.97, savings: 1250 },
+                        "half-yearly": { price: 3333.33, total: 19999.98, savings: 5000 },
+                        annual: { price: 2916.58, total: 34999.00, savings: 15000 }
+                    },
+                    {
+                        name: "D2C Growth",
+                        desc: "Up to 50 product redirect links. Custom domains (feedback.brand.com), reviewer coupon engine.",
+                        monthly: { price: 5833.33, total: 5833.33, savings: 0 },
+                        quarterly: { price: 5583.33, total: 16749.99, savings: 750 },
+                        "half-yearly": { price: 5000.00, total: 29999.94, savings: 5000 },
+                        annual: { price: 4166.58, total: 49999.00, savings: 20000 }
+                    },
+                    {
+                        name: "D2C Enterprise",
+                        desc: "Unlimited product links. Multi-store configuration, Zapier/REST API integration, Dedicated Account rep, 24/7 Priority Support.",
+                        monthly: { price: 33333.33, total: 33333.33, savings: 0 },
+                        quarterly: { price: 29166.66, total: 87499.98, savings: 12500 },
+                        "half-yearly": { price: 24999.99, total: 149999.94, savings: 50000 },
+                        annual: { price: 20833.25, total: 249999.00, savings: 150000 }
+                    }
+                ]
+            }
+        };
+
+        let currentCycle = 'monthly';
+
+        function switchTab(tabId, element) {
+            // Remove active classes
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.pricing-sheet').forEach(sheet => sheet.classList.remove('active'));
+
+            // Add active class
+            element.classList.add('active');
+            document.getElementById('sheet-' + tabId).classList.add('active');
+        }
+
+        function setBillingCycle(cycle) {
+            currentCycle = cycle;
+            
+            // Toggle active buttons
+            document.querySelectorAll('.cycle-btn').forEach(btn => btn.classList.remove('active'));
+            
+            let activeBtnId = 'btn-cycle-monthly';
+            if (cycle === 'quarterly') activeBtnId = 'btn-cycle-quarterly';
+            if (cycle === 'half-yearly') activeBtnId = 'btn-cycle-half-yearly';
+            if (cycle === 'annual') activeBtnId = 'btn-cycle-annual';
+            
+            document.getElementById(activeBtnId).classList.add('active');
+
+            // Update Master Savings Badge
+            const savingsBadge = document.getElementById('master-savings-badge');
+            if (cycle === 'monthly') {
+                savingsBadge.innerText = "Standard Pricing Active";
+                savingsBadge.style.background = "rgba(255,255,255,0.05)";
+                savingsBadge.style.color = "var(--text-muted)";
+                savingsBadge.style.border = "1px solid var(--border-color)";
+            } else {
+                let saveLabel = "Save up to 15%";
+                if (cycle === 'half-yearly') saveLabel = "Save up to 25%";
+                if (cycle === 'annual') saveLabel = "Save up to 40% (Best Deal)";
+                
+                savingsBadge.innerText = saveLabel;
+                savingsBadge.style.background = "rgba(16, 185, 129, 0.15)";
+                savingsBadge.style.color = "var(--accent-emerald)";
+                savingsBadge.style.border = "1px solid rgba(16, 185, 129, 0.3)";
+            }
+
+            updatePricingDisplays();
+        }
+
+        function formatCurrency(val) {
+            if (val % 1 === 0) {
+                return val.toLocaleString('en-IN');
+            } else {
+                return val.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            }
+        }
+
+        function updatePricingDisplays() {
+            // Update GMB booster
+            const gmbData = pricingPlans.gmb[currentCycle];
+            const gmbPrice = document.getElementById('gmb-price-val');
+            const gmbBilled = document.getElementById('gmb-billed-detail');
+            const gmbTotal = document.getElementById('gmb-total-first-payment');
+            const gmbSavings = document.getElementById('gmb-savings-summary');
+            
+            gmbPrice.innerText = formatCurrency(gmbData.price);
+            gmbBilled.innerText = gmbData.label;
+            gmbTotal.innerText = '₹' + formatCurrency(gmbData.total + pricingPlans.gmb.setup);
+            
+            if (gmbData.savings > 0) {
+                gmbSavings.style.display = 'block';
+                gmbSavings.innerHTML = `<i class="fa-solid fa-circle-check"></i> Saving cycle active! Save <strong>₹${formatCurrency(gmbData.savings)}</strong> over the billing period.`;
+            } else {
+                gmbSavings.style.display = 'none';
+            }
+
+            // Update Food Delivery Gater
+            const foodData = pricingPlans.food[currentCycle];
+            const foodPrice = document.getElementById('food-price-val');
+            const foodBilled = document.getElementById('food-billed-detail');
+            const foodTotal = document.getElementById('food-total-first-payment');
+            const foodSavings = document.getElementById('food-savings-summary');
+            
+            foodPrice.innerText = formatCurrency(foodData.price);
+            foodBilled.innerText = foodData.label;
+            foodTotal.innerText = '₹' + formatCurrency(foodData.total + pricingPlans.food.setup);
+            
+            if (foodData.savings > 0) {
+                foodSavings.style.display = 'block';
+                foodSavings.innerHTML = `<i class="fa-solid fa-circle-check"></i> Saving cycle active! Save <strong>₹${formatCurrency(foodData.savings)}</strong> over the billing period.`;
+            } else {
+                foodSavings.style.display = 'none';
+            }
+
+            // Update E-Commerce Tiers table
+            const ecomTableBody = document.getElementById('ecom-table-body');
+            ecomTableBody.innerHTML = '';
+            
+            pricingPlans.ecom.tiers.forEach(tier => {
+                const cycleData = tier[currentCycle];
+                const setupFee = pricingPlans.ecom.setup;
+                const totalFirstPayment = cycleData.total + setupFee;
+                
+                const isPopular = tier.badge ? `<span class="tier-badge">${tier.badge}</span>` : '';
+                const popularClass = tier.badge ? 'class="recommended-row"' : '';
+                
+                let savingsText = '-';
+                if (cycleData.savings > 0) {
+                    savingsText = `<span class="ecom-savings-val">Save ₹${formatCurrency(cycleData.savings)}</span>`;
+                }
+
+                let cyclePeriodLabel = '/mo';
+                let billingRecurrenceText = `Billed ₹${formatCurrency(cycleData.total)} per cycle`;
+                if (currentCycle === 'monthly') {
+                    billingRecurrenceText = "Billed monthly";
+                }
+
+                const row = `
+                    <tr ${popularClass}>
+                        <td>
+                            <div class="ecom-tier-name">
+                                ${tier.name} ${isPopular}
+                            </div>
+                        </td>
+                        <td>
+                            <div>${tier.desc}</div>
+                        </td>
+                        <td>₹${formatCurrency(setupFee)}</td>
+                        <td class="ecom-price-cell">
+                            ₹${formatCurrency(cycleData.price)}<span>${cyclePeriodLabel}</span>
+                        </td>
+                        <td class="ecom-price-cell" style="color: var(--accent-cyan);">
+                            ₹${formatCurrency(totalFirstPayment)}
+                            <div style="font-size: 0.7rem; color: var(--text-muted); font-weight:400; margin-top:0.15rem;">
+                                ${billingRecurrenceText} + Setup
+                            </div>
+                        </td>
+                        <td>
+                            ${savingsText}
+                        </td>
+                    </tr>
+                `;
+                ecomTableBody.innerHTML += row;
+            });
+        }
+
+        // Initialize displays
+        updatePricingDisplays();
+    </script>
+</body>
+</html>
