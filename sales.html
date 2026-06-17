@@ -669,6 +669,27 @@
                             from { opacity: 0; transform: translateY(5px); }
                             to { opacity: 1; transform: translateY(0); }
                         }
+                        .download-btn {
+                            position: absolute;
+                            top: 1rem;
+                            right: 8rem;
+                            background: rgba(255, 255, 255, 0.08);
+                            border: 1px solid var(--border-color);
+                            color: white;
+                            padding: 0.4rem 0.8rem;
+                            border-radius: 6px;
+                            cursor: pointer;
+                            font-size: 0.8rem;
+                            font-family: var(--font-body);
+                            transition: var(--transition-smooth);
+                            display: flex;
+                            align-items: center;
+                            gap: 0.3rem;
+                            z-index: 10;
+                        }
+                        .download-btn:hover {
+                            background: var(--primary);
+                        }
                     </style>
 
                     <h2 style="margin-bottom: 1.5rem; color: white;">Sales Enablement Kit</h2>
@@ -1321,6 +1342,49 @@ Interested in setting this up to see if it works?</span>
                                     console.warn("Toast element not found in DOM.");
                                 }
                             };
+
+                            // File Download Utility for Scripts
+                            window.downloadScript = function(elementId, filename) {
+                                console.log(`Downloading content of element: ${elementId} as ${filename}`);
+                                const text = document.getElementById(elementId).innerText;
+                                const blob = new Blob([text], { type: 'text/plain;charset=utf-8;' });
+                                const link = document.createElement("a");
+                                const url = URL.createObjectURL(blob);
+                                link.setAttribute("href", url);
+                                link.setAttribute("download", filename);
+                                link.style.visibility = 'hidden';
+                                document.body.appendChild(link);
+                                link.click();
+                                document.body.removeChild(link);
+                            };
+
+                            // Dynamically insert download buttons next to all copy buttons inside script-boxes
+                            const copyBtns = document.querySelectorAll('.script-box .copy-btn');
+                            console.log(`Generating download buttons for ${copyBtns.length} script elements...`);
+                            copyBtns.forEach(btn => {
+                                const onClickAttr = btn.getAttribute('onclick');
+                                if (onClickAttr && onClickAttr.includes('copyText')) {
+                                    const targetId = onClickAttr.match(/'([^']+)'/)[1];
+                                    
+                                    const dlBtn = document.createElement('button');
+                                    dlBtn.className = 'download-btn';
+                                    dlBtn.innerHTML = '<i class="fa-solid fa-download"></i> Download';
+                                    
+                                    // Generate a user-friendly filename
+                                    let filename = `${targetId.replace('-txt', '').replace('txt', '')}.txt`;
+                                    filename = filename.charAt(0).toUpperCase() + filename.slice(1);
+                                    
+                                    dlBtn.addEventListener('click', (e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                        window.downloadScript(targetId, filename);
+                                    });
+                                    
+                                    // Insert before the copy button in the DOM
+                                    btn.parentNode.insertBefore(dlBtn, btn);
+                                }
+                            });
+
                             console.log("Sales Kit Interactive UI initialized successfully.");
                         })();
                     </script>
