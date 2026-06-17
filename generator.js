@@ -2061,27 +2061,27 @@ function renderJulyCalendarList() {
     
     julyPosts.forEach((post, idx) => {
         const item = document.createElement('div');
-        item.className = `calendar-post-item \${idx === activePostIndex ? 'active' : ''}`;
+        item.className = `calendar-post-item ${idx === activePostIndex ? 'active' : ''}`;
         item.setAttribute('data-index', idx);
         
         let formatBadge = post.format === 'reel' ? 
             `<span class="post-meta-badge badge-format-reel"><i class="fa-solid fa-video"></i> Reel</span>` :
             `<span class="post-meta-badge badge-format-carousel"><i class="fa-solid fa-images"></i> Carousel</span>`;
             
-        let nicheBadge = `<span class="post-meta-badge badge-niche-\${post.niche}">\${post.niche}</span>`;
+        let nicheBadge = `<span class="post-meta-badge badge-niche-${post.niche}">${post.niche}</span>`;
         
         item.innerHTML = `
             <div class="post-item-icon">
-                <i class="\${post.format === 'reel' ? 'fa-solid fa-video' : 'fa-solid fa-images'}"></i>
+                <i class="${post.format === 'reel' ? 'fa-solid fa-video' : 'fa-solid fa-images'}"></i>
             </div>
             <div class="post-item-details">
-                <div class="post-item-title">\${post.title}</div>
+                <div class="post-item-title">${post.title}</div>
                 <div class="post-item-meta">
-                    \${formatBadge}
-                    \${nicheBadge}
+                    ${formatBadge}
+                    ${nicheBadge}
                 </div>
             </div>
-            <div class="post-item-day">\${post.day}</div>
+            <div class="post-item-day">${post.day}</div>
         `;
         
         item.addEventListener('click', () => {
@@ -2144,7 +2144,7 @@ function renderCarouselMedia(post) {
     
     post.slides.forEach((slide, idx) => {
         const slideItem = document.createElement('div');
-        slideItem.className = `carousel-slide-item \${idx === 0 ? 'active' : ''}`;
+        slideItem.className = `carousel-slide-item ${idx === 0 ? 'active' : ''}`;
         slideItem.setAttribute('data-slide-index', idx);
         
         // Dynamic HTML visual elements based on type
@@ -2153,15 +2153,15 @@ function renderCarouselMedia(post) {
             const data = slide.visualData;
             visualHTML = `
                 <div class="comparison-layout">
-                    <div class="comparison-card \${data.left.color}">
-                        <div class="comparison-title">\${data.left.title}</div>
-                        <div class="comparison-value \${data.left.color}">\${data.left.val}</div>
-                        <div class="comparison-desc">\${data.left.desc}</div>
+                    <div class="comparison-card ${data.left.color}">
+                        <div class="comparison-title">${data.left.title}</div>
+                        <div class="comparison-value ${data.left.color}">${data.left.val}</div>
+                        <div class="comparison-desc">${data.left.desc}</div>
                     </div>
-                    <div class="comparison-card \${data.right.color}">
-                        <div class="comparison-title">\${data.right.title}</div>
-                        <div class="comparison-value \${data.right.color}">\${data.right.val}</div>
-                        <div class="comparison-desc">\${data.right.desc}</div>
+                    <div class="comparison-card ${data.right.color}">
+                        <div class="comparison-title">${data.right.title}</div>
+                        <div class="comparison-value ${data.right.color}">${data.right.val}</div>
+                        <div class="comparison-desc">${data.right.desc}</div>
                     </div>
                 </div>
             `;
@@ -2170,19 +2170,19 @@ function renderCarouselMedia(post) {
             slide.visualData.forEach(item => {
                 itemsHTML += `
                     <div class="slide-grid-item">
-                        <i class="\${item.icon} \${item.highlight ? 'green' : 'cyan'}"></i>
-                        <span>\${item.text}</span>
+                        <i class="${item.icon} ${item.highlight ? 'green' : 'cyan'}"></i>
+                        <span>${item.text}</span>
                     </div>
                 `;
             });
-            visualHTML = `<div class="slide-grid-box">\${itemsHTML}</div>`;
+            visualHTML = `<div class="slide-grid-box">${itemsHTML}</div>`;
         } else if (slide.visual === 'chart') {
             visualHTML = `
                 <div class="chart-visual-box">
                     <div class="chart-curve-green"></div>
                     <div class="chart-curve-red"></div>
-                    <span class="chart-label" style="top: 5px; left: 10px; color: #00FF87;">\${slide.visualData.greenLabel}</span>
-                    <span class="chart-label" style="bottom: 12px; right: 10px; color: #FF3366;">\${slide.visualData.redLabel}</span>
+                    <span class="chart-label" style="top: 5px; left: 10px; color: #00FF87;">${slide.visualData.greenLabel}</span>
+                    <span class="chart-label" style="bottom: 12px; right: 10px; color: #FF3366;">${slide.visualData.redLabel}</span>
                 </div>
             `;
         } else if (slide.visual === 'mockup' && slide.visualData) {
@@ -2199,27 +2199,27 @@ function renderCarouselMedia(post) {
             const data = slide.visualData;
             visualHTML = `
                 <div class="split-path-box">
-                    <div class="split-node">\${data.start}</div>
+                    <div class="split-node">${data.start}</div>
                     <div class="split-arrow green"></div>
-                    <div class="split-node" style="border-color: #00FF87;">\${data.node1}</div>
+                    <div class="split-node" style="border-color: #00FF87;">${data.node1}</div>
                 </div>
                 <div class="split-path-box" style="margin-top: 0.25rem;">
-                    <div class="split-node" style="opacity: 0;">\${data.start}</div>
+                    <div class="split-node" style="opacity: 0;">${data.start}</div>
                     <div class="split-arrow red"></div>
-                    <div class="split-node" style="border-color: #FF3366;">\${data.node2}</div>
+                    <div class="split-node" style="border-color: #FF3366;">${data.node2}</div>
                 </div>
             `;
         }
         
         slideItem.innerHTML = `
-            <div class="slide-canvas slide-bg-default" id="slide-canvas-item-\${idx}">
+            <div class="slide-canvas slide-bg-default" id="slide-canvas-item-${idx}">
                 <div class="slide-glow-blob-1"></div>
                 <div class="slide-glow-blob-2"></div>
                 <div class="slide-content-wrapper">
-                    <div class="slide-tag">\${slide.tag}</div>
-                    <div class="slide-heading">\${slide.heading}</div>
-                    \${visualHTML}
-                    <div class="slide-body-box">\${slide.body}</div>
+                    <div class="slide-tag">${slide.tag}</div>
+                    <div class="slide-heading">${slide.heading}</div>
+                    ${visualHTML}
+                    <div class="slide-body-box">${slide.body}</div>
                     <div class="slide-footer-row">
                         <span class="slide-footer-brand">METRIX MEDIA</span>
                         <span class="slide-footer-btn">AEGIS PROTOCOL</span>
@@ -2254,7 +2254,7 @@ function renderSlideDots(count) {
     dotsContainer.innerHTML = '';
     for (let i = 0; i < count; i++) {
         const dot = document.createElement('div');
-        dot.className = `ig-dot \${i === 0 ? 'active' : ''}`;
+        dot.className = `ig-dot ${i === 0 ? 'active' : ''}`;
         dot.setAttribute('data-dot-index', i);
         dotsContainer.appendChild(dot);
     }
@@ -2300,7 +2300,7 @@ function renderReelMedia(post) {
     container.id = 'active-reel-deck';
     
     container.innerHTML = `
-        <div class="reel-cover-img" id="reel-cover-img" style="background-image: url('\${post.coverImg}');"></div>
+        <div class="reel-cover-img" id="reel-cover-img" style="background-image: url('${post.coverImg}');"></div>
         <div class="reel-play-hud" id="reel-play-hud">
             <i class="fa-solid fa-play"></i>
         </div>
@@ -2489,7 +2489,7 @@ function exportCurrentSlide() {
     const post = julyPosts[activePostIndex];
     if (post.format !== 'carousel') return;
     
-    const slideNode = document.getElementById(`slide-canvas-item-\${activeSlideIndex}`);
+    const slideNode = document.getElementById(`slide-canvas-item-${activeSlideIndex}`);
     if (!slideNode) return;
     
     showToast('Generating high-res PNG...');
@@ -2629,7 +2629,7 @@ function exportCurrentSlide() {
         useCORS: true
     }).then(canvas => {
         const link = document.createElement('a');
-        link.download = `post\${post.id}_slide\${activeSlideIndex + 1}.png`;
+        link.download = `post${post.id}_slide${activeSlideIndex + 1}.png`;
         link.href = canvas.toDataURL('image/png');
         link.click();
         
