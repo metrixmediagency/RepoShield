@@ -1205,80 +1205,76 @@ Aegis Protocol filters out the public drama. Happy diners go to Google; Suresh g
         trigger: "AEGIS",
         slides: [
             {
-                tag: "GMB ALGORITHM",
-                heading: "HOW THE GOOGLE MAPS <span class='highlight-green'>3-PACK</span> WORKS",
-                body: "When users search 'near me', Google displays the top 3 maps listings. 92% of local search clicks go here. If you aren't in the top 3, you are practically invisible to prospects.",
-                visual: "comparison",
-                visualData: {
-                    left: { title: "Maps 3-Pack", val: "92%", desc: "Of all search traffic clicks here", color: "green" },
-                    right: { title: "Bottom Listings", val: "8%", desc: "Leftovers split between everyone else", color: "red" }
-                }
-            },
-            {
-                tag: "ALGORITHM METRICS",
-                heading: "HOW GOOGLE <span class='highlight-cyan'>RANKS</span> YOUR SITE",
-                body: "Google calculates ranking based on three distinct pillars. Prominence is the only factor you can actively scale.",
-                visual: "grid",
-                visualData: [
-                    { icon: "fa-solid fa-map-pin", text: "📍 Proximity (Distance to searcher)" },
-                    { icon: "fa-solid fa-magnifying-glass", text: "🔍 Relevance (Keywords matched)" },
-                    { icon: "fa-solid fa-star", text: "⭐ Prominence (Reviews & Rating)", highlight: "green" }
-                ]
-            },
-            {
-                tag: "THE DANGER ZONE",
-                heading: "THE <span class='highlight-red'>4.4 RATING</span> DROP-OFF",
-                body: "Once your GMB star rating falls below 4.4, organic phone calls drop off a cliff. Google's algorithm demotes your prominence ranking instantly.",
-                visual: "chart",
-                visualData: { curve: "calls", greenLabel: "4.8★ Prominence", redLabel: "4.1★ Danger" }
-            },
-            {
-                tag: "THE REFUGE",
-                heading: "AEGIS PROTOCOL <span class='highlight-green'>PORTAL</span>",
-                body: "We deploy a custom QR feedback portal. Annoyed reviews are sent privately to your mobile; happy reviews go straight to Google Maps.",
+                tag: "UX STRATEGY",
+                heading: "DESIGNING A <span class='highlight-yellow'>FRICTIONLESS</span> FEEDBACK LOOP",
+                body: "How user experience decisions at the billing counter control your Google Maps search visibility and ranking prominence.",
                 visual: "mockup",
                 visualData: { label: "AEGIS PORTAL" }
             },
             {
-                tag: "GET SHIELDED",
-                heading: "🛡️ ACTIVATE YOUR <span class='highlight-cyan'>RATING SHIELD</span>",
-                body: "Upfront ₹1,999 setup fee. Digital print-ready QR standee PDF delivered instantly. Fully backed by a 7-day money-back guarantee.",
+                tag: "THE FRICTION PROBLEM",
+                heading: "95% OF HAPPY CUSTOMERS <span class='highlight-red'>LEAVE IN SILENCE</span>",
+                body: "Annoyed clients vent on Google because of adrenaline. Satisfied clients leave silently because the review process has too much friction.",
+                visual: "comparison",
+                visualData: {
+                    left: { title: "Positive Review", val: "5% Rate", desc: "Requires 6 manual navigation steps", color: "red" },
+                    right: { title: "Negative Review", val: "95% Rate", desc: "Driven by immediate post-purchase friction", color: "green" }
+                }
+            },
+            {
+                tag: "AEGIS UX BLUEPRINT",
+                heading: "FRICTIONLESS <span class='highlight-green'>DUAL-ROUTING</span> INTERFACE",
+                body: "A single scan. A single tap. Happy clients are routed to Google; unsatisfied clients open a private chat straight to the owner.",
+                visual: "split-path",
+                visualData: { start: "Scan QR", node1: "Happy -> Google Maps", node2: "Annoyed -> Private Chat" }
+            },
+            {
+                tag: "CLIENT PSYCHOLOGY",
+                heading: "UNHAPPY CLIENTS JUST <span class='highlight-cyan'>WANT TO BE HEARD</span>",
+                body: "Provide a private channel to resolve grievances instantly. Keep complaints off Google and turn annoyed buyers into loyal promoters.",
                 visual: "grid",
                 visualData: [
-                    { icon: "fa-solid fa-bolt", text: "⚡ Configured in 24 hours" },
-                    { icon: "fa-solid fa-shield", text: "🛡️ Intercepts 1-star ratings" },
-                    { icon: "fa-solid fa-arrow-rotate-left", text: "🔄 7-Day Refund Guarantee" }
+                    { icon: "fa-solid fa-comment-dots", text: "💬 Direct private messaging to owner" },
+                    { icon: "fa-solid fa-bolt", text: "⚡ Resolve issues in 2 minutes in-store" },
+                    { icon: "fa-solid fa-shield-halved", text: "🛡️ Keep 1-star ratings off Google Maps" }
                 ]
+            },
+            {
+                tag: "THE METRIC OUTCOME",
+                heading: "RECLAIM YOUR <span class='highlight-green'>RATING PROMINENCE</span>",
+                body: "Upfront ₹1,999 setup, backed by a 7-day money-back guarantee. Rank inside the Google Maps 3-Pack and capture local traffic.",
+                visual: "chart",
+                visualData: { greenLabel: "4.7★ Aegis Prominence", redLabel: "4.1★ Visibility Danger" }
             }
         ],
         captions: {
-            original: `Why begging your clients for Google reviews makes your business look desperate.
+            original: `Why do most happy customers leave your business in silence, while unhappy ones go straight to Google Maps?
 
-Handing clients their bill and pleading "please review us" is embarrassing. It kills your premium brand positioning and gets ignored 95% of the time.
+It comes down to friction.
 
-The danger? An unsatisfied customer never gets asked for a review, but they will go out of their way to leave a 1-star review to publicly humiliate your brand.
+Leaving a positive review requires a customer to navigate search, find your profile, and click through multiple screens. Leaving a negative review is driven by adrenaline—a customer wants to be heard, and Google is the easiest megaphone.
 
-Google Maps drives over 90% of local search traffic. When someone searches for services "near me," Google highlights the top 3 spots. Google’s algorithm rewards listings with consistent, positive reviews and high star ratings. If your business is trapped in the 4.1 "Danger Zone" due to a few negative reviews, Google begins demoting your ranking.
+To solve this, we designed the Aegis Protocol.
 
-Aegis Protocol solves this ranking crisis.
+It is a frictionless dual-routing system:
+1. The customer scans a print-ready QR standee at checkout.
+2. A single tap splits the path:
+   - Happy customers go directly to Google Maps in 1 click.
+   - Unsatisfied customers open a private ticket straight to the owner.
 
-Our custom review redirection portal routes your happiest customers straight to Google to post 5-star reviews, while sending customer grievances privately to your mobile phone.
+By capturing grievances privately, you resolve issues immediately, protect your GMB rating, and build local search prominence.
 
-📈 Boost your prominence and rank inside the 3-Pack.
+We configure your portal and deliver your print-ready QR PDF standee.
+🛡️ Backed by a 7-day money-back guarantee.
 
-🛡️ 7-DAY MONEY-BACK GUARANTEE:
-Get your print-ready digital QR standee PDF and custom review portal configured today for a one-time ₹1,999 setup fee. If your maps visibility doesn't improve within 7 days, get a 100% instant refund.
+Comment "AEGIS" below to audit your GMB profile and set up a custom portal.
 
-👉 DM us "AEGIS" to run your free local GMB audit and set up your portal today!
+#LocalSEO #CustomerExperience #UXDesign #GoogleMyBusiness #AegisProtocol #MetrixMedia`,
+            controversial: `Stop begging for reviews. It's awkward, it's desperate, and it doesn't work.
 
-#LocalSEO #GoogleMyBusiness #GMBSEO #MapsMarketing #BusinessGrowth #LocalSearch #ReputationManagement #AegisProtocol #MetrixMedia`,
-            controversial: `Stop begging for reviews. It's desperate, it's awkward, and it doesn't work.
+95% of your customers throw your review requests in the trash. But that one person who had to wait 10 minutes? They will write a 3-paragraph essay on Google Maps detailing your downfall.
 
-95% of your customers throw your review request in the trash. But that one person who had to wait 10 minutes? They will write a 3-paragraph essay on Google Maps detailing your downfall.
-
-Google's 3-pack is a winner-take-all game. 
-
-If you aren't in the top 3 local spots, you are funding your competitor's marketing campaign.
+Google's 3-pack is a winner-take-all game. If you aren't in the top 3 local spots, you are funding your competitor's marketing campaign.
 
 Aegis Protocol stops public complaints by routing them straight to the owner's WhatsApp.
 
