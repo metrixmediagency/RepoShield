@@ -77,6 +77,9 @@
                 <a href="#" class="nav-item" data-tab="campaigns">
                     <i class="fa-solid fa-list-check"></i> Active Campaigns
                 </a>
+                <a href="#" class="nav-item" data-tab="social">
+                    <i class="fa-solid fa-calendar-days"></i> July Calendar
+                </a>
                 <a href="#" class="nav-item" data-tab="academy">
                     <i class="fa-solid fa-graduation-cap"></i> Sales Playbook
                 </a>
@@ -286,6 +289,116 @@
                                         </div>
                                         <p id="preview-flyer-footer-text">Help us serve you better!</p>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab: July Content Calendar & Instagram Simulator -->
+            <section id="tab-social-content" class="tab-content">
+                <div class="social-dashboard-grid">
+                    <!-- Left Column: Calendar List -->
+                    <div class="glass-card social-calendar-card">
+                        <div class="card-header social-calendar-header">
+                            <div class="header-title-row">
+                                <i class="fa-solid fa-calendar-days text-primary"></i>
+                                <h3>July Schedule</h3>
+                            </div>
+                            <div class="calendar-filters">
+                                <button class="filter-btn active" data-filter="all">All</button>
+                                <button class="filter-btn" data-filter="reel">Reels</button>
+                                <button class="filter-btn" data-filter="carousel">Carousels</button>
+                            </div>
+                        </div>
+                        <div class="calendar-posts-list" id="calendar-posts-list">
+                            <!-- Populated dynamically by generator.js -->
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Instagram Simulator -->
+                    <div class="glass-card social-simulator-card">
+                        <div class="card-header social-simulator-header">
+                            <div class="header-title-row">
+                                <i class="fa-brands fa-instagram text-pink"></i>
+                                <h3>Instagram Feed Simulator</h3>
+                            </div>
+                            <div class="simulator-actions">
+                                <button id="btn-export-slide" class="btn btn-secondary btn-sm" style="display: none;">
+                                    <i class="fa-solid fa-download"></i> Export Slide
+                                </button>
+                                <button id="btn-play-storyboard" class="btn btn-primary btn-sm" style="display: none;">
+                                    <i class="fa-solid fa-play"></i> Play Reel
+                                </button>
+                            </div>
+                        </div>
+                        <div class="simulator-body">
+                            <!-- Mobile Instagram Frame -->
+                            <div class="instagram-frame-wrapper">
+                                <div class="instagram-frame">
+                                    <div class="instagram-header">
+                                        <div class="ig-user-info">
+                                            <div class="ig-avatar"></div>
+                                            <div class="ig-username-details">
+                                                <span class="ig-username">metrixmedia</span>
+                                                <span class="ig-location">Goa, India</span>
+                                            </div>
+                                        </div>
+                                        <i class="fa-solid fa-ellipsis"></i>
+                                    </div>
+                                    
+                                    <div class="instagram-content-area" id="instagram-content-area">
+                                        <!-- Dynamic content here (carousel swipe or reel video overlay) -->
+                                    </div>
+                                    
+                                    <div class="instagram-footer">
+                                        <div class="ig-actions">
+                                            <div class="ig-left-actions">
+                                                <i class="fa-regular fa-heart"></i>
+                                                <i class="fa-regular fa-comment"></i>
+                                                <i class="fa-regular fa-paper-plane"></i>
+                                            </div>
+                                            <div class="ig-dots-indicator" id="ig-dots-indicator"></div>
+                                            <i class="fa-regular fa-bookmark"></i>
+                                        </div>
+                                        <div class="ig-likes">Liked by <strong>aegis_protocol</strong> and <strong>142 others</strong></div>
+                                        
+                                        <!-- Caption drawer -->
+                                        <div class="ig-caption-container">
+                                            <span class="ig-username">metrixmedia</span>
+                                            <span class="ig-caption-text" id="ig-caption-text">Select a post from the calendar to preview the caption.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sidebar controls for Simulator -->
+                            <div class="simulator-controls">
+                                <div class="control-group">
+                                    <label>Copywriting Tone</label>
+                                    <div class="tone-selector-buttons">
+                                        <button class="tone-btn active" data-tone="original">Original</button>
+                                        <button class="tone-btn" data-tone="controversial">Aggressive</button>
+                                        <button class="tone-btn" data-tone="humorous">Sarcastic</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="control-group">
+                                    <label>Interactive Settings</label>
+                                    <div class="settings-toggles">
+                                        <button id="btn-toggle-audio" class="settings-btn">
+                                            <i class="fa-solid fa-volume-xmark"></i> Ambient Audio: Off
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="control-group text-copier-container">
+                                    <label>Copy Caption</label>
+                                    <textarea id="copy-caption-textarea" readonly class="caption-textarea"></textarea>
+                                    <button id="btn-copy-caption" class="btn btn-primary btn-block">
+                                        <i class="fa-solid fa-copy"></i> Copy Caption
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -539,6 +652,7 @@ MetrixMedia Digital</pre>
         <span id="toast-message">Campaign Generated Successfully!</span>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase_config.js"></script>
     <script src="razorpay_config.js"></script>

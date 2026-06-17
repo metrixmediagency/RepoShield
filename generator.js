@@ -72,6 +72,10 @@ document.addEventListener('DOMContentLoaded', () => {
             title: 'Active GMB Campaigns',
             subtitle: 'Manage your active review portals, copy business links, and monitor generated campaigns.'
         },
+        social: {
+            title: 'July Content Calendar & Instagram Simulator',
+            subtitle: 'Browse scheduled posts, swipe through premium carousel slides, play Reels with timed visual storyboards, and export assets as PNGs.'
+        },
         academy: {
             title: 'The 100k Agency Academy',
             subtitle: 'Your step-by-step blueprint to signing clients, performing outreach, and hitting your income goals.'
@@ -114,6 +118,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 renderCampaignsList();
             } else if (tabId === 'clients') {
                 renderClientsList();
+            } else if (tabId === 'social') {
+                initSocialDashboard();
             }
 
             // Close sidebar drawer on mobile item click
@@ -1114,6 +1120,1738 @@ if (agentForm) {
         agentModal.style.display = 'none';
         showToast(editingAgentId ? 'Sales partner updated.' : 'Sales partner added.');
     });
+}
+
+    });
+}
+
+// ----------------------------------------------------
+// July Content Calendar & Instagram Simulator Logic
+// ----------------------------------------------------
+
+const julyPosts = [
+    {
+        id: 1,
+        title: "The ₹10,000 Cappuccino Review",
+        format: "reel",
+        niche: "cafe",
+        day: "Week 1, Mon",
+        trigger: "CAFE",
+        coverImg: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=600&auto=format&fit=crop",
+        storyboard: [
+            { time: 0, text: "Spent <span class='highlight'>₹15 Lakhs</span> on cafe interiors..." },
+            { time: 3, text: "Empty tables at 10 AM on a weekend morning." },
+            { time: 6, text: "The culprit? <span class='highlight'>One single 1-star review</span> about a cold cappuccino." },
+            { time: 9, text: "Aegis Protocol stops the leak. DM <span class='highlight'>'CAFE'</span> to get your counter shield." }
+        ],
+        captions: {
+            original: `If your cafe is sitting at a 4.1 rating on Google Maps, stop acting like you are "doing fine." 
+
+Your food might be a 10/10, but your Maps rating tells tourists you are a second-rate spot. You are actively bleeding up to 50% of your walk-ins to the cafe down the street who has a 4.7. 
+
+Think about it: You spent lakhs on interiors, premium beans, and hiring an amazing barista. 
+
+But a customer who had a minor wait for their latte last weekend just went straight to Google Maps and left an angry 1-star review. That single review drags down your average and costs you thousands in lost weekend walk-ins.
+
+It’s not fair, but it’s how the local economy works. 
+
+Happy diners leave silently; annoyed diners leave reviews. Aegis Protocol stops the leak.
+
+We set up a custom review gating portal and send you a print-ready digital QR standee PDF for your billing counter:
+✅ Happy diners scan and are auto-routed to post a public 5-star Google review.
+⚠️ Annoyed diners (wait times, cold food) go to a private feedback page straight to the owner.
+
+Handle complaints privately, fix the issue, and protect your rating.
+
+🛡️ 7-DAY REFUND GUARANTEE:
+Try the system at your counter risk-free for 7 days. Pay a one-time ₹1,999 setup fee. If not satisfied, request a 100% refund.
+
+👉 Comment "CAFE" below, and we will DM you a custom demo portal using your logo instantly!
+
+#GoaCafes #CafeMarketing #RestaurantOwner #GoaFood #LocalSEO #GMBSEO #ReputationManagement #AegisProtocol #MetrixMedia`,
+            controversial: `Unpopular opinion: If you have empty tables on a Saturday morning, it's not because of your food. It's because you let one angry reviewer control your reputation. 
+
+A 4.1 rating on Google Maps is a death sentence in Goa. Tourists don't see "an okay rating" — they see a warning label. 
+
+While you are defensive about your "premium beans", the cafe down the street with a 4.7 is hijacking all your walk-ins. 
+
+Stop playing victim to Google's algorithm.
+
+Aegis Protocol redirects unhappy customers to your private inbox before they hit Google.
+
+🛡️ 7-DAY REFUND GUARANTEE:
+Upfront ₹1,999 setup fee. If walk-ins don't rise in 7 days, get 100% back.
+
+👉 Comment "CAFE" to run your rating rescue.`,
+            humorous: `Spent ₹15 Lakhs on Italian espresso machines, organic beans, and plant-aesthetic lighting...
+
+Only to get review-bombed by "Suresh69" because his cappuccino was served at 68 degrees instead of 70. 
+
+Now you're at a 4.1. Walk-ins are down. But hey, at least your plants look great.
+
+Stop letting Suresh ruin your margins.
+
+Aegis Protocol filters out the public drama. Happy diners go to Google; Suresh goes to a private complaints form.
+
+🛡️ RISK-FREE TRIAL:
+₹1,999 setup, backed by a 7-day money-back guarantee.
+
+👉 Comment "CAFE" and stop coffee-table crying.`
+        }
+    },
+    {
+        id: 2,
+        title: "The GMB Maps 3-Pack Algorithm",
+        format: "carousel",
+        niche: "aegis",
+        day: "Week 1, Wed",
+        trigger: "AEGIS",
+        slides: [
+            {
+                tag: "GMB ALGORITHM",
+                heading: "HOW THE GOOGLE MAPS <span class='highlight-green'>3-PACK</span> WORKS",
+                body: "When users search 'near me', Google displays the top 3 maps listings. 92% of local search clicks go here. If you aren't in the top 3, you are practically invisible to prospects.",
+                visual: "comparison",
+                visualData: {
+                    left: { title: "Maps 3-Pack", val: "92%", desc: "Of all search traffic clicks here", color: "green" },
+                    right: { title: "Bottom Listings", val: "8%", desc: "Leftovers split between everyone else", color: "red" }
+                }
+            },
+            {
+                tag: "ALGORITHM METRICS",
+                heading: "HOW GOOGLE <span class='highlight-cyan'>RANKS</span> YOUR SITE",
+                body: "Google calculates ranking based on three distinct pillars. Prominence is the only factor you can actively scale.",
+                visual: "grid",
+                visualData: [
+                    { icon: "fa-solid fa-map-pin", text: "📍 Proximity (Distance to searcher)" },
+                    { icon: "fa-solid fa-magnifying-glass", text: "🔍 Relevance (Keywords matched)" },
+                    { icon: "fa-solid fa-star", text: "⭐ Prominence (Reviews & Rating)", highlight: "green" }
+                ]
+            },
+            {
+                tag: "THE DANGER ZONE",
+                heading: "THE <span class='highlight-red'>4.4 RATING</span> DROP-OFF",
+                body: "Once your GMB star rating falls below 4.4, organic phone calls drop off a cliff. Google's algorithm demotes your prominence ranking instantly.",
+                visual: "chart",
+                visualData: { curve: "calls", greenLabel: "4.8★ Prominence", redLabel: "4.1★ Danger" }
+            },
+            {
+                tag: "THE REFUGE",
+                heading: "AEGIS PROTOCOL <span class='highlight-green'>PORTAL</span>",
+                body: "We deploy a custom QR feedback portal. Annoyed reviews are sent privately to your mobile; happy reviews go straight to Google Maps.",
+                visual: "mockup",
+                visualData: { label: "AEGIS PORTAL" }
+            },
+            {
+                tag: "GET SHIELDED",
+                heading: "🛡️ ACTIVATE YOUR <span class='highlight-cyan'>RATING SHIELD</span>",
+                body: "Upfront ₹1,999 setup fee. Digital print-ready QR standee PDF delivered instantly. Fully backed by a 7-day money-back guarantee.",
+                visual: "grid",
+                visualData: [
+                    { icon: "fa-solid fa-bolt", text: "⚡ Configured in 24 hours" },
+                    { icon: "fa-solid fa-shield", text: "🛡️ Intercepts 1-star ratings" },
+                    { icon: "fa-solid fa-arrow-rotate-left", text: "🔄 7-Day Refund Guarantee" }
+                ]
+            }
+        ],
+        captions: {
+            original: `Why begging your clients for Google reviews makes your business look desperate.
+
+Handing clients their bill and pleading "please review us" is embarrassing. It kills your premium brand positioning and gets ignored 95% of the time.
+
+The danger? An unsatisfied customer never gets asked for a review, but they will go out of their way to leave a 1-star review to publicly humiliate your brand.
+
+Google Maps drives over 90% of local search traffic. When someone searches for services "near me," Google highlights the top 3 spots. Google’s algorithm rewards listings with consistent, positive reviews and high star ratings. If your business is trapped in the 4.1 "Danger Zone" due to a few negative reviews, Google begins demoting your ranking.
+
+Aegis Protocol solves this ranking crisis.
+
+Our custom review redirection portal routes your happiest customers straight to Google to post 5-star reviews, while sending customer grievances privately to your mobile phone.
+
+📈 Boost your prominence and rank inside the 3-Pack.
+
+🛡️ 7-DAY MONEY-BACK GUARANTEE:
+Get your print-ready digital QR standee PDF and custom review portal configured today for a one-time ₹1,999 setup fee. If your maps visibility doesn't improve within 7 days, get a 100% instant refund.
+
+👉 DM us "AEGIS" to run your free local GMB audit and set up your portal today!
+
+#LocalSEO #GoogleMyBusiness #GMBSEO #MapsMarketing #BusinessGrowth #LocalSearch #ReputationManagement #AegisProtocol #MetrixMedia`,
+            controversial: `Stop begging for reviews. It's desperate, it's awkward, and it doesn't work.
+
+95% of your customers throw your review request in the trash. But that one person who had to wait 10 minutes? They will write a 3-paragraph essay on Google Maps detailing your downfall.
+
+Google's 3-pack is a winner-take-all game. 
+
+If you aren't in the top 3 local spots, you are funding your competitor's marketing campaign.
+
+Aegis Protocol stops public complaints by routing them straight to the owner's WhatsApp.
+
+🛡️ 7-DAY REFUND SHIELD:
+₹1,999 onboarding fee. 100% money back if your rankings don't scale in 7 days.
+
+👉 DM us "AEGIS" to start winning the local SEO war.`,
+            humorous: `Asking diners for Google reviews is like asking for a tip on a first date. 
+
+Instead, Suresh leaves silently, but Karen writes a 1-star review because "the lighting was too aggressive for my aura". 
+
+Suddenly you drop out of the Google 3-Pack and your phone stops ringing.
+
+Let's automate the process.
+
+Scan QR -> Happy? Google Review. -> Annoyed? Private inbox. 
+
+🛡️ COST:
+₹1,999 one-time setup. 7-day money-back guarantee.
+
+👉 DM "AEGIS" and end the aura-shaming.`
+        }
+    },
+    {
+        id: 3,
+        title: "Waiting Times vs Clinical Trust",
+        format: "reel",
+        niche: "clinic",
+        day: "Week 1, Fri",
+        trigger: "CLINIC",
+        coverImg: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=600&auto=format&fit=crop",
+        storyboard: [
+            { time: 0, text: "Excellent clinical care..." },
+            { time: 3, text: "But a 15-minute billing bottleneck..." },
+            { time: 6, text: "Leaves a permanent 1-star review on your GMB profile." },
+            { time: 9, text: "Protect your practice. DM <span class='highlight'>'CLINIC'</span> to set up your clinical shield." }
+        ],
+        captions: {
+            original: `Patients don't care about your medical degrees if your GMB page is a cemetery of administrative complaints.
+
+A rating below 4.4 stars costs local clinics an average of 3-5 bookings weekly because patients filter by stars, not credentials. If a prospective patient searches for a doctor and sees a 4.1 rating, they skip. They don't see "an okay rating"—they see clinical risk.
+
+The irony? Most negative clinic reviews aren't about the medical care. They are about administrative bottlenecks—like parking, scheduling errors, or waiting times.
+
+These small office issues shouldn't ruin your medical reputation or cost you new patients.
+
+Aegis Protocol protects your practice.
+
+We set up a clean, HIPAA-compliant patient feedback portal and send a print-ready digital QR card PDF for your reception desk:
+👩‍⚕️ Patients scan at checkout to leave feedback.
+🌟 Happy patients are routed to write a public Google review.
+📩 Patients with billing or scheduling grievances go directly to a private director portal, allowing you to resolve issues internally.
+
+Protect your clinical reputation.
+
+🎁 7-DAY RISK-FREE SETUP:
+We will configure your custom clinical portal and deliver your print-ready digital QR standee PDF. Pay a one-time onboarding fee of ₹2,499. Backed by our 7-day money-back guarantee.
+
+👉 Comment "CLINIC" below to secure your practice reputation shield today!
+
+#DentalClinic #GoaDentist #GoaSalon #DoctorReputation #MedicalMarketing #ClinicGrowth #HealthcareSEO #PatientExperience #AegisProtocol #MetrixMedia`,
+            controversial: `Your medical degree doesn't matter if your receptionist is rude. 
+
+Patients filter doctors by Google star ratings, not medical credentials. A 4.1 rating on Maps means patients assume 'negligent treatment' when it was actually just a parking issue.
+
+If you don't control the narrative, administrative bottlenecks will kill your practice.
+
+Aegis Protocol redirects patients with scheduling complaints to a private manager portal.
+
+🛡️ CLINICAL SHIELD:
+₹2,499 one-time setup. 7-day money-back guarantee.
+
+👉 Comment "CLINIC" to lock down your practice prominence.`,
+            humorous: `Spent 10 years in medical school, published 20 research papers, and set up a state-of-the-art clinic...
+
+Only to get a 1-star Google review because "the waiting room temperature was freezing."
+
+Now you're at 4.1 stars and new patient inquiries are dropping.
+
+Welcome to medical marketing in 2026.
+
+Aegis Protocol stops waiting-room feedback from ruining your clinical trust.
+
+🛡️ THE CURE:
+₹2,499 setup, backed by a 7-day money-back guarantee.
+
+👉 Comment "CLINIC" for a medical GMB fix.`
+        }
+    },
+    {
+        id: 4,
+        title: "Zomato Spilled Gravy App Penalty",
+        format: "reel",
+        niche: "zomato",
+        day: "Week 2, Mon",
+        trigger: "ZOMATO",
+        coverImg: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&auto=format&fit=crop",
+        storyboard: [
+            { time: 0, text: "Diner orders a perfect curry..." },
+            { time: 3, text: "But the delivery rider spills the gravy in transit." },
+            { time: 6, text: "Your kitchen gets a 1-star review. Orders drop 60%." },
+            { time: 9, text: "Aegis separates food quality from delivery errors. DM <span class='highlight'>'ZOMATO'</span>." }
+        ],
+        captions: {
+            original: `Your cloud kitchen has 10/10 taste, but Swiggy's algorithm treats you like a scam because of a spilled gravy review.
+
+You cook the perfect meal, pack it carefully, and hand it to the delivery rider. But the rider gets stuck in traffic, takes 45 minutes, and delivers a cold package. Or a container leaks in transit.
+
+Who gets blamed? You do. 
+
+The customer opens Zomato or Swiggy and leaves an angry 1-star rating on your profile. When your rating falls below 4.0, the app algorithms penalize your kitchen, pushing you to the bottom of the feed. Daily orders drop by 60% instantly.
+
+Aegis Protocol shields your cloud kitchen.
+
+By placing a simple feedback card inside every delivery bag:
+✅ Happy diners scan and are auto-routed to leave a positive rating on Zomato/Swiggy.
+⚠️ Annoyed diners (spilled gravy, cold food, delays) are routed to a private mobile form.
+
+You get notified instantly, issue a refund or discount, and keep the complaint completely off the apps.
+
+🔥 PROTECT YOUR MEAL ORDERS:
+We host your custom portal and design your digital QR bag insert cards. Pay a one-time setup fee of ₹1,999. Fully backed by our 7-day money-back guarantee.
+
+👉 Comment "ZOMATO" to secure your delivery shield before the weekend rush!
+
+#CloudKitchen #ZomatoIndia #SwiggyIndia #FoodDelivery #RestaurantOwner #CloudKitchenOwner #DeliveryMarketing #AegisProtocol #MetrixMedia`,
+            controversial: `Swiggy and Zomato algorithms don't care that the delivery rider dropped the bag. 
+
+They only see a 1-star review on your profile and demote your cloud kitchen to the bottom of the food feed. One leaked container can cost you 60% of your daily order volume.
+
+Stop letting third-party riders destroy your kitchen rating.
+
+Aegis Protocol intercept bag inserts make sure delivery grievances stay private.
+
+🛡️ ORDER SHIELD:
+₹1,999 one-time setup. 7-day money-back guarantee.
+
+👉 Comment "ZOMATO" to protect your restaurant rating.`,
+            humorous: `You cook Michelin-level chicken tikka masala, pack it in premium double-sealed containers...
+
+But the rider pulls a wheelie, the gravy spills, and the customer leaves a 1-star Zomato review: "FOOD WAS A MESS, KITCHEN IS PATHETIC."
+
+Now the algorithm shadowbans your kitchen. 
+
+Time to intercept the delivery drama.
+
+Place our custom feedback QR card in every bag. Unhappy customers get instant refunds privately; happy diners review you publicly.
+
+🛡️ PRICING:
+₹1,999 onboarding, backed by a 7-day money-back guarantee.
+
+👉 Comment "ZOMATO" and stop paying for rider wheelies.`
+        }
+    },
+    {
+        id: 5,
+        title: "Compliant Warranty Inserts vs TOS Ban",
+        format: "carousel",
+        niche: "amazon",
+        day: "Week 2, Wed",
+        trigger: "AMAZON",
+        slides: [
+            {
+                tag: "SELLER CRITICAL",
+                heading: "THE PACKAGE INSERT <span class='highlight-red'>TRAP</span>",
+                body: "Offering cash-back or gift cards for positive Amazon/Flipkart reviews is a direct violation of platform Terms of Service. Platform bots scan customer reports and suspend accounts.",
+                visual: "comparison",
+                visualData: {
+                    left: { title: "Illegal Method", val: "SUSPENDED", desc: "Gift cards for 5-stars = ban", color: "red" },
+                    right: { title: "Aegis Method", val: "100% SAFE", desc: "Warranty-linked review redirection", color: "green" }
+                }
+            },
+            {
+                tag: "THE COMPLIANT WAY",
+                heading: "WARRANTY <span class='highlight-green'>REGISTRATION</span>",
+                body: "Platform guidelines explicitly allow you to ask for warranty activation. We embed the review portal directly inside this compliant digital warranty portal.",
+                visual: "grid",
+                visualData: [
+                    { icon: "fa-solid fa-file-contract", text: "📄 Compliant warranty activation flow" },
+                    { icon: "fa-solid fa-robot", text: "🤖 100% compliant with platform bots" },
+                    { icon: "fa-solid fa-circle-check", text: "✅ Zero risk of listing deletion", highlight: "green" }
+                ]
+            },
+            {
+                tag: "THE DUAL ROUTE",
+                heading: "THE DUAL ROUTING <span class='highlight-cyan'>FLOW</span>",
+                body: "We separate buyers based on their activation experience. Unhappy buyers are routed to an instant replacement ticket.",
+                visual: "split-path",
+                visualData: { start: "Scan QR", node1: "Happy? -> Google/Amazon", node2: "Defective? -> Private Ticket" }
+            },
+            {
+                tag: "MOCKUP CARD",
+                heading: "PREMIUM <span class='highlight-yellow'>WARRANTY INSERT</span>",
+                body: "We design a high-end matte-black warranty insert card with gold foil QR codes. Elevates brand value and increases scans by 300%.",
+                visual: "mockup",
+                visualData: { label: "WARRANTY CARD" }
+            },
+            {
+                tag: "ACTIVATE SECURE",
+                heading: "PROTECT YOUR <span class='highlight-green'>LISTINGS</span>",
+                body: "Upfront ₹1,999 setup fee. Custom warranty page + insert card layout design. Backed by a 7-day money-back guarantee.",
+                visual: "grid",
+                visualData: [
+                    { icon: "fa-solid fa-shield-halved", text: "🛡️ Amazon/Flipkart TOS Compliant" },
+                    { icon: "fa-solid fa-thumbs-up", text: "👍 Boosts organic reviews by 4x" },
+                    { icon: "fa-solid fa-refresh", text: "🔄 7-day money-back guarantee" }
+                ]
+            }
+        ],
+        captions: {
+            original: `Amazon sellers: your warranty inserts are begging for an account suspension. Here is the compliant truth you are ignoring.
+
+Offering cash-back or gift cards on package inserts is a fast-track ticket to a permanent seller account ban. Amazon, Flipkart, and Meesho algorithms are scanning for review manipulation daily. But without inserts, how do you get reviews?
+
+You integrate reviews into a compliant digital product warranty registration.
+
+By providing a professional warranty activation card in the box:
+✅ Satisfied buyers activate their warranty and are prompted to share their experience.
+⚠️ Unsatisfied buyers (damaged shipping, missing user guide, defects) are routed straight to a private support desk.
+
+You resolve their issues instantly by shipping replacements, blocking negative ratings entirely while playing 100% within platform Terms of Service.
+
+🛡️ 100% PLATFORM COMPLIANT:
+We build your warranty registration page and design your digital insert cards. Backed by our 7-day money-back guarantee. Pay a one-time ₹1,999 setup fee.
+
+👉 DM us "AMAZON" to secure your listings and protect your organic sales!
+
+#AmazonSeller #FlipkartSeller #MeeshoSeller #EcommerceBusiness #AmazonFBA #OnlineSeller #ProductReviews #AegisProtocol #MetrixMedia`,
+            controversial: `Your gift-card inserts are going to get your Amazon seller account banned. 
+
+Amazon's compliance bots are actively scanning for review bribes. If you are still putting '$5 cash back for a 5-star review' cards in your boxes, you are counting down the days to a permanent suspension.
+
+You can ask for product reviews, but you must do it compliantly.
+
+Aegis Protocol embeds reviews into a digital warranty portal that is 100% compliant with platform TOS.
+
+🛡️ SELLER SHIELD:
+₹1,999 setup fee. 7-day money-back guarantee.
+
+👉 DM us "AMAZON" to save your product listing prominence.`,
+            humorous: `Putting a 'review us for a ₹100 cashback' slip in your product packaging is like buying reviews from a undercover compliance cop.
+
+One customer uploads a screenshot of your slip, and boom — your ₹5 Lakh/month Amazon listing is permanently deactivated.
+
+Let's do this legally.
+
+Aegis designs a premium warranty activation card. Satisfied buyers review you; customers with broken parts get replacement tickets instantly.
+
+🛡️ TERMS:
+₹1,999 setup. 7-day money-back guarantee.
+
+👉 DM "AMAZON" and keep the listing alive.`
+        }
+    },
+    {
+        id: 6,
+        title: "Damp Towels & Gym Member Churn",
+        format: "reel",
+        niche: "salon",
+        day: "Week 2, Fri",
+        trigger: "SALON",
+        coverImg: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=600&auto=format&fit=crop",
+        storyboard: [
+            { time: 0, text: "Premium gym with elite trainers..." },
+            { time: 3, text: "But a single damp locker room towel..." },
+            { time: 6, text: "Triggers a 1-star GMB review. Bookings fall 50%." },
+            { time: 9, text: "Protect your wellness brand. DM <span class='highlight'>'SALON'</span> or <span class='highlight'>'GYM'</span>." }
+        ],
+        captions: {
+            original: `A damp locker room towel just ruined a ₹50,000 launch. Wellness owners, stop letting details kill bookings.
+
+You spent lakhs on premium gym equipment, upscale salon interiors, and hiring the best trainers and stylists. But a client who had a minor billing confusion or found a locker room towel slightly damp just went straight to Google Maps and left an angry 1-star review.
+
+And just like that, your cafe rating drops to a 4.1. 
+
+In the beauty and fitness industry, reputation is everything. Prospective members search for "best gym in Goa" or "luxury spa near me." If they see a 4.1 rating, they assume poor hygiene, bad management, or rude staff. They book with the 4.7-star competitor down the street. 
+
+The worst part? Your services are top-tier. These minor facility or front-desk bottlenecks shouldn't ruin your hard-earned reputation.
+
+Aegis Protocol shields your wellness space.
+
+We set up a professional, clean Client Feedback QR standee at your checkout counter:
+✅ Delighted clients scan and are auto-routed to leave a public 5-star Google review.
+⚠️ Clients with complaints (cleanliness, billing, wait times) are sent to a private, confidential suggestion form.
+
+You receive an alert instantly, handle the issue privately, and keep their frustration completely off Google Maps.
+
+🛡️ 7-DAY MONEY-BACK GUARANTEE:
+We configure your custom wellness portal and send you a high-resolution, print-ready digital QR standee PDF. Try it at your reception desk risk-free for 7 days. Pay a one-time ₹1,999 setup fee; if not satisfied, request a 100% refund.
+
+👉 Comment "SALON" or "GYM" to secure your booking shield today!
+
+#GoaSalon #GoaSpa #GoaGym #SalonOwner #GymOwner #FitnessMarketing #SpaMarketing #ReputationManagement #AegisProtocol #MetrixMedia`,
+            controversial: `Your ₹20 Lakh gym fit-out is getting ruined by a bad locker room smell.
+
+One customer gets annoyed by a wet bench, goes to Google Maps, and leaves a 1-star review. Google's algorithm drops your rating average, and suddenly local prospects book elsewhere. 
+
+You lose ₹50,000 in monthly memberships over a facility bottleneck you didn't even know about.
+
+Stop letting minor errors run your business prominence.
+
+Aegis Protocol routes gym complaints privately to the owner.
+
+🛡️ MEMBERSHIP SHIELD:
+₹1,999 one-time setup. 7-day money-back guarantee.
+
+👉 Comment "GYM" to lock your ratings.`,
+            humorous: `Imported state-of-the-art machines from Germany, hired celebrity trainers, and built a luxury sauna...
+
+Only to get a 1-star review because "the locker room soap dispenser was empty."
+
+Suddenly your GMB rating drops, and new members assume your gym is a dump.
+
+Let's intercept the locker-room complaints.
+
+Our counter QR portal sends happy members to Google and complaints directly to your WhatsApp.
+
+🛡️ COST:
+₹1,999 setup, backed by a 7-day money-back guarantee.
+
+👉 Comment "GYM" and stop soap-box crying.`
+        }
+    },
+    {
+        id: 7,
+        title: "How Review Gating Works (TOS Audit)",
+        format: "reel",
+        niche: "aegis",
+        day: "Week 3, Mon",
+        trigger: "AEGIS",
+        coverImg: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&auto=format&fit=crop",
+        storyboard: [
+            { time: 0, text: "Is review gating allowed by Google?" },
+            { time: 3, text: "Selectively gating Google reviews is a TOS violation." },
+            { time: 6, text: "But private customer feedback is 100% legal." },
+            { time: 9, text: "Aegis runs compliant dual-routing portals. DM <span class='highlight'>'AEGIS'</span>." }
+        ],
+        captions: {
+            original: `Stop thinking your GMB page is "just a profile." It is your business's credit score. 
+
+A low rating is a direct penalty that Google’s algorithm uses to push you to the bottom of local search results. GMB guidelines state that you cannot "gatekeep" reviews by selectively soliciting positive ones. But every excellent business has a private feedback channel for unsatisfied customers.
+
+Aegis Protocol operates 100% compliantly by providing choice:
+👩‍💻 We ask clients to rate their experience.
+🌟 Happy clients are routed to Google to share their story.
+📩 Unsatisfied clients are provided an immediate, private direct-message link to the manager, allowing you to resolve their complaints internally.
+
+This isn't manipulation—it's active customer service. You solve their problem before they leave the store, so they have no reason to post a 1-star review.
+
+🛡️ 7-DAY MONEY-BACK GUARANTEE:
+Protect your rating average. We configure your custom review portal and send you a print-ready digital QR standee PDF. Pay a one-time ₹1,999 setup fee. Fully backed by our 7-day refund guarantee.
+
+👉 Comment "AEGIS" below to get your GMB compliance check and start today!
+
+#LocalSEO #GoogleMaps #GMBSEO #BusinessCompliance #CustomerService #LocalBusiness #AegisProtocol #MetrixMedia`,
+            controversial: `GMB guidelines say you cannot block bad reviews. But they can't stop you from doing customer service.
+
+If you ignore complaints, you get 1-stars. If you solve complaints in-store, they never go online. 
+
+Aegis Protocol is 100% compliant local GMB optimization because it acts as an immediate resolver.
+
+Control your reputation before Google's bots control you.
+
+🛡️ COMPLIANCE SHIELD:
+₹1,999 onboarding. 7-day money-back guarantee.
+
+👉 Comment "AEGIS" to run your rating compliance check.`,
+            humorous: `Google Maps says "thou shalt not block reviews." 
+
+We don't block them. We just ask unhappy customers: "Hey, instead of writing an essay on Google, want to talk to the manager and get a free dessert?"
+
+99% of people choose the dessert. 
+
+Aegis Protocol handles the customer relations while building your GMB credit score.
+
+🛡️ PRICE:
+₹1,999 setup, backed by a 7-day money-back guarantee.
+
+👉 Comment "AEGIS" and get the dessert routing.`
+        }
+    },
+    {
+        id: 8,
+        title: "Menu Pricing Power vs Map Rating",
+        format: "carousel",
+        niche: "cafe",
+        day: "Week 3, Wed",
+        trigger: "CAFE",
+        slides: [
+            {
+                tag: "PRICING POWER",
+                heading: "HOW RATINGS CONTROL YOUR <span class='highlight-green'>PRICING</span>",
+                body: "Customers psychologically justify premium pricing based on star ratings. High stars signal elite quality, letting you charge more for the same product.",
+                visual: "comparison",
+                visualData: {
+                    left: { title: "4.8★ Cafe", val: "₹250 Latte", desc: "Premium walks, high profit margins", color: "green" },
+                    right: { title: "4.1★ Cafe", val: "₹150 Latte", desc: "Forced to discount to attract diners", color: "red" }
+                }
+            },
+            {
+                tag: "THE DISCOUNT TRAP",
+                heading: "THE DESTRUCTION OF <span class='highlight-red'>MARGINS</span>",
+                body: "When your cafe sits at a 4.1 rating, organic footfall drops. Cafe owners are forced to run constant discount coupons or app promos, destroying profit margins.",
+                visual: "grid",
+                visualData: [
+                    { icon: "fa-solid fa-tags", text: "🏷️ Continuous discount promos" },
+                    { icon: "fa-solid fa-arrow-down-long", text: "📉 Shrinking restaurant margins" },
+                    { icon: "fa-solid fa-skull", text: "💀 High operating costs, low profit", highlight: "red" }
+                ]
+            },
+            {
+                tag: "RATING VS MARGINS",
+                heading: "THE STAR-PRICE <span class='highlight-cyan'>CORRELATION</span>",
+                body: "Data shows Cafe menu pricing power increases exponentially as star ratings rise. High ratings give you authority.",
+                visual: "chart",
+                visualData: { curve: "margins", greenLabel: "High Margin Zone", redLabel: "Discount Trap Zone" }
+            },
+            {
+                tag: "MOCKUP COUNTER",
+                heading: "AEGIS <span class='highlight-yellow'>COUNTER STAND</span>",
+                body: "A custom QR standee placed at checkout. Automatically redirects happy diners to Google Reviews while catching complaints privately.",
+                visual: "mockup",
+                visualData: { label: "CAFE STANDEE" }
+            },
+            {
+                tag: "MARGIN PROTECTOR",
+                heading: "🛡️ PROTECT YOUR <span class='highlight-green'>MENU POWER</span>",
+                body: "₹1,999 one-time setup. Custom review portal + print-ready counter standee PDF. 7-day money-back guarantee.",
+                visual: "grid",
+                visualData: [
+                    { icon: "fa-solid fa-coins", text: "💰 Stop slashing menu prices" },
+                    { icon: "fa-solid fa-star-half-stroke", text: "⭐ Reach a stable 4.7+ GMB average" },
+                    { icon: "fa-solid fa-shield-halved", text: "🛡️ Backed by a 7-day refund guarantee" }
+                ]
+            }
+        ],
+        captions: {
+            original: `Why is Cafe A charging ₹250 for a latte while you are stuck at ₹150? It's not the beans. It's the GMB score.
+
+When customers see a 4.1 rating, they expect average food and average service. If your menu prices are high, they feel cheated and leave bad reviews. But cafes with a 4.8-star average rating command pricing power. 
+
+Diners assume clinical food preparation and top-tier service. They happily pay premium prices because the social proof justifies the cost.
+
+Protect your margins with the Aegis Protocol.
+
+By placing our custom QR standee at your counter, you make sure happy diners are routed to Google to build your reputation, while keeping disgruntled reviews off the internet.
+
+🛡️ 7-DAY REFUND GUARANTEE:
+Get your print-ready digital QR standee PDF and custom review portal configured today for a one-time ₹1,999 setup fee. If you aren't completely satisfied, get a 100% instant refund.
+
+👉 DM us "CAFE" to claim your portal setup and secure your margins!
+
+#GoaEats #RestaurantMarketing #RestaurantBusiness #GoaCafes #LocalSEO #MenuPricing #GMBSEO #AegisProtocol #MetrixMedia`,
+            controversial: `Your beans aren't cheap, so why are your lattes priced like convenience store coffee? 
+
+Because at a 4.1 star rating, you don't have the pricing power to charge more. Customers assume your kitchen is second-rate. You slash prices to get tables filled while the 4.8-star cafe next door charges double and is fully booked.
+
+Ratings dictate your menu profit margins. 
+
+Aegis Protocol builds GMB prominence so you can charge what your culinary art is actually worth.
+
+🛡️ MARGIN SHIELD:
+₹1,999 setup fee. 7-day money-back guarantee.
+
+👉 DM us "CAFE" to reclaim your premium menu pricing.`,
+            humorous: `Cafe A charges ₹250 for an espresso because they have a 4.8-star rating. Diners call it "artisanal extraction."
+
+You charge ₹150 for the exact same beans because you're at 4.1 stars. Diners complain it's "pretentious."
+
+Social proof controls your margins. 
+
+Stop discounting. Get our custom QR counter standee to funnel happy diners to Google.
+
+🛡️ TERMS:
+₹1,999 setup. 7-day money-back guarantee.
+
+👉 DM "CAFE" and charge what you're worth.`
+        }
+    },
+    {
+        id: 9,
+        title: "Confidentiality: Intercepting Complaints",
+        format: "reel",
+        niche: "clinic",
+        day: "Week 3, Fri",
+        trigger: "CLINIC",
+        coverImg: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&auto=format&fit=crop",
+        storyboard: [
+            { time: 0, text: "Patient billing issues or front desk bottlenecks..." },
+            { time: 3, text: "Do not belong on your public Google page." },
+            { time: 6, text: "Aegis redirects patient complaints privately to the director." },
+            { time: 9, text: "Maintain medical authority. DM <span class='highlight'>'CLINIC'</span> for our secure setup." }
+        ],
+        captions: {
+            original: `Billing disputes and receptionist bottlenecks don't belong on Google. Keep patient grievances private to maintain clinical trust.
+
+When a client has a dispute about a billing invoice, booking delay, or therapist communication, they want an immediate resolution. If they can't find an easy way to complain, they vent on Google. This exposes administrative bottlenecks to thousands of potential clients.
+
+Aegis Protocol provides a secure, private, and feedback loop.
+
+Our system redirects client grievances to a private clinical manager portal:
+👩‍⚕️ Patients scan the QR desk card to submit feedback.
+🌟 Satisfied patients go to public Google Reviews.
+📩 Grievances go confidential to the manager, allowing you to resolve issues internally and maintain patient privacy.
+
+Maintain professional authority.
+
+🎁 7-DAY RISK-FREE RUN:
+We configure your custom clinical portal and deliver your print-ready digital QR standee PDF. Pay a one-time integration fee of ₹2,499. If not satisfied within 7 days, get a full refund.
+
+👉 Comment "CLINIC" below to set up your practice portal today!
+
+#DoctorTrust #GoaClinics #DentalMarketing #PatientExperience #ClinicSEO #LocalSEO #ReputationManagement #AegisProtocol #MetrixMedia`,
+            controversial: `A patient with a billing dispute doesn't care about your clinic's rating. They want a refund. 
+
+But if you don't give them a private way to vent, they will write a 1-star review exposing your clinic's billing details to the entire world. Keep clinic drama off GMB maps.
+
+Maintain strict administrative confidentiality.
+
+Aegis Protocol routes scheduling complaints directly to your smartphone.
+
+🛡️ PRACTICE PROTECTOR:
+₹2,499 one-time onboarding. 7-day money-back guarantee.
+
+👉 Comment "CLINIC" to secure patient feedback loops.`,
+            humorous: `Receptionist got the patient's name wrong, billing machine took 2 minutes to load...
+
+And now there's a 1-star GMB review accusing your clinic of "poor patient data management." 
+
+Keep reception issues off your medical record.
+
+Aegis QR portals let patients submit office complaints privately. You fix the invoice; Google rating remains healthy.
+
+🛡️ CURATIVE:
+₹2,499 setup, backed by a 7-day money-back guarantee.
+
+👉 Comment "CLINIC" and heal your GMB.`
+        }
+    },
+    {
+        id: 10,
+        title: "Delivery Rider Delays vs Kitchen Rating",
+        format: "reel",
+        niche: "zomato",
+        day: "Week 4, Mon",
+        trigger: "SWIGGY",
+        coverImg: "https://images.unsplash.com/photo-1534088568595-a066f410bcda?w=600&auto=format&fit=crop",
+        storyboard: [
+            { time: 0, text: "Third-party delivery riders are late..." },
+            { time: 3, text: "Food gets cold, customer rates you 1-star." },
+            { time: 6, text: "Swiggy's algorithm demotes your cloud kitchen feed." },
+            { time: 9, text: "Stop delivery errors from killing orders. DM <span class='highlight'>'SWIGGY'</span>." }
+        ],
+        captions: {
+            original: `Third-party delivery riders are killing your cloud kitchen rating.
+
+A rider gets lost, the food gets cold, and the customer leaves a 1-star review on Zomato. When your rating falls, the platform pushes your kitchen to the bottom of the feed. Your daily orders bleed.
+
+Aegis Protocol separates delivery issues from kitchen quality:
+✅ Happy diners scan and are auto-routed to leave a positive rating on Zomato/Swiggy.
+⚠️ Annoyed diners (spilled packaging, delays, cold food) are routed to a private mobile form.
+
+You resolve delivery mistakes privately by issuing refunds or discounts, protecting your feed ranking.
+
+🔥 PROTECT YOUR MEAL REVENUE:
+We host your custom portal and design your digital QR bag insert cards. Pay a one-time setup fee of ₹1,999. Fully backed by our 7-day money-back guarantee.
+
+👉 Comment "ZOMATO" to secure your kitchen rating today!
+
+#CloudKitchen #ZomatoSwiggy #FoodDeliveryIndia #GoaFoodDelivery #KitchenOwner #DeliveryMarketing #AegisProtocol #MetrixMedia`,
+            controversial: `Your chef didn't burn the biryani. The delivery rider just left it in his rain-soaked bag for an hour.
+
+But the customer rated your cloud kitchen 1-star, and now your restaurant feed is buried on Swiggy and Zomato. You are paying for rider mistakes with your livelihood.
+
+Stop letting delivery logistics kill your restaurant prominence.
+
+Aegis bag inserts keep rider complaints off the delivery apps.
+
+🛡️ DELIVERY SHIELD:
+₹1,999 setup. 7-day money-back guarantee.
+
+👉 Comment "SWIGGY" to secure your kitchen order volume.`,
+            humorous: `You cook a perfect meal, pack it in heat-insulated foil...
+
+But the Swiggy rider takes a 3-mile detour, serves it cold, and you get review-bombed by Karen. 
+
+Orders drop 60%. Karen is happy. The rider is happy. You are crying in the kitchen.
+
+Intercept the app reviews. 
+
+Place our custom QR feedback card in every box. Cold food complaints go privately to you; happy diners rate you on Swiggy.
+
+🛡️ THE SHIELD:
+₹1,999 setup, backed by a 7-day money-back guarantee.
+
+👉 Comment "SWIGGY" and save the cloud kitchen.`
+        }
+    },
+    {
+        id: 11,
+        title: "Wet Towels & The ₹50,000 Spa Launch",
+        format: "carousel",
+        niche: "salon",
+        day: "Week 4, Wed",
+        trigger: "SALON",
+        slides: [
+            {
+                tag: "LAUNCH DISASTER",
+                heading: "HOW A WET TOWEL DESTROYED A <span class='highlight-red'>₹50,000 LAUNCH</span>",
+                body: "You spend lakhs on marketing and salon styling stations. Launch week is successful, booking 50+ clients. Then, one minor facility error crashes your prominence.",
+                visual: "comparison",
+                visualData: {
+                    left: { title: "Launch Week", val: "50+ Booked", desc: "High momentum, fully booked", color: "green" },
+                    right: { title: "Week 2 Collapse", val: "-50% Inquiries", desc: "After rating drops to 4.1", color: "red" }
+                }
+            },
+            {
+                tag: "THE BOTTLENECK",
+                heading: "ONE DAMP TOWEL <span class='highlight-red'>1-STAR REVIEW</span>",
+                body: "Instead of telling the reception desk, a client gets a slightly damp locker room towel and leaves a scathing Google Maps review.",
+                visual: "grid",
+                visualData: [
+                    { icon: "fa-solid fa-scroll", text: "🧼 Single damp locker room towel" },
+                    { icon: "fa-solid fa-comment-slash", text: "🤐 Customer says nothing at reception desk" },
+                    { icon: "fa-solid fa-trash-can", text: "🗑️ Leaves a 1-star GMB rating review", highlight: "red" }
+                ]
+            },
+            {
+                tag: "REVENUE COLLAPSE",
+                heading: "THE WEEK 2 <span class='highlight-cyan'>MOMENTUM CRASH</span>",
+                body: "Google's search algorithm demotes your maps listing. New spa clients see the 4.1 rating next to competitors and bookings drop by 50%.",
+                visual: "chart",
+                visualData: { curve: "bookings", greenLabel: "4.8★ Launch Path", redLabel: "4.1★ Crash Path" }
+            },
+            {
+                tag: "MOCKUP COUNTER",
+                heading: "AEGIS reception <span class='highlight-yellow'>STANDEE</span>",
+                body: "Custom QR standee sitting at spa checkout counter. Filters unhappy guests to a private direct message; happy guests go to Google Reviews.",
+                visual: "mockup",
+                visualData: { label: "SPA STANDEE" }
+            },
+            {
+                tag: "LAUNCH PROTECT",
+                heading: "🛡️ SECURE YOUR <span class='highlight-green'>MARKETING INVESTMENT</span>",
+                body: "₹1,999 one-time setup fee. Digital print-ready standee QR PDF. Backed by a 7-day money-back guarantee.",
+                visual: "grid",
+                visualData: [
+                    { icon: "fa-solid fa-spa", text: "🌸 Protect wellness reputation" },
+                    { icon: "fa-solid fa-circle-dollar-to-slot", text: "💰 Stop walk-in revenue leakage" },
+                    { icon: "fa-solid fa-arrows-spin", text: "🔄 7-day refund guarantee" }
+                ]
+            }
+        ],
+        captions: {
+            original: `How a 1-star review about a damp towel ruined a ₹50,000 spa launch.
+
+You spend lakhs on upscale station interiors, hiring top stylists, and advertising. Your launch week is booked out. But one client experiences a minor front-desk wait or gets a damp locker room towel. Instead of telling the desk, they post a 1-star review on Google Maps.
+
+Your rating drops to a 4.1. Google’s search ranking algorithm demotes you, and booking inquiries drop by 50% in Week 2. Your launch momentum is dead.
+
+Don't let minor facility bottlenecks ruin your launch investment.
+
+Aegis Protocol places a clean patient/client feedback QR standee at your checkout counter, routing happy guests to Google Reviews and private complaints to your phone.
+
+🛡️ 7-DAY REFUND GUARANTEE:
+Get your print-ready digital QR standee PDF and custom review portal configured today for a one-time ₹1,999 setup fee. Backed by our 7-day money-back guarantee.
+
+👉 DM us "SALON" to set up your portal and protect your bookings today!
+
+#SpaLaunch #GoaSpa #GoaSalon #GymMarketing #FitnessBusiness #LocalSEO #ReputationManagement #AegisProtocol #MetrixMedia`,
+            controversial: `One damp towel shouldn't cost you ₹25,000 in lost wellness memberships. 
+
+But Google Maps doesn't know it was just a towel. They only see your GMB rating drop to 4.1 and demote your local ranking visibility. Your launch momentum is dead.
+
+Stop letting minor facility details kill your advertising ROI.
+
+Aegis Protocol checkout QR gates make sure minor facility complaints stay off Google.
+
+🛡️ BRAND SHIELD:
+₹1,999 one-time setup. 7-day money-back guarantee.
+
+👉 DM us "SALON" to secure your wellness ratings.`,
+            humorous: `Spent ₹50,000 advertising your spa launch, hired expert masseuses, and set up calming zen music...
+
+Only to get a 1-star GMB review because "the locker room towel was slightly damp."
+
+Suddenly GMB bookings drop 50%. The zen music isn't helping.
+
+Let's redirect the towel critiques.
+
+Aegis QR counter standees route happy clients to Google Maps, and damp towel gripes to the manager.
+
+🛡️ DETAILS:
+₹1,999 setup. 7-day money-back guarantee.
+
+👉 DM "SALON" and keep the spa ratings dry.`
+        }
+    },
+    {
+        id: 12,
+        title: "Rescuing a 3.9-Star Product Listing",
+        format: "reel",
+        niche: "amazon",
+        day: "Week 4, Fri",
+        trigger: "SELLER",
+        coverImg: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&auto=format&fit=crop",
+        storyboard: [
+            { time: 0, text: "Trapped at a 3.9 product rating?" },
+            { time: 3, text: "Your Amazon organic ranking is in a death spiral." },
+            { time: 6, text: "Aegis redirects shipping defects to private support tickets." },
+            { time: 9, text: "Rescue listings compliantly. DM <span class='highlight'>'SELLER'</span> for the portal setup." }
+        ],
+        captions: {
+            original: `Trapped at a 3.9 product rating? Your Amazon listing is in a death spiral.
+
+Your PPC ad costs double, your listing drops off page 1, and your buy-box ownership is hijacked by competitors. Rescue your rank compliantly with the Aegis Seller Shield.
+
+By placing a professional, compliant warranty activation card inside your product packaging:
+✅ Delighted buyers scan to activate warranty and are prompted to post reviews.
+⚠️ Annoyed buyers (shipping defects, broken parts) go straight to a private support page.
+
+You ship replacements instantly, resolving their issues and keeping negative reviews completely off your listing.
+
+🛡️ 100% PLATFORM COMPLIANT:
+We build your warranty registration page and design your digital insert cards. Backed by our 7-day money-back guarantee. Pay a one-time ₹1,999 setup fee.
+
+👉 Comment "SELLER" below to secure your listings and start growing your organic sales today!
+
+#AmazonSeller FBA #FlipkartSeller #MeeshoSeller #EcommerceSEO #OnlineSeller #AegisProtocol #MetrixMedia`,
+            controversial: `A 3.9 product rating on Amazon is a slow death. 
+
+Your advertising costs double, you lose buy-box ownership, and competitors hijack your listing. You can't bribe buyers, but you can rescue your ranking legally.
+
+Stop letting carrier damage destroy your listing.
+
+Aegis compliant warranty redirects defective orders to customer support before reviews are posted.
+
+🛡️ LISTING SHIELD:
+₹1,999 setup. 7-day money-back guarantee.
+
+👉 Comment "SELLER" to start your compliant recovery.`,
+            humorous: `At a 3.9 Amazon rating, you are practically paying people to click your ads and buy from your competitor.
+
+Carrier drops the package, box gets crushed, buyer leaves a 1-star review: "BOX WAS DAMAGED, TERRIBLE SELLER."
+
+You get penalised for the postman's bad day.
+
+Let's fix it legally.
+
+Our warranty inserts redirect shipping and packaging complaints straight to a private replacement desk.
+
+🛡️ TERMS:
+₹1,999 onboarding. 7-day money-back guarantee.
+
+👉 Comment "SELLER" and rescue the listing.`
+        }
+    }
+];
+
+let activePostIndex = 0;
+let activeSlideIndex = 0;
+let activeTone = 'original';
+let audioCtx = null;
+let audioSources = [];
+let audioEnabled = false;
+let reelPlaybackInterval = null;
+let reelPlaying = false;
+
+function initSocialDashboard() {
+    renderJulyCalendarList();
+    loadSelectedPost(0);
+    setupSocialEventListeners();
+}
+
+function renderJulyCalendarList() {
+    const listContainer = document.getElementById('calendar-posts-list');
+    if (!listContainer) return;
+    
+    listContainer.innerHTML = '';
+    
+    julyPosts.forEach((post, idx) => {
+        const item = document.createElement('div');
+        item.className = `calendar-post-item \${idx === activePostIndex ? 'active' : ''}`;
+        item.setAttribute('data-index', idx);
+        
+        let formatBadge = post.format === 'reel' ? 
+            `<span class="post-meta-badge badge-format-reel"><i class="fa-solid fa-video"></i> Reel</span>` :
+            `<span class="post-meta-badge badge-format-carousel"><i class="fa-solid fa-images"></i> Carousel</span>`;
+            
+        let nicheBadge = `<span class="post-meta-badge badge-niche-\${post.niche}">\${post.niche}</span>`;
+        
+        item.innerHTML = `
+            <div class="post-item-icon">
+                <i class="\${post.format === 'reel' ? 'fa-solid fa-video' : 'fa-solid fa-images'}"></i>
+            </div>
+            <div class="post-item-details">
+                <div class="post-item-title">\${post.title}</div>
+                <div class="post-item-meta">
+                    \${formatBadge}
+                    \${nicheBadge}
+                </div>
+            </div>
+            <div class="post-item-day">\${post.day}</div>
+        `;
+        
+        item.addEventListener('click', () => {
+            document.querySelectorAll('.calendar-post-item').forEach(el => el.classList.remove('active'));
+            item.classList.add('active');
+            loadSelectedPost(idx);
+        });
+        
+        listContainer.appendChild(item);
+    });
+}
+
+function loadSelectedPost(index) {
+    activePostIndex = index;
+    activeSlideIndex = 0;
+    const post = julyPosts[index];
+    
+    // Stop any running reel playback and sound if post changed
+    stopReelPlayback();
+    
+    // Toggle dashboard action button displays
+    const btnExport = document.getElementById('btn-export-slide');
+    const btnPlayReel = document.getElementById('btn-play-storyboard');
+    
+    if (post.format === 'carousel') {
+        if (btnExport) btnExport.style.display = 'inline-block';
+        if (btnPlayReel) btnPlayReel.style.display = 'none';
+        renderCarouselMedia(post);
+    } else {
+        if (btnExport) btnExport.style.display = 'none';
+        if (btnPlayReel) btnPlayReel.style.display = 'inline-block';
+        renderReelMedia(post);
+    }
+    
+    updateCaptionControls(post);
+    
+    if (audioEnabled) {
+        startAmbientAudio(post.niche);
+    }
+}
+
+function updateCaptionControls(post) {
+    const textarea = document.getElementById('copy-caption-textarea');
+    const igText = document.getElementById('ig-caption-text');
+    const toneText = post.captions[activeTone];
+    
+    if (textarea) textarea.value = toneText;
+    if (igText) igText.textContent = toneText;
+}
+
+function renderCarouselMedia(post) {
+    const contentArea = document.getElementById('instagram-content-area');
+    if (!contentArea) return;
+    
+    contentArea.innerHTML = '';
+    
+    const deck = document.createElement('div');
+    deck.className = 'carousel-deck';
+    deck.id = 'active-carousel-deck';
+    
+    post.slides.forEach((slide, idx) => {
+        const slideItem = document.createElement('div');
+        slideItem.className = `carousel-slide-item \${idx === 0 ? 'active' : ''}`;
+        slideItem.setAttribute('data-slide-index', idx);
+        
+        // Dynamic HTML visual elements based on type
+        let visualHTML = '';
+        if (slide.visual === 'comparison' && slide.visualData) {
+            const data = slide.visualData;
+            visualHTML = `
+                <div class="comparison-layout">
+                    <div class="comparison-card \${data.left.color}">
+                        <div class="comparison-title">\${data.left.title}</div>
+                        <div class="comparison-value \${data.left.color}">\${data.left.val}</div>
+                        <div class="comparison-desc">\${data.left.desc}</div>
+                    </div>
+                    <div class="comparison-card \${data.right.color}">
+                        <div class="comparison-title">\${data.right.title}</div>
+                        <div class="comparison-value \${data.right.color}">\${data.right.val}</div>
+                        <div class="comparison-desc">\${data.right.desc}</div>
+                    </div>
+                </div>
+            `;
+        } else if (slide.visual === 'grid' && slide.visualData) {
+            let itemsHTML = '';
+            slide.visualData.forEach(item => {
+                itemsHTML += `
+                    <div class="slide-grid-item">
+                        <i class="\${item.icon} \${item.highlight ? 'green' : 'cyan'}"></i>
+                        <span>\${item.text}</span>
+                    </div>
+                `;
+            });
+            visualHTML = `<div class="slide-grid-box">\${itemsHTML}</div>`;
+        } else if (slide.visual === 'chart') {
+            visualHTML = `
+                <div class="chart-visual-box">
+                    <div class="chart-curve-green"></div>
+                    <div class="chart-curve-red"></div>
+                    <span class="chart-label" style="top: 5px; left: 10px; color: #00FF87;">\${slide.visualData.greenLabel}</span>
+                    <span class="chart-label" style="bottom: 12px; right: 10px; color: #FF3366;">\${slide.visualData.redLabel}</span>
+                </div>
+            `;
+        } else if (slide.visual === 'mockup' && slide.visualData) {
+            visualHTML = `
+                <div class="mockup-standee-container">
+                    <div class="mockup-standee-graphic">
+                        <div class="mock-brand-lbl">METRIX</div>
+                        <div class="mock-qr-code"><div class="mock-qr-img"></div></div>
+                        <div class="mock-brand-lbl" style="font-size: 0.32rem;">AEGIS PROTOCOL</div>
+                    </div>
+                </div>
+            `;
+        } else if (slide.visual === 'split-path' && slide.visualData) {
+            const data = slide.visualData;
+            visualHTML = `
+                <div class="split-path-box">
+                    <div class="split-node">\${data.start}</div>
+                    <div class="split-arrow green"></div>
+                    <div class="split-node" style="border-color: #00FF87;">\${data.node1}</div>
+                </div>
+                <div class="split-path-box" style="margin-top: 0.25rem;">
+                    <div class="split-node" style="opacity: 0;">\${data.start}</div>
+                    <div class="split-arrow red"></div>
+                    <div class="split-node" style="border-color: #FF3366;">\${data.node2}</div>
+                </div>
+            `;
+        }
+        
+        slideItem.innerHTML = `
+            <div class="slide-canvas slide-bg-default" id="slide-canvas-item-\${idx}">
+                <div class="slide-glow-blob-1"></div>
+                <div class="slide-glow-blob-2"></div>
+                <div class="slide-content-wrapper">
+                    <div class="slide-tag">\${slide.tag}</div>
+                    <div class="slide-heading">\${slide.heading}</div>
+                    \${visualHTML}
+                    <div class="slide-body-box">\${slide.body}</div>
+                    <div class="slide-footer-row">
+                        <span class="slide-footer-brand">METRIX MEDIA</span>
+                        <span class="slide-footer-btn">AEGIS PROTOCOL</span>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        deck.appendChild(slideItem);
+    });
+    
+    // Add arrows
+    deck.innerHTML += `
+        <div class="ig-arrow-btn left-arrow" id="carousel-prev-btn"><i class="fa-solid fa-chevron-left"></i></div>
+        <div class="ig-arrow-btn right-arrow" id="carousel-next-btn"><i class="fa-solid fa-chevron-right"></i></div>
+    `;
+    
+    contentArea.appendChild(deck);
+    
+    // Add swipe indicators
+    renderSlideDots(post.slides.length);
+    
+    // Bind arrows
+    document.getElementById('carousel-prev-btn').addEventListener('click', () => navigateSlides(-1));
+    document.getElementById('carousel-next-btn').addEventListener('click', () => navigateSlides(1));
+}
+
+function renderSlideDots(count) {
+    const dotsContainer = document.getElementById('ig-dots-indicator');
+    if (!dotsContainer) return;
+    
+    dotsContainer.innerHTML = '';
+    for (let i = 0; i < count; i++) {
+        const dot = document.createElement('div');
+        dot.className = `ig-dot \${i === 0 ? 'active' : ''}`;
+        dot.setAttribute('data-dot-index', i);
+        dotsContainer.appendChild(dot);
+    }
+}
+
+function navigateSlides(direction) {
+    const post = julyPosts[activePostIndex];
+    if (post.format !== 'carousel') return;
+    
+    let newIndex = activeSlideIndex + direction;
+    if (newIndex < 0) newIndex = post.slides.length - 1;
+    if (newIndex >= post.slides.length) newIndex = 0;
+    
+    activeSlideIndex = newIndex;
+    
+    // Update active slides
+    document.querySelectorAll('.carousel-slide-item').forEach((slide, idx) => {
+        if (idx === activeSlideIndex) {
+            slide.classList.add('active');
+        } else {
+            slide.classList.remove('active');
+        }
+    });
+    
+    // Update active dots
+    document.querySelectorAll('.ig-dot').forEach((dot, idx) => {
+        if (idx === activeSlideIndex) {
+            dot.classList.add('active');
+        } else {
+            dot.classList.remove('active');
+        }
+    });
+}
+
+function renderReelMedia(post) {
+    const contentArea = document.getElementById('instagram-content-area');
+    if (!contentArea) return;
+    
+    contentArea.innerHTML = '';
+    
+    const container = document.createElement('div');
+    container.className = 'reel-storyboard-deck';
+    container.id = 'active-reel-deck';
+    
+    container.innerHTML = `
+        <div class="reel-cover-img" id="reel-cover-img" style="background-image: url('\${post.coverImg}');"></div>
+        <div class="reel-play-hud" id="reel-play-hud">
+            <i class="fa-solid fa-play"></i>
+        </div>
+        <div class="reel-overlay-text" id="reel-overlay-text"></div>
+    `;
+    
+    contentArea.appendChild(container);
+    
+    // Bind click to start/stop playback
+    document.getElementById('reel-play-hud').addEventListener('click', toggleReelPlayback);
+    document.getElementById('reel-cover-img').addEventListener('click', toggleReelPlayback);
+    
+    // Empty dots indicator for Reels
+    const dotsContainer = document.getElementById('ig-dots-indicator');
+    if (dotsContainer) dotsContainer.innerHTML = '';
+}
+
+function toggleReelPlayback() {
+    if (reelPlaying) {
+        stopReelPlayback();
+    } else {
+        startReelPlayback();
+    }
+}
+
+function startReelPlayback() {
+    const post = julyPosts[activePostIndex];
+    if (post.format !== 'reel') return;
+    
+    reelPlaying = true;
+    
+    const cover = document.getElementById('reel-cover-img');
+    const hud = document.getElementById('reel-play-hud');
+    const overlay = document.getElementById('reel-overlay-text');
+    const playBtnHeader = document.getElementById('btn-play-storyboard');
+    
+    if (cover) cover.classList.add('playing');
+    if (hud) hud.innerHTML = '<i class="fa-solid fa-pause"></i>';
+    if (playBtnHeader) playBtnHeader.innerHTML = '<i class="fa-solid fa-pause"></i> Pause Reel';
+    
+    let currentCueIdx = 0;
+    
+    function playCue() {
+        if (!reelPlaying) return;
+        const cue = post.storyboard[currentCueIdx];
+        if (!cue) {
+            // End of storyboard, loop back
+            currentCueIdx = 0;
+            playCue();
+            return;
+        }
+        
+        if (overlay) {
+            overlay.innerHTML = cue.text;
+            overlay.classList.add('active');
+        }
+        
+        setTimeout(() => {
+            if (!reelPlaying) return;
+            if (overlay) overlay.classList.remove('active');
+            
+            setTimeout(() => {
+                if (!reelPlaying) return;
+                currentCueIdx++;
+                playCue();
+            }, 600); // fade out duration
+        }, 2200); // show duration
+    }
+    
+    playCue();
+    
+    if (audioEnabled) {
+        startAmbientAudio(post.niche);
+    }
+}
+
+function stopReelPlayback() {
+    reelPlaying = false;
+    
+    const cover = document.getElementById('reel-cover-img');
+    const hud = document.getElementById('reel-play-hud');
+    const overlay = document.getElementById('reel-overlay-text');
+    const playBtnHeader = document.getElementById('btn-play-storyboard');
+    
+    if (cover) cover.classList.remove('playing');
+    if (hud) hud.innerHTML = '<i class="fa-solid fa-play"></i>';
+    if (playBtnHeader) playBtnHeader.innerHTML = '<i class="fa-solid fa-play"></i> Play Reel';
+    if (overlay) {
+        overlay.classList.remove('active');
+        overlay.innerHTML = '';
+    }
+    
+    stopAmbientAudio();
+}
+
+function setupSocialEventListeners() {
+    // 1. Calendar Niche Filters
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            const filter = btn.getAttribute('data-filter');
+            filterCalendarPosts(filter);
+        });
+    });
+    
+    // 2. Copywriting Tone Selector
+    document.querySelectorAll('.tone-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.tone-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            activeTone = btn.getAttribute('data-tone');
+            updateCaptionControls(julyPosts[activePostIndex]);
+        });
+    });
+    
+    // 3. Audio Toggle Button
+    const btnAudio = document.getElementById('btn-toggle-audio');
+    if (btnAudio) {
+        btnAudio.addEventListener('click', () => {
+            audioEnabled = !audioEnabled;
+            btnAudio.classList.toggle('active', audioEnabled);
+            
+            if (audioEnabled) {
+                btnAudio.innerHTML = '<i class="fa-solid fa-volume-high"></i> Ambient Audio: On';
+                startAmbientAudio(julyPosts[activePostIndex].niche);
+            } else {
+                btnAudio.innerHTML = '<i class="fa-solid fa-volume-xmark"></i> Ambient Audio: Off';
+                stopAmbientAudio();
+            }
+        });
+    }
+    
+    // 4. Header Play Reel Button
+    const btnPlayReel = document.getElementById('btn-play-storyboard');
+    if (btnPlayReel) {
+        btnPlayReel.addEventListener('click', () => {
+            toggleReelPlayback();
+        });
+    }
+    
+    // 5. Header Export Slide Button
+    const btnExport = document.getElementById('btn-export-slide');
+    if (btnExport) {
+        btnExport.addEventListener('click', () => {
+            exportCurrentSlide();
+        });
+    }
+    
+    // 6. Copy Caption Button
+    const btnCopy = document.getElementById('btn-copy-caption');
+    if (btnCopy) {
+        btnCopy.addEventListener('click', () => {
+            const textarea = document.getElementById('copy-caption-textarea');
+            if (textarea) {
+                textarea.select();
+                textarea.setSelectionRange(0, 99999);
+                navigator.clipboard.writeText(textarea.value)
+                    .then(() => {
+                        showToast('Caption copied to clipboard!');
+                    })
+                    .catch(() => {
+                        showToast('Failed to copy caption.');
+                    });
+            }
+        });
+    }
+}
+
+function filterCalendarPosts(filter) {
+    document.querySelectorAll('.calendar-post-item').forEach(item => {
+        const idx = parseInt(item.getAttribute('data-index'));
+        const post = julyPosts[idx];
+        
+        if (filter === 'all' || post.format === filter) {
+            item.style.display = 'flex';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+}
+
+function exportCurrentSlide() {
+    const post = julyPosts[activePostIndex];
+    if (post.format !== 'carousel') return;
+    
+    const slideNode = document.getElementById(`slide-canvas-item-\${activeSlideIndex}`);
+    if (!slideNode) return;
+    
+    showToast('Generating high-res PNG...');
+    
+    // Set explicit size for export block to guarantee perfect 1080x1080 resolution
+    const exportWrapper = document.createElement('div');
+    exportWrapper.style.position = 'absolute';
+    exportWrapper.style.top = '-9999px';
+    exportWrapper.style.width = '1080px';
+    exportWrapper.style.height = '1080px';
+    exportWrapper.style.overflow = 'hidden';
+    
+    const clonedNode = slideNode.cloneNode(true);
+    clonedNode.style.width = '1080px';
+    clonedNode.style.height = '1080px';
+    clonedNode.style.padding = '5.5rem';
+    
+    // Scale up typography size inside cloned node for high-res layout
+    const tag = clonedNode.querySelector('.slide-tag');
+    if (tag) {
+        tag.style.fontSize = '2rem';
+        tag.style.letterSpacing = '6px';
+    }
+    const heading = clonedNode.querySelector('.slide-heading');
+    if (heading) heading.style.fontSize = '3.8rem';
+    
+    const bodyBox = clonedNode.querySelector('.slide-body-box');
+    if (bodyBox) {
+        bodyBox.style.fontSize = '2.4rem';
+        bodyBox.style.padding = '2.5rem';
+        bodyBox.style.borderRadius = '24px';
+    }
+    
+    const footer = clonedNode.querySelector('.slide-footer-row');
+    if (footer) {
+        footer.style.fontSize = '2rem';
+        footer.style.paddingTop = '1.5rem';
+    }
+    
+    const footerBtn = clonedNode.querySelector('.slide-footer-btn');
+    if (footerBtn) {
+        footerBtn.style.fontSize = '1.8rem';
+        footerBtn.style.padding = '0.6rem 1.5rem';
+        footerBtn.style.borderRadius = '10px';
+    }
+    
+    const comparisonCards = clonedNode.querySelectorAll('.comparison-card');
+    comparisonCards.forEach(card => {
+        card.style.padding = '1.5rem';
+        card.style.borderRadius = '18px';
+    });
+    
+    const compTitles = clonedNode.querySelectorAll('.comparison-title');
+    compTitles.forEach(t => t.style.fontSize = '1.8rem');
+    
+    const compVals = clonedNode.querySelectorAll('.comparison-value');
+    compVals.forEach(v => v.style.fontSize = '2.8rem');
+    
+    const compDescs = clonedNode.querySelectorAll('.comparison-desc');
+    compDescs.forEach(d => d.style.fontSize = '1.8rem');
+    
+    const gridItems = clonedNode.querySelectorAll('.slide-grid-item');
+    gridItems.forEach(item => {
+        item.style.padding = '1.2rem 1.8rem';
+        item.style.borderRadius = '16px';
+        item.style.fontSize = '2.2rem';
+        item.style.gap = '1.5rem';
+        const icon = item.querySelector('i');
+        if (icon) icon.style.fontSize = '2.8rem';
+    });
+    
+    const gridBox = clonedNode.querySelector('.slide-grid-box');
+    if (gridBox) gridBox.style.gap = '1.2rem';
+    
+    const chart = clonedNode.querySelector('.chart-visual-box');
+    if (chart) {
+        chart.style.height = '240px';
+        chart.style.borderWidth = '4px';
+        const curves = chart.querySelectorAll('div');
+        curves.forEach(c => c.style.borderWidth = '8px');
+        const labels = chart.querySelectorAll('.chart-label');
+        labels.forEach(l => l.style.fontSize = '1.8rem');
+    }
+    
+    const splitBoxes = clonedNode.querySelectorAll('.split-path-box');
+    splitBoxes.forEach(box => {
+        box.style.margin = '1.5rem 0';
+    });
+    
+    const splitNodes = clonedNode.querySelectorAll('.split-node');
+    splitNodes.forEach(node => {
+        node.style.padding = '1.2rem 1.8rem';
+        node.style.borderRadius = '16px';
+        node.style.fontSize = '1.8rem';
+    });
+    
+    const splitArrows = clonedNode.querySelectorAll('.split-arrow');
+    splitArrows.forEach(arrow => {
+        arrow.style.height = '4px';
+        // Mock dynamic border scaling via custom properties if needed
+    });
+    
+    const mockupContainer = clonedNode.querySelector('.mockup-standee-container');
+    if (mockupContainer) mockupContainer.style.height = '360px';
+    
+    const mockupGraphic = clonedNode.querySelector('.mockup-standee-graphic');
+    if (mockupGraphic) {
+        mockupGraphic.style.width = '210px';
+        mockupGraphic.style.height = '270px';
+        mockupGraphic.style.borderWidth = '8px';
+        mockupGraphic.style.borderRadius = '18px';
+        mockupGraphic.style.padding = '1rem';
+        const qr = mockupGraphic.querySelector('.mock-qr-code');
+        if (qr) {
+            qr.style.width = '120px';
+            qr.style.height = '120px';
+        }
+        const lbls = mockupGraphic.querySelectorAll('.mock-brand-lbl');
+        lbls.forEach(lbl => lbl.style.fontSize = '1.2rem');
+    }
+    
+    const blobs = clonedNode.querySelectorAll('.slide-glow-blob-1, .slide-glow-blob-2');
+    blobs.forEach(b => {
+        b.style.width = '450px';
+        b.style.height = '450px';
+        b.style.filter = 'blur(150px)';
+    });
+    
+    exportWrapper.appendChild(clonedNode);
+    document.body.appendChild(exportWrapper);
+    
+    html2canvas(clonedNode, {
+        width: 1080,
+        height: 1080,
+        backgroundColor: '#0A0F1E',
+        scale: 1,
+        useCORS: true
+    }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = `post\${post.id}_slide\${activeSlideIndex + 1}.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        
+        document.body.removeChild(exportWrapper);
+        showToast('Slide exported successfully!');
+    }).catch(err => {
+        console.error(err);
+        document.body.removeChild(exportWrapper);
+        showToast('Export failed. Try again.');
+    });
+}
+
+// ----------------------------------------------------
+// Web Audio Synth Loops
+// ----------------------------------------------------
+
+function stopAmbientAudio() {
+    audioSources.forEach(src => {
+        try { src.stop(); } catch(e) {}
+    });
+    audioSources = [];
+}
+
+function startAmbientAudio(niche) {
+    stopAmbientAudio();
+    
+    // Create audio context on user interaction safely
+    if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+    
+    if (niche === 'cafe' || niche === 'zomato') {
+        // Cafe chatter hum: Low rumble + clinks + steam
+        let rumble = createRumbleNode(120, 20);
+        rumble.connect(audioCtx.destination);
+        audioSources.push(rumble);
+        
+        let clinkInterval = setInterval(() => {
+            if (audioSources.length === 0) { clearInterval(clinkInterval); return; }
+            playClink();
+        }, 2200);
+        audioSources.push({ stop: () => { clearInterval(clinkInterval); } });
+    } else if (niche === 'clinic') {
+        // Clinic hum: low frequency sine + beeps
+        let hum = createOscillatorNode('sine', 90, 0.04);
+        hum.connect(audioCtx.destination);
+        audioSources.push(hum);
+        
+        let beepInterval = setInterval(() => {
+            if (audioSources.length === 0) { clearInterval(beepInterval); return; }
+            playBeep();
+        }, 4000);
+        audioSources.push({ stop: () => { clearInterval(beepInterval); } });
+    } else if (niche === 'salon' || niche === 'aegis') {
+        // Spa/salon: soothing wind / resonant sweeps
+        let pad = createWindNode();
+        pad.connect(audioCtx.destination);
+        audioSources.push(pad);
+    } else if (niche === 'amazon') {
+        // Ecommerce: random keyboard clicks
+        let keyboardInterval = setInterval(() => {
+            if (audioSources.length === 0) { clearInterval(keyboardInterval); return; }
+            if (Math.random() > 0.3) playKeyClick();
+        }, 250);
+        audioSources.push({ stop: () => { clearInterval(keyboardInterval); } });
+    }
+}
+
+function createRumbleNode(freq, q) {
+    let bufferSize = 2 * audioCtx.sampleRate;
+    let noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+    let output = noiseBuffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+        output[i] = Math.random() * 2 - 1;
+    }
+    
+    let whiteNoise = audioCtx.createBufferSource();
+    whiteNoise.buffer = noiseBuffer;
+    whiteNoise.loop = true;
+    
+    let filter = audioCtx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.setValueAtTime(freq, audioCtx.currentTime);
+    filter.Q.setValueAtTime(q, audioCtx.currentTime);
+    
+    let gain = audioCtx.createGain();
+    gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+    
+    whiteNoise.connect(filter);
+    filter.connect(gain);
+    
+    whiteNoise.start();
+    return {
+        stop: () => {
+            whiteNoise.stop();
+        },
+        connect: (dest) => {
+            gain.connect(dest);
+        }
+    };
+}
+
+function playClink() {
+    if (!audioCtx || audioCtx.state === 'suspended') return;
+    let osc = audioCtx.createOscillator();
+    let gain = audioCtx.createGain();
+    
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(1400 + Math.random() * 800, audioCtx.currentTime);
+    
+    gain.gain.setValueAtTime(0.012, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.12);
+    
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.12);
+}
+
+function playBeep() {
+    if (!audioCtx || audioCtx.state === 'suspended') return;
+    let osc = audioCtx.createOscillator();
+    let gain = audioCtx.createGain();
+    
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(880, audioCtx.currentTime);
+    
+    gain.gain.setValueAtTime(0.012, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.08);
+    
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.08);
+}
+
+function createOscillatorNode(type, freq, vol) {
+    let osc = audioCtx.createOscillator();
+    let gain = audioCtx.createGain();
+    
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+    gain.gain.setValueAtTime(vol, audioCtx.currentTime);
+    
+    osc.connect(gain);
+    osc.start();
+    
+    return {
+        stop: () => { osc.stop(); },
+        connect: (dest) => { gain.connect(dest); }
+    };
+}
+
+function createWindNode() {
+    let bufferSize = 2 * audioCtx.sampleRate;
+    let noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+    let output = noiseBuffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+        output[i] = Math.random() * 2 - 1;
+    }
+    
+    let whiteNoise = audioCtx.createBufferSource();
+    whiteNoise.buffer = noiseBuffer;
+    whiteNoise.loop = true;
+    
+    let filter = audioCtx.createBiquadFilter();
+    filter.type = 'bandpass';
+    filter.frequency.setValueAtTime(350, audioCtx.currentTime);
+    filter.Q.setValueAtTime(1.5, audioCtx.currentTime);
+    
+    let osc = audioCtx.createOscillator();
+    osc.frequency.setValueAtTime(0.12, audioCtx.currentTime); // LFO sweep rate
+    let oscGain = audioCtx.createGain();
+    oscGain.gain.setValueAtTime(180, audioCtx.currentTime); // Sweep depth
+    
+    osc.connect(oscGain);
+    oscGain.connect(filter.frequency);
+    
+    let gain = audioCtx.createGain();
+    gain.gain.setValueAtTime(0.03, audioCtx.currentTime);
+    
+    whiteNoise.connect(filter);
+    filter.connect(gain);
+    
+    whiteNoise.start();
+    osc.start();
+    
+    return {
+        stop: () => {
+            whiteNoise.stop();
+            osc.stop();
+        },
+        connect: (dest) => {
+            gain.connect(dest);
+        }
+    };
+}
+
+function playKeyClick() {
+    if (!audioCtx || audioCtx.state === 'suspended') return;
+    let osc = audioCtx.createOscillator();
+    let gain = audioCtx.createGain();
+    
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(90 + Math.random() * 60, audioCtx.currentTime);
+    
+    gain.gain.setValueAtTime(0.012, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.025);
+    
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.025);
 }
 
 // Listen for Supabase initial pull completion to reload state
