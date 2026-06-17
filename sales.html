@@ -566,9 +566,136 @@
 
                 <!-- Section 4: Sales Kit -->
                 <section id="sec-kit" class="sales-section-content" style="display: none;">
+                    <style>
+                        .sales-kit-tabs {
+                            display: flex;
+                            gap: 0.5rem;
+                            margin-bottom: 1.5rem;
+                            border-bottom: 1px solid var(--border-color);
+                            padding-bottom: 0.75rem;
+                            overflow-x: auto;
+                        }
+                        .sales-kit-tab-btn {
+                            background: none;
+                            border: none;
+                            color: var(--text-muted);
+                            padding: 0.6rem 1.2rem;
+                            font-size: 0.95rem;
+                            font-weight: 600;
+                            cursor: pointer;
+                            border-radius: 8px;
+                            transition: var(--transition-smooth);
+                            white-space: nowrap;
+                            display: flex;
+                            align-items: center;
+                            gap: 0.5rem;
+                        }
+                        .sales-kit-tab-btn:hover {
+                            color: white;
+                            background: rgba(255, 255, 255, 0.05);
+                        }
+                        .sales-kit-tab-btn.active {
+                            color: white;
+                            background: rgba(59, 130, 246, 0.15);
+                            border: 1px solid rgba(59, 130, 246, 0.3);
+                        }
+                        .sales-kit-panel {
+                            display: none;
+                            animation: fadeIn 0.3s ease-in-out;
+                        }
+                        .sales-kit-panel.active {
+                            display: block;
+                        }
+                        .lang-toggle {
+                            display: flex;
+                            justify-content: flex-end;
+                            margin-bottom: 1rem;
+                            gap: 0.5rem;
+                        }
+                        .lang-btn {
+                            background: rgba(15, 23, 42, 0.6);
+                            border: 1px solid var(--border-color);
+                            color: var(--text-muted);
+                            padding: 0.4rem 0.8rem;
+                            border-radius: 6px;
+                            cursor: pointer;
+                            font-size: 0.85rem;
+                            font-weight: 500;
+                            transition: var(--transition-smooth);
+                        }
+                        .lang-btn.active {
+                            background: var(--primary);
+                            border-color: var(--primary);
+                            color: white;
+                        }
+                        .script-section-header {
+                            color: white;
+                            margin-top: 1.5rem;
+                            margin-bottom: 0.75rem;
+                            font-size: 1.1rem;
+                            border-left: 3px solid var(--primary);
+                            padding-left: 0.5rem;
+                        }
+                        .script-box blockquote {
+                            border-left: 3px solid rgba(255, 255, 255, 0.2);
+                            margin: 0.75rem 0;
+                            padding-left: 1rem;
+                            color: var(--text-main);
+                            font-style: italic;
+                        }
+                        .loop-box {
+                            background: rgba(15, 23, 42, 0.4);
+                            border: 1px solid var(--border-color);
+                            border-radius: 12px;
+                            padding: 1.25rem;
+                            margin-bottom: 1.25rem;
+                        }
+                        .loop-title {
+                            font-weight: 700;
+                            color: white;
+                            margin-bottom: 0.75rem;
+                            display: flex;
+                            align-items: center;
+                            gap: 0.5rem;
+                        }
+                        .loop-element-header {
+                            font-weight: 600;
+                            color: var(--primary);
+                            margin-top: 1rem;
+                            margin-bottom: 0.5rem;
+                            font-size: 0.95rem;
+                        }
+                        @keyframes fadeIn {
+                            from { opacity: 0; transform: translateY(5px); }
+                            to { opacity: 1; transform: translateY(0); }
+                        }
+                    </style>
+
                     <h2 style="margin-bottom: 1.5rem; color: white;">Sales Enablement Kit</h2>
                     
-                    <div class="sales-kit-grid">
+                    <div class="sales-kit-tabs">
+                        <button class="sales-kit-tab-btn active" data-kit-tab="pricing-deck">
+                            <i class="fa-solid fa-file-pdf"></i> Pricing Deck
+                        </button>
+                        <button class="sales-kit-tab-btn" data-kit-tab="outreach-templates">
+                            <i class="fa-solid fa-paper-plane"></i> Outreach Templates
+                        </button>
+                        <button class="sales-kit-tab-btn" data-kit-tab="two-call-script">
+                            <i class="fa-solid fa-phone-volume"></i> Two-Call Script
+                        </button>
+                        <button class="sales-kit-tab-btn" data-kit-tab="one-call-script">
+                            <i class="fa-solid fa-bolt"></i> One-Call Live-Drop
+                        </button>
+                        <button class="sales-kit-tab-btn" data-kit-tab="closing-loops">
+                            <i class="fa-solid fa-arrows-spin"></i> Closing Loops
+                        </button>
+                        <button class="sales-kit-tab-btn" data-kit-tab="objections-faq">
+                            <i class="fa-solid fa-circle-question"></i> Objections FAQ
+                        </button>
+                    </div>
+
+                    <!-- Panel 1: Pricing Deck -->
+                    <div class="sales-kit-panel active" id="kit-panel-pricing-deck">
                         <div class="glass-card" style="border: 1px solid rgba(59, 130, 246, 0.3); background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(15, 23, 42, 0.4) 100%);">
                             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
                                 <div>
@@ -580,37 +707,530 @@
                                 </a>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="glass-card">
-                            <h3>1. The "Value-First" Cold outreach Script</h3>
-                            <p style="color: var(--text-muted); margin-bottom: 1rem;">Send this script via WhatsApp, IG Direct Message, or Email. Make sure to generate their Live Demo link first and attach it!</p>
-                            <div class="script-box">
-                                <button class="copy-btn" onclick="copyText('script-1')">Copy</button>
-                                <span id="script-1">Subject: Feedback issue on Google Maps for [Business Name]
+                    <!-- Panel 2: Outreach Templates -->
+                    <div class="sales-kit-panel" id="kit-panel-outreach-templates">
+                        <div class="sales-kit-grid">
+                            <div class="glass-card">
+                                <h3>1. Cafe &amp; Restaurant Template (Casual, Visual Pitch)</h3>
+                                <p style="color: var(--text-muted); margin-bottom: 1rem;">Perfect for Cafe owners via Instagram DM or Email.</p>
+                                <div class="script-box">
+                                    <button class="copy-btn" onclick="copyText('outreach-cafe')">Copy</button>
+                                    <span id="outreach-cafe">Subject: Feedback issue on Google Maps for [Cafe Name] ☕
 
-Hi [Owner Name],
+Hi [Owner Name/Manager],
 
-I was looking at places to visit in [Area] and noticed [Business Name] has a fantastic customer experience, but a few disgruntled 1-star ratings are dragging down your rating average on Google Maps. This is costing you new customers every day.
+I was looking at coffee spots in [Area] and noticed [Cafe Name] has a [Current Rating]-star rating on Google Maps. Your food and aesthetics look incredible, but a couple of unhappy 1-star reviews are dragging down your score and making newcomers choose other spots.
 
-To help, I designed a custom Aegis Protocol card standee for you. 
+We built a custom Google Review Booster Kit specifically for [Cafe Name] using our Aegis Protocol.
 
-When customers scan it, it automatically sends 4/5-star happy reviews straight to Google, while negative feedback (1-3 stars) is sent privately to your mobile phone so you can fix the issue on the spot before it goes public.
+When customers scan a QR code at your billing counter:
+1. Happy customers (4-5 stars) are sent instantly to Google to post a 5-star review.
+2. Unhappy customers (1-3 stars) are sent to a private feedback form on their phone, allowing you to handle the issue privately before they hurt your public reputation!
 
-I’ve already generated your live demo. You can scan and test it on your phone here:
+The best parts are that it is completely automatic, takes 5 minutes to setup, and is extremely affordable—costing less than a Starbucks coffee.
+
+I’ve generated your live demo. You can scan/test it on your phone here:
 👉 [Paste Live Demo URL Here]
 
-I'd love to activate this for your counter. Normally we charge Rs. 4,999, but I want to give it to you for a one-time setup fee of just Rs. 1,999 so you can experience it. 
+I also designed a printable counter tent card with your QR code:
+👉 [Paste Flyer URL Here]
 
-If you'd like to put this up at your counter today, just reply to this message, and I'll send over the print files.
+I want to activate this for your cash counter. Normally we charge a monthly fee, but I’d love to activate it for you for a subscription of just Rs. 1,000/month, fully backed by our 7-day, no-questions-asked money-back guarantee.
 
-Best,
+If you'd like to put this up at your counter today to boost your ratings, reply to this message and I'll send over the high-resolution printable files.
+
+Best regards,
 [Your Name]
 MetrixMedia Digital</span>
+                                </div>
+                            </div>
+
+                            <div class="glass-card">
+                                <h3>2. Dental &amp; Medical Clinic Template (Professional, Trust-Oriented)</h3>
+                                <p style="color: var(--text-muted); margin-bottom: 1rem;">Use for doctors/clinics via Email or LinkedIn.</p>
+                                <div class="script-box">
+                                    <button class="copy-btn" onclick="copyText('outreach-clinic')">Copy</button>
+                                    <span id="outreach-clinic">Subject: GMB Patient Retention System for [Clinic Name] 🦷
+
+Dear Dr. [Last Name],
+
+I hope this email finds you well.
+
+While researching highly-regarded medical clinics in [City], I came across [Clinic Name]'s Google Maps profile. I noticed that you currently have a [Current Rating]-star rating. While patients praise your medical care, a few negative ratings regarding administrative issues (like waiting times) are suppressing your average rating. 
+
+In healthcare, 92% of new patients check online reviews before booking an appointment. A rating below 4.4 stars costs local clinics an average of 3-5 new patient bookings every single week.
+
+To resolve this, our agency engineered a HIPAA-compliant Patient Review Optimizer.
+
+When patients complete their appointment and scan a QR code at reception:
+* Highly satisfied patients are instantly routed to post a public 5-star review on Google.
+* Patients with grievances are routed to a private clinical feedback portal, letting you resolve the issue internally rather than having it public.
+
+Our system is completely automatic, takes 5 minutes to setup, and is extremely affordable—costing less than a Starbucks coffee.
+
+I've configured a custom, live integration mockup for your clinic here:
+👉 [Paste Live Demo URL Here]
+
+And a printable reception desk card mockup:
+👉 [Paste Flyer URL Here]
+
+We would love to activate this for [Clinic Name] for a subscription of just Rs. 1,000/month, fully backed by our 7-day money-back guarantee.
+
+If you are open to experiencing the system, we will configure your custom patient portal and send you the high-resolution print-ready digital QR standee PDF. If you aren't completely satisfied with the results within 7 days, simply email us for a 100% immediate refund.
+
+Would you be open to a quick call this week to set this up for your clinic?
+
+Warm regards,
+[Your Name]
+MetrixMedia Digital</span>
+                                </div>
+                            </div>
+
+                            <div class="glass-card">
+                                <h3>3. Short &amp; Snappy Snippet (WhatsApp / Direct Message)</h3>
+                                <p style="color: var(--text-muted); margin-bottom: 1rem;">Ideal for quick follow-ups on WhatsApp or Instagram DMs.</p>
+                                <div class="script-box">
+                                    <button class="copy-btn" onclick="copyText('outreach-short')">Copy</button>
+                                    <span id="outreach-short">Hi [Business Name] team! I noticed you guys have an awesome setup in [Area] but your Google rating is sitting at [Current Rating] stars. 
+
+I built a review gating tool to automatically filter out bad reviews and boost 5-star ratings. 
+
+Here's a 10-second live demo I created using your logo:
+👉 [Paste Live Demo URL Here]
+
+I can send you the printable counter standee card (looks like this: [Paste Flyer URL Here]) today so you can start double-boosting your Google Reviews. It's completely automatic, takes 5 minutes to setup, and costs less than a Starbucks coffee—only Rs. 1,000/month, backed by our 7-day money-back guarantee.
+
+Interested in setting this up to see if it works?</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel 3: Two-Call Script -->
+                    <div class="sales-kit-panel" id="kit-panel-two-call-script">
+                        <div class="lang-toggle">
+                            <button class="lang-btn active" data-lang-toggle="two-call" data-lang="en">English</button>
+                            <button class="lang-btn" data-lang-toggle="two-call" data-lang="hl">Hinglish</button>
+                        </div>
+                        <div class="glass-card">
+                            <!-- English Script -->
+                            <div class="two-call-lang-section" id="two-call-en">
+                                <h3>Two-Call Consultative Sales Script (English)</h3>
+                                <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Use this structure for a professional consultative process: Call 1 qualifies and books the demo; Call 2 runs the screen-share pitch and closes.</p>
+                                
+                                <div class="script-section-header">PHASE 1: THE COLD CALL (Qualify &amp; Book)</div>
+                                <div class="script-box">
+                                    <button class="copy-btn" onclick="copyText('two-call-en-txt')">Copy Script</button>
+                                    <span id="two-call-en-txt"><strong>1. The Introduction &amp; Hook</strong>
+> "Hi, my name is [Your Name]. I am a Business Coach at Metrixmedia, a full-service digital marketing agency.
+> 
+> "Reason for the call today, [Name]—we help local businesses stand out by building a 5-star online rating so they can attract more customers and grow their revenue. 
+> 
+> "I was checking your [Google Map / Zomato / Swiggy / Amazon / Flipkart] profile this morning, and if you have just 60 seconds, I'd like to show you how we can help you boost your online presence. 
+> 
+> "Got a minute?"
+
+<strong>2. The Value Proposition</strong>
+> "Okay great. See, what we did is we built an in-house, cutting-edge rating software that can detect 1-star and 2-star reviews before a user even posts them. This can help your online reputation grow from your current rating up to 4.9 stars. 
+> 
+> "The best parts are:
+> * **It is completely automatic**, meaning you don't have to manually monitor it.
+> * **It is easy to setup** (takes roughly 5 minutes).
+> * **And it is extremely affordable**—costing less than a Starbucks coffee.
+> 
+> "Before we set up a quick time to look at it, I just have a few quick questions to make sure this is actually a good fit for your business."
+
+<strong>3. The Qualification</strong>
+> "How important is your online rating for your business?"
+> "Are you currently, or have you in the past, used any service to manage your rating?"
+> "Are you currently working with any digital marketing agency?"
+> "I noticed you have a few lower reviews online. Let me ask you—how does it feel when you put in so much hard work, and then someone leaves a 1 or 2-star review that drags your rating down?"
+> "By the way, am I speaking with the owner or the main decision maker in your business, or is there someone else you partner with on these decisions?"
+
+<strong>4. Booking the Meeting (The Cliffhanger)</strong>
+> "Based on everything you just told me, you are a perfect fit for a system we built called the Aegis Protocol. It literally intercepts bad reviews before they hit the internet, and automatically funnels your happy customers to give you 5 stars. 
+> 
+> I know you're busy running the business right now. What would be the best time tomorrow for a quick, 3-minute screen-share so I can show you exactly how it works?"
+
+<hr style="border-color: var(--border-color); margin: 1.5rem 0;">
+
+<strong>PHASE 2: THE MEETING (Pitch &amp; Close)</strong>
+<strong>1. The Pitch (The Aegis Protocol)</strong>
+> "Hey [Name], thanks for taking the time. As promised, I'll keep this to 3 minutes.
+>
+> "Here is exactly how the Aegis Protocol works: We register your business on our high-tech protocol and generate a dynamic, active feedback link or QR code. When your customers click the link or scan the code, instead of going directly to Google Maps, they are redirected to our private portal where the protocol lives. 
+>
+> "It actively checks every single review. If someone tries to leave a 1 to 3-star review, the system intercepts it and converts it into private feedback. Every day, we email you a list of those bad reviews and the reasons behind them, so you can work to improve things internally. 
+> 
+> "But those who want to give you 4 or 5 stars are instantly redirected to Google Maps, where they can publicly give you that 5-star rating for the whole world to see. 
+>
+> "It acts as a perfect middleman. If a customer is frustrated, our system catches them *before* they reach Google Maps. Nobody in the world will ever know that problem existed. But if they are a huge fan of your business, it funnels them straight to the top.
+>
+> "So literally overnight, you stop bad reviews from going public, and you funnel all the good ones to your profile. This immediately jumps your rating to 5 stars and starts stealing customers from your competitors."
+
+<strong>2. The Initial Close (Ask for the Order)</strong>
+> "The system pays for itself the second it intercepts one bad review or brings in one new customer. It's very affordable, and setup takes 5 minutes. Sound fair enough to get you set up today?"</span>
+                                </div>
+                            </div>
+
+                            <!-- Hinglish Script -->
+                            <div class="two-call-lang-section" id="two-call-hl" style="display: none;">
+                                <h3>Two-Call Consultative Sales Script (Hinglish)</h3>
+                                <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Apne Indian calling agents ke liye natural Hinglish translation, jismein business terms ko English mein rakha gaya hai.</p>
+                                
+                                <div class="script-section-header">PHASE 1: THE COLD CALL (Qualify &amp; Book)</div>
+                                <div class="script-box">
+                                    <button class="copy-btn" onclick="copyText('two-call-hl-txt')">Copy Script</button>
+                                    <span id="two-call-hl-txt"><strong>1. The Introduction &amp; Hook</strong>
+> "Hi, mera naam [Your Name] hai. Main Metrixmedia mein ek Business Coach hoon, jo ek full-service digital marketing agency hai.
+> 
+> "Reason for the call today, [Name]—hum local businesses ko stand out karne mein help karte hain unki online rating 5-star build karke, taaki wo zyada customers attract kar sakein aur apna revenue grow kar sakein. 
+> 
+> "Maine aaj subah aapka [Google Map / Zomato / Swiggy / Amazon / Flipkart] profile check kiya, aur agar aapke paas chhota sa 60 seconds ka time ho, toh main aapko show karna chahta hoon ki hum kaise aapki online presence ko boost kar sakte hain. 
+> 
+> "Got a minute?"
+
+<strong>2. The Value Proposition</strong>
+> "Okay great. Humne ek in-house, cutting-edge rating software banaya hai jo 1-star aur 2-star reviews ko detect kar leta hai, isse pehle ki user use Google par post kare. Isse aapki online reputation aapki current rating se lekar 4.9 stars tak grow kar sakti hai.
+> 
+> "Sabsay best parts ye hain:
+> * **Ye completely automatic hai**, matlab aapko isko manually monitor karne ki koi zaroorat nahi hai.
+> * **Isko setup karna behad easy hai** (isme chhota sa 5 minutes lagta hai).
+> * **Aur ye extremely affordable hai**—ek Starbucks coffee se bhi sasta.
+> 
+> "Hum isko dekhne ke liye ek chhota sa time set karein, usse pehle mere paas aapse poochne ke liye bas kuch quick questions hain takki main check kar sakoon ki kya ye sach mein aapke business ke liye fit hai ya nahi."
+
+<strong>3. The Qualification</strong>
+> "Aapke business ke liye online rating kitni important hai?"
+> "Kya aap abhi, ya past mein kabhi, apni rating manage karne ke liye koi service use kar rahe the?"
+> "Kya aap abhi kisi digital marketing agency ke sath kaam kar rahe hain?"
+> "Maine notice kiya ki online aapke kuch lower reviews hain. Main aapse poochna chahta hoon—kaisa lagta hai jab aap itni mehnat karte hain, aur phir koi ek random 1 ya 2-star review dekar aapki rating ko niche gira deta hai?"
+> "By the way, kya main abhi owner ya main decision maker se baat kar raha hoon, ya koi aur partner bhi hain jinse aap in decisions ke liye salah karte hain?"
+
+<strong>4. Booking the Meeting (The Cliffhanger)</strong>
+> "Aapne jo bhi bataya, uske hisab se aap humare banaye hue system ke liye perfect fit hain jise hum 'Aegis Protocol' kehte hain. Ye system bad reviews ko internet par aane se pehle hi literally intercept kar leta hai, aur aapke happy customers ko automatically 5 stars dene ke liye funnel karta hai. 
+> 
+> "Main jaanta hoon ki aap business chalane mein abhi busy hain. Kal ka kaunsa time best rahega ek quick, 3-minute screen-share ke liye takki main aapko exactly dikha sakoon ki ye kaise kaam karta hai?"
+
+<hr style="border-color: var(--border-color); margin: 1.5rem 0;">
+
+<strong>PHASE 2: THE MEETING (Pitch &amp; Close)</strong>
+<strong>1. The Pitch (The Aegis Protocol)</strong>
+> "Hey [Name], time nikalne ke liye thanks. Jaisa maine promise kiya tha, main ise 3 minutes ka hi rakhunga.
+>
+> "Aegis Protocol exactly kaise kaam karta hai, main aapko batata hoon: Hum aapke business ko apne high-tech protocol par register karte hain aur ek dynamic, active feedback link ya QR code generate karte hain. Jab aapke customers link par click karenge ya code scan karenge, toh wo seedhe Google Maps par jaane ke bajaye humare private portal par redirect ho jayenge jahan ye protocol chal raha hai. 
+>
+> "Ye system har ek review ko actively check karta hai. Agar koi 1 se 3-star review dene ki koshish karta hai, toh system use intercept kar leta hai aur use private feedback mein convert kar deta hai. Har din, hum aapko in bad reviews aur unke piche ke reasons ki ek list email karenge, takki aap internally un cheezon ko improve kar sakein. 
+> 
+> "Lekin jo log 4 ya 5 stars dena chahte hain, unhe humara system instantly Google Maps par redirect kar deta hai, jahan wo publicly aapko wo 5-star rating de sakte hain jise poori duniya dekh sake. 
+>
+> "Ye ek perfect middleman ki tarah kaam karta hai. Agar koi customer frustrated hai, toh humara system unhe Google Maps tak pahunchne se *pehle* hi catch kar leta hai. Duniya mein kisi ko pata bhi nahi chalega ki koi problem thi. Par agar wo aapke business ke bahut bade fan hain, toh ye unhe seedhe top par funnel kar deta hai.
+>
+> "Toh literally overnight, aap bad reviews ko public hone se rokte hain, aur saare acche reviews ko apne profile par funnel karte hain. Isse aapki rating turant 5 stars ki taraf jump karegi aur aap competitors ke customers ko apni taraf khinchna shuru kar denge."
+
+<strong>2. The Initial Close (Ask for the Order)</strong>
+> "Ye system apna paisa ussi second wasool kar leta hai jab ye kisi ek bad review ko intercept karta hai ya ek naya customer lekar aata hai. Toh kya aaj hi setup start karna sahi rahega?"</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel 4: One-Call Script -->
+                    <div class="sales-kit-panel" id="kit-panel-one-call-script">
+                        <div class="lang-toggle">
+                            <button class="lang-btn active" data-lang-toggle="one-call" data-lang="en">English</button>
+                            <button class="lang-btn" data-lang-toggle="one-call" data-lang="hl">Hinglish</button>
+                        </div>
+                        <div class="glass-card">
+                            <!-- English One Call -->
+                            <div class="one-call-lang-section" id="one-call-en">
+                                <h3>One-Call Live-Drop Sales Script (English)</h3>
+                                <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Use this method to close in a single call. You ping an interactive demo link directly to the client's phone and walk them through it in real-time.</p>
+                                
+                                <div class="script-box">
+                                    <button class="copy-btn" onclick="copyText('one-call-en-txt')">Copy Script</button>
+                                    <span id="one-call-en-txt"><strong>SECTION 1: THE COLD CALL &amp; PIVOT</strong>
+<strong>1. The Introduction &amp; Hook</strong>
+> "Hi, my name is [Your Name]. I am a Business Coach at Metrixmedia, a full-service digital marketing agency.
+> 
+> "Reason for the call today, [Name]—we help local businesses stand out by building a 5-star online rating so they can attract more customers and grow their revenue. 
+> 
+> "I was checking your [Google Map / Zomato / Swiggy / Amazon / Flipkart] profile this morning, and if you have just 60 seconds, I'd like to show you how we can help you boost your online presence. 
+> 
+> "Got a minute?"
+
+<strong>2. The Value Proposition Teaser</strong>
+> "Okay great. See, what we did is we built an in-house, cutting-edge rating software that can detect 1-star and 2-star reviews before a user even posts them. This can help your online reputation grow from your current rating up to 4.9 stars. 
+> 
+> "The best parts are that it is completely automatic, takes 5 minutes to setup, and is extremely affordable—costing less than a Starbucks coffee."
+
+<strong>3. The Live-Drop Pivot</strong>
+> "Rather than booking a meeting for tomorrow, I have a chhota sa 60-second interactive demo link that I can ping to your WhatsApp right now so you can see it work on your own phone. 
+> 
+> "Are you near your phone right now? 
+> 
+> "Perfect. I am sending it to your number ending in [Last 4 digits] right now. Let me know the second you receive the message."
+
+<hr style="border-color: var(--border-color); margin: 1.5rem 0;">
+
+<strong>SECTION 2: THE INTERACTIVE WALKTHROUGH</strong>
+> "Okay, do you see the page loaded? Perfect. 
+> 
+> "Now, I want you to act like a frustrated customer who wants to leave a bad 2-star review. Click on 2 stars and type a quick complaint... now hit submit. 
+> 
+> "Do you see what happened? Instead of going to Google, it routed you to a private feedback page. That review stays between you and the customer. The public never sees it. 
+> 
+> "Now, hit the back button and act like a happy customer leaving a 5-star review. Click 5 stars... hit submit. 
+> 
+> "See how it instantly redirects you to Google Maps so they can post a public 5-star review?
+> 
+> "That is the Aegis Protocol. It acts as an automatic filter. Unhappy customers are stopped privately; happy customers are sent straight to Google."
+
+<hr style="border-color: var(--border-color); margin: 1.5rem 0;">
+
+<strong>SECTION 3: THE DIRECT CLOSE</strong>
+> "It's that simple. It stops bad reviews from ever going public, and funnels all the good ones to your profile. This immediately jumps your rating and starts stealing customers back from your competitors.
+> 
+> "As I mentioned, setup takes 5 minutes, and it is less than a Starbucks coffee—only 1,000 rupees a month. Sound fair enough to get your profile shielded today?"</span>
+                                </div>
+                            </div>
+
+                            <!-- Hinglish One Call -->
+                            <div class="one-call-lang-section" id="one-call-hl" style="display: none;">
+                                <h3>One-Call Live-Drop Sales Script (Hinglish)</h3>
+                                <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Single-call checkout structure translated to natural Hinglish.</p>
+                                
+                                <div class="script-box">
+                                    <button class="copy-btn" onclick="copyText('one-call-hl-txt')">Copy Script</button>
+                                    <span id="one-call-hl-txt"><strong>SECTION 1: THE COLD CALL &amp; PIVOT</strong>
+<strong>1. The Introduction &amp; Hook</strong>
+> "Hi, mera naam [Your Name] hai. Main Metrixmedia mein ek Business Coach hoon, jo ek full-service digital marketing agency hai.
+> 
+> "Reason for the call today, [Name]—hum local businesses ko stand out karne mein help karte hain unki online rating 5-star build karke, taaki wo zyada customers attract kar sakein aur apna revenue grow kar sakein. 
+> 
+> "Maine aaj subah aapka [Google Map / Zomato / Swiggy / Amazon / Flipkart] profile check kiya, aur agar aapke paas chhota sa 60 seconds ka time ho, toh main aapko show karna chahta hoon ki hum kaise aapki online presence ko boost kar sakte hain. 
+> 
+> "Got a minute?"
+
+<strong>2. The Value Proposition Teaser</strong>
+> "Okay great. Humne ek in-house, cutting-edge rating software banaya hai jo 1-star aur 2-star reviews ko detect kar leta hai, isse pehle ki user use Google par post kare. Isse aapki online reputation aapki current rating se lekar 4.9 stars tak grow kar sakti hai.
+> 
+> "Sabsay best parts ye hain ki ye completely automatic hai, setup karne mein bas 5 minutes lagte hain, aur ye extremely affordable hai—Starbucks coffee se bhi sasta."
+
+<strong>3. The Live-Drop Pivot</strong>
+> "Kal ki meeting book karne ke bajaye, mere paas ek chhota sa 60-second ka interactive demo link hai jo main abhi aapke WhatsApp par ping kar deta hoon takki aap ise apne phone par chalakar dekh sakein.
+> 
+> "Kya aap abhi apne phone ke paas hain?
+> 
+> "Perfect. Main ise aapke number par send kar raha hoon jo [Last 4 digits] par end hota hai. Jaise hi message mile, mujhe batayein."
+
+<hr style="border-color: var(--border-color); margin: 1.5rem 0;">
+
+<strong>SECTION 2: THE INTERACTIVE WALKTHROUGH</strong>
+> "Okay, page load ho gaya? Perfect.
+> 
+> "Ab aap ek frustrated customer ki tarah act kijiye jo bad 2-star review chhodna chahta hai. 2-stars par click kijiye aur koi chhotisi complaint type karke submit dabayein.
+> 
+> "Aapne dekha kya hua? Google par jaane ke bajaye, isne aapko ek private feedback page par bhej diya. Wo feedback bas aapke aur customer ke beech rahega. Public ise nahi dekh sakti.
+> 
+> "Ab back button daba kar ek happy customer ki tarah 5-star review dekar submit kijiye.
+> 
+> "Dekha kaise isne instantly Google Maps par redirect kar diya takki wo public 5-star review post kar sakein?
+> 
+> "Yahi Aegis Protocol hai. Ye ek automatic filter ki tarah kaam karta hai. Unhappy customers private block ho jaate hain aur happy customers direct Google par chale jaate hain."
+
+<hr style="border-color: var(--border-color); margin: 1.5rem 0;">
+
+<strong>SECTION 3: THE DIRECT CLOSE</strong>
+> "Ye itna simple hai. Ye bad reviews ko public hone se rokta hai aur saare acche reviews ko profile par lata hai. Isse aapki rating badhti hai aur competitors ke customers aapke paas aate hain.
+> 
+> "Jaisa maine bataya, setup mein bas 5 minutes lagenge, aur ye Starbucks coffee se bhi sasta hai—sirf 1,000 rupees a month. Toh kya aaj hi aapka profile shield karna sahi rahega?"</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel 5: Closing Loops -->
+                    <div class="sales-kit-panel" id="kit-panel-closing-loops">
+                        <div class="lang-toggle">
+                            <button class="lang-btn active" data-lang-toggle="loops" data-lang="en">English</button>
+                            <button class="lang-btn" data-lang-toggle="loops" data-lang="hl">Hinglish</button>
+                        </div>
+
+                        <!-- English Loops -->
+                        <div class="loops-lang-section" id="loops-en">
+                            <div class="loop-box">
+                                <div class="loop-title"><i class="fa-solid fa-arrows-spin" style="color: var(--primary);"></i> LOOP 1: Build Certainty (Product, You, Company)</div>
+                                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Use when they say "Let me think about it" or "Send an email". First check their product certainty, then reintroduce yourself, then pitch MetrixMedia.</p>
+                                
+                                <div class="loop-element-header">Element 1: Certainty in the Product (The "Dirty Cup" Story)</div>
+                                <div class="script-box">
+                                    <button class="copy-btn" onclick="copyText('loop1-prod-en')">Copy</button>
+                                    <span id="loop1-prod-en">"I hear what you are saying, [Name], but let me ask you a question: Does the idea make sense to you? Do you like the idea?
+>
+> "See, the true beauty of our Aegis protocol is how simply powerful it is. Let's say you didn't purchase our service. What are you left with? That outdated Google review link or QR code which your fans can use to give their praises, but at the same time, it is accessible to your haters too. And you know what the worst part is? Nobody can stop them from dragging your name, business, and revenue down. Would you like it if someone damages your business just for a small problem? Of course not, no businessman like you would like it.
+>
+> "For example, let's say a customer runs into a minor, correctable issue—like a cafe customer getting a cup that was a little dirty. You understand it is a small mistake. But what if they get very upset and decide to scan your outdated QR code or click your review link, and post a bad review on Google? Once they publish it, you cannot delete it. That small mistake leaves a permanent mark on your reputation.
+>
+> "This is what our Aegis is built for. For that exact same scenario, now instead of scanning that outdated link or code, they use our hi-tech protocol link or scan our code. This time they are not sent to your Google page. Instead, they are stopped by our system, and their anger is converted into private feedback that stays between you and them. They never drop a public review on Google. If we do this for all your unhappy customers, don't you think this will save your reputation in the real world?"</span>
+                                </div>
+
+                                <div class="loop-element-header">Element 2: Certainty in You (Sunny Gurav Reintroduction)</div>
+                                <div class="script-box">
+                                    <button class="copy-btn" onclick="copyText('loop1-you-en')">Copy</button>
+                                    <span id="loop1-you-en">"Look, I completely understand the hesitation. I'm just a voice on the phone and you have no idea who I am, so let me just reintroduce myself. 
+> 
+> "My name is Sunny Gurav, and I'm a Business Coach at Metrixmedia. I've been doing this since 2022, and I have spent my entire life learning exactly how businesses like yours operate. Just for the record, I hold degrees in both Marketing and Business Administration. 
+>
+> "If you're sitting there thinking I'm just trying to convince you to buy some software—I'm not. Let's be honest, I'm not going to get rich off your 1,000 rupees. My entire job is to analyze your business, find exactly where businesses like yours are bleeding money, and fix it. I pride myself on two things: I never waste my clients' time, and I deliver massive results. 
+> 
+> "Right now, your biggest leak is simply that competitors are out-ranking you on Google. I know, without a shadow of a doubt, that if you give me just 3 minutes to show you how the Aegis Protocol works, you're going to see exactly why I called you today. Sound fair enough?"</span>
+                                </div>
+
+                                <div class="loop-element-header">Element 3: Certainty in the Company (MetrixMedia - Hungry &amp; Elite)</div>
+                                <div class="script-box">
+                                    <button class="copy-btn" onclick="copyText('loop1-comp-en')">Copy</button>
+                                    <span id="loop1-comp-en">"As far as our company goes, look, let me tell you who we are. The name of the company is Metrixmedia. We are a cutting-edge digital growth firm that is expanding our footprint right here in the local market. Now, because we are establishing our presence, we don't operate like those bloated, slow-moving corporate agencies that just take your money and treat you like a file on a desk. We are hungry, we are highly aggressive, and we are backing our agency with a team of elite, certified marketing specialists. Right now, our goal is to select just one or two key businesses in your neighborhood and turn them into massive success stories to showcase our results. When you partner with Metrixmedia, you aren't getting some automated system; you are getting our team's full undivided attention and creative muscle. We refuse to lose for our partners. Sound fair enough?
+>
+> "All I am asking is this: if you don't want to go with the cheapest option, then settle for the half-yearly plan, where you will save the second-most money. Fair enough?"
+>
+> [THE LOOP 1 CLOSE] -> "So based on all of that, let's just get you set up today. Sound fair enough?"</span>
+                                </div>
+                            </div>
+
+                            <div class="loop-box">
+                                <div class="loop-title"><i class="fa-solid fa-arrows-spin" style="color: var(--primary);"></i> LOOP 2: Lower Action Threshold (Worst Case / Best Case)</div>
+                                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Use when they understand the product but are hesitant to pay or pull the trigger. Remove risk via the 7-day money-back guarantee.</p>
+                                
+                                <div class="script-box">
+                                    <button class="copy-btn" onclick="copyText('loop2-en')">Copy Loop 2</button>
+                                    <span id="loop2-en"><strong>Part 1: Emotional Re-Pitch</strong>
+> "Look, let's step back for a second and think about what this actually does for you. You can’t be in your business twenty-four hours a day. What if one of your employees has a bad day and gives a customer some attitude? It’s a human mistake, but what if he decides to rate it one star and writes a scathing review about 'terrible service'? Now that rating is permanently stamped on your business. With Aegis, instead of that customer blasting you publicly, our system intercepts it. It routes their complaint straight to your private email, so you can correct things internally and the public never sees a thing.
+> 
+> "And the reason I'm bringing this to you is because, as a business and marketing student, I didn't study how companies operate just to sell software. I do this because I hate seeing hard-working local owners bleed money to giant corporate competitors just because of an unfair Google ranking. My only job as a Business Coach is to find where your business is losing money and plug that leak.
+> 
+> "And I can stand behind that because at Metrixmedia, we don't do one-off deals and walk away. That's what those giant, lazy agencies do. Our entire business model is built on long-term relationships—we want to work with your business for the next ten or fifteen years. And the only way we achieve that is by delivering massive results for you right from day one. We only succeed when you win. You give us just one percent of your trust, and we will earn the remaining 99 percent. It's that simple."
+
+<strong>Part 2: Worst Case / Best Case Close</strong>
+> "What's the worst thing that can happen? Let's say you setup our software, and let's say it fails to work and doesn't intercept the bad reviews. Are you going to lose all your customers? No. Are you going to go broke by spending that 1,000 rupees? Of course not. You can cancel the subscription anytime you want, and we offer a 7-day, no-questions-asked, 100% money-back guarantee.
+> 
+> "But what if our system actually delivers—which is already proven? You get immediate control over your online rating. Your rating starts to climb up quickly. That new 5-star rating will start attracting new customers to your business, which directly means your revenue is going to go up.
+> 
+> "So the worst case is you cancel our service, get all your money back, and your business runs as if nothing happened. And if it works—which it does—your profits go up instantly. It is literally nothing to lose and everything to gain. It becomes a completely risk-free investment. Sound fair enough?"
+>
+> [THE LOOP 2 CLOSE] -> "So with absolutely zero risk on your end, let's just do this. Sound fair enough?"</span>
+                                </div>
+                            </div>
+
+                            <div class="loop-box">
+                                <div class="loop-title"><i class="fa-solid fa-arrows-spin" style="color: var(--primary);"></i> LOOP 3: Raise Pain Threshold (Stop the Bleeding)</div>
+                                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Use when they are comfortable but lack urgency. Remind them of the emotional and financial pain of bad reviews.</p>
+                                
+                                <div class="script-box">
+                                    <button class="copy-btn" onclick="copyText('loop3-en')">Copy Loop 3</button>
+                                    <span id="loop3-en"><strong>Rebuttal 1: The Unreasonable Customer &amp; Action Close</strong>
+> "Look, think about the most frustrating thing in business—the completely unreasonable customer. You do everything perfectly, but they leave a fake 1-star review just because they want a discount or had a bad day. Google won't take it down, and it stays there permanently, destroying your hard work. It's incredibly unfair.
+> 
+> "And the only reason I'm on this phone is because, as a business and marketing student, I didn't study how companies operate just to watch honest business owners get bullied online. I saw exactly where your competitors are stealing your customers, and my only goal is to help you block those fake hits and plug that leak.
+> 
+> "At Metrixmedia, we don't ask you to trust us on faith—we ask you to judge us on our actions. Give us just one opportunity to shield your business, and I promise you'll be a partner of ours for life. It's that simple."
+
+<strong>Rebuttal 2: The Emotional &amp; Financial Close</strong>
+> "Look, you told me earlier that it feels absolutely terrible when you work so hard, only for someone to leave a bad review and drag you down. And you are 100% right—it is incredibly unfair. You put your heart and soul into this business every single day, but right now, you are letting a vocal, angry minority dictate how the world sees your business. And it's not just a blow to your pride; it is actively costing you money. Every single day that goes by, potential customers are searching Google, seeing those bad reviews, and quietly going to spend their money with your competitors. You never even see them. Can you really afford to keep bleeding customers and letting people attack your hard work when the fix is right here in front of you?"
+>
+> [THE FINAL LOOP 3 CLOSE] -> "Let's stop the bleeding right now. We'll set it up in 5 minutes, and if you don't love it, you get your money back. Fair enough?"</span>
+                                </div>
                             </div>
                         </div>
 
+                        <!-- Hinglish Loops -->
+                        <div class="loops-lang-section" id="loops-hl" style="display: none;">
+                            <div class="loop-box">
+                                <div class="loop-title"><i class="fa-solid fa-arrows-spin" style="color: var(--primary);"></i> LOOP 1: Build Certainty (Hinglish)</div>
+                                
+                                <div class="loop-element-header">Element 1: Certainty in the Product (Dirty Cup Story)</div>
+                                <div class="script-box">
+                                    <button class="copy-btn" onclick="copyText('loop1-prod-hl')">Copy</button>
+                                    <span id="loop1-prod-hl">"Main samajh sakta hoon jo aap keh rahe hain, [Name], par main aapse ek sawaal poochna chahta hoon: Kya ye idea aapko samajh aa raha hai? Kya ye idea aapko achha laga?
+>
+> "Dekhiye, humare Aegis Protocol ki sabse badi khubi ye hai ki ye jitna simple hai, utna hi powerful hai. Maan lijiye aapne humari service nahi li. Toh aapke paas kya bachega? Wahi purana Google review link ya QR code jisse aapke fans toh aapki tareef kar hi sakte hain, par sath hi sath haters bhi wahan pahunch sakte hain. Aur sabse kharab baat pata hai kya hai? Unhe aapke naam, business aur revenue ko nuksaan pahunchane se koi nahi rok sakta. Kya aapko achha lagega agar koi ek chhoti si problem ke liye aapke pure business ko damage kar de? Bilkul nahi, aap jaisa koi bhi businessman ye nahi chahega.
+>
+> "For example, maan lijiye kisi customer ko ek chhoti si, solve hone wali problem aati hai—jaise ek cafe ke customer ko thoda sa dirty cup mil jata hai. Aap samajhte hain ki ye ek chhotisi mistake hai. Par kya ho agar wo gusse mein aakar aapka purana QR code scan karein ya review link click karke Google par bad review daal dein? Ek baar jab unhone ise publish kar diya, aap use delete nahi kar sakte. Wo chhotisi mistake aapki reputation par ek permanent daag ban jayegi.
+>
+> "Humara Aegis isi cheez ke liye bana hai. Is exact scenario ke liye, ab wo us purane link ya code ko scan karne ke bajaye, humare hi-tech protocol link ko use karenge ya code ko scan karenge. Is baar wo Google page par nahi bheje jayenge. Instead, they are stopped by our system, and their anger is converted into private feedback that stays between you and them. They never drop a public review on Google. If we do this for all your unhappy customers, don't you think this will save your reputation in the real world?"</span>
+                                </div>
+
+                                <div class="loop-element-header">Element 2: Certainty in You (Sunny Gurav Reintroduction)</div>
+                                <div class="script-box">
+                                    <button class="copy-btn" onclick="copyText('loop1-you-hl')">Copy</button>
+                                    <span id="loop1-you-hl">"Dekhiye, main aapki hesitation ko bilkul samajh sakta hoon. Main phone par bas ek voice hoon aur aap nahi jaante main kaun hoon, toh main apna ek baar quick reintroduction de deta hoon. 
+> 
+> "Mera naam Sunny Gurav hai, aur main Metrixmedia mein Business Coach hoon. Main ye kaam 2022 se kar raha hoon, aur maine apna kafi time yahi seekhne mein lagaya hai ki aap jaise businesses exactly kaise kaam karte hain. Just for the record, mere paas Marketing aur Business Administration dono mein degrees hain. 
+>
+> "Agar aap wahan baith kar ye soch rahe hain ki main bas aapko koi software bechne ki koshish kar raha hoon—toh aisa nahi hai. Honestly boloon toh, main aapke 1,000 rupees se ameer nahi hone wala. Mera pura kaam aapke business ko analyze karna hai, ye dekhna hai ki aapke jaise businesses kahan se revenue lose kar rahe hain, aur use fix karna hai. Main do cheezon par bilkul stand karta hoon: main apne clients ka time kabhi waste nahi karta, aur main massive results deliver karta hoon. 
+> 
+> "Abhi aapke business ka sabse bada leak ye hai ki aapke competitors Google par aapko out-rank kar rahe hain. Main bina kisi doubt ke jaanta hoon ki agar aap mujhe sirf 3 minutes denge ye dikhane ke liye ki Aegis Protocol kaise kaam karta hai, toh aap samajh jayenge ki maine aaj aapko kyun call kiya tha. Sound fair enough?"</span>
+                                </div>
+
+                                <div class="loop-element-header">Element 3: Certainty in the Company (MetrixMedia - Hungry &amp; Elite)</div>
+                                <div class="script-box">
+                                    <button class="copy-btn" onclick="copyText('loop1-comp-hl')">Copy</button>
+                                    <span id="loop1-comp-hl">"Rahi baat humari company ki, toh dekhiye, main aapko batata hoon hum kaun hain. Humari company ka naam Metrixmedia hai. Hum ek cutting-edge digital growth firm hain jo local market mein apna presence tezi se badha rahe hain. Ab kyunki hum apna footprint establish kar rahe hain, hum un bade aur slow-moving corporate agencies ki tarah kaam nahi karte jo bas aapka paisa lete hain aur aapko ek file ki tarah file cabinet mein daal dete hain. Hum hungry hain, highly aggressive hain, aur humari agency ko elite, certified marketing specialists ki team back karti hai. Abhi humara goal aapke area ke sirf ek ya do key businesses ko select karke unhe ek badi success story banana hai, jisse hum apne results show kar sakein. Jab aap Metrixmedia ke sath partner bante hain, toh aapko koi automated robot nahi milta; balki aapko humari team ki poori undivided attention aur creative energy milti hai. Hum apne partners ke liye haarna refuse karte hain. Sound fair enough?
+>
+> "Main aapse bas itna keh raha hoon: agar aap sabse cheapest option ke sath nahi jaana chahte, toh aap half-yearly plan le lijiye, jisme aapko second-most savings milengi. Fair enough?"
+>
+> [THE LOOP 1 CLOSE] -> "Toh in sabhi baaton ke baad, chaliye aaj hi isko setup kar lete hain. Sound fair enough?"</span>
+                                </div>
+                            </div>
+
+                            <div class="loop-box">
+                                <div class="loop-title"><i class="fa-solid fa-arrows-spin" style="color: var(--primary);"></i> LOOP 2: Lower Action Threshold (Hinglish)</div>
+                                <div class="script-box">
+                                    <button class="copy-btn" onclick="copyText('loop2-hl')">Copy Loop 2</button>
+                                    <span id="loop2-hl"><strong>Part 1: Emotional Re-Pitch</strong>
+> "Dekhiye, thoda piche hat kar ek second ke liye sochte hain ki ye system aapke liye kya karta hai. Aap apne business mein 24 ghante toh nahi reh sakte. Kya ho agar aapke kisi employee ka din kharab ho aur wo kisi customer ko thoda galat attitude de de? Ye ek insani galti hai, par kya ho agar wo customer gusse mein 1-star rate kar de aur 'terrible service' ke baare mein ek kharab review likh de? Ab wo rating aapke business par permanently lag chuki hai. Aegis ke sath, wo customer publicly review daalne ke bajaye, humara system use intercept kar lega. Ye unki complaint ko seedhe aapke private email par bhej dega, takki aap internally use correct kar sakein aur public ko kabhi kuch pata na chale.
+> 
+> "Aur main ye option aapke paas isliye lekar aaya hoon kyunki ek business aur marketing student hone ke naate, maine companies ka function sirf software bechne ke liye study nahi kiya. Main ye isliye karta hoon kyunki mujhe hard-working local business owners ko apne competitor corporate giants ke aage paisa lose karte dekhna bilkul pasand nahi hai, wo bhi sirf ek unfair Google ranking ki wajah se. Ek Business Coach ke roop mein mera ek hi kaam hai ki main dekhoon aapke business se revenue kahan leak ho raha hai aur use block karoon.
+> 
+> "Aur main is par bilkul stand karta hoon kyunki Metrixmedia mein hum koi one-off deal karke gayab nahi hote. Wo kaam un giant aur lazy agencies ka hai. Humara pura business model long-term relationships par khada hai—hum aapke business ke sath agle das-pandra saal tak kaam karna chahte hain. Aur wo hum tabhi kar sakte hain jab hum aapko pehle din se massive results deliver karein. Hum tabhi succeed hote hain jab aap win karte hain. Aap hume bas 1 percent trust dijiye, baki ka 99 percent trust hum deliver karke earn karenge. It's that simple."
+
+<strong>Part 2: Worst Case / Best Case Close</strong>
+> "Sabse worst cheez kya ho sakti hai? Maan lijiye aapne software setup kiya, aur ye sahi se kaam nahi karta ya bad reviews ko intercept nahi karta. Toh kya aap apne saare customers kho denge? Nahi. Kya aap wo 1,000 rupees spend karke road par aa jayenge? Bilkul nahi. Aap jab chahein apni subscription cancel kar sakte hain, aur hum 7-day, no-questions-asked, 100% money-back guarantee offer karte hain.
+> 
+> "Par kya ho agar humara system sach mein kaam kare—jo ki already proven hai? Aapko apni online rating par immediate control mil jayega. Aapki rating tezi se badhna shuru ho jayegi. Wo nayi 5-star rating aapke business par naye customers ko attract karegi, jiska direct matlab hai aapka revenue badh jayega.
+> 
+> "Toh worst-case ye hai ki aap service cancel karte hain, apne saare paise wapas lete hain, aur aapka business waise hi chalta rehta hai jaise chal raha tha. Aur agar ye kaam karta hai—jo ki ye karta hai—toh aapke profits instantly badh jaate hain. Literally aapke paas khone ke liye kuch nahi hai aur paane ke liye sab kuch hai. Ye ekdam risk-free investment ban jata hai. Sound fair enough?"
+>
+> [THE LOOP 2 CLOSE] -> "Toh aapki taraf se absolutely zero risk ke sath, chaliye isko shuru karte hain. Sound fair enough?"</span>
+                                </div>
+                            </div>
+
+                            <div class="loop-box">
+                                <div class="loop-title"><i class="fa-solid fa-arrows-spin" style="color: var(--primary);"></i> LOOP 3: Raise Pain Threshold (Hinglish)</div>
+                                <div class="script-box">
+                                    <button class="copy-btn" onclick="copyText('loop3-hl')">Copy Loop 3</button>
+                                    <span id="loop3-hl"><strong>Rebuttal 1: The Unreasonable Customer &amp; Action Close</strong>
+> "Dekhiye, business ke sabse frustrating part ke baare mein sochiye—ek bilkul hi unreasonable customer. Aap sab kuch perfect karte hain, par wo bas ek discount paane ke liye ya apna din kharab hone ki wajah se ek fake 1-star review daal dete hain. Google use kabhi remove nahi karega, aur wo wahan permanently rehkar aapki poori mehnat ko kharab karta rahega. Ye sach mein bahut unfair hai.
+> 
+> "Aur mere is call par hone ka ek hi reason hai ki ek business aur marketing student hone ke naate, maine companies ka function isliye study nahi kiya ki main honest business owners ko online bully hote hue dekhoon. Maine exactly dekha hai ki kaise aapke competitors aapke customers chura rahe hain, aur mera ek hi goal hai ki main in fake negative hits ko block karoon aur us revenue leak ko plug karoon.
+> 
+> "Metrixmedia mein, hum aapse blind trust karne ko nahi kehte—hum chahte hain ki aap hume humare actions se judge karein. Hume apne business ko shield karne ka bas ek mauka dekar dekhiye, aur main promise karta hoon ki aap life-time ke liye humare partner ban jayenge. It's that simple."
+
+<strong>Rebuttal 2: The Emotional &amp; Financial Close</strong>
+> "Dekhiye, aapne mujhe thodi der pehle bataya tha ki kafi kharab feel hota hai jab aap itni mehnat karte hain aur koi bad review chhodkar aapko niche khinch leta hai. Aur aap 100% sahi hain—ye sach mein bahut unfair hai. Aap har din is business mein apna dil aur jaan laga dete hain, par abhi aap ek chhoti si gusse wali minority ko ye decide karne de rahe hain ki duniya aapke business ko kaise dekhe. Aur ye sirf self-respect ki baat nahi hai; ye actively aapka paisa loss kar raha hai. Har guzarte din ke sath, potential customers Google par search karte hain, wo bad reviews dekhte hain, aur chupchaap apna paisa aapke competitors ke paas jaakar spend kar dete hain. Aap toh unhe dekh bhi nahi paate. Kya aap sach mein customers ko is tarah lose karna aur apni mehnat par attack hote dekhna afford kar sakte hain, janki iska solution aapke samne hai?"
+>
+> [THE FINAL LOOP 3 CLOSE] -> "Chaliye is loss ko abhi rokte hain. Hum ise 5 minutes mein setup kar denge, aur agar aapko ye pasand nahi aaya, toh aap apna pura paisa wapas le sakte hain. Fair enough?"</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel 6: Objections FAQ -->
+                    <div class="sales-kit-panel" id="kit-panel-objections-faq">
                         <div class="glass-card">
-                            <h3>2. Handling Common Objections</h3>
+                            <h3>Objections Handling FAQ</h3>
                             <div style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 1.5rem;">
                                 <div>
                                     <h4 style="color: white; margin-bottom: 0.5rem;"><i class="fa-solid fa-circle-question" style="color: var(--primary); margin-right: 0.5rem;"></i> Objection: "Is Google review gating allowed?"</h4>
@@ -620,9 +1240,90 @@ MetrixMedia Digital</span>
                                     <h4 style="color: white; margin-bottom: 0.5rem;"><i class="fa-solid fa-circle-question" style="color: var(--primary); margin-right: 0.5rem;"></i> Objection: "Can I just print a QR code linking directly to Google Reviews?"</h4>
                                     <p style="color: var(--text-muted); line-height: 1.6;"><strong>Response:</strong> "You can, but that is extremely risky. An angry customer can scan that and post a 1-star review on the spot. Our system gates that, routing angry customers to a private suggestion form, protecting your brand reputation."</p>
                                 </div>
+                                <div style="border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
+                                    <h4 style="color: white; margin-bottom: 0.5rem;"><i class="fa-solid fa-circle-question" style="color: var(--primary); margin-right: 0.5rem;"></i> Objection: "We already have a marketing agency."</h4>
+                                    <p style="color: var(--text-muted); line-height: 1.6;"><strong>Response:</strong> "I understand. Most agencies focus on running ads or posting on social media, which takes months to show results. We do not replace them. We provide a specialized protocol that plugs the leak on your Google Maps listing immediately. It runs alongside whatever they are doing, and takes 5 minutes to setup."</p>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- Sales Kit Client-Side Interactive Logic -->
+                    <script>
+                        (function() {
+                            console.log("Initializing Sales Kit Interactive UI...");
+                            // Tab switching logic for Sales Kit
+                            const kitTabBtns = document.querySelectorAll('.sales-kit-tab-btn');
+                            const kitPanels = document.querySelectorAll('.sales-kit-panel');
+                            console.log(`Found ${kitTabBtns.length} tab buttons and ${kitPanels.length} panels.`);
+
+                            kitTabBtns.forEach(btn => {
+                                btn.addEventListener('click', () => {
+                                    const targetPanel = btn.getAttribute('data-kit-tab');
+                                    console.log(`Sales Kit switching to tab: ${targetPanel}`);
+                                    
+                                    kitTabBtns.forEach(b => b.classList.remove('active'));
+                                    kitPanels.forEach(p => p.classList.remove('active'));
+
+                                    btn.classList.add('active');
+                                    const panelEl = document.getElementById(`kit-panel-${targetPanel}`);
+                                    if (panelEl) {
+                                        panelEl.classList.add('active');
+                                    } else {
+                                        console.error(`Panel not found: kit-panel-${targetPanel}`);
+                                    }
+                                });
+                            });
+
+                            // Language Toggles for Scripts
+                            const langBtns = document.querySelectorAll('.lang-btn');
+                            console.log(`Found ${langBtns.length} language toggle buttons.`);
+                            langBtns.forEach(btn => {
+                                btn.addEventListener('click', () => {
+                                    const targetGroup = btn.getAttribute('data-lang-toggle');
+                                    const targetLang = btn.getAttribute('data-lang');
+                                    console.log(`Switching language for ${targetGroup} to: ${targetLang}`);
+
+                                    // Deselect other buttons in the same toggle group
+                                    const groupBtns = document.querySelectorAll(`.lang-btn[data-lang-toggle="${targetGroup}"]`);
+                                    groupBtns.forEach(b => b.classList.remove('active'));
+                                    btn.classList.add('active');
+
+                                    // Show selected language section, hide others
+                                    if (targetGroup === 'two-call') {
+                                        document.getElementById('two-call-en').style.display = targetLang === 'en' ? 'block' : 'none';
+                                        document.getElementById('two-call-hl').style.display = targetLang === 'hl' ? 'block' : 'none';
+                                    } else if (targetGroup === 'one-call') {
+                                        document.getElementById('one-call-en').style.display = targetLang === 'en' ? 'block' : 'none';
+                                        document.getElementById('one-call-hl').style.display = targetLang === 'hl' ? 'block' : 'none';
+                                    } else if (targetGroup === 'loops') {
+                                        document.getElementById('loops-en').style.display = targetLang === 'en' ? 'block' : 'none';
+                                        document.getElementById('loops-hl').style.display = targetLang === 'hl' ? 'block' : 'none';
+                                    }
+                                });
+                            });
+
+                            // Override copyText to fix the showToastNotification scope bug
+                            window.copyText = function(elementId) {
+                                console.log(`Copying content of element: ${elementId}`);
+                                const text = document.getElementById(elementId).innerText;
+                                navigator.clipboard.writeText(text);
+                                
+                                // Re-implementing toast display in-scope
+                                const toast = document.getElementById('toast');
+                                if (toast) {
+                                    document.getElementById('toast-message').textContent = 'Copied to clipboard!';
+                                    toast.classList.add('show');
+                                    setTimeout(() => {
+                                        toast.classList.remove('show');
+                                    }, 3000);
+                                } else {
+                                    console.warn("Toast element not found in DOM.");
+                                }
+                            };
+                            console.log("Sales Kit Interactive UI initialized successfully.");
+                        })();
+                    </script>
                 </section>
             </main>
         </div>
