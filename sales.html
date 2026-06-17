@@ -172,15 +172,48 @@
             gap: 2rem;
         }
         .script-box {
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid var(--border-color);
-            padding: 1.5rem;
-            border-radius: 12px;
-            font-family: monospace;
-            white-space: pre-wrap;
-            color: #38bdf8;
-            margin-top: 1rem;
+            background: rgba(15, 23, 42, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 2rem;
+            border-radius: 16px;
+            font-family: var(--font-body), sans-serif;
+            white-space: normal;
+            color: var(--text-main);
+            margin-top: 1.5rem;
             position: relative;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .portal-script-quote {
+            background: rgba(59, 130, 246, 0.07);
+            border-left: 4px solid var(--primary);
+            padding: 1.25rem 1.5rem;
+            margin: 1.25rem 0;
+            border-radius: 4px 12px 12px 4px;
+            font-style: italic;
+            color: #f1f5f9;
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+        .portal-script-subheading {
+            color: #38bdf8;
+            margin-top: 1.75rem;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+            font-size: 1.15rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+        .portal-script-para {
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+        .portal-script-divider {
+            border: none;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.08);
+            margin: 2rem 0;
         }
         .copy-btn {
             position: absolute;
@@ -195,6 +228,7 @@
             font-size: 0.8rem;
             font-family: var(--font-body);
             transition: var(--transition-smooth);
+            z-index: 10;
         }
         .copy-btn:hover {
             background: var(--primary);
@@ -1352,10 +1386,68 @@ Interested in setting this up to see if it works?</span>
                                 });
                             });
 
+                            // Format script-box content for professional display on load
+                            const scriptSpans = document.querySelectorAll('.script-box > span');
+                            console.log(`Formatting ${scriptSpans.length} script elements for professional layout...`);
+                            scriptSpans.forEach(el => {
+                                const rawText = el.innerText;
+                                // Store raw text in data-raw attribute
+                                el.setAttribute('data-raw', rawText);
+                                
+                                // Split raw text by newline to parse markdown-like structures
+                                const lines = rawText.split('\n');
+                                let formattedHTML = '';
+                                let inQuote = false;
+                                let quoteContent = [];
+                                
+                                lines.forEach(line => {
+                                    const trimmed = line.trim();
+                                    
+                                    if (trimmed.startsWith('>') || (trimmed.startsWith('&gt;'))) {
+                                        if (!inQuote) {
+                                            inQuote = true;
+                                            quoteContent = [];
+                                        }
+                                        // Remove the '>' / '&gt;' and any leading space
+                                        let cleanLine = trimmed.replace(/^(&gt;|>)\s*/, '');
+                                        // Apply basic formatting inside quotes
+                                        cleanLine = cleanLine.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+                                        cleanLine = cleanLine.replace(/^\*\s+/, '• ');
+                                        quoteContent.push(cleanLine);
+                                    } else {
+                                        if (inQuote) {
+                                            formattedHTML += `<div class="portal-script-quote">${quoteContent.join('<br><br>')}</div>`;
+                                            inQuote = false;
+                                        }
+                                        
+                                        if (trimmed.startsWith('**') || trimmed.startsWith('<strong>')) {
+                                            // Headline
+                                             let cleanText = trimmed.replace(/\*\*/g, '').replace(/<\/?strong>/g, '');
+                                             formattedHTML += `<h4 class="portal-script-subheading">${cleanText}</h4>`;
+                                        } else if (trimmed === '---' || trimmed === '<hr>') {
+                                            formattedHTML += `<hr class="portal-script-divider">`;
+                                        } else if (trimmed !== '') {
+                                             let formattedLine = trimmed;
+                                             formattedLine = formattedLine.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+                                             formattedLine = formattedLine.replace(/^\*\s+/, '• ');
+                                             formattedHTML += `<p class="portal-script-para">${formattedLine}</p>`;
+                                        }
+                                    }
+                                });
+                                
+                                if (inQuote) {
+                                    formattedHTML += `<div class="portal-script-quote">${quoteContent.join('<br><br>')}</div>`;
+                                }
+                                
+                                el.innerHTML = formattedHTML;
+                            });
+
                             // Override copyText to fix the showToastNotification scope bug
                             window.copyText = function(elementId) {
                                 console.log(`Copying content of element: ${elementId}`);
-                                const text = document.getElementById(elementId).innerText;
+                                const el = document.getElementById(elementId);
+                                if (!el) return;
+                                const text = el.getAttribute('data-raw') || el.innerText;
                                 navigator.clipboard.writeText(text);
                                 
                                 // Re-implementing toast display in-scope
@@ -1374,7 +1466,9 @@ Interested in setting this up to see if it works?</span>
                             // File Download Utility for Scripts
                             window.downloadScript = function(elementId, filename) {
                                 console.log(`Downloading content of element: ${elementId} as ${filename}`);
-                                const text = document.getElementById(elementId).innerText;
+                                const el = document.getElementById(elementId);
+                                if (!el) return;
+                                const text = el.getAttribute('data-raw') || el.innerText;
                                 const blob = new Blob([text], { type: 'text/plain;charset=utf-8;' });
                                 const link = document.createElement("a");
                                 const url = URL.createObjectURL(blob);
