@@ -1200,6 +1200,7 @@ Aegis Protocol filters out the public drama. Happy diners go to Google; Suresh g
         id: 2,
         title: "The GMB Maps 3-Pack Algorithm",
         format: "carousel",
+        theme: "brutal-light",
         niche: "aegis",
         day: "Week 1, Wed",
         trigger: "AEGIS",
@@ -1433,6 +1434,7 @@ Place our custom feedback QR card in every bag. Unhappy customers get instant re
         id: 5,
         title: "Compliant Warranty Inserts vs TOS Ban",
         format: "carousel",
+        theme: "brutal-dark",
         niche: "amazon",
         day: "Week 2, Wed",
         trigger: "AMAZON",
@@ -1660,6 +1662,7 @@ Aegis Protocol handles the customer relations while building your GMB credit sco
         id: 8,
         title: "Menu Pricing Power vs Map Rating",
         format: "carousel",
+        theme: "brutal-light",
         niche: "cafe",
         day: "Week 3, Wed",
         trigger: "CAFE",
@@ -1877,6 +1880,7 @@ Place our custom QR feedback card in every box. Cold food complaints go privatel
         id: 11,
         title: "Wet Towels & The ₹50,000 Spa Launch",
         format: "carousel",
+        theme: "brutal-dark",
         niche: "salon",
         day: "Week 4, Wed",
         trigger: "SALON",
@@ -2143,102 +2147,292 @@ function renderCarouselMedia(post) {
         slideItem.className = `carousel-slide-item ${idx === 0 ? 'active' : ''}`;
         slideItem.setAttribute('data-slide-index', idx);
         
-        // Dynamic HTML visual elements based on type
+        // Dynamic HTML visual elements based on theme and visual type
         let visualHTML = '';
-        if (slide.visual === 'comparison' && slide.visualData) {
-            const data = slide.visualData;
-            visualHTML = `
-                <div class="comparison-layout">
-                    <div class="comparison-card ${data.left.color}">
-                        <div class="comparison-title">${data.left.title}</div>
-                        <div class="comparison-value ${data.left.color}">${data.left.val}</div>
-                        <div class="comparison-desc">${data.left.desc}</div>
-                    </div>
-                    <div class="comparison-card ${data.right.color}">
-                        <div class="comparison-title">${data.right.title}</div>
-                        <div class="comparison-value ${data.right.color}">${data.right.val}</div>
-                        <div class="comparison-desc">${data.right.desc}</div>
-                    </div>
-                </div>
-            `;
-        } else if (slide.visual === 'grid' && slide.visualData) {
-            let itemsHTML = '';
-            slide.visualData.forEach(item => {
-                itemsHTML += `
-                    <div class="slide-grid-item">
-                        <i class="${item.icon} ${item.highlight ? 'green' : 'cyan'}"></i>
-                        <span>${item.text}</span>
+        if (post.theme === 'brutal-light') {
+            if (slide.visual === 'comparison' && slide.visualData) {
+                const data = slide.visualData;
+                visualHTML = `
+                    <div class="brutal-comp-box">
+                        <div class="brutal-comp-card">
+                            <div class="brutal-comp-title">${data.left.title}</div>
+                            <div class="brutal-comp-value ${data.left.color === 'green' ? 'green' : 'red'}">${data.left.val}</div>
+                            <div class="brutal-comp-desc">${data.left.desc}</div>
+                        </div>
+                        <div class="brutal-comp-card">
+                            <div class="brutal-comp-title">${data.right.title}</div>
+                            <div class="brutal-comp-value ${data.right.color === 'green' ? 'green' : 'red'}">${data.right.val}</div>
+                            <div class="brutal-comp-desc">${data.right.desc}</div>
+                        </div>
                     </div>
                 `;
-            });
-            visualHTML = `<div class="slide-grid-box">${itemsHTML}</div>`;
-        } else if (slide.visual === 'chart') {
-            visualHTML = `
-                <div class="chart-visual-box">
-                    <div class="chart-curve-green"></div>
-                    <div class="chart-curve-red"></div>
-                    <span class="chart-label" style="top: 5px; left: 10px; color: #00FF87;">${slide.visualData.greenLabel}</span>
-                    <span class="chart-label" style="bottom: 12px; right: 10px; color: #FF3366;">${slide.visualData.redLabel}</span>
+            } else if (slide.visual === 'grid' && slide.visualData) {
+                let itemsHTML = '';
+                slide.visualData.forEach(item => {
+                    itemsHTML += `
+                        <div class="brutal-grid-item">
+                            <i class="${item.icon} ${item.highlight ? 'green' : 'cyan'}"></i>
+                            <span>${item.text}</span>
+                        </div>
+                    `;
+                });
+                visualHTML = `<div class="brutal-grid-box">${itemsHTML}</div>`;
+            } else if (slide.visual === 'chart') {
+                let labelRed = slide.visualData?.redLabel || "4.1★ Danger";
+                let labelGreen = slide.visualData?.greenLabel || "4.7★ Aegis";
+                visualHTML = `
+                    <div class="brutal-chart-box">
+                        <div class="brutal-chart-bar-container">
+                            <div class="brutal-chart-bar red" style="height: 35%;">${labelRed}</div>
+                            <div class="brutal-chart-bar green" style="height: 85%;">${labelGreen}</div>
+                        </div>
+                    </div>
+                `;
+            } else if (slide.visual === 'split-path' && slide.visualData) {
+                const data = slide.visualData;
+                visualHTML = `
+                    <div class="brutal-split-box">
+                        <div class="brutal-split-node">${data.start}</div>
+                        <div class="brutal-split-arrow"></div>
+                        <div class="brutal-split-node">${data.node1}</div>
+                    </div>
+                    <div class="brutal-split-box" style="margin-top: 0.25rem;">
+                        <div class="brutal-split-node" style="opacity: 0;">${data.start}</div>
+                        <div class="brutal-split-arrow"></div>
+                        <div class="brutal-split-node">${data.node2}</div>
+                    </div>
+                `;
+            } else if (slide.visual === 'mockup' && slide.visualData) {
+                visualHTML = `
+                    <div class="brutal-split-box" style="justify-content: center; gap: 0.5rem; margin-top: 0.2rem;">
+                        <div class="brutal-split-node" style="background: #000; color: #fff; border-color: #000; border-radius: 4px; box-shadow: 2px 2px 0px #FFA800; font-size: 0.45rem; padding: 2px 6px;">${slide.visualData.label || 'AEGIS SHIELD'}</div>
+                        <div class="brutal-split-node" style="background: #FFA800; border-color: #000; border-radius: 4px; font-size: 0.45rem; padding: 2px 6px;">ACTIVE PORTAL</div>
+                    </div>
+                `;
+            }
+        } else if (post.theme === 'brutal-dark') {
+            if (slide.visual === 'comparison' && slide.visualData) {
+                const data = slide.visualData;
+                visualHTML = `
+                    <div class="brutal-dark-comp-box">
+                        <div class="brutal-dark-comp-card profitable">
+                            <div class="brutal-dark-comp-title">${data.left.title}</div>
+                            <div class="brutal-dark-comp-value">${data.left.val}</div>
+                            <div class="brutal-dark-comp-desc">${data.left.desc}</div>
+                        </div>
+                        <div class="brutal-dark-comp-card">
+                            <div class="brutal-dark-comp-title">${data.right.title}</div>
+                            <div class="brutal-dark-comp-value">${data.right.val}</div>
+                            <div class="brutal-dark-comp-desc">${data.right.desc}</div>
+                        </div>
+                    </div>
+                `;
+            } else if (slide.visual === 'grid' && slide.visualData) {
+                let itemsHTML = '';
+                slide.visualData.forEach((item, i) => {
+                    itemsHTML += `
+                        <div class="brutal-dark-list-item ${i === 0 ? 'gold' : ''}">
+                            <div class="brutal-dark-list-content">
+                                <span class="brutal-dark-list-icon"><i class="${item.icon}"></i></span>
+                                <span>${item.text.replace(/^[^\w]*/, '')}</span>
+                            </div>
+                            <span class="brutal-dark-list-num">0${i + 1}</span>
+                        </div>
+                    `;
+                });
+                visualHTML = `<div class="brutal-dark-list-box">${itemsHTML}</div>`;
+            } else if (slide.visual === 'chart') {
+                let labelRed = slide.visualData?.redLabel || "Danger Zone";
+                let labelGreen = slide.visualData?.greenLabel || "Aegis Zone";
+                visualHTML = `
+                    <div class="brutal-dark-chart">
+                        <svg class="brutal-dark-chart-svg" viewBox="0 0 100 50" preserveAspectRatio="none">
+                            <path d="M 0 42 L 30 38 L 60 22 L 100 5" fill="none" stroke="#FFA800" stroke-width="3" />
+                        </svg>
+                        <span class="brutal-dark-chart-label" style="top: 2px; right: 5px; color: #FFA800;">${labelGreen}</span>
+                        <span class="brutal-dark-chart-label" style="bottom: 2px; left: 5px; color: #ef4444;">${labelRed}</span>
+                    </div>
+                `;
+            } else if (slide.visual === 'split-path' && slide.visualData) {
+                const data = slide.visualData;
+                visualHTML = `
+                    <div class="brutal-dark-list-box">
+                        <div class="brutal-dark-list-item gold">
+                            <div class="brutal-dark-list-content">
+                                <span class="brutal-dark-list-icon"><i class="fa-solid fa-qrcode"></i></span>
+                                <span>${data.start}</span>
+                            </div>
+                            <span class="brutal-dark-list-num"><i class="fa-solid fa-arrow-right"></i></span>
+                        </div>
+                        <div class="brutal-dark-list-item">
+                            <div class="brutal-dark-list-content">
+                                <span class="brutal-dark-list-icon"><i class="fa-solid fa-circle-check" style="color: #10b981;"></i></span>
+                                <span>${data.node1}</span>
+                            </div>
+                            <span class="brutal-dark-list-num" style="border-left-color: #10b981;"><i class="fa-solid fa-check" style="color: #10b981;"></i></span>
+                        </div>
+                        <div class="brutal-dark-list-item" style="border-color: #ef4444;">
+                            <div class="brutal-dark-list-content">
+                                <span class="brutal-dark-list-icon"><i class="fa-solid fa-triangle-exclamation" style="color: #ef4444;"></i></span>
+                                <span>${data.node2}</span>
+                            </div>
+                            <span class="brutal-dark-list-num" style="border-left-color: #ef4444;"><i class="fa-solid fa-xmark" style="color: #ef4444;"></i></span>
+                        </div>
+                    </div>
+                `;
+            } else if (slide.visual === 'mockup' && slide.visualData) {
+                visualHTML = `
+                    <div class="brutal-dark-warning-box">
+                        <i class="fa-solid fa-triangle-exclamation brutal-dark-warning-icon"></i>
+                        <div class="brutal-dark-warning-text">${slide.visualData.label || 'WARNING: RATING COMPROMISED'}</div>
+                    </div>
+                `;
+            }
+        } else {
+            if (slide.visual === 'comparison' && slide.visualData) {
+                const data = slide.visualData;
+                visualHTML = `
+                    <div class="comparison-layout">
+                        <div class="comparison-card ${data.left.color}">
+                            <div class="comparison-title">${data.left.title}</div>
+                            <div class="comparison-value ${data.left.color}">${data.left.val}</div>
+                            <div class="comparison-desc">${data.left.desc}</div>
+                        </div>
+                        <div class="comparison-card ${data.right.color}">
+                            <div class="comparison-title">${data.right.title}</div>
+                            <div class="comparison-value ${data.right.color}">${data.right.val}</div>
+                            <div class="comparison-desc">${data.right.desc}</div>
+                        </div>
+                    </div>
+                `;
+            } else if (slide.visual === 'grid' && slide.visualData) {
+                let itemsHTML = '';
+                slide.visualData.forEach(item => {
+                    itemsHTML += `
+                        <div class="slide-grid-item">
+                            <i class="${item.icon} ${item.highlight ? 'green' : 'cyan'}"></i>
+                            <span>${item.text}</span>
+                        </div>
+                    `;
+                });
+                visualHTML = `<div class="slide-grid-box">${itemsHTML}</div>`;
+            } else if (slide.visual === 'chart') {
+                visualHTML = `
+                    <div class="chart-visual-box">
+                        <div class="chart-curve-green"></div>
+                        <div class="chart-curve-red"></div>
+                        <span class="chart-label" style="top: 5px; left: 10px; color: #00FF87;">${slide.visualData.greenLabel}</span>
+                        <span class="chart-label" style="bottom: 12px; right: 10px; color: #FF3366;">${slide.visualData.redLabel}</span>
+                    </div>
+                `;
+            } else if (slide.visual === 'mockup' && slide.visualData) {
+                visualHTML = `
+                    <div class="mockup-standee-container">
+                        <div class="mockup-standee-graphic">
+                            <div class="mock-brand-lbl">METRIX</div>
+                            <div class="mock-qr-code"><div class="mock-qr-img"></div></div>
+                            <div class="mock-brand-lbl" style="font-size: 0.32rem;">AEGIS PROTOCOL</div>
+                        </div>
+                    </div>
+                `;
+            } else if (slide.visual === 'split-path' && slide.visualData) {
+                const data = slide.visualData;
+                visualHTML = `
+                    <div class="split-path-box">
+                        <div class="split-node">${data.start}</div>
+                        <div class="split-arrow green"></div>
+                        <div class="split-node" style="border-color: #00FF87;">${data.node1}</div>
+                    </div>
+                    <div class="split-path-box" style="margin-top: 0.25rem;">
+                        <div class="split-node" style="opacity: 0;">${data.start}</div>
+                        <div class="split-arrow red"></div>
+                        <div class="split-node" style="border-color: #FF3366;">${data.node2}</div>
+                    </div>
+                `;
+            }
+        }
+        
+        if (post.theme === 'brutal-light') {
+            let badgeHTML = '';
+            if (idx === 0) {
+                badgeHTML = `<div class="brutal-paper-badge">THIS ONE'S WORTH <span class="purple-block">10 MINUTES</span> OF YOUR DAY.</div>`;
+            } else if (idx === post.slides.length - 1) {
+                badgeHTML = `<div class="brutal-paper-badge">DM <span class="purple-block">'${post.trigger || "AEGIS"}'</span> TO GET SECURED.</div>`;
+            } else {
+                badgeHTML = `<div class="brutal-paper-badge">SWIPE TO SEE STEP 0${idx + 1} &gt;&gt;&gt;</div>`;
+            }
+            
+            slideItem.innerHTML = `
+                <div class="slide-canvas slide-bg-brutal-light" id="slide-canvas-item-${idx}">
+                    <div class="brutal-card-light">
+                        <div class="brutal-card-tab">
+                            <i class="fa-solid fa-chevron-right"></i><i class="fa-solid fa-chevron-right"></i><i class="fa-solid fa-chevron-right"></i>
+                        </div>
+                        <div class="brutal-tag-light">${slide.tag}</div>
+                        <div class="brutal-heading-light">${slide.heading}</div>
+                        ${visualHTML}
+                        <div class="brutal-body-light">${slide.body}</div>
+                    </div>
+                    ${badgeHTML}
                 </div>
             `;
-        } else if (slide.visual === 'mockup' && slide.visualData) {
-            visualHTML = `
-                <div class="mockup-standee-container">
-                    <div class="mockup-standee-graphic">
-                        <div class="mock-brand-lbl">METRIX</div>
-                        <div class="mock-qr-code"><div class="mock-qr-img"></div></div>
-                        <div class="mock-brand-lbl" style="font-size: 0.32rem;">AEGIS PROTOCOL</div>
+        } else if (post.theme === 'brutal-dark') {
+            let hazardHTML = '';
+            if (idx === 0) {
+                hazardHTML = `<div class="brutal-hazard-right"></div>`;
+            } else if (idx === 1) {
+                hazardHTML = `<div class="brutal-hazard-top"></div>`;
+            } else if (idx === 2) {
+                hazardHTML = `<div class="brutal-hazard-top"></div><div class="brutal-hazard-bottom"></div>`;
+            } else if (idx === 3) {
+                hazardHTML = `<div class="brutal-hazard-bottom"></div>`;
+            } else {
+                hazardHTML = `<div class="brutal-hazard-right"></div>`;
+            }
+
+            slideItem.innerHTML = `
+                <div class="slide-canvas slide-bg-brutal-dark" id="slide-canvas-item-${idx}">
+                    <div class="brutal-dark-splatter"></div>
+                    ${hazardHTML}
+                    <div class="brutal-dark-outline-bg-text">${post.trigger || 'AEGIS'}</div>
+                    <div class="brutal-dark-slide-number">0${idx + 1}</div>
+                    <div class="brutal-dark-content-wrapper">
+                        <div class="brutal-heading-dark">${slide.heading}</div>
+                        ${visualHTML}
+                        <div class="brutal-body-dark">${slide.body}</div>
                     </div>
                 </div>
             `;
-        } else if (slide.visual === 'split-path' && slide.visualData) {
-            const data = slide.visualData;
-            visualHTML = `
-                <div class="split-path-box">
-                    <div class="split-node">${data.start}</div>
-                    <div class="split-arrow green"></div>
-                    <div class="split-node" style="border-color: #00FF87;">${data.node1}</div>
-                </div>
-                <div class="split-path-box" style="margin-top: 0.25rem;">
-                    <div class="split-node" style="opacity: 0;">${data.start}</div>
-                    <div class="split-arrow red"></div>
-                    <div class="split-node" style="border-color: #FF3366;">${data.node2}</div>
+        } else {
+            slideItem.innerHTML = `
+                <div class="slide-canvas slide-bg-default" id="slide-canvas-item-${idx}">
+                    <div class="slide-glow-blob-1"></div>
+                    <div class="slide-glow-blob-2"></div>
+                    <div class="slide-content-wrapper">
+                        <div class="slide-tag">${slide.tag}</div>
+                        <div class="slide-heading">${slide.heading}</div>
+                        ${visualHTML}
+                        <div class="slide-body-box">${slide.body}</div>
+                        <div class="slide-footer-row">
+                            <span class="slide-footer-brand">METRIX MEDIA</span>
+                            <span class="slide-footer-btn">AEGIS PROTOCOL</span>
+                        </div>
+                    </div>
                 </div>
             `;
         }
         
-        slideItem.innerHTML = `
-            <div class="slide-canvas slide-bg-default" id="slide-canvas-item-${idx}">
-                <div class="slide-glow-blob-1"></div>
-                <div class="slide-glow-blob-2"></div>
-                <div class="slide-content-wrapper">
-                    <div class="slide-tag">${slide.tag}</div>
-                    <div class="slide-heading">${slide.heading}</div>
-                    ${visualHTML}
-                    <div class="slide-body-box">${slide.body}</div>
-                    <div class="slide-footer-row">
-                        <span class="slide-footer-brand">METRIX MEDIA</span>
-                        <span class="slide-footer-btn">AEGIS PROTOCOL</span>
-                    </div>
-                </div>
-            </div>
-        `;
-        
         deck.appendChild(slideItem);
     });
     
-    // Add arrows
     deck.innerHTML += `
         <div class="ig-arrow-btn left-arrow" id="carousel-prev-btn"><i class="fa-solid fa-chevron-left"></i></div>
         <div class="ig-arrow-btn right-arrow" id="carousel-next-btn"><i class="fa-solid fa-chevron-right"></i></div>
     `;
     
     contentArea.appendChild(deck);
-    
-    // Add swipe indicators
     renderSlideDots(post.slides.length);
     
-    // Bind arrows
     document.getElementById('carousel-prev-btn').addEventListener('click', () => navigateSlides(-1));
     document.getElementById('carousel-next-btn').addEventListener('click', () => navigateSlides(1));
 }
@@ -2499,6 +2693,7 @@ function exportCurrentSlide() {
     exportWrapper.style.overflow = 'hidden';
     
     const clonedNode = slideNode.cloneNode(true);
+    clonedNode.classList.add('export-active');
     clonedNode.style.width = '1080px';
     clonedNode.style.height = '1080px';
     clonedNode.style.padding = '5.5rem';
@@ -2620,7 +2815,7 @@ function exportCurrentSlide() {
     html2canvas(clonedNode, {
         width: 1080,
         height: 1080,
-        backgroundColor: '#0A0F1E',
+        backgroundColor: null,
         scale: 1,
         useCORS: true
     }).then(canvas => {
