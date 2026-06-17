@@ -2149,144 +2149,244 @@ function renderCarouselMedia(post) {
         
         // Dynamic HTML visual elements based on theme and visual type
         let visualHTML = '';
-        if (post.theme === 'brutal-light') {
-            if (slide.visual === 'comparison' && slide.visualData) {
-                const data = slide.visualData;
-                visualHTML = `
-                    <div class="brutal-comp-box">
-                        <div class="brutal-comp-card">
-                            <div class="brutal-comp-title">${data.left.title}</div>
-                            <div class="brutal-comp-value ${data.left.color === 'green' ? 'green' : 'red'}">${data.left.val}</div>
-                            <div class="brutal-comp-desc">${data.left.desc}</div>
-                        </div>
-                        <div class="brutal-comp-card">
-                            <div class="brutal-comp-title">${data.right.title}</div>
-                            <div class="brutal-comp-value ${data.right.color === 'green' ? 'green' : 'red'}">${data.right.val}</div>
-                            <div class="brutal-comp-desc">${data.right.desc}</div>
-                        </div>
-                    </div>
-                `;
-            } else if (slide.visual === 'grid' && slide.visualData) {
-                let itemsHTML = '';
-                slide.visualData.forEach(item => {
-                    itemsHTML += `
-                        <div class="brutal-grid-item">
-                            <i class="${item.icon} ${item.highlight ? 'green' : 'cyan'}"></i>
-                            <span>${item.text}</span>
-                        </div>
-                    `;
-                });
-                visualHTML = `<div class="brutal-grid-box">${itemsHTML}</div>`;
-            } else if (slide.visual === 'chart') {
-                let labelRed = slide.visualData?.redLabel || "4.1★ Danger";
-                let labelGreen = slide.visualData?.greenLabel || "4.7★ Aegis";
-                visualHTML = `
-                    <div class="brutal-chart-box">
-                        <div class="brutal-chart-bar-container">
-                            <div class="brutal-chart-bar red" style="height: 35%;">${labelRed}</div>
-                            <div class="brutal-chart-bar green" style="height: 85%;">${labelGreen}</div>
-                        </div>
-                    </div>
-                `;
-            } else if (slide.visual === 'split-path' && slide.visualData) {
-                const data = slide.visualData;
-                visualHTML = `
-                    <div class="brutal-split-box">
-                        <div class="brutal-split-node">${data.start}</div>
-                        <div class="brutal-split-arrow"></div>
-                        <div class="brutal-split-node">${data.node1}</div>
-                    </div>
-                    <div class="brutal-split-box" style="margin-top: 0.25rem;">
-                        <div class="brutal-split-node" style="opacity: 0;">${data.start}</div>
-                        <div class="brutal-split-arrow"></div>
-                        <div class="brutal-split-node">${data.node2}</div>
-                    </div>
-                `;
-            } else if (slide.visual === 'mockup' && slide.visualData) {
-                visualHTML = `
-                    <div class="brutal-split-box" style="justify-content: center; gap: 0.5rem; margin-top: 0.2rem;">
-                        <div class="brutal-split-node" style="background: #000; color: #fff; border-color: #000; border-radius: 4px; box-shadow: 2px 2px 0px #FFA800; font-size: 0.45rem; padding: 2px 6px;">${slide.visualData.label || 'AEGIS SHIELD'}</div>
-                        <div class="brutal-split-node" style="background: #FFA800; border-color: #000; border-radius: 4px; font-size: 0.45rem; padding: 2px 6px;">ACTIVE PORTAL</div>
-                    </div>
-                `;
+        
+        let searchBarQuery = "BEST LOCAL BUSINESS";
+        let clientNameVal = "MY BUSINESS";
+        let badReviewTextVal = "FRICTION IN SERVICE. UNRESOLVED COMPLAINTS.";
+        let goodReviewTextVal = "SUPER FRICTIONLESS. HIGHLY RECOMMENDED!";
+        let badUser = "ANONYMOUS";
+        let goodUser = "CUSTOMER";
+        let chatInText = "NOT HAPPY WITH THE SPEED OF MY SERVICE TODAY. ⚠️";
+        let chatOutText = "WE APOLOGIZE FOR THE DELAY. RESOLVING THIS IMMEDIATELY.";
+
+        const niche = post.niche || 'aegis';
+        if (niche === 'cafe') {
+            searchBarQuery = "BEST CAFE NEAR ME";
+            clientNameVal = "THE GOURMET CAFE";
+            badReviewTextVal = "COLD COFFEE. SLOW SERVICE.";
+            goodReviewTextVal = "GREAT ESPRESSO. FRIENDLY STAFF.";
+            badUser = "SURESH M.";
+            goodUser = "PRIYA R.";
+            chatInText = "MY CAPPUCCINO WAS COLD AND WAIT WAS 20 MINS! 😡";
+            chatOutText = "SO SORRY! WE JUST PROCESSED A REFUND AND A FREE VOUCHER. 🙏";
+        } else if (niche === 'clinic') {
+            searchBarQuery = "DENTIST IN GOA";
+            clientNameVal = "METRIX DENTAL CLINIC";
+            badReviewTextVal = "LONG WAITING. RUDE FRONT DESK.";
+            goodReviewTextVal = "TOP CLINICAL CARE. HELPFUL TEAM.";
+            badUser = "RAHUL V.";
+            goodUser = "AMIT S.";
+            chatInText = "WAITING ROOM WAS FREEZING AND BILLING WAS DELAYED. 🥶";
+            chatOutText = "APOLOGIES! WE ADJUSTED THE THERMOSTAT AND SPED UP YOUR PAPERWORK.";
+        } else if (niche === 'salon' || niche === 'gym') {
+            searchBarQuery = "LUXURY SALON GOA";
+            clientNameVal = "ELITE SALON & SPA";
+            badReviewTextVal = "DAMP LOCKER ROOM TOWEL. DIRTY.";
+            goodReviewTextVal = "ELITE EQUIPMENT. CLEAN SPACE.";
+            badUser = "VIKRAM S.";
+            goodUser = "NEHA P.";
+            chatInText = "LOCKER ROOM SOAP WAS EMPTY AND TOWELS DAMP. 😤";
+            chatOutText = "THANKS FOR REPORTING. REFILLED SOAP AND REPLACED TOWELS IMMEDIATELY!";
+        } else if (niche === 'amazon' || niche === 'seller' || niche === 'zomato' || niche === 'swiggy') {
+            searchBarQuery = "BEST FOOD DELIVERY";
+            clientNameVal = "THE GOURMET KITCHEN";
+            badReviewTextVal = "CRUSHED PACKAGING. DEFECTIVE UNIT.";
+            goodReviewTextVal = "FAST DELIVERY. EASY WARRANTY REG.";
+            badUser = "BUYER 404";
+            goodUser = "VERIFIED BUYER";
+            chatInText = "PRODUCT BOX ARRIVED DAMAGED, ITEM IS DEFECTIVE. 📦";
+            chatOutText = "VERY SORRY. A REPLACEMENT HAS BEEN SHIPPED VIA EXPRESS DELIVERY.";
+            if (niche === 'zomato' || niche === 'swiggy') {
+                badReviewTextVal = "SPILLED CURRY. COLD PACKAGING.";
+                goodReviewTextVal = "HOT DELICIOUS FOOD. NEAT PACKING.";
+                chatInText = "DELIVERY WAS LATE AND GRAVY WAS SPILLED ALL OVER! 😡";
+                chatOutText = "APOLOGIES FOR THE MESS! A REFUND HAS BEEN ISSUED TO YOUR WALLET. 🛡️";
             }
-        } else if (post.theme === 'brutal-dark') {
-            if (slide.visual === 'comparison' && slide.visualData) {
-                const data = slide.visualData;
+        }
+
+        if (post.theme === 'brutal-light' || post.theme === 'brutal-dark') {
+            if (slide.visual === 'mockup') {
                 visualHTML = `
-                    <div class="brutal-dark-comp-box">
-                        <div class="brutal-dark-comp-card profitable">
-                            <div class="brutal-dark-comp-title">${data.left.title}</div>
-                            <div class="brutal-dark-comp-value">${data.left.val}</div>
-                            <div class="brutal-dark-comp-desc">${data.left.desc}</div>
-                        </div>
-                        <div class="brutal-dark-comp-card">
-                            <div class="brutal-dark-comp-title">${data.right.title}</div>
-                            <div class="brutal-dark-comp-value">${data.right.val}</div>
-                            <div class="brutal-dark-comp-desc">${data.right.desc}</div>
+                    <div class="mock-graphics-container">
+                        <div class="phone-scan-mockup">
+                            <div class="qr-stand-graphic">
+                                <div class="qr-stand-header">REVIEWS</div>
+                                <div class="qr-stand-code-img"><i class="fa-solid fa-qrcode"></i></div>
+                                <div class="qr-stand-stars-row">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                            </div>
+                            <div class="phone-screen-graphic">
+                                <div class="phone-notch-graphic"></div>
+                                <div class="phone-portal-logo">${slide.visualData?.label || 'AEGIS'}</div>
+                                <div class="phone-portal-stars">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                                <div class="phone-portal-btn">SUBMIT</div>
+                            </div>
                         </div>
                     </div>
                 `;
-            } else if (slide.visual === 'grid' && slide.visualData) {
-                let itemsHTML = '';
-                slide.visualData.forEach((item, i) => {
-                    itemsHTML += `
-                        <div class="brutal-dark-list-item ${i === 0 ? 'gold' : ''}">
-                            <div class="brutal-dark-list-content">
-                                <span class="brutal-dark-list-icon"><i class="${item.icon}"></i></span>
-                                <span>${item.text.replace(/^[^\w]*/, '')}</span>
+            } else if (slide.visual === 'comparison') {
+                visualHTML = `
+                    <div class="mock-graphics-container">
+                        <div class="review-cards-mockup">
+                            <div class="mock-review-card red-border">
+                                <div class="mock-review-user">
+                                    <div class="mock-review-avatar red"></div>
+                                    <div class="mock-review-name">${badUser}</div>
+                                </div>
+                                <div class="mock-review-stars">★☆☆☆☆</div>
+                                <div class="mock-review-text">${badReviewTextVal}</div>
                             </div>
-                            <span class="brutal-dark-list-num">0${i + 1}</span>
+                            <div class="mock-review-card green-border">
+                                <div class="mock-review-user">
+                                    <div class="mock-review-avatar green"></div>
+                                    <div class="mock-review-name">${goodUser}</div>
+                                </div>
+                                <div class="mock-review-stars">★★★★★</div>
+                                <div class="mock-review-text">${goodReviewTextVal}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (slide.visual === 'split-path') {
+                visualHTML = `
+                    <div class="mock-graphics-container">
+                        <div class="routing-flow-mockup">
+                            <div class="flow-target-box green-border">
+                                <div class="flow-target-icon green"><i class="fa-solid fa-star"></i></div>
+                                <div class="flow-target-label">PUBLIC 5★ REVIEW</div>
+                            </div>
+                            <div class="flow-path-arrow green-path" style="transform: rotate(180deg);"></div>
+                            <div class="flow-center-qr">
+                                <i class="fa-solid fa-qrcode"></i>
+                            </div>
+                            <div class="flow-path-arrow blue-path"></div>
+                            <div class="flow-target-box blue-border">
+                                <div class="flow-target-icon blue"><i class="fa-solid fa-comment-dots"></i></div>
+                                <div class="flow-target-label">PRIVATE FEEDBACK</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (slide.visual === 'grid') {
+                const isChat = (idx === 3 || (slide.body && (slide.body.toLowerCase().includes('private') || slide.body.toLowerCase().includes(' grievances') || slide.body.toLowerCase().includes('grievance') || slide.body.toLowerCase().includes('messaging'))));
+                if (isChat) {
+                    visualHTML = `
+                        <div class="mock-graphics-container">
+                            <div class="chat-mockup-container">
+                                <div class="chat-mockup-header">
+                                    <div class="chat-header-avatar"></div>
+                                    <div class="chat-header-name">PRIVATE FEEDBACK CHANNEL</div>
+                                </div>
+                                <div class="chat-message-bubble incoming">
+                                    ${chatInText}
+                                </div>
+                                <div class="chat-message-bubble outgoing">
+                                    ${chatOutText}
+                                </div>
+                            </div>
                         </div>
                     `;
-                });
-                visualHTML = `<div class="brutal-dark-list-box">${itemsHTML}</div>`;
+                } else {
+                    let itemsHTML = '';
+                    slide.visualData.forEach((item, i) => {
+                        if (post.theme === 'brutal-light') {
+                            itemsHTML += `
+                                <div class="brutal-grid-item">
+                                    <i class="${item.icon} ${item.highlight ? 'green' : 'cyan'}"></i>
+                                    <span>${item.text}</span>
+                                </div>
+                            `;
+                        } else {
+                            itemsHTML += `
+                                <div class="brutal-dark-list-item ${i === 0 ? 'gold' : ''}">
+                                    <div class="brutal-dark-list-content">
+                                        <span class="brutal-dark-list-icon"><i class="${item.icon}"></i></span>
+                                        <span>${item.text.replace(/^[^\w]*/, '')}</span>
+                                    </div>
+                                    <span class="brutal-dark-list-num">0${i + 1}</span>
+                                </div>
+                            `;
+                        }
+                    });
+                    visualHTML = post.theme === 'brutal-light' ? 
+                        `<div class="brutal-grid-box">${itemsHTML}</div>` : 
+                        `<div class="brutal-dark-list-box">${itemsHTML}</div>`;
+                }
             } else if (slide.visual === 'chart') {
-                let labelRed = slide.visualData?.redLabel || "Danger Zone";
-                let labelGreen = slide.visualData?.greenLabel || "Aegis Zone";
-                visualHTML = `
-                    <div class="brutal-dark-chart">
-                        <svg class="brutal-dark-chart-svg" viewBox="0 0 100 50" preserveAspectRatio="none">
-                            <path d="M 0 42 L 30 38 L 60 22 L 100 5" fill="none" stroke="#FFA800" stroke-width="3" />
-                        </svg>
-                        <span class="brutal-dark-chart-label" style="top: 2px; right: 5px; color: #FFA800;">${labelGreen}</span>
-                        <span class="brutal-dark-chart-label" style="bottom: 2px; left: 5px; color: #ef4444;">${labelRed}</span>
-                    </div>
-                `;
-            } else if (slide.visual === 'split-path' && slide.visualData) {
-                const data = slide.visualData;
-                visualHTML = `
-                    <div class="brutal-dark-list-box">
-                        <div class="brutal-dark-list-item gold">
-                            <div class="brutal-dark-list-content">
-                                <span class="brutal-dark-list-icon"><i class="fa-solid fa-qrcode"></i></span>
-                                <span>${data.start}</span>
+                const is3Pack = (idx === 4 || (slide.body && slide.body.toLowerCase().includes('3-pack')) || (slide.heading && slide.heading.toLowerCase().includes('prominence')) || (slide.heading && slide.heading.toLowerCase().includes('3-pack')));
+                if (is3Pack) {
+                    visualHTML = `
+                        <div class="mock-graphics-container">
+                            <div class="maps-3pack-mockup">
+                                <div class="mock-search-bar">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                    <span>${searchBarQuery}</span>
+                                </div>
+                                <div class="mock-pack-item featured">
+                                    <div class="mock-pack-info">
+                                        <div class="mock-pack-title">1. ${clientNameVal}</div>
+                                        <div class="mock-pack-rating">
+                                            4.8 <span class="stars">★★★★★</span> (240+)
+                                        </div>
+                                    </div>
+                                    <div class="mock-pack-badge">Shield Active</div>
+                                </div>
+                                <div class="mock-pack-item">
+                                    <div class="mock-pack-info">
+                                        <div class="mock-pack-title">2. Competitor A</div>
+                                        <div class="mock-pack-rating">
+                                            4.1 <span class="stars">★★★★☆</span> (85)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mock-pack-item">
+                                    <div class="mock-pack-info">
+                                        <div class="mock-pack-title">3. Competitor B</div>
+                                        <div class="mock-pack-rating">
+                                            3.9 <span class="stars">★★★☆☆</span> (110)
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <span class="brutal-dark-list-num"><i class="fa-solid fa-arrow-right"></i></span>
                         </div>
-                        <div class="brutal-dark-list-item">
-                            <div class="brutal-dark-list-content">
-                                <span class="brutal-dark-list-icon"><i class="fa-solid fa-circle-check" style="color: #10b981;"></i></span>
-                                <span>${data.node1}</span>
+                    `;
+                } else {
+                    if (post.theme === 'brutal-light') {
+                        let labelRed = slide.visualData?.redLabel || "4.1★ Danger";
+                        let labelGreen = slide.visualData?.greenLabel || "4.7★ Aegis";
+                        visualHTML = `
+                            <div class="brutal-chart-box">
+                                <div class="brutal-chart-bar-container">
+                                    <div class="brutal-chart-bar red" style="height: 35%;">${labelRed}</div>
+                                    <div class="brutal-chart-bar green" style="height: 85%;">${labelGreen}</div>
+                                </div>
                             </div>
-                            <span class="brutal-dark-list-num" style="border-left-color: #10b981;"><i class="fa-solid fa-check" style="color: #10b981;"></i></span>
-                        </div>
-                        <div class="brutal-dark-list-item" style="border-color: #ef4444;">
-                            <div class="brutal-dark-list-content">
-                                <span class="brutal-dark-list-icon"><i class="fa-solid fa-triangle-exclamation" style="color: #ef4444;"></i></span>
-                                <span>${data.node2}</span>
+                        `;
+                    } else {
+                        let labelRed = slide.visualData?.redLabel || "Danger Zone";
+                        let labelGreen = slide.visualData?.greenLabel || "Aegis Zone";
+                        visualHTML = `
+                            <div class="brutal-dark-chart">
+                                <svg class="brutal-dark-chart-svg" viewBox="0 0 100 50" preserveAspectRatio="none">
+                                    <path d="M 0 42 L 30 38 L 60 22 L 100 5" fill="none" stroke="#0ea5e9" stroke-width="3" />
+                                </svg>
+                                <span class="brutal-dark-chart-label" style="top: 2px; right: 5px; color: #10b981;">${labelGreen}</span>
+                                <span class="brutal-dark-chart-label" style="bottom: 2px; left: 5px; color: #ef4444;">${labelRed}</span>
                             </div>
-                            <span class="brutal-dark-list-num" style="border-left-color: #ef4444;"><i class="fa-solid fa-xmark" style="color: #ef4444;"></i></span>
-                        </div>
-                    </div>
-                `;
-            } else if (slide.visual === 'mockup' && slide.visualData) {
-                visualHTML = `
-                    <div class="brutal-dark-warning-box">
-                        <i class="fa-solid fa-triangle-exclamation brutal-dark-warning-icon"></i>
-                        <div class="brutal-dark-warning-text">${slide.visualData.label || 'WARNING: RATING COMPROMISED'}</div>
-                    </div>
-                `;
+                        `;
+                    }
+                }
             }
         } else {
             if (slide.visual === 'comparison' && slide.visualData) {
