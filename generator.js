@@ -840,7 +840,8 @@ function renderClientsTable() {
         return;
     }
     const table = document.createElement('table');
-    table.className = 'clients-table';
+    table.className = 'campaigns-table';
+    table.id = 'clients-tbody';
     const thead = document.createElement('thead');
     thead.innerHTML = `<tr>
         <th>Name</th><th>Email</th><th>Monthly Amount (INR)</th><th>Description</th><th>Actions</th>
@@ -1015,7 +1016,8 @@ function renderAgentsTable() {
         return;
     }
     const table = document.createElement('table');
-    table.className = 'clients-table';
+    table.className = 'campaigns-table';
+    table.id = 'agents-tbody';
     const thead = document.createElement('thead');
     thead.innerHTML = `<tr>
         <th>Name</th><th>User ID</th><th>Password</th><th>UPI ID</th><th>Actions</th>

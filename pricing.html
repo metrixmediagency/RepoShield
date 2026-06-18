@@ -987,7 +987,52 @@
             }
             .ecom-table-container {
                 border-radius: 12px;
+                border: none;
+                background: transparent;
             }
+            .ecom-table, .ecom-table tbody, .ecom-table tr, .ecom-table td {
+                display: block;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            .ecom-table thead {
+                display: none;
+            }
+            .ecom-table tr {
+                margin-bottom: 1rem;
+                background: rgba(15, 23, 42, 0.8);
+                border: 1px solid rgba(255, 255, 255, 0.05);
+                border-radius: 12px;
+                padding: 0.5rem;
+            }
+            .ecom-table tr.recommended-row {
+                border-left: 3px solid var(--primary);
+            }
+            .ecom-table td {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                padding: 0.75rem;
+                text-align: right;
+            }
+            .ecom-table td:last-child {
+                border-bottom: none;
+            }
+            .ecom-table td::before {
+                font-size: 0.75rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                color: var(--text-muted);
+                padding-right: 1rem;
+                text-align: left;
+            }
+            /* Add data labels for the pricing ecom-table */
+            .ecom-table td:nth-child(1)::before { content: "Tier"; }
+            .ecom-table td:nth-child(2)::before { content: "Products/Variants"; }
+            .ecom-table td:nth-child(3)::before { content: "Review Target"; }
+            .ecom-table td:nth-child(4)::before { content: "Price"; }
+            
             .sales-tips-banner {
                 margin: 2rem 1rem;
                 padding: 1.25rem;

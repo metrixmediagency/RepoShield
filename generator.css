@@ -2062,6 +2062,80 @@ code {
         align-items: center;
         gap: 1rem;
     }
+
+    /* Convert tables to cards on mobile to prevent swiping */
+    .table-container {
+        border: none;
+        background: transparent;
+    }
+    .campaigns-table, .campaigns-table tbody, .campaigns-table tr, .campaigns-table td {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .campaigns-table thead {
+        display: none;
+    }
+    .campaigns-table tr {
+        margin-bottom: 1rem;
+        background: rgba(10, 12, 26, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        padding: 0.5rem;
+    }
+    .campaigns-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 0.75rem;
+        text-align: right;
+    }
+    .campaigns-table td:last-child {
+        border-bottom: none;
+    }
+    .campaigns-table td::before {
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        padding-right: 1rem;
+        text-align: left;
+    }
+    
+    /* Data labels for specific tables */
+    #campaign-list-body td:nth-child(1)::before { content: "Business Name"; }
+    #campaign-list-body td:nth-child(2)::before { content: "Category"; }
+    #campaign-list-body td:nth-child(3)::before { content: "Destination"; }
+    #campaign-list-body td:nth-child(4)::before { content: "Links"; align-self: flex-start; }
+    #campaign-list-body td:nth-child(5)::before { content: "Billing"; }
+    #campaign-list-body td:nth-child(6)::before { content: "Actions"; }
+    
+    #admin-payouts-body td:nth-child(1)::before { content: "Client Business"; }
+    #admin-payouts-body td:nth-child(2)::before { content: "Sales Partner"; }
+    #admin-payouts-body td:nth-child(3)::before { content: "Commission"; }
+    #admin-payouts-body td:nth-child(4)::before { content: "UPI ID"; }
+    #admin-payouts-body td:nth-child(5)::before { content: "Status"; }
+    #admin-payouts-body td:nth-child(6)::before { content: "Action"; }
+    
+    #clients-tbody td:nth-child(1)::before { content: "Name"; }
+    #clients-tbody td:nth-child(2)::before { content: "Email"; }
+    #clients-tbody td:nth-child(3)::before { content: "Monthly Amount"; }
+    #clients-tbody td:nth-child(4)::before { content: "Description"; }
+    #clients-tbody td:nth-child(5)::before { content: "Actions"; }
+    
+    #agents-tbody td:nth-child(1)::before { content: "Name"; }
+    #agents-tbody td:nth-child(2)::before { content: "User ID"; }
+    #agents-tbody td:nth-child(3)::before { content: "Password"; }
+    #agents-tbody td:nth-child(4)::before { content: "UPI ID"; }
+    #agents-tbody td:nth-child(5)::before { content: "Actions"; }
+    
+    .links-column {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0.5rem;
+    }
 }
 
 /* Phone Mockup Frame */
