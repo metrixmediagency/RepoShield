@@ -938,6 +938,61 @@
                 print-color-adjust: exact !important;
             }
         }
+
+        /* ----------------------------------------------------
+           Mobile View Responsive Design Language
+           ---------------------------------------------------- */
+        @media (max-width: 768px) {
+            header.no-print {
+                flex-direction: column;
+                gap: 1.25rem;
+                padding: 1.25rem 1rem;
+                text-align: center;
+            }
+            .logo-area {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            .tabs-wrapper {
+                flex-direction: column;
+                border-radius: 16px;
+                padding: 0.5rem;
+                background: rgba(15, 23, 42, 0.95);
+            }
+            .tab-btn {
+                border-radius: 12px;
+                padding: 1rem;
+            }
+            .cycle-selector-wrapper {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 0.5rem;
+                border-radius: 16px;
+                padding: 0.5rem;
+                background: rgba(15, 23, 42, 0.95);
+            }
+            .cycle-btn {
+                border-radius: 10px;
+                padding: 0.75rem 0.5rem;
+                font-size: 0.85rem;
+            }
+            .sheets-container {
+                padding: 0 1rem;
+            }
+            .price-hero-card {
+                padding: 1.5rem;
+            }
+            .rate-value {
+                font-size: 2.25rem;
+            }
+            .ecom-table-container {
+                border-radius: 12px;
+            }
+            .sales-tips-banner {
+                margin: 2rem 1rem;
+                padding: 1.25rem;
+            }
+        }
     </style>
 </head>
 <body>
