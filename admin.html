@@ -236,6 +236,9 @@
                             <button type="submit" class="btn btn-primary" id="btn-generate">
                                 <i class="fa-solid fa-wand-magic-sparkles"></i> Build Campaign Assets
                             </button>
+                            <button type="button" class="btn btn-secondary" id="btn-mob-preview" style="display: none; margin-top: 1rem; width: 100%;">
+                                <i class="fa-solid fa-eye"></i> Preview Mockups
+                            </button>
                         </form>
                     </div>
 
@@ -650,6 +653,19 @@ MetrixMedia Digital</pre>
     <div id="toast" class="toast">
         <i class="fa-solid fa-circle-check"></i>
         <span id="toast-message">Campaign Generated Successfully!</span>
+    </div>
+
+    <!-- Mobile-only Simulator Full-Screen Overlay Modal -->
+    <div id="sim-overlay-modal">
+        <div class="sim-overlay-header">
+            <h3><i class="fa-solid fa-laptop-code" style="color: #0ea5e9; margin-right: 0.5rem;"></i> Portal Preview</h3>
+            <button type="button" class="sim-overlay-close" id="btn-sim-overlay-close">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <div class="sim-overlay-body" id="sim-overlay-body">
+            <!-- Simulator elements will be moved here on mobile -->
+        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>

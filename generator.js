@@ -171,6 +171,64 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ----------------------------------------------------
+    // Mobile Simulator Modal Logic (admin.html)
+    // ----------------------------------------------------
+    const btnMobPreview = document.getElementById('btn-mob-preview');
+    const simOverlayModal = document.getElementById('sim-overlay-modal');
+    const simOverlayClose = document.getElementById('btn-sim-overlay-close');
+    const simOverlayBody = document.getElementById('sim-overlay-body');
+    const originalPreviewColumn = document.querySelector('.preview-column');
+    const previewToggles = document.querySelector('.preview-toggles');
+    const mobBreakpoint = window.matchMedia('(max-width: 768px)');
+
+    function toggleMobilePreviewBtn(isMobile) {
+        if (!btnMobPreview) return;
+        if (isMobile) {
+            btnMobPreview.style.display = 'block';
+            if (originalPreviewColumn) originalPreviewColumn.style.display = 'none';
+        } else {
+            btnMobPreview.style.display = 'none';
+            if (originalPreviewColumn) originalPreviewColumn.style.display = 'flex';
+            // If modal is open, close it and return elements
+            if (simOverlayModal && simOverlayModal.classList.contains('open')) {
+                closeSimModal();
+            }
+        }
+    }
+
+    if (btnMobPreview) {
+        toggleMobilePreviewBtn(mobBreakpoint.matches);
+        mobBreakpoint.addEventListener('change', (e) => toggleMobilePreviewBtn(e.matches));
+    }
+
+    function openSimModal() {
+        if (!simOverlayModal || !simOverlayBody || !originalPreviewColumn) return;
+        
+        // Move toggles and wrappers into modal body
+        if (previewToggles) simOverlayBody.appendChild(previewToggles);
+        if (previewMobileWrapper) simOverlayBody.appendChild(previewMobileWrapper);
+        if (previewFlyerWrapper) simOverlayBody.appendChild(previewFlyerWrapper);
+        
+        simOverlayModal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeSimModal() {
+        if (!simOverlayModal || !originalPreviewColumn) return;
+        
+        simOverlayModal.classList.remove('open');
+        document.body.style.overflow = '';
+        
+        // Move elements back
+        if (previewToggles) originalPreviewColumn.appendChild(previewToggles);
+        if (previewMobileWrapper) originalPreviewColumn.appendChild(previewMobileWrapper);
+        if (previewFlyerWrapper) originalPreviewColumn.appendChild(previewFlyerWrapper);
+    }
+
+    if (btnMobPreview) btnMobPreview.addEventListener('click', openSimModal);
+    if (simOverlayClose) simOverlayClose.addEventListener('click', closeSimModal);
+
+    // ----------------------------------------------------
     // Real-Time Simulator Input Syncing & Segment Handling
     // ----------------------------------------------------
     const bizNameInput = document.getElementById('biz-name');

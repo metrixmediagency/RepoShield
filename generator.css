@@ -2001,6 +2001,67 @@ code {
         align-items: center;
         gap: 1.5rem;
     }
+
+    #sim-overlay-modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 2000;
+        background: rgba(5, 8, 18, 0.96);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        overflow-y: auto;
+        padding: 1rem;
+        padding-bottom: 2rem;
+    }
+    #sim-overlay-modal.open {
+        display: flex;
+        animation: fadeIn 0.3s ease;
+    }
+    .sim-overlay-header {
+        width: 100%;
+        max-width: 480px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.75rem 0;
+        margin-bottom: 1rem;
+    }
+    .sim-overlay-header h3 {
+        font-family: 'Outfit', sans-serif;
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: white;
+        margin: 0;
+    }
+    .sim-overlay-close {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: 1px solid rgba(255,255,255,0.12);
+        background: rgba(255,255,255,0.04);
+        color: #94a3b8;
+        font-size: 1rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+    .sim-overlay-close:hover {
+        color: white;
+        border-color: rgba(239, 68, 68, 0.4);
+    }
+    .sim-overlay-body {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
 }
 
 /* Phone Mockup Frame */
