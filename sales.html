@@ -311,7 +311,199 @@
             gap: 1.5rem;
         }
 
+        /* New desktop grids to fill empty space */
+        .onboard-grid, .earnings-grid, .pipeline-grid {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+        
+        .sim-container {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+        
+        /* Simulated Phone frame */
+        .sim-phone {
+            width: 220px;
+            height: 420px;
+            background: #000;
+            border: 6px solid #1e293b;
+            border-radius: 36px;
+            position: relative;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .phone-notch {
+            width: 90px;
+            height: 14px;
+            background: #1e293b;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            z-index: 20;
+        }
+        .phone-screen {
+            flex: 1;
+            background: #0f172a;
+            display: flex;
+            flex-direction: column;
+            font-size: 0.75rem;
+            color: white;
+            padding-top: 15px; /* space for notch */
+        }
+        .phone-header {
+            padding: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            font-weight: 700;
+            font-size: 0.7rem;
+            transition: border-color 0.3s ease;
+        }
+        .phone-body {
+            flex: 1;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .sim-rating-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 0.85rem;
+            text-align: center;
+            width: 100%;
+            margin-top: 1.5rem;
+        }
+        .sim-rating-box h4 {
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+        .sim-stars {
+            display: flex;
+            gap: 0.25rem;
+            justify-content: center;
+            color: #fbbf24;
+            font-size: 0.85rem;
+        }
+        .sim-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            font-weight: 700;
+            width: 100%;
+            font-size: 0.7rem;
+            cursor: default;
+            transition: all 0.3s ease;
+        }
+        
+        /* Simulated Standee Flyer */
+        .sim-standee {
+            width: 160px;
+            height: 260px;
+            background: #1e293b;
+            padding: 5px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .standee-card {
+            background: white;
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            color: #0f172a;
+            overflow: hidden;
+        }
+        .standee-header {
+            background: var(--primary);
+            color: white;
+            padding: 0.4rem;
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.25rem;
+            text-transform: uppercase;
+            transition: background 0.3s ease;
+        }
+        .standee-body {
+            flex: 1;
+            padding: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            text-align: center;
+        }
+        .standee-body p {
+            font-size: 0.7rem;
+            font-weight: 800;
+            margin-top: 0.25rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 140px;
+        }
+        .sim-qr-box {
+            width: 80px;
+            height: 80px;
+            border: 2px dashed #cbd5e1;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #64748b;
+        }
+        
+        /* Rewards & Milestones tags */
+        .reward-tag {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: var(--accent-emerald);
+            padding: 0.25rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .reward-tag.pending {
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+        }
+
         @media (max-width: 768px) {
+            .onboard-grid, .earnings-grid, .pipeline-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .sim-container {
+                margin-top: 0.5rem;
+            }
             .sales-layout {
                 flex-direction: column;
             }
@@ -547,6 +739,27 @@
                 padding: 0.35rem 0.7rem;
                 font-size: 0.75rem;
             }
+            
+            @media (max-width: 480px) {
+                .agent-badge span {
+                    display: none !important;
+                }
+                .agent-badge {
+                    padding: 0.4rem !important;
+                    border-radius: 50% !important;
+                    width: 32px;
+                    height: 32px;
+                    display: inline-flex !important;
+                    justify-content: center;
+                    align-items: center;
+                }
+                .login-card {
+                    padding: 2rem 1.5rem !important;
+                }
+                .sales-sidebar .nav-item span {
+                    font-size: 0.6rem !important;
+                }
+            }
         }
     </style>
 </head>
@@ -654,27 +867,59 @@
                         </div>
                     </div>
 
-                    <div class="glass-card">
-                        <h3 style="margin-bottom: 1rem; color: white;">Payout History</h3>
-                        <div class="table-container">
-                            <table class="campaigns-table">
-                                <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Amount</th>
-                                        <th>Method</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="payout-history-body">
-                                    <tr>
-                                        <td colspan="4" class="empty-state">
-                                            <i class="fa-solid fa-receipt"></i>
-                                            <p>No payout payouts cleared yet.</p>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div class="earnings-grid">
+                        <div class="glass-card">
+                            <h3 style="margin-bottom: 1rem; color: white;">Payout History</h3>
+                            <div class="table-container">
+                                <table class="campaigns-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Amount</th>
+                                            <th>Method</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="payout-history-body">
+                                        <tr>
+                                            <td colspan="4" class="empty-state">
+                                                <i class="fa-solid fa-receipt"></i>
+                                                <p>No payout payouts cleared yet.</p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="glass-card">
+                            <div class="card-header" style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                                <i class="fa-solid fa-trophy text-emerald" style="font-size: 1.5rem;"></i>
+                                <h3 style="color: white; margin: 0;">Partner Rewards &amp; Milestones</h3>
+                            </div>
+                            <div style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem;">
+                                <div class="reward-milestone">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                        <h4 style="color: white; font-size: 0.95rem; margin: 0;">Standard Payout</h4>
+                                        <span class="reward-tag">₹1,000 / closed deal</span>
+                                    </div>
+                                    <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin: 0;">Earn flat ₹1,000 setup commission for every client you onboard that closes payment.</p>
+                                </div>
+                                <div class="reward-milestone" style="border-top: 1px solid var(--border-color); padding-top: 1.25rem;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                        <h4 style="color: white; font-size: 0.95rem; margin: 0;">Bronze Milestone</h4>
+                                        <span class="reward-tag pending">5 Active Clients</span>
+                                    </div>
+                                    <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin: 0;">Close 5 active campaigns to unlock a bonus of ₹2,500 + official marketing support assets.</p>
+                                </div>
+                                <div class="reward-milestone" style="border-top: 1px solid var(--border-color); padding-top: 1.25rem;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                        <h4 style="color: white; font-size: 0.95rem; margin: 0;">Silver Milestone</h4>
+                                        <span class="reward-tag pending">10 Active Clients</span>
+                                    </div>
+                                    <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin: 0;">Close 10 active campaigns to unlock a bonus of ₹5,000 + agency email account.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -682,99 +927,178 @@
                 <!-- Section 2: Onboard Client Form -->
                 <section id="sec-onboard" class="sales-section-content" style="display: none;">
                     <h2 style="margin-bottom: 1.5rem; color: white;">Onboard a New Client</h2>
-                    <div class="glass-card" style="max-width: 700px;">
-                        <form id="onboard-client-form">
-                            <div class="input-row">
-                                <div class="input-group">
-                                    <label>Business Name</label>
-                                    <input type="text" id="onboard-biz-name" placeholder="e.g. Bandra Crust Café" required>
+                    <div class="onboard-grid">
+                        <!-- Left Column: Form -->
+                        <div class="glass-card">
+                            <form id="onboard-client-form">
+                                <div class="input-row">
+                                    <div class="input-group">
+                                        <label>Business Name</label>
+                                        <input type="text" id="onboard-biz-name" placeholder="e.g. Bandra Crust Café" required>
+                                    </div>
+                                    <div class="input-group">
+                                        <label>Business Category</label>
+                                        <select id="onboard-biz-category">
+                                            <option value="cafe">Café / Coffee Shop</option>
+                                            <option value="bakery">Bakery</option>
+                                            <option value="dental">Dental Clinic</option>
+                                            <option value="salon">Salon / Spa</option>
+                                            <option value="gym">Gym / Fitness Center</option>
+                                            <option value="other" selected>Other Storefront</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="input-group">
-                                    <label>Business Category</label>
-                                    <select id="onboard-biz-category">
-                                        <option value="cafe">Café / Coffee Shop</option>
-                                        <option value="bakery">Bakery</option>
-                                        <option value="dental">Dental Clinic</option>
-                                        <option value="salon">Salon / Spa</option>
-                                        <option value="gym">Gym / Fitness Center</option>
-                                        <option value="other" selected>Other Storefront</option>
+                                <div class="input-row" style="margin-top: 1.25rem;">
+                                    <div class="input-group">
+                                        <label>Client Email Address</label>
+                                        <input type="email" id="onboard-biz-email" placeholder="owner@business.com" required>
+                                    </div>
+                                    <div class="input-group">
+                                        <label>Brand Accent Color</label>
+                                        <div style="display: flex; gap: 0.5rem; align-items: center;">
+                                            <input type="color" id="onboard-biz-color" value="#3b82f6" style="padding:0; width:50px; height:45px; border-radius:8px; border:none; cursor:pointer;">
+                                            <span style="font-size: 0.9rem; color: var(--text-muted);">Matches their logo/theme</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="input-group" style="margin-top: 1.25rem;">
+                                    <label>Target Google Maps / Review URL</label>
+                                    <input type="url" id="onboard-biz-url" placeholder="https://g.page/r/..." required>
+                                </div>
+                                <div class="input-group" style="margin-top: 1.25rem;">
+                                    <label>Service Tier</label>
+                                    <select id="onboard-biz-plan" required>
+                                        <option value="gmb">Local GMB Booster</option>
+                                        <option value="delivery">Food Delivery Gater</option>
+                                        <option value="ecom_basic">D2C E-Com Basic (1 Product)</option>
+                                        <option value="ecom_starter">D2C E-Com Starter (3 Products)</option>
+                                        <option value="ecom_growth">D2C E-Com Growth (5 Products)</option>
+                                        <option value="ecom_enterprise">D2C E-Com Enterprise (15 Products)</option>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="input-row" style="margin-top: 1.25rem;">
-                                <div class="input-group">
-                                    <label>Client Email Address</label>
-                                    <input type="email" id="onboard-biz-email" placeholder="owner@business.com" required>
+                                <div class="input-group" style="margin-top: 1.25rem;">
+                                    <label>Billing Cycle</label>
+                                    <select id="onboard-billing-cycle" required>
+                                        <option value="monthly">Monthly</option>
+                                        <option value="quarterly">Quarterly</option>
+                                        <option value="half-yearly">Half-Yearly</option>
+                                        <option value="annual">Annual</option>
+                                    </select>
                                 </div>
-                                <div class="input-group">
-                                    <label>Brand Accent Color</label>
-                                    <div style="display: flex; gap: 0.5rem; align-items: center;">
-                                        <input type="color" id="onboard-biz-color" value="#3b82f6" style="padding:0; width:50px; height:45px; border-radius:8px; border:none; cursor:pointer;">
-                                        <span style="font-size: 0.9rem; color: var(--text-muted);">Matches their logo/theme</span>
+
+                                <div style="display: flex; gap: 1rem; margin-top: 2.5rem; flex-wrap: wrap;">
+                                    <button type="button" class="btn btn-secondary" id="btn-generate-demo" style="flex: 1; justify-content: center;">
+                                        <i class="fa-solid fa-mobile-screen-button"></i> Generate Live Demo
+                                    </button>
+                                    <button type="submit" class="btn btn-primary" style="flex: 1; justify-content: center;">
+                                        <i class="fa-solid fa-credit-card"></i> Launch & Request Payment
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <!-- Right Column: Portal Live Simulator -->
+                        <div class="glass-card">
+                            <div class="card-header" style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                                <i class="fa-solid fa-laptop-code text-primary" style="font-size: 1.5rem;"></i>
+                                <h3 style="color: white; margin: 0;">Portal Live Simulator</h3>
+                            </div>
+                            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem; margin-top: 0;">See how your client's brand portal and counter flyer standee will look in real-time as you enter the details.</p>
+                            
+                            <div class="sim-container">
+                                <!-- Phone Frame -->
+                                <div class="sim-phone">
+                                    <div class="phone-notch"></div>
+                                    <div class="phone-screen">
+                                        <div class="phone-header" id="sim-portal-header" style="border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: #3b82f6;">
+                                            <i class="fa-solid fa-shield-halved" style="color: #3b82f6; font-size: 0.9rem;"></i>
+                                            <span id="sim-portal-name" style="font-weight: 700; color: white;">Brand Name</span>
+                                        </div>
+                                        <div class="phone-body">
+                                            <div class="sim-rating-box">
+                                                <h4>Rate your experience</h4>
+                                                <div class="sim-stars">
+                                                    <i class="fa-solid fa-star"></i>
+                                                    <i class="fa-solid fa-star"></i>
+                                                    <i class="fa-solid fa-star"></i>
+                                                    <i class="fa-solid fa-star"></i>
+                                                    <i class="fa-solid fa-star"></i>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="sim-btn" id="sim-portal-btn" style="background: #3b82f6; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);">Submit Feedback</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Standee Flyer Preview -->
+                                <div class="sim-standee">
+                                    <div class="standee-card">
+                                        <div class="standee-header" id="sim-flyer-header" style="background: #3b82f6;">
+                                            <i class="fa-solid fa-star"></i> Review Us
+                                        </div>
+                                        <div class="standee-body">
+                                            <p id="sim-flyer-name" style="margin: 0; font-weight: 800; color: #0f172a; text-transform: uppercase;">Brand Name</p>
+                                            <div class="sim-qr-box">
+                                                <i class="fa-solid fa-qrcode"></i>
+                                            </div>
+                                            <span style="font-size: 0.6rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; margin-bottom: 0.25rem;">Scan to Rate</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="input-group" style="margin-top: 1.25rem;">
-                                <label>Target Google Maps / Review URL</label>
-                                <input type="url" id="onboard-biz-url" placeholder="https://g.page/r/..." required>
-                            </div>
-                            <div class="input-group" style="margin-top: 1.25rem;">
-                                <label>Service Tier</label>
-                                <select id="onboard-biz-plan" required>
-                                    <option value="gmb">Local GMB Booster</option>
-                                    <option value="delivery">Food Delivery Gater</option>
-                                    <option value="ecom_basic">D2C E-Com Basic (1 Product)</option>
-                                    <option value="ecom_starter">D2C E-Com Starter (3 Products)</option>
-                                    <option value="ecom_growth">D2C E-Com Growth (5 Products)</option>
-                                    <option value="ecom_enterprise">D2C E-Com Enterprise (15 Products)</option>
-                                </select>
-                            </div>
-                            <div class="input-group" style="margin-top: 1.25rem;">
-                                <label>Billing Cycle</label>
-                                <select id="onboard-billing-cycle" required>
-                                    <option value="monthly">Monthly</option>
-                                    <option value="quarterly">Quarterly</option>
-                                    <option value="half-yearly">Half-Yearly</option>
-                                    <option value="annual">Annual</option>
-                                </select>
-                            </div>
-
-                            <div style="display: flex; gap: 1rem; margin-top: 2.5rem; flex-wrap: wrap;">
-                                <button type="button" class="btn btn-secondary" id="btn-generate-demo" style="flex: 1; justify-content: center;">
-                                    <i class="fa-solid fa-mobile-screen-button"></i> Generate Live Demo
-                                </button>
-                                <button type="submit" class="btn btn-primary" style="flex: 1; justify-content: center;">
-                                    <i class="fa-solid fa-credit-card"></i> Launch & Request Payment
-                                </button>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </section>
 
                 <!-- Section 3: My Pipeline -->
                 <section id="sec-pipeline" class="sales-section-content" style="display: none;">
                     <h2 style="margin-bottom: 1.5rem; color: white;">My Referrals Pipeline</h2>
-                    <div class="glass-card">
-                        <div class="table-container">
-                            <table class="campaigns-table">
-                                <thead>
-                                    <tr>
-                                        <th>Business Name</th>
-                                        <th>Billing Plan</th>
-                                        <th>Target Link</th>
-                                        <th>Payment Link</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="pipeline-list-body">
-                                    <tr>
-                                        <td colspan="5" class="empty-state">
-                                            <i class="fa-solid fa-folder-open"></i>
-                                            <p>No referrals in your pipeline yet. Start onboarding above!</p>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div class="pipeline-grid">
+                        <div class="glass-card">
+                            <div class="table-container">
+                                <table class="campaigns-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Business Name</th>
+                                            <th>Billing Plan</th>
+                                            <th>Target Link</th>
+                                            <th>Payment Link</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="pipeline-list-body">
+                                        <tr>
+                                            <td colspan="5" class="empty-state">
+                                                <i class="fa-solid fa-folder-open"></i>
+                                                <p>No referrals in your pipeline yet. Start onboarding above!</p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="glass-card">
+                            <div class="card-header" style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                                <i class="fa-solid fa-circle-info text-primary" style="font-size: 1.5rem;"></i>
+                                <h3 style="color: white; margin: 0;">Pipeline Management</h3>
+                            </div>
+                            <div style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem;">
+                                <div>
+                                    <h4 style="color: white; font-size: 0.95rem; margin: 0 0 0.5rem;">Tracking Statuses</h4>
+                                    <ul style="color: var(--text-muted); font-size: 0.85rem; padding-left: 1.2rem; line-height: 1.6; display: flex; flex-direction: column; gap: 0.5rem; margin: 0;">
+                                        <li><strong style="color: #34d399;">Paid:</strong> Payment successfully closed by admin. Your commission is ready or paid out.</li>
+                                        <li><strong style="color: #ef4444;">Unpaid:</strong> Onboarding portal generated but payment request is still pending.</li>
+                                    </ul>
+                                </div>
+                                <div style="border-top: 1px solid var(--border-color); padding-top: 1.25rem;">
+                                    <h4 style="color: white; font-size: 0.95rem; margin: 0 0 0.5rem;">Outreach Quick Actions</h4>
+                                    <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin: 0 0 1rem;">Share your custom agency flyers with prospects to demonstrate GMB gating instantly.</p>
+                                    <a href="pricing.html" target="_blank" class="btn btn-secondary btn-sm" style="display: inline-flex; width: 100%; justify-content: center; gap: 0.5rem; text-decoration: none;">
+                                        <i class="fa-solid fa-eye"></i> View pricing tables
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -2191,6 +2515,37 @@ Interested in setting this up to see if it works?</span>
                     if (tabId === 'earnings') renderEarnings();
                 }
             });
+
+            // Live Simulator Real-time Onboarding Preview Updates
+            const simName = document.getElementById('sim-portal-name');
+            const simFlyerName = document.getElementById('sim-flyer-name');
+            const simHeader = document.getElementById('sim-portal-header');
+            const simFlyerHeader = document.getElementById('sim-flyer-header');
+            const simBtn = document.getElementById('sim-portal-btn');
+            
+            const inputBizName = document.getElementById('onboard-biz-name');
+            const inputBizColor = document.getElementById('onboard-biz-color');
+            
+            function updateSimulator() {
+                if (!simName || !simFlyerName || !simHeader || !simFlyerHeader || !simBtn) return;
+                
+                const nameVal = inputBizName.value.trim() || 'Brand Name';
+                const colorVal = inputBizColor.value || '#3b82f6';
+                
+                simName.textContent = nameVal;
+                simFlyerName.textContent = nameVal;
+                
+                simHeader.style.borderColor = colorVal;
+                simFlyerHeader.style.background = colorVal;
+                simBtn.style.background = colorVal;
+                simBtn.style.boxShadow = `0 4px 12px ${colorVal}4d`;
+            }
+            
+            if (inputBizName && inputBizColor) {
+                inputBizName.addEventListener('input', updateSimulator);
+                inputBizColor.addEventListener('input', updateSimulator);
+                updateSimulator(); // Initial run
+            }
         });
 
         // Copy utility for scripts & links
