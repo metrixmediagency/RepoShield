@@ -315,97 +315,231 @@
             .sales-layout {
                 flex-direction: column;
             }
+            
+            /* Bottom Navigation Bar style */
             .sales-sidebar {
-                width: 100%;
-                flex-direction: row;
-                overflow-x: auto;
-                padding: 1rem;
-                white-space: nowrap;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 100% !important;
+                height: 65px;
+                background: rgba(10, 12, 26, 0.96);
+                border-top: 1px solid var(--border-color);
                 border-right: none;
-                border-bottom: 1px solid var(--border-color);
-                -webkit-overflow-scrolling: touch;
-                scrollbar-width: none;
-                -ms-overflow-style: none;
+                border-bottom: none;
+                padding: 0 !important;
+                margin: 0;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: center;
+                z-index: 1000;
+                box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.5);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
             }
-            .sales-sidebar::-webkit-scrollbar {
-                display: none;
+            
+            .sales-sidebar .sidebar-header {
+                display: none !important;
             }
+            
             .sales-sidebar .nav-item {
-                flex: 0 0 auto;
-                padding: 0.75rem 1rem;
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 4px;
+                padding: 0.5rem 0;
+                font-size: 0.68rem;
+                font-weight: 500;
+                color: var(--text-muted);
+                border-radius: 0;
+                border: none !important;
+                background: none !important;
+                transform: none !important;
+                transition: color 0.2s ease;
             }
+            
+            .sales-sidebar .nav-item i {
+                font-size: 1.25rem;
+                margin: 0;
+            }
+            
+            .sales-sidebar .nav-item:hover {
+                color: white;
+                background: none !important;
+                transform: none !important;
+            }
+            
+            .sales-sidebar .nav-item.active {
+                color: var(--primary) !important;
+                background: none !important;
+                box-shadow: none !important;
+            }
+            
             .sales-main {
-                padding: 1rem;
+                padding: 1.25rem 1rem;
+                padding-bottom: 85px !important; /* Make room for bottom bar */
                 min-width: 0;
                 width: 100%;
                 overflow-x: hidden;
             }
+            
             .sales-header {
                 padding: 0.85rem 1.25rem;
                 flex-direction: row;
                 justify-content: space-between;
                 align-items: center;
                 gap: 0.5rem;
-                height: 70px;
+                height: 65px;
+                position: sticky;
+                top: 0;
+                background: rgba(15, 23, 42, 0.9);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                z-index: 999;
             }
+            
             .sales-header .brand-text span {
                 display: none;
             }
+            
             .agent-badge {
                 padding: 0.4rem 0.8rem;
                 font-size: 0.8rem;
             }
+            
             .glass-card {
                 max-width: 100% !important;
                 overflow: hidden;
+                padding: 1.5rem 1.25rem !important;
             }
+            
             .stat-card {
-                padding: 1.25rem;
-                gap: 1rem;
+                padding: 1.25rem !important;
+                gap: 1rem !important;
             }
+            
             .stats-grid {
                 grid-template-columns: 1fr;
+                gap: 1rem;
+                margin-bottom: 1.75rem;
             }
+            
             .input-row {
                 grid-template-columns: 1fr;
                 gap: 1.25rem;
             }
+            
+            /* Responsive Tables to Cards */
             .table-container {
-                overflow-x: auto;
-                width: 100%;
-                -webkit-overflow-scrolling: touch;
+                border: none !important;
+                background: none !important;
+                padding: 0 !important;
+                margin-top: 0.5rem !important;
+                overflow-x: visible !important;
             }
+            
             .campaigns-table {
-                min-width: 600px;
+                min-width: 100% !important;
+                border-collapse: separate;
+                border-spacing: 0 1rem;
+                background: none !important;
             }
-            .campaigns-table th, .campaigns-table td {
-                padding: 0.75rem;
-                font-size: 0.85rem;
+            
+            .campaigns-table thead {
+                display: none !important;
             }
+            
+            .campaigns-table tbody {
+                display: block;
+                width: 100%;
+            }
+            
+            .campaigns-table tr {
+                display: block;
+                width: 100%;
+                background: rgba(15, 23, 42, 0.45) !important;
+                border: 1px solid var(--border-color) !important;
+                border-radius: 18px;
+                padding: 1.25rem !important;
+                margin-bottom: 1rem;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            }
+            
+            .campaigns-table td {
+                display: flex !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                border: none !important;
+                padding: 0.6rem 0 !important;
+                text-align: right !important;
+                font-size: 0.88rem !important;
+                width: 100% !important;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
+            }
+            
+            .campaigns-table td:last-child {
+                border-bottom: none !important;
+                margin-top: 0.4rem;
+                padding-top: 0.8rem !important;
+            }
+            
+            .campaigns-table td::before {
+                content: attr(data-label);
+                font-weight: 600;
+                color: var(--text-muted);
+                text-align: left;
+                float: left;
+            }
+            
+            .campaigns-table td.empty-state {
+                display: block !important;
+                text-align: center !important;
+                padding: 2.5rem 1rem !important;
+                border: none !important;
+            }
+            
+            .campaigns-table td.empty-state::before {
+                display: none !important;
+            }
+            
+            .campaigns-table td.empty-state p {
+                margin-top: 0.5rem;
+            }
+            
             .rzp-modal-content {
                 padding: 1.5rem;
                 margin: 1rem;
             }
+            
             .rzp-amount {
                 font-size: 1.5rem;
             }
+            
             .preview-flex {
                 flex-direction: column;
             }
+            
             .sales-kit-tab-btn {
                 padding: 0.5rem 0.85rem;
                 font-size: 0.85rem;
             }
+            
             .script-box {
                 padding: 1.25rem 1rem;
                 padding-top: 3.75rem;
             }
+            
             .copy-btn {
                 top: 0.85rem;
                 right: 0.85rem;
                 padding: 0.35rem 0.7rem;
                 font-size: 0.75rem;
             }
+            
             .download-btn {
                 top: 0.85rem;
                 right: auto;
@@ -1981,11 +2115,11 @@ Interested in setting this up to see if it works?</span>
 
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
-                        <td><strong>${campaign.name}</strong></td>
-                        <td>${planTitle}</td>
-                        <td><a href="${finalPortalUrl}" target="_blank" class="btn btn-secondary btn-sm" style="display:inline-flex;"><i class="fa-solid fa-up-right-from-square"></i> Portal</a></td>
-                        <td>₹${campaign.setupFee + campaign.recurringFee}</td>
-                        <td>${statusBadge}</td>
+                        <td data-label="Business Name"><strong>${campaign.name}</strong></td>
+                        <td data-label="Billing Plan">${planTitle}</td>
+                        <td data-label="Target Link"><a href="${finalPortalUrl}" target="_blank" class="btn btn-secondary btn-sm" style="display:inline-flex;"><i class="fa-solid fa-up-right-from-square"></i> Portal</a></td>
+                        <td data-label="Total Revenue">₹${campaign.setupFee + campaign.recurringFee}</td>
+                        <td data-label="Status">${statusBadge}</td>
                     `;
                     tbody.appendChild(tr);
                 });
@@ -2029,10 +2163,10 @@ Interested in setting this up to see if it works?</span>
                 paidCampaigns.forEach(campaign => {
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
-                        <td>${campaign.createdAt || 'N/A'}</td>
-                        <td><strong>₹1,000</strong></td>
-                        <td>UPI (${currentAgent.upi || 'GPay'})</td>
-                        <td><span class="badge" style="background: rgba(52, 211, 153, 0.2); border: 1px solid rgba(52, 211, 153, 0.5); color: #34d399;"><i class="fa-solid fa-check-double"></i> Paid</span></td>
+                        <td data-label="Date">${campaign.createdAt || 'N/A'}</td>
+                        <td data-label="Amount"><strong>₹1,000</strong></td>
+                        <td data-label="Payout Method">UPI (${currentAgent.upi || 'GPay'})</td>
+                        <td data-label="Status"><span class="badge" style="background: rgba(52, 211, 153, 0.2); border: 1px solid rgba(52, 211, 153, 0.5); color: #34d399;"><i class="fa-solid fa-check-double"></i> Paid</span></td>
                     `;
                     tbody.appendChild(tr);
                 });
