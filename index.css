@@ -1366,6 +1366,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media (max-width: 768px) {
+  .fx-footer {
+    padding-bottom: 90px; /* Clear space for bottom mobile sticky CTA button */
+  }
   .fx-foot {
     flex-direction: column;
     text-align: center;
