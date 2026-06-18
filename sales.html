@@ -124,6 +124,18 @@
             margin: 0 auto;
             width: 100%;
         }
+        .sales-main h2 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(to right, #ffffff, #c7d2fe);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
 
         /* Stats Cards */
         .stats-grid {
@@ -845,7 +857,7 @@
             <main class="sales-main">
                 <!-- Section 1: Earnings -->
                 <section id="sec-earnings" class="sales-section-content">
-                    <h2 style="margin-bottom: 1.5rem; color: white;">My Earnings Overview</h2>
+                    <h2 class="gradient-text" style="margin-bottom: 1.5rem;">My Earnings Overview</h2>
                     <div class="stats-grid">
                         <div class="glass-card stat-card">
                             <div class="stat-icon"><i class="fa-solid fa-circle-check"></i></div>
@@ -929,7 +941,7 @@
 
                 <!-- Section 2: Onboard Client Form -->
                 <section id="sec-onboard" class="sales-section-content" style="display: none;">
-                    <h2 style="margin-bottom: 1.5rem; color: white;">Onboard a New Client</h2>
+                    <h2 class="gradient-text" style="margin-bottom: 1.5rem;">Onboard a New Client</h2>
                     <div class="onboard-grid">
                         <!-- Left Column: Form -->
                         <div class="glass-card">
@@ -1055,7 +1067,7 @@
 
                 <!-- Section 3: My Pipeline -->
                 <section id="sec-pipeline" class="sales-section-content" style="display: none;">
-                    <h2 style="margin-bottom: 1.5rem; color: white;">My Referrals Pipeline</h2>
+                    <h2 class="gradient-text" style="margin-bottom: 1.5rem;">My Referrals Pipeline</h2>
                     <div class="pipeline-grid">
                         <div class="glass-card">
                             <div class="table-container">
@@ -1138,8 +1150,8 @@
                         }
                         .sales-kit-tab-btn.active {
                             color: white;
-                            background: rgba(59, 130, 246, 0.15);
-                            border: 1px solid rgba(59, 130, 246, 0.3);
+                            background: rgba(14, 165, 233, 0.12);
+                            border: 1px solid rgba(14, 165, 233, 0.25);
                         }
                         .sales-kit-panel {
                             display: none;
@@ -1234,7 +1246,7 @@
                         }
                     </style>
 
-                    <h2 style="margin-bottom: 1.5rem; color: white;">Sales Enablement Kit</h2>
+                    <h2 class="gradient-text" style="margin-bottom: 1.5rem;">Sales Enablement Kit</h2>
                     
                     <div class="sales-kit-tabs">
                         <button class="sales-kit-tab-btn active" data-kit-tab="pricing-deck">

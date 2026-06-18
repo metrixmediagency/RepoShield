@@ -16,16 +16,30 @@ $localIP = (Get-NetIPAddress -AddressFamily IPv4 | Where-Object {
 if (-not $localIP) { $localIP = "localhost" }
 
 $listener = New-Object System.Net.HttpListener
-$listener.Prefixes.Add("http://+:$port/")
-
 try {
+    $listener.Prefixes.Add("http://+:$port/")
     $listener.Start()
 } catch {
-    Write-Host ""
-    Write-Host "ERROR: Could not start server. Try running as Administrator." -ForegroundColor Red
-    Write-Host "Right-click START_SERVER.bat and select 'Run as Administrator'." -ForegroundColor Yellow
-    pause
-    exit
+    # Fallback to localhost and local IP binding (usually does not require Administrator rights)
+    $listener = New-Object System.Net.HttpListener
+    try {
+        $listener.Prefixes.Add("http://localhost:$port/")
+        $listener.Prefixes.Add("http://127.0.0.1:$port/")
+        if ($localIP -ne "localhost") {
+            try {
+                $listener.Prefixes.Add("http://$($localIP):$port/")
+            } catch {
+                # Ignore binding error for specific local IP if blocked
+            }
+        }
+        $listener.Start()
+    } catch {
+        Write-Host ""
+        Write-Host "ERROR: Could not start server. Try running as Administrator." -ForegroundColor Red
+        Write-Host "Right-click START_SERVER.bat and select 'Run as Administrator'." -ForegroundColor Yellow
+        pause
+        exit
+    }
 }
 
 Write-Host ""

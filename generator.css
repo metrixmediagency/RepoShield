@@ -214,11 +214,15 @@ body {
     padding-bottom: 1.5rem;
 }
 
-.header-title h2 {
+.header-title h2, .gradient-text {
     font-family: var(--font-heading);
     font-size: 1.8rem;
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: -0.5px;
+    background: linear-gradient(to right, #ffffff, #c7d2fe);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .header-title p {
@@ -286,9 +290,9 @@ body {
 }
 
 .glass-card:hover {
-    border-color: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
-    transform: translateY(-2px);
+    border-color: rgba(14, 165, 233, 0.35);
+    box-shadow: 0 12px 30px rgba(14, 165, 233, 0.12);
+    transform: translateY(-4px);
 }
 
 .glass-card::before {
@@ -298,9 +302,26 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0) 50%);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0) 100%);
     pointer-events: none;
     z-index: 1;
+}
+
+.glass-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to right, var(--accent-cyan), var(--primary));
+    opacity: 0;
+    transition: var(--transition-smooth);
+    z-index: 2;
+}
+
+.glass-card:hover::after {
+    opacity: 1;
 }
 
 .card-header {
