@@ -911,6 +911,10 @@ body {
     border: 1px solid var(--border-color);
 }
 
+.table-container table {
+    min-width: 750px;
+}
+
 .campaigns-table {
     width: 100%;
     border-collapse: collapse;
@@ -1657,6 +1661,23 @@ code {
     /* Local warning banner padding */
     .local-warning-banner {
         padding: 0.75rem 0.9rem;
+    }
+
+    /* Segment Control vertical stacking for narrow devices */
+    @media (max-width: 580px) {
+        .segment-control {
+            grid-template-columns: 1fr !important;
+        }
+    }
+
+    /* Passcode card size reduction for small devices */
+    @media (max-width: 480px) {
+        .passcode-card {
+            padding: 2rem 1.5rem !important;
+        }
+        .passcode-card h2 {
+            font-size: 1.5rem !important;
+        }
     }
 }
 

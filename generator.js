@@ -716,17 +716,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         let tableHtml = `
-            <table class="campaigns-table">
-                <thead>
-                    <tr>
-                        <th>Client Email</th>
-                        <th>Associated Name</th>
-                        <th>Active Portals</th>
-                        <th>Overall Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
+            <div class="table-container">
+                <table class="campaigns-table">
+                    <thead>
+                        <tr>
+                            <th>Client Email</th>
+                            <th>Associated Name</th>
+                            <th>Active Portals</th>
+                            <th>Overall Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
         `;
 
         Object.values(clients).forEach(client => {
@@ -749,7 +750,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
         });
 
-        tableHtml += `</tbody></table>`;
+        tableHtml += `</tbody></table></div>`;
         clientsContainer.innerHTML = tableHtml;
     }
 
@@ -802,8 +803,13 @@ function renderClientsTable() {
     });
     table.appendChild(thead);
     table.appendChild(tbody);
+    
+    const wrapper = document.createElement('div');
+    wrapper.className = 'table-container';
+    wrapper.appendChild(table);
+    
     container.innerHTML = '';
-    container.appendChild(table);
+    container.appendChild(wrapper);
 
     // Attach listeners
     container.querySelectorAll('.edit-client').forEach(btn => {
@@ -971,8 +977,13 @@ function renderAgentsTable() {
     });
     table.appendChild(thead);
     table.appendChild(tbody);
+    
+    const wrapper = document.createElement('div');
+    wrapper.className = 'table-container';
+    wrapper.appendChild(table);
+    
     container.innerHTML = '';
-    container.appendChild(table);
+    container.appendChild(wrapper);
 
     // Attach listeners
     container.querySelectorAll('.edit-agent').forEach(btn => {
