@@ -1270,76 +1270,135 @@
                 flex-direction: column;
             }
 
-            /* Bottom Navigation Overlay Bar */
+            /* Hide original sidebar on mobile — replaced by FAB menu */
             .sales-sidebar {
+                display: none !important;
+            }
+
+            /* ---- Floating Action Button (FAB) Nav ---- */
+            .mob-fab {
+                position: fixed;
+                bottom: 24px;
+                right: 20px;
+                z-index: 1200;
+                width: 56px;
+                height: 56px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, #0ea5e9, #3b82f6);
+                border: none;
+                color: white;
+                font-size: 1.3rem;
+                cursor: pointer;
+                box-shadow: 0 8px 24px rgba(14, 165, 233, 0.45), 0 0 0 0 rgba(14, 165, 233, 0.3);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+                animation: fabPulse 2.5s infinite;
+            }
+            .mob-fab:active {
+                transform: scale(0.92);
+            }
+            .mob-fab.open {
+                transform: rotate(45deg);
+                background: linear-gradient(135deg, #ef4444, #dc2626);
+                box-shadow: 0 8px 24px rgba(239, 68, 68, 0.4);
+                animation: none;
+            }
+            @keyframes fabPulse {
+                0%, 100% { box-shadow: 0 8px 24px rgba(14, 165, 233, 0.45), 0 0 0 0 rgba(14, 165, 233, 0.3); }
+                50% { box-shadow: 0 8px 30px rgba(14, 165, 233, 0.55), 0 0 0 10px rgba(14, 165, 233, 0); }
+            }
+
+            /* ---- FAB Nav Sheet ---- */
+            .mob-nav-sheet {
                 position: fixed;
                 bottom: 0;
                 left: 0;
                 right: 0;
-                width: 100% !important;
-                height: 65px;
-                background: rgba(9, 13, 22, 0.98);
+                z-index: 1100;
+                background: rgba(9, 13, 22, 0.97);
                 border-top: 1.5px solid rgba(14, 165, 233, 0.2);
-                border-right: none;
-                border-bottom: none;
-                padding: 0 !important;
-                margin: 0;
-                display: flex;
-                flex-direction: row;
-                justify-content: space-around;
-                align-items: center;
-                z-index: 1000;
-                box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.6);
-                backdrop-filter: blur(25px);
-                -webkit-backdrop-filter: blur(25px);
+                border-radius: 20px 20px 0 0;
+                padding: 1rem 1.25rem 2rem;
+                box-shadow: 0 -16px 48px rgba(0, 0, 0, 0.7);
+                backdrop-filter: blur(30px);
+                -webkit-backdrop-filter: blur(30px);
+                transform: translateY(110%);
+                transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1);
             }
-
-            .sales-sidebar .sidebar-header {
-                display: none !important;
+            .mob-nav-sheet.open {
+                transform: translateY(0);
             }
-
-            .sales-sidebar .nav-item {
-                flex: 1;
+            .mob-nav-sheet-handle {
+                width: 36px;
+                height: 4px;
+                background: rgba(255,255,255,0.15);
+                border-radius: 2px;
+                margin: 0 auto 1.25rem;
+            }
+            .mob-nav-sheet-title {
+                font-size: 0.7rem;
+                font-weight: 700;
+                color: #475569;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                margin-bottom: 0.85rem;
+                text-align: center;
+            }
+            .mob-nav-items {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 0.75rem;
+            }
+            .mob-nav-btn {
                 display: flex;
-                flex-direction: column;
                 align-items: center;
-                justify-content: center;
-                gap: 4px;
-                padding: 0.5rem 0;
-                font-size: 0.68rem;
-                font-weight: 500;
+                gap: 0.85rem;
+                padding: 1rem 1.1rem;
+                background: rgba(255,255,255,0.03);
+                border: 1px solid rgba(255,255,255,0.07);
+                border-radius: 14px;
                 color: #94a3b8;
-                border-radius: 0;
-                border: none !important;
-                background: none !important;
-                transform: none !important;
-                transition: color 0.2s ease;
+                font-size: 0.9rem;
+                font-weight: 600;
+                cursor: pointer;
+                text-decoration: none;
+                transition: all 0.25s ease;
+                font-family: var(--font-body);
             }
-
-            .sales-sidebar .nav-item::before {
-                display: none !important;
+            .mob-nav-btn i {
+                font-size: 1.1rem;
+                width: 22px;
+                text-align: center;
+                flex-shrink: 0;
             }
-
-            .sales-sidebar .nav-item i {
-                font-size: 1.25rem;
-                margin: 0;
-            }
-
-            .sales-sidebar .nav-item:hover {
+            .mob-nav-btn:hover {
+                background: rgba(14, 165, 233, 0.07);
+                border-color: rgba(14, 165, 233, 0.2);
                 color: white;
-                background: none !important;
-                transform: none !important;
+            }
+            .mob-nav-btn.active {
+                background: rgba(14, 165, 233, 0.1);
+                border-color: rgba(14, 165, 233, 0.3);
+                color: #0ea5e9;
+                box-shadow: 0 4px 16px rgba(14, 165, 233, 0.12);
             }
 
-            .sales-sidebar .nav-item.active {
-                color: #0ea5e9 !important;
-                background: none !important;
-                box-shadow: none !important;
+            /* Dim backdrop when sheet is open */
+            .mob-nav-backdrop {
+                display: none;
+                position: fixed;
+                inset: 0;
+                z-index: 1050;
+                background: rgba(0,0,0,0.5);
+                backdrop-filter: blur(2px);
             }
+            .mob-nav-backdrop.show { display: block; }
 
             .sales-main {
                 padding: 1.25rem 1rem;
-                padding-bottom: 95px !important;
+                padding-bottom: 88px !important;
                 min-width: 0;
                 width: 100%;
                 overflow-x: hidden;
@@ -2786,6 +2845,30 @@ Interested in setting this up to see if it works?</span>
         </div>
     </div>
 
+    <!-- Mobile FAB Navigation -->
+    <div class="mob-nav-backdrop" id="mob-nav-backdrop"></div>
+    <button class="mob-fab" id="mob-fab" aria-label="Navigation menu" style="display: none;">
+        <i class="fa-solid fa-grip"></i>
+    </button>
+    <div class="mob-nav-sheet" id="mob-nav-sheet">
+        <div class="mob-nav-sheet-handle"></div>
+        <div class="mob-nav-sheet-title">Navigate to</div>
+        <div class="mob-nav-items">
+            <a href="#" class="mob-nav-btn active" data-mob-tab="earnings">
+                <i class="fa-solid fa-wallet"></i> My Earnings
+            </a>
+            <a href="#" class="mob-nav-btn" data-mob-tab="onboard">
+                <i class="fa-solid fa-user-plus"></i> Onboard Client
+            </a>
+            <a href="#" class="mob-nav-btn" data-mob-tab="pipeline">
+                <i class="fa-solid fa-chart-line"></i> My Pipeline
+            </a>
+            <a href="#" class="mob-nav-btn" data-mob-tab="kit">
+                <i class="fa-solid fa-book-open"></i> Sales Kit
+            </a>
+        </div>
+    </div>
+
     <!-- Mobile-only Simulator Full-Screen Overlay Modal -->
     <div id="sim-overlay-modal">
         <div class="sim-overlay-header">
@@ -2947,6 +3030,11 @@ Interested in setting this up to see if it works?</span>
 
                     item.classList.add('active');
                     document.getElementById(`sec-${tabId}`).style.display = 'block';
+
+                    // Sync FAB nav sheet active state
+                    document.querySelectorAll('.mob-nav-btn').forEach(b => {
+                        b.classList.toggle('active', b.getAttribute('data-mob-tab') === tabId);
+                    });
 
                     if (tabId === 'pipeline') {
                         renderPipeline();
@@ -3374,6 +3462,72 @@ Interested in setting this up to see if it works?</span>
 
             applyMobileWizard(mobileBreakpoint.matches);
             mobileBreakpoint.addEventListener('change', (e) => applyMobileWizard(e.matches));
+
+            // -------------------------------------------------------
+            // FAB Navigation (Mobile)
+            // -------------------------------------------------------
+            const mobFab = document.getElementById('mob-fab');
+            const mobNavSheet = document.getElementById('mob-nav-sheet');
+            const mobNavBackdrop = document.getElementById('mob-nav-backdrop');
+            const mobNavBtns = document.querySelectorAll('.mob-nav-btn');
+
+            function showFab(isMobile) {
+                if (!mobFab) return;
+                mobFab.style.display = isMobile ? 'flex' : 'none';
+            }
+            showFab(mobileBreakpoint.matches);
+            mobileBreakpoint.addEventListener('change', (e) => showFab(e.matches));
+
+            function closeMobNav() {
+                mobFab?.classList.remove('open');
+                mobNavSheet?.classList.remove('open');
+                mobNavBackdrop?.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+
+            function openMobNav() {
+                mobFab?.classList.add('open');
+                mobNavSheet?.classList.add('open');
+                mobNavBackdrop?.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
+
+            mobFab?.addEventListener('click', () => {
+                const isOpen = mobNavSheet?.classList.contains('open');
+                isOpen ? closeMobNav() : openMobNav();
+            });
+
+            mobNavBackdrop?.addEventListener('click', closeMobNav);
+
+            mobNavBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const tabId = btn.getAttribute('data-mob-tab');
+
+                    // Update FAB sheet active state
+                    mobNavBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    // Sync desktop sidebar active state
+                    const sidebarItems = document.querySelectorAll('.sales-sidebar .nav-item');
+                    sidebarItems.forEach(n => n.classList.remove('active'));
+                    const matchSidebar = document.querySelector(`.sales-sidebar .nav-item[data-tab="${tabId}"]`);
+                    if (matchSidebar) matchSidebar.classList.add('active');
+
+                    // Switch section
+                    const sections = document.querySelectorAll('.sales-section-content');
+                    sections.forEach(s => s.style.display = 'none');
+                    const target = document.getElementById(`sec-${tabId}`);
+                    if (target) target.style.display = 'block';
+
+                    if (tabId === 'pipeline') renderPipeline();
+                    if (tabId === 'earnings') renderEarnings();
+
+                    closeMobNav();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            });
+
 
             if (btnStepNext) {
                 btnStepNext.addEventListener('click', () => {
