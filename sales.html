@@ -1110,6 +1110,142 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* ---- Step-based Onboarding Wizard (Mobile) ---- */
+        .onboard-step {
+            display: none;
+            animation: fadeIn 0.35s ease-in-out;
+        }
+        .onboard-step.active {
+            display: block;
+        }
+        .step-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            margin-bottom: 1.75rem;
+        }
+        .step-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.06);
+            border: 2px solid rgba(255,255,255,0.12);
+            color: #94a3b8;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        .step-dot.active {
+            background: rgba(14, 165, 233, 0.15);
+            border-color: #0ea5e9;
+            color: #0ea5e9;
+            box-shadow: 0 0 12px rgba(14, 165, 233, 0.2);
+        }
+        .step-dot.done {
+            background: rgba(16, 185, 129, 0.12);
+            border-color: #10b981;
+            color: #10b981;
+        }
+        .step-line {
+            flex: 1;
+            height: 2px;
+            background: rgba(255,255,255,0.07);
+            margin: 0 6px;
+            transition: background 0.3s ease;
+        }
+        .step-line.done {
+            background: #10b981;
+        }
+        .step-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-top: 4px;
+            text-align: center;
+        }
+        .step-indicator-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ---- Mobile Simulator Overlay Modal ---- */
+        #sim-overlay-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(5, 8, 18, 0.96);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            overflow-y: auto;
+            padding: 1rem;
+            padding-bottom: 2rem;
+        }
+        #sim-overlay-modal.open {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+        .sim-overlay-header {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            margin-bottom: 1rem;
+        }
+        .sim-overlay-header h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: white;
+            margin: 0;
+        }
+        .sim-overlay-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.04);
+            color: #94a3b8;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .sim-overlay-close:hover {
+            color: white;
+            border-color: rgba(239, 68, 68, 0.4);
+            background: rgba(239, 68, 68, 0.08);
+        }
+        .sim-overlay-body {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        /* Mobile-only Generate Demo trigger button */
+        .btn-generate-demo-mobile {
+            display: none;
+            width: 100%;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
         /* --- Media Queries (Mobile & Tablet Optimization) --- */
         @media (max-width: 768px) {
             .onboard-grid, .earnings-grid, .pipeline-grid {
@@ -1119,6 +1255,15 @@
 
             .sim-container {
                 margin-top: 0.5rem;
+            }
+
+            /* Hide desktop simulator card on mobile — shown in overlay instead */
+            #live-simulator-card {
+                display: none !important;
+            }
+
+            .btn-generate-demo-mobile {
+                display: flex !important;
             }
 
             .sales-layout {
@@ -1194,7 +1339,7 @@
 
             .sales-main {
                 padding: 1.25rem 1rem;
-                padding-bottom: 95px !important; /* Bottom offset for menu bar navigation overlay */
+                padding-bottom: 95px !important;
                 min-width: 0;
                 width: 100%;
                 overflow-x: hidden;
@@ -1336,14 +1481,17 @@
                 flex-direction: column;
             }
 
-            .sales-kit-tab-btn {
-                padding: 0.5rem 0.85rem;
-                font-size: 0.85rem;
+            /* Hide desktop tab-bar on mobile; use select dropdown instead */
+            .sales-kit-tabs {
+                display: none !important;
+            }
+            .sales-kit-select-mobile-wrapper {
+                display: block !important;
             }
 
             .script-box {
                 padding: 1.25rem 1rem;
-                padding-top: 3.75rem pre !important;
+                padding-top: 3.75rem;
             }
 
             .copy-btn {
@@ -1552,77 +1700,110 @@
                 <section id="sec-onboard" class="sales-section-content" style="display: none;">
                     <h2 class="gradient-text" style="margin-bottom: 1.5rem;">Onboard a New Client</h2>
                     <div class="onboard-grid">
-                        <!-- Left Column: Form -->
+                        <!-- Left Column: Form (2-Step Wizard on Mobile) -->
                         <div class="glass-card">
-                            <form id="onboard-client-form">
-                                <div class="input-row">
-                                    <div class="input-group">
-                                        <label>Business Name</label>
-                                        <input type="text" id="onboard-biz-name" placeholder="e.g. Bandra Crust Café" required>
+                            <!-- Step Indicator (visible on mobile) -->
+                            <div id="step-indicator" style="display: none; margin-bottom: 1.75rem;">
+                                <div style="display: flex; align-items: center; gap: 0;">
+                                    <div class="step-indicator-wrap">
+                                        <div class="step-dot active" id="step-dot-1">1</div>
+                                        <div class="step-label">Business</div>
                                     </div>
-                                    <div class="input-group">
-                                        <label>Business Category</label>
-                                        <select id="onboard-biz-category">
-                                            <option value="cafe">Café / Coffee Shop</option>
-                                            <option value="bakery">Bakery</option>
-                                            <option value="dental">Dental Clinic</option>
-                                            <option value="salon">Salon / Spa</option>
-                                            <option value="gym">Gym / Fitness Center</option>
-                                            <option value="other" selected>Other Storefront</option>
-                                        </select>
+                                    <div class="step-line" id="step-line-1"></div>
+                                    <div class="step-indicator-wrap">
+                                        <div class="step-dot" id="step-dot-2">2</div>
+                                        <div class="step-label">Plan</div>
                                     </div>
                                 </div>
-                                <div class="input-row" style="margin-top: 1.25rem;">
-                                    <div class="input-group">
-                                        <label>Client Email Address</label>
-                                        <input type="email" id="onboard-biz-email" placeholder="owner@business.com" required>
-                                    </div>
-                                    <div class="input-group">
-                                        <label>Brand Accent Color</label>
-                                        <div style="display: flex; gap: 0.5rem; align-items: center;">
-                                            <input type="color" id="onboard-biz-color" value="#3b82f6" style="padding:0; width:50px; height:45px; border-radius:8px; border:none; cursor:pointer;">
-                                            <span style="font-size: 0.9rem; color: var(--text-muted);">Matches their logo/theme</span>
+                            </div>
+
+                            <form id="onboard-client-form">
+                                <!-- Step 1: Business Info -->
+                                <div class="onboard-step active" id="onboard-step-1">
+                                    <div class="input-row">
+                                        <div class="input-group">
+                                            <label>Business Name</label>
+                                            <input type="text" id="onboard-biz-name" placeholder="e.g. Bandra Crust Café" required>
+                                        </div>
+                                        <div class="input-group">
+                                            <label>Business Category</label>
+                                            <select id="onboard-biz-category">
+                                                <option value="cafe">Café / Coffee Shop</option>
+                                                <option value="bakery">Bakery</option>
+                                                <option value="dental">Dental Clinic</option>
+                                                <option value="salon">Salon / Spa</option>
+                                                <option value="gym">Gym / Fitness Center</option>
+                                                <option value="other" selected>Other Storefront</option>
+                                            </select>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="input-group" style="margin-top: 1.25rem;">
-                                    <label>Target Google Maps / Review URL</label>
-                                    <input type="url" id="onboard-biz-url" placeholder="https://g.page/r/..." required>
-                                </div>
-                                <div class="input-group" style="margin-top: 1.25rem;">
-                                    <label>Service Tier</label>
-                                    <select id="onboard-biz-plan" required>
-                                        <option value="gmb">Local GMB Booster</option>
-                                        <option value="delivery">Food Delivery Gater</option>
-                                        <option value="ecom_basic">D2C E-Com Basic (1 Product)</option>
-                                        <option value="ecom_starter">D2C E-Com Starter (3 Products)</option>
-                                        <option value="ecom_growth">D2C E-Com Growth (5 Products)</option>
-                                        <option value="ecom_enterprise">D2C E-Com Enterprise (15 Products)</option>
-                                    </select>
-                                </div>
-                                <div class="input-group" style="margin-top: 1.25rem;">
-                                    <label>Billing Cycle</label>
-                                    <select id="onboard-billing-cycle" required>
-                                        <option value="monthly">Monthly</option>
-                                        <option value="quarterly">Quarterly</option>
-                                        <option value="half-yearly">Half-Yearly</option>
-                                        <option value="annual">Annual</option>
-                                    </select>
+                                    <div class="input-row" style="margin-top: 1.25rem;">
+                                        <div class="input-group">
+                                            <label>Client Email Address</label>
+                                            <input type="email" id="onboard-biz-email" placeholder="owner@business.com" required>
+                                        </div>
+                                        <div class="input-group">
+                                            <label>Brand Accent Color</label>
+                                            <div style="display: flex; gap: 0.5rem; align-items: center;">
+                                                <input type="color" id="onboard-biz-color" value="#3b82f6" style="padding:0; width:50px; height:45px; border-radius:8px; border:none; cursor:pointer;">
+                                                <span style="font-size: 0.9rem; color: var(--text-muted);">Matches their logo/theme</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="input-group" style="margin-top: 1.25rem;">
+                                        <label>Target Google Maps / Review URL</label>
+                                        <input type="url" id="onboard-biz-url" placeholder="https://g.page/r/..." required>
+                                    </div>
+                                    <!-- Desktop: show both buttons right here. Mobile: show only Next -->
+                                    <div id="step1-desktop-actions" style="display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap;">
+                                        <button type="button" class="btn btn-secondary" id="btn-generate-demo" style="flex: 1; justify-content: center;">
+                                            <i class="fa-solid fa-mobile-screen-button"></i> Preview Portal
+                                        </button>
+                                    </div>
+                                    <div style="margin-top: 1rem;">
+                                        <button type="button" class="btn btn-primary" id="btn-step-next" style="width: 100%; justify-content: center; display: none;">
+                                            Next: Plan & Billing <i class="fa-solid fa-arrow-right"></i>
+                                        </button>
+                                    </div>
                                 </div>
 
-                                <div style="display: flex; gap: 1rem; margin-top: 2.5rem; flex-wrap: wrap;">
-                                    <button type="button" class="btn btn-secondary" id="btn-generate-demo" style="flex: 1; justify-content: center;">
-                                        <i class="fa-solid fa-mobile-screen-button"></i> Generate Live Demo
-                                    </button>
-                                    <button type="submit" class="btn btn-primary" style="flex: 1; justify-content: center;">
-                                        <i class="fa-solid fa-credit-card"></i> Launch & Request Payment
-                                    </button>
+                                <!-- Step 2: Plan & Billing -->
+                                <div class="onboard-step" id="onboard-step-2">
+                                    <div class="input-group">
+                                        <label>Service Tier</label>
+                                        <select id="onboard-biz-plan" required>
+                                            <option value="gmb">Local GMB Booster</option>
+                                            <option value="delivery">Food Delivery Gater</option>
+                                            <option value="ecom_basic">D2C E-Com Basic (1 Product)</option>
+                                            <option value="ecom_starter">D2C E-Com Starter (3 Products)</option>
+                                            <option value="ecom_growth">D2C E-Com Growth (5 Products)</option>
+                                            <option value="ecom_enterprise">D2C E-Com Enterprise (15 Products)</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-group" style="margin-top: 1.25rem;">
+                                        <label>Billing Cycle</label>
+                                        <select id="onboard-billing-cycle" required>
+                                            <option value="monthly">Monthly</option>
+                                            <option value="quarterly">Quarterly</option>
+                                            <option value="half-yearly">Half-Yearly</option>
+                                            <option value="annual">Annual</option>
+                                        </select>
+                                    </div>
+
+                                    <div style="display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap;">
+                                        <button type="button" class="btn btn-secondary" id="btn-step-back" style="flex: 1; justify-content: center; display: none;">
+                                            <i class="fa-solid fa-arrow-left"></i> Back
+                                        </button>
+                                        <button type="submit" class="btn btn-primary" style="flex: 1; justify-content: center;">
+                                            <i class="fa-solid fa-credit-card"></i> Launch & Request Payment
+                                        </button>
+                                    </div>
                                 </div>
                             </form>
                         </div>
                         
-                        <!-- Right Column: Portal Live Simulator -->
-                        <div class="glass-card">
+                        <!-- Right Column: Portal Live Simulator (Desktop Only; Mobile uses overlay modal) -->
+                        <div class="glass-card" id="live-simulator-card">
                             <div class="card-header" style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
                                 <i class="fa-solid fa-laptop-code text-primary" style="font-size: 1.5rem;"></i>
                                 <h3 style="color: white; margin: 0;">Portal Live Simulator</h3>
@@ -1673,6 +1854,11 @@
                         </div>
                     </div>
                 </section>
+
+                <!-- Mobile-only Simulator Full-Screen Overlay -->
+                <!-- Triggered by "Preview Portal" button on mobile. Hidden by default. -->
+
+                <!-- Section 3: My Pipeline -->
 
                 <!-- Section 3: My Pipeline -->
                 <section id="sec-pipeline" class="sales-section-content" style="display: none;">
@@ -1732,6 +1918,21 @@
 
                     <h2 class="gradient-text" style="margin-bottom: 1.5rem;">Sales Enablement Kit</h2>
                     
+                    <!-- Mobile Select Dropdown for Sales Kit Tabs (Zero-Swipe Layout) -->
+                    <div class="sales-kit-select-mobile-wrapper" style="display: none; margin-bottom: 1.5rem;">
+                        <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem; display: block;">Select Enablement Tool</label>
+                        <div class="input-wrapper">
+                            <select id="sales-kit-tabs-mobile" style="padding-left: 1rem; width: 100%;">
+                                <option value="pricing-deck">Pricing Deck &amp; PDF Generator</option>
+                                <option value="outreach-templates">Outreach Templates</option>
+                                <option value="two-call-script">Two-Call Script</option>
+                                <option value="one-call-script">One-Call Live-Drop</option>
+                                <option value="closing-loops">Closing Loops</option>
+                                <option value="objections-faq">Objections FAQ</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="sales-kit-tabs">
                         <button class="sales-kit-tab-btn active" data-kit-tab="pricing-deck">
                             <i class="fa-solid fa-file-pdf"></i> Pricing Deck
@@ -2585,6 +2786,79 @@ Interested in setting this up to see if it works?</span>
         </div>
     </div>
 
+    <!-- Mobile-only Simulator Full-Screen Overlay Modal -->
+    <div id="sim-overlay-modal">
+        <div class="sim-overlay-header">
+            <h3><i class="fa-solid fa-laptop-code" style="color: #0ea5e9; margin-right: 0.5rem;"></i> Portal Preview</h3>
+            <button type="button" class="sim-overlay-close" id="btn-sim-overlay-close">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <div class="sim-overlay-body">
+            <!-- Segment Toggle: Phone vs Flyer -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; background: rgba(255,255,255,0.04); border-radius: 12px; padding: 4px; gap: 4px; width: 100%; max-width: 360px;">
+                <button type="button" id="ovl-btn-phone" style="padding: 0.65rem; border-radius: 9px; border: none; background: rgba(14,165,233,0.12); border: 1px solid rgba(14,165,233,0.3); color: #0ea5e9; font-weight: 700; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.4rem; transition: all 0.2s ease;">
+                    <i class="fa-solid fa-mobile-screen"></i> Phone Portal
+                </button>
+                <button type="button" id="ovl-btn-flyer" style="padding: 0.65rem; border-radius: 9px; border: 1px solid transparent; background: transparent; color: #94a3b8; font-weight: 600; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.4rem; transition: all 0.2s ease;">
+                    <i class="fa-solid fa-file-image"></i> Standee Flyer
+                </button>
+            </div>
+
+            <!-- Phone Preview Pane -->
+            <div id="ovl-phone-pane" style="display: flex; flex-direction: column; align-items: center; gap: 0.75rem; width: 100%;">
+                <div class="sim-phone" style="width: 240px; height: 460px;">
+                    <div class="phone-notch"></div>
+                    <div class="phone-screen">
+                        <div class="phone-header" id="ovl-portal-header" style="border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: #3b82f6;">
+                            <i class="fa-solid fa-shield-halved" style="color: #3b82f6; font-size: 0.9rem;"></i>
+                            <span id="ovl-portal-name" style="font-weight: 700; color: white;">Brand Name</span>
+                        </div>
+                        <div class="phone-body">
+                            <div class="sim-rating-box">
+                                <h4>Rate your experience</h4>
+                                <div class="sim-stars">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                            </div>
+                            <button type="button" class="sim-btn" id="ovl-portal-btn" style="background: #3b82f6; box-shadow: 0 4px 12px rgba(59,130,246,0.3);">Submit Feedback</button>
+                        </div>
+                    </div>
+                </div>
+                <a id="ovl-open-portal-link" href="#" target="_blank" class="btn btn-primary" style="width: 100%; max-width: 360px; justify-content: center; gap: 0.5rem; text-decoration: none; font-size: 0.9rem;">
+                    <i class="fa-solid fa-up-right-from-square"></i> Open Live Portal
+                </a>
+            </div>
+
+            <!-- Flyer Preview Pane -->
+            <div id="ovl-flyer-pane" style="display: none; flex-direction: column; align-items: center; gap: 0.75rem; width: 100%;">
+                <div class="sim-standee" style="width: 200px; height: 320px; padding: 8px;">
+                    <div class="standee-card">
+                        <div class="standee-header" id="ovl-flyer-header" style="background: #3b82f6;">
+                            <i class="fa-solid fa-star"></i> Review Us
+                        </div>
+                        <div class="standee-body">
+                            <p id="ovl-flyer-name" style="margin: 0; font-weight: 800; color: #0f172a; text-transform: uppercase;">Brand Name</p>
+                            <div class="sim-qr-box">
+                                <i class="fa-solid fa-qrcode"></i>
+                            </div>
+                            <span style="font-size: 0.65rem; color: #64748b; font-weight: 700; text-transform: uppercase; margin-bottom: 0.25rem;">Scan to Rate</span>
+                        </div>
+                    </div>
+                </div>
+                <a id="ovl-open-flyer-link" href="#" target="_blank" class="btn btn-secondary" style="width: 100%; max-width: 360px; justify-content: center; gap: 0.5rem; text-decoration: none; font-size: 0.9rem;">
+                    <i class="fa-solid fa-up-right-from-square"></i> Open Standee Flyer
+                </a>
+            </div>
+
+            <p style="font-size: 0.78rem; color: #475569; text-align: center; margin: 0;">This is a live preview based on the business details you entered. Tap Open to test the actual portal.</p>
+        </div>
+    </div>
+
     <!-- Toast Notification -->
     <div id="toast" class="toast">
         <i class="fa-solid fa-circle-check"></i>
@@ -3015,37 +3289,253 @@ Interested in setting this up to see if it works?</span>
                 }
             });
 
+            // -------------------------------------------------------
             // Live Simulator Real-time Onboarding Preview Updates
+            // -------------------------------------------------------
+            const inputBizName = document.getElementById('onboard-biz-name');
+            const inputBizColor = document.getElementById('onboard-biz-color');
+
+            // Desktop simulator elements
             const simName = document.getElementById('sim-portal-name');
             const simFlyerName = document.getElementById('sim-flyer-name');
             const simHeader = document.getElementById('sim-portal-header');
             const simFlyerHeader = document.getElementById('sim-flyer-header');
             const simBtn = document.getElementById('sim-portal-btn');
-            
-            const inputBizName = document.getElementById('onboard-biz-name');
-            const inputBizColor = document.getElementById('onboard-biz-color');
-            
+
+            // Mobile overlay simulator elements
+            const ovlPortalName = document.getElementById('ovl-portal-name');
+            const ovlFlyerName = document.getElementById('ovl-flyer-name');
+            const ovlPortalHeader = document.getElementById('ovl-portal-header');
+            const ovlFlyerHeader = document.getElementById('ovl-flyer-header');
+            const ovlPortalBtn = document.getElementById('ovl-portal-btn');
+
             function updateSimulator() {
-                if (!simName || !simFlyerName || !simHeader || !simFlyerHeader || !simBtn) return;
-                
-                const nameVal = inputBizName.value.trim() || 'Brand Name';
-                const colorVal = inputBizColor.value || '#3b82f6';
-                
-                simName.textContent = nameVal;
-                simFlyerName.textContent = nameVal;
-                
-                simHeader.style.borderColor = colorVal;
-                simFlyerHeader.style.background = colorVal;
-                simBtn.style.background = colorVal;
-                simBtn.style.boxShadow = `0 4px 12px ${colorVal}4d`;
+                const nameVal = inputBizName ? (inputBizName.value.trim() || 'Brand Name') : 'Brand Name';
+                const colorVal = inputBizColor ? (inputBizColor.value || '#3b82f6') : '#3b82f6';
+
+                // Update desktop simulator
+                if (simName) simName.textContent = nameVal;
+                if (simFlyerName) simFlyerName.textContent = nameVal;
+                if (simHeader) simHeader.style.borderColor = colorVal;
+                if (simFlyerHeader) simFlyerHeader.style.background = colorVal;
+                if (simBtn) { simBtn.style.background = colorVal; simBtn.style.boxShadow = `0 4px 12px ${colorVal}4d`; }
+
+                // Update mobile overlay simulator
+                if (ovlPortalName) ovlPortalName.textContent = nameVal;
+                if (ovlFlyerName) ovlFlyerName.textContent = nameVal;
+                if (ovlPortalHeader) ovlPortalHeader.style.borderColor = colorVal;
+                if (ovlFlyerHeader) ovlFlyerHeader.style.background = colorVal;
+                if (ovlPortalBtn) { ovlPortalBtn.style.background = colorVal; ovlPortalBtn.style.boxShadow = `0 4px 12px ${colorVal}4d`; }
             }
-            
+
             if (inputBizName && inputBizColor) {
                 inputBizName.addEventListener('input', updateSimulator);
                 inputBizColor.addEventListener('input', updateSimulator);
-                updateSimulator(); // Initial run
+                updateSimulator();
             }
+
+            // -------------------------------------------------------
+            // 2-Step Onboarding Wizard (Mobile)
+            // -------------------------------------------------------
+            const mobileBreakpoint = window.matchMedia('(max-width: 768px)');
+            const stepIndicator = document.getElementById('step-indicator');
+            const onboardStep1 = document.getElementById('onboard-step-1');
+            const onboardStep2 = document.getElementById('onboard-step-2');
+            const btnStepNext = document.getElementById('btn-step-next');
+            const btnStepBack = document.getElementById('btn-step-back');
+            const step1DesktopActions = document.getElementById('step1-desktop-actions');
+            const stepDot1 = document.getElementById('step-dot-1');
+            const stepDot2 = document.getElementById('step-dot-2');
+            const stepLine1 = document.getElementById('step-line-1');
+
+            function applyMobileWizard(isMobile) {
+                if (!stepIndicator) return;
+                if (isMobile) {
+                    stepIndicator.style.display = 'block';
+                    if (btnStepNext) btnStepNext.style.display = 'flex';
+                    if (btnStepBack) btnStepBack.style.display = 'flex';
+                    if (step1DesktopActions) step1DesktopActions.style.display = 'none';
+                    // Reset to step 1
+                    if (onboardStep1) { onboardStep1.classList.add('active'); }
+                    if (onboardStep2) { onboardStep2.classList.remove('active'); }
+                    if (stepDot1) { stepDot1.classList.add('active'); stepDot1.classList.remove('done'); stepDot1.textContent = '1'; }
+                    if (stepDot2) { stepDot2.classList.remove('active', 'done'); }
+                    if (stepLine1) stepLine1.classList.remove('done');
+                } else {
+                    // Desktop: show all at once
+                    if (stepIndicator) stepIndicator.style.display = 'none';
+                    if (btnStepNext) btnStepNext.style.display = 'none';
+                    if (btnStepBack) btnStepBack.style.display = 'none';
+                    if (step1DesktopActions) step1DesktopActions.style.display = 'flex';
+                    if (onboardStep1) onboardStep1.classList.add('active');
+                    if (onboardStep2) onboardStep2.classList.add('active');
+                }
+            }
+
+            applyMobileWizard(mobileBreakpoint.matches);
+            mobileBreakpoint.addEventListener('change', (e) => applyMobileWizard(e.matches));
+
+            if (btnStepNext) {
+                btnStepNext.addEventListener('click', () => {
+                    const bizName = document.getElementById('onboard-biz-name');
+                    const bizEmail = document.getElementById('onboard-biz-email');
+                    const bizUrl = document.getElementById('onboard-biz-url');
+                    if (!bizName.value.trim()) { bizName.focus(); showToastNotification('Please enter the Business Name.'); return; }
+                    if (!bizEmail.value.trim()) { bizEmail.focus(); showToastNotification('Please enter the Client Email.'); return; }
+                    if (!bizUrl.value.trim()) { bizUrl.focus(); showToastNotification('Please enter the Target URL.'); return; }
+
+                    if (onboardStep1) onboardStep1.classList.remove('active');
+                    if (onboardStep2) onboardStep2.classList.add('active');
+                    if (stepDot1) { stepDot1.classList.remove('active'); stepDot1.classList.add('done'); stepDot1.innerHTML = '<i class="fa-solid fa-check" style="font-size:0.7rem;"></i>'; }
+                    if (stepDot2) stepDot2.classList.add('active');
+                    if (stepLine1) stepLine1.classList.add('done');
+                    document.getElementById('step-indicator')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+            }
+
+            if (btnStepBack) {
+                btnStepBack.addEventListener('click', () => {
+                    if (onboardStep2) onboardStep2.classList.remove('active');
+                    if (onboardStep1) onboardStep1.classList.add('active');
+                    if (stepDot1) { stepDot1.classList.add('active'); stepDot1.classList.remove('done'); stepDot1.textContent = '1'; }
+                    if (stepDot2) stepDot2.classList.remove('active');
+                    if (stepLine1) stepLine1.classList.remove('done');
+                    document.getElementById('step-indicator')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+            }
+
+            // -------------------------------------------------------
+            // Mobile Simulator Overlay Modal
+            // -------------------------------------------------------
+            const simOverlayModal = document.getElementById('sim-overlay-modal');
+            const btnSimOverlayClose = document.getElementById('btn-sim-overlay-close');
+            const ovlBtnPhone = document.getElementById('ovl-btn-phone');
+            const ovlBtnFlyer = document.getElementById('ovl-btn-flyer');
+            const ovlPhonePane = document.getElementById('ovl-phone-pane');
+            const ovlFlyerPane = document.getElementById('ovl-flyer-pane');
+            const ovlOpenPortalLink = document.getElementById('ovl-open-portal-link');
+            const ovlOpenFlyerLink = document.getElementById('ovl-open-flyer-link');
+
+            function openSimOverlay() {
+                const bizNameEl = document.getElementById('onboard-biz-name');
+                const targetUrlEl = document.getElementById('onboard-biz-url');
+                const categoryEl = document.getElementById('onboard-biz-category');
+                const colorEl = document.getElementById('onboard-biz-color');
+
+                const bizName = bizNameEl ? bizNameEl.value.trim() : '';
+                const targetUrl = targetUrlEl ? targetUrlEl.value.trim() : '';
+                const category = categoryEl ? categoryEl.value : 'other';
+                const color = colorEl ? colorEl.value : '#3b82f6';
+
+                if (!bizName || !targetUrl) {
+                    showToastNotification('Enter Business Name and Target URL first.');
+                    return;
+                }
+
+                updateSimulator();
+
+                const baseLocation = window.location.origin;
+                const demoPortalUrl = `${baseLocation}/portal.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&demo=true`;
+                const demoFlyerUrl = `${baseLocation}/flyer.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}`;
+
+                if (ovlOpenPortalLink) ovlOpenPortalLink.href = demoPortalUrl;
+                if (ovlOpenFlyerLink) ovlOpenFlyerLink.href = demoFlyerUrl;
+
+                setOverlayPane('phone');
+                if (simOverlayModal) { simOverlayModal.classList.add('open'); document.body.style.overflow = 'hidden'; }
+            }
+
+            function closeSimOverlay() {
+                if (simOverlayModal) { simOverlayModal.classList.remove('open'); document.body.style.overflow = ''; }
+            }
+
+            function setOverlayPane(pane) {
+                const isPhone = pane === 'phone';
+                if (ovlPhonePane) ovlPhonePane.style.display = isPhone ? 'flex' : 'none';
+                if (ovlFlyerPane) ovlFlyerPane.style.display = isPhone ? 'none' : 'flex';
+
+                const activeSty = 'rgba(14,165,233,0.12)';
+                const inactiveSty = 'transparent';
+                if (ovlBtnPhone) {
+                    ovlBtnPhone.style.background = isPhone ? activeSty : inactiveSty;
+                    ovlBtnPhone.style.borderColor = isPhone ? 'rgba(14,165,233,0.3)' : 'transparent';
+                    ovlBtnPhone.style.color = isPhone ? '#0ea5e9' : '#94a3b8';
+                    ovlBtnPhone.style.fontWeight = isPhone ? '700' : '600';
+                }
+                if (ovlBtnFlyer) {
+                    ovlBtnFlyer.style.background = isPhone ? inactiveSty : activeSty;
+                    ovlBtnFlyer.style.borderColor = isPhone ? 'transparent' : 'rgba(14,165,233,0.3)';
+                    ovlBtnFlyer.style.color = isPhone ? '#94a3b8' : '#0ea5e9';
+                    ovlBtnFlyer.style.fontWeight = isPhone ? '600' : '700';
+                }
+            }
+
+            if (btnSimOverlayClose) btnSimOverlayClose.addEventListener('click', closeSimOverlay);
+            if (ovlBtnPhone) ovlBtnPhone.addEventListener('click', () => setOverlayPane('phone'));
+            if (ovlBtnFlyer) ovlBtnFlyer.addEventListener('click', () => setOverlayPane('flyer'));
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSimOverlay(); });
+
+            // Wire "Preview Portal" button (replaces old btn-generate-demo listener)
+            const btnGenerateDemo = document.getElementById('btn-generate-demo');
+            if (btnGenerateDemo) {
+                // Remove any listener set earlier in the file for this button
+                const newBtn = btnGenerateDemo.cloneNode(true);
+                btnGenerateDemo.parentNode.replaceChild(newBtn, btnGenerateDemo);
+                newBtn.addEventListener('click', () => {
+                    if (mobileBreakpoint.matches) {
+                        openSimOverlay();
+                    } else {
+                        const bizName = document.getElementById('onboard-biz-name').value.trim();
+                        const targetUrl = document.getElementById('onboard-biz-url').value.trim();
+                        const category = document.getElementById('onboard-biz-category').value;
+                        const color = document.getElementById('onboard-biz-color').value;
+
+                        if (!bizName || !targetUrl) { showToastNotification('Please enter a Business Name and Target URL first.'); return; }
+
+                        const baseLocation = window.location.origin;
+                        const demoPortalUrl = `${baseLocation}/portal.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&demo=true`;
+                        const demoFlyerUrl = `${baseLocation}/flyer.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}`;
+
+                        const ppLink = document.getElementById('preview-portal-link');
+                        const pfLink = document.getElementById('preview-flyer-link');
+                        if (ppLink) ppLink.href = demoPortalUrl;
+                        if (pfLink) pfLink.href = demoFlyerUrl;
+
+                        const demoModal = document.getElementById('demo-modal');
+                        if (demoModal) demoModal.style.display = 'flex';
+                    }
+                });
+            }
+
+            // -------------------------------------------------------
+            // Sales Kit Mobile Dropdown → Tab Panel sync
+            // -------------------------------------------------------
+            const salesKitSelectMobile = document.getElementById('sales-kit-tabs-mobile');
+            const salesKitPanelsList = document.querySelectorAll('.sales-kit-panel');
+            const salesKitTabBtns = document.querySelectorAll('.sales-kit-tab-btn');
+
+            function activateKitPanel(panelId) {
+                salesKitPanelsList.forEach(p => p.classList.remove('active'));
+                salesKitTabBtns.forEach(b => b.classList.remove('active'));
+                const target = document.getElementById(`kit-panel-${panelId}`);
+                if (target) target.classList.add('active');
+                const btn = document.querySelector(`.sales-kit-tab-btn[data-kit-tab="${panelId}"]`);
+                if (btn) btn.classList.add('active');
+            }
+
+            if (salesKitSelectMobile) {
+                salesKitSelectMobile.addEventListener('change', (e) => activateKitPanel(e.target.value));
+            }
+
+            salesKitTabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const panelId = btn.getAttribute('data-kit-tab');
+                    activateKitPanel(panelId);
+                    if (salesKitSelectMobile) salesKitSelectMobile.value = panelId;
+                });
+            });
         });
+
 
         // Copy utility for scripts & links
         function copyText(elementId) {
