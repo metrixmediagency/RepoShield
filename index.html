@@ -3,526 +3,727 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MetrixMedia Agency – Scale Your Local Brand</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>MetrixMedia Agency – We Fix What Agencies Break</title>
+    <meta name="description" content="We deploy reputation protection, GMB SEO audits, cloud kitchen reviews, and growth advertising campaigns to help local brands scale.">
+    <!-- FontAwesome & Outfit/Plus Jakarta Sans Typography via index.css -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="generator.css?v=2.1">
-    <style>
-        /* Specific Marketing Page Styles */
-        body { background-color: var(--bg-dark); }
-        .hero {
-            padding: 8rem 2rem 5rem;
-            text-align: center;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        .hero h1 {
-            font-size: 3.5rem;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(to right, #ffffff, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .hero p {
-            font-size: 1.25rem;
-            color: var(--text-muted);
-            margin-bottom: 2.5rem;
-        }
-        .trust-bar {
-            padding: 2rem;
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 4rem;
-            opacity: 0.6;
-        }
-        .section { padding: 5rem 2rem; max-width: 1200px; margin: 0 auto; }
-        .section-header { text-align: center; margin-bottom: 3.5rem; }
-        .section-header h2 { font-size: 2.5rem; margin-bottom: 1rem; color: white; }
-        
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-        .service-card {
-            padding: 2.5rem;
-            text-align: center;
-        }
-        .service-card i {
-            font-size: 3rem;
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-        }
-        .service-card h3 { font-size: 1.5rem; margin-bottom: 1rem; color: white; }
-        .service-card p { color: var(--text-muted); line-height: 1.6; }
-
-        .comparison-table { width: 100%; border-collapse: collapse; margin-top: 2rem; }
-        .comparison-table th, .comparison-table td {
-            padding: 1.25rem;
-            text-align: center;
-            border-bottom: 1px solid var(--border-color);
-            color: var(--text-main);
-        }
-        .comparison-table th { font-weight: 700; font-size: 1.2rem; }
-        .comparison-table .highlight { background: rgba(59, 130, 246, 0.1); color: white; font-weight: 600; }
-        
-        .steps-container { display: flex; gap: 2rem; text-align: center; flex-wrap: wrap; }
-        .step { flex: 1; min-width: 250px; padding: 2rem; }
-        .step-number {
-            width: 50px; height: 50px;
-            background: var(--primary); color: white;
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem; font-weight: bold; margin: 0 auto 1.5rem;
-        }
-        
-        .contact-form {
-            max-width: 600px; margin: 0 auto;
-        }
-        .contact-form form { display: flex; flex-direction: column; gap: 1.25rem; }
-        .contact-form .btn { width: 100%; padding: 1.25rem; font-size: 1.1rem; justify-content: center; }
-        
-        footer {
-            border-top: 1px solid var(--border-color);
-            padding: 3rem 2rem;
-            text-align: center;
-            color: var(--text-muted);
-        }
-        footer a { color: var(--primary); text-decoration: none; margin: 0 1rem; transition: var(--transition-smooth); }
-        footer a:hover { color: white; }
-        
-        /* Navbar */
-        .navbar {
-            padding: 1.5rem 3rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        .navbar .brand { display: flex; align-items: center; gap: 1rem; text-decoration: none; }
-        .navbar .brand-icon { width: 40px; height: 40px; margin: 0; }
-        .navbar .brand-text h1 { margin: 0; }
-        .navbar .btn-sm { padding: 0.6rem 1.5rem; font-size: 0.9rem; }
-        
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .navbar { padding: 1rem 1.5rem; }
-        }
-
-        /* Pricing CSS Styles */
-        .pricing-section {
-            padding: 5rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-        .pricing-card {
-            padding: 3rem 2rem;
-            text-align: left;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 100%;
-            transition: var(--transition-smooth);
-        }
-        .pricing-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-            box-shadow: 0 15px 30px rgba(59, 130, 246, 0.15);
-        }
-        .pricing-card.featured {
-            border: 2px solid var(--primary);
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
-        }
-        .badge-featured {
-            position: absolute;
-            top: 1rem;
-            right: 1.5rem;
-            background: var(--primary);
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-        .pricing-header h3 {
-            font-size: 1.75rem;
-            color: white;
-            margin-bottom: 0.5rem;
-        }
-        .pricing-price {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: white;
-            margin: 1.5rem 0 0.5rem;
-            display: flex;
-            align-items: baseline;
-        }
-        .pricing-price span {
-            font-size: 1rem;
-            color: var(--text-muted);
-            font-weight: 500;
-            margin-left: 0.25rem;
-        }
-        .setup-fee {
-            font-size: 0.9rem;
-            color: var(--accent-emerald);
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-        }
-        .pricing-features {
-            list-style: none;
-            padding: 0;
-            margin: 0 0 2rem 0;
-            display: flex;
-            flex-direction: column;
-            gap: 0.85rem;
-            flex-grow: 1;
-        }
-        .pricing-features li {
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-size: 0.95rem;
-        }
-        .pricing-features i {
-            color: var(--primary);
-            font-size: 1.1rem;
-        }
-        .pricing-features i.fa-xmark {
-            color: var(--text-muted);
-        }
-        .pricing-sub-selector {
-            margin: 1rem 0;
-            background: rgba(15, 23, 42, 0.5);
-            border: 1px solid var(--border-color);
-            padding: 0.5rem;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .pricing-sub-selector select {
-            background: transparent;
-            border: none;
-            color: white;
-            font-weight: 600;
-            outline: none;
-            cursor: pointer;
-            width: 100%;
-            padding: 0.25rem;
-        }
-    </style>
+    <link rel="stylesheet" href="index.css?v=2.5">
 </head>
 <body>
-    <div class="glow-bg-1"></div>
-    <div class="glow-bg-2"></div>
 
-    <nav class="navbar">
-        <a href="/" class="brand">
-            <div class="brand-icon">
-                <i class="fa-solid fa-shield-halved"></i>
-            </div>
-            <div class="brand-text">
-                <h1>MetrixMedia</h1>
-                <span>Digital Agency</span>
-            </div>
-        </a>
-        <a href="#contact" class="btn btn-primary btn-sm">Get Free Audit</a>
-    </nav>
+    <!-- 1. NAVIGATION HEADER -->
+    <header class="fx-header">
+        <div class="fx-header__inner">
+            <a href="/" class="fx-brand">
+                <div class="fx-brand-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <div class="fx-brand-text">
+                    <h1>MetrixMedia</h1>
+                    <span>Digital Agency</span>
+                </div>
+            </a>
+            
+            <nav class="fx-nav">
+                <ul class="fx-nav__menu" id="fxNavMenu">
+                    <li><a href="#services" class="fx-nav__link">Services</a></li>
+                    <li><a href="#results" class="fx-nav__link">Results</a></li>
+                    <li><a href="#pricing" class="fx-nav__link">Pricing</a></li>
+                    <li><a href="#faq" class="fx-nav__link">FAQ</a></li>
+                    <li><a href="#contact" class="fx-nav__link">Contact</a></li>
+                </ul>
+                <button class="fx-btn-grad fx-nav__btn js-open-popup">Get Free Audit</button>
+                <button class="fx-burger" id="fxBurgerBtn" aria-label="Toggle Navigation menu" aria-expanded="false" aria-controls="fxNavMenu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+        </div>
+    </header>
 
-    <section class="hero">
-        <h1>We Engineer Digital Growth For Brands.</h1>
-        <p>From reputation engineering & active feedback gating to first-page SEO rankings, we handle your digital growth while you run your business.</p>
-        <a href="#contact" class="btn btn-primary">Start Your Growth Audit <i class="fa-solid fa-arrow-right" style="margin-left: 0.5rem;"></i></a>
+    <!-- 2. HERO BANNER -->
+    <section class="fx-hero" id="home">
+        <div class="fx-hero__inner">
+            <h1 class="fx-hero__title">We Fix What Agencies Break.</h1>
+            <p class="fx-hero__sub">
+                From overpriced retainers to poor tracking and negative feedback left to chance, most agencies leave your digital growth to luck. MetrixMedia's Aegis Protocol gives you control, protected reputation, and campaigns that actually perform.
+            </p>
+            <div class="fx-hero__cta">
+                <button class="fx-btn-grad js-open-popup">
+                    <i class="fa-solid fa-rocket"></i>
+                    <span>Start Your Growth Audit</span>
+                </button>
+                <a href="#pricing" class="fx-btn-outline">
+                    <i class="fa-solid fa-tags"></i>
+                    <span>View Pricing Plans</span>
+                </a>
+            </div>
+            <p class="fx-hero__trust">Our Growth Solutions &amp; Integrations are Certified by</p>
+            <!-- White strip representing partner logos -->
+            <div class="fx-trust-strip" style="display: flex; justify-content: space-around; align-items: center; gap: 10px;">
+                <span style="color:#0f172a; font-weight:800; font-size:12px; display:flex; align-items:center; gap:6px;"><i class="fa-brands fa-google" style="color:#4285F4;"></i> Google Partner</span>
+                <span style="color:#0f172a; font-weight:800; font-size:12px; display:flex; align-items:center; gap:6px;"><i class="fa-brands fa-meta" style="color:#0668E1;"></i> Meta Partner</span>
+                <span style="color:#0f172a; font-weight:800; font-size:12px; display:flex; align-items:center; gap:6px;"><i class="fa-brands fa-shopify" style="color:#96bf48;"></i> Shopify Partner</span>
+            </div>
+        </div>
     </section>
 
-    <div class="trust-bar">
-        <h4><i class="fa-brands fa-google"></i> Google Partners</h4>
-        <h4><i class="fa-brands fa-meta"></i> Meta Ad Experts</h4>
-        <h4><i class="fa-brands fa-shopify"></i> Shopify Devs</h4>
+    <!-- 2b. MOBILE STICKY CTA -->
+    <div class="fx-sticky-cta" id="fxStickyCTA">
+        <button class="fx-btn-sticky js-open-popup">
+            <i class="fa-solid fa-rocket"></i>
+            <span>Start Free Audit</span>
+        </button>
     </div>
 
-    <section class="section" id="services">
-        <div class="section-header">
-            <h2>Our High-End Services</h2>
-            <p style="color: var(--text-muted);">Everything you need to dominate your local market.</p>
-        </div>
-        <div class="services-grid">
-            <div class="glass-card service-card">
-                <i class="fa-solid fa-star"></i>
-                <h3>Reputation Engineering</h3>
-                <p>We gate negative reviews and push happy customers directly to Google Maps, boosting your 5-star rating organically.</p>
+    <!-- 3. STATS & CLIENT LOGOS -->
+    <section class="fx-section gs-section" id="results">
+        <div class="fx-wrap">
+            <div class="fx-center">
+                <h2 class="fx-h2">Growth Without Guesswork</h2>
+                <p class="fx-sub">We scale local brands, restaurants, and D2C startups using automated review gating portals and data-driven performance funnels.</p>
             </div>
-            <div class="glass-card service-card">
-                <i class="fa-solid fa-map-location-dot"></i>
-                <h3>Local SEO & GMB</h3>
-                <p>We optimize your business profiles to ensure you rank #1 when customers search for your services nearby.</p>
-            </div>
-            <div class="glass-card service-card">
-                <i class="fa-solid fa-laptop-code"></i>
-                <h3>Web & E-Com Dev</h3>
-                <p>High-converting landing pages and robust Shopify stores designed to turn traffic into paying customers instantly.</p>
-            </div>
-            <div class="glass-card service-card">
-                <i class="fa-solid fa-bullhorn"></i>
-                <h3>Growth Advertising</h3>
-                <p>Data-driven Meta and Google Ads campaigns targeted to drive local foot traffic and e-commerce sales.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="section">
-        <div class="section-header">
-            <h2>Why MetrixMedia?</h2>
-        </div>
-        <div class="glass-card" style="padding: 0; overflow: hidden; overflow-x: auto;">
-            <table class="comparison-table">
-                <thead>
-                    <tr>
-                        <th style="text-align: left; width: 40%;">Feature</th>
-                        <th class="highlight" style="width: 30%;">MetrixMedia</th>
-                        <th style="width: 30%;">Traditional Agencies</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td style="text-align: left;">Reputation Protection</td>
-                        <td class="highlight">Active Gating & Daily Logs</td>
-                        <td><i class="fa-solid fa-xmark" style="color: var(--text-muted);"></i> Left to chance</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left;">Delivery Speed</td>
-                        <td class="highlight">Launch in 24-48 Hours</td>
-                        <td><i class="fa-solid fa-xmark" style="color: var(--text-muted);"></i> Weeks of back-and-forth</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left;">Pricing Model</td>
-                        <td class="highlight">Flat Monthly Subscriptions</td>
-                        <td><i class="fa-solid fa-xmark" style="color: var(--text-muted);"></i> Hidden fees & hourly rates</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left;">Campaign Control</td>
-                        <td class="highlight">Automated systems & alerts</td>
-                        <td><i class="fa-solid fa-xmark" style="color: var(--text-muted);"></i> High manual upkeep</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
-
-    <!-- Pricing Section -->
-    <section class="section pricing-section" id="pricing">
-        <div class="section-header">
-            <h2>Clear, Simple Pricing Plans</h2>
-            <p style="color: var(--text-muted);">No hidden fees. Suspend or cancel anytime.</p>
-        </div>
-        
-        <div class="pricing-grid">
-            <!-- Local GMB Card -->
-            <div class="glass-card pricing-card">
-                <div>
-                    <div class="pricing-header">
-                        <h3>Local GMB Booster</h3>
-                        <p style="color: var(--text-muted); font-size: 0.9rem;">Ideal for local retail stores and salons.</p>
-                    </div>
-                    <div class="pricing-price">
-                        ₹999<span>/month</span>
-                    </div>
-                    <div class="setup-fee">
-                        + ₹1,999 setup fee (promo rate)
-                    </div>
-                    <ul class="pricing-features">
-                        <li><i class="fa-solid fa-circle-check"></i> 1 Counter QR standee design (Print-Ready PDF)</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Private negative feedback gating</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Automated daily visitor logs</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Google Maps profile SEO audit</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Basic analytics dashboard</li>
-                    </ul>
+            
+            <div class="gs-stats">
+                <div class="gs-stat">
+                    <div class="gs-stat-num" data-target="300" data-suffix="+">300+</div>
+                    <div class="gs-stat-label">Portals Deployed</div>
                 </div>
-                <a href="#contact" class="btn btn-primary pricing-btn">Get Started</a>
+                <div class="gs-stat">
+                    <div class="gs-stat-num" data-target="8" data-prefix="₹" data-suffix=" Cr+">₹8 Cr+</div>
+                    <div class="gs-stat-label">Ad Spent Managed</div>
+                </div>
+                <div class="gs-stat">
+                    <div class="gs-stat-num" data-target="8" data-suffix="+">8+</div>
+                    <div class="gs-stat-label">Years Experience</div>
+                </div>
             </div>
 
-            <!-- E-Com Tiers Card -->
-            <div class="glass-card pricing-card featured">
-                <span class="badge-featured">Most Popular</span>
-                <div>
-                    <div class="pricing-header">
-                        <h3>D2C E-Com Suite</h3>
-                        <p style="color: var(--text-muted); font-size: 0.9rem;">Designed for D2C brands & Shopify sellers.</p>
+            <!-- Infinite Logo Marquee representing niches and brands served -->
+            <div class="gs-logo-wrap" aria-label="Brands and niches scaled">
+                <div class="gs-logo-track" id="gsLogoTrack">
+                    <!-- Cafe / Food Gating -->
+                    <div class="gs-logo-card">
+                        <span class="gs-logo-circle"><i class="fa-solid fa-mug-hot"></i></span>
+                        <div class="gs-logo-name">Cafes &amp; Bakeries</div>
                     </div>
-                    
-                    <!-- Interactive Tier Selector -->
-                    <div class="pricing-sub-selector">
-                        <select id="ecom-tier-select" onchange="updateEcomPricing(this.value)">
-                            <option value="basic">Basic Plan (1 Product)</option>
-                            <option value="starter">Starter Plan (3 Products)</option>
-                            <option value="growth" selected>Growth Plan (5 Products)</option>
-                            <option value="enterprise">Enterprise Plan (15 Products)</option>
-                        </select>
-                        <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">
-                            Available in Monthly, Quarterly, Half-Yearly, and Annual billing cycles!
+                    <!-- Real Estate -->
+                    <div class="gs-logo-card">
+                        <span class="gs-logo-circle"><i class="fa-solid fa-house-chimney"></i></span>
+                        <div class="gs-logo-name">Real Estate</div>
+                    </div>
+                    <!-- Clinical Gating -->
+                    <div class="gs-logo-card">
+                        <span class="gs-logo-circle"><i class="fa-solid fa-user-doctor"></i></span>
+                        <div class="gs-logo-name">Medical Clinics</div>
+                    </div>
+                    <!-- D2C Shopify -->
+                    <div class="gs-logo-card">
+                        <span class="gs-logo-circle"><i class="fa-solid fa-bag-shopping"></i></span>
+                        <div class="gs-logo-name">Shopify D2C</div>
+                    </div>
+                    <!-- Salons & Spas -->
+                    <div class="gs-logo-card">
+                        <span class="gs-logo-circle"><i class="fa-solid fa-scissors"></i></span>
+                        <div class="gs-logo-name">Salons &amp; Spas</div>
+                    </div>
+                    <!-- Cloud Kitchens -->
+                    <div class="gs-logo-card">
+                        <span class="gs-logo-circle"><i class="fa-solid fa-utensils"></i></span>
+                        <div class="gs-logo-name">Cloud Kitchens</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. SERVICES SECTION -->
+    <section class="fx-section fx-dark-section" id="services">
+        <div class="fx-wrap">
+            <div class="fx-center">
+                <h2 class="fx-h2">Our High-End Services</h2>
+                <p class="fx-sub">Everything you need to protect your local reputation and dominate search engine results.</p>
+            </div>
+            
+            <div class="fx-grid-3">
+                <!-- Card 1: Reputation Engineering -->
+                <article class="fx-card">
+                    <div class="fx-ico"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h3>Reputation Engineering</h3>
+                    <p>Deploy custom review gating portals. Happy clients are guided directly to Google Maps, while negative feedback is routed privately to your dashboard.</p>
+                    <a href="#contact" class="fx-link">Learn More <i class="fa-solid fa-arrow-right-long"></i></a>
+                </article>
+
+                <!-- Card 2: Local SEO & GMB -->
+                <article class="fx-card">
+                    <div class="fx-ico"><i class="fa-solid fa-map-location-dot"></i></div>
+                    <h3>Local SEO &amp; GMB</h3>
+                    <p>We audit, optimize, and rank your Google Business profiles nearby. Rank top-3 in local search results where 80% of click traffic lands.</p>
+                    <a href="#contact" class="fx-link">Learn More <i class="fa-solid fa-arrow-right-long"></i></a>
+                </article>
+
+                <!-- Card 3: Web & Shopify Dev -->
+                <article class="fx-card">
+                    <div class="fx-ico"><i class="fa-solid fa-laptop-code"></i></div>
+                    <h3>Web &amp; E-Com Dev</h3>
+                    <p>High-converting landing pages and robust Shopify stores designed to load in under a second and convert traffic into paying customers instantly.</p>
+                    <a href="#contact" class="fx-link">Learn More <i class="fa-solid fa-arrow-right-long"></i></a>
+                </article>
+
+                <!-- Card 4: Growth Advertising -->
+                <article class="fx-card">
+                    <div class="fx-ico"><i class="fa-solid fa-bullhorn"></i></div>
+                    <h3>Growth Advertising</h3>
+                    <p>Data-driven Meta and Google Ads campaigns targeted to drive local foot traffic, phone inquiries, and catalog e-commerce sales.</p>
+                    <a href="#contact" class="fx-link">Learn More <i class="fa-solid fa-arrow-right-long"></i></a>
+                </article>
+
+                <!-- Card 5: WhatsApp Automation -->
+                <article class="fx-card">
+                    <div class="fx-ico"><i class="fa-solid fa-robot"></i></div>
+                    <h3>WhatsApp Automation</h3>
+                    <p>Qualify and nurture inbound leads automatically using triggers. Faster auto-replies yield higher conversion rates from prospect to deal.</p>
+                    <a href="#contact" class="fx-link">Learn More <i class="fa-solid fa-arrow-right-long"></i></a>
+                </article>
+
+                <!-- Card 6: cloud kitchen gating -->
+                <article class="fx-card">
+                    <div class="fx-ico"><i class="fa-solid fa-bowl-food"></i></div>
+                    <h3>Delivery Portal Gating</h3>
+                    <p>Gating systems built specifically for Swiggy and Zomato kitchens, prompting buyers to leave 5-star reviews on public profiles via QR inserts.</p>
+                    <a href="#contact" class="fx-link">Learn More <i class="fa-solid fa-arrow-right-long"></i></a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. PROCESS SECTION (HOW IT WORKS) -->
+    <section class="fx-section">
+        <div class="fx-wrap">
+            <div class="fx-center">
+                <h2 class="fx-h2">How It Works</h2>
+                <p class="fx-sub">Simple three-step workflow to kickstart your scaling protocol</p>
+            </div>
+            
+            <div class="fx-grid-3-step">
+                <!-- Step 1 -->
+                <div class="fx-step">
+                    <div class="fx-badge">1</div>
+                    <h4>Free Digital Audit</h4>
+                    <p>We analyze your business search rank, citation consistency, and active public review score.</p>
+                </div>
+                <!-- Step 2 -->
+                <div class="fx-step">
+                    <div class="fx-badge">2</div>
+                    <h4>Strategy Deployment</h4>
+                    <p>We construct your portals, print flyer QR codes, connect automation triggers, and launch ads.</p>
+                </div>
+                <!-- Step 3 -->
+                <div class="fx-step">
+                    <div class="fx-badge">3</div>
+                    <h4>Scale Your Profits</h4>
+                    <p>Watch your ratings multiply organically, your local rank rise, and booking calls double.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. WHAT MAKES US UNIQUE -->
+    <section class="fx-section fx-unique">
+        <div class="fx-wrap">
+            <div class="fx-unique__card">
+                <div style="text-align: center;">
+                    <div class="fx-unique__eyebrow">ONE KPI: RESULTS</div>
+                    <h2 class="fx-unique__title">What makes us unique?</h2>
+                    <p class="fx-unique__sub">
+                        <span class="fx-sub-pill">MetrixMedia V/S Traditional Agencies</span>
+                    </p>
+                </div>
+                
+                <hr class="fx-unique__divider" />
+
+                <div class="fx-unique__cols">
+                    <!-- Traditional Agencies -->
+                    <div class="fx-unique__col">
+                        <span class="fx-unique__chip fx-chip--muted">OTHERS</span>
+                        <ul class="fx-list">
+                            <li><i class="fa-solid fa-xmark"></i> High retainers with zero outcomes</li>
+                            <li><i class="fa-solid fa-xmark"></i> Legacy templates and forced mobile layouts</li>
+                            <li><i class="fa-solid fa-xmark"></i> Negative reviews left entirely to chance</li>
+                            <li><i class="fa-solid fa-xmark"></i> Months of delay and manual upkeep</li>
+                        </ul>
+                    </div>
+
+                    <!-- MetrixMedia -->
+                    <div class="fx-unique__col">
+                        <span class="fx-unique__chip fx-chip--brand">METRIXMEDIA</span>
+                        <ul class="fx-list fx-list--good">
+                            <li><i class="fa-solid fa-check"></i> Flat monthly subscriptions (suspend anytime)</li>
+                            <li><i class="fa-solid fa-check"></i> Launch custom gating portals in 24-48 hours</li>
+                            <li><i class="fa-solid fa-check"></i> Active gating protecting your brand reputation</li>
+                            <li><i class="fa-solid fa-check"></i> Live analytics dashboards &amp; weekly updates</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <a href="#contact" class="fx-unique__cta">
+                    <span>Still have a question?</span>
+                    <span class="fx-cta-link">Speak with our agency experts</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. RESULTS TESTIMONIALS -->
+    <section class="fx-section fx-results-section">
+        <div class="fx-wrap">
+            <div class="fx-center">
+                <h2 class="fx-h2">Client Case Studies</h2>
+                <p class="fx-sub">Real growth metrics recorded by local business partners who deployed Aegis</p>
+            </div>
+            
+            <div class="fx-grid-3">
+                <!-- Valentia Farm Fresh -->
+                <article class="fx-tcard">
+                    <div class="fx-num">₹4 Cr+</div>
+                    <h4>Revenue Generated</h4>
+                    <p>Valentia Farm Fresh achieved record-breaking sales and Google Maps foot traffic by deploying targeted QR gating on packaging inserts.</p>
+                    <div class="fx-stars">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <span class="fx-client">Pankaj Sharma</span>
+                    </div>
+                </article>
+
+                <!-- Hamsah Realtors -->
+                <article class="fx-tcard">
+                    <div class="fx-num">12,000+</div>
+                    <h4>Verified Leads</h4>
+                    <p>Hamsah Realtors scaled property listings and bookings consistently using our automated landing page builders and lead capture flows.</p>
+                    <div class="fx-stars">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <span class="fx-client">Jagat Mohan Reddy</span>
+                    </div>
+                </article>
+
+                <!-- Dr. Tofiq Bohra -->
+                <article class="fx-tcard">
+                    <div class="fx-num">50%+</div>
+                    <h4>Booking Rate Increase</h4>
+                    <p>Dr. Tofiq Bohra's clinical practice rating rose to 4.9 stars, filtering reviews organically and booking appointments via WhatsApp.</p>
+                    <div class="fx-stars">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <span class="fx-client">Dr. Tofiq Bohra</span>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. PRICING PACKAGES -->
+    <section class="fx-section pricing-section" id="pricing">
+        <div class="fx-wrap">
+            <div class="fx-center">
+                <h2 class="fx-h2">Clear, Simple Pricing</h2>
+                <p class="fx-sub">Flat subscription plans. Cancel or suspend at any time with a 7-day refund guarantee.</p>
+            </div>
+            
+            <div class="pricing-grid">
+                <!-- GMB Booster Card -->
+                <div class="pricing-card">
+                    <div>
+                        <div class="pricing-header">
+                            <h3>Local GMB Booster</h3>
+                            <p style="color: var(--mm-muted); font-size: 0.9rem;">Perfect for local retail stores and salons.</p>
                         </div>
+                        <div class="pricing-price">
+                            ₹1,200<span>/month</span>
+                        </div>
+                        <div class="setup-fee">
+                            + ₹1,500 setup fee
+                        </div>
+                        <ul class="pricing-features">
+                            <li><i class="fa-solid fa-circle-check"></i> 1 Printed Counter QR standee design</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Active negative review gating portal</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Automated daily visitor feedback logs</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Google Business Profile SEO audit</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Monthly reputation reports</li>
+                        </ul>
                     </div>
-
-                    <div class="pricing-price" id="ecom-price-display">
-                        ₹2,999<span>/month</span>
-                    </div>
-                    <div class="setup-fee">
-                        No Setup Fee (Fully Waived)
-                    </div>
-                    <ul class="pricing-features">
-                        <li id="ecom-feature-products"><i class="fa-solid fa-circle-check"></i> Up to 5 Active Product Portals</li>
-                        <li><i class="fa-solid fa-circle-check"></i> <strong>Dynamic Redirects</strong> (change URLs anytime)</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Instant email alerts for 1-3 star ratings</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Store theme color matching & brand logo</li>
-                        <li id="ecom-feature-domain"><i class="fa-solid fa-circle-check"></i> Shared metrixmedia.agency/portal subdomain</li>
-                    </ul>
+                    <button class="fx-btn-grad pricing-btn js-open-popup">Select GMB Booster</button>
                 </div>
-                <a href="#contact" class="btn btn-primary pricing-btn" style="background: white; color: var(--bg-dark);">Select Plan</a>
-            </div>
 
-            <!-- Food Delivery Card -->
-            <div class="glass-card pricing-card">
-                <div>
-                    <div class="pricing-header">
-                        <h3>Food Delivery Gater</h3>
-                        <p style="color: var(--text-muted); font-size: 0.9rem;">Tailored for cloud kitchens and restaurants.</p>
+                <!-- D2C E-Com Suite Card -->
+                <div class="pricing-card featured">
+                    <span class="badge-featured">Most Popular</span>
+                    <div>
+                        <div class="pricing-header">
+                            <h3>D2C E-Com Suite</h3>
+                            <p style="color: #cbd5e1; font-size: 0.9rem;">Designed for e-commerce and Shopify sellers.</p>
+                        </div>
+                        
+                        <!-- Interactive Selector -->
+                        <div class="pricing-sub-selector">
+                            <label for="ecomTierSelect">Select Tier</label>
+                            <select id="ecomTierSelect" onchange="updateEcomTiers(this.value)">
+                                <option value="starter">Starter Plan (1 Portal)</option>
+                                <option value="growth" selected>Growth Plan (5 Portals)</option>
+                                <option value="enterprise">Enterprise Plan (15 Portals)</option>
+                            </select>
+                        </div>
+
+                        <div class="pricing-price" id="ecomPriceDisplay">
+                            ₹2,999<span>/month</span>
+                        </div>
+                        <div class="setup-fee" id="ecomSetupDisplay">
+                            No Setup Fee (Fully Waived)
+                        </div>
+                        <ul class="pricing-features">
+                            <li id="ecomFeaturePortals"><i class="fa-solid fa-circle-check"></i> Up to 5 Active Product Portals</li>
+                            <li><i class="fa-solid fa-circle-check"></i> <strong>Dynamic Redirects</strong> (change URLs instantly)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Immediate email alerts for bad reviews</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Portal customization with store colors</li>
+                            <li id="ecomFeatureDomain"><i class="fa-solid fa-circle-check"></i> Shared subdomain portal link</li>
+                        </ul>
                     </div>
-                    <div class="pricing-price">
-                        ₹1,499<span>/month</span>
-                    </div>
-                    <div class="setup-fee">
-                        + ₹2,499 setup fee
-                    </div>
-                    <ul class="pricing-features">
-                        <li><i class="fa-solid fa-circle-check"></i> Swiggy & Zomato gating portals</li>
-                        <li><i class="fa-solid fa-circle-check"></i> QR delivery packaging sticker designs</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Dine-in counter QR standee (Print-Ready PDF)</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Manager SMS/Email alerts for bad reviews</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Monthly reputation performance reports</li>
-                    </ul>
+                    <button class="fx-btn-grad pricing-btn js-open-popup" style="background: #ffffff; color: var(--mm-bg-dark) !important;">Select E-Com Suite</button>
                 </div>
-                <a href="#contact" class="btn btn-primary pricing-btn">Get Started</a>
+
+                <!-- Food Delivery Card -->
+                <div class="pricing-card">
+                    <div>
+                        <div class="pricing-header">
+                            <h3>Food Delivery Gater</h3>
+                            <p style="color: var(--mm-muted); font-size: 0.9rem;">Tailored for restaurants and cloud kitchens.</p>
+                        </div>
+                        <div class="pricing-price">
+                            ₹1,499<span>/month</span>
+                        </div>
+                        <div class="setup-fee">
+                            + ₹2,000 setup fee
+                        </div>
+                        <ul class="pricing-features">
+                            <li><i class="fa-solid fa-circle-check"></i> Swiggy &amp; Zomato gating portals</li>
+                            <li><i class="fa-solid fa-circle-check"></i> QR delivery packaging sticker designs</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Dine-in counter QR standee PDF</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Manager email/SMS alerts for bad reviews</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Monthly kitchen performance reports</li>
+                        </ul>
+                    </div>
+                    <button class="fx-btn-grad pricing-btn js-open-popup">Select Food Gater</button>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="section">
-        <div class="section-header">
-            <h2>How It Works</h2>
-        </div>
-        <div class="steps-container">
-            <div class="step glass-card">
-                <div class="step-number">1</div>
-                <h3>Free Digital Audit</h3>
-                <p style="color: var(--text-muted); margin-top: 1rem;">We analyze your current presence, search rankings, and online reputation.</p>
+    <!-- 9. FAQS -->
+    <section class="fx-section fx-faq-section" id="faq">
+        <div class="fx-wrap">
+            <div class="fx-center">
+                <h2 class="fx-h2">Frequently Asked Questions</h2>
+                <p class="fx-sub">Common inquiries about our reputation engineering and pricing policies</p>
             </div>
-            <div class="step glass-card">
-                <div class="step-number">2</div>
-                <h3>Custom Strategy Launch</h3>
-                <p style="color: var(--text-muted); margin-top: 1rem;">We set up your custom review gating campaigns, code your site, and launch ads.</p>
-            </div>
-            <div class="step glass-card">
-                <div class="step-number">3</div>
-                <h3>Track Real Growth</h3>
-                <p style="color: var(--text-muted); margin-top: 1rem;">Watch your Google rankings rise, your 5-star reviews multiply, and sales increase.</p>
+            
+            <div class="fx-faq">
+                <!-- QA 1 -->
+                <details class="fx-qa" open>
+                    <summary>
+                        <i class="fa-solid fa-circle-question"></i>
+                        <span class="qa-label">Why should I trust MetrixMedia over traditional agencies?</span>
+                        <span class="qa-sign"></span>
+                    </summary>
+                    <div class="fx-qa__content">
+                        <p>Most agencies hide behind vanity stats like "impressions" or "engagement clicks". We focus strictly on bottom-line outcomes: organic 5-star ratings, search engine rankings, and qualified conversions. Plus, you retain 100% ownership of your accounts and setups.</p>
+                    </div>
+                </details>
+
+                <!-- QA 2 -->
+                <details class="fx-qa">
+                    <summary>
+                        <i class="fa-solid fa-circle-question"></i>
+                        <span class="qa-label">How does the 7-day refund guarantee work?</span>
+                        <span class="qa-sign"></span>
+                    </summary>
+                    <div class="fx-qa__content">
+                        <p>If you're not satisfied with the setup, speed, or performance of your active portals within the first 7 days of your billing cycle, we will issue a full refund of your subscription fee, no questions asked.</p>
+                    </div>
+                </details>
+
+                <!-- QA 3 -->
+                <details class="fx-qa">
+                    <summary>
+                        <i class="fa-solid fa-circle-question"></i>
+                        <span class="qa-label">How does private negative feedback gating protect my brand?</span>
+                        <span class="qa-sign"></span>
+                    </summary>
+                    <div class="fx-qa__content">
+                        <p>When a customer scans your portal QR code, they choose a rating. 4-5 star ratings link immediately to your public Google Business profile. 1-3 star ratings open a private comment form, which alerts your management instantly to resolve the issue, preventing bad reviews from hitting public listings.</p>
+                    </div>
+                </details>
+
+                <!-- QA 4 -->
+                <details class="fx-qa">
+                    <summary>
+                        <i class="fa-solid fa-circle-question"></i>
+                        <span class="qa-label">How quickly can we launch our review gating portal?</span>
+                        <span class="qa-sign"></span>
+                    </summary>
+                    <div class="fx-qa__content">
+                        <p>We deploy standard gating portals and deliver print-ready QR code standee sheets within 24-48 hours of onboarding. Custom domain linkages and API setups are finalized in 3-4 business days.</p>
+                    </div>
+                </details>
             </div>
         </div>
     </section>
 
-    <section class="section" id="contact">
-        <div class="section-header">
-            <h2>Ready to Scale?</h2>
-            <p style="color: var(--text-muted);">Request your free audit and custom strategy plan today.</p>
-        </div>
-        <div class="glass-card contact-form">
-            <form onsubmit="event.preventDefault(); alert('Thank you! Our team will contact you in 24 hours from info@metrixmedia.agency.');">
-                <div class="input-group">
-                    <label>Full Name</label>
-                    <div class="input-wrapper">
-                        <i class="fa-solid fa-user input-icon"></i>
-                        <input type="text" placeholder="John Doe" required>
-                    </div>
-                </div>
-                <div class="input-group">
-                    <label>Business Name / Website</label>
-                    <div class="input-wrapper">
-                        <i class="fa-solid fa-building input-icon"></i>
-                        <input type="text" placeholder="https://mybusiness.com" required>
-                    </div>
-                </div>
-                <div class="input-group">
-                    <label>Email Address</label>
-                    <div class="input-wrapper">
-                        <i class="fa-solid fa-envelope input-icon"></i>
-                        <input type="email" placeholder="john@mybusiness.com" required>
-                    </div>
-                </div>
-                <div class="input-group">
-                    <label>Service Needed</label>
-                    <div class="input-wrapper">
-                        <select>
-                            <option>Reputation Engineering</option>
-                            <option>Local SEO & GMB</option>
-                            <option>Web Development</option>
-                            <option>Growth Advertising</option>
-                        </select>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary" style="margin-top: 1rem;">Submit Request</button>
-            </form>
+    <!-- 10. CONTACT SECTION -->
+    <section class="fx-section fx-contact-section" id="contact">
+        <div class="fx-wrap">
+            <h2 class="fx-ctaH">Ready to scale your local brand?</h2>
+            <p class="fx-sub">Schedule your strategy discovery call today. Get an expert audit of your Google and map ranking profiles.</p>
+            <div class="fx-hero__cta" style="margin-top: 24px;">
+                <button class="fx-btn-grad js-open-popup">
+                    <i class="fa-solid fa-calendar-days"></i>
+                    <span>Schedule Free Discovery Call</span>
+                </button>
+            </div>
+            
+            <div class="fx-social" aria-label="MetrixMedia social handles">
+                <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube channel"><i class="fa-brands fa-youtube"></i></a>
+                <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram profile"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn page"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
         </div>
     </section>
 
-    <footer>
-        <p>&copy; 2026 MetrixMedia Agency. All rights reserved.</p>
-        <p style="margin-top: 1.5rem; display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem;">
-            <a href="/terms.html">Terms of Service</a>
-            <a href="/privacy.html">Privacy Policy</a>
-            <a href="/refund.html">Refund Policy</a>
-            <a href="/sales.html">Sales Partner Login</a>
-        </p>
-        <p style="margin-top: 1.5rem; color: var(--text-muted); font-size: 0.9rem;">Contact: info@metrixmedia.agency</p>
+    <!-- FOOTER -->
+    <footer class="fx-footer">
+        <div class="fx-foot">
+            <div class="fx-foot__copy">
+                &copy; 2026 MetrixMedia Digital Agency. All rights reserved.
+            </div>
+            <div class="fx-foot__links">
+                <a href="/terms.html">Terms of Service</a>
+                <a href="/privacy.html">Privacy Policy</a>
+                <a href="/refund.html">Refund Policy</a>
+                <a href="/sales.html">Sales Login</a>
+            </div>
+        </div>
     </footer>
 
+    <!-- 11. INTERACTIVE POPUP MODAL -->
+    <div class="fx-popup-modal" id="fxPopupModal" aria-hidden="true" role="dialog">
+        <div class="fx-popup-card">
+            <button class="fx-popup-close" id="fxPopupCloseBtn" aria-label="Close booking modal">&times;</button>
+            <div class="fx-popup-header">
+                <h2>Request Your Free Growth Audit</h2>
+                <p>Submit your details and our agency leads will contact you in 24 hours.</p>
+            </div>
+            
+            <form class="fx-form" id="fxAuditForm">
+                <div class="fx-form-group">
+                    <label for="auditName">Full Name</label>
+                    <div class="fx-input-wrapper">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" id="auditName" placeholder="John Doe" required>
+                    </div>
+                </div>
+                
+                <div class="fx-form-group">
+                    <label for="auditBusiness">Business Name / Website</label>
+                    <div class="fx-input-wrapper">
+                        <i class="fa-solid fa-building"></i>
+                        <input type="text" id="auditBusiness" placeholder="My Business LLC" required>
+                    </div>
+                </div>
+
+                <div class="fx-form-group">
+                    <label for="auditEmail">Email Address</label>
+                    <div class="fx-input-wrapper">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" id="auditEmail" placeholder="john@mybusiness.com" required>
+                    </div>
+                </div>
+
+                <div class="fx-form-group">
+                    <label for="auditPhone">Phone Number</label>
+                    <div class="fx-input-wrapper">
+                        <i class="fa-solid fa-phone"></i>
+                        <input type="tel" id="auditPhone" placeholder="+91 99999 99999" required>
+                    </div>
+                </div>
+
+                <div class="fx-form-group">
+                    <label for="auditService">Service Needed</label>
+                    <select id="auditService">
+                        <option value="reputation">Reputation Engineering (Gating)</option>
+                        <option value="seo">Local SEO &amp; GMB Auditing</option>
+                        <option value="web">Web &amp; E-Commerce Dev</option>
+                        <option value="advertising">Growth Ads campaigns</option>
+                        <option value="automation">WhatsApp / CRM Automation</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="fx-btn-grad" style="width: 100%; margin-top: 10px;">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span>Submit Free Audit Request</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripting for marquee duplication, accordion control, pricing updates, and popups -->
     <script>
-        function updateEcomPricing(tier) {
-            const priceEl = document.getElementById('ecom-price-display');
-            const productsEl = document.getElementById('ecom-feature-products');
-            const domainEl = document.getElementById('ecom-feature-domain');
+        // 1. Mobile Menu Burger Navigation Toggle
+        const burgerBtn = document.getElementById('fxBurgerBtn');
+        const navMenu = document.getElementById('fxNavMenu');
+        
+        burgerBtn.addEventListener('click', () => {
+            const isActive = navMenu.classList.toggle('active');
+            burgerBtn.classList.toggle('active');
+            burgerBtn.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+        });
+
+        // Close mobile nav menu on clicking links
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                burgerBtn.classList.remove('active');
+                burgerBtn.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // 2. Infinite Marquee Client Niche Track Duplication
+        const logoTrack = document.getElementById('gsLogoTrack');
+        if (logoTrack) {
+            const nodes = Array.from(logoTrack.children);
+            nodes.forEach(node => {
+                logoTrack.appendChild(node.cloneNode(true));
+            });
+        }
+
+        // 3. E-Com Tier selector pricing updates
+        function updateEcomTiers(tier) {
+            const priceEl = document.getElementById('ecomPriceDisplay');
+            const setupEl = document.getElementById('ecomSetupDisplay');
+            const portalsEl = document.getElementById('ecomFeaturePortals');
+            const domainEl = document.getElementById('ecomFeatureDomain');
             
             if (tier === 'starter') {
                 priceEl.innerHTML = '₹999<span>/month</span>';
-                productsEl.innerHTML = '<i class="fa-solid fa-circle-check"></i> 1 Active Product Portal';
-                domainEl.innerHTML = '<i class="fa-solid fa-circle-check"></i> Shared metrixmedia.agency/portal subdomain';
+                setupEl.innerHTML = '+ ₹999 setup fee';
+                portalsEl.innerHTML = '<i class="fa-solid fa-circle-check"></i> 1 Active Product Portal';
+                domainEl.innerHTML = '<i class="fa-solid fa-circle-check"></i> Shared subdomain portal link';
             } else if (tier === 'growth') {
                 priceEl.innerHTML = '₹2,999<span>/month</span>';
-                productsEl.innerHTML = '<i class="fa-solid fa-circle-check"></i> Up to 5 Active Product Portals';
-                domainEl.innerHTML = '<i class="fa-solid fa-circle-check"></i> Shared metrixmedia.agency/portal subdomain';
+                setupEl.innerHTML = 'No Setup Fee (Fully Waived)';
+                portalsEl.innerHTML = '<i class="fa-solid fa-circle-check"></i> Up to 5 Active Product Portals';
+                domainEl.innerHTML = '<i class="fa-solid fa-circle-check"></i> Shared subdomain portal link';
             } else if (tier === 'enterprise') {
                 priceEl.innerHTML = '₹5,999<span>/month</span>';
-                productsEl.innerHTML = '<i class="fa-solid fa-circle-check"></i> Up to 15 Active Product Portals';
+                setupEl.innerHTML = 'No Setup Fee (Fully Waived)';
+                portalsEl.innerHTML = '<i class="fa-solid fa-circle-check"></i> Up to 15 Active Product Portals';
                 domainEl.innerHTML = '<i class="fa-solid fa-circle-check"></i> <strong>Dedicated Custom Domain</strong>';
             }
         }
+
+        // 4. Accordion single-open details control
+        const qaBlocks = Array.from(document.querySelectorAll('#faq .fx-qa'));
+        qaBlocks.forEach(d => {
+            d.addEventListener('toggle', () => {
+                if (d.open) {
+                    qaBlocks.forEach(other => {
+                        if (other !== d && other.open) {
+                            other.removeAttribute('open');
+                        }
+                    });
+                }
+            });
+        });
+
+        // 5. Interactive Popup Modal Controls
+        const popupModal = document.getElementById('fxPopupModal');
+        const popupCard = popupModal.querySelector('.fx-popup-card');
+        const popupCloseBtn = document.getElementById('fxPopupCloseBtn');
+        const triggerBtns = document.querySelectorAll('.js-open-popup');
+
+        function openModal() {
+            popupModal.classList.add('active');
+            popupModal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden'; // prevent background scrolling
+            const firstField = popupModal.querySelector('input');
+            if (firstField) firstField.focus();
+        }
+
+        function closeModal() {
+            popupModal.classList.remove('active');
+            popupModal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        }
+
+        triggerBtns.forEach(btn => btn.addEventListener('click', openModal));
+        popupCloseBtn.addEventListener('click', closeModal);
+
+        // Close modal when clicking on backdrop blur
+        popupModal.addEventListener('click', (e) => {
+            if (e.target === popupModal) {
+                closeModal();
+            }
+        });
+
+        // Close on Escape key press
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && popupModal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+
+        // Form Submission event handler
+        const auditForm = document.getElementById('fxAuditForm');
+        auditForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const clientName = document.getElementById('auditName').value;
+            const clientBiz = document.getElementById('auditBusiness').value;
+            
+            // Render simulated success response
+            popupCard.innerHTML = `
+                <button class="fx-popup-close" onclick="location.reload()">&times;</button>
+                <div style="text-align: center; padding: 20px 10px;">
+                    <i class="fa-solid fa-circle-check" style="font-size: 4rem; color: var(--mm-accent-green); margin-bottom: 20px; text-shadow: 0 0 20px rgba(16, 185, 129, 0.2);"></i>
+                    <h2 style="margin-bottom: 12px; font-size: 1.75rem;">Audit Request Received!</h2>
+                    <p style="color: var(--mm-text); font-weight: 600; margin-bottom: 8px;">Thank you, ${clientName}.</p>
+                    <p style="color: var(--mm-muted); font-size: 0.95rem; line-height: 1.5; margin-bottom: 24px;">Our engineering leads have queue'd a local mapping and GMB audit for <strong>${clientBiz}</strong>. We will contact you at your email within 24 hours.</p>
+                    <button class="fx-btn-grad" onclick="location.reload()" style="width: 100%;">Close Window</button>
+                </div>
+            `;
+        });
+
+        // 6. Mobile sticky CTA scroll visibility logic
+        const stickyCTA = document.getElementById('fxStickyCTA');
+        window.addEventListener('scroll', () => {
+            if (window.innerWidth <= 600) {
+                // Show sticky bottom CTA after scrolling past the first 250px
+                if (window.scrollY > 250) {
+                    stickyCTA.style.display = 'flex';
+                } else {
+                    stickyCTA.style.display = 'none';
+                }
+            } else {
+                stickyCTA.style.display = 'none';
+            }
+        });
     </script>
 </body>
 </html>
