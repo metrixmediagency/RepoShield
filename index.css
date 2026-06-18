@@ -61,8 +61,6 @@ body {
 
 body.fx-menu-open {
   overflow: hidden;
-  position: fixed;
-  width: 100%;
 }
 
 /* Layout Container Gutters */
@@ -302,12 +300,14 @@ h1, h2, h3, h4, h5, h6 {
     gap: 30px;
     padding: 40px;
     transform: translateX(100%);
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    visibility: hidden;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s;
     z-index: 10000;
   }
   
   .fx-nav__menu.active {
     transform: translateX(0);
+    visibility: visible;
   }
   
   .fx-nav__link {
