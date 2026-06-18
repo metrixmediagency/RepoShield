@@ -31,6 +31,7 @@
                     <li><a href="#pricing" class="fx-nav__link">Pricing</a></li>
                     <li><a href="#faq" class="fx-nav__link">FAQ</a></li>
                     <li><a href="#contact" class="fx-nav__link">Contact</a></li>
+                    <li class="fx-mobile-only-menu-btn"><button class="fx-btn-grad js-open-popup" style="width: 100%; margin-top: 15px;">Get Free Audit</button></li>
                 </ul>
                 <button class="fx-btn-grad fx-nav__btn js-open-popup">Get Free Audit</button>
                 <button class="fx-burger" id="fxBurgerBtn" aria-label="Toggle Navigation menu" aria-expanded="false" aria-controls="fxNavMenu">
@@ -78,7 +79,7 @@
     </div>
 
     <!-- 3. STATS & CLIENT LOGOS -->
-    <section class="fx-section gs-section" id="results">
+    <section class="fx-section gs-section">
         <div class="fx-wrap">
             <div class="fx-center">
                 <h2 class="fx-h2">Growth Without Guesswork</h2>
@@ -276,7 +277,7 @@
     </section>
 
     <!-- 7. RESULTS TESTIMONIALS -->
-    <section class="fx-section fx-results-section">
+    <section class="fx-section fx-results-section" id="results">
         <div class="fx-wrap">
             <div class="fx-center">
                 <h2 class="fx-h2">Client Case Studies</h2>
@@ -594,6 +595,7 @@
             const isActive = navMenu.classList.toggle('active');
             burgerBtn.classList.toggle('active');
             burgerBtn.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+            document.body.classList.toggle('fx-menu-open', isActive);
         });
 
         // Close mobile nav menu on clicking links
@@ -602,6 +604,7 @@
                 navMenu.classList.remove('active');
                 burgerBtn.classList.remove('active');
                 burgerBtn.setAttribute('aria-expanded', 'false');
+                document.body.classList.remove('fx-menu-open');
             });
         });
 

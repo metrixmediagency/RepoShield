@@ -55,6 +55,16 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+[id] {
+  scroll-margin-top: var(--mm-header-height);
+}
+
+body.fx-menu-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
+
 /* Layout Container Gutters */
 .fx-section {
   padding: clamp(40px, 8vw, 100px) 20px;
@@ -208,6 +218,10 @@ h1, h2, h3, h4, h5, h6 {
   display: block;
 }
 
+.fx-mobile-only-menu-btn {
+  display: none;
+}
+
 /* Nav Menu */
 .fx-nav {
   display: flex;
@@ -257,7 +271,7 @@ h1, h2, h3, h4, h5, h6 {
   border: none;
   cursor: pointer;
   padding: 4px;
-  z-index: 1000;
+  z-index: 10001;
 }
 
 .fx-burger span {
@@ -277,10 +291,9 @@ h1, h2, h3, h4, h5, h6 {
   
   .fx-nav__menu {
     position: fixed;
-    top: var(--mm-header-height);
-    left: 0;
+    inset: 0;
     width: 100%;
-    height: calc(100vh - var(--mm-header-height));
+    height: 100dvh;
     background: rgba(9, 13, 22, 0.98);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
@@ -290,8 +303,7 @@ h1, h2, h3, h4, h5, h6 {
     padding: 40px;
     transform: translateX(100%);
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 998;
-    border-top: 1px solid var(--mm-border);
+    z-index: 10000;
   }
   
   .fx-nav__menu.active {
@@ -306,9 +318,22 @@ h1, h2, h3, h4, h5, h6 {
   .fx-nav__btn {
     display: none; /* Hide standard header button on tablet/mobile header */
   }
+
+  .fx-mobile-only-menu-btn {
+    display: block;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+  }
 }
 
 /* Burger active state */
+.fx-burger.active {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10001;
+}
 .fx-burger.active span:nth-child(1) {
   transform: rotate(45deg) translate(5px, 5px);
 }
