@@ -1,5 +1,3 @@
-const axios = require('axios');
-
 export default async function handler(req, res) {
     // Enable CORS
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -29,11 +27,14 @@ export default async function handler(req, res) {
             setupFee = 2499;
         }
 
-        // Supabase configuration (using project credentials as fallback)
+        // Supabase configuration
+        // IMPORTANT: Set these as Vercel Environment Variables for security:
+        //   SUPABASE_URL = your Supabase project URL
+        //   SUPABASE_ANON_KEY = your Supabase anon/public key (starts with eyJ...)
         const supabaseUrl = process.env.SUPABASE_URL || "https://emxhibjyofqqvuwtdevo.supabase.co";
-        const supabaseKey = process.env.SUPABASE_ANON_KEY || "sb_publishable_b9x83p-5jrIoFJnYYGMWFg_zBKv8JHC";
+        const supabaseKey = process.env.SUPABASE_ANON_KEY || "";
 
-        // Generate a unique ID for the campaign (e.g., mc_timestamp_random)
+        // Generate a unique ID for the campaign
         const campaignId = `mc_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
 
         // Build campaign payload matching the Supabase table schema
@@ -42,7 +43,7 @@ export default async function handler(req, res) {
             name: name,
             category: niche || 'other',
             email: email,
-            color: color || '#00F2FE', // Default Neon Cyan
+            color: color || '#00F2FE',
             destination: gmb_link,
             plan: 'free_trial',
             setup_fee: setupFee,
@@ -54,39 +55,51 @@ export default async function handler(req, res) {
 
         console.log("Syncing ManyChat lead to Supabase campaigns table:", supabasePayload);
 
-        // POST request directly to Supabase REST API
-        const response = await axios.post(
-            `${supabaseUrl}/rest/v1/campaigns`,
-            supabasePayload,
-            {
-                headers: {
-                    'apikey': supabaseKey,
-                    'Authorization': `Bearer ${supabaseKey}`,
-                    'Content-Type': 'application/json',
-                    'Prefer': 'return=representation'
+        // POST to Supabase REST API using native fetch (no axios dependency)
+        let dbResult = null;
+        if (supabaseKey) {
+            const response = await fetch(
+                `${supabaseUrl}/rest/v1/campaigns`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'apikey': supabaseKey,
+                        'Authorization': `Bearer ${supabaseKey}`,
+                        'Content-Type': 'application/json',
+                        'Prefer': 'return=representation'
+                    },
+                    body: JSON.stringify(supabasePayload)
                 }
+            );
+            if (response.ok) {
+                dbResult = await response.json();
+            } else {
+                console.error("Supabase write failed:", response.status, await response.text());
             }
-        );
+        } else {
+            console.warn("SUPABASE_ANON_KEY not set — skipping database write.");
+        }
 
-        // Build URLs
-        const portalUrl = `https://metrixmedia.vercel.app/portal.html?name=${encodeURIComponent(name)}&url=${encodeURIComponent(gmb_link)}&email=${encodeURIComponent(email)}&category=${encodeURIComponent(niche || 'other')}&color=${encodeURIComponent(color || '#00F2FE')}&demo=true`;
+        // Build URLs — NO demo=true so portals actually redirect to Google
+        const portalUrl = `https://metrixmedia.vercel.app/portal.html?name=${encodeURIComponent(name)}&url=${encodeURIComponent(gmb_link)}&email=${encodeURIComponent(email)}&category=${encodeURIComponent(niche || 'other')}&color=${encodeURIComponent(color || '#00F2FE')}`;
         const flyerUrl = `https://metrixmedia.vercel.app/flyer.html?name=${encodeURIComponent(name)}&category=${encodeURIComponent(niche || 'other')}&color=${encodeURIComponent(color || '#00F2FE')}&type=gmb&portalUrl=${encodeURIComponent(portalUrl)}`;
 
         // Return the success payload
         return res.status(200).json({
             success: true,
-            message: "Lead successfully synced with Supabase.",
+            message: "Lead processed successfully.",
             campaignId: campaignId,
             portalUrl: portalUrl,
             flyerUrl: flyerUrl,
-            data: response.data
+            data: dbResult
         });
 
     } catch (error) {
-        console.error("Error syncing lead to Supabase:", error.response ? error.response.data : error.message);
+        console.error("Error processing lead:", error.message);
         return res.status(500).json({
-            error: "Failed to sync lead with database.",
-            details: error.response ? error.response.data : error.message
+            error: "Failed to process lead.",
+            details: error.message
         });
     }
 }
+

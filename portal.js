@@ -253,6 +253,32 @@ document.addEventListener('DOMContentLoaded', () => {
         leads.unshift(lead);
         localStorage.setItem('repushield_leads', JSON.stringify(leads));
 
+        // Also POST to Supabase so the business owner actually gets notified
+        // Uses the REST API directly — no JS client needed on the portal page
+        const SUPABASE_URL = "https://emxhibjyofqqvuwtdevo.supabase.co";
+        // Try to get key from window (if supabase_config.js is loaded) or use env
+        const SUPABASE_KEY = (typeof window !== 'undefined' && window.SUPABASE_ANON_KEY) || "";
+        if (SUPABASE_KEY) {
+            fetch(`${SUPABASE_URL}/rest/v1/feedback`, {
+                method: 'POST',
+                headers: {
+                    'apikey': SUPABASE_KEY,
+                    'Authorization': `Bearer ${SUPABASE_KEY}`,
+                    'Content-Type': 'application/json',
+                    'Prefer': 'return=minimal'
+                },
+                body: JSON.stringify({
+                    business_name: lead.businessName,
+                    business_email: lead.businessEmail,
+                    rating: lead.rating,
+                    client_name: lead.clientName,
+                    client_phone: lead.clientPhone,
+                    client_message: lead.clientMessage,
+                    submitted_at: new Date().toISOString()
+                })
+            }).catch(err => console.warn("Feedback cloud sync failed (non-blocking):", err));
+        }
+
         // Submit complete visual switch
         feedbackScreen.style.display = 'none';
         
