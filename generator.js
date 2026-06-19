@@ -632,13 +632,23 @@ document.addEventListener('DOMContentLoaded', () => {
                     </a>
                 </td>
                 <td>
-                    <div class="links-column">
-                        <button class="copy-link-btn" data-url="${campaign.portalUrl}">
-                            <i class="fa-solid fa-mobile-screen"></i> Copy Mobile Portal Link
-                        </button>
-                        <button class="copy-link-btn" data-url="${campaign.flyerUrl}">
-                            <i class="${printIconClass}"></i> ${printToggleText}
-                        </button>
+                    <div class="links-column" style="display:flex; flex-direction:column; gap:0.5rem;">
+                        <div style="display:flex; gap:0.5rem;">
+                            <button class="copy-link-btn" data-url="${campaign.portalUrl}" style="flex:1; justify-content:center; padding:0.4rem;">
+                                <i class="fa-solid fa-copy"></i> Copy Portal
+                            </button>
+                            <a href="${campaign.portalUrl}" target="_blank" class="copy-link-btn" style="flex:1; justify-content:center; padding:0.4rem; text-decoration:none; display:flex; align-items:center; gap:0.4rem;">
+                                <i class="fa-solid fa-up-right-from-square"></i> Open Portal
+                            </a>
+                        </div>
+                        <div style="display:flex; gap:0.5rem;">
+                            <button class="copy-link-btn" data-url="${campaign.flyerUrl}" style="flex:1; justify-content:center; padding:0.4rem;">
+                                <i class="fa-solid fa-copy"></i> Copy Flyer
+                            </button>
+                            <a href="${campaign.flyerUrl}" target="_blank" class="copy-link-btn" style="flex:1; justify-content:center; padding:0.4rem; text-decoration:none; display:flex; align-items:center; gap:0.4rem;">
+                                <i class="${printIconClass}"></i> Open Flyer
+                            </a>
+                        </div>
                     </div>
                 </td>
                 <td>
@@ -670,13 +680,13 @@ document.addEventListener('DOMContentLoaded', () => {
             campaignListBody.appendChild(tr);
         });
 
-        // Add Event Listeners for Copy buttons
-        const copyBtns = campaignListBody.querySelectorAll('.copy-link-btn');
+        // Add Event Listeners for Copy buttons (only the button elements, not the a tags)
+        const copyBtns = campaignListBody.querySelectorAll('button.copy-link-btn');
         copyBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 const url = btn.getAttribute('data-url');
-                navigator.clipboard.writeText(url).then(() => {
-                    // Visual active feedback
+                
+                const handleCopySuccess = () => {
                     const origHtml = btn.innerHTML;
                     btn.innerHTML = `<i class="fa-solid fa-check text-emerald"></i> Copied!`;
                     btn.style.borderColor = '#10b981';
@@ -689,9 +699,42 @@ document.addEventListener('DOMContentLoaded', () => {
                         btn.style.borderColor = '';
                         btn.style.color = '';
                     }, 2000);
-                });
+                };
+
+                if (navigator.clipboard && window.isSecureContext) {
+                    navigator.clipboard.writeText(url).then(handleCopySuccess).catch(err => {
+                        console.error('Clipboard API failed', err);
+                        fallbackCopyTextToClipboard(url, handleCopySuccess);
+                    });
+                } else {
+                    fallbackCopyTextToClipboard(url, handleCopySuccess);
+                }
             });
         });
+        
+        function fallbackCopyTextToClipboard(text, successCallback) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            // Avoid scrolling to bottom
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.position = "fixed";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    successCallback();
+                } else {
+                    showToast('Failed to copy. Try using the Open link.');
+                }
+            } catch (err) {
+                console.error('Fallback: Oops, unable to copy', err);
+                showToast('Failed to copy. Try using the Open link.');
+            }
+            document.body.removeChild(textArea);
+        }
 
         // Add Event Listener for Delete buttons
         const deleteBtns = campaignListBody.querySelectorAll('.btn-delete');
