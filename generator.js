@@ -578,6 +578,46 @@ document.addEventListener('DOMContentLoaded', () => {
         campaigns.forEach(campaign => {
             const tr = document.createElement('tr');
             
+            // Handle schema discrepancies between local creation and Supabase sync
+            const campaignName = campaign.name || 'Unknown';
+            const campaignUrl = campaign.gmb || campaign.destination || '';
+            const campaignColor = campaign.accent || campaign.color || '#6366f1';
+            const campaignCategory = campaign.category || 'other';
+            const campaignEmail = campaign.email || '';
+            const campaignType = campaign.type || 'gmb';
+            const campaignLogo = campaign.logo || '';
+            const campaignTier = campaign.tier || '';
+            
+            // Dynamically build URLs if missing (e.g. for campaigns pulled from Supabase)
+            let pUrl = campaign.portalUrl;
+            let fUrl = campaign.flyerUrl;
+            
+            if (!pUrl || !fUrl || pUrl === 'undefined' || fUrl === 'undefined') {
+                let baseLocation = window.location.href.substring(0, window.location.href.lastIndexOf('/'));
+                const portalUrlParams = new URLSearchParams({
+                    id: campaign.id,
+                    name: campaignName,
+                    url: campaignUrl,
+                    color: campaignColor,
+                    email: campaignEmail,
+                    category: campaignCategory,
+                    logo: campaignLogo,
+                    tier: campaignTier,
+                    type: campaignType
+                });
+                pUrl = `${baseLocation}/portal.html?${portalUrlParams.toString()}`;
+                
+                const flyerUrlParams = new URLSearchParams({
+                    name: campaignName,
+                    category: campaignCategory,
+                    color: campaignColor,
+                    type: campaignType,
+                    tier: campaignTier,
+                    portalUrl: pUrl
+                });
+                fUrl = `${baseLocation}/flyer.html?${flyerUrlParams.toString()}`;
+            }
+            
             // Icon mapping badge
             const categoryLabels = {
                 cafe: '☕ Cafe / Quick Service',
@@ -595,7 +635,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 health: '🌿 Health & Supps',
                 other: '💼 Professional'
             };
-            const badgeClass = `badge badge-${campaign.category}`;
+            const badgeClass = `badge badge-${campaignCategory}`;
 
             // Destination text and icons mapping based on campaign type
             let destinationText = 'Google Maps Review';
@@ -603,12 +643,12 @@ document.addEventListener('DOMContentLoaded', () => {
             let printToggleText = 'Copy Standee Flyer Link';
             let printIconClass = 'fa-solid fa-print';
             
-            if (campaign.type === 'ecommerce') {
+            if (campaignType === 'ecommerce') {
                 destinationText = 'Amazon/Shopify Review';
                 destinationIconHtml = '<i class="fa-solid fa-cart-shopping"></i>';
                 printToggleText = 'Copy Box Insert Link';
                 printIconClass = 'fa-solid fa-box-open';
-            } else if (campaign.type === 'delivery') {
+            } else if (campaignType === 'delivery') {
                 destinationText = 'Zomato/Swiggy Store';
                 destinationIconHtml = '<i class="fa-solid fa-motorcycle"></i>';
                 printToggleText = 'Copy Bag Sticker Link';
@@ -618,34 +658,34 @@ document.addEventListener('DOMContentLoaded', () => {
             tr.innerHTML = `
                 <td>
                     <div class="table-biz-info">
-                        <h5>${campaign.name}</h5>
-                        <span>Created: ${campaign.createdAt}</span>
-                        ${campaign.tier ? `<span style="font-size:0.75rem; color:var(--primary); display:block; margin-top:2px;"><i class="fa-solid fa-layer-group"></i> ${campaign.tier}</span>` : ''}
+                        <h5>${campaignName}</h5>
+                        <span>Created: ${campaign.createdAt || 'Synced from Cloud'}</span>
+                        ${campaignTier ? `<span style="font-size:0.75rem; color:var(--primary); display:block; margin-top:2px;"><i class="fa-solid fa-layer-group"></i> ${campaignTier}</span>` : ''}
                     </div>
                 </td>
                 <td>
-                    <span class="${badgeClass}">${categoryLabels[campaign.category] || 'Professional'}</span>
+                    <span class="${badgeClass}">${categoryLabels[campaignCategory] || 'Professional'}</span>
                 </td>
                 <td>
-                    <a href="${campaign.gmb}" target="_blank" class="destination-link">
+                    <a href="${campaignUrl}" target="_blank" class="destination-link">
                         ${destinationIconHtml} ${destinationText}
                     </a>
                 </td>
                 <td>
                     <div class="links-column" style="display:flex; flex-direction:column; gap:0.5rem;">
                         <div style="display:flex; gap:0.5rem;">
-                            <button class="copy-link-btn" data-url="${campaign.portalUrl}" style="flex:1; justify-content:center; padding:0.4rem;">
+                            <button class="copy-link-btn" data-url="${pUrl}" style="flex:1; justify-content:center; padding:0.4rem;">
                                 <i class="fa-solid fa-copy"></i> Copy Portal
                             </button>
-                            <a href="${campaign.portalUrl}" target="_blank" class="copy-link-btn" style="flex:1; justify-content:center; padding:0.4rem; text-decoration:none; display:flex; align-items:center; gap:0.4rem;">
+                            <a href="${pUrl}" target="_blank" class="copy-link-btn" style="flex:1; justify-content:center; padding:0.4rem; text-decoration:none; display:flex; align-items:center; gap:0.4rem;">
                                 <i class="fa-solid fa-up-right-from-square"></i> Open Portal
                             </a>
                         </div>
                         <div style="display:flex; gap:0.5rem;">
-                            <button class="copy-link-btn" data-url="${campaign.flyerUrl}" style="flex:1; justify-content:center; padding:0.4rem;">
+                            <button class="copy-link-btn" data-url="${fUrl}" style="flex:1; justify-content:center; padding:0.4rem;">
                                 <i class="fa-solid fa-copy"></i> Copy Flyer
                             </button>
-                            <a href="${campaign.flyerUrl}" target="_blank" class="copy-link-btn" style="flex:1; justify-content:center; padding:0.4rem; text-decoration:none; display:flex; align-items:center; gap:0.4rem;">
+                            <a href="${fUrl}" target="_blank" class="copy-link-btn" style="flex:1; justify-content:center; padding:0.4rem; text-decoration:none; display:flex; align-items:center; gap:0.4rem;">
                                 <i class="${printIconClass}"></i> Open Flyer
                             </a>
                         </div>
