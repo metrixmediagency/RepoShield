@@ -2,7 +2,7 @@
 // Get your real keys from: Supabase Dashboard → Settings → API
 // The Anon Key is a JWT starting with "eyJ..." (200+ characters)
 window.SUPABASE_URL = "https://emxhibjyofqqvuwtdevo.supabase.co"; 
-window.SUPABASE_ANON_KEY = ""; // PASTE YOUR REAL ANON KEY HERE (starts with eyJ...)
+window.SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVteGhpYmp5b2ZxcXZ1d3RkZXZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1NzUwMDYsImV4cCI6MjA5NjE1MTAwNn0.605yhNQUptFhSXl6sor8aM8MEXyoC0O41Wu8sLKqEAg";
 
 // Initialize Supabase Client if configured
 let supabaseClient = null;

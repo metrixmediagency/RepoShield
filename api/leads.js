@@ -32,7 +32,7 @@ export default async function handler(req, res) {
         //   SUPABASE_URL = your Supabase project URL
         //   SUPABASE_ANON_KEY = your Supabase anon/public key (starts with eyJ...)
         const supabaseUrl = process.env.SUPABASE_URL || "https://emxhibjyofqqvuwtdevo.supabase.co";
-        const supabaseKey = process.env.SUPABASE_ANON_KEY || "";
+        const supabaseKey = process.env.SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVteGhpYmp5b2ZxcXZ1d3RkZXZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1NzUwMDYsImV4cCI6MjA5NjE1MTAwNn0.605yhNQUptFhSXl6sor8aM8MEXyoC0O41Wu8sLKqEAg";
 
         // Generate a unique ID for the campaign
         const campaignId = `mc_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
