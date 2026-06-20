@@ -378,7 +378,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Remove old classes and add active type class to mockup flyer card
         flyerCardPreview.classList.remove('type-gmb', 'type-ecommerce', 'type-delivery');
         flyerCardPreview.classList.add(`type-${type}`);
-        
         if (type === 'ecommerce' && productTierGroup) {
             productTierGroup.style.display = 'flex';
         } else if (productTierGroup) {
@@ -387,6 +386,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         updateSimulators();
     }
+
+    if (document.getElementById('qr-fg-color')) document.getElementById('qr-fg-color').addEventListener('input', updateSimulators);
+    if (document.getElementById('qr-bg-color')) document.getElementById('qr-bg-color').addEventListener('input', updateSimulators);
+    if (document.getElementById('qr-dot-style')) document.getElementById('qr-dot-style').addEventListener('change', updateSimulators);
+    if (document.getElementById('qr-corner-style')) document.getElementById('qr-corner-style').addEventListener('change', updateSimulators);
 
     function updateSimulators() {
         const name = bizNameInput.value || (activeCampaignType === 'ecommerce' ? 'Your Product Name' : 'Your Business Name');
@@ -409,6 +413,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Apply accent color variable to flyer card border
         document.documentElement.style.setProperty('--primary', accent);
+
+        // Render Live Custom QR Code in Preview
+        const qrContainer = document.querySelector('.flyer-qr-mock');
+        if (qrContainer && window.QRCodeStyling) {
+            qrContainer.innerHTML = '';
+            
+            const qrFgColor = document.getElementById('qr-fg-color') ? document.getElementById('qr-fg-color').value : '#0f172a';
+            const qrBgColor = document.getElementById('qr-bg-color') ? document.getElementById('qr-bg-color').value : '#ffffff';
+            const qrDotStyle = document.getElementById('qr-dot-style') ? document.getElementById('qr-dot-style').value : 'dots';
+            const qrCornerStyle = document.getElementById('qr-corner-style') ? document.getElementById('qr-corner-style').value : 'extra-rounded';
+
+            const qrCode = new QRCodeStyling({
+                width: 180,
+                height: 180,
+                data: "https://metrixmedia.app",
+                image: logo !== '' ? logo : "",
+                dotsOptions: { color: qrFgColor, type: qrDotStyle },
+                backgroundOptions: { color: qrBgColor },
+                cornersSquareOptions: { type: qrCornerStyle, color: qrFgColor },
+                imageOptions: { crossOrigin: "anonymous", margin: 5 }
+            });
+            qrCode.append(qrContainer);
+        }
 
         // 2. Update Mobile frame iframe
         const baseLocation = window.location.href.substring(0, window.location.href.lastIndexOf('/'));
@@ -479,6 +506,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const tier = ecommerceTierInput ? ecommerceTierInput.value : '';
         const id = Date.now().toString(); // unique id
 
+        // QR Settings Capture
+        const qrFgColor = document.getElementById('qr-fg-color') ? document.getElementById('qr-fg-color').value : '#0f172a';
+        const qrBgColor = document.getElementById('qr-bg-color') ? document.getElementById('qr-bg-color').value : '#ffffff';
+        const qrDotStyle = document.getElementById('qr-dot-style') ? document.getElementById('qr-dot-style').value : 'dots';
+        const qrCornerStyle = document.getElementById('qr-corner-style') ? document.getElementById('qr-corner-style').value : 'extra-rounded';
+
         let baseLocation = bizBaseUrlInput.value.trim();
         if (!baseLocation) {
             baseLocation = window.location.href.substring(0, window.location.href.lastIndexOf('/'));
@@ -508,6 +541,11 @@ document.addEventListener('DOMContentLoaded', () => {
             color: accent,
             type: activeCampaignType, // Include campaign type
             tier: tier,
+            qrFg: qrFgColor,
+            qrBg: qrBgColor,
+            qrDot: qrDotStyle,
+            qrCorner: qrCornerStyle,
+            logo: logo,
             portalUrl: finalPortalUrl
         });
         const finalFlyerUrl = `${baseLocation}/flyer.html?${flyerUrlParams.toString()}`;

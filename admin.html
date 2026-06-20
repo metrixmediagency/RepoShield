@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="generator.css?v=2.3">
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
 </head>
 <body>
     <!-- Passcode Security Gate -->
@@ -231,6 +232,51 @@
                                     <input type="url" id="biz-base-url" placeholder="e.g., https://repushield-agency.vercel.app" autocomplete="off">
                                 </div>
                                 <span class="input-tip"><i class="fa-solid fa-circle-info"></i> Once deployed, enter your domain here. The generated QR codes will instantly point to your public site!</span>
+                            </div>
+
+                            <div style="margin-top: 2rem; margin-bottom: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
+                                <h4 style="margin-bottom: 1rem; color: #818cf8;"><i class="fa-solid fa-qrcode"></i> QR Code Customization</h4>
+                                <div class="grid-2-col">
+                                    <div class="input-group">
+                                        <label for="qr-fg-color">QR Color</label>
+                                        <div class="color-picker-wrapper">
+                                            <input type="color" id="qr-fg-color" value="#0f172a">
+                                            <input type="text" id="qr-fg-color-hex" value="#0f172a" placeholder="#0f172a">
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <label for="qr-bg-color">Background Color</label>
+                                        <div class="color-picker-wrapper">
+                                            <input type="color" id="qr-bg-color" value="#ffffff">
+                                            <input type="text" id="qr-bg-color-hex" value="#ffffff" placeholder="#ffffff">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid-2-col" style="margin-top: 1rem;">
+                                    <div class="input-group">
+                                        <label for="qr-dot-style">Pattern Style</label>
+                                        <div class="input-wrapper">
+                                            <select id="qr-dot-style">
+                                                <option value="square">Standard Squares</option>
+                                                <option value="dots" selected>Modern Dots</option>
+                                                <option value="rounded">Rounded</option>
+                                                <option value="classy">Classy</option>
+                                                <option value="classy-rounded">Classy Rounded</option>
+                                                <option value="extra-rounded">Extra Rounded</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <label for="qr-corner-style">Corner Style</label>
+                                        <div class="input-wrapper">
+                                            <select id="qr-corner-style">
+                                                <option value="square">Standard Square</option>
+                                                <option value="dot">Dot</option>
+                                                <option value="extra-rounded" selected>Rounded</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <button type="submit" class="btn btn-primary" id="btn-generate">
@@ -671,6 +717,6 @@ MetrixMedia Digital</pre>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase_config.js"></script>
     <script src="razorpay_config.js"></script>
-    <script src="generator.js?v=2.4"></script>
+    <script src="generator.js?v=3.0"></script>
 </body>
 </html>

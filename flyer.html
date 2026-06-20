@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- FontAwesome icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
     <style>
         /* Theme Variables */
         :root {
@@ -421,14 +422,21 @@
 
         /* PRINT STYLES */
         @media print {
-            body { background: white; }
+            @page {
+                margin: 0;
+                size: A4 portrait;
+            }
+            body { background: white; margin: 0; padding: 0; }
             .toolbar, .folding-guide-lines { display: none !important; }
             .print-page {
                 box-shadow: none;
                 margin: 0;
                 padding: 0;
-                width: 210mm;
-                height: 297mm;
+                width: 100%;
+                height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
             .standee-container, .ecommerce-container, .delivery-container {
                 margin: auto;
@@ -714,11 +722,31 @@
                 el.className = `${selectedIcon} icon-placeholder`;
             });
 
-            // Generate real QR pointing to dynamic portal gating URL
-            const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(portalUrl)}`;
-            document.querySelectorAll('.qr-placeholder').forEach(img => {
-                img.src = qrApiUrl;
-            });
+            const qrFg = urlParams.get('qrFg') || '#0f172a';
+            const qrBg = urlParams.get('qrBg') || '#ffffff';
+            const qrDot = urlParams.get('qrDot') || 'dots';
+            const qrCorner = urlParams.get('qrCorner') || 'extra-rounded';
+            const logo = urlParams.get('logo') || '';
+
+            // Generate real custom QR pointing to dynamic portal gating URL
+            if (window.QRCodeStyling) {
+                document.querySelectorAll('.qr-wrapper, .insert-qr-mock, .sticker-qr').forEach(container => {
+                    container.innerHTML = ''; // clear placeholder img
+                    const size = container.classList.contains('sticker-qr') ? 74 : (container.classList.contains('insert-qr-mock') ? 98 : 144);
+                    
+                    const qrCode = new QRCodeStyling({
+                        width: size,
+                        height: size,
+                        data: portalUrl,
+                        image: logo !== '' ? logo : "",
+                        dotsOptions: { color: qrFg, type: qrDot },
+                        backgroundOptions: { color: qrBg },
+                        cornersSquareOptions: { type: qrCorner, color: qrFg },
+                        imageOptions: { crossOrigin: "anonymous", margin: 5 }
+                    });
+                    qrCode.append(container);
+                });
+            }
         });
     </script>
 </body>
