@@ -907,7 +907,11 @@ function renderClientsTable() {
     table.id = 'clients-tbody';
     const thead = document.createElement('thead');
     thead.innerHTML = `<tr>
-        <th>Name</th><th>Email</th><th>Monthly Amount (INR)</th><th>Description</th><th>Actions</th>
+        <th style="width: 25%;">Name</th>
+        <th style="width: 25%;">Email</th>
+        <th style="width: 15%;">Monthly Amount (INR)</th>
+        <th style="width: 20%;">Description</th>
+        <th style="width: 15%;">Actions</th>
     </tr>`;
     const tbody = document.createElement('tbody');
     clients.forEach(client => {
@@ -1083,7 +1087,11 @@ function renderAgentsTable() {
     table.id = 'agents-tbody';
     const thead = document.createElement('thead');
     thead.innerHTML = `<tr>
-        <th>Name</th><th>User ID</th><th>Password</th><th>UPI ID</th><th>Actions</th>
+        <th style="width: 25%;">Name</th>
+        <th style="width: 20%;">User ID</th>
+        <th style="width: 20%;">Password</th>
+        <th style="width: 20%;">UPI ID</th>
+        <th style="width: 15%;">Actions</th>
     </tr>`;
     const tbody = document.createElement('tbody');
     agents.forEach(agent => {
