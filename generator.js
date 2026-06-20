@@ -672,23 +672,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     </a>
                 </td>
                 <td>
-                    <div class="links-column" style="display:flex; flex-direction:column; gap:0.5rem;">
-                        <div style="display:flex; gap:0.5rem;">
-                            <button class="copy-link-btn" data-url="${pUrl}" style="flex:1; justify-content:center; padding:0.4rem;">
-                                <i class="fa-solid fa-copy"></i> Copy Portal
-                            </button>
-                            <a href="${pUrl}" target="_blank" class="copy-link-btn" style="flex:1; justify-content:center; padding:0.4rem; text-decoration:none; display:flex; align-items:center; gap:0.4rem;">
-                                <i class="fa-solid fa-up-right-from-square"></i> Open Portal
-                            </a>
-                        </div>
-                        <div style="display:flex; gap:0.5rem;">
-                            <button class="copy-link-btn" data-url="${fUrl}" style="flex:1; justify-content:center; padding:0.4rem;">
-                                <i class="fa-solid fa-copy"></i> Copy Flyer
-                            </button>
-                            <a href="${fUrl}" target="_blank" class="copy-link-btn" style="flex:1; justify-content:center; padding:0.4rem; text-decoration:none; display:flex; align-items:center; gap:0.4rem;">
-                                <i class="${printIconClass}"></i> Open Flyer
-                            </a>
-                        </div>
+                    <div class="links-column">
+                        <button class="copy-link-btn" data-url="${pUrl}">
+                            <i class="fa-solid fa-copy"></i> Copy Portal
+                        </button>
+                        <button class="copy-link-btn" data-url="${fUrl}">
+                            <i class="fa-solid fa-copy"></i> Copy Flyer
+                        </button>
                     </div>
                 </td>
                 <td>
@@ -701,10 +691,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 </td>
                 <td>
                     <div class="actions-cell">
-                        <a href="${campaign.portalUrl}" target="_blank" class="action-icon-btn" title="View Portal">
+                        <a href="${pUrl}" target="_blank" class="action-icon-btn" title="View Portal">
                             <i class="fa-solid fa-eye"></i>
                         </a>
-                        <a href="${campaign.flyerUrl}" target="_blank" class="action-icon-btn" title="View & Print Asset">
+                        <a href="${fUrl}" target="_blank" class="action-icon-btn" title="View & Print Asset">
                             <i class="fa-solid fa-print"></i>
                         </a>
                         <button class="action-icon-btn btn-status-toggle" data-id="${campaign.id}" title="Toggle Billing Status">
