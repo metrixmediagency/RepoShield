@@ -392,6 +392,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('qr-dot-style')) document.getElementById('qr-dot-style').addEventListener('change', updateSimulators);
     if (document.getElementById('qr-corner-style')) document.getElementById('qr-corner-style').addEventListener('change', updateSimulators);
 
+    if (document.getElementById('onboard-qr-fg')) document.getElementById('onboard-qr-fg').addEventListener('input', updateSimulators);
+    if (document.getElementById('onboard-qr-bg')) document.getElementById('onboard-qr-bg').addEventListener('input', updateSimulators);
+    if (document.getElementById('onboard-qr-dot')) document.getElementById('onboard-qr-dot').addEventListener('change', updateSimulators);
+    if (document.getElementById('onboard-qr-corner')) document.getElementById('onboard-qr-corner').addEventListener('change', updateSimulators);
+
+    if (document.getElementById('biz-font')) document.getElementById('biz-font').addEventListener('change', updateSimulators);
+    if (document.getElementById('onboard-biz-font')) document.getElementById('onboard-biz-font').addEventListener('change', updateSimulators);
+
     function updateSimulators() {
         const name = bizNameInput.value || (activeCampaignType === 'ecommerce' ? 'Your Product Name' : 'Your Business Name');
         const accent = bizAccentInput.value;
@@ -419,10 +427,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (qrContainer && window.QRCodeStyling) {
             qrContainer.innerHTML = '';
             
-            const qrFgColor = document.getElementById('qr-fg-color') ? document.getElementById('qr-fg-color').value : '#0f172a';
-            const qrBgColor = document.getElementById('qr-bg-color') ? document.getElementById('qr-bg-color').value : '#ffffff';
-            const qrDotStyle = document.getElementById('qr-dot-style') ? document.getElementById('qr-dot-style').value : 'dots';
-            const qrCornerStyle = document.getElementById('qr-corner-style') ? document.getElementById('qr-corner-style').value : 'extra-rounded';
+            const qrFgColor = (document.getElementById('qr-fg-color') || document.getElementById('onboard-qr-fg') || {value: '#0f172a'}).value;
+            const qrBgColor = (document.getElementById('qr-bg-color') || document.getElementById('onboard-qr-bg') || {value: '#ffffff'}).value;
+            const qrDotStyle = (document.getElementById('qr-dot-style') || document.getElementById('onboard-qr-dot') || {value: 'dots'}).value;
+            const qrCornerStyle = (document.getElementById('qr-corner-style') || document.getElementById('onboard-qr-corner') || {value: 'extra-rounded'}).value;
 
             const qrCode = new QRCodeStyling({
                 width: 180,
@@ -437,6 +445,24 @@ document.addEventListener('DOMContentLoaded', () => {
             qrCode.append(qrContainer);
         }
 
+        // Apply Custom Typography
+        const selectedFont = (document.getElementById('biz-font') || document.getElementById('onboard-biz-font') || {value: 'Outfit'}).value;
+        const fontNameForUrl = selectedFont.replace(/ /g, '+');
+        
+        // Dynamically load font if not already loaded in the document
+        if (!document.getElementById(`font-${fontNameForUrl}`)) {
+            const link = document.createElement('link');
+            link.id = `font-${fontNameForUrl}`;
+            link.rel = 'stylesheet';
+            link.href = `https://fonts.googleapis.com/css2?family=${fontNameForUrl}:wght@400;600;700;800&display=swap`;
+            document.head.appendChild(link);
+        }
+        
+        // Apply font to Live Flyer Mockup
+        if (flyerCardPreview) {
+            flyerCardPreview.style.fontFamily = `"${selectedFont}", sans-serif`;
+        }
+
         // 2. Update Mobile frame iframe
         const baseLocation = window.location.href.substring(0, window.location.href.lastIndexOf('/'));
         
@@ -447,6 +473,7 @@ document.addEventListener('DOMContentLoaded', () => {
             email: email,
             category: category,
             logo: logo,
+            font: selectedFont,
             tier: ecommerceTierInput ? ecommerceTierInput.value : '',
             type: activeCampaignType,
             demo: 'true'
@@ -507,10 +534,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const id = Date.now().toString(); // unique id
 
         // QR Settings Capture
-        const qrFgColor = document.getElementById('qr-fg-color') ? document.getElementById('qr-fg-color').value : '#0f172a';
-        const qrBgColor = document.getElementById('qr-bg-color') ? document.getElementById('qr-bg-color').value : '#ffffff';
-        const qrDotStyle = document.getElementById('qr-dot-style') ? document.getElementById('qr-dot-style').value : 'dots';
-        const qrCornerStyle = document.getElementById('qr-corner-style') ? document.getElementById('qr-corner-style').value : 'extra-rounded';
+        const qrFgColor = (document.getElementById('qr-fg-color') || document.getElementById('onboard-qr-fg') || {value: '#0f172a'}).value;
+        const qrBgColor = (document.getElementById('qr-bg-color') || document.getElementById('onboard-qr-bg') || {value: '#ffffff'}).value;
+        const qrDotStyle = (document.getElementById('qr-dot-style') || document.getElementById('onboard-qr-dot') || {value: 'dots'}).value;
+        const qrCornerStyle = (document.getElementById('qr-corner-style') || document.getElementById('onboard-qr-corner') || {value: 'extra-rounded'}).value;
+        
+        // Font Setting Capture
+        const selectedFont = (document.getElementById('biz-font') || document.getElementById('onboard-biz-font') || {value: 'Outfit'}).value;
 
         let baseLocation = bizBaseUrlInput.value.trim();
         if (!baseLocation) {
@@ -530,6 +560,7 @@ document.addEventListener('DOMContentLoaded', () => {
             email: email,
             category: category,
             logo: logo,
+            font: selectedFont,
             tier: tier,
             type: activeCampaignType // Include campaign type
         });
@@ -546,6 +577,7 @@ document.addEventListener('DOMContentLoaded', () => {
             qrDot: qrDotStyle,
             qrCorner: qrCornerStyle,
             logo: logo,
+            font: selectedFont,
             portalUrl: finalPortalUrl
         });
         const finalFlyerUrl = `${baseLocation}/flyer.html?${flyerUrlParams.toString()}`;
@@ -560,6 +592,8 @@ document.addEventListener('DOMContentLoaded', () => {
             email,
             logo,
             tier,
+            font: selectedFont,
+            qrSettings: { qrFgColor, qrBgColor, qrDotStyle, qrCornerStyle },
             type: activeCampaignType, // Store campaign type
             status: 'active', // default billing status
             portalUrl: finalPortalUrl,

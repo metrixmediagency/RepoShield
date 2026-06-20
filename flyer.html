@@ -666,11 +666,27 @@
             const name = urlParams.get('name') || 'MetrixMedia Brand';
             const category = urlParams.get('category') || 'other';
             const color = urlParams.get('color') || '#6366f1';
+            const font = urlParams.get('font') || 'Outfit';
             const campaignType = urlParams.get('type') || 'gmb';
             const portalUrl = urlParams.get('portalUrl') || 'https://google.com';
 
             // Set Brand Color dynamically
             document.documentElement.style.setProperty('--primary', color);
+
+            // Set Brand Typography dynamically
+            const fontNameForUrl = font.replace(/ /g, '+');
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = `https://fonts.googleapis.com/css2?family=${fontNameForUrl}:wght@400;500;600;700;800&display=swap`;
+            document.head.appendChild(link);
+
+            const style = document.createElement('style');
+            style.innerHTML = `
+                body, .standee-header h2, .standee-body h3, .insert-brand h4, .insert-left h3, .sticker-header h4, .sticker-card h3 {
+                    font-family: "${font}", sans-serif !important;
+                }
+            `;
+            document.head.appendChild(style);
 
             // Toggle active asset container based on campaign type
             const gmbAsset = document.getElementById('gmb-asset');

@@ -1798,9 +1798,22 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="input-group" style="margin-top: 1.25rem;">
-                                        <label>Target Google Maps / Review URL</label>
-                                        <input type="url" id="onboard-biz-url" placeholder="https://g.page/r/..." required>
+                                    <div class="input-row" style="margin-top: 1.25rem;">
+                                        <div class="input-group">
+                                            <label>Target Google Maps / Review URL</label>
+                                            <input type="url" id="onboard-biz-url" placeholder="https://g.page/r/..." required>
+                                        </div>
+                                        <div class="input-group">
+                                            <label>Brand Typography</label>
+                                            <select id="onboard-biz-font">
+                                                <option value="Outfit">Outfit (Modern Tech)</option>
+                                                <option value="Inter">Inter (Clean & Clinical)</option>
+                                                <option value="Playfair Display">Playfair Display (Luxury)</option>
+                                                <option value="Space Grotesk">Space Grotesk (Cyber)</option>
+                                                <option value="Cinzel">Cinzel (High-End)</option>
+                                                <option value="Montserrat">Montserrat (Geometric)</option>
+                                            </select>
+                                        </div>
                                     </div>
 
                                     <div style="margin-top: 1.5rem; margin-bottom: 0.5rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem;">
@@ -2956,7 +2969,7 @@ Interested in setting this up to see if it works?</span>
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase_config.js"></script>
-    <script src="generator.js?v=3.0"></script>
+    <script src="generator.js?v=3.1"></script>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script src="razorpay_config.js"></script>
     <script>
@@ -3631,9 +3644,14 @@ Interested in setting this up to see if it works?</span>
 
                         if (!bizName || !targetUrl) { showToastNotification('Please enter a Business Name and Target URL first.'); return; }
 
+                        const qrFg = document.getElementById('onboard-qr-fg').value;
+                        const qrBg = document.getElementById('onboard-qr-bg').value;
+                        const qrDot = document.getElementById('onboard-qr-dot').value;
+                        const qrCorner = document.getElementById('onboard-qr-corner').value;
+
                         const baseLocation = window.location.origin;
                         const demoPortalUrl = `${baseLocation}/portal.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&demo=true`;
-                        const demoFlyerUrl = `${baseLocation}/flyer.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}`;
+                        const demoFlyerUrl = `${baseLocation}/flyer.html?name=${encodeURIComponent(bizName)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&qrFg=${encodeURIComponent(qrFg)}&qrBg=${encodeURIComponent(qrBg)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}`;
 
                         const ppLink = document.getElementById('preview-portal-link');
                         const pfLink = document.getElementById('preview-flyer-link');

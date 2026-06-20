@@ -11,11 +11,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const category = urlParams.get('category') || 'other';
     const logoUrl = urlParams.get('logo') || '';
     const campaignType = urlParams.get('type') || 'gmb'; // Parse campaign type
+    const font = urlParams.get('font') || 'Outfit'; // Parse font type
     const isDemo = urlParams.get('demo') === 'true'; // Sandbox editor preview flag
 
     // Apply Brand Accent Color dynamically
     document.documentElement.style.setProperty('--primary', accentColor);
     document.documentElement.style.setProperty('--primary-glow', `${accentColor}40`); // 25% opacity glow
+
+    // Set Brand Typography dynamically
+    const fontNameForUrl = font.replace(/ /g, '+');
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = `https://fonts.googleapis.com/css2?family=${fontNameForUrl}:wght@400;500;600;700;800&display=swap`;
+    document.head.appendChild(link);
+
+    const style = document.createElement('style');
+    style.innerHTML = `
+        body, h2, h3, .tagline, .rating-helper-text, .feedback-subtitle, button, input, textarea, label {
+            font-family: "${font}", sans-serif !important;
+        }
+    `;
+    document.head.appendChild(style);
 
     // Set Business Details in DOM
     document.getElementById('business-name').textContent = bizName;
