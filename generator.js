@@ -672,16 +672,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     </a>
                 </td>
                 <td>
-                    <div class="links-column">
-                        <button class="copy-link-btn" data-url="${pUrl}">
-                            <i class="fa-solid fa-copy"></i> Copy Portal
-                        </button>
-                        <button class="copy-link-btn" data-url="${fUrl}">
-                            <i class="fa-solid fa-copy"></i> Copy Flyer
-                        </button>
-                    </div>
-                </td>
-                <td>
                     ${campaign.status === 'suspended' ? 
                         `<span class="badge" style="background: rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.5); color: #ef4444;"><i class="fa-solid fa-ban"></i> Suspended</span>` : 
                      campaign.status === 'grace' ? 
