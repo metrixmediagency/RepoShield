@@ -2111,9 +2111,8 @@ code {
     #campaign-list-body td:nth-child(1)::before { content: "Business Name"; }
     #campaign-list-body td:nth-child(2)::before { content: "Category"; }
     #campaign-list-body td:nth-child(3)::before { content: "Destination"; }
-    #campaign-list-body td:nth-child(4)::before { content: "Links"; align-self: flex-start; }
-    #campaign-list-body td:nth-child(5)::before { content: "Billing"; }
-    #campaign-list-body td:nth-child(6)::before { content: "Actions"; }
+    #campaign-list-body td:nth-child(4)::before { content: "Billing Status"; }
+    #campaign-list-body td:nth-child(5)::before { content: "Actions"; }
     
     #admin-payouts-body td:nth-child(1)::before { content: "Client Business"; }
     #admin-payouts-body td:nth-child(2)::before { content: "Sales Partner"; }
