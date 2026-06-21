@@ -929,6 +929,7 @@
                         const qrCode = new QRCodeStyling({
                             width: size, height: size, data: currentPortalUrl,
                             image: logo !== '' ? logo : "",
+                            qrOptions: { errorCorrectionLevel: 'M' }, // Makes the QR code much less dense and cleaner
                             dotsOptions: { color: qrFg, type: qrDot },
                             backgroundOptions: { color: qrBg },
                             cornersSquareOptions: { type: qrCorner, color: qrFg },
@@ -942,6 +943,7 @@
                     qrCodeInstances.forEach(qrCode => {
                         qrCode.update({
                             data: currentPortalUrl,
+                            qrOptions: { errorCorrectionLevel: 'M' },
                             dotsOptions: { color: qrFg, type: qrDot },
                             backgroundOptions: { color: qrBg },
                             cornersSquareOptions: { type: qrCorner, color: qrFg }
@@ -955,22 +957,19 @@
         document.addEventListener('DOMContentLoaded', () => {
             // Read initial state from URL parameters
             const initialState = {
+                theme: urlParams.get('theme'),
                 name: urlParams.get('name'),
                 category: urlParams.get('category'),
                 color: urlParams.get('color'),
                 font: urlParams.get('font'),
                 type: urlParams.get('type'),
                 portalUrl: urlParams.get('portalUrl'),
-                qrFg: urlParams.get('qrFg'),
-                qrBg: urlParams.get('qrBg'),
                 qrDot: urlParams.get('qrDot'),
                 qrCorner: urlParams.get('qrCorner'),
                 logo: urlParams.get('logo'),
-                flyerBg: urlParams.get('flyerBg'),
                 flyerHeadline: urlParams.get('flyerHeadline'),
                 flyerSub: urlParams.get('flyerSub'),
-                flyerPattern: urlParams.get('flyerPattern'),
-                flyerTextColor: urlParams.get('flyerTextColor'),
+                flyerFooter: urlParams.get('flyerFooter'),
                 flyerTextStyle: urlParams.get('flyerTextStyle')
             };
 
