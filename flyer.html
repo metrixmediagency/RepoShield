@@ -820,8 +820,8 @@
             
             const qrFg = tp.qrFg;
             const qrBg = tp.qrBg;
-            const qrDot = state.qrDot || tp.qrDot;
-            const qrCorner = state.qrCorner || tp.qrCorner;
+            const qrDot = (state.qrDot && state.qrDot !== 'theme-default') ? state.qrDot : tp.qrDot;
+            const qrCorner = (state.qrCorner && state.qrCorner !== 'theme-default') ? state.qrCorner : tp.qrCorner;
             
             const logo = state.logo || '';
             const flyerHeadline = state.flyerHeadline || 'Review Us';
