@@ -450,6 +450,9 @@ document.addEventListener('DOMContentLoaded', () => {
             demo: 'true'
         });
 
+        const mobIframe = document.getElementById('mobile-live-flyer');
+        const desktopLiveFlyer = document.getElementById('desktop-live-flyer');
+        
         if (portalIframe) portalIframe.src = `${baseLocation}/portal.html?${params.toString()}`;
         if (mobIframe) mobIframe.src = `${baseLocation}/flyer.html?${params.toString()}`;
         if (desktopLiveFlyer) desktopLiveFlyer.src = `${baseLocation}/flyer.html?${params.toString()}`;
