@@ -455,9 +455,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Initialize src if it hasn't been set with params yet
-        if (portalIframe && !portalIframe.src.includes('?')) portalIframe.src = `${baseLocation}/portal.html?${params.toString()}`;
-        if (mobIframe && !mobIframe.src.includes('?')) mobIframe.src = `${baseLocation}/flyer.html?${params.toString()}`;
-        if (desktopLiveFlyer && !desktopLiveFlyer.src.includes('?')) desktopLiveFlyer.src = `${baseLocation}/flyer.html?${params.toString()}`;
+        const ts = new Date().getTime();
+        if (portalIframe && !portalIframe.src.includes('?')) portalIframe.src = `${baseLocation}/portal.html?v=${ts}&${params.toString()}`;
+        if (mobIframe && !mobIframe.src.includes('?')) mobIframe.src = `${baseLocation}/flyer.html?v=${ts}&${params.toString()}`;
+        if (desktopLiveFlyer && !desktopLiveFlyer.src.includes('?')) desktopLiveFlyer.src = `${baseLocation}/flyer.html?v=${ts}&${params.toString()}`;
     }
 
     // Sync input events
