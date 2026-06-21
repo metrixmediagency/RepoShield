@@ -1827,6 +1827,53 @@
                                                 <option value="theme-neon">Neon Pulse (High Energy)</option>
                                             </select>
                                         </div>
+                                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px dashed rgba(255,255,255,0.1);">
+                                            <h5 style="margin-bottom: 0.8rem; color: #cbd5e1; font-size: 0.85rem;"><i class="fa-solid fa-sliders"></i> Granular Customization</h5>
+                                            <div class="grid-2-col" style="margin-bottom: 0.5rem;">
+                                                <div class="input-group">
+                                                    <label>Flyer Headline</label>
+                                                    <input type="text" id="onboard-flyer-headline" value="Review Us">
+                                                </div>
+                                                <div class="input-group">
+                                                    <label>Flyer Subheadline</label>
+                                                    <input type="text" id="onboard-flyer-sub" value="Scan to Rate">
+                                                </div>
+                                            </div>
+                                            <div class="grid-2-col" style="margin-bottom: 0.5rem;">
+                                                <div class="input-group">
+                                                    <label>Footer Text</label>
+                                                    <input type="text" id="onboard-flyer-footer" value="Help us serve you better!">
+                                                </div>
+                                                <div class="input-group">
+                                                    <label>Text Style</label>
+                                                    <select id="onboard-flyer-text-style">
+                                                        <option value="normal" selected>Normal</option>
+                                                        <option value="bold">Bold</option>
+                                                        <option value="italic">Italic</option>
+                                                        <option value="bold-italic">Bold & Italic</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="grid-2-col">
+                                                <div class="input-group">
+                                                    <label>QR Pattern Style</label>
+                                                    <select id="onboard-qr-dot">
+                                                        <option value="square">Standard Squares</option>
+                                                        <option value="dots" selected>Modern Dots</option>
+                                                        <option value="rounded">Rounded</option>
+                                                        <option value="classy">Classy</option>
+                                                    </select>
+                                                </div>
+                                                <div class="input-group">
+                                                    <label>QR Corner Style</label>
+                                                    <select id="onboard-qr-corner">
+                                                        <option value="square">Standard Square</option>
+                                                        <option value="dot">Dot</option>
+                                                        <option value="extra-rounded" selected>Rounded</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <!-- Desktop: show both buttons right here. Mobile: show only Next -->
                                     <div id="step1-desktop-actions" style="display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap;">
@@ -3557,22 +3604,19 @@ Interested in setting this up to see if it works?</span>
 
                 updateSimulator();
 
-                const qrFg = document.getElementById('onboard-qr-fg') ? document.getElementById('onboard-qr-fg').value : '#0f172a';
-                const qrBg = document.getElementById('onboard-qr-bg') ? document.getElementById('onboard-qr-bg').value : '#ffffff';
+                const theme = document.getElementById('onboard-flyer-theme') ? document.getElementById('onboard-flyer-theme').value : 'theme-onyx';
                 const qrDot = document.getElementById('onboard-qr-dot') ? document.getElementById('onboard-qr-dot').value : 'dots';
                 const qrCorner = document.getElementById('onboard-qr-corner') ? document.getElementById('onboard-qr-corner').value : 'extra-rounded';
                 const font = document.getElementById('onboard-biz-font') ? document.getElementById('onboard-biz-font').value : 'Outfit';
                 
-                const flyerBg = document.getElementById('onboard-flyer-bg') ? document.getElementById('onboard-flyer-bg').value : '#ffffff';
                 const flyerHeadline = document.getElementById('onboard-flyer-headline') ? document.getElementById('onboard-flyer-headline').value : 'Review Us';
                 const flyerSub = document.getElementById('onboard-flyer-sub') ? document.getElementById('onboard-flyer-sub').value : 'Scan to Rate';
-                const flyerPattern = document.getElementById('onboard-flyer-pattern') ? document.getElementById('onboard-flyer-pattern').value : 'none';
-                const flyerTextColor = document.getElementById('onboard-flyer-text-color') ? document.getElementById('onboard-flyer-text-color').value : '#0f172a';
+                const flyerFooter = document.getElementById('onboard-flyer-footer') ? document.getElementById('onboard-flyer-footer').value : 'Help us serve you better!';
                 const flyerTextStyle = document.getElementById('onboard-flyer-text-style') ? document.getElementById('onboard-flyer-text-style').value : 'normal';
 
                 const baseLocation = window.location.origin;
                 const demoPortalUrl = `${baseLocation}/portal.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&demo=true`;
-                const demoFlyerUrl = `${baseLocation}/flyer.html?name=${encodeURIComponent(bizName)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&qrFg=${encodeURIComponent(qrFg)}&qrBg=${encodeURIComponent(qrBg)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerBg=${encodeURIComponent(flyerBg)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerPattern=${encodeURIComponent(flyerPattern)}&flyerTextColor=${encodeURIComponent(flyerTextColor)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}`;
+                const demoFlyerUrl = `${baseLocation}/flyer.html?name=${encodeURIComponent(bizName)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&theme=${encodeURIComponent(theme)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}`;
 
                 if (ovlOpenPortalLink) ovlOpenPortalLink.href = demoPortalUrl;
                 if (ovlOpenFlyerLink) ovlOpenFlyerLink.href = demoFlyerUrl;
@@ -3628,22 +3672,19 @@ Interested in setting this up to see if it works?</span>
 
                         if (!bizName || !targetUrl) { showToastNotification('Please enter a Business Name and Target URL first.'); return; }
 
-                        const qrFg = document.getElementById('onboard-qr-fg').value;
-                        const qrBg = document.getElementById('onboard-qr-bg').value;
-                        const qrDot = document.getElementById('onboard-qr-dot').value;
-                        const qrCorner = document.getElementById('onboard-qr-corner').value;
+                        const theme = document.getElementById('onboard-flyer-theme') ? document.getElementById('onboard-flyer-theme').value : 'theme-onyx';
+                        const qrDot = document.getElementById('onboard-qr-dot') ? document.getElementById('onboard-qr-dot').value : 'dots';
+                        const qrCorner = document.getElementById('onboard-qr-corner') ? document.getElementById('onboard-qr-corner').value : 'extra-rounded';
                         const font = document.getElementById('onboard-biz-font').value;
                         
-                        const flyerBg = document.getElementById('onboard-flyer-bg') ? document.getElementById('onboard-flyer-bg').value : '#ffffff';
                         const flyerHeadline = document.getElementById('onboard-flyer-headline') ? document.getElementById('onboard-flyer-headline').value : 'Review Us';
                         const flyerSub = document.getElementById('onboard-flyer-sub') ? document.getElementById('onboard-flyer-sub').value : 'Scan to Rate';
-                        const flyerPattern = document.getElementById('onboard-flyer-pattern') ? document.getElementById('onboard-flyer-pattern').value : 'none';
-                        const flyerTextColor = document.getElementById('onboard-flyer-text-color') ? document.getElementById('onboard-flyer-text-color').value : '#0f172a';
+                        const flyerFooter = document.getElementById('onboard-flyer-footer') ? document.getElementById('onboard-flyer-footer').value : 'Help us serve you better!';
                         const flyerTextStyle = document.getElementById('onboard-flyer-text-style') ? document.getElementById('onboard-flyer-text-style').value : 'normal';
 
                         const baseLocation = window.location.origin;
                         const demoPortalUrl = `${baseLocation}/portal.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&demo=true`;
-                        const demoFlyerUrl = `${baseLocation}/flyer.html?name=${encodeURIComponent(bizName)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&qrFg=${encodeURIComponent(qrFg)}&qrBg=${encodeURIComponent(qrBg)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerBg=${encodeURIComponent(flyerBg)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerPattern=${encodeURIComponent(flyerPattern)}&flyerTextColor=${encodeURIComponent(flyerTextColor)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}`;
+                        const demoFlyerUrl = `${baseLocation}/flyer.html?name=${encodeURIComponent(bizName)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&theme=${encodeURIComponent(theme)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}`;
 
                         const ppLink = document.getElementById('preview-portal-link');
                         const pfLink = document.getElementById('preview-flyer-link');

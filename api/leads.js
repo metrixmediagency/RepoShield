@@ -82,7 +82,7 @@ export default async function handler(req, res) {
 
         // Build URLs — NO demo=true so portals actually redirect to Google
         const portalUrl = `https://metrixmedia.vercel.app/portal.html?name=${encodeURIComponent(name)}&url=${encodeURIComponent(gmb_link)}&email=${encodeURIComponent(email)}&category=${encodeURIComponent(niche || 'other')}&color=${encodeURIComponent(color || '#00F2FE')}`;
-        const flyerUrl = `https://metrixmedia.vercel.app/flyer.html?name=${encodeURIComponent(name)}&category=${encodeURIComponent(niche || 'other')}&color=${encodeURIComponent(color || '#00F2FE')}&type=gmb&portalUrl=${encodeURIComponent(portalUrl)}`;
+        const flyerUrl = `https://metrixmedia.vercel.app/flyer.html?name=${encodeURIComponent(name)}&category=${encodeURIComponent(niche || 'other')}&color=${encodeURIComponent(color || '#00F2FE')}&type=gmb&theme=theme-onyx&qrDot=dots&qrCorner=extra-rounded&flyerHeadline=Review%20Us&flyerSub=Scan%20to%20Rate&flyerFooter=Help%20us%20serve%20you%20better!&flyerTextStyle=normal&portalUrl=${encodeURIComponent(portalUrl)}`;
 
         // Return the success payload
         return res.status(200).json({

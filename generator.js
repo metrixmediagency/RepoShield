@@ -415,7 +415,13 @@ document.addEventListener('DOMContentLoaded', () => {
             color: accent,
             category: category,
             font: selectedFont,
-            theme: selectedTheme
+            theme: selectedTheme,
+            qrDot: (document.getElementById('qr-dot-style') || document.getElementById('onboard-qr-dot') || {value: 'dots'}).value,
+            qrCorner: (document.getElementById('qr-corner-style') || document.getElementById('onboard-qr-corner') || {value: 'extra-rounded'}).value,
+            flyerHeadline: (document.getElementById('flyer-headline') || document.getElementById('onboard-flyer-headline') || {value: 'Review Us'}).value,
+            flyerSub: (document.getElementById('flyer-sub') || document.getElementById('onboard-flyer-sub') || {value: 'Scan to Rate'}).value,
+            flyerFooter: (document.getElementById('flyer-footer') || document.getElementById('onboard-flyer-footer') || {value: 'Help us serve you better!'}).value,
+            flyerTextStyle: (document.getElementById('flyer-text-style') || document.getElementById('onboard-flyer-text-style') || {value: 'normal'}).value
         };
 
         const adminIframe = document.getElementById('admin-live-flyer');
@@ -450,6 +456,16 @@ document.addEventListener('DOMContentLoaded', () => {
     bizLogoInput.addEventListener('input', updateSimulators);
     bizEmailInput.addEventListener('input', updateSimulators);
     bizCategorySelect.addEventListener('change', updateSimulators);
+    
+    // Hybrid Customization Events
+    document.getElementById('flyer-theme')?.addEventListener('change', updateSimulators);
+    document.getElementById('biz-font')?.addEventListener('change', updateSimulators);
+    document.getElementById('qr-dot-style')?.addEventListener('change', updateSimulators);
+    document.getElementById('qr-corner-style')?.addEventListener('change', updateSimulators);
+    document.getElementById('flyer-headline')?.addEventListener('input', updateSimulators);
+    document.getElementById('flyer-sub')?.addEventListener('input', updateSimulators);
+    document.getElementById('flyer-footer')?.addEventListener('input', updateSimulators);
+    document.getElementById('flyer-text-style')?.addEventListener('change', updateSimulators);
 
     bizAccentInput.addEventListener('input', (e) => {
         bizAccentHexInput.value = e.target.value;
@@ -494,9 +510,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const tier = ecommerceTierInput ? ecommerceTierInput.value : '';
         const id = Date.now().toString(); // unique id
 
-        // Theme and Font Capture
+        // Theme, Font, and Granular Capture
         const selectedFont = (document.getElementById('biz-font') || document.getElementById('onboard-biz-font') || {value: 'Outfit'}).value;
         const selectedTheme = (document.getElementById('flyer-theme') || document.getElementById('onboard-flyer-theme') || {value: 'theme-onyx'}).value;
+        const flyerHeadline = (document.getElementById('flyer-headline') || document.getElementById('onboard-flyer-headline') || {value: 'Review Us'}).value;
+        const flyerSub = (document.getElementById('flyer-sub') || document.getElementById('onboard-flyer-sub') || {value: 'Scan to Rate'}).value;
+        const flyerFooter = (document.getElementById('flyer-footer') || document.getElementById('onboard-flyer-footer') || {value: 'Help us serve you better!'}).value;
+        const flyerTextStyle = (document.getElementById('flyer-text-style') || document.getElementById('onboard-flyer-text-style') || {value: 'normal'}).value;
+        const qrDotStyle = (document.getElementById('qr-dot-style') || document.getElementById('onboard-qr-dot') || {value: 'dots'}).value;
+        const qrCornerStyle = (document.getElementById('qr-corner-style') || document.getElementById('onboard-qr-corner') || {value: 'extra-rounded'}).value;
 
         let baseLocation = bizBaseUrlInput.value.trim();
         if (!baseLocation) {
@@ -531,6 +553,12 @@ document.addEventListener('DOMContentLoaded', () => {
             logo: logo,
             font: selectedFont,
             theme: selectedTheme,
+            qrDot: qrDotStyle,
+            qrCorner: qrCornerStyle,
+            flyerHeadline: flyerHeadline,
+            flyerSub: flyerSub,
+            flyerFooter: flyerFooter,
+            flyerTextStyle: flyerTextStyle,
             portalUrl: finalPortalUrl
         });
         const finalFlyerUrl = `${baseLocation}/flyer.html?${flyerUrlParams.toString()}`;
@@ -547,6 +575,8 @@ document.addEventListener('DOMContentLoaded', () => {
             tier,
             font: selectedFont,
             theme: selectedTheme,
+            qrSettings: { qrDotStyle, qrCornerStyle },
+            flyerSettings: { flyerHeadline, flyerSub, flyerFooter, flyerTextStyle },
             type: activeCampaignType, // Store campaign type
             status: 'active', // default billing status
             portalUrl: finalPortalUrl,

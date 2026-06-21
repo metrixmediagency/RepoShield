@@ -264,6 +264,68 @@
                                     </div>
                                     <span class="input-tip"><i class="fa-solid fa-circle-info"></i> Instantly applies a curated layout, typography, and QR style to your print flyer.</span>
                                 </div>
+                                <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px dashed rgba(255,255,255,0.1);">
+                                    <h5 style="margin-bottom: 0.8rem; color: #cbd5e1;"><i class="fa-solid fa-sliders"></i> Granular Customization</h5>
+                                    <div class="grid-2-col">
+                                        <div class="input-group">
+                                            <label for="flyer-headline">Flyer Headline</label>
+                                            <div class="input-wrapper">
+                                                <i class="fa-solid fa-heading input-icon"></i>
+                                                <input type="text" id="flyer-headline" value="Review Us" placeholder="e.g. Review Us">
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <label for="flyer-sub">Flyer Subheadline</label>
+                                            <div class="input-wrapper">
+                                                <i class="fa-solid fa-font input-icon"></i>
+                                                <input type="text" id="flyer-sub" value="Scan to Rate" placeholder="e.g. Scan to Rate">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="grid-2-col" style="margin-top: 1rem;">
+                                        <div class="input-group">
+                                            <label for="flyer-footer">Footer Text</label>
+                                            <div class="input-wrapper">
+                                                <i class="fa-solid fa-font input-icon"></i>
+                                                <input type="text" id="flyer-footer" value="Help us serve you better!" placeholder="e.g. Help us serve you better!">
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <label for="flyer-text-style">Text Style</label>
+                                            <div class="input-wrapper">
+                                                <select id="flyer-text-style">
+                                                    <option value="normal" selected>Normal</option>
+                                                    <option value="bold">Bold</option>
+                                                    <option value="italic">Italic</option>
+                                                    <option value="bold-italic">Bold & Italic</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="grid-2-col" style="margin-top: 1rem;">
+                                        <div class="input-group">
+                                            <label for="qr-dot-style">QR Pattern Style</label>
+                                            <div class="input-wrapper">
+                                                <select id="qr-dot-style">
+                                                    <option value="square">Standard Squares</option>
+                                                    <option value="dots" selected>Modern Dots</option>
+                                                    <option value="rounded">Rounded</option>
+                                                    <option value="classy">Classy</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <label for="qr-corner-style">QR Corner Style</label>
+                                            <div class="input-wrapper">
+                                                <select id="qr-corner-style">
+                                                    <option value="square">Standard Square</option>
+                                                    <option value="dot">Dot</option>
+                                                    <option value="extra-rounded" selected>Rounded</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <button type="submit" class="btn btn-primary" id="btn-generate">

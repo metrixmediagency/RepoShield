@@ -429,43 +429,53 @@
         }
         /* THEMES */
         /* Onyx Elegance */
-        .theme-onyx .standee-face { background-color: #121212; color: #f1f5f9; }
-        .theme-onyx .face-accent-bar { background-color: #d4af37; }
-        .theme-onyx .standee-header h2 { color: #d4af37; font-family: 'Playfair Display', serif; }
-        .theme-onyx .standee-body h3 { color: #f8fafc; font-family: 'Playfair Display', serif; font-weight: 700; }
-        .theme-onyx .standee-body p { color: #cbd5e1; font-family: 'Outfit', sans-serif; }
-        .theme-onyx .qr-wrapper { background: #1e293b; border: 2px solid #d4af37; box-shadow: 0 4px 12px rgba(212, 175, 55, 0.2); border-radius: 8px; }
-        .theme-onyx .standee-footer { border-top: 1px solid #334155; }
-        .theme-onyx .standee-footer p { color: #94a3b8; font-family: 'Outfit', sans-serif; }
-        .theme-onyx .stars-row i { color: #d4af37; }
+        .theme-onyx .standee-face { background: linear-gradient(145deg, #111111 0%, #1a1a1a 100%); color: #f1f5f9; box-shadow: inset 0 0 50px rgba(0,0,0,0.5); }
+        .theme-onyx .face-accent-bar { background: linear-gradient(90deg, #b8860b, #ffd700, #b8860b); height: 6px; }
+        .theme-onyx .standee-header h2 { color: #ffd700; font-family: 'Playfair Display', serif; text-shadow: 0 2px 4px rgba(0,0,0,0.5); font-size: 1.6rem; }
+        .theme-onyx .standee-body h3 { color: #ffffff; font-family: 'Playfair Display', serif; font-weight: 800; font-size: 1.8rem; letter-spacing: 0.5px; }
+        .theme-onyx .standee-body p { color: #cbd5e1; font-family: 'Outfit', sans-serif; font-size: 1rem; }
+        .theme-onyx .qr-wrapper { background: linear-gradient(145deg, #1e293b, #0f172a); border: 2px solid #ffd700; box-shadow: 0 15px 35px rgba(0,0,0,0.5), inset 0 0 10px rgba(255,215,0,0.1); border-radius: 12px; padding: 1rem; }
+        .theme-onyx .standee-footer { border-top: 1px solid rgba(255,215,0,0.2); margin-top: 1rem; padding-top: 1rem; width: 80%; }
+        .theme-onyx .standee-footer p { color: #94a3b8; font-family: 'Outfit', sans-serif; letter-spacing: 1px; text-transform: uppercase; font-size: 0.75rem; font-weight: 600; }
+        .theme-onyx .stars-row i { color: #ffd700; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); }
+        .theme-onyx .icon-placeholder { color: #ffd700; }
 
         /* Frosted Glass */
-        .theme-glass .standee-face { background: linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 100%); color: #0f172a; }
+        .theme-glass .standee-face { background: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop') center/cover; color: #0f172a; position: relative; z-index: 1; }
+        .theme-glass .standee-face::before { content: ''; position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 100%); z-index: -1; backdrop-filter: blur(8px); }
         .theme-glass .face-accent-bar { display: none; }
-        .theme-glass .standee-body { background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 1.5rem; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.8); box-shadow: 0 8px 32px rgba(31, 38, 135, 0.05); width: 85%; margin: 0 auto; }
-        .theme-glass .standee-header h2 { font-family: 'Outfit', sans-serif; font-weight: 800; color: #1e3a8a; }
-        .theme-glass .standee-body h3 { font-family: 'Outfit', sans-serif; color: #0f172a; font-weight: 800; }
-        .theme-glass .qr-wrapper { background: rgba(255, 255, 255, 0.9); border: none; border-radius: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        .theme-glass .standee-body { background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); padding: 1.8rem 1.5rem; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.6); box-shadow: 0 20px 40px rgba(31, 38, 135, 0.15); width: 88%; margin: 0 auto; transform: translateY(-10px); }
+        .theme-glass .standee-header { background: rgba(255, 255, 255, 0.85); margin: 1rem; padding: 0.8rem; border-radius: 100px; display: inline-flex; flex-direction: row; align-items: center; gap: 0.8rem; box-shadow: 0 8px 32px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.8); }
+        .theme-glass .standee-header h2 { font-family: 'Outfit', sans-serif; font-weight: 800; color: #1e3a8a; font-size: 1.2rem; margin: 0; }
+        .theme-glass .standee-body h3 { font-family: 'Outfit', sans-serif; color: #0f172a; font-weight: 900; font-size: 1.9rem; letter-spacing: -0.5px; background: linear-gradient(to right, #1e3a8a, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .theme-glass .qr-wrapper { background: rgba(255, 255, 255, 0.95); border: 2px solid rgba(255,255,255,0.8); border-radius: 28px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); padding: 1rem; transform: translateY(-20px); }
+        .theme-glass .standee-footer { border-top: none; background: rgba(255,255,255,0.6); backdrop-filter: blur(10px); width: 88%; border-radius: 100px; padding: 0.6rem; margin: auto auto 1rem auto; border: 1px solid rgba(255,255,255,0.5); }
+        .theme-glass .stars-row i { color: #f59e0b; }
 
         /* Artisan Kraft */
-        .theme-artisan .standee-face { background-color: #faf9f6; color: #3f3f3f; }
-        .theme-artisan .face-accent-bar { background-color: #8b5a2b; height: 12px; border-radius: 0 0 100px 100px; width: 60%; left: 20%; }
-        .theme-artisan .standee-header h2 { font-family: 'Montserrat', sans-serif; font-weight: 600; color: #5c4033; letter-spacing: 2px; text-transform: uppercase; }
-        .theme-artisan .standee-body h3 { font-family: 'Montserrat', sans-serif; font-weight: 700; color: #3f3f3f; }
-        .theme-artisan .standee-body p { font-family: 'Outfit', sans-serif; color: #6b7280; }
-        .theme-artisan .qr-wrapper { border-radius: 12px; border: 2px dashed #d1d5db; background: #ffffff; }
-        .theme-artisan .standee-footer { border-top: 1px dashed #d1d5db; }
-        .theme-artisan .stars-row i { color: #f59e0b; }
+        .theme-artisan .standee-face { background-color: #f4ecd8; background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png'); color: #3f3f3f; box-shadow: inset 0 0 60px rgba(139,90,43,0.1); }
+        .theme-artisan .face-accent-bar { background-color: #8b5a2b; height: 16px; border-radius: 0 0 10px 10px; width: 80%; left: 10%; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .theme-artisan .standee-header h2 { font-family: 'Montserrat', sans-serif; font-weight: 700; color: #4a3728; letter-spacing: 3px; text-transform: uppercase; border-bottom: 2px solid #8b5a2b; padding-bottom: 0.3rem; }
+        .theme-artisan .standee-body h3 { font-family: 'Playfair Display', serif; font-weight: 700; color: #3f3f3f; font-size: 2rem; font-style: italic; }
+        .theme-artisan .standee-body p { font-family: 'Montserrat', sans-serif; color: #5c4033; font-weight: 500; font-size: 1rem; }
+        .theme-artisan .qr-wrapper { border-radius: 8px; border: 3px dashed #8b5a2b; background: #ffffff; padding: 1.2rem; box-shadow: 5px 5px 0px rgba(139,90,43,0.1); }
+        .theme-artisan .standee-footer { border-top: 1px solid #d1d5db; position: relative; margin-top: 1.5rem; width: 80%; }
+        .theme-artisan .standee-footer::before { content: '✤'; position: absolute; top: -11px; background: #f4ecd8; padding: 0 10px; color: #8b5a2b; font-size: 1.2rem; }
+        .theme-artisan .stars-row i { color: #d97706; }
+        .theme-artisan .icon-placeholder { color: #8b5a2b; background: #fff; padding: 0.8rem; border-radius: 50%; box-shadow: 2px 2px 0px rgba(139,90,43,0.1); border: 1px solid #8b5a2b; margin-top: 1rem; }
 
         /* Neon Pulse */
-        .theme-neon .standee-face { background-color: #000000; color: #ffffff; }
-        .theme-neon .face-accent-bar { background-color: #00ffcc; box-shadow: 0 0 15px #00ffcc; }
-        .theme-neon .standee-header h2 { font-family: 'Space Grotesk', sans-serif; font-weight: 900; color: #00ffcc; text-transform: uppercase; letter-spacing: 1px; }
-        .theme-neon .standee-body h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 900; color: #ffffff; text-transform: uppercase; font-style: italic; }
-        .theme-neon .standee-body p { font-family: 'Inter', sans-serif; color: #94a3b8; font-weight: 400; }
-        .theme-neon .qr-wrapper { background: #ffffff; border: 4px solid #00ffcc; border-radius: 4px; box-shadow: 0 0 20px rgba(0, 255, 204, 0.4); }
-        .theme-neon .standee-footer { border-top: 1px solid #1e293b; }
-        .theme-neon .stars-row i { color: #00ffcc; }
+        .theme-neon .standee-face { background: #0a0a0a; background-image: radial-gradient(circle at 50% 0%, #1a1a2e 0%, #0a0a0a 70%); color: #ffffff; }
+        .theme-neon .face-accent-bar { background: linear-gradient(90deg, #ff00cc, #3333ff, #00ffcc); height: 8px; box-shadow: 0 0 20px rgba(0, 255, 204, 0.5); }
+        .theme-neon .standee-header h2 { font-family: 'Space Grotesk', sans-serif; font-weight: 900; color: #00ffcc; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 10px rgba(0,255,204,0.5); }
+        .theme-neon .standee-body h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 900; color: #ffffff; text-transform: uppercase; font-style: italic; font-size: 2.2rem; line-height: 1.1; text-shadow: 2px 2px 0px #ff00cc; }
+        .theme-neon .standee-body p { font-family: 'Inter', sans-serif; color: #cbd5e1; font-weight: 500; font-size: 1.05rem; }
+        .theme-neon .qr-wrapper { background: #ffffff; border: 4px solid #00ffcc; border-radius: 16px; box-shadow: 0 0 30px rgba(0, 255, 204, 0.3), inset 0 0 20px rgba(0,0,0,0.1); padding: 0.8rem; position: relative; margin: 1.5rem 0; }
+        .theme-neon .qr-wrapper::after { content: ''; position: absolute; inset: -8px; border: 1px solid #ff00cc; border-radius: 22px; pointer-events: none; }
+        .theme-neon .standee-footer { border-top: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); width: 100%; padding: 1rem 0; margin-top: auto; }
+        .theme-neon .standee-footer p { font-family: 'Space Grotesk', sans-serif; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; color: #00ffcc; margin-top: 0.5rem; }
+        .theme-neon .stars-row i { color: #ff00cc; filter: drop-shadow(0 0 5px rgba(255,0,204,0.5)); }
+        .theme-neon .icon-placeholder { color: #ff00cc; text-shadow: 0 0 15px rgba(255,0,204,0.8); }
         /* PRINT STYLES */
         @media print {
             @page {
@@ -810,12 +820,14 @@
             
             const qrFg = tp.qrFg;
             const qrBg = tp.qrBg;
-            const qrDot = tp.qrDot;
-            const qrCorner = tp.qrCorner;
+            const qrDot = state.qrDot || tp.qrDot;
+            const qrCorner = state.qrCorner || tp.qrCorner;
             
             const logo = state.logo || '';
             const flyerHeadline = state.flyerHeadline || 'Review Us';
             const flyerSub = state.flyerSub || 'Scan to Rate';
+            const flyerFooter = state.flyerFooter || 'Help us serve you better!';
+            const flyerTextStyle = state.flyerTextStyle || 'normal';
 
             // 1. Brand Variables
             document.documentElement.style.setProperty('--primary', color);
@@ -869,6 +881,9 @@
             }
 
             // 4. Update Text Nodes
+            const isItalic = flyerTextStyle.includes('italic');
+            const isBold = flyerTextStyle.includes('bold');
+
             document.querySelectorAll('.biz-title-placeholder').forEach(el => {
                 el.textContent = name;
             });
@@ -876,10 +891,18 @@
             // Custom Headline
             document.querySelectorAll('.standee-header h2, .insert-left h3, .sticker-header h4').forEach(el => {
                 el.textContent = flyerHeadline;
+                el.style.fontStyle = isItalic ? 'italic' : 'normal';
+                el.style.fontWeight = isBold ? '900' : '700';
             });
             // Custom Subheadline
             document.querySelectorAll('.standee-body p, .insert-qr-container p, .sticker-card span').forEach(el => {
                 el.textContent = flyerSub;
+                el.style.fontStyle = isItalic ? 'italic' : 'normal';
+                el.style.fontWeight = isBold ? '700' : '500';
+            });
+            // Custom Footer
+            document.querySelectorAll('.standee-footer p').forEach(el => {
+                el.textContent = flyerFooter;
             });
 
             // 5. Category Icons
