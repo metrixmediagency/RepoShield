@@ -394,9 +394,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('onboard-flyer-theme')) document.getElementById('onboard-flyer-theme').addEventListener('change', updateSimulators);
     
     // Also trigger update on iframe load so it syncs immediately
-    if (document.getElementById('admin-live-flyer')) {
-        document.getElementById('admin-live-flyer').addEventListener('load', updateSimulators);
-    }
+    const adminIframeInit = document.getElementById('admin-live-flyer');
+    const desktopIframeInit = document.getElementById('desktop-live-flyer');
+    const mobIframeInit = document.getElementById('mobile-live-flyer');
+    
+    if (adminIframeInit) adminIframeInit.addEventListener('load', updateSimulators);
+    if (desktopIframeInit) desktopIframeInit.addEventListener('load', updateSimulators);
+    if (mobIframeInit) mobIframeInit.addEventListener('load', updateSimulators);
     
     function updateSimulators() {
         const name = bizNameInput.value || (activeCampaignType === 'ecommerce' ? 'Your Product Name' : 'Your Business Name');
