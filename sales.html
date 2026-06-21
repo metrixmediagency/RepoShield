@@ -1833,6 +1833,7 @@
                                                 <label>Flyer Background</label>
                                                 <div style="display: flex; gap: 0.5rem; align-items: center;">
                                                     <input type="color" id="onboard-flyer-bg" value="#ffffff" style="padding:0; width:50px; height:45px; border-radius:8px; border:none; cursor:pointer;">
+                                                    <input type="text" id="onboard-flyer-bg-hex" value="#ffffff" style="flex: 1;" placeholder="#ffffff">
                                                 </div>
                                             </div>
                                             <div class="input-group">
@@ -1848,15 +1849,35 @@
                                         </div>
                                         <div class="input-row" style="margin-top: 1rem;">
                                             <div class="input-group">
+                                                <label>Flyer Text Color</label>
+                                                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                                                    <input type="color" id="onboard-flyer-text-color" value="#0f172a" style="padding:0; width:50px; height:45px; border-radius:8px; border:none; cursor:pointer;">
+                                                    <input type="text" id="onboard-flyer-text-color-hex" value="#0f172a" style="flex: 1;" placeholder="#0f172a">
+                                                </div>
+                                            </div>
+                                            <div class="input-group">
+                                                <label>Flyer Text Style</label>
+                                                <select id="onboard-flyer-text-style">
+                                                    <option value="normal" selected>Normal</option>
+                                                    <option value="bold">Bold</option>
+                                                    <option value="italic">Italic</option>
+                                                    <option value="bold-italic">Bold & Italic</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="input-row" style="margin-top: 1rem;">
+                                            <div class="input-group">
                                                 <label>QR Foreground Color</label>
                                                 <div style="display: flex; gap: 0.5rem; align-items: center;">
                                                     <input type="color" id="onboard-qr-fg" value="#0f172a" style="padding:0; width:50px; height:45px; border-radius:8px; border:none; cursor:pointer;">
+                                                    <input type="text" id="onboard-qr-fg-hex" value="#0f172a" style="flex: 1;" placeholder="#0f172a">
                                                 </div>
                                             </div>
                                             <div class="input-group">
                                                 <label>QR Background Color</label>
                                                 <div style="display: flex; gap: 0.5rem; align-items: center;">
                                                     <input type="color" id="onboard-qr-bg" value="#ffffff" style="padding:0; width:50px; height:45px; border-radius:8px; border:none; cursor:pointer;">
+                                                    <input type="text" id="onboard-qr-bg-hex" value="#ffffff" style="flex: 1;" placeholder="#ffffff">
                                                 </div>
                                             </div>
                                         </div>
@@ -3444,7 +3465,9 @@ Interested in setting this up to see if it works?</span>
                     flyerBg: document.getElementById('onboard-flyer-bg')?.value || '#ffffff',
                     flyerHeadline: document.getElementById('onboard-flyer-headline')?.value || 'Review Us',
                     flyerSub: document.getElementById('onboard-flyer-sub')?.value || 'Scan to Rate',
-                    flyerPattern: document.getElementById('onboard-flyer-pattern')?.value || 'none'
+                    flyerPattern: document.getElementById('onboard-flyer-pattern')?.value || 'none',
+                    flyerTextColor: document.getElementById('onboard-flyer-text-color')?.value || '#0f172a',
+                    flyerTextStyle: document.getElementById('onboard-flyer-text-style')?.value || 'normal'
                 };
 
                 const deskIframe = document.getElementById('desktop-live-flyer');
@@ -3458,19 +3481,35 @@ Interested in setting this up to see if it works?</span>
                 }
             }
 
+            function bindColorInputs(pickerId, hexId) {
+                const picker = document.getElementById(pickerId);
+                const hex = document.getElementById(hexId);
+                if (picker && hex) {
+                    picker.addEventListener('input', (e) => { hex.value = e.target.value; updateSimulator(); });
+                    hex.addEventListener('input', (e) => { 
+                        let val = e.target.value;
+                        if(val.startsWith('#') && val.length === 7) { picker.value = val; updateSimulator(); }
+                    });
+                }
+            }
+
             if (inputBizName && inputBizColor) {
                 inputBizName.addEventListener('input', updateSimulator);
                 inputBizColor.addEventListener('input', updateSimulator);
                 document.getElementById('onboard-biz-category')?.addEventListener('change', updateSimulator);
                 document.getElementById('onboard-biz-font')?.addEventListener('change', updateSimulator);
-                document.getElementById('onboard-qr-fg')?.addEventListener('input', updateSimulator);
-                document.getElementById('onboard-qr-bg')?.addEventListener('input', updateSimulator);
+                
+                bindColorInputs('onboard-qr-fg', 'onboard-qr-fg-hex');
+                bindColorInputs('onboard-qr-bg', 'onboard-qr-bg-hex');
+                bindColorInputs('onboard-flyer-bg', 'onboard-flyer-bg-hex');
+                bindColorInputs('onboard-flyer-text-color', 'onboard-flyer-text-color-hex');
+
                 document.getElementById('onboard-qr-dot')?.addEventListener('change', updateSimulator);
                 document.getElementById('onboard-qr-corner')?.addEventListener('change', updateSimulator);
                 document.getElementById('onboard-flyer-headline')?.addEventListener('input', updateSimulator);
                 document.getElementById('onboard-flyer-sub')?.addEventListener('input', updateSimulator);
-                document.getElementById('onboard-flyer-bg')?.addEventListener('input', updateSimulator);
                 document.getElementById('onboard-flyer-pattern')?.addEventListener('change', updateSimulator);
+                document.getElementById('onboard-flyer-text-style')?.addEventListener('change', updateSimulator);
                 
                 document.getElementById('desktop-live-flyer')?.addEventListener('load', updateSimulator);
                 document.getElementById('mobile-live-flyer')?.addEventListener('load', updateSimulator);
@@ -3633,10 +3672,12 @@ Interested in setting this up to see if it works?</span>
                 const flyerHeadline = document.getElementById('onboard-flyer-headline') ? document.getElementById('onboard-flyer-headline').value : 'Review Us';
                 const flyerSub = document.getElementById('onboard-flyer-sub') ? document.getElementById('onboard-flyer-sub').value : 'Scan to Rate';
                 const flyerPattern = document.getElementById('onboard-flyer-pattern') ? document.getElementById('onboard-flyer-pattern').value : 'none';
+                const flyerTextColor = document.getElementById('onboard-flyer-text-color') ? document.getElementById('onboard-flyer-text-color').value : '#0f172a';
+                const flyerTextStyle = document.getElementById('onboard-flyer-text-style') ? document.getElementById('onboard-flyer-text-style').value : 'normal';
 
                 const baseLocation = window.location.origin;
                 const demoPortalUrl = `${baseLocation}/portal.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&demo=true`;
-                const demoFlyerUrl = `${baseLocation}/flyer.html?name=${encodeURIComponent(bizName)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&qrFg=${encodeURIComponent(qrFg)}&qrBg=${encodeURIComponent(qrBg)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerBg=${encodeURIComponent(flyerBg)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerPattern=${encodeURIComponent(flyerPattern)}`;
+                const demoFlyerUrl = `${baseLocation}/flyer.html?name=${encodeURIComponent(bizName)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&qrFg=${encodeURIComponent(qrFg)}&qrBg=${encodeURIComponent(qrBg)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerBg=${encodeURIComponent(flyerBg)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerPattern=${encodeURIComponent(flyerPattern)}&flyerTextColor=${encodeURIComponent(flyerTextColor)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}`;
 
                 if (ovlOpenPortalLink) ovlOpenPortalLink.href = demoPortalUrl;
                 if (ovlOpenFlyerLink) ovlOpenFlyerLink.href = demoFlyerUrl;
@@ -3702,10 +3743,12 @@ Interested in setting this up to see if it works?</span>
                         const flyerHeadline = document.getElementById('onboard-flyer-headline') ? document.getElementById('onboard-flyer-headline').value : 'Review Us';
                         const flyerSub = document.getElementById('onboard-flyer-sub') ? document.getElementById('onboard-flyer-sub').value : 'Scan to Rate';
                         const flyerPattern = document.getElementById('onboard-flyer-pattern') ? document.getElementById('onboard-flyer-pattern').value : 'none';
+                        const flyerTextColor = document.getElementById('onboard-flyer-text-color') ? document.getElementById('onboard-flyer-text-color').value : '#0f172a';
+                        const flyerTextStyle = document.getElementById('onboard-flyer-text-style') ? document.getElementById('onboard-flyer-text-style').value : 'normal';
 
                         const baseLocation = window.location.origin;
                         const demoPortalUrl = `${baseLocation}/portal.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&demo=true`;
-                        const demoFlyerUrl = `${baseLocation}/flyer.html?name=${encodeURIComponent(bizName)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&qrFg=${encodeURIComponent(qrFg)}&qrBg=${encodeURIComponent(qrBg)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerBg=${encodeURIComponent(flyerBg)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerPattern=${encodeURIComponent(flyerPattern)}`;
+                        const demoFlyerUrl = `${baseLocation}/flyer.html?name=${encodeURIComponent(bizName)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&qrFg=${encodeURIComponent(qrFg)}&qrBg=${encodeURIComponent(qrBg)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerBg=${encodeURIComponent(flyerBg)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerPattern=${encodeURIComponent(flyerPattern)}&flyerTextColor=${encodeURIComponent(flyerTextColor)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}`;
 
                         const ppLink = document.getElementById('preview-portal-link');
                         const pfLink = document.getElementById('preview-flyer-link');

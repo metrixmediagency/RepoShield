@@ -707,6 +707,8 @@
             const flyerHeadline = state.flyerHeadline || 'Review Us';
             const flyerSub = state.flyerSub || 'Scan to Rate';
             const flyerPattern = state.flyerPattern || 'none';
+            const flyerTextColor = state.flyerTextColor || '#0f172a';
+            const flyerTextStyle = state.flyerTextStyle || 'normal';
 
             // 1. Theme Variables
             document.documentElement.style.setProperty('--primary', color);
@@ -727,7 +729,7 @@
                 link.rel = 'stylesheet';
                 document.head.appendChild(link);
             }
-            link.href = `https://fonts.googleapis.com/css2?family=${fontNameForUrl}:wght@400;500;600;700;800&display=swap`;
+            link.href = `https://fonts.googleapis.com/css2?family=${fontNameForUrl}:wght@400;500;600;700;800;900&display=swap`;
 
             let styleEl = document.getElementById('dynamic-font-style');
             if (!styleEl) {
@@ -767,12 +769,28 @@
             }
 
             // 4. Update Text Nodes
-            document.querySelectorAll('.biz-title-placeholder').forEach(el => el.textContent = name);
+            const isItalic = flyerTextStyle.includes('italic');
+            const isBold = flyerTextStyle.includes('bold');
+            
+            document.querySelectorAll('.biz-title-placeholder').forEach(el => {
+                el.textContent = name;
+                el.style.color = flyerTextColor;
+            });
             
             // Custom Headline
-            document.querySelectorAll('.standee-header h2, .insert-left h3, .sticker-header h4').forEach(el => el.textContent = flyerHeadline);
+            document.querySelectorAll('.standee-header h2, .insert-left h3, .sticker-header h4').forEach(el => {
+                el.textContent = flyerHeadline;
+                el.style.color = flyerTextColor;
+                el.style.fontStyle = isItalic ? 'italic' : 'normal';
+                el.style.fontWeight = isBold ? '900' : '700';
+            });
             // Custom Subheadline
-            document.querySelectorAll('.standee-body p, .insert-qr-container p, .sticker-card span').forEach(el => el.textContent = flyerSub);
+            document.querySelectorAll('.standee-body p, .insert-qr-container p, .sticker-card span').forEach(el => {
+                el.textContent = flyerSub;
+                el.style.color = flyerTextColor;
+                el.style.fontStyle = isItalic ? 'italic' : 'normal';
+                el.style.fontWeight = isBold ? '700' : '500';
+            });
 
             // 5. Category Icons
             const iconClasses = {
@@ -838,7 +856,9 @@
                 flyerBg: urlParams.get('flyerBg'),
                 flyerHeadline: urlParams.get('flyerHeadline'),
                 flyerSub: urlParams.get('flyerSub'),
-                flyerPattern: urlParams.get('flyerPattern')
+                flyerPattern: urlParams.get('flyerPattern'),
+                flyerTextColor: urlParams.get('flyerTextColor'),
+                flyerTextStyle: urlParams.get('flyerTextStyle')
             };
 
             // Hide toolbar and scale to fit if viewed inside a Live Editor Iframe
