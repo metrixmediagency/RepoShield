@@ -128,32 +128,40 @@
             border-radius: 8px;
         }
 
-        /* FOLDING STANDEE LAYOUT (GMB MODE) */
+        /* 4-FLYER A4 GRID LAYOUT (GMB MODE) */
         .standee-container {
             display: none;
-            flex-direction: column;
-            width: 4in; /* Updated width */
-            border: 1px dashed var(--border-fold);
-            border-radius: 24px;
-            overflow: hidden;
-            position: relative;
+            width: 210mm;
+            height: 297mm;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
             background: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            margin: 2rem auto;
+            position: relative;
         }
 
         .standee-face {
-            height: 8in; /* Updated height */
-            padding: 1.25in 0.75in; /* Adjusted padding */
+            width: 105mm;
+            height: 148.5mm;
+            padding: 10mm 8mm;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
             text-align: center;
             position: relative;
+            border-right: 1px dashed var(--border-fold);
+            border-bottom: 1px dashed var(--border-fold);
+            box-sizing: border-box;
+            overflow: hidden;
         }
 
-        .face-top {
-            transform: rotate(180deg);
-            border-bottom: 2px dashed var(--border-fold);
+        .standee-face:nth-child(even) {
+            border-right: none;
+        }
+        .standee-face:nth-child(n+3) {
+            border-bottom: none;
         }
 
         .fold-indicator {
@@ -479,12 +487,11 @@
             <p id="guide-text">Print out on high-quality paper or cardstock.</p>
         </div>
 
-        <!-- 1. The Foldable Card Standee Box (GMB Mode) -->
+        <!-- 1. 4-Flyer A4 Grid Layout (GMB Mode) -->
         <div class="standee-container" id="gmb-asset">
-            <!-- Top Face (Inverted) -->
-            <div class="standee-face face-top">
+            <!-- Flyer 1 -->
+            <div class="standee-face">
                 <div class="face-accent-bar"></div>
-                <span class="fold-indicator fold-top-label">Fold line (Center)</span>
                 <div class="standee-header">
                     <i class="fa-solid fa-store icon-placeholder"></i>
                     <h2 class="biz-title-placeholder">Business Name</h2>
@@ -508,10 +515,61 @@
                 </div>
             </div>
 
-            <!-- Bottom Face (Right side up) -->
+            <!-- Flyer 2 -->
             <div class="standee-face">
                 <div class="face-accent-bar"></div>
-                <span class="fold-indicator fold-bottom-label">Fold line (Center)</span>
+                <div class="standee-header">
+                    <i class="fa-solid fa-store icon-placeholder"></i>
+                    <h2 class="biz-title-placeholder">Business Name</h2>
+                </div>
+                <div class="standee-body">
+                    <h3>Love Our Service?</h3>
+                    <p>Scan to share your experience with us on Google!</p>
+                </div>
+                <div class="qr-wrapper">
+                    <img class="qr-placeholder" src="" alt="Campaign QR Code">
+                </div>
+                <div class="standee-footer">
+                    <div class="stars-row">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p>Help us serve you better!</p>
+                </div>
+            </div>
+
+            <!-- Flyer 3 -->
+            <div class="standee-face">
+                <div class="face-accent-bar"></div>
+                <div class="standee-header">
+                    <i class="fa-solid fa-store icon-placeholder"></i>
+                    <h2 class="biz-title-placeholder">Business Name</h2>
+                </div>
+                <div class="standee-body">
+                    <h3>Love Our Service?</h3>
+                    <p>Scan to share your experience with us on Google!</p>
+                </div>
+                <div class="qr-wrapper">
+                    <img class="qr-placeholder" src="" alt="Campaign QR Code">
+                </div>
+                <div class="standee-footer">
+                    <div class="stars-row">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p>Help us serve you better!</p>
+                </div>
+            </div>
+
+            <!-- Flyer 4 -->
+            <div class="standee-face">
+                <div class="face-accent-bar"></div>
                 <div class="standee-header">
                     <i class="fa-solid fa-store icon-placeholder"></i>
                     <h2 class="biz-title-placeholder">Business Name</h2>
@@ -763,9 +821,9 @@
                 if(toolbarTitle) toolbarTitle.textContent = 'MetrixMedia Delivery Sticker sheet';
                 if(guideText) guideText.innerHTML = '<strong>✂️ Packaging Sticker Instructions:</strong><br>1. Print on round adhesive label sheets or standard paper.<br>2. Cut along the circular borders.<br>3. Stick to paper bags or container lids before delivery.';
             } else {
-                if(gmbAsset) gmbAsset.style.display = 'flex';
-                if(toolbarTitle) toolbarTitle.textContent = 'MetrixMedia Table Standee Builder';
-                if(guideText) guideText.innerHTML = '<strong>✂️ Fold Instructions:</strong><br>1. Print in color on standard A4 cardstock.<br>2. Fold along the center dashed line.<br>3. Tape bottom panels together to form a standing triangular standee.';
+                if(gmbAsset) gmbAsset.style.display = 'grid';
+                if(toolbarTitle) toolbarTitle.textContent = 'MetrixMedia Flyer Sheet (4-per-page)';
+                if(guideText) guideText.innerHTML = '<strong>✂️ Print Instructions:</strong><br>1. Print in color on standard A4 cardstock.<br>2. Cut along the dashed lines to separate the 4 identical flyers.';
             }
 
             // 4. Update Text Nodes
