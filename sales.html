@@ -3385,16 +3385,7 @@ Interested in setting this up to see if it works?</span>
                     color: colorVal,
                     category: categoryVal,
                     font: document.getElementById('onboard-biz-font')?.value || 'Outfit',
-                    qrFg: document.getElementById('onboard-qr-fg')?.value || '#0f172a',
-                    qrBg: document.getElementById('onboard-qr-bg')?.value || '#ffffff',
-                    qrDot: document.getElementById('onboard-qr-dot')?.value || 'dots',
-                    qrCorner: document.getElementById('onboard-qr-corner')?.value || 'extra-rounded',
-                    flyerBg: document.getElementById('onboard-flyer-bg')?.value || '#ffffff',
-                    flyerHeadline: document.getElementById('onboard-flyer-headline')?.value || 'Review Us',
-                    flyerSub: document.getElementById('onboard-flyer-sub')?.value || 'Scan to Rate',
-                    flyerPattern: document.getElementById('onboard-flyer-pattern')?.value || 'none',
-                    flyerTextColor: document.getElementById('onboard-flyer-text-color')?.value || '#0f172a',
-                    flyerTextStyle: document.getElementById('onboard-flyer-text-style')?.value || 'normal'
+                    theme: document.getElementById('onboard-flyer-theme')?.value || 'theme-onyx'
                 };
 
                 const deskIframe = document.getElementById('desktop-live-flyer');
@@ -3408,35 +3399,12 @@ Interested in setting this up to see if it works?</span>
                 }
             }
 
-            function bindColorInputs(pickerId, hexId) {
-                const picker = document.getElementById(pickerId);
-                const hex = document.getElementById(hexId);
-                if (picker && hex) {
-                    picker.addEventListener('input', (e) => { hex.value = e.target.value; updateSimulator(); });
-                    hex.addEventListener('input', (e) => { 
-                        let val = e.target.value;
-                        if(val.startsWith('#') && val.length === 7) { picker.value = val; updateSimulator(); }
-                    });
-                }
-            }
-
             if (inputBizName && inputBizColor) {
                 inputBizName.addEventListener('input', updateSimulator);
                 inputBizColor.addEventListener('input', updateSimulator);
                 document.getElementById('onboard-biz-category')?.addEventListener('change', updateSimulator);
                 document.getElementById('onboard-biz-font')?.addEventListener('change', updateSimulator);
-                
-                bindColorInputs('onboard-qr-fg', 'onboard-qr-fg-hex');
-                bindColorInputs('onboard-qr-bg', 'onboard-qr-bg-hex');
-                bindColorInputs('onboard-flyer-bg', 'onboard-flyer-bg-hex');
-                bindColorInputs('onboard-flyer-text-color', 'onboard-flyer-text-color-hex');
-
-                document.getElementById('onboard-qr-dot')?.addEventListener('change', updateSimulator);
-                document.getElementById('onboard-qr-corner')?.addEventListener('change', updateSimulator);
-                document.getElementById('onboard-flyer-headline')?.addEventListener('input', updateSimulator);
-                document.getElementById('onboard-flyer-sub')?.addEventListener('input', updateSimulator);
-                document.getElementById('onboard-flyer-pattern')?.addEventListener('change', updateSimulator);
-                document.getElementById('onboard-flyer-text-style')?.addEventListener('change', updateSimulator);
+                document.getElementById('onboard-flyer-theme')?.addEventListener('change', updateSimulator);
                 
                 document.getElementById('desktop-live-flyer')?.addEventListener('load', updateSimulator);
                 document.getElementById('mobile-live-flyer')?.addEventListener('load', updateSimulator);
