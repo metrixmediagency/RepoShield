@@ -231,16 +231,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // ----------------------------------------------------
     // Real-Time Simulator Input Syncing & Segment Handling
     // ----------------------------------------------------
-    const bizNameInput = document.getElementById('biz-name');
-    const bizGmbInput = document.getElementById('biz-gmb');
+    const bizNameInput = document.getElementById('biz-name') || document.getElementById('onboard-biz-name') || document.createElement('input');
+    const bizGmbInput = document.getElementById('biz-gmb') || document.getElementById('onboard-biz-url') || document.createElement('input');
     const ecommerceTierInput = document.getElementById('ecommerce-tier');
     const productTierGroup = document.getElementById('product-tier-group');
-    const bizAccentInput = document.getElementById('biz-accent');
-    const bizAccentHexInput = document.getElementById('biz-accent-hex');
-    const bizCategorySelect = document.getElementById('biz-category');
-    const bizEmailInput = document.getElementById('biz-email');
-    const bizLogoInput = document.getElementById('biz-logo');
-    const bizBaseUrlInput = document.getElementById('biz-base-url');
+    const bizAccentInput = document.getElementById('biz-accent') || document.getElementById('onboard-biz-color') || document.createElement('input');
+    const bizAccentHexInput = document.getElementById('biz-accent-hex') || document.createElement('input');
+    const bizCategorySelect = document.getElementById('biz-category') || document.getElementById('onboard-biz-category') || document.createElement('select');
+    const bizEmailInput = document.getElementById('biz-email') || document.getElementById('onboard-biz-email') || document.createElement('input');
+    const bizLogoInput = document.getElementById('biz-logo') || document.createElement('input');
+    const bizBaseUrlInput = document.getElementById('biz-base-url') || document.createElement('input');
     const localWarning = document.getElementById('local-warning');
     const portalIframe = document.getElementById('portal-iframe');
 
@@ -450,7 +450,7 @@ document.addEventListener('DOMContentLoaded', () => {
             demo: 'true'
         });
 
-        portalIframe.src = `${baseLocation}/portal.html?${params.toString()}`;
+        if (portalIframe) portalIframe.src = `${baseLocation}/portal.html?${params.toString()}`;
         if (mobIframe) mobIframe.src = `${baseLocation}/flyer.html?${params.toString()}`;
         if (desktopLiveFlyer) desktopLiveFlyer.src = `${baseLocation}/flyer.html?${params.toString()}`;
     }
@@ -463,7 +463,7 @@ document.addEventListener('DOMContentLoaded', () => {
     bizEmailInput.addEventListener('input', updateSimulators);
     bizCategorySelect.addEventListener('change', updateSimulators);
     
-    // Hybrid Customization Events
+    // Hybrid Customization Events (Admin UI)
     document.getElementById('flyer-theme')?.addEventListener('change', updateSimulators);
     document.getElementById('biz-font')?.addEventListener('change', updateSimulators);
     document.getElementById('qr-dot-style')?.addEventListener('change', updateSimulators);
@@ -472,6 +472,20 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('flyer-sub')?.addEventListener('input', updateSimulators);
     document.getElementById('flyer-footer')?.addEventListener('input', updateSimulators);
     document.getElementById('flyer-text-style')?.addEventListener('change', updateSimulators);
+
+    // Hybrid Customization Events (Sales UI)
+    document.getElementById('onboard-flyer-theme')?.addEventListener('change', updateSimulators);
+    document.getElementById('onboard-biz-font')?.addEventListener('change', updateSimulators);
+    document.getElementById('onboard-qr-dot')?.addEventListener('change', updateSimulators);
+    document.getElementById('onboard-qr-corner')?.addEventListener('change', updateSimulators);
+    document.getElementById('onboard-flyer-headline')?.addEventListener('input', updateSimulators);
+    document.getElementById('onboard-flyer-sub')?.addEventListener('input', updateSimulators);
+    document.getElementById('onboard-flyer-footer')?.addEventListener('input', updateSimulators);
+    document.getElementById('onboard-flyer-text-style')?.addEventListener('change', updateSimulators);
+    document.getElementById('onboard-biz-name')?.addEventListener('input', updateSimulators);
+    document.getElementById('onboard-biz-category')?.addEventListener('change', updateSimulators);
+
+    document.getElementById('onboard-biz-color')?.addEventListener('input', updateSimulators);
 
     bizAccentInput.addEventListener('input', (e) => {
         bizAccentHexInput.value = e.target.value;
