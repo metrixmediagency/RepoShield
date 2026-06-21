@@ -926,15 +926,23 @@
                     container.innerHTML = ''; // clear completely to force full re-render
                     const size = container.classList.contains('sticker-qr') ? 74 : (container.classList.contains('insert-qr-mock') ? 98 : 144);
                     
+                    // Match inner corner dot style to the outer corner style for a cohesive, premium look
+                    let innerCorner = 'square';
+                    if (qrCorner === 'extra-rounded' || qrCorner === 'rounded') innerCorner = 'dot';
+                    if (qrCorner === 'dot') innerCorner = 'dot';
+                    
+                    // Ensure we don't accidentally use the broken 'dots' type from old neon themes
+                    const safeQrDot = (qrDot === 'dots' || qrDot === 'classy') ? 'rounded' : qrDot;
+
                     const qrCode = new QRCodeStyling({
                         width: size, height: size, data: currentPortalUrl,
                         image: logo !== '' ? logo : "",
-                        qrOptions: { errorCorrectionLevel: 'Q' }, // 'Q' allows 25% error correction, essential for logos
-                        dotsOptions: { color: qrFg, type: qrDot },
+                        qrOptions: { errorCorrectionLevel: 'H' }, // Highest error correction for scannability
+                        dotsOptions: { color: qrFg, type: safeQrDot },
                         backgroundOptions: { color: qrBg },
                         cornersSquareOptions: { type: qrCorner, color: qrFg },
-                        cornersDotOptions: { type: 'square', color: qrFg }, // Keep inner corner dots clean
-                        imageOptions: { crossOrigin: "anonymous", margin: 4, imageSize: 0.3, hideBackgroundDots: true }
+                        cornersDotOptions: { type: innerCorner, color: qrFg }, 
+                        imageOptions: { crossOrigin: "anonymous", margin: 8, imageSize: 0.25, hideBackgroundDots: true }
                     });
                     qrCode.append(container);
                 });
