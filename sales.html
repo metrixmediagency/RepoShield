@@ -1859,8 +1859,8 @@
                                                     <label>QR Pattern Style</label>
                                                     <select id="onboard-qr-dot">
                                                         <option value="square">Standard Squares</option>
-                                                        <option value="dots" selected>Modern Dots</option>
-                                                        <option value="rounded">Rounded</option>
+                                                        <option value="dots">Modern Dots</option>
+                                                        <option value="rounded" selected>Rounded</option>
                                                         <option value="classy">Classy</option>
                                                     </select>
                                                 </div>
@@ -3605,7 +3605,7 @@ Interested in setting this up to see if it works?</span>
                 updateSimulator();
 
                 const theme = document.getElementById('onboard-flyer-theme') ? document.getElementById('onboard-flyer-theme').value : 'theme-onyx';
-                const qrDot = document.getElementById('onboard-qr-dot') ? document.getElementById('onboard-qr-dot').value : 'dots';
+                const qrDot = document.getElementById('onboard-qr-dot') ? document.getElementById('onboard-qr-dot').value : 'rounded';
                 const qrCorner = document.getElementById('onboard-qr-corner') ? document.getElementById('onboard-qr-corner').value : 'extra-rounded';
                 const font = document.getElementById('onboard-biz-font') ? document.getElementById('onboard-biz-font').value : 'Outfit';
                 
@@ -3673,7 +3673,7 @@ Interested in setting this up to see if it works?</span>
                         if (!bizName || !targetUrl) { showToastNotification('Please enter a Business Name and Target URL first.'); return; }
 
                         const theme = document.getElementById('onboard-flyer-theme') ? document.getElementById('onboard-flyer-theme').value : 'theme-onyx';
-                        const qrDot = document.getElementById('onboard-qr-dot') ? document.getElementById('onboard-qr-dot').value : 'dots';
+                        const qrDot = document.getElementById('onboard-qr-dot') ? document.getElementById('onboard-qr-dot').value : 'rounded';
                         const qrCorner = document.getElementById('onboard-qr-corner') ? document.getElementById('onboard-qr-corner').value : 'extra-rounded';
                         const font = document.getElementById('onboard-biz-font').value;
                         

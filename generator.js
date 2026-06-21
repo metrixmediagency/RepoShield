@@ -416,7 +416,7 @@ document.addEventListener('DOMContentLoaded', () => {
             category: category,
             font: selectedFont,
             theme: selectedTheme,
-            qrDot: (document.getElementById('qr-dot-style') || document.getElementById('onboard-qr-dot') || {value: 'dots'}).value,
+            qrDot: (document.getElementById('qr-dot-style') || document.getElementById('onboard-qr-dot') || {value: 'rounded'}).value,
             qrCorner: (document.getElementById('qr-corner-style') || document.getElementById('onboard-qr-corner') || {value: 'extra-rounded'}).value,
             flyerHeadline: (document.getElementById('flyer-headline') || document.getElementById('onboard-flyer-headline') || {value: 'Review Us'}).value,
             flyerSub: (document.getElementById('flyer-sub') || document.getElementById('onboard-flyer-sub') || {value: 'Scan to Rate'}).value,
@@ -441,6 +441,12 @@ document.addEventListener('DOMContentLoaded', () => {
             type: activeCampaignType,
             font: selectedFont,
             theme: selectedTheme,
+            qrDot: payload.qrDot,
+            qrCorner: payload.qrCorner,
+            flyerHeadline: payload.flyerHeadline,
+            flyerSub: payload.flyerSub,
+            flyerFooter: payload.flyerFooter,
+            flyerTextStyle: payload.flyerTextStyle,
             demo: 'true'
         });
 
@@ -517,7 +523,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const flyerSub = (document.getElementById('flyer-sub') || document.getElementById('onboard-flyer-sub') || {value: 'Scan to Rate'}).value;
         const flyerFooter = (document.getElementById('flyer-footer') || document.getElementById('onboard-flyer-footer') || {value: 'Help us serve you better!'}).value;
         const flyerTextStyle = (document.getElementById('flyer-text-style') || document.getElementById('onboard-flyer-text-style') || {value: 'normal'}).value;
-        const qrDotStyle = (document.getElementById('qr-dot-style') || document.getElementById('onboard-qr-dot') || {value: 'dots'}).value;
+        const qrDotStyle = (document.getElementById('qr-dot-style') || document.getElementById('onboard-qr-dot') || {value: 'rounded'}).value;
         const qrCornerStyle = (document.getElementById('qr-corner-style') || document.getElementById('onboard-qr-corner') || {value: 'extra-rounded'}).value;
 
         let baseLocation = bizBaseUrlInput.value.trim();
