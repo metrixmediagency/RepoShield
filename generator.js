@@ -425,11 +425,15 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const adminIframe = document.getElementById('admin-live-flyer');
-        if (adminIframe && adminIframe.contentWindow) {
-            adminIframe.contentWindow.postMessage({ type: 'UPDATE_FLYER', payload }, '*');
-        }
+        if (adminIframe && adminIframe.contentWindow) adminIframe.contentWindow.postMessage({ type: 'UPDATE_FLYER', payload }, '*');
 
-        // 2. Update Mobile frame iframe
+        const desktopLiveFlyer = document.getElementById('desktop-live-flyer');
+        if (desktopLiveFlyer && desktopLiveFlyer.contentWindow) desktopLiveFlyer.contentWindow.postMessage({ type: 'UPDATE_FLYER', payload }, '*');
+
+        const mobIframe = document.getElementById('mobile-live-flyer');
+        if (mobIframe && mobIframe.contentWindow) mobIframe.contentWindow.postMessage({ type: 'UPDATE_FLYER', payload }, '*');
+
+        // 2. Update portal iframe (doesn't support full live updates yet, but shouldn't lag the UI)
         const baseLocation = window.location.href.substring(0, window.location.href.lastIndexOf('/'));
         
         const params = new URLSearchParams({
@@ -443,19 +447,13 @@ document.addEventListener('DOMContentLoaded', () => {
             theme: selectedTheme,
             qrDot: payload.qrDot,
             qrCorner: payload.qrCorner,
-            flyerHeadline: payload.flyerHeadline,
-            flyerSub: payload.flyerSub,
-            flyerFooter: payload.flyerFooter,
-            flyerTextStyle: payload.flyerTextStyle,
             demo: 'true'
         });
 
-        const mobIframe = document.getElementById('mobile-live-flyer');
-        const desktopLiveFlyer = document.getElementById('desktop-live-flyer');
-        
-        if (portalIframe) portalIframe.src = `${baseLocation}/portal.html?${params.toString()}`;
-        if (mobIframe) mobIframe.src = `${baseLocation}/flyer.html?${params.toString()}`;
-        if (desktopLiveFlyer) desktopLiveFlyer.src = `${baseLocation}/flyer.html?${params.toString()}`;
+        // Initialize src if it hasn't been set with params yet
+        if (portalIframe && !portalIframe.src.includes('?')) portalIframe.src = `${baseLocation}/portal.html?${params.toString()}`;
+        if (mobIframe && !mobIframe.src.includes('?')) mobIframe.src = `${baseLocation}/flyer.html?${params.toString()}`;
+        if (desktopLiveFlyer && !desktopLiveFlyer.src.includes('?')) desktopLiveFlyer.src = `${baseLocation}/flyer.html?${params.toString()}`;
     }
 
     // Sync input events
