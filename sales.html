@@ -1817,8 +1817,36 @@
                                     </div>
 
                                     <div style="margin-top: 1.5rem; margin-bottom: 0.5rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem;">
-                                        <h4 style="margin-bottom: 1rem; color: #818cf8; font-size: 0.95rem;"><i class="fa-solid fa-qrcode"></i> Custom QR Settings</h4>
+                                        <h4 style="margin-bottom: 1rem; color: #818cf8; font-size: 0.95rem;"><i class="fa-solid fa-paintbrush"></i> Flyer & QR Design Studio</h4>
                                         <div class="input-row">
+                                            <div class="input-group">
+                                                <label>Flyer Headline</label>
+                                                <input type="text" id="onboard-flyer-headline" value="Review Us" placeholder="e.g. Review Us">
+                                            </div>
+                                            <div class="input-group">
+                                                <label>Flyer Subheadline</label>
+                                                <input type="text" id="onboard-flyer-sub" value="Scan to Rate" placeholder="e.g. Scan to Rate">
+                                            </div>
+                                        </div>
+                                        <div class="input-row" style="margin-top: 1rem;">
+                                            <div class="input-group">
+                                                <label>Flyer Background</label>
+                                                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                                                    <input type="color" id="onboard-flyer-bg" value="#ffffff" style="padding:0; width:50px; height:45px; border-radius:8px; border:none; cursor:pointer;">
+                                                </div>
+                                            </div>
+                                            <div class="input-group">
+                                                <label>Flyer Pattern</label>
+                                                <select id="onboard-flyer-pattern">
+                                                    <option value="none" selected>None (Solid)</option>
+                                                    <option value="dots">Subtle Dots</option>
+                                                    <option value="diagonal">Diagonal Lines</option>
+                                                    <option value="waves">Waves</option>
+                                                    <option value="grid">Grid</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="input-row" style="margin-top: 1rem;">
                                             <div class="input-group">
                                                 <label>QR Foreground Color</label>
                                                 <div style="display: flex; gap: 0.5rem; align-items: center;">
@@ -1834,7 +1862,7 @@
                                         </div>
                                         <div class="input-row" style="margin-top: 1rem;">
                                             <div class="input-group">
-                                                <label>Pattern Style</label>
+                                                <label>QR Pattern Style</label>
                                                 <select id="onboard-qr-dot">
                                                     <option value="square">Standard Squares</option>
                                                     <option value="dots" selected>Modern Dots</option>
@@ -1843,7 +1871,7 @@
                                                 </select>
                                             </div>
                                             <div class="input-group">
-                                                <label>Corner Style</label>
+                                                <label>QR Corner Style</label>
                                                 <select id="onboard-qr-corner">
                                                     <option value="square">Square</option>
                                                     <option value="dot">Dot</option>
@@ -1934,20 +1962,7 @@
                                 </div>
                                 
                                 <!-- Standee Flyer Preview -->
-                                <div class="sim-standee">
-                                    <div class="standee-card">
-                                        <div class="standee-header" id="sim-flyer-header" style="background: #3b82f6;">
-                                            <i class="fa-solid fa-star"></i> Review Us
-                                        </div>
-                                        <div class="standee-body">
-                                            <p id="sim-flyer-name" style="margin: 0; font-weight: 800; color: #0f172a; text-transform: uppercase;">Brand Name</p>
-                                            <div class="sim-qr-box">
-                                                <i class="fa-solid fa-qrcode"></i>
-                                            </div>
-                                            <span style="font-size: 0.6rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; margin-bottom: 0.25rem;">Scan to Rate</span>
-                                        </div>
-                                    </div>
-                                </div>
+                                <iframe id="desktop-live-flyer" src="flyer.html" style="width: 260px; height: 380px; border: none; background: transparent; overflow: hidden; transform-origin: top left; pointer-events: none;"></iframe>
                             </div>
                         </div>
                     </div>
@@ -2937,20 +2952,7 @@ Interested in setting this up to see if it works?</span>
 
             <!-- Flyer Preview Pane -->
             <div id="ovl-flyer-pane" style="display: none; flex-direction: column; align-items: center; gap: 0.75rem; width: 100%;">
-                <div class="sim-standee" style="width: 200px; height: 320px; padding: 8px;">
-                    <div class="standee-card">
-                        <div class="standee-header" id="ovl-flyer-header" style="background: #3b82f6;">
-                            <i class="fa-solid fa-star"></i> Review Us
-                        </div>
-                        <div class="standee-body">
-                            <p id="ovl-flyer-name" style="margin: 0; font-weight: 800; color: #0f172a; text-transform: uppercase;">Brand Name</p>
-                            <div class="sim-qr-box">
-                                <i class="fa-solid fa-qrcode"></i>
-                            </div>
-                            <span style="font-size: 0.65rem; color: #64748b; font-weight: 700; text-transform: uppercase; margin-bottom: 0.25rem;">Scan to Rate</span>
-                        </div>
-                    </div>
-                </div>
+                <iframe id="mobile-live-flyer" src="flyer.html" style="width: 240px; height: 350px; border: none; background: transparent; overflow: hidden; transform-origin: top left; pointer-events: none;"></iframe>
                 <a id="ovl-open-flyer-link" href="#" target="_blank" class="btn btn-secondary" style="width: 100%; max-width: 360px; justify-content: center; gap: 0.5rem; text-decoration: none; font-size: 0.9rem;">
                     <i class="fa-solid fa-up-right-from-square"></i> Open Standee Flyer
                 </a>
@@ -2969,7 +2971,7 @@ Interested in setting this up to see if it works?</span>
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase_config.js"></script>
-    <script src="generator.js?v=3.1"></script>
+    <script src="generator.js?v=3.2"></script>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script src="razorpay_config.js"></script>
     <script>
@@ -3419,25 +3421,60 @@ Interested in setting this up to see if it works?</span>
             function updateSimulator() {
                 const nameVal = inputBizName ? (inputBizName.value.trim() || 'Brand Name') : 'Brand Name';
                 const colorVal = inputBizColor ? (inputBizColor.value || '#3b82f6') : '#3b82f6';
+                const categoryVal = document.getElementById('onboard-biz-category') ? document.getElementById('onboard-biz-category').value : 'other';
 
-                // Update desktop simulator
+                // Update standard simulator elements
                 if (simName) simName.textContent = nameVal;
-                if (simFlyerName) simFlyerName.textContent = nameVal;
                 if (simHeader) simHeader.style.borderColor = colorVal;
-                if (simFlyerHeader) simFlyerHeader.style.background = colorVal;
                 if (simBtn) { simBtn.style.background = colorVal; simBtn.style.boxShadow = `0 4px 12px ${colorVal}4d`; }
-
-                // Update mobile overlay simulator
                 if (ovlPortalName) ovlPortalName.textContent = nameVal;
-                if (ovlFlyerName) ovlFlyerName.textContent = nameVal;
                 if (ovlPortalHeader) ovlPortalHeader.style.borderColor = colorVal;
-                if (ovlFlyerHeader) ovlFlyerHeader.style.background = colorVal;
                 if (ovlPortalBtn) { ovlPortalBtn.style.background = colorVal; ovlPortalBtn.style.boxShadow = `0 4px 12px ${colorVal}4d`; }
+
+                // PostMessage payload to Live Flyer Iframes
+                const payload = {
+                    name: nameVal,
+                    color: colorVal,
+                    category: categoryVal,
+                    font: document.getElementById('onboard-biz-font')?.value || 'Outfit',
+                    qrFg: document.getElementById('onboard-qr-fg')?.value || '#0f172a',
+                    qrBg: document.getElementById('onboard-qr-bg')?.value || '#ffffff',
+                    qrDot: document.getElementById('onboard-qr-dot')?.value || 'dots',
+                    qrCorner: document.getElementById('onboard-qr-corner')?.value || 'extra-rounded',
+                    flyerBg: document.getElementById('onboard-flyer-bg')?.value || '#ffffff',
+                    flyerHeadline: document.getElementById('onboard-flyer-headline')?.value || 'Review Us',
+                    flyerSub: document.getElementById('onboard-flyer-sub')?.value || 'Scan to Rate',
+                    flyerPattern: document.getElementById('onboard-flyer-pattern')?.value || 'none'
+                };
+
+                const deskIframe = document.getElementById('desktop-live-flyer');
+                if (deskIframe && deskIframe.contentWindow) {
+                    deskIframe.contentWindow.postMessage({ type: 'UPDATE_FLYER', payload }, '*');
+                }
+
+                const mobIframe = document.getElementById('mobile-live-flyer');
+                if (mobIframe && mobIframe.contentWindow) {
+                    mobIframe.contentWindow.postMessage({ type: 'UPDATE_FLYER', payload }, '*');
+                }
             }
 
             if (inputBizName && inputBizColor) {
                 inputBizName.addEventListener('input', updateSimulator);
                 inputBizColor.addEventListener('input', updateSimulator);
+                document.getElementById('onboard-biz-category')?.addEventListener('change', updateSimulator);
+                document.getElementById('onboard-biz-font')?.addEventListener('change', updateSimulator);
+                document.getElementById('onboard-qr-fg')?.addEventListener('input', updateSimulator);
+                document.getElementById('onboard-qr-bg')?.addEventListener('input', updateSimulator);
+                document.getElementById('onboard-qr-dot')?.addEventListener('change', updateSimulator);
+                document.getElementById('onboard-qr-corner')?.addEventListener('change', updateSimulator);
+                document.getElementById('onboard-flyer-headline')?.addEventListener('input', updateSimulator);
+                document.getElementById('onboard-flyer-sub')?.addEventListener('input', updateSimulator);
+                document.getElementById('onboard-flyer-bg')?.addEventListener('input', updateSimulator);
+                document.getElementById('onboard-flyer-pattern')?.addEventListener('change', updateSimulator);
+                
+                document.getElementById('desktop-live-flyer')?.addEventListener('load', updateSimulator);
+                document.getElementById('mobile-live-flyer')?.addEventListener('load', updateSimulator);
+                
                 updateSimulator();
             }
 
@@ -3591,10 +3628,15 @@ Interested in setting this up to see if it works?</span>
                 const qrDot = document.getElementById('onboard-qr-dot') ? document.getElementById('onboard-qr-dot').value : 'dots';
                 const qrCorner = document.getElementById('onboard-qr-corner') ? document.getElementById('onboard-qr-corner').value : 'extra-rounded';
                 const font = document.getElementById('onboard-biz-font') ? document.getElementById('onboard-biz-font').value : 'Outfit';
+                
+                const flyerBg = document.getElementById('onboard-flyer-bg') ? document.getElementById('onboard-flyer-bg').value : '#ffffff';
+                const flyerHeadline = document.getElementById('onboard-flyer-headline') ? document.getElementById('onboard-flyer-headline').value : 'Review Us';
+                const flyerSub = document.getElementById('onboard-flyer-sub') ? document.getElementById('onboard-flyer-sub').value : 'Scan to Rate';
+                const flyerPattern = document.getElementById('onboard-flyer-pattern') ? document.getElementById('onboard-flyer-pattern').value : 'none';
 
                 const baseLocation = window.location.origin;
                 const demoPortalUrl = `${baseLocation}/portal.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&demo=true`;
-                const demoFlyerUrl = `${baseLocation}/flyer.html?name=${encodeURIComponent(bizName)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&qrFg=${encodeURIComponent(qrFg)}&qrBg=${encodeURIComponent(qrBg)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}`;
+                const demoFlyerUrl = `${baseLocation}/flyer.html?name=${encodeURIComponent(bizName)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&qrFg=${encodeURIComponent(qrFg)}&qrBg=${encodeURIComponent(qrBg)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerBg=${encodeURIComponent(flyerBg)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerPattern=${encodeURIComponent(flyerPattern)}`;
 
                 if (ovlOpenPortalLink) ovlOpenPortalLink.href = demoPortalUrl;
                 if (ovlOpenFlyerLink) ovlOpenFlyerLink.href = demoFlyerUrl;
@@ -3655,10 +3697,15 @@ Interested in setting this up to see if it works?</span>
                         const qrDot = document.getElementById('onboard-qr-dot').value;
                         const qrCorner = document.getElementById('onboard-qr-corner').value;
                         const font = document.getElementById('onboard-biz-font').value;
+                        
+                        const flyerBg = document.getElementById('onboard-flyer-bg') ? document.getElementById('onboard-flyer-bg').value : '#ffffff';
+                        const flyerHeadline = document.getElementById('onboard-flyer-headline') ? document.getElementById('onboard-flyer-headline').value : 'Review Us';
+                        const flyerSub = document.getElementById('onboard-flyer-sub') ? document.getElementById('onboard-flyer-sub').value : 'Scan to Rate';
+                        const flyerPattern = document.getElementById('onboard-flyer-pattern') ? document.getElementById('onboard-flyer-pattern').value : 'none';
 
                         const baseLocation = window.location.origin;
                         const demoPortalUrl = `${baseLocation}/portal.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&demo=true`;
-                        const demoFlyerUrl = `${baseLocation}/flyer.html?name=${encodeURIComponent(bizName)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&qrFg=${encodeURIComponent(qrFg)}&qrBg=${encodeURIComponent(qrBg)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}`;
+                        const demoFlyerUrl = `${baseLocation}/flyer.html?name=${encodeURIComponent(bizName)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&qrFg=${encodeURIComponent(qrFg)}&qrBg=${encodeURIComponent(qrBg)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerBg=${encodeURIComponent(flyerBg)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerPattern=${encodeURIComponent(flyerPattern)}`;
 
                         const ppLink = document.getElementById('preview-portal-link');
                         const pfLink = document.getElementById('preview-flyer-link');

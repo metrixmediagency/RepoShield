@@ -660,108 +660,213 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Parse parameters
-            const urlParams = new URLSearchParams(window.location.search);
-            const name = urlParams.get('name') || 'MetrixMedia Brand';
-            const category = urlParams.get('category') || 'other';
-            const color = urlParams.get('color') || '#6366f1';
-            const font = urlParams.get('font') || 'Outfit';
-            const campaignType = urlParams.get('type') || 'gmb';
-            const portalUrl = urlParams.get('portalUrl') || 'https://google.com';
+        // Global state for QR code objects so we can update them dynamically
+        let qrCodeInstances = [];
+        const urlParams = new URLSearchParams(window.location.search);
+        let currentPortalUrl = urlParams.get('portalUrl') || 'https://google.com';
 
-            // Set Brand Color dynamically
+        // Utility to generate SVG background patterns
+        function getPatternCSS(patternName, baseColor) {
+            if (patternName === 'dots') {
+                return `radial-gradient(rgba(0,0,0,0.06) 2px, transparent 2px)`;
+            } else if (patternName === 'diagonal') {
+                return `repeating-linear-gradient(45deg, rgba(0,0,0,0.02) 0, rgba(0,0,0,0.02) 2px, transparent 2px, transparent 10px)`;
+            } else if (patternName === 'waves') {
+                const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='100' height='20'><path d='M0,10 Q25,20 50,10 T100,10' fill='none' stroke='rgba(0,0,0,0.04)' stroke-width='2'/></svg>`;
+                return `url("data:image/svg+xml;base64,${btoa(svg)}")`;
+            } else if (patternName === 'grid') {
+                return `linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px)`;
+            }
+            return 'none';
+        }
+
+        function getPatternSize(patternName) {
+            if (patternName === 'dots') return '15px 15px';
+            if (patternName === 'grid') return '20px 20px';
+            if (patternName === 'waves') return '100px 20px';
+            return 'auto';
+        }
+
+        // Core rendering function for applying the state
+        function renderFlyer(state) {
+            // Unpack State
+            const name = state.name || 'MetrixMedia Brand';
+            const category = state.category || 'other';
+            const color = state.color || '#6366f1';
+            const font = state.font || 'Outfit';
+            const campaignType = state.type || 'gmb';
+            currentPortalUrl = state.portalUrl || currentPortalUrl;
+            
+            const qrFg = state.qrFg || '#0f172a';
+            const qrBg = state.qrBg || '#ffffff';
+            const qrDot = state.qrDot || 'dots';
+            const qrCorner = state.qrCorner || 'extra-rounded';
+            const logo = state.logo || '';
+
+            const flyerBg = state.flyerBg || '#ffffff';
+            const flyerHeadline = state.flyerHeadline || 'Review Us';
+            const flyerSub = state.flyerSub || 'Scan to Rate';
+            const flyerPattern = state.flyerPattern || 'none';
+
+            // 1. Theme Variables
             document.documentElement.style.setProperty('--primary', color);
+            
+            // Apply Flyer Background Color and Pattern to the print frames
+            document.querySelectorAll('.standee-face, .insert-container, .sticker-card').forEach(el => {
+                el.style.backgroundColor = flyerBg;
+                el.style.backgroundImage = getPatternCSS(flyerPattern, flyerBg);
+                el.style.backgroundSize = getPatternSize(flyerPattern);
+            });
 
-            // Set Brand Typography dynamically
+            // 2. Brand Typography
             const fontNameForUrl = font.replace(/ /g, '+');
-            const link = document.createElement('link');
-            link.rel = 'stylesheet';
+            let link = document.getElementById('dynamic-font-link');
+            if (!link) {
+                link = document.createElement('link');
+                link.id = 'dynamic-font-link';
+                link.rel = 'stylesheet';
+                document.head.appendChild(link);
+            }
             link.href = `https://fonts.googleapis.com/css2?family=${fontNameForUrl}:wght@400;500;600;700;800&display=swap`;
-            document.head.appendChild(link);
 
-            const style = document.createElement('style');
-            style.innerHTML = `
+            let styleEl = document.getElementById('dynamic-font-style');
+            if (!styleEl) {
+                styleEl = document.createElement('style');
+                styleEl.id = 'dynamic-font-style';
+                document.head.appendChild(styleEl);
+            }
+            styleEl.innerHTML = `
                 body, .standee-header h2, .standee-body h3, .insert-brand h4, .insert-left h3, .sticker-header h4, .sticker-card h3 {
                     font-family: "${font}", sans-serif !important;
                 }
             `;
-            document.head.appendChild(style);
 
-            // Toggle active asset container based on campaign type
+            // 3. Layout Visibility
             const gmbAsset = document.getElementById('gmb-asset');
             const ecommerceAsset = document.getElementById('ecommerce-asset');
             const deliveryAsset = document.getElementById('delivery-asset');
             const toolbarTitle = document.getElementById('toolbar-title');
-            
             const guideText = document.getElementById('guide-text');
 
+            if (gmbAsset) gmbAsset.style.display = 'none';
+            if (ecommerceAsset) ecommerceAsset.style.display = 'none';
+            if (deliveryAsset) deliveryAsset.style.display = 'none';
+
             if (campaignType === 'ecommerce') {
-                ecommerceAsset.style.display = 'flex';
-                toolbarTitle.textContent = 'MetrixMedia Package Insert Builder';
-                guideText.innerHTML = '<strong>✂️ Package Insert Instructions:</strong><br>1. Print in color on standard 4" x 6" cardstock paper.<br>2. Place directly inside every shipped package box.<br>3. Track leads and reviews via your MetrixMedia dashboard.';
+                if(ecommerceAsset) ecommerceAsset.style.display = 'flex';
+                if(toolbarTitle) toolbarTitle.textContent = 'MetrixMedia Package Insert Builder';
+                if(guideText) guideText.innerHTML = '<strong>✂️ Package Insert Instructions:</strong><br>1. Print in color on standard 4" x 6" cardstock paper.<br>2. Place directly inside every shipped package box.<br>3. Track leads and reviews via your MetrixMedia dashboard.';
             } else if (campaignType === 'delivery') {
-                deliveryAsset.style.display = 'grid';
-                toolbarTitle.textContent = 'MetrixMedia Delivery Sticker sheet';
-                guideText.innerHTML = '<strong>✂️ Packaging Sticker Instructions:</strong><br>1. Print on round adhesive label sheets or standard paper.<br>2. Cut along the circular borders.<br>3. Stick to paper bags or container lids before delivery.';
+                if(deliveryAsset) deliveryAsset.style.display = 'grid';
+                if(toolbarTitle) toolbarTitle.textContent = 'MetrixMedia Delivery Sticker sheet';
+                if(guideText) guideText.innerHTML = '<strong>✂️ Packaging Sticker Instructions:</strong><br>1. Print on round adhesive label sheets or standard paper.<br>2. Cut along the circular borders.<br>3. Stick to paper bags or container lids before delivery.';
             } else {
-                gmbAsset.style.display = 'flex';
-                toolbarTitle.textContent = 'MetrixMedia Table Standee Builder';
-                guideText.innerHTML = '<strong>✂️ Fold Instructions:</strong><br>1. Print in color on standard A4 cardstock.<br>2. Fold along the center dashed line.<br>3. Tape bottom panels together to form a standing triangular standee.';
+                if(gmbAsset) gmbAsset.style.display = 'flex';
+                if(toolbarTitle) toolbarTitle.textContent = 'MetrixMedia Table Standee Builder';
+                if(guideText) guideText.innerHTML = '<strong>✂️ Fold Instructions:</strong><br>1. Print in color on standard A4 cardstock.<br>2. Fold along the center dashed line.<br>3. Tape bottom panels together to form a standing triangular standee.';
             }
 
-            // Populate titles
-            document.querySelectorAll('.biz-title-placeholder').forEach(el => {
-                el.textContent = name;
-            });
+            // 4. Update Text Nodes
+            document.querySelectorAll('.biz-title-placeholder').forEach(el => el.textContent = name);
+            
+            // Custom Headline
+            document.querySelectorAll('.standee-header h2, .insert-left h3, .sticker-header h4').forEach(el => el.textContent = flyerHeadline);
+            // Custom Subheadline
+            document.querySelectorAll('.standee-body p, .insert-qr-container p, .sticker-card span').forEach(el => el.textContent = flyerSub);
 
-            // Populate category icons across all assets
+            // 5. Category Icons
             const iconClasses = {
-                cafe: 'fa-solid fa-mug-hot',
-                cafe_premium: 'fa-solid fa-utensils',
-                bakery: 'fa-solid fa-cake-slice',
-                beverage: 'fa-solid fa-glass-water',
-                dental: 'fa-solid fa-tooth',
-                gym: 'fa-solid fa-dumbbell',
-                salon: 'fa-solid fa-scissors',
-                law: 'fa-solid fa-scale-balanced',
-                electronics: 'fa-solid fa-laptop-code',
-                beauty: 'fa-solid fa-sparkles',
-                apparel: 'fa-solid fa-shirt',
-                home: 'fa-solid fa-house-laptop',
-                health: 'fa-solid fa-leaf',
-                other: 'fa-solid fa-store'
+                cafe: 'fa-solid fa-mug-hot', cafe_premium: 'fa-solid fa-utensils', bakery: 'fa-solid fa-cake-slice',
+                beverage: 'fa-solid fa-glass-water', dental: 'fa-solid fa-tooth', gym: 'fa-solid fa-dumbbell',
+                salon: 'fa-solid fa-scissors', law: 'fa-solid fa-scale-balanced', electronics: 'fa-solid fa-laptop-code',
+                beauty: 'fa-solid fa-sparkles', apparel: 'fa-solid fa-shirt', home: 'fa-solid fa-house-laptop',
+                health: 'fa-solid fa-leaf', other: 'fa-solid fa-store'
+            };
+            const selectedIcon = iconClasses[category] || iconClasses.other;
+            document.querySelectorAll('.icon-placeholder').forEach(el => el.className = `${selectedIcon} icon-placeholder`);
+
+            // 6. QR Code Injection / Updating
+            if (window.QRCodeStyling) {
+                const qrContainers = document.querySelectorAll('.qr-wrapper, .insert-qr-mock, .sticker-qr');
+                
+                // If this is the first render, create the instances
+                if (qrCodeInstances.length === 0) {
+                    qrContainers.forEach(container => {
+                        container.innerHTML = ''; // clear placeholder img
+                        const size = container.classList.contains('sticker-qr') ? 74 : (container.classList.contains('insert-qr-mock') ? 98 : 144);
+                        
+                        const qrCode = new QRCodeStyling({
+                            width: size, height: size, data: currentPortalUrl,
+                            image: logo !== '' ? logo : "",
+                            dotsOptions: { color: qrFg, type: qrDot },
+                            backgroundOptions: { color: qrBg },
+                            cornersSquareOptions: { type: qrCorner, color: qrFg },
+                            imageOptions: { crossOrigin: "anonymous", margin: 5 }
+                        });
+                        qrCode.append(container);
+                        qrCodeInstances.push(qrCode);
+                    });
+                } else {
+                    // Fast update existing instances
+                    qrCodeInstances.forEach(qrCode => {
+                        qrCode.update({
+                            data: currentPortalUrl,
+                            dotsOptions: { color: qrFg, type: qrDot },
+                            backgroundOptions: { color: qrBg },
+                            cornersSquareOptions: { type: qrCorner, color: qrFg }
+                        });
+                    });
+                }
+            }
+        }
+
+        // Initialize on DOM Ready
+        document.addEventListener('DOMContentLoaded', () => {
+            // Read initial state from URL parameters
+            const initialState = {
+                name: urlParams.get('name'),
+                category: urlParams.get('category'),
+                color: urlParams.get('color'),
+                font: urlParams.get('font'),
+                type: urlParams.get('type'),
+                portalUrl: urlParams.get('portalUrl'),
+                qrFg: urlParams.get('qrFg'),
+                qrBg: urlParams.get('qrBg'),
+                qrDot: urlParams.get('qrDot'),
+                qrCorner: urlParams.get('qrCorner'),
+                logo: urlParams.get('logo'),
+                flyerBg: urlParams.get('flyerBg'),
+                flyerHeadline: urlParams.get('flyerHeadline'),
+                flyerSub: urlParams.get('flyerSub'),
+                flyerPattern: urlParams.get('flyerPattern')
             };
 
-            const selectedIcon = iconClasses[category] || iconClasses.other;
-            document.querySelectorAll('.icon-placeholder').forEach(el => {
-                el.className = `${selectedIcon} icon-placeholder`;
-            });
+            // Hide toolbar and scale to fit if viewed inside a Live Editor Iframe
+            if (window.self !== window.top) {
+                const tb = document.querySelector('.toolbar');
+                if (tb) tb.style.display = 'none';
 
-            const qrFg = urlParams.get('qrFg') || '#0f172a';
-            const qrBg = urlParams.get('qrBg') || '#ffffff';
-            const qrDot = urlParams.get('qrDot') || 'dots';
-            const qrCorner = urlParams.get('qrCorner') || 'extra-rounded';
-            const logo = urlParams.get('logo') || '';
+                document.body.style.minHeight = '100%';
+                document.body.style.backgroundColor = 'transparent';
+                document.body.style.overflow = 'hidden';
 
-            // Generate real custom QR pointing to dynamic portal gating URL
-            if (window.QRCodeStyling) {
-                document.querySelectorAll('.qr-wrapper, .insert-qr-mock, .sticker-qr').forEach(container => {
-                    container.innerHTML = ''; // clear placeholder img
-                    const size = container.classList.contains('sticker-qr') ? 74 : (container.classList.contains('insert-qr-mock') ? 98 : 144);
-                    
-                    const qrCode = new QRCodeStyling({
-                        width: size,
-                        height: size,
-                        data: portalUrl,
-                        image: logo !== '' ? logo : "",
-                        dotsOptions: { color: qrFg, type: qrDot },
-                        backgroundOptions: { color: qrBg },
-                        cornersSquareOptions: { type: qrCorner, color: qrFg },
-                        imageOptions: { crossOrigin: "anonymous", margin: 5 }
-                    });
-                    qrCode.append(container);
-                });
+                const printPage = document.querySelector('.print-page');
+                if (printPage) {
+                    printPage.style.margin = '0';
+                    printPage.style.boxShadow = 'none';
+                    // Scale A4 down to fit typical iframe dimensions
+                    printPage.style.transform = 'scale(0.32)';
+                    printPage.style.transformOrigin = 'top center';
+                }
+            }
+
+            renderFlyer(initialState);
+        });
+
+        // Listen for real-time postMessage payloads from the Live Editor
+        window.addEventListener('message', (event) => {
+            if (event.data && event.data.type === 'UPDATE_FLYER') {
+                renderFlyer(event.data.payload);
             }
         });
     </script>

@@ -400,6 +400,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('biz-font')) document.getElementById('biz-font').addEventListener('change', updateSimulators);
     if (document.getElementById('onboard-biz-font')) document.getElementById('onboard-biz-font').addEventListener('change', updateSimulators);
 
+    if (document.getElementById('flyer-headline')) document.getElementById('flyer-headline').addEventListener('input', updateSimulators);
+    if (document.getElementById('flyer-sub')) document.getElementById('flyer-sub').addEventListener('input', updateSimulators);
+    if (document.getElementById('flyer-bg-color')) document.getElementById('flyer-bg-color').addEventListener('input', updateSimulators);
+    if (document.getElementById('flyer-pattern')) document.getElementById('flyer-pattern').addEventListener('change', updateSimulators);
+    
+    // Also trigger update on iframe load so it syncs immediately
+    if (document.getElementById('admin-live-flyer')) {
+        document.getElementById('admin-live-flyer').addEventListener('load', updateSimulators);
+    }
+
     function updateSimulators() {
         const name = bizNameInput.value || (activeCampaignType === 'ecommerce' ? 'Your Product Name' : 'Your Business Name');
         const accent = bizAccentInput.value;
@@ -408,59 +418,36 @@ document.addEventListener('DOMContentLoaded', () => {
         const email = bizEmailInput.value || '';
         const gmb = bizGmbInput.value || '';
 
-        // 1. Update Flyer preview
-        previewFlyerBizName.textContent = name;
-        
-        const config = campaignOptions[activeCampaignType];
-        document.getElementById('preview-flyer-headline').textContent = config.headline;
-        document.getElementById('preview-flyer-subheadline').textContent = config.subheadline;
-        document.getElementById('preview-flyer-footer-text').textContent = config.footer;
-        
-        previewFlyerIcon.className = `${categoryIcons[category] || 'fa-solid fa-briefcase'} text-accent`;
-        previewFlyerIcon.style.color = accent;
-
-        // Apply accent color variable to flyer card border
-        document.documentElement.style.setProperty('--primary', accent);
-
-        // Render Live Custom QR Code in Preview
-        const qrContainer = document.querySelector('.flyer-qr-mock');
-        if (qrContainer && window.QRCodeStyling) {
-            qrContainer.innerHTML = '';
-            
-            const qrFgColor = (document.getElementById('qr-fg-color') || document.getElementById('onboard-qr-fg') || {value: '#0f172a'}).value;
-            const qrBgColor = (document.getElementById('qr-bg-color') || document.getElementById('onboard-qr-bg') || {value: '#ffffff'}).value;
-            const qrDotStyle = (document.getElementById('qr-dot-style') || document.getElementById('onboard-qr-dot') || {value: 'dots'}).value;
-            const qrCornerStyle = (document.getElementById('qr-corner-style') || document.getElementById('onboard-qr-corner') || {value: 'extra-rounded'}).value;
-
-            const qrCode = new QRCodeStyling({
-                width: 180,
-                height: 180,
-                data: "https://metrixmedia.app",
-                image: logo !== '' ? logo : "",
-                dotsOptions: { color: qrFgColor, type: qrDotStyle },
-                backgroundOptions: { color: qrBgColor },
-                cornersSquareOptions: { type: qrCornerStyle, color: qrFgColor },
-                imageOptions: { crossOrigin: "anonymous", margin: 5 }
-            });
-            qrCode.append(qrContainer);
-        }
-
-        // Apply Custom Typography
+        // 1. PostMessage Payload for Live Flyer Editor
         const selectedFont = (document.getElementById('biz-font') || document.getElementById('onboard-biz-font') || {value: 'Outfit'}).value;
-        const fontNameForUrl = selectedFont.replace(/ /g, '+');
+        const qrFgColor = (document.getElementById('qr-fg-color') || document.getElementById('onboard-qr-fg') || {value: '#0f172a'}).value;
+        const qrBgColor = (document.getElementById('qr-bg-color') || document.getElementById('onboard-qr-bg') || {value: '#ffffff'}).value;
+        const qrDotStyle = (document.getElementById('qr-dot-style') || document.getElementById('onboard-qr-dot') || {value: 'dots'}).value;
+        const qrCornerStyle = (document.getElementById('qr-corner-style') || document.getElementById('onboard-qr-corner') || {value: 'extra-rounded'}).value;
         
-        // Dynamically load font if not already loaded in the document
-        if (!document.getElementById(`font-${fontNameForUrl}`)) {
-            const link = document.createElement('link');
-            link.id = `font-${fontNameForUrl}`;
-            link.rel = 'stylesheet';
-            link.href = `https://fonts.googleapis.com/css2?family=${fontNameForUrl}:wght@400;600;700;800&display=swap`;
-            document.head.appendChild(link);
-        }
-        
-        // Apply font to Live Flyer Mockup
-        if (flyerCardPreview) {
-            flyerCardPreview.style.fontFamily = `"${selectedFont}", sans-serif`;
+        const flyerBg = (document.getElementById('flyer-bg-color') || {value: '#ffffff'}).value;
+        const flyerHeadline = (document.getElementById('flyer-headline') || {value: 'Review Us'}).value;
+        const flyerSub = (document.getElementById('flyer-sub') || {value: 'Scan to Rate'}).value;
+        const flyerPattern = (document.getElementById('flyer-pattern') || {value: 'none'}).value;
+
+        const payload = {
+            name: name,
+            color: accent,
+            category: category,
+            font: selectedFont,
+            qrFg: qrFgColor,
+            qrBg: qrBgColor,
+            qrDot: qrDotStyle,
+            qrCorner: qrCornerStyle,
+            flyerBg: flyerBg,
+            flyerHeadline: flyerHeadline,
+            flyerSub: flyerSub,
+            flyerPattern: flyerPattern
+        };
+
+        const adminIframe = document.getElementById('admin-live-flyer');
+        if (adminIframe && adminIframe.contentWindow) {
+            adminIframe.contentWindow.postMessage({ type: 'UPDATE_FLYER', payload }, '*');
         }
 
         // 2. Update Mobile frame iframe

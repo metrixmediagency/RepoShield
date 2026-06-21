@@ -250,17 +250,54 @@
                             </div>
 
                             <div style="margin-top: 2rem; margin-bottom: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
-                                <h4 style="margin-bottom: 1rem; color: #818cf8;"><i class="fa-solid fa-qrcode"></i> QR Code Customization</h4>
+                                <h4 style="margin-bottom: 1rem; color: #818cf8;"><i class="fa-solid fa-paintbrush"></i> Flyer & QR Design Studio</h4>
                                 <div class="grid-2-col">
                                     <div class="input-group">
-                                        <label for="qr-fg-color">QR Color</label>
+                                        <label for="flyer-headline">Flyer Headline</label>
+                                        <div class="input-wrapper">
+                                            <i class="fa-solid fa-heading input-icon"></i>
+                                            <input type="text" id="flyer-headline" value="Review Us" placeholder="e.g. Review Us">
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <label for="flyer-sub">Flyer Subheadline</label>
+                                        <div class="input-wrapper">
+                                            <i class="fa-solid fa-font input-icon"></i>
+                                            <input type="text" id="flyer-sub" value="Scan to Rate" placeholder="e.g. Scan to Rate">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid-2-col" style="margin-top: 1rem;">
+                                    <div class="input-group">
+                                        <label for="flyer-bg-color">Flyer Background</label>
+                                        <div class="color-picker-wrapper">
+                                            <input type="color" id="flyer-bg-color" value="#ffffff">
+                                            <input type="text" id="flyer-bg-color-hex" value="#ffffff" placeholder="#ffffff">
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <label for="flyer-pattern">Flyer Pattern</label>
+                                        <div class="input-wrapper">
+                                            <select id="flyer-pattern">
+                                                <option value="none" selected>None (Solid)</option>
+                                                <option value="dots">Subtle Dots</option>
+                                                <option value="diagonal">Diagonal Lines</option>
+                                                <option value="waves">Waves</option>
+                                                <option value="grid">Grid</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid-2-col" style="margin-top: 1rem;">
+                                    <div class="input-group">
+                                        <label for="qr-fg-color">QR Foreground</label>
                                         <div class="color-picker-wrapper">
                                             <input type="color" id="qr-fg-color" value="#0f172a">
                                             <input type="text" id="qr-fg-color-hex" value="#0f172a" placeholder="#0f172a">
                                         </div>
                                     </div>
                                     <div class="input-group">
-                                        <label for="qr-bg-color">Background Color</label>
+                                        <label for="qr-bg-color">QR Background</label>
                                         <div class="color-picker-wrapper">
                                             <input type="color" id="qr-bg-color" value="#ffffff">
                                             <input type="text" id="qr-bg-color-hex" value="#ffffff" placeholder="#ffffff">
@@ -269,7 +306,7 @@
                                 </div>
                                 <div class="grid-2-col" style="margin-top: 1rem;">
                                     <div class="input-group">
-                                        <label for="qr-dot-style">Pattern Style</label>
+                                        <label for="qr-dot-style">QR Pattern Style</label>
                                         <div class="input-wrapper">
                                             <select id="qr-dot-style">
                                                 <option value="square">Standard Squares</option>
@@ -282,7 +319,7 @@
                                         </div>
                                     </div>
                                     <div class="input-group">
-                                        <label for="qr-corner-style">Corner Style</label>
+                                        <label for="qr-corner-style">QR Corner Style</label>
                                         <div class="input-wrapper">
                                             <select id="qr-corner-style">
                                                 <option value="square">Standard Square</option>
@@ -329,32 +366,7 @@
  
                         <!-- Flyer Simulator Mockup -->
                         <div id="preview-flyer-wrapper" class="simulator-wrapper">
-                            <div class="flyer-card-preview" id="flyer-card-preview">
-                                <div class="flyer-card-header">
-                                    <i class="fa-solid fa-store text-accent" id="preview-flyer-icon"></i>
-                                    <h4 id="preview-flyer-biz-name">Your Business Name</h4>
-                                </div>
-                                <div class="flyer-card-content">
-                                    <h3 id="preview-flyer-headline">Love Our Service?</h3>
-                                    <p id="preview-flyer-subheadline">Scan to share your experience with us on Google and unlock a surprise!</p>
-                                    <div class="flyer-qr-mock">
-                                        <div class="qr-spinner">
-                                            <i class="fa-solid fa-qrcode"></i>
-                                            <span>Enter details to generate QR</span>
-                                        </div>
-                                    </div>
-                                    <div class="flyer-card-footer">
-                                        <div class="stars-row">
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                        </div>
-                                        <p id="preview-flyer-footer-text">Help us serve you better!</p>
-                                    </div>
-                                </div>
-                            </div>
+                            <iframe id="admin-live-flyer" src="flyer.html" style="width: 280px; height: 400px; border: none; background: transparent; overflow: hidden; transform-origin: top center; pointer-events: none;"></iframe>
                         </div>
                     </div>
                 </div>
@@ -732,6 +744,6 @@ MetrixMedia Digital</pre>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase_config.js"></script>
     <script src="razorpay_config.js"></script>
-    <script src="generator.js?v=3.1"></script>
+    <script src="generator.js?v=3.2"></script>
 </body>
 </html>
