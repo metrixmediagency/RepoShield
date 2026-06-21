@@ -811,7 +811,7 @@
 
             // Theme-specific properties for JS dependencies (e.g. QR Code Library)
             const themeProps = {
-                'theme-onyx': { qrFg: '#d4af37', qrBg: '#1e293b', qrDot: 'rounded', qrCorner: 'extra-rounded' },
+                'theme-onyx': { qrFg: '#fbbf24', qrBg: '#1e293b', qrDot: 'rounded', qrCorner: 'extra-rounded' },
                 'theme-glass': { qrFg: '#0f172a', qrBg: '#ffffff', qrDot: 'rounded', qrCorner: 'extra-rounded' },
                 'theme-artisan': { qrFg: '#3f3f3f', qrBg: '#ffffff', qrDot: 'rounded', qrCorner: 'extra-rounded' },
                 'theme-neon': { qrFg: '#000000', qrBg: '#ffffff', qrDot: 'square', qrCorner: 'square' }
@@ -920,36 +920,21 @@
             if (window.QRCodeStyling) {
                 const qrContainers = document.querySelectorAll('.qr-wrapper, .insert-qr-mock, .sticker-qr');
                 
-                // If this is the first render, create the instances
-                if (qrCodeInstances.length === 0) {
-                    qrContainers.forEach(container => {
-                        container.innerHTML = ''; // clear placeholder img
-                        const size = container.classList.contains('sticker-qr') ? 74 : (container.classList.contains('insert-qr-mock') ? 98 : 144);
-                        
-                        const qrCode = new QRCodeStyling({
-                            width: size, height: size, data: currentPortalUrl,
-                            image: logo !== '' ? logo : "",
-                            qrOptions: { errorCorrectionLevel: 'M' }, // Makes the QR code much less dense and cleaner
-                            dotsOptions: { color: qrFg, type: qrDot },
-                            backgroundOptions: { color: qrBg },
-                            cornersSquareOptions: { type: qrCorner, color: qrFg },
-                            imageOptions: { crossOrigin: "anonymous", margin: 5 }
-                        });
-                        qrCode.append(container);
-                        qrCodeInstances.push(qrCode);
+                qrContainers.forEach(container => {
+                    container.innerHTML = ''; // clear completely to force full re-render
+                    const size = container.classList.contains('sticker-qr') ? 74 : (container.classList.contains('insert-qr-mock') ? 98 : 144);
+                    
+                    const qrCode = new QRCodeStyling({
+                        width: size, height: size, data: currentPortalUrl,
+                        image: logo !== '' ? logo : "",
+                        qrOptions: { errorCorrectionLevel: 'M' }, // Makes the QR code much less dense and cleaner
+                        dotsOptions: { color: qrFg, type: qrDot },
+                        backgroundOptions: { color: qrBg },
+                        cornersSquareOptions: { type: qrCorner, color: qrFg },
+                        imageOptions: { crossOrigin: "anonymous", margin: 2, imageSize: 0.4, hideBackgroundDots: false }
                     });
-                } else {
-                    // Fast update existing instances
-                    qrCodeInstances.forEach(qrCode => {
-                        qrCode.update({
-                            data: currentPortalUrl,
-                            qrOptions: { errorCorrectionLevel: 'M' },
-                            dotsOptions: { color: qrFg, type: qrDot },
-                            backgroundOptions: { color: qrBg },
-                            cornersSquareOptions: { type: qrCorner, color: qrFg }
-                        });
-                    });
-                }
+                    qrCode.append(container);
+                });
             }
         }
 
