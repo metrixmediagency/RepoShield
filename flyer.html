@@ -488,11 +488,13 @@
                 box-shadow: none;
                 margin: 0;
                 padding: 0;
-                width: 100%;
-                height: 100vh;
+                width: 210mm;
+                height: 296mm; /* slightly under 297 to prevent 2nd page spill */
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                page-break-after: avoid;
+                page-break-inside: avoid;
             }
             .standee-container, .ecommerce-container, .delivery-container {
                 margin: auto;
@@ -927,11 +929,12 @@
                     const qrCode = new QRCodeStyling({
                         width: size, height: size, data: currentPortalUrl,
                         image: logo !== '' ? logo : "",
-                        qrOptions: { errorCorrectionLevel: 'M' }, // Makes the QR code much less dense and cleaner
+                        qrOptions: { errorCorrectionLevel: 'Q' }, // 'Q' allows 25% error correction, essential for logos
                         dotsOptions: { color: qrFg, type: qrDot },
                         backgroundOptions: { color: qrBg },
                         cornersSquareOptions: { type: qrCorner, color: qrFg },
-                        imageOptions: { crossOrigin: "anonymous", margin: 2, imageSize: 0.4, hideBackgroundDots: false }
+                        cornersDotOptions: { type: 'square', color: qrFg }, // Keep inner corner dots clean
+                        imageOptions: { crossOrigin: "anonymous", margin: 4, imageSize: 0.3, hideBackgroundDots: true }
                     });
                     qrCode.append(container);
                 });
