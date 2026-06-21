@@ -109,7 +109,14 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     if (logoUrl) {
-        logoContainer.innerHTML = `<img src="${logoUrl}" alt="${bizName} Logo" onerror="this.style.display='none'; logoContainer.innerHTML='<i class=\\\x22${iconClasses[category]}\\\x22></i>'">`;
+        const img = document.createElement('img');
+        img.src = logoUrl;
+        img.alt = `${bizName} Logo`;
+        img.onerror = () => {
+            logoContainer.innerHTML = `<i class="${iconClasses[category] || iconClasses.other}"></i>`;
+        };
+        logoContainer.innerHTML = '';
+        logoContainer.appendChild(img);
     } else {
         categoryIcon.className = iconClasses[category] || iconClasses.other;
     }
