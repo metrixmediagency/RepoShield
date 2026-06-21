@@ -387,46 +387,17 @@ document.addEventListener('DOMContentLoaded', () => {
         updateSimulators();
     }
 
-    if (document.getElementById('qr-fg-color')) document.getElementById('qr-fg-color').addEventListener('input', updateSimulators);
-    if (document.getElementById('qr-bg-color')) document.getElementById('qr-bg-color').addEventListener('input', updateSimulators);
-    if (document.getElementById('qr-dot-style')) document.getElementById('qr-dot-style').addEventListener('change', updateSimulators);
-    if (document.getElementById('qr-corner-style')) document.getElementById('qr-corner-style').addEventListener('change', updateSimulators);
-
-    if (document.getElementById('onboard-qr-fg')) document.getElementById('onboard-qr-fg').addEventListener('input', updateSimulators);
-    if (document.getElementById('onboard-qr-bg')) document.getElementById('onboard-qr-bg').addEventListener('input', updateSimulators);
-    if (document.getElementById('onboard-qr-dot')) document.getElementById('onboard-qr-dot').addEventListener('change', updateSimulators);
-    if (document.getElementById('onboard-qr-corner')) document.getElementById('onboard-qr-corner').addEventListener('change', updateSimulators);
-
     if (document.getElementById('biz-font')) document.getElementById('biz-font').addEventListener('change', updateSimulators);
     if (document.getElementById('onboard-biz-font')) document.getElementById('onboard-biz-font').addEventListener('change', updateSimulators);
 
-    if (document.getElementById('flyer-headline')) document.getElementById('flyer-headline').addEventListener('input', updateSimulators);
-    if (document.getElementById('flyer-sub')) document.getElementById('flyer-sub').addEventListener('input', updateSimulators);
-    if (document.getElementById('flyer-pattern')) document.getElementById('flyer-pattern').addEventListener('change', updateSimulators);
-    if (document.getElementById('flyer-text-style')) document.getElementById('flyer-text-style').addEventListener('change', updateSimulators);
-    
-    function bindAdminColorInputs(pickerId, hexId) {
-        const picker = document.getElementById(pickerId);
-        const hex = document.getElementById(hexId);
-        if (picker && hex) {
-            picker.addEventListener('input', (e) => { hex.value = e.target.value; updateSimulators(); });
-            hex.addEventListener('input', (e) => { 
-                let val = e.target.value;
-                if(val.startsWith('#') && val.length === 7) { picker.value = val; updateSimulators(); }
-            });
-        }
-    }
-
-    bindAdminColorInputs('qr-fg-color', 'qr-fg-color-hex');
-    bindAdminColorInputs('qr-bg-color', 'qr-bg-color-hex');
-    bindAdminColorInputs('flyer-bg-color', 'flyer-bg-color-hex');
-    bindAdminColorInputs('flyer-text-color', 'flyer-text-color-hex');
+    if (document.getElementById('flyer-theme')) document.getElementById('flyer-theme').addEventListener('change', updateSimulators);
+    if (document.getElementById('onboard-flyer-theme')) document.getElementById('onboard-flyer-theme').addEventListener('change', updateSimulators);
     
     // Also trigger update on iframe load so it syncs immediately
     if (document.getElementById('admin-live-flyer')) {
         document.getElementById('admin-live-flyer').addEventListener('load', updateSimulators);
     }
-
+    
     function updateSimulators() {
         const name = bizNameInput.value || (activeCampaignType === 'ecommerce' ? 'Your Product Name' : 'Your Business Name');
         const accent = bizAccentInput.value;
@@ -437,33 +408,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 1. PostMessage Payload for Live Flyer Editor
         const selectedFont = (document.getElementById('biz-font') || document.getElementById('onboard-biz-font') || {value: 'Outfit'}).value;
-        const qrFgColor = (document.getElementById('qr-fg-color') || document.getElementById('onboard-qr-fg') || {value: '#0f172a'}).value;
-        const qrBgColor = (document.getElementById('qr-bg-color') || document.getElementById('onboard-qr-bg') || {value: '#ffffff'}).value;
-        const qrDotStyle = (document.getElementById('qr-dot-style') || document.getElementById('onboard-qr-dot') || {value: 'dots'}).value;
-        const qrCornerStyle = (document.getElementById('qr-corner-style') || document.getElementById('onboard-qr-corner') || {value: 'extra-rounded'}).value;
-        
-        const flyerBg = (document.getElementById('flyer-bg-color') || {value: '#ffffff'}).value;
-        const flyerHeadline = (document.getElementById('flyer-headline') || {value: 'Review Us'}).value;
-        const flyerSub = (document.getElementById('flyer-sub') || {value: 'Scan to Rate'}).value;
-        const flyerPattern = (document.getElementById('flyer-pattern') || {value: 'none'}).value;
-        const flyerTextColor = (document.getElementById('flyer-text-color') || {value: '#0f172a'}).value;
-        const flyerTextStyle = (document.getElementById('flyer-text-style') || {value: 'normal'}).value;
+        const selectedTheme = (document.getElementById('flyer-theme') || document.getElementById('onboard-flyer-theme') || {value: 'theme-onyx'}).value;
 
         const payload = {
             name: name,
             color: accent,
             category: category,
             font: selectedFont,
-            qrFg: qrFgColor,
-            qrBg: qrBgColor,
-            qrDot: qrDotStyle,
-            qrCorner: qrCornerStyle,
-            flyerBg: flyerBg,
-            flyerHeadline: flyerHeadline,
-            flyerSub: flyerSub,
-            flyerPattern: flyerPattern,
-            flyerTextColor: flyerTextColor,
-            flyerTextStyle: flyerTextStyle
+            theme: selectedTheme
         };
 
         const adminIframe = document.getElementById('admin-live-flyer');
@@ -479,15 +431,16 @@ document.addEventListener('DOMContentLoaded', () => {
             url: gmb,
             color: accent,
             email: email,
-            category: category,
             logo: logo,
-            font: selectedFont,
-            tier: ecommerceTierInput ? ecommerceTierInput.value : '',
             type: activeCampaignType,
+            font: selectedFont,
+            theme: selectedTheme,
             demo: 'true'
         });
 
         portalIframe.src = `${baseLocation}/portal.html?${params.toString()}`;
+        if (mobIframe) mobIframe.src = `${baseLocation}/flyer.html?${params.toString()}`;
+        if (desktopLiveFlyer) desktopLiveFlyer.src = `${baseLocation}/flyer.html?${params.toString()}`;
     }
 
     // Sync input events
@@ -541,22 +494,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const tier = ecommerceTierInput ? ecommerceTierInput.value : '';
         const id = Date.now().toString(); // unique id
 
-        // QR Settings Capture
-        const qrFgColor = (document.getElementById('qr-fg-color') || document.getElementById('onboard-qr-fg') || {value: '#0f172a'}).value;
-        const qrBgColor = (document.getElementById('qr-bg-color') || document.getElementById('onboard-qr-bg') || {value: '#ffffff'}).value;
-        const qrDotStyle = (document.getElementById('qr-dot-style') || document.getElementById('onboard-qr-dot') || {value: 'dots'}).value;
-        const qrCornerStyle = (document.getElementById('qr-corner-style') || document.getElementById('onboard-qr-corner') || {value: 'extra-rounded'}).value;
-        
-        // Font Setting Capture
+        // Theme and Font Capture
         const selectedFont = (document.getElementById('biz-font') || document.getElementById('onboard-biz-font') || {value: 'Outfit'}).value;
-
-        // Flyer Settings Capture
-        const flyerBg = (document.getElementById('flyer-bg-color') || document.getElementById('onboard-flyer-bg') || {value: '#ffffff'}).value;
-        const flyerHeadline = (document.getElementById('flyer-headline') || document.getElementById('onboard-flyer-headline') || {value: 'Review Us'}).value;
-        const flyerSub = (document.getElementById('flyer-sub') || document.getElementById('onboard-flyer-sub') || {value: 'Scan to Rate'}).value;
-        const flyerPattern = (document.getElementById('flyer-pattern') || document.getElementById('onboard-flyer-pattern') || {value: 'none'}).value;
-        const flyerTextColor = (document.getElementById('flyer-text-color') || document.getElementById('onboard-flyer-text-color') || {value: '#0f172a'}).value;
-        const flyerTextStyle = (document.getElementById('flyer-text-style') || document.getElementById('onboard-flyer-text-style') || {value: 'normal'}).value;
+        const selectedTheme = (document.getElementById('flyer-theme') || document.getElementById('onboard-flyer-theme') || {value: 'theme-onyx'}).value;
 
         let baseLocation = bizBaseUrlInput.value.trim();
         if (!baseLocation) {
@@ -588,18 +528,9 @@ document.addEventListener('DOMContentLoaded', () => {
             color: accent,
             type: activeCampaignType, // Include campaign type
             tier: tier,
-            qrFg: qrFgColor,
-            qrBg: qrBgColor,
-            qrDot: qrDotStyle,
-            qrCorner: qrCornerStyle,
             logo: logo,
             font: selectedFont,
-            flyerBg: flyerBg,
-            flyerHeadline: flyerHeadline,
-            flyerSub: flyerSub,
-            flyerPattern: flyerPattern,
-            flyerTextColor: flyerTextColor,
-            flyerTextStyle: flyerTextStyle,
+            theme: selectedTheme,
             portalUrl: finalPortalUrl
         });
         const finalFlyerUrl = `${baseLocation}/flyer.html?${flyerUrlParams.toString()}`;
@@ -615,8 +546,7 @@ document.addEventListener('DOMContentLoaded', () => {
             logo,
             tier,
             font: selectedFont,
-            qrSettings: { qrFgColor, qrBgColor, qrDotStyle, qrCornerStyle },
-            flyerSettings: { flyerBg, flyerHeadline, flyerSub, flyerPattern, flyerTextColor, flyerTextStyle },
+            theme: selectedTheme,
             type: activeCampaignType, // Store campaign type
             status: 'active', // default billing status
             portalUrl: finalPortalUrl,
