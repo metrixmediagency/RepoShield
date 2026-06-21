@@ -3586,9 +3586,15 @@ Interested in setting this up to see if it works?</span>
 
                 updateSimulator();
 
+                const qrFg = document.getElementById('onboard-qr-fg') ? document.getElementById('onboard-qr-fg').value : '#0f172a';
+                const qrBg = document.getElementById('onboard-qr-bg') ? document.getElementById('onboard-qr-bg').value : '#ffffff';
+                const qrDot = document.getElementById('onboard-qr-dot') ? document.getElementById('onboard-qr-dot').value : 'dots';
+                const qrCorner = document.getElementById('onboard-qr-corner') ? document.getElementById('onboard-qr-corner').value : 'extra-rounded';
+                const font = document.getElementById('onboard-biz-font') ? document.getElementById('onboard-biz-font').value : 'Outfit';
+
                 const baseLocation = window.location.origin;
-                const demoPortalUrl = `${baseLocation}/portal.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&demo=true`;
-                const demoFlyerUrl = `${baseLocation}/flyer.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}`;
+                const demoPortalUrl = `${baseLocation}/portal.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&demo=true`;
+                const demoFlyerUrl = `${baseLocation}/flyer.html?name=${encodeURIComponent(bizName)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&qrFg=${encodeURIComponent(qrFg)}&qrBg=${encodeURIComponent(qrBg)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}`;
 
                 if (ovlOpenPortalLink) ovlOpenPortalLink.href = demoPortalUrl;
                 if (ovlOpenFlyerLink) ovlOpenFlyerLink.href = demoFlyerUrl;
@@ -3648,10 +3654,11 @@ Interested in setting this up to see if it works?</span>
                         const qrBg = document.getElementById('onboard-qr-bg').value;
                         const qrDot = document.getElementById('onboard-qr-dot').value;
                         const qrCorner = document.getElementById('onboard-qr-corner').value;
+                        const font = document.getElementById('onboard-biz-font').value;
 
                         const baseLocation = window.location.origin;
-                        const demoPortalUrl = `${baseLocation}/portal.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&demo=true`;
-                        const demoFlyerUrl = `${baseLocation}/flyer.html?name=${encodeURIComponent(bizName)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&qrFg=${encodeURIComponent(qrFg)}&qrBg=${encodeURIComponent(qrBg)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}`;
+                        const demoPortalUrl = `${baseLocation}/portal.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&demo=true`;
+                        const demoFlyerUrl = `${baseLocation}/flyer.html?name=${encodeURIComponent(bizName)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&qrFg=${encodeURIComponent(qrFg)}&qrBg=${encodeURIComponent(qrBg)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}`;
 
                         const ppLink = document.getElementById('preview-portal-link');
                         const pfLink = document.getElementById('preview-flyer-link');
