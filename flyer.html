@@ -794,7 +794,10 @@
             const campaignType = state.type || 'gmb';
             currentPortalUrl = state.portalUrl || currentPortalUrl;
             
-            const theme = state.theme || 'theme-onyx';
+            let theme = state.theme || 'theme-onyx';
+            if (!['theme-onyx', 'theme-glass', 'theme-artisan', 'theme-neon'].includes(theme)) {
+                theme = 'theme-onyx';
+            }
             
             // Clear previous theme classes and apply new one
             document.body.classList.remove('theme-onyx', 'theme-glass', 'theme-artisan', 'theme-neon');
@@ -811,8 +814,18 @@
             
             const qrFg = tp.qrFg;
             const qrBg = tp.qrBg;
-            const qrDot = (state.qrDot && state.qrDot !== 'theme-default') ? state.qrDot : tp.qrDot;
-            const qrCorner = (state.qrCorner && state.qrCorner !== 'theme-default') ? state.qrCorner : tp.qrCorner;
+            let qrDot = (state.qrDot && state.qrDot !== 'theme-default') ? state.qrDot : tp.qrDot;
+            let qrCorner = (state.qrCorner && state.qrCorner !== 'theme-default') ? state.qrCorner : tp.qrCorner;
+
+            // Safe fallback mappings for unsupported/legacy custom parameters (like 'circle')
+            const validQrDots = ['rounded', 'dots', 'classy', 'classy-inversed', 'square', 'extra-rounded'];
+            if (!validQrDots.includes(qrDot)) {
+                qrDot = tp.qrDot;
+            }
+            const validQrCorners = ['square', 'dot', 'rounded', 'extra-rounded'];
+            if (!validQrCorners.includes(qrCorner)) {
+                qrCorner = tp.qrCorner;
+            }
             
             const logo = state.logo || '';
             const flyerHeadline = state.flyerHeadline || 'Review Us';

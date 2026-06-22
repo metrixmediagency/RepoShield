@@ -383,7 +383,10 @@
                     
                     if (campaign) {
                         const name = campaign.name || 'Business Name';
-                        const theme = campaign.theme || 'theme-onyx';
+                        let theme = campaign.theme || 'theme-onyx';
+                        if (!['theme-onyx', 'theme-glass', 'theme-artisan', 'theme-neon'].includes(theme)) {
+                            theme = 'theme-onyx';
+                        }
                         const color = campaign.accent || campaign.color || '#6366f1';
                         const category = campaign.category || 'other';
                         const selectedIcon = iconClasses[category] || iconClasses.other;
