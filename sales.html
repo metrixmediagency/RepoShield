@@ -3129,7 +3129,12 @@ Interested in setting this up to see if it works?</span>
 
             // Modal Close button bindings
             document.getElementById('demo-modal-close').addEventListener('click', () => demoModal.style.display = 'none');
-            document.getElementById('rzp-modal-close').addEventListener('click', () => rzpModal.style.display = 'none');
+            document.getElementById('rzp-modal-close').addEventListener('click', () => {
+                rzpModal.style.display = 'none';
+                onboardForm.reset();
+                const pipelineTab = document.querySelector('[data-tab="pipeline"]');
+                if (pipelineTab) pipelineTab.click();
+            });
 
             function getPlanDetails(planId, cycle) {
                 const pricing = {
@@ -3275,6 +3280,11 @@ Interested in setting this up to see if it works?</span>
                     const qrImg = document.getElementById('rzp-qr-container').querySelector('img');
                     qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(paymentUrl)}`;
 
+                    // Save immediately as Unpaid (suspended status) in LocalStorage and Supabase
+                    let campaigns = JSON.parse(localStorage.getItem('repushield_campaigns')) || [];
+                    campaigns.unshift(currentOnboardingCampaign);
+                    localStorage.setItem('repushield_campaigns', JSON.stringify(campaigns));
+
                     rzpModal.style.display = 'flex';
                 } catch (err) {
                     console.error("Subscription Generation Error:", err);
@@ -3295,10 +3305,15 @@ Interested in setting this up to see if it works?</span>
                         name: 'MetrixMedia Digital',
                         description: `${currentOnboardingCampaign.plan} Auto-Pay Mandate`,
                         handler: function (response) {
-                            // Payment Successful! Save campaign as active
+                            // Payment Successful! Update existing campaign to active
                             let campaigns = JSON.parse(localStorage.getItem('repushield_campaigns')) || [];
-                            currentOnboardingCampaign.status = 'active';
-                            campaigns.unshift(currentOnboardingCampaign);
+                            const index = campaigns.findIndex(c => c.id === currentOnboardingCampaign.id);
+                            if (index !== -1) {
+                                campaigns[index].status = 'active';
+                            } else {
+                                currentOnboardingCampaign.status = 'active';
+                                campaigns.unshift(currentOnboardingCampaign);
+                            }
                             localStorage.setItem('repushield_campaigns', JSON.stringify(campaigns));
 
                             onboardForm.reset();
@@ -3332,9 +3347,14 @@ Interested in setting this up to see if it works?</span>
                 // Load existing campaigns
                 let campaigns = JSON.parse(localStorage.getItem('repushield_campaigns')) || [];
                 
-                // Add current draft campaign as Active (payment verified)
-                currentOnboardingCampaign.status = 'active';
-                campaigns.unshift(currentOnboardingCampaign);
+                // Update existing campaign to active
+                const index = campaigns.findIndex(c => c.id === currentOnboardingCampaign.id);
+                if (index !== -1) {
+                    campaigns[index].status = 'active';
+                } else {
+                    currentOnboardingCampaign.status = 'active';
+                    campaigns.unshift(currentOnboardingCampaign);
+                }
                 localStorage.setItem('repushield_campaigns', JSON.stringify(campaigns));
 
                 // Clean form & Close modal
