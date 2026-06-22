@@ -413,7 +413,7 @@
                         faceEl.style.setProperty('--primary', color);
                         
                         // Dynamically build Portal URL
-                        let baseLocation = window.location.href.substring(0, window.location.href.lastIndexOf('/'));
+                        let baseLocation = window.location.origin;
                         const portalUrlParams = new URLSearchParams({
                             id: campaign.id,
                             name: name,
@@ -426,6 +426,11 @@
                         });
                         const pUrl = `${baseLocation}/portal.html?${portalUrlParams.toString()}`;
 
+                        // Extract custom flyer texts or use GMB defaults to match standalone flyer.html
+                        const headline = campaign.flyerSettings?.flyerHeadline || campaign.flyerHeadline || 'Love Our Service?';
+                        const subheadline = campaign.flyerSettings?.flyerSub || campaign.flyerSub || 'Scan to share your experience with us on Google!';
+                        const footer = campaign.flyerSettings?.flyerFooter || campaign.flyerFooter || 'Help us serve you better!';
+
                         faceEl.innerHTML = `
                             <div class="face-accent-bar"></div>
                             <div class="standee-header">
@@ -433,8 +438,8 @@
                                 <h2>${name}</h2>
                             </div>
                             <div class="standee-body">
-                                <h3>Help Us Grow</h3>
-                                <p>Scan to leave a review</p>
+                                <h3>${headline}</h3>
+                                <p>${subheadline}</p>
                             </div>
                             <div class="qr-wrapper" id="qr-${campaign.id}"></div>
                             <div class="standee-footer">
@@ -445,7 +450,7 @@
                                     <i class="fa-solid fa-star"></i>
                                     <i class="fa-solid fa-star"></i>
                                 </div>
-                                <p>Thank You For Your Support</p>
+                                <p>${footer}</p>
                             </div>
                         `;
                         
