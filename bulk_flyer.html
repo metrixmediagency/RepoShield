@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bulk Print Standees - MetrixMedia</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+    <style>
+        /* Theme Variables */
+        :root {
+            --primary: #6366f1;
+            --primary-glow: rgba(99, 102, 241, 0.15);
+            --bg-print: #ffffff;
+            --text-dark: #0f172a;
+            --text-muted: #475569;
+            --border-fold: #cbd5e1;
+            --star-gold: #fbbf24;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f1f5f9;
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        /* Screen-Only Control Toolbar */
+        .toolbar {
+            width: 100%;
+            background: #0f172a;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .toolbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .toolbar-brand i {
+            color: #818cf8;
+            font-size: 1.25rem;
+        }
+
+        .toolbar-brand h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .toolbar-instructions {
+            font-size: 0.82rem;
+            color: #94a3b8;
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .instruction-step {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .instruction-step strong {
+            color: white;
+        }
+
+        .btn-print {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border: none;
+            color: white;
+            padding: 0.6rem 1.25rem;
+            border-radius: 8px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-print:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Printable Page Frame Layout */
+        .print-page {
+            background: var(--bg-print);
+            width: 210mm; /* A4 standard width */
+            height: 297mm; /* A4 standard height */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            margin: 2rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border-radius: 8px;
+            page-break-after: always;
+            page-break-inside: avoid;
+        }
+
+        /* 4-FLYER A4 GRID LAYOUT (GMB MODE) */
+        .standee-container {
+            display: grid;
+            width: 210mm;
+            height: 297mm;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            background: white;
+            position: relative;
+        }
+
+        .standee-face {
+            width: 105mm;
+            height: 148.5mm;
+            padding: 10mm 8mm;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            text-align: center;
+            position: relative;
+            border-right: 1px dashed var(--border-fold);
+            border-bottom: 1px dashed var(--border-fold);
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .standee-face:nth-child(even) {
+            border-right: none;
+        }
+        .standee-face:nth-child(n+3) {
+            border-bottom: none;
+        }
+
+        .face-accent-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: var(--primary);
+        }
+
+        .standee-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .standee-header i { font-size: 2.2rem; color: var(--primary); }
+        .standee-header h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            letter-spacing: -0.5px;
+        }
+
+        .standee-body h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            line-height: 1.25;
+        }
+
+        .standee-body p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-top: 0.4rem;
+            font-weight: 600;
+        }
+
+        .qr-wrapper {
+            width: 190px;
+            height: 190px;
+            border-radius: 24px;
+            background: white;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            border: 1px solid #e2e8f0;
+            margin: 0.8rem 0;
+        }
+
+        .qr-wrapper img { width: 100%; height: 100%; }
+
+        .standee-footer {
+            border-top: 1px solid #f1f5f9;
+            padding-top: 0.8rem;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .stars-row { display: flex; gap: 0.3rem; color: var(--star-gold); }
+        .stars-row i { font-size: 1.05rem; }
+        .standee-footer p {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Empty/placeholder face style */
+        .standee-face.empty-placeholder {
+            background: #fafafb !important;
+            border-style: dashed;
+            border-color: #cbd5e1;
+            justify-content: center;
+        }
+        .standee-face.empty-placeholder i {
+            font-size: 3rem;
+            color: #cbd5e1;
+            margin-bottom: 1rem;
+        }
+        .standee-face.empty-placeholder p {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        /* THEMES */
+        .theme-onyx .standee-face { background: linear-gradient(145deg, #111111 0%, #1a1a1a 100%); color: #f1f5f9; }
+        .theme-onyx .face-accent-bar { background: linear-gradient(90deg, #b8860b, #ffd700, #b8860b); height: 6px; }
+        .theme-onyx .standee-header h2 { color: #ffd700; font-size: 1.4rem; }
+        .theme-onyx .standee-body h3 { color: #ffffff; }
+        .theme-onyx .standee-body p { color: #cbd5e1; }
+        .theme-onyx .qr-wrapper { background: linear-gradient(145deg, #1e293b, #0f172a); border: 2px solid #ffd700; }
+        .theme-onyx .standee-footer { border-top: 1px solid rgba(255,215,0,0.2); }
+        .theme-onyx .standee-footer p { color: #94a3b8; }
+        .theme-onyx .stars-row i { color: #ffd700; }
+        .theme-onyx .icon-placeholder { color: #ffd700; }
+
+        .theme-glass .standee-face { background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 100%); color: #0f172a; border-right: 1px dashed var(--border-fold); border-bottom: 1px dashed var(--border-fold); }
+        .theme-glass .face-accent-bar { display: none; }
+        .theme-glass .standee-header h2 { color: #1e3a8a; }
+        .theme-glass .standee-body h3 { color: #0f172a; }
+        .theme-glass .qr-wrapper { background: rgba(255, 255, 255, 0.95); }
+        .theme-glass .stars-row i { color: #f59e0b; }
+
+        .theme-artisan .standee-face { background-color: #f4ecd8; color: #3f3f3f; }
+        .theme-artisan .face-accent-bar { background-color: #8b5a2b; height: 12px; }
+        .theme-artisan .standee-header h2 { color: #4a3728; border-bottom: 2px solid #8b5a2b; }
+        .theme-artisan .standee-body h3 { color: #3f3f3f; font-style: italic; }
+        .theme-artisan .qr-wrapper { border-radius: 8px; border: 3px dashed #8b5a2b; }
+        .theme-artisan .stars-row i { color: #d97706; }
+
+        .theme-neon .standee-face { background: #0a0a0a; color: #ffffff; }
+        .theme-neon .face-accent-bar { background: linear-gradient(90deg, #ff00cc, #3333ff, #00ffcc); height: 8px; }
+        .theme-neon .standee-header h2 { color: #00ffcc; text-shadow: 0 0 10px rgba(0,255,204,0.5); }
+        .theme-neon .standee-body h3 { color: #ffffff; text-shadow: 2px 2px 0px #ff00cc; }
+        .theme-neon .qr-wrapper { background: #ffffff; border: 4px solid #00ffcc; }
+        .theme-neon .stars-row i { color: #ff00cc; }
+        .theme-neon .icon-placeholder { color: #ff00cc; }
+
+        /* Empty/placeholder face hide accent bar */
+        .empty-placeholder .face-accent-bar { display: none !important; }
+
+        /* Print Override */
+        @media print {
+            @page {
+                margin: 0;
+                size: A4 portrait;
+            }
+            body { background: white; margin: 0; padding: 0; }
+            .toolbar { display: none !important; }
+            .print-page {
+                box-shadow: none;
+                margin: 0;
+                padding: 0;
+                width: 210mm;
+                height: 297mm;
+            }
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Interactive Toolbar -->
+    <div class="toolbar">
+        <div class="toolbar-brand">
+            <i class="fa-solid fa-shield-halved"></i>
+            <h1>MetrixMedia Bulk Standee Printer</h1>
+        </div>
+        <div class="toolbar-instructions">
+            <div class="instruction-step">
+                <i class="fa-solid fa-1"></i> Destination: <strong>Save as PDF</strong>
+            </div>
+            <div class="instruction-step">
+                <i class="fa-solid fa-2"></i> Options: <strong>Background Graphics [ON]</strong>
+            </div>
+            <div class="instruction-step">
+                <i class="fa-solid fa-3"></i> Size: <strong>A4 Portrait</strong>
+            </div>
+        </div>
+        <button class="btn-print" onclick="window.print()">
+            <i class="fa-solid fa-print"></i> Print / Save PDF
+        </button>
+    </div>
+
+    <!-- Bulk Container for printable pages -->
+    <div id="pages-container"></div>
+
+    <script>
+        // Category Icons
+        const iconClasses = {
+            cafe: 'fa-solid fa-mug-hot', cafe_premium: 'fa-solid fa-utensils', bakery: 'fa-solid fa-cake-slice',
+            beverage: 'fa-solid fa-glass-water', dental: 'fa-solid fa-tooth', gym: 'fa-solid fa-dumbbell',
+            salon: 'fa-solid fa-scissors', law: 'fa-solid fa-scale-balanced', electronics: 'fa-solid fa-laptop-code',
+            beauty: 'fa-solid fa-sparkles', apparel: 'fa-solid fa-shirt', home: 'fa-solid fa-house-laptop',
+            health: 'fa-solid fa-leaf', other: 'fa-solid fa-store'
+        };
+
+        // Theme properties
+        const themeProps = {
+            'theme-onyx': { qrFg: '#fbbf24', qrBg: '#1e293b', qrDot: 'rounded', qrCorner: 'extra-rounded' },
+            'theme-glass': { qrFg: '#0f172a', qrBg: '#ffffff', qrDot: 'rounded', qrCorner: 'extra-rounded' },
+            'theme-artisan': { qrFg: '#3f3f3f', qrBg: '#ffffff', qrDot: 'rounded', qrCorner: 'extra-rounded' },
+            'theme-neon': { qrFg: '#000000', qrBg: '#ffffff', qrDot: 'square', qrCorner: 'square' }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const campaigns = JSON.parse(localStorage.getItem('repushield_campaigns')) || [];
+            const container = document.getElementById('pages-container');
+
+            if (campaigns.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; margin-top: 5rem; padding: 2rem;">
+                        <i class="fa-solid fa-box-open" style="font-size: 3rem; color: #94a3b8; margin-bottom: 1rem;"></i>
+                        <h2>No campaigns found</h2>
+                        <p style="color: #64748b; margin-top: 0.5rem;">Please create some client campaigns in the sales/admin panel first.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Slice campaigns into groups of 4 (one page per group)
+            for (let i = 0; i < campaigns.length; i += 4) {
+                const group = campaigns.slice(i, i + 4);
+                
+                // Create print page
+                const pageEl = document.createElement('div');
+                pageEl.className = 'print-page';
+                
+                const gridEl = document.createElement('div');
+                gridEl.className = 'standee-container';
+                pageEl.appendChild(gridEl);
+                
+                // Add 4 faces
+                for (let j = 0; j < 4; j++) {
+                    const campaign = group[j];
+                    const faceEl = document.createElement('div');
+                    
+                    if (campaign) {
+                        const name = campaign.name || 'Business Name';
+                        const theme = campaign.theme || 'theme-onyx';
+                        const color = campaign.accent || campaign.color || '#6366f1';
+                        const category = campaign.category || 'other';
+                        const selectedIcon = iconClasses[category] || iconClasses.other;
+                        
+                        faceEl.className = `standee-face ${theme}`;
+                        faceEl.style.setProperty('--primary', color);
+                        
+                        // Dynamically build Portal URL
+                        let baseLocation = window.location.href.substring(0, window.location.href.lastIndexOf('/'));
+                        const portalUrlParams = new URLSearchParams({
+                            id: campaign.id,
+                            name: name,
+                            url: campaign.gmb || campaign.destination || '',
+                            color: color,
+                            category: category,
+                            logo: campaign.logo || '',
+                            tier: campaign.tier || '',
+                            type: campaign.type || 'gmb'
+                        });
+                        const pUrl = `${baseLocation}/portal.html?${portalUrlParams.toString()}`;
+
+                        faceEl.innerHTML = `
+                            <div class="face-accent-bar"></div>
+                            <div class="standee-header">
+                                <i class="${selectedIcon} icon-placeholder"></i>
+                                <h2>${name}</h2>
+                            </div>
+                            <div class="standee-body">
+                                <h3>Help Us Grow</h3>
+                                <p>Scan to leave a review</p>
+                            </div>
+                            <div class="qr-wrapper" id="qr-${campaign.id}"></div>
+                            <div class="standee-footer">
+                                <div class="stars-row">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                                <p>Thank You For Your Support</p>
+                            </div>
+                        `;
+                        
+                        // Trigger QR generation right after attaching
+                        setTimeout(() => {
+                            const qrContainer = document.getElementById(`qr-${campaign.id}`);
+                            if (qrContainer && window.QRCodeStyling) {
+                                const tp = themeProps[theme] || themeProps['theme-onyx'];
+                                const innerCorner = (tp.qrCorner === 'extra-rounded' || tp.qrCorner === 'rounded') ? 'dot' : 'square';
+                                const qrCode = new QRCodeStyling({
+                                    width: 190, height: 190, data: pUrl,
+                                    image: campaign.logo || "",
+                                    qrOptions: { errorCorrectionLevel: 'H' },
+                                    dotsOptions: { color: tp.qrFg, type: tp.qrDot },
+                                    backgroundOptions: { color: tp.qrBg },
+                                    cornersSquareOptions: { type: tp.qrCorner, color: tp.qrFg },
+                                    cornersDotOptions: { type: innerCorner, color: tp.qrFg },
+                                    imageOptions: { crossOrigin: "anonymous", margin: 8, imageSize: 0.25, hideBackgroundDots: true }
+                                });
+                                qrCode.append(qrContainer);
+                            }
+                        }, 50);
+
+                    } else {
+                        // Empty slot to complete the 4-up page
+                        faceEl.className = 'standee-face empty-placeholder';
+                        faceEl.innerHTML = `
+                            <i class="fa-solid fa-plus-circle"></i>
+                            <p>Empty Slot</p>
+                        `;
+                    }
+                    
+                    gridEl.appendChild(faceEl);
+                }
+                
+                container.appendChild(pageEl);
+            }
+        });
+    </script>
+</body>
+</html>
