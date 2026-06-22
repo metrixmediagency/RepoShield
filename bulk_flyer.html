@@ -269,11 +269,15 @@
         .theme-onyx .stars-row i { color: #ffd700; }
         .theme-onyx .icon-placeholder { color: #ffd700; }
 
-        .theme-glass.standee-face { background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 100%); color: #0f172a; border-right: 1px dashed var(--border-fold); border-bottom: 1px dashed var(--border-fold); }
+        .theme-glass.standee-face { background: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop') center/cover !important; color: #0f172a; position: relative; z-index: 1; border-right: 1px dashed var(--border-fold); border-bottom: 1px dashed var(--border-fold); }
+        .theme-glass.standee-face::before { content: ''; position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 100%) !important; z-index: -1; backdrop-filter: blur(8px); }
         .theme-glass .face-accent-bar { display: none; }
-        .theme-glass .standee-header h2 { color: #1e3a8a; }
-        .theme-glass .standee-body h3 { color: #0f172a; }
-        .theme-glass .qr-wrapper { background: rgba(255, 255, 255, 0.95); }
+        .theme-glass .standee-body { background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); padding: 1.8rem 1.5rem; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.6); box-shadow: 0 20px 40px rgba(31, 38, 135, 0.15); width: 88%; margin: 0 auto; transform: translateY(-10px); }
+        .theme-glass .standee-header { background: rgba(255, 255, 255, 0.85); margin: 1rem; padding: 0.8rem; border-radius: 100px; display: inline-flex; flex-direction: row; align-items: center; gap: 0.8rem; box-shadow: 0 8px 32px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.8); }
+        .theme-glass .standee-header h2 { font-family: 'Outfit', sans-serif; font-weight: 800; color: #1e3a8a; font-size: 1.2rem; margin: 0; }
+        .theme-glass .standee-body h3 { font-family: 'Outfit', sans-serif; color: #0f172a; font-weight: 900; font-size: 1.9rem; letter-spacing: -0.5px; background: linear-gradient(to right, #1e3a8a, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .theme-glass .qr-wrapper { background: rgba(255, 255, 255, 0.95); border: 2px solid rgba(255,255,255,0.8); border-radius: 28px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); padding: 1rem; transform: translateY(-20px); }
+        .theme-glass .standee-footer { border-top: none; background: rgba(255,255,255,0.6); backdrop-filter: blur(10px); width: 88%; border-radius: 100px; padding: 0.6rem; margin: auto auto 1rem auto; border: 1px solid rgba(255,255,255,0.5); }
         .theme-glass .stars-row i { color: #f59e0b; }
 
         .theme-artisan.standee-face { background-color: #f4ecd8; color: #3f3f3f; }
