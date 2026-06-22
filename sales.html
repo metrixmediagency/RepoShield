@@ -3229,6 +3229,16 @@ Interested in setting this up to see if it works?</span>
                     return;
                 }
 
+                const theme = document.getElementById('flyer-theme') ? document.getElementById('flyer-theme').value : 'theme-onyx';
+                const qrDot = document.getElementById('qr-dot-style') ? document.getElementById('qr-dot-style').value : 'theme-default';
+                const qrCorner = document.getElementById('qr-corner-style') ? document.getElementById('qr-corner-style').value : 'extra-rounded';
+                const font = document.getElementById('biz-font') ? document.getElementById('biz-font').value : 'Outfit';
+                const logo = document.getElementById('biz-logo') ? document.getElementById('biz-logo').value.trim() : '';
+                const flyerHeadline = document.getElementById('flyer-headline') ? document.getElementById('flyer-headline').value : 'Review Us';
+                const flyerSub = document.getElementById('flyer-sub') ? document.getElementById('flyer-sub').value : 'Scan to Rate';
+                const flyerFooter = document.getElementById('flyer-footer') ? document.getElementById('flyer-footer').value : 'Help us serve you better!';
+                const flyerTextStyle = document.getElementById('flyer-text-style') ? document.getElementById('flyer-text-style').value : 'normal';
+
                 currentOnboardingCampaign = {
                     id: Date.now().toString(),
                     name,
@@ -3242,7 +3252,20 @@ Interested in setting this up to see if it works?</span>
                     status: 'suspended', // initially suspended/pending payment
                     referredBy: currentAgent.username,
                     commissionStatus: 'pending',
-                    createdAt: new Date().toLocaleDateString()
+                    createdAt: new Date().toLocaleDateString(),
+                    theme: theme,
+                    font: font,
+                    logo: logo,
+                    qrSettings: {
+                        qrDotStyle: qrDot,
+                        qrCornerStyle: qrCorner
+                    },
+                    flyerSettings: {
+                        flyerHeadline: flyerHeadline,
+                        flyerSub: flyerSub,
+                        flyerFooter: flyerFooter,
+                        flyerTextStyle: flyerTextStyle
+                    }
                 };
 
                 showToastNotification("Generating secure subscription mandate...");
@@ -3533,9 +3556,9 @@ Interested in setting this up to see if it works?</span>
 
             if (btnStepNext) {
                 btnStepNext.addEventListener('click', () => {
-                    const bizName = document.getElementById('onboard-biz-name');
-                    const bizEmail = document.getElementById('onboard-biz-email');
-                    const bizUrl = document.getElementById('onboard-biz-url');
+                    const bizName = document.getElementById('biz-name');
+                    const bizEmail = document.getElementById('biz-email');
+                    const bizUrl = document.getElementById('biz-gmb');
                     if (!bizName.value.trim()) { bizName.focus(); showToastNotification('Please enter the Business Name.'); return; }
                     if (!bizEmail.value.trim()) { bizEmail.focus(); showToastNotification('Please enter the Client Email.'); return; }
                     if (!bizUrl.value.trim()) { bizUrl.focus(); showToastNotification('Please enter the Target URL.'); return; }
@@ -3573,10 +3596,10 @@ Interested in setting this up to see if it works?</span>
             const ovlOpenFlyerLink = document.getElementById('ovl-open-flyer-link');
 
             function openSimOverlay() {
-                const bizNameEl = document.getElementById('onboard-biz-name');
-                const targetUrlEl = document.getElementById('onboard-biz-url');
-                const categoryEl = document.getElementById('onboard-biz-category');
-                const colorEl = document.getElementById('onboard-biz-color');
+                const bizNameEl = document.getElementById('biz-name');
+                const targetUrlEl = document.getElementById('biz-gmb');
+                const categoryEl = document.getElementById('biz-category');
+                const colorEl = document.getElementById('biz-accent');
 
                 const bizName = bizNameEl ? bizNameEl.value.trim() : '';
                 const targetUrl = targetUrlEl ? targetUrlEl.value.trim() : '';
@@ -3588,17 +3611,17 @@ Interested in setting this up to see if it works?</span>
                     return;
                 }
 
-                updateSimulator();
+                updateSimulators();
 
-                const theme = document.getElementById('onboard-flyer-theme') ? document.getElementById('onboard-flyer-theme').value : 'theme-onyx';
-                const qrDot = document.getElementById('onboard-qr-dot') ? document.getElementById('onboard-qr-dot').value : 'rounded';
-                const qrCorner = document.getElementById('onboard-qr-corner') ? document.getElementById('onboard-qr-corner').value : 'extra-rounded';
-                const font = document.getElementById('onboard-biz-font') ? document.getElementById('onboard-biz-font').value : 'Outfit';
+                const theme = document.getElementById('flyer-theme') ? document.getElementById('flyer-theme').value : 'theme-onyx';
+                const qrDot = document.getElementById('qr-dot-style') ? document.getElementById('qr-dot-style').value : 'rounded';
+                const qrCorner = document.getElementById('qr-corner-style') ? document.getElementById('qr-corner-style').value : 'extra-rounded';
+                const font = document.getElementById('biz-font') ? document.getElementById('biz-font').value : 'Outfit';
                 
-                const flyerHeadline = document.getElementById('onboard-flyer-headline') ? document.getElementById('onboard-flyer-headline').value : 'Review Us';
-                const flyerSub = document.getElementById('onboard-flyer-sub') ? document.getElementById('onboard-flyer-sub').value : 'Scan to Rate';
-                const flyerFooter = document.getElementById('onboard-flyer-footer') ? document.getElementById('onboard-flyer-footer').value : 'Help us serve you better!';
-                const flyerTextStyle = document.getElementById('onboard-flyer-text-style') ? document.getElementById('onboard-flyer-text-style').value : 'normal';
+                const flyerHeadline = document.getElementById('flyer-headline') ? document.getElementById('flyer-headline').value : 'Review Us';
+                const flyerSub = document.getElementById('flyer-sub') ? document.getElementById('flyer-sub').value : 'Scan to Rate';
+                const flyerFooter = document.getElementById('flyer-footer') ? document.getElementById('flyer-footer').value : 'Help us serve you better!';
+                const flyerTextStyle = document.getElementById('flyer-text-style') ? document.getElementById('flyer-text-style').value : 'normal';
 
                 const baseLocation = window.location.origin;
                 const demoPortalUrl = `${baseLocation}/portal.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&demo=true`;
@@ -3651,22 +3674,22 @@ Interested in setting this up to see if it works?</span>
                     if (mobileBreakpoint.matches) {
                         openSimOverlay();
                     } else {
-                        const bizName = document.getElementById('onboard-biz-name').value.trim();
-                        const targetUrl = document.getElementById('onboard-biz-url').value.trim();
-                        const category = document.getElementById('onboard-biz-category').value;
-                        const color = document.getElementById('onboard-biz-color').value;
+                        const bizName = document.getElementById('biz-name').value.trim();
+                        const targetUrl = document.getElementById('biz-gmb').value.trim();
+                        const category = document.getElementById('biz-category').value;
+                        const color = document.getElementById('biz-accent').value;
 
                         if (!bizName || !targetUrl) { showToastNotification('Please enter a Business Name and Target URL first.'); return; }
 
-                        const theme = document.getElementById('onboard-flyer-theme') ? document.getElementById('onboard-flyer-theme').value : 'theme-onyx';
-                        const qrDot = document.getElementById('onboard-qr-dot') ? document.getElementById('onboard-qr-dot').value : 'rounded';
-                        const qrCorner = document.getElementById('onboard-qr-corner') ? document.getElementById('onboard-qr-corner').value : 'extra-rounded';
-                        const font = document.getElementById('onboard-biz-font').value;
+                        const theme = document.getElementById('flyer-theme') ? document.getElementById('flyer-theme').value : 'theme-onyx';
+                        const qrDot = document.getElementById('qr-dot-style') ? document.getElementById('qr-dot-style').value : 'rounded';
+                        const qrCorner = document.getElementById('qr-corner-style') ? document.getElementById('qr-corner-style').value : 'extra-rounded';
+                        const font = document.getElementById('biz-font').value;
                         
-                        const flyerHeadline = document.getElementById('onboard-flyer-headline') ? document.getElementById('onboard-flyer-headline').value : 'Review Us';
-                        const flyerSub = document.getElementById('onboard-flyer-sub') ? document.getElementById('onboard-flyer-sub').value : 'Scan to Rate';
-                        const flyerFooter = document.getElementById('onboard-flyer-footer') ? document.getElementById('onboard-flyer-footer').value : 'Help us serve you better!';
-                        const flyerTextStyle = document.getElementById('onboard-flyer-text-style') ? document.getElementById('onboard-flyer-text-style').value : 'normal';
+                        const flyerHeadline = document.getElementById('flyer-headline') ? document.getElementById('flyer-headline').value : 'Review Us';
+                        const flyerSub = document.getElementById('flyer-sub') ? document.getElementById('flyer-sub').value : 'Scan to Rate';
+                        const flyerFooter = document.getElementById('flyer-footer') ? document.getElementById('flyer-footer').value : 'Help us serve you better!';
+                        const flyerTextStyle = document.getElementById('flyer-text-style') ? document.getElementById('flyer-text-style').value : 'normal';
 
                         const baseLocation = window.location.origin;
                         const demoPortalUrl = `${baseLocation}/portal.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&demo=true`;

@@ -454,14 +454,20 @@
                             const qrContainer = document.getElementById(`qr-${campaign.id}`);
                             if (qrContainer && window.QRCodeStyling) {
                                 const tp = themeProps[theme] || themeProps['theme-onyx'];
-                                const innerCorner = (tp.qrCorner === 'extra-rounded' || tp.qrCorner === 'rounded') ? 'dot' : 'square';
+                                
+                                let finalQrDot = campaign.qrSettings?.qrDotStyle || campaign.qrDot || 'theme-default';
+                                if (finalQrDot === 'theme-default') finalQrDot = tp.qrDot;
+                                
+                                const finalQrCorner = campaign.qrSettings?.qrCornerStyle || campaign.qrCorner || tp.qrCorner;
+                                const innerCorner = (finalQrCorner === 'extra-rounded' || finalQrCorner === 'rounded') ? 'dot' : 'square';
+                                
                                 const qrCode = new QRCodeStyling({
                                     width: 190, height: 190, data: pUrl,
                                     image: campaign.logo || "",
                                     qrOptions: { errorCorrectionLevel: 'H' },
-                                    dotsOptions: { color: tp.qrFg, type: tp.qrDot },
+                                    dotsOptions: { color: tp.qrFg, type: finalQrDot },
                                     backgroundOptions: { color: tp.qrBg },
-                                    cornersSquareOptions: { type: tp.qrCorner, color: tp.qrFg },
+                                    cornersSquareOptions: { type: finalQrCorner, color: tp.qrFg },
                                     cornersDotOptions: { type: innerCorner, color: tp.qrFg },
                                     imageOptions: { crossOrigin: "anonymous", margin: 8, imageSize: 0.25, hideBackgroundDots: true }
                                 });

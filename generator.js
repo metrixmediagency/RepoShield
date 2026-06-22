@@ -96,8 +96,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     navItems.forEach(item => {
         item.addEventListener('click', (e) => {
-            e.preventDefault();
             const tabId = item.getAttribute('data-tab');
+            const targetContent = document.getElementById(`tab-${tabId}-content`);
+            if (!targetContent) return; // Exit if we are not on the admin page tabs
+
+            e.preventDefault();
 
             // Remove active states
             navItems.forEach(n => n.classList.remove('active'));
@@ -105,12 +108,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Set active state on clicked
             item.classList.add('active');
-            document.getElementById(`tab-${tabId}-content`).classList.add('active');
+            targetContent.classList.add('active');
 
             // Update headers
             if (tabHeaders[tabId]) {
-                tabTitle.textContent = tabHeaders[tabId].title;
-                tabSubtitle.textContent = tabHeaders[tabId].subtitle;
+                if (tabTitle) tabTitle.textContent = tabHeaders[tabId].title;
+                if (tabSubtitle) tabSubtitle.textContent = tabHeaders[tabId].subtitle;
             }
 
             // If active campaigns tab, render list
@@ -437,7 +440,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const mobIframe = document.getElementById('mobile-live-flyer');
         if (mobIframe && mobIframe.contentWindow) mobIframe.contentWindow.postMessage({ type: 'UPDATE_FLYER', payload }, '*');
 
-        // 2. Update portal iframe (doesn't support full live updates yet, but shouldn't lag the UI)
+        // 2. Update portal iframe and flyer previews dynamically based on parameter changes
         const baseLocation = window.location.href.substring(0, window.location.href.lastIndexOf('/'));
         
         const params = new URLSearchParams({
@@ -454,11 +457,25 @@ document.addEventListener('DOMContentLoaded', () => {
             demo: 'true'
         });
 
-        // Initialize src if it hasn't been set with params yet
-        const ts = new Date().getTime();
-        if (portalIframe && !portalIframe.src.includes('?')) portalIframe.src = `${baseLocation}/portal.html?v=${ts}&${params.toString()}`;
-        if (mobIframe && !mobIframe.src.includes('?')) mobIframe.src = `${baseLocation}/flyer.html?v=${ts}&${params.toString()}`;
-        if (desktopLiveFlyer && !desktopLiveFlyer.src.includes('?')) desktopLiveFlyer.src = `${baseLocation}/flyer.html?v=${ts}&${params.toString()}`;
+        const newPortalSrc = `${baseLocation}/portal.html?${params.toString()}`;
+        const newFlyerSrc = `${baseLocation}/flyer.html?${params.toString()}`;
+
+        if (portalIframe && portalIframe.getAttribute('data-last-src') !== newPortalSrc) {
+            portalIframe.src = newPortalSrc;
+            portalIframe.setAttribute('data-last-src', newPortalSrc);
+        }
+        if (mobIframe && mobIframe.getAttribute('data-last-src') !== newFlyerSrc) {
+            mobIframe.src = newFlyerSrc;
+            mobIframe.setAttribute('data-last-src', newFlyerSrc);
+        }
+        if (desktopLiveFlyer && desktopLiveFlyer.getAttribute('data-last-src') !== newFlyerSrc) {
+            desktopLiveFlyer.src = newFlyerSrc;
+            desktopLiveFlyer.setAttribute('data-last-src', newFlyerSrc);
+        }
+        if (adminIframe && adminIframe.getAttribute('data-last-src') !== newFlyerSrc) {
+            adminIframe.src = newFlyerSrc;
+            adminIframe.setAttribute('data-last-src', newFlyerSrc);
+        }
     }
 
     // Sync input events

@@ -78,15 +78,15 @@ if (supabaseClient) {
                 font: c.font || 'Outfit',
                 logo: c.logo || '',
                 type: c.type || 'gmb',
-                qrDot: c.qrSettings?.qrDotStyle || 'theme-default',
-                qrCorner: c.qrSettings?.qrCornerStyle || 'extra-rounded',
-                flyerHeadline: c.flyerSettings?.flyerHeadline || 'Review Us',
-                flyerSub: c.flyerSettings?.flyerSub || 'Scan to Rate',
-                flyerFooter: c.flyerSettings?.flyerFooter || 'Help us serve you better!',
-                flyerTextStyle: c.flyerSettings?.flyerTextStyle || 'normal'
+                qrDot: c.qrSettings?.qrDotStyle || c.qrDot || 'theme-default',
+                qrCorner: c.qrSettings?.qrCornerStyle || c.qrCorner || 'extra-rounded',
+                flyerHeadline: c.flyerSettings?.flyerHeadline || c.flyerHeadline || 'Review Us',
+                flyerSub: c.flyerSettings?.flyerSub || c.flyerSub || 'Scan to Rate',
+                flyerFooter: c.flyerSettings?.flyerFooter || c.flyerFooter || 'Help us serve you better!',
+                flyerTextStyle: c.flyerSettings?.flyerTextStyle || c.flyerTextStyle || 'normal'
             };
             const metaString = encodeURIComponent(JSON.stringify(meta));
-            const baseDest = c.destination || '';
+            const baseDest = c.destination || c.gmb || c.portalUrl || '';
             const finalDestination = baseDest + (baseDest.includes('?') ? '&' : '?') + '_repushield_meta=' + metaString;
 
             const payload = {
@@ -94,7 +94,7 @@ if (supabaseClient) {
                 name: c.name,
                 category: c.category,
                 email: c.email,
-                color: c.color,
+                color: c.color || c.accent || '#6366f1',
                 destination: finalDestination,
                 plan: c.plan || 'standard',
                 setup_fee: c.setupFee || 0,
