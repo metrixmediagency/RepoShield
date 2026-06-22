@@ -79,7 +79,7 @@ if (supabaseClient) {
                 email: c.email,
                 color: c.color,
                 destination: c.destination,
-                plan: c.plan,
+                plan: c.plan || 'standard',
                 setup_fee: c.setupFee || 0,
                 recurring_fee: c.recurringFee || 0,
                 status: c.status || 'active',
