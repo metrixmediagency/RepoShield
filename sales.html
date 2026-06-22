@@ -1747,106 +1747,173 @@
                 <!-- Section 2: Onboard Client Form -->
                 <section id="sec-onboard" class="sales-section-content" style="display: none;">
                     <h2 class="gradient-text" style="margin-bottom: 1.5rem;">Onboard a New Client</h2>
-                    <div class="onboard-grid">
-                        <!-- Left Column: Form (2-Step Wizard on Mobile) -->
-                        <div class="glass-card">
-                            <!-- Step Indicator (visible on mobile) -->
-                            <div id="step-indicator" style="display: none; margin-bottom: 1.75rem;">
-                                <div style="display: flex; align-items: center; gap: 0;">
-                                    <div class="step-indicator-wrap">
-                                        <div class="step-dot active" id="step-dot-1">1</div>
-                                        <div class="step-label">Business</div>
-                                    </div>
-                                    <div class="step-line" id="step-line-1"></div>
-                                    <div class="step-indicator-wrap">
-                                        <div class="step-dot" id="step-dot-2">2</div>
-                                        <div class="step-label">Plan</div>
+                    <div class="grid-layout">
+                        <!-- Left Column: Inputs Form -->
+                        <div class="glass-card form-column">
+                            <div class="card-header">
+                                <i class="fa-solid fa-sliders text-indigo"></i>
+                                <h3>Campaign Parameters</h3>
+                            </div>
+                            
+                            <form id="onboard-client-form" class="campaign-form">
+                                <!-- Campaign Type Selector -->
+                                <div class="campaign-type-selector">
+                                    <label>Campaign Type</label>
+                                    <div class="segment-control">
+                                        <button type="button" class="segment-btn active" data-type="gmb">
+                                            <i class="fa-solid fa-map-location-dot"></i> Local GMB
+                                        </button>
+                                        <button type="button" class="segment-btn" data-type="ecommerce">
+                                            <i class="fa-solid fa-box-open"></i> E-Commerce
+                                        </button>
+                                        <button type="button" class="segment-btn" data-type="delivery">
+                                            <i class="fa-solid fa-motorcycle"></i> Zomato/Swiggy
+                                        </button>
                                     </div>
                                 </div>
-                            </div>
 
-                            <form id="onboard-client-form">
-                                <!-- Step 1: Business Info -->
-                                <div class="onboard-step active" id="onboard-step-1">
-                                    <div class="input-row">
-                                        <div class="input-group">
-                                            <label>Business Name</label>
-                                            <input type="text" id="onboard-biz-name" placeholder="e.g. Bandra Crust Café" required>
+                                <!-- Local Warning Banner -->
+                                <div class="local-warning-banner" id="local-warning" style="display: none;">
+                                    <i class="fa-solid fa-circle-exclamation"></i>
+                                    <div>
+                                        <strong>Local Offline Mode Active</strong>
+                                        <p>Scanning QR codes on your phone will not work because they point to your local hard drive (<code>file://</code>). To test on mobile, host your folder for free or enter a custom URL below.</p>
+                                    </div>
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="biz-name" id="name-label">Business Name</label>
+                                    <div class="input-wrapper">
+                                        <i class="fa-solid fa-store input-icon" id="name-icon"></i>
+                                        <input type="text" id="biz-name" placeholder="e.g., Bandra Crust Café" required autocomplete="off">
+                                    </div>
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="biz-gmb" id="destination-label">Target Google Maps / Review URL</label>
+                                    <div class="input-wrapper">
+                                        <i class="fa-brands fa-google input-icon" id="destination-icon"></i>
+                                        <input type="url" id="biz-gmb" placeholder="https://g.page/r/..." required autocomplete="off">
+                                    </div>
+                                    <span class="input-tip" id="destination-tip"><i class="fa-solid fa-circle-info"></i> Paste their direct Google Review prompt link.</span>
+                                </div>
+
+                                <div class="input-group" id="product-tier-group" style="display: none;">
+                                    <label for="ecommerce-tier">Product Tier / Variant</label>
+                                    <div class="input-wrapper">
+                                        <i class="fa-solid fa-layer-group input-icon"></i>
+                                        <input type="text" id="ecommerce-tier" placeholder="e.g., Premium Leather Wallet, Basic Case" autocomplete="off">
+                                    </div>
+                                    <span class="input-tip"><i class="fa-solid fa-circle-info"></i> E-commerce Multi-product tracking: Use this to generate unique portals per product tier.</span>
+                                </div>
+
+                                <div class="grid-2-col">
+                                    <div class="input-group">
+                                        <label for="biz-accent">Accent Color</label>
+                                        <div class="color-picker-wrapper">
+                                            <input type="color" id="biz-accent" value="#3b82f6">
+                                            <input type="text" id="biz-accent-hex" value="#3b82f6" placeholder="#3b82f6">
                                         </div>
-                                        <div class="input-group">
-                                            <label>Business Category</label>
-                                            <select id="onboard-biz-category">
-                                                <option value="cafe">Café / Coffee Shop</option>
-                                                <option value="bakery">Bakery</option>
-                                                <option value="dental">Dental Clinic</option>
-                                                <option value="salon">Salon / Spa</option>
-                                                <option value="gym">Gym / Fitness Center</option>
-                                                <option value="other" selected>Other Storefront</option>
+                                    </div>
+                                    <div class="input-group">
+                                        <label for="biz-category" id="category-label">Category</label>
+                                        <div class="input-wrapper">
+                                            <select id="biz-category">
+                                                <option value="cafe" selected>☕ Cafe / Restaurant</option>
+                                                <option value="bakery">🥐 Bakery</option>
+                                                <option value="dental">🦷 Dental / Medical Clinic</option>
+                                                <option value="gym">💪 Fitness Gym</option>
+                                                <option value="salon">✂️ Salon / Spa</option>
+                                                <option value="other">💼 Professional Services</option>
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="input-row" style="margin-top: 1.25rem;">
-                                        <div class="input-group">
-                                            <label>Client Email Address</label>
-                                            <input type="email" id="onboard-biz-email" placeholder="owner@business.com" required>
-                                        </div>
-                                        <div class="input-group">
-                                            <label>Brand Accent Color</label>
-                                            <div style="display: flex; gap: 0.5rem; align-items: center;">
-                                                <input type="color" id="onboard-biz-color" value="#3b82f6" style="padding:0; width:50px; height:45px; border-radius:8px; border:none; cursor:pointer;">
-                                                <span style="font-size: 0.9rem; color: var(--text-muted);">Matches their logo/theme</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="input-row" style="margin-top: 1.25rem;">
-                                        <div class="input-group">
-                                            <label>Target Google Maps / Review URL</label>
-                                            <input type="url" id="onboard-biz-url" placeholder="https://g.page/r/..." required>
-                                        </div>
-                                        <div class="input-group">
-                                            <label>Brand Typography</label>
-                                            <select id="onboard-biz-font">
-                                                <option value="Outfit">Outfit (Modern Tech)</option>
-                                                <option value="Inter">Inter (Clean & Clinical)</option>
-                                                <option value="Playfair Display">Playfair Display (Luxury)</option>
-                                                <option value="Space Grotesk">Space Grotesk (Cyber)</option>
-                                                <option value="Cinzel">Cinzel (High-End)</option>
-                                                <option value="Montserrat">Montserrat (Geometric)</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                </div>
 
-                                    <div style="margin-top: 1.5rem; margin-bottom: 0.5rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem;">
-                                        <h4 style="margin-bottom: 1rem; color: #818cf8; font-size: 0.95rem;"><i class="fa-solid fa-gem"></i> Premium Flyer Theme</h4>
-                                        <div class="input-group">
-                                            <label>Select Curated Design</label>
-                                            <select id="onboard-flyer-theme">
+                                <div class="input-group">
+                                    <label for="biz-email">Client Email Address (for private feedback)</label>
+                                    <div class="input-wrapper">
+                                        <i class="fa-solid fa-envelope input-icon"></i>
+                                        <input type="email" id="biz-email" placeholder="owner@business.com" required autocomplete="off">
+                                    </div>
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="biz-font">Brand Typography</label>
+                                    <div class="input-wrapper">
+                                        <i class="fa-solid fa-font input-icon"></i>
+                                        <select id="biz-font">
+                                            <option value="Outfit">Outfit (Modern Tech)</option>
+                                            <option value="Inter">Inter (Clean & Clinical)</option>
+                                            <option value="Playfair Display">Playfair Display (Luxury / Boutique)</option>
+                                            <option value="Space Grotesk">Space Grotesk (Edgy / Cyber)</option>
+                                            <option value="Cinzel">Cinzel (High-End / Classic)</option>
+                                            <option value="Montserrat">Montserrat (Geometric / Bold)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="biz-logo">Logo Image URL (Optional)</label>
+                                    <div class="input-wrapper">
+                                        <i class="fa-solid fa-image input-icon"></i>
+                                        <input type="url" id="biz-logo" placeholder="e.g., https://domain.com/logo.png" autocomplete="off">
+                                    </div>
+                                    <span class="input-tip"><i class="fa-solid fa-circle-info"></i> Leave empty to use beautiful typography branding instead.</span>
+                                </div>
+
+                                <div class="input-group" style="display: none;">
+                                    <label for="biz-base-url">Deployment / Base URL (Optional)</label>
+                                    <div class="input-wrapper">
+                                        <i class="fa-solid fa-globe input-icon"></i>
+                                        <input type="url" id="biz-base-url" placeholder="e.g., https://repushield-agency.vercel.app" autocomplete="off">
+                                    </div>
+                                </div>
+
+                                <div style="margin-top: 2rem; margin-bottom: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
+                                    <h4 style="margin-bottom: 1rem; color: #818cf8;"><i class="fa-solid fa-gem"></i> Premium Flyer Theme</h4>
+                                    <div class="input-group">
+                                        <label for="flyer-theme">Select Curated Design</label>
+                                        <div class="input-wrapper">
+                                            <i class="fa-solid fa-palette input-icon"></i>
+                                            <select id="flyer-theme">
                                                 <option value="theme-onyx" selected>Onyx Elegance (Dark Luxury)</option>
                                                 <option value="theme-glass">Frosted Glass (Modern Tech)</option>
                                                 <option value="theme-artisan">Artisan Kraft (Warm & Organic)</option>
                                                 <option value="theme-neon">Neon Pulse (High Energy)</option>
                                             </select>
                                         </div>
-                                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px dashed rgba(255,255,255,0.1);">
-                                            <h5 style="margin-bottom: 0.8rem; color: #cbd5e1; font-size: 0.85rem;"><i class="fa-solid fa-sliders"></i> Granular Customization</h5>
-                                            <div class="grid-2-col" style="margin-bottom: 0.5rem;">
-                                                <div class="input-group">
-                                                    <label>Flyer Headline</label>
-                                                    <input type="text" id="onboard-flyer-headline" value="Review Us">
-                                                </div>
-                                                <div class="input-group">
-                                                    <label>Flyer Subheadline</label>
-                                                    <input type="text" id="onboard-flyer-sub" value="Scan to Rate">
+                                    </div>
+                                    <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px dashed rgba(255,255,255,0.1);">
+                                        <h5 style="margin-bottom: 0.8rem; color: #cbd5e1;"><i class="fa-solid fa-sliders"></i> Granular Customization</h5>
+                                        <div class="grid-2-col">
+                                            <div class="input-group">
+                                                <label for="flyer-headline">Flyer Headline</label>
+                                                <div class="input-wrapper">
+                                                    <i class="fa-solid fa-heading input-icon"></i>
+                                                    <input type="text" id="flyer-headline" value="Review Us" placeholder="e.g. Review Us">
                                                 </div>
                                             </div>
-                                            <div class="grid-2-col" style="margin-bottom: 0.5rem;">
-                                                <div class="input-group">
-                                                    <label>Footer Text</label>
-                                                    <input type="text" id="onboard-flyer-footer" value="Help us serve you better!">
+                                            <div class="input-group">
+                                                <label for="flyer-sub">Flyer Subheadline</label>
+                                                <div class="input-wrapper">
+                                                    <i class="fa-solid fa-font input-icon"></i>
+                                                    <input type="text" id="flyer-sub" value="Scan to Rate" placeholder="e.g. Scan to Rate">
                                                 </div>
-                                                <div class="input-group">
-                                                    <label>Text Style</label>
-                                                    <select id="onboard-flyer-text-style">
+                                            </div>
+                                        </div>
+                                        <div class="grid-2-col" style="margin-top: 1rem;">
+                                            <div class="input-group">
+                                                <label for="flyer-footer">Footer Text</label>
+                                                <div class="input-wrapper">
+                                                    <i class="fa-solid fa-font input-icon"></i>
+                                                    <input type="text" id="flyer-footer" value="Help us serve you better!" placeholder="e.g. Help us serve you better!">
+                                                </div>
+                                            </div>
+                                            <div class="input-group">
+                                                <label for="flyer-text-style">Text Style</label>
+                                                <div class="input-wrapper">
+                                                    <select id="flyer-text-style">
                                                         <option value="normal" selected>Normal</option>
                                                         <option value="bold">Bold</option>
                                                         <option value="italic">Italic</option>
@@ -1854,18 +1921,22 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="grid-2-col">
-                                                <div class="input-group">
-                                                    <label>QR Pattern Style</label>
-                                                    <select id="onboard-qr-dot">
+                                        </div>
+                                        <div class="grid-2-col" style="margin-top: 1rem;">
+                                            <div class="input-group">
+                                                <label for="qr-dot-style">QR Pattern Style</label>
+                                                <div class="input-wrapper">
+                                                    <select id="qr-dot-style">
                                                         <option value="theme-default" selected>Theme Default</option>
                                                         <option value="square">Standard Squares</option>
                                                         <option value="rounded">Rounded</option>
                                                     </select>
                                                 </div>
-                                                <div class="input-group">
-                                                    <label>QR Corner Style</label>
-                                                    <select id="onboard-qr-corner">
+                                            </div>
+                                            <div class="input-group">
+                                                <label for="qr-corner-style">QR Corner Style</label>
+                                                <div class="input-wrapper">
+                                                    <select id="qr-corner-style">
                                                         <option value="square">Standard Square</option>
                                                         <option value="dot">Dot</option>
                                                         <option value="extra-rounded" selected>Rounded</option>
@@ -1874,89 +1945,76 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- Desktop: show both buttons right here. Mobile: show only Next -->
-                                    <div id="step1-desktop-actions" style="display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap;">
-                                        <button type="button" class="btn btn-secondary" id="btn-generate-demo" style="flex: 1; justify-content: center;">
-                                            <i class="fa-solid fa-mobile-screen-button"></i> Preview Portal
-                                        </button>
-                                    </div>
-                                    <div style="margin-top: 1rem;">
-                                        <button type="button" class="btn btn-primary" id="btn-step-next" style="width: 100%; justify-content: center; display: none;">
-                                            Next: Plan & Billing <i class="fa-solid fa-arrow-right"></i>
-                                        </button>
+                                </div>
+
+                                <div style="margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
+                                    <h4 style="margin-bottom: 1rem; color: #818cf8;"><i class="fa-solid fa-credit-card"></i> Service Plan & Billing</h4>
+                                    <div class="grid-2-col">
+                                        <div class="input-group">
+                                            <label for="biz-plan">Service Tier</label>
+                                            <div class="input-wrapper">
+                                                <select id="biz-plan" required>
+                                                    <option value="gmb">Local GMB Booster</option>
+                                                    <option value="delivery">Food Delivery Gater</option>
+                                                    <option value="ecom_basic">D2C E-Com Basic (1 Product)</option>
+                                                    <option value="ecom_starter">D2C E-Com Starter (3 Products)</option>
+                                                    <option value="ecom_growth">D2C E-Com Growth (5 Products)</option>
+                                                    <option value="ecom_enterprise">D2C E-Com Enterprise (15 Products)</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <label for="billing-cycle">Billing Cycle</label>
+                                            <div class="input-wrapper">
+                                                <select id="billing-cycle" required>
+                                                    <option value="monthly">Monthly</option>
+                                                    <option value="quarterly">Quarterly</option>
+                                                    <option value="half-yearly">Half-Yearly</option>
+                                                    <option value="annual">Annual</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <!-- Step 2: Plan & Billing -->
-                                <div class="onboard-step" id="onboard-step-2">
-                                    <div class="input-group">
-                                        <label>Service Tier</label>
-                                        <select id="onboard-biz-plan" required>
-                                            <option value="gmb">Local GMB Booster</option>
-                                            <option value="delivery">Food Delivery Gater</option>
-                                            <option value="ecom_basic">D2C E-Com Basic (1 Product)</option>
-                                            <option value="ecom_starter">D2C E-Com Starter (3 Products)</option>
-                                            <option value="ecom_growth">D2C E-Com Growth (5 Products)</option>
-                                            <option value="ecom_enterprise">D2C E-Com Enterprise (15 Products)</option>
-                                        </select>
-                                    </div>
-                                    <div class="input-group" style="margin-top: 1.25rem;">
-                                        <label>Billing Cycle</label>
-                                        <select id="onboard-billing-cycle" required>
-                                            <option value="monthly">Monthly</option>
-                                            <option value="quarterly">Quarterly</option>
-                                            <option value="half-yearly">Half-Yearly</option>
-                                            <option value="annual">Annual</option>
-                                        </select>
-                                    </div>
-
-                                    <div style="display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap;">
-                                        <button type="button" class="btn btn-secondary" id="btn-step-back" style="flex: 1; justify-content: center; display: none;">
-                                            <i class="fa-solid fa-arrow-left"></i> Back
-                                        </button>
-                                        <button type="submit" class="btn btn-primary" style="flex: 1; justify-content: center;">
-                                            <i class="fa-solid fa-credit-card"></i> Launch & Request Payment
-                                        </button>
-                                    </div>
+                                <div style="display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap;">
+                                    <button type="button" class="btn btn-secondary" id="btn-generate-demo" style="flex: 1; justify-content: center;">
+                                        <i class="fa-solid fa-mobile-screen-button"></i> Preview Demo Links
+                                    </button>
+                                    <button type="submit" class="btn btn-primary" style="flex: 1; justify-content: center;">
+                                        <i class="fa-solid fa-credit-card"></i> Launch Campaign & Payout
+                                    </button>
                                 </div>
                             </form>
                         </div>
                         
-                        <!-- Right Column: Portal Live Simulator (Desktop Only; Mobile uses overlay modal) -->
-                        <div class="glass-card" id="live-simulator-card">
-                            <div class="card-header" style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
-                                <i class="fa-solid fa-laptop-code text-primary" style="font-size: 1.5rem;"></i>
-                                <h3 style="color: white; margin: 0;">Portal Live Simulator</h3>
+                        <!-- Right Column: Interactive Simulators -->
+                        <div class="preview-column">
+                            <!-- Toggle Buttons -->
+                            <div class="preview-toggles">
+                                <button class="toggle-btn active" data-preview="mobile">
+                                    <i class="fa-solid fa-mobile-screen-button"></i> Mobile Portal Gater
+                                </button>
+                                <button class="toggle-btn" data-preview="flyer" id="btn-print-toggle">
+                                    <i class="fa-solid fa-print"></i> 4-per-page Flyer
+                                </button>
                             </div>
-                            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem; margin-top: 0;">See how your client's brand portal and counter flyer standee will look in real-time as you enter the details.</p>
-                            
-                            <div class="sim-container">
-                                <!-- Phone Frame -->
-                                <div class="sim-phone">
-                                    <div class="phone-notch"></div>
+     
+                            <!-- Mobile Simulator Mockup -->
+                            <div id="preview-mobile-wrapper" class="simulator-wrapper mobile-active">
+                                <div class="phone-frame">
+                                    <div class="phone-speaker"></div>
                                     <div class="phone-screen">
-                                        <div class="phone-header" id="sim-portal-header" style="border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: #3b82f6;">
-                                            <i class="fa-solid fa-shield-halved" style="color: #3b82f6; font-size: 0.9rem;"></i>
-                                            <span id="sim-portal-name" style="font-weight: 700; color: white;">Brand Name</span>
-                                        </div>
-                                        <div class="phone-body">
-                                            <div class="sim-rating-box">
-                                                <h4>Rate your experience</h4>
-                                                <div class="sim-stars">
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                </div>
-                                            </div>
-                                            <button type="button" class="sim-btn" id="sim-portal-btn" style="background: #3b82f6; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);">Submit Feedback</button>
-                                        </div>
+                                        <!-- Embedded Portal Frame -->
+                                        <iframe id="portal-iframe" src="about:blank"></iframe>
                                     </div>
+                                    <div class="phone-home"></div>
                                 </div>
-                                
-                                <!-- Standee Flyer Preview -->
-                                <iframe id="desktop-live-flyer" src="flyer.html?v=3.6" style="width: 260px; height: 520px; border: none; background: transparent; overflow: hidden; transform-origin: top left; pointer-events: none;"></iframe>
+                            </div>
+     
+                            <!-- Flyer Simulator Mockup -->
+                            <div id="preview-flyer-wrapper" class="simulator-wrapper">
+                                <iframe id="desktop-live-flyer" src="flyer.html?v=3.6" style="width: 280px; height: 520px; border: none; background: transparent; overflow: hidden; transform-origin: top center; pointer-events: none;"></iframe>
                             </div>
                         </div>
                     </div>
@@ -3107,10 +3165,20 @@ Interested in setting this up to see if it works?</span>
 
             // Action A: Generate Live Demo link
             document.getElementById('btn-generate-demo').addEventListener('click', () => {
-                const bizName = document.getElementById('onboard-biz-name').value.trim();
-                const targetUrl = document.getElementById('onboard-biz-url').value.trim();
-                const category = document.getElementById('onboard-biz-category').value;
-                const color = document.getElementById('onboard-biz-color').value;
+                const bizName = document.getElementById('biz-name').value.trim();
+                const targetUrl = document.getElementById('biz-gmb').value.trim();
+                const category = document.getElementById('biz-category').value;
+                const color = document.getElementById('biz-accent').value;
+                
+                // Typography, custom designs
+                const font = document.getElementById('biz-font').value;
+                const theme = document.getElementById('flyer-theme').value;
+                const qrDot = document.getElementById('qr-dot-style').value;
+                const qrCorner = document.getElementById('qr-corner-style').value;
+                const flyerHeadline = document.getElementById('flyer-headline').value;
+                const flyerSub = document.getElementById('flyer-sub').value;
+                const flyerFooter = document.getElementById('flyer-footer').value;
+                const flyerTextStyle = document.getElementById('flyer-text-style').value;
 
                 if (!bizName || !targetUrl) {
                     alert('Please enter a Business Name and Target Link to generate a demo.');
@@ -3119,8 +3187,8 @@ Interested in setting this up to see if it works?</span>
 
                 // Create clean mock preview links
                 const baseLocation = window.location.origin;
-                const demoPortalUrl = `${baseLocation}/portal.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&demo=true`;
-                const demoFlyerUrl = `${baseLocation}/flyer.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}`;
+                const demoPortalUrl = `${baseLocation}/portal.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&demo=true`;
+                const demoFlyerUrl = `${baseLocation}/flyer.html?name=${encodeURIComponent(bizName)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&theme=${encodeURIComponent(theme)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}`;
 
                 // Update modal link values
                 document.getElementById('preview-portal-link').href = demoPortalUrl;
@@ -3136,13 +3204,13 @@ Interested in setting this up to see if it works?</span>
             onboardForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 
-                const name = document.getElementById('onboard-biz-name').value.trim();
-                const category = document.getElementById('onboard-biz-category').value;
-                const email = document.getElementById('onboard-biz-email').value.trim();
-                const color = document.getElementById('onboard-biz-color').value;
-                const destination = document.getElementById('onboard-biz-url').value.trim();
-                const planValue = document.getElementById('onboard-biz-plan').value;
-                const cycleValue = document.getElementById('onboard-billing-cycle').value;
+                const name = document.getElementById('biz-name').value.trim();
+                const category = document.getElementById('biz-category').value;
+                const email = document.getElementById('biz-email').value.trim();
+                const color = document.getElementById('biz-accent').value;
+                const destination = document.getElementById('biz-gmb').value.trim();
+                const planValue = document.getElementById('biz-plan').value;
+                const cycleValue = document.getElementById('billing-cycle').value;
                 const plan = getPlanDetails(planValue, cycleValue);
                 
                 // Get the actual razorpay Plan ID based on user selection
@@ -3393,111 +3461,7 @@ Interested in setting this up to see if it works?</span>
             });
 
             // -------------------------------------------------------
-            // Live Simulator Real-time Onboarding Preview Updates
-            // -------------------------------------------------------
-            const inputBizName = document.getElementById('onboard-biz-name');
-            const inputBizColor = document.getElementById('onboard-biz-color');
-
-            // Desktop simulator elements
-            const simName = document.getElementById('sim-portal-name');
-            const simFlyerName = document.getElementById('sim-flyer-name');
-            const simHeader = document.getElementById('sim-portal-header');
-            const simFlyerHeader = document.getElementById('sim-flyer-header');
-            const simBtn = document.getElementById('sim-portal-btn');
-
-            // Mobile overlay simulator elements
-            const ovlPortalName = document.getElementById('ovl-portal-name');
-            const ovlFlyerName = document.getElementById('ovl-flyer-name');
-            const ovlPortalHeader = document.getElementById('ovl-portal-header');
-            const ovlFlyerHeader = document.getElementById('ovl-flyer-header');
-            const ovlPortalBtn = document.getElementById('ovl-portal-btn');
-
-            function updateSimulator() {
-                const nameVal = inputBizName ? (inputBizName.value.trim() || 'Brand Name') : 'Brand Name';
-                const colorVal = inputBizColor ? (inputBizColor.value || '#3b82f6') : '#3b82f6';
-                const categoryVal = document.getElementById('onboard-biz-category') ? document.getElementById('onboard-biz-category').value : 'other';
-
-                // Update standard simulator elements
-                if (simName) simName.textContent = nameVal;
-                if (simHeader) simHeader.style.borderColor = colorVal;
-                if (simBtn) { simBtn.style.background = colorVal; simBtn.style.boxShadow = `0 4px 12px ${colorVal}4d`; }
-                if (ovlPortalName) ovlPortalName.textContent = nameVal;
-                if (ovlPortalHeader) ovlPortalHeader.style.borderColor = colorVal;
-                if (ovlPortalBtn) { ovlPortalBtn.style.background = colorVal; ovlPortalBtn.style.boxShadow = `0 4px 12px ${colorVal}4d`; }
-
-                // PostMessage payload to Live Flyer Iframes
-                const payload = {
-                    name: nameVal,
-                    color: colorVal,
-                    category: categoryVal,
-                    font: document.getElementById('onboard-biz-font')?.value || 'Outfit',
-                    theme: document.getElementById('onboard-flyer-theme')?.value || 'theme-onyx'
-                };
-
-                const deskIframe = document.getElementById('desktop-live-flyer');
-                if (deskIframe && deskIframe.contentWindow) {
-                    deskIframe.contentWindow.postMessage({ type: 'UPDATE_FLYER', payload }, '*');
-                }
-
-                const mobIframe = document.getElementById('mobile-live-flyer');
-                if (mobIframe && mobIframe.contentWindow) {
-                    mobIframe.contentWindow.postMessage({ type: 'UPDATE_FLYER', payload }, '*');
-                }
-            }
-
-            if (inputBizName && inputBizColor) {
-                inputBizName.addEventListener('input', updateSimulator);
-                inputBizColor.addEventListener('input', updateSimulator);
-                document.getElementById('onboard-biz-category')?.addEventListener('change', updateSimulator);
-                document.getElementById('onboard-biz-font')?.addEventListener('change', updateSimulator);
-                document.getElementById('onboard-flyer-theme')?.addEventListener('change', updateSimulator);
-                
-                document.getElementById('desktop-live-flyer')?.addEventListener('load', updateSimulator);
-                document.getElementById('mobile-live-flyer')?.addEventListener('load', updateSimulator);
-                
-                updateSimulator();
-            }
-
-            // -------------------------------------------------------
-            // 2-Step Onboarding Wizard (Mobile)
-            // -------------------------------------------------------
-            const mobileBreakpoint = window.matchMedia('(max-width: 768px)');
-            const stepIndicator = document.getElementById('step-indicator');
-            const onboardStep1 = document.getElementById('onboard-step-1');
-            const onboardStep2 = document.getElementById('onboard-step-2');
-            const btnStepNext = document.getElementById('btn-step-next');
-            const btnStepBack = document.getElementById('btn-step-back');
-            const step1DesktopActions = document.getElementById('step1-desktop-actions');
-            const stepDot1 = document.getElementById('step-dot-1');
-            const stepDot2 = document.getElementById('step-dot-2');
-            const stepLine1 = document.getElementById('step-line-1');
-
-            function applyMobileWizard(isMobile) {
-                if (!stepIndicator) return;
-                if (isMobile) {
-                    stepIndicator.style.display = 'block';
-                    if (btnStepNext) btnStepNext.style.display = 'flex';
-                    if (btnStepBack) btnStepBack.style.display = 'flex';
-                    if (step1DesktopActions) step1DesktopActions.style.display = 'flex';
-                    // Reset to step 1
-                    if (onboardStep1) { onboardStep1.classList.add('active'); }
-                    if (onboardStep2) { onboardStep2.classList.remove('active'); }
-                    if (stepDot1) { stepDot1.classList.add('active'); stepDot1.classList.remove('done'); stepDot1.textContent = '1'; }
-                    if (stepDot2) { stepDot2.classList.remove('active', 'done'); }
-                    if (stepLine1) stepLine1.classList.remove('done');
-                } else {
-                    // Desktop: show all at once
-                    if (stepIndicator) stepIndicator.style.display = 'none';
-                    if (btnStepNext) btnStepNext.style.display = 'none';
-                    if (btnStepBack) btnStepBack.style.display = 'none';
-                    if (step1DesktopActions) step1DesktopActions.style.display = 'flex';
-                    if (onboardStep1) onboardStep1.classList.add('active');
-                    if (onboardStep2) onboardStep2.classList.add('active');
-                }
-            }
-
-            applyMobileWizard(mobileBreakpoint.matches);
-            mobileBreakpoint.addEventListener('change', (e) => applyMobileWizard(e.matches));
+            // Note: Simulator preview frames are handled directly by generator.js using unified IDs
 
             // -------------------------------------------------------
             // Hamburger → Slide-In Sidebar Drawer (Mobile)
