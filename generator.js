@@ -454,26 +454,34 @@ document.addEventListener('DOMContentLoaded', () => {
             theme: selectedTheme,
             qrDot: payload.qrDot,
             qrCorner: payload.qrCorner,
-            demo: 'true'
+            demo: 'true',
+            v: '3.6.2'
         });
 
         const newPortalSrc = `${baseLocation}/portal.html?${params.toString()}`;
         const newFlyerSrc = `${baseLocation}/flyer.html?${params.toString()}`;
 
-        if (portalIframe && portalIframe.getAttribute('data-last-src') !== newPortalSrc) {
+        // To prevent flickering and race conditions, only reload the iframe src if campaign type changes or it hasn't been set yet
+        const currentTypeKey = `last-type-${activeCampaignType}`;
+
+        if (portalIframe && (portalIframe.getAttribute('data-last-type') !== currentTypeKey || !portalIframe.src || portalIframe.src === 'about:blank')) {
             portalIframe.src = newPortalSrc;
+            portalIframe.setAttribute('data-last-type', currentTypeKey);
             portalIframe.setAttribute('data-last-src', newPortalSrc);
         }
-        if (mobIframe && mobIframe.getAttribute('data-last-src') !== newFlyerSrc) {
+        if (mobIframe && (mobIframe.getAttribute('data-last-type') !== currentTypeKey || !mobIframe.src || mobIframe.src.includes('about:blank'))) {
             mobIframe.src = newFlyerSrc;
+            mobIframe.setAttribute('data-last-type', currentTypeKey);
             mobIframe.setAttribute('data-last-src', newFlyerSrc);
         }
-        if (desktopLiveFlyer && desktopLiveFlyer.getAttribute('data-last-src') !== newFlyerSrc) {
+        if (desktopLiveFlyer && (desktopLiveFlyer.getAttribute('data-last-type') !== currentTypeKey || !desktopLiveFlyer.src || desktopLiveFlyer.src.includes('about:blank'))) {
             desktopLiveFlyer.src = newFlyerSrc;
+            desktopLiveFlyer.setAttribute('data-last-type', currentTypeKey);
             desktopLiveFlyer.setAttribute('data-last-src', newFlyerSrc);
         }
-        if (adminIframe && adminIframe.getAttribute('data-last-src') !== newFlyerSrc) {
+        if (adminIframe && (adminIframe.getAttribute('data-last-type') !== currentTypeKey || !adminIframe.src || adminIframe.src.includes('about:blank'))) {
             adminIframe.src = newFlyerSrc;
+            adminIframe.setAttribute('data-last-type', currentTypeKey);
             adminIframe.setAttribute('data-last-src', newFlyerSrc);
         }
     }
