@@ -225,15 +225,15 @@
         }
 
         .qr-wrapper {
-            width: 160px;
-            height: 160px;
-            border-radius: 20px;
+            width: 210px;
+            height: 210px;
+            border-radius: 24px;
             background: white;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0.8rem;
+            padding: 10px;
             border: 1px solid #e2e8f0;
             margin: 0.8rem 0;
         }
@@ -924,7 +924,13 @@
                 
                 qrContainers.forEach(container => {
                     container.innerHTML = ''; // clear completely to force full re-render
-                    const size = container.classList.contains('sticker-qr') ? 74 : (container.classList.contains('insert-qr-mock') ? 98 : 144);
+                    const isSticker = container.classList.contains('sticker-qr');
+                    const isInsert = container.classList.contains('insert-qr-mock');
+                    const padding = (parseInt(window.getComputedStyle(container).paddingLeft) || 0) * 2;
+                    let size = container.clientWidth > 0 ? (container.clientWidth - padding) : (isSticker ? 74 : (isInsert ? 98 : 190));
+                    if (size <= 0) {
+                        size = isSticker ? 74 : (isInsert ? 98 : 190);
+                    }
                     
                     // Match inner corner dot style to the outer corner style for a cohesive, premium look
                     let innerCorner = 'square';
