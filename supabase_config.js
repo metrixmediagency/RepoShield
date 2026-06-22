@@ -72,13 +72,30 @@ if (supabaseClient) {
     // Helper: Push campaigns array to Supabase
     async function syncCampaigns(list) {
         for (const c of list) {
+            // Pack metadata inside destination URL to bypass database schema limits
+            const meta = {
+                theme: c.theme || 'theme-onyx',
+                font: c.font || 'Outfit',
+                logo: c.logo || '',
+                type: c.type || 'gmb',
+                qrDot: c.qrSettings?.qrDotStyle || 'theme-default',
+                qrCorner: c.qrSettings?.qrCornerStyle || 'extra-rounded',
+                flyerHeadline: c.flyerSettings?.flyerHeadline || 'Review Us',
+                flyerSub: c.flyerSettings?.flyerSub || 'Scan to Rate',
+                flyerFooter: c.flyerSettings?.flyerFooter || 'Help us serve you better!',
+                flyerTextStyle: c.flyerSettings?.flyerTextStyle || 'normal'
+            };
+            const metaString = encodeURIComponent(JSON.stringify(meta));
+            const baseDest = c.destination || '';
+            const finalDestination = baseDest + (baseDest.includes('?') ? '&' : '?') + '_repushield_meta=' + metaString;
+
             const payload = {
                 id: c.id,
                 name: c.name,
                 category: c.category,
                 email: c.email,
                 color: c.color,
-                destination: c.destination,
+                destination: finalDestination,
                 plan: c.plan || 'standard',
                 setup_fee: c.setupFee || 0,
                 recurring_fee: c.recurringFee || 0,
@@ -124,20 +141,49 @@ if (supabaseClient) {
             // Campaigns Sync
             const { data: dbCampaigns } = await supabaseClient.from('campaigns').select('*');
             if (dbCampaigns && dbCampaigns.length > 0) {
-                const mappedCampaigns = dbCampaigns.map(c => ({
-                    id: c.id,
-                    name: c.name,
-                    category: c.category,
-                    email: c.email,
-                    color: c.color,
-                    destination: c.destination,
-                    plan: c.plan,
-                    setupFee: parseFloat(c.setup_fee),
-                    recurringFee: parseFloat(c.recurring_fee),
-                    status: c.status,
-                    referredBy: c.referred_by,
-                    commissionStatus: c.commission_status
-                }));
+                const mappedCampaigns = dbCampaigns.map(c => {
+                    let dest = c.destination || '';
+                    let meta = {};
+                    if (dest.includes('_repushield_meta=')) {
+                        try {
+                            const parts = dest.split('_repushield_meta=');
+                            dest = parts[0].replace(/[?&]$/, '');
+                            meta = JSON.parse(decodeURIComponent(parts[1]));
+                        } catch (e) {
+                            console.error("Failed to parse sync metadata:", e);
+                        }
+                    }
+                    return {
+                        id: c.id,
+                        name: c.name,
+                        category: c.category,
+                        email: c.email,
+                        color: c.color,
+                        destination: dest,
+                        plan: c.plan,
+                        setupFee: parseFloat(c.setup_fee),
+                        recurringFee: parseFloat(c.recurring_fee),
+                        status: c.status,
+                        referredBy: c.referred_by,
+                        commissionStatus: c.commission_status,
+                        
+                        // Mapped meta variables
+                        theme: meta.theme || 'theme-onyx',
+                        font: meta.font || 'Outfit',
+                        logo: meta.logo || '',
+                        type: meta.type || 'gmb',
+                        qrSettings: {
+                            qrDotStyle: meta.qrDot || 'theme-default',
+                            qrCornerStyle: meta.qrCorner || 'extra-rounded'
+                        },
+                        flyerSettings: {
+                            flyerHeadline: meta.flyerHeadline || 'Review Us',
+                            flyerSub: meta.flyerSub || 'Scan to Rate',
+                            flyerFooter: meta.flyerFooter || 'Help us serve you better!',
+                            flyerTextStyle: meta.flyerTextStyle || 'normal'
+                        }
+                    };
+                });
                 originalSetItem.call(localStorage, 'repushield_campaigns', JSON.stringify(mappedCampaigns));
                 prevCampaigns = mappedCampaigns;
             } else if (dbCampaigns && dbCampaigns.length === 0) {

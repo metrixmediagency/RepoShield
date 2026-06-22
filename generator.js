@@ -682,9 +682,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     color: campaignColor,
                     email: campaignEmail,
                     category: campaignCategory,
-                    logo: campaignLogo,
+                    logo: campaignLogo || '',
                     tier: campaignTier,
-                    type: campaignType
+                    type: campaignType,
+                    font: campaign.font || 'Outfit'
                 });
                 pUrl = `${baseLocation}/portal.html?${portalUrlParams.toString()}`;
                 
@@ -694,6 +695,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     color: campaignColor,
                     type: campaignType,
                     tier: campaignTier,
+                    logo: campaignLogo || '',
+                    font: campaign.font || 'Outfit',
+                    theme: campaign.theme || 'theme-onyx',
+                    qrDot: campaign.qrSettings?.qrDotStyle || 'theme-default',
+                    qrCorner: campaign.qrSettings?.qrCornerStyle || 'extra-rounded',
+                    flyerHeadline: campaign.flyerSettings?.flyerHeadline || 'Review Us',
+                    flyerSub: campaign.flyerSettings?.flyerSub || 'Scan to Rate',
+                    flyerFooter: campaign.flyerSettings?.flyerFooter || 'Help us serve you better!',
+                    flyerTextStyle: campaign.flyerSettings?.flyerTextStyle || 'normal',
                     portalUrl: pUrl
                 });
                 fUrl = `${baseLocation}/flyer.html?${flyerUrlParams.toString()}`;
