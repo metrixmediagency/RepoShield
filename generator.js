@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (tabId === 'campaigns') {
                 renderCampaignsList();
             } else if (tabId === 'clients') {
-                renderClientsList();
+                renderClientsTable();
             } else if (tabId === 'social') {
                 initSocialDashboard();
             }
