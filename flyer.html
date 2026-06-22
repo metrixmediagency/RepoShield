@@ -227,15 +227,44 @@
         .qr-wrapper {
             width: 210px;
             height: 210px;
-            border-radius: 24px;
+            border-radius: 50% !important;
             background: white;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 10px;
-            border: 1px solid #e2e8f0;
-            margin: 0.8rem 0;
+            padding: 16px;
+            border: 2px solid var(--primary);
+            margin: 1.4rem 0;
+            position: relative;
+        }
+
+        /* Apple App Clip-style rotating outer dashes */
+        .qr-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border: 2px dashed var(--primary);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.7;
+            animation: rotate-ring 40s linear infinite;
+        }
+
+        /* Subtle secondary outer ring for depth */
+        .qr-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: -14px;
+            border: 1px solid var(--primary);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.25;
+        }
+
+        @keyframes rotate-ring {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         .qr-wrapper img { width: 100%; height: 100%; }
@@ -937,8 +966,8 @@
                     if (qrCorner === 'extra-rounded' || qrCorner === 'rounded') innerCorner = 'dot';
                     if (qrCorner === 'dot') innerCorner = 'dot';
                     
-                    // Ensure we don't accidentally use the broken 'dots' type from old neon themes
-                    const safeQrDot = (qrDot === 'dots' || qrDot === 'classy') ? 'rounded' : qrDot;
+                    // Default to circular 'dots' pattern to match the Apple App Clip style
+                    const safeQrDot = (qrDot === 'theme-default') ? 'dots' : qrDot;
 
                     const qrCode = new QRCodeStyling({
                         width: size, height: size, data: currentPortalUrl,
