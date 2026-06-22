@@ -477,12 +477,12 @@
         .theme-neon .stars-row i { color: #ff00cc; filter: drop-shadow(0 0 5px rgba(255,0,204,0.5)); }
         .theme-neon .icon-placeholder { color: #ff00cc; text-shadow: 0 0 15px rgba(255,0,204,0.8); }
         /* PRINT STYLES */
-        @media print {
+         @media print {
             @page {
                 margin: 0;
                 size: A4 portrait;
             }
-            body { background: white; margin: 0; padding: 0; }
+            body { background: white !important; margin: 0; padding: 0; }
             .toolbar, .folding-guide-lines { display: none !important; }
             .print-page {
                 box-shadow: none;
@@ -495,6 +495,20 @@
                 justify-content: center;
                 page-break-after: avoid;
                 page-break-inside: avoid;
+            }
+            .theme-onyx .standee-face {
+                background-color: #111111 !important;
+                background: linear-gradient(145deg, #111111 0%, #1a1a1a 100%) !important;
+            }
+            .theme-glass .standee-face {
+                background-color: #ffffff !important;
+                background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 100%) !important;
+            }
+            .theme-artisan .standee-face {
+                background-color: #f4ecd8 !important;
+            }
+            .theme-neon .standee-face {
+                background-color: #0a0a0a !important;
             }
             .standee-container, .ecommerce-container, .delivery-container {
                 margin: auto;
