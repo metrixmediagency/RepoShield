@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     
     const bizName = urlParams.get('name') || 'Our Business';
-    const gmbUrl = urlParams.get('url') || 'https://google.com';
+    const gmbUrl = urlParams.get('url') || ('https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(bizName));
     const accentColor = urlParams.get('color') || '#6366f1';
     const bizEmail = urlParams.get('email') || 'owner@business.com';
     const category = urlParams.get('category') || 'other';
