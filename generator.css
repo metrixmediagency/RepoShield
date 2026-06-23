@@ -48,32 +48,31 @@ html, body {
 }
 
 /* Dynamic Glowing Background Blobs */
+/* PERF: position:fixed = painted once, doesn't scroll/repaint.
+         filter:blur removed — the radial-gradient is already soft visually.
+         scale() removed from keyframes — blur+scale forced rasterize every frame. */
 .glow-bg-1 {
-    position: absolute;
-    width: 600px;
-    height: 600px;
-    top: -10%;
-    left: -10%;
-    background: radial-gradient(circle, rgba(14, 165, 233, 0.12) 0%, rgba(7, 9, 19, 0) 70%);
+    position: fixed;
+    width: 700px;
+    height: 700px;
+    top: -15%;
+    left: -15%;
+    background: radial-gradient(circle, rgba(14, 165, 233, 0.15) 0%, rgba(7, 9, 19, 0) 65%);
     z-index: -1;
-    filter: blur(80px);
     pointer-events: none;
-    will-change: transform;
-    transform: translate3d(0, 0, 0);
+    transform: translateZ(0);
 }
 
 .glow-bg-2 {
-    position: absolute;
-    width: 500px;
-    height: 500px;
-    bottom: -5%;
-    right: -5%;
-    background: radial-gradient(circle, rgba(6, 182, 212, 0.12) 0%, rgba(7, 9, 19, 0) 70%);
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    bottom: -10%;
+    right: -10%;
+    background: radial-gradient(circle, rgba(6, 182, 212, 0.12) 0%, rgba(7, 9, 19, 0) 65%);
     z-index: -1;
-    filter: blur(80px);
     pointer-events: none;
-    will-change: transform;
-    transform: translate3d(0, 0, 0);
+    transform: translateZ(0);
 }
 
 /* Core Dashboard Layout */
@@ -277,18 +276,20 @@ html, body {
     color: #818cf8;
 }
 
+/* blob-drift: scale() removed — filter+scale forced full rasterize every frame.
+   Now only uses translate() which stays on compositor thread. */
 @keyframes blob-drift {
-    0% { transform: translate(0, 0) scale(1); }
-    33% { transform: translate(30px, -50px) scale(1.1); }
-    66% { transform: translate(-20px, 20px) scale(0.9); }
-    100% { transform: translate(0, 0) scale(1); }
+    0%   { transform: translate(0, 0) translateZ(0); }
+    33%  { transform: translate(30px, -50px) translateZ(0); }
+    66%  { transform: translate(-20px, 20px) translateZ(0); }
+    100% { transform: translate(0, 0) translateZ(0); }
 }
 
 .glow-bg-1 {
-    animation: blob-drift 15s infinite ease-in-out;
+    animation: blob-drift 18s infinite ease-in-out;
 }
 .glow-bg-2 {
-    animation: blob-drift 20s infinite ease-in-out reverse;
+    animation: blob-drift 24s infinite ease-in-out reverse;
 }
 
 /* Glassmorphism Cards */
@@ -1332,6 +1333,7 @@ code {
     justify-content: center;
     padding: 1.25rem;
     transition: opacity 0.5s ease, visibility 0.5s ease;
+    transform: translateZ(0);
 }
 
 .passcode-gate.unlocked {
@@ -1527,11 +1529,12 @@ code {
         flex-direction: column;
         gap: 2.5rem;
         z-index: 1100;
-        transform: translateX(-100%);
+        transform: translateX(-100%) translateZ(0);
         transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
         box-shadow: 8px 0 40px rgba(0,0,0,0.6);
         backdrop-filter: blur(30px);
         -webkit-backdrop-filter: blur(30px);
+        will-change: transform;
     }
 
     .sidebar.open {
@@ -2298,24 +2301,26 @@ code {
 
 .slide-glow-blob-1, .slide-glow-blob-2 {
     position: absolute;
-    width: 140px;
-    height: 140px;
+    width: 180px;
+    height: 180px;
     border-radius: 50%;
-    filter: blur(50px);
-    opacity: 0.25;
+    /* filter:blur removed — use radial-gradient for soft edges instead,
+       which is GPU-composited and free at scroll time */
+    opacity: 0.2;
     z-index: 0;
+    transform: translateZ(0);
 }
 
 .slide-glow-blob-1 {
-    top: -20px;
-    right: -20px;
-    background: #00F2FE;
+    top: -40px;
+    right: -40px;
+    background: radial-gradient(circle, #00F2FE 0%, transparent 70%);
 }
 
 .slide-glow-blob-2 {
-    bottom: -30px;
-    left: -20px;
-    background: #00FF87;
+    bottom: -50px;
+    left: -40px;
+    background: radial-gradient(circle, #00FF87 0%, transparent 70%);
 }
 
 .slide-content-wrapper {

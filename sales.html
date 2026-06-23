@@ -30,33 +30,33 @@
             background-size: 24px 24px;
             pointer-events: none;
             z-index: -1;
-            transform: translate3d(0, 0, 0);
-            will-change: transform;
+            /* No will-change here — this is a static element, no animation */
+            transform: translateZ(0);
         }
 
         /* Dynamic Glowing Background Blobs */
+        /* PERF: position:fixed = painted once. filter:blur(120px) removed—
+           the radial-gradient already looks soft; filter re-rasterizes on each frame. */
         .glow-bg-1, .glow-bg-2 {
-            position: absolute;
+            position: fixed;
             border-radius: 50%;
             pointer-events: none;
             z-index: -1;
-            filter: blur(120px);
-            transform: translate3d(0, 0, 0);
-            will-change: transform;
+            transform: translateZ(0);
         }
         .glow-bg-1 {
-            width: 600px;
-            height: 600px;
-            top: -10%;
-            left: -10%;
-            background: radial-gradient(circle, rgba(14, 165, 233, 0.08) 0%, transparent 70%);
+            width: 700px;
+            height: 700px;
+            top: -15%;
+            left: -15%;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.12) 0%, transparent 65%);
         }
         .glow-bg-2 {
-            width: 500px;
-            height: 500px;
-            bottom: -5%;
-            right: -5%;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.06) 0%, transparent 70%);
+            width: 600px;
+            height: 600px;
+            bottom: -10%;
+            right: -10%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.09) 0%, transparent 65%);
         }
 
         /* Glassmorphic Premium Cards */

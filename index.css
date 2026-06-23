@@ -311,14 +311,15 @@ h1, h2, h3, h4, h5, h6 {
     justify-content: center;
     gap: 30px;
     padding: 40px;
-    transform: translateX(100%);
+    transform: translateX(100%) translateZ(0);
     visibility: hidden;
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s;
     z-index: 10000;
+    will-change: transform;
   }
   
   .fx-nav__menu.active {
-    transform: translateX(0);
+    transform: translateX(0) translateZ(0);
     visibility: visible;
   }
   
@@ -386,7 +387,8 @@ h1, h2, h3, h4, h5, h6 {
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
+  /* filter:drop-shadow removed — filter on gradient-clipped text forces
+     full rasterize on every scroll paint tick */
 }
 
 .fx-hero__sub {
