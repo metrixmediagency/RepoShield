@@ -773,8 +773,11 @@
         // Global state for QR code objects so we can update them dynamically
         let qrCodeInstances = [];
         const urlParams = new URLSearchParams(window.location.search);
-        let currentPortalUrl = urlParams.get('portalUrl') || 'https://google.com';
-
+        let currentPortalUrl = urlParams.get('portalUrl');
+        if (!currentPortalUrl) {
+            const currentParams = window.location.search;
+            currentPortalUrl = window.location.origin + window.location.pathname.replace('flyer.html', 'portal.html') + currentParams;
+        }
         // Utility to generate SVG background patterns
         function getPatternCSS(patternName, baseColor) {
             if (patternName === 'dots') {
