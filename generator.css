@@ -43,8 +43,8 @@ html, body {
     position: relative;
     margin: 0;
     padding: 0;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
+    /* backface-visibility on body is a no-op — removed to avoid creating
+       unnecessary stacking contexts that slow down compositing */
 }
 
 /* Dynamic Glowing Background Blobs */
@@ -93,7 +93,13 @@ html, body {
     flex-direction: column;
     gap: 3rem;
     backdrop-filter: blur(var(--blur-strength));
+    -webkit-backdrop-filter: blur(var(--blur-strength));
     z-index: 10;
+    /* GPU layer promotion — prevents blur from forcing page repaint on scroll */
+    will-change: transform;
+    transform: translateZ(0);
+    /* Contain layout changes within the sidebar */
+    contain: layout style;
 }
 
 .brand {
@@ -297,6 +303,8 @@ html, body {
     position: relative;
     overflow: hidden;
     transition: var(--transition-smooth);
+    /* GPU layer promotion so backdrop-filter doesn’t force main-thread repaints */
+    transform: translateZ(0);
 }
 
 .glass-card:hover {

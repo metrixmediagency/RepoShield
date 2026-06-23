@@ -19,8 +19,7 @@
             padding: 0;
             overflow-x: hidden;
             position: relative;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
+            /* backface-visibility on body is a no-op — removed */
         }
 
         body::before {
@@ -72,6 +71,8 @@
             position: relative;
             transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             overflow: hidden;
+            /* GPU layer promotion — prevents backdrop-filter from forcing page repaint */
+            transform: translateZ(0);
         }
 
         .glass-card::before {
@@ -181,6 +182,9 @@
             top: 0;
             z-index: 100;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            /* GPU layer promotion — sticky header blur must not repaint page on scroll */
+            will-change: transform;
+            transform: translateZ(0);
         }
 
         .sales-header .brand {
@@ -261,6 +265,10 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             z-index: 10;
+            /* GPU layer promotion — sidebar blur must not repaint page on scroll */
+            will-change: transform;
+            transform: translateZ(0);
+            contain: layout style;
         }
 
         .sales-sidebar .nav-item {

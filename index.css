@@ -42,7 +42,8 @@ html {
   scroll-behavior: smooth;
   font-size: 16px;
   background-color: var(--mm-bg-dark);
-  overflow-x: hidden;
+  /* NOTE: overflow-x NOT set on html — keeping it only on body preserves
+     the browser's native composited-scroll fast path */
 }
 
 body {
@@ -54,8 +55,7 @@ body {
   overflow-x: hidden;
   position: relative;
   -webkit-font-smoothing: antialiased;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
+  /* backface-visibility on body is a no-op — removed to avoid stacking context overhead */
 }
 
 [id] {
@@ -70,6 +70,8 @@ body.fx-menu-open {
 .fx-section {
   padding: clamp(40px, 8vw, 100px) 20px;
   position: relative;
+  /* Limit layout/style recalc scope to this section on repaint */
+  contain: layout style;
 }
 
 .fx-wrap {
@@ -167,7 +169,14 @@ h1, h2, h3, h4, h5, h6 {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--mm-border);
-  transition: var(--mm-transition);
+  /* Promote to its own GPU compositor layer so the blur doesn't repaint
+     the entire page on every scroll tick */
+  will-change: transform;
+  transform: translateZ(0);
+  /* Use specific properties instead of 'all' to avoid expensive style recalc */
+  transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .fx-header__inner {
@@ -531,6 +540,9 @@ h1, h2, h3, h4, h5, h6 {
   gap: 40px;
   width: max-content;
   animation: marquee 30s linear infinite;
+  /* Keep marquee on its own GPU layer so it doesn't trigger main-thread paint */
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 @keyframes marquee {
