@@ -516,6 +516,40 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('onboard-biz-name')?.addEventListener('input', updateSimulators);
     document.getElementById('onboard-biz-category')?.addEventListener('change', updateSimulators);
 
+    // Visual QR Pattern Card Picker — click handler for .qr-style-btn tiles
+    // Updates the hidden <select> and fires updateSimulators so the iframe preview refreshes instantly
+    document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.qr-style-btn');
+        if (!btn) return;
+        const targetSelectId = btn.dataset.target;
+        const value = btn.dataset.value;
+        if (!targetSelectId || !value) return;
+
+        // Update the hidden select value so existing JS reads it correctly
+        const select = document.getElementById(targetSelectId);
+        if (select) {
+            select.value = value;
+            select.dispatchEvent(new Event('change')); // triggers updateSimulators via existing listener
+        }
+
+        // Toggle active state within the same picker group
+        const picker = btn.closest('.qr-style-picker');
+        if (picker) {
+            picker.querySelectorAll('.qr-style-btn').forEach(b => {
+                b.classList.remove('qr-style-active');
+                b.style.background = 'rgba(255,255,255,0.04)';
+                b.style.borderColor = 'rgba(255,255,255,0.1)';
+                b.querySelector('span').style.color = '#94a3b8';
+                b.querySelector('span').style.fontWeight = '600';
+            });
+            btn.classList.add('qr-style-active');
+            btn.style.background = 'rgba(14,165,233,0.12)';
+            btn.style.borderColor = 'rgba(14,165,233,0.5)';
+            btn.querySelector('span').style.color = '#0ea5e9';
+            btn.querySelector('span').style.fontWeight = '700';
+        }
+    });
+
     document.getElementById('onboard-biz-color')?.addEventListener('input', updateSimulators);
 
     bizAccentInput.addEventListener('input', (e) => {
