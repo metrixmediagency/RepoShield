@@ -831,7 +831,7 @@
             let qrCorner = (state.qrCorner && state.qrCorner !== 'theme-default') ? state.qrCorner : tp.qrCorner;
 
             // Safe fallback mappings for unsupported/legacy custom parameters (like 'circle')
-            const validQrDots = ['rounded', 'dots', 'classy', 'classy-rounded', 'classy-inversed', 'square', 'extra-rounded'];
+            const validQrDots = ['rounded', 'dots', 'classy', 'classy-inversed', 'square', 'extra-rounded'];
             if (!validQrDots.includes(qrDot)) {
                 qrDot = tp.qrDot;
             }
@@ -952,8 +952,8 @@
                     if (qrCorner === 'extra-rounded' || qrCorner === 'rounded') innerCorner = 'dot';
                     if (qrCorner === 'dot') innerCorner = 'dot';
                     
-                    // Only fall back on genuinely broken/unsupported legacy values
-                    const safeQrDot = validQrDots.includes(qrDot) ? qrDot : 'rounded';
+                    // Ensure we don't accidentally use the broken 'dots' type from old neon themes
+                    const safeQrDot = (qrDot === 'dots' || qrDot === 'classy') ? 'rounded' : qrDot;
 
                     const qrCode = new QRCodeStyling({
                         width: size, height: size, data: currentPortalUrl,
