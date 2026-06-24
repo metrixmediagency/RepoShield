@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Review Portal Demo</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- QR Code Styling Library -->
+    <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --surface: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.1);
+            --bg-color: #0f111a;
+            --text-main: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.6);
+            --font-main: 'Inter', sans-serif;
+            --font-display: 'Outfit', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Subtle animated background gradients */
+        body::before, body::after {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: 0;
+            opacity: 0.5;
+            animation: float 20s infinite alternate ease-in-out;
+        }
+
+        body::before {
+            background: linear-gradient(to right, #6366f1, #8b5cf6);
+            top: -200px;
+            left: -200px;
+        }
+
+        body::after {
+            background: linear-gradient(to right, #3b82f6, #06b6d4);
+            bottom: -200px;
+            right: -200px;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 50px) scale(1.1); }
+        }
+
+        /* Branding Top Corner */
+        .brand-header {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            z-index: 10;
+        }
+
+        .brand-header i {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .brand-header span {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #fff, #a5b4fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Main Content Container */
+        .demo-container {
+            position: relative;
+            z-index: 10;
+            max-width: 500px;
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            padding: 3rem 2rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        .header-section h1 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .header-section h1 .highlight {
+            color: var(--primary);
+        }
+
+        .header-section p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        /* QR Code Display Area */
+        .qr-display {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 250px;
+            height: 250px;
+        }
+
+        .qr-display:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.3), 0 0 40px var(--primary-glow);
+        }
+
+        /* Call to Action */
+        .instruction-box {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            padding: 1rem 1.5rem;
+            border-radius: 100px;
+            color: #e0e7ff;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .instruction-box i {
+            font-size: 1.2rem;
+            color: #818cf8;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @media (max-width: 600px) {
+            .brand-header {
+                top: 1.5rem;
+                left: 1.5rem;
+            }
+            .demo-container {
+                padding: 2.5rem 1.5rem;
+                margin-top: 3rem;
+            }
+            .header-section h1 {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="brand-header">
+        <i class="fa-solid fa-chart-line"></i>
+        <span>MetrixMedia</span>
+    </div>
+
+    <div class="demo-container">
+        <div class="header-section">
+            <h1>Live Review Portal<br><span class="highlight" id="biz-name-display">Demo</span></h1>
+            <p>Scan the code below with your phone camera to experience the 5-star routing technology.</p>
+        </div>
+
+        <div class="qr-display" id="qr-container">
+            <!-- QR code renders here -->
+        </div>
+
+        <div class="instruction-box">
+            <i class="fa-solid fa-camera"></i>
+            <span>Point your camera to test the flow</span>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const bizName = urlParams.get('name') || 'Your Business';
+            const color = urlParams.get('color') || '#6366f1';
+            const logo = urlParams.get('logo') || '';
+            const qrDot = urlParams.get('qrDot') || 'rounded';
+            const qrCorner = urlParams.get('qrCorner') || 'extra-rounded';
+
+            // Set business name in title
+            const bizNameDisplay = document.getElementById('biz-name-display');
+            if (bizNameDisplay) bizNameDisplay.textContent = bizName;
+            document.title = `${bizName} - Review Portal Demo`;
+
+            // Set primary color
+            document.documentElement.style.setProperty('--primary', color);
+            document.documentElement.style.setProperty('--primary-glow', color + '40');
+
+            // Generate Portal URL correctly
+            let currentPortalUrl = urlParams.get('portalUrl');
+            if (!currentPortalUrl) {
+                const currentParams = window.location.search;
+                currentPortalUrl = window.location.origin + window.location.pathname.replace('demo.html', 'portal.html') + currentParams;
+            }
+
+            // Determine safe styling for QR code
+            let innerCorner = 'square';
+            if (qrCorner === 'extra-rounded' || qrCorner === 'rounded') innerCorner = 'dot';
+            if (qrCorner === 'dot') innerCorner = 'dot';
+            const safeQrDot = (qrDot === 'dots' || qrDot === 'classy') ? 'rounded' : qrDot;
+
+            // Generate QR Code
+            const container = document.getElementById('qr-container');
+            const padding = 1.5 * 16; // 1.5rem padding approx
+            const size = container.clientWidth > 0 ? container.clientWidth : 200;
+
+            const qrCode = new QRCodeStyling({
+                width: size, height: size, data: currentPortalUrl,
+                image: logo !== '' ? logo : "",
+                qrOptions: { errorCorrectionLevel: 'H' },
+                dotsOptions: { color: "#000000", type: safeQrDot },
+                backgroundOptions: { color: "#ffffff" },
+                cornersSquareOptions: { type: qrCorner, color: "#000000" },
+                cornersDotOptions: { type: innerCorner, color: "#000000" }, 
+                imageOptions: { crossOrigin: "anonymous", margin: 8, imageSize: 0.25, hideBackgroundDots: true }
+            });
+
+            qrCode.append(container);
+        });
+    </script>
+</body>
+</html>
