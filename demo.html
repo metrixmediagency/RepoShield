@@ -171,6 +171,29 @@
             gap: 0.5rem;
         }
 
+        .tap-badge {
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #6366f1;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            white-space: nowrap;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+            animation: bounce 2s infinite;
+            pointer-events: none;
+            z-index: 20;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translate(-50%, 0); }
+            50% { transform: translate(-50%, -5px); }
+        }
+
         .instruction-box i {
             font-size: 1.5rem;
             color: #ffffff;
@@ -218,6 +241,7 @@
 
         <div class="qr-display" id="qr-container" style="cursor: pointer; position: relative;" title="Tap to Open Live Portal">
             <!-- QR code renders here -->
+            <div class="tap-badge">👆 Scan or Tap the code below</div>
         </div>
 
         <div class="instruction-box">

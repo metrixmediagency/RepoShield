@@ -109,7 +109,7 @@ foreach ($niche in $NicheList) {
                         $demoUrl = "https://metrixmedia.vercel.app/demo.html?name=$encodedName&theme=$Theme"
                     }
 
-                    $rawMessage = "Hey $bizName team! Sunny here from MetrixMedia. I noticed you guys have an awesome venue but you're missing out on hundreds of automated reviews. I mocked up a custom Review Portal and physical standee for your tables that forces customers to leave 5 stars, and routes complaints to your WhatsApp instead of posting publicly. Take a look at the attached concept I made for you! See the live digital demo here: $demoUrl"
+                    $rawMessage = "Hey $bizName team! Sunny here from MetrixMedia. I noticed you guys have an awesome venue but you're missing out on hundreds of automated reviews. I mocked up a custom Review Portal and physical standee for your tables that forces customers to leave 5 stars, and routes complaints to your WhatsApp instead of posting publicly. Take a look at the attached concept I made for you! See the live digital demo here (Scan or Tap the QR code!): $demoUrl"
                     
                     if ($phone -ne "") {
                         $waLink = "https://wa.me/$phone"
