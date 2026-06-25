@@ -8,7 +8,7 @@
             ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(function(ev) {
                 document.addEventListener(ev, function(e) {
                     e.preventDefault();
-                    e.stopPropagation();
+                    // We REMOVED stopPropagation() so the dropzone can actually receive the event!
                 }, false);
             });
         })();
@@ -1682,7 +1682,7 @@
                 <a href="#" class="nav-item" data-tab="kit">
                     <i class="fa-solid fa-book-open"></i> Sales Enablement
                 </a>
-                <a href="image_editor.html" target="_blank" class="nav-item">
+                <a href="#" class="nav-item" data-tab="mockup">
                     <i class="fa-solid fa-camera"></i> Image Editor
                 </a>
             </aside>
@@ -2935,8 +2935,8 @@ Interested in setting this up to see if it works?</span>
                             
                             <div id="mockup-dropzone" style="border: 2px dashed rgba(255,255,255,0.2); border-radius: 12px; padding: 3rem 2rem; text-align: center; cursor: pointer; transition: all 0.3s ease; margin-bottom: 1.5rem; background: rgba(0,0,0,0.2);">
                                 <i class="fa-solid fa-cloud-arrow-up" style="font-size: 3rem; color: #818cf8; margin-bottom: 1rem;"></i>
-                                <h4 style="margin-bottom: 0.5rem; color: white;">Drag & Drop Image Here</h4>
-                                <p style="color: var(--text-muted); font-size: 0.9rem;">or click to browse from your device</p>
+                                <h4 style="margin-bottom: 0.5rem; color: white;">Tap to Upload Image</h4>
+                                <p style="color: var(--text-muted); font-size: 0.9rem;">Select from Camera Roll/Gallery, or Drag & Drop here</p>
                                 <input type="file" id="mockup-file-input" accept="image/*" style="display: none;">
                             </div>
                             
