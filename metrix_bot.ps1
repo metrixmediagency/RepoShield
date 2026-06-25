@@ -29,7 +29,7 @@ while ($true) {
                 Write-Host "Received Command: $text" -ForegroundColor Yellow
                 
                 if ($text.ToLower() -match "hello") {
-                    $reply = "Welcome to your Metrix Command Center!`n`nTo generate leads, send a message in this format:`n`nLocation - Niches`n`nExample:`nGoa - Bars,Cafes`nMumbai - Premium Restaurants"
+                    $reply = "🤖 *Welcome to your Metrix Command Center!*`n`nTo automatically generate leads with pre-built digital demos, simply reply in this exact format:`n`n📍 *Location - Niches*`n`n*Examples:*`n✅ Goa - Bars,Cafes`n✅ Mumbai - Premium Restaurants`n`nI will do the prospecting, rendering, and script-writing for you instantly! 🚀"
                     $encReply = [uri]::EscapeDataString($reply)
                     $replyUrl = "https://api.telegram.org/bot$Token/sendMessage?chat_id=$AllowedChatId`&text=$encReply`&parse_mode=Markdown"
                     Invoke-RestMethod -Uri $replyUrl -Method Get | Out-Null

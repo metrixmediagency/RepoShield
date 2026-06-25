@@ -130,8 +130,8 @@ foreach ($niche in $NicheList) {
                     
                     # TELEGRAM PUSH NOTIFICATION
                     if ($TelegramToken -ne "" -and $TelegramChatId -ne "") {
-                        $shortCaption = "[NEW LEAD] $bizName`n[Rating] $rating Stars ($reviews Reviews)$priceStr"
-                        $longText = "[WhatsApp] $waLink`n[Instagram] $igLink`n`n[Copy/Paste Message]`n$rawMessage"
+                        $shortCaption = "🚨 NEW LEAD: $bizName`n⭐ Rating: $rating Stars ($reviews Reviews)$priceStr"
+                        $longText = "💬 WhatsApp: $waLink`n📸 Instagram: $igLink`n`n📝 COPY & PASTE SCRIPT:`n$rawMessage"
                         
                         if ($mockupSavedPath -ne "") {
                             $captionPath = "$MOCKUPS_DIR\temp_caption.txt"
