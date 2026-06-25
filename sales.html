@@ -3766,7 +3766,8 @@ Interested in setting this up to see if it works?</span>
                 const newBtn = btnGenerateDemo.cloneNode(true);
                 btnGenerateDemo.parentNode.replaceChild(newBtn, btnGenerateDemo);
                 newBtn.addEventListener('click', () => {
-                    if (mobileBreakpoint.matches) {
+                    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+                    if (isMobile) {
                         openSimOverlay();
                     } else {
                         const bizName = document.getElementById('biz-name').value.trim();
