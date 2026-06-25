@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mockup Tool</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #0d0d14;
+    color: #e2e8f0;
+    min-height: 100vh;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  /* ── Drop overlay — covers the entire iframe body ── */
+  #drop-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: rgba(59,130,246,0.18);
+    border: 3px dashed #3b82f6;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: .8rem;
+    pointer-events: none;
+  }
+  #drop-overlay.show { display: flex; }
+  #drop-overlay i { font-size: 3rem; color: #3b82f6; }
+  #drop-overlay p { font-size: 1.3rem; font-weight: 700; color: #fff; }
+
+  /* ── Upload zone ── */
+  #upload-zone {
+    border: 2px dashed rgba(255,255,255,0.18);
+    border-radius: 14px;
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    background: rgba(0,0,0,0.25);
+    transition: all .25s;
+    user-select: none;
+  }
+  #upload-zone:hover, #upload-zone.over {
+    border-color: #3b82f6;
+    background: rgba(59,130,246,0.09);
+  }
+  #upload-zone i { font-size: 2.6rem; color: #818cf8; display: block; margin-bottom: .8rem; }
+  #upload-zone h3 { font-size: 1.05rem; margin-bottom: .3rem; }
+  #upload-zone p { color: #64748b; font-size: .82rem; }
+
+  /* ── Status ── */
+  #status {
+    display: none;
+    background: rgba(59,130,246,0.12);
+    border: 1px solid rgba(59,130,246,0.3);
+    border-radius: 10px;
+    padding: .8rem 1rem;
+    font-size: .88rem;
+    color: #93c5fd;
+    gap: .5rem;
+    align-items: center;
+  }
+  #status.show { display: flex; }
+
+  /* ── Canvas preview ── */
+  #preview-wrap {
+    display: none;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  #preview-wrap.show { display: flex; }
+  canvas {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.55);
+  }
+
+  /* ── Buttons ── */
+  .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    padding: .85rem 1.4rem;
+    border: none;
+    border-radius: 10px;
+    font-size: .95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .2s;
+    width: 100%;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg,#4f46e5,#3b82f6);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(79,70,229,.4);
+  }
+  .btn-primary:hover { transform: translateY(-2px); }
+  .btn-secondary {
+    background: rgba(255,255,255,.06);
+    color: #cbd5e1;
+    border: 1px solid rgba(255,255,255,.1);
+  }
+  .btn-secondary:hover { background: rgba(255,255,255,.1); }
+</style>
+</head>
+<body>
+
+<!-- Full-body drop overlay -->
+<div id="drop-overlay">
+  <i class="fa-solid fa-cloud-arrow-up"></i>
+  <p>Release to Generate Mockup</p>
+</div>
+
+<!-- Upload zone (also the click target) -->
+<div id="upload-zone">
+  <i class="fa-solid fa-image"></i>
+  <h3>Tap to Upload / Drag &amp; Drop</h3>
+  <p>Select photo from Gallery or Camera Roll</p>
+  <input type="file" id="file-input" accept="image/*" style="display:none">
+</div>
+
+<!-- Processing status -->
+<div id="status">
+  <i class="fa-solid fa-spinner fa-spin"></i>
+  <span>Generating your mockup…</span>
+</div>
+
+<!-- Preview + download -->
+<div id="preview-wrap">
+  <canvas id="canvas"></canvas>
+  <button class="btn btn-primary" id="btn-download">
+    <i class="fa-solid fa-download"></i> Download Mockup
+  </button>
+  <button class="btn btn-secondary" id="btn-reset">
+    <i class="fa-solid fa-rotate-left"></i> Upload Another
+  </button>
+</div>
+
+<script src="standee_asset.js"></script>
+<script>
+(function() {
+  var zone       = document.getElementById('upload-zone');
+  var fileInput  = document.getElementById('file-input');
+  var status     = document.getElementById('status');
+  var previewWrap= document.getElementById('preview-wrap');
+  var canvas     = document.getElementById('canvas');
+  var btnDL      = document.getElementById('btn-download');
+  var btnReset   = document.getElementById('btn-reset');
+  var overlay    = document.getElementById('drop-overlay');
+  var dragCount  = 0;
+
+  // ── Prevent browser opening file in new tab (global on document) ──
+  document.addEventListener('dragover',  function(e){ e.preventDefault(); });
+  document.addEventListener('drop',      function(e){ e.preventDefault(); });
+
+  // ── Full-body drag visual ──
+  document.addEventListener('dragenter', function(e){
+    e.preventDefault();
+    dragCount++;
+    overlay.classList.add('show');
+  });
+  document.addEventListener('dragleave', function(e){
+    e.preventDefault();
+    dragCount--;
+    if (dragCount <= 0){ dragCount = 0; overlay.classList.remove('show'); }
+  });
+
+  // ── Drop anywhere on the page ──
+  document.addEventListener('drop', function(e){
+    e.preventDefault();
+    dragCount = 0;
+    overlay.classList.remove('show');
+    var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    if (f) process(f);
+  });
+
+  // ── Click / tap to browse ──
+  zone.addEventListener('click', function(){ fileInput.click(); });
+  fileInput.addEventListener('change', function(){
+    if (this.files && this.files[0]) process(this.files[0]);
+  });
+
+  // ── Zone hover state (dragover on zone itself) ──
+  zone.addEventListener('dragover', function(){ zone.classList.add('over'); });
+  zone.addEventListener('dragleave', function(){ zone.classList.remove('over'); });
+  zone.addEventListener('drop', function(){ zone.classList.remove('over'); });
+
+  // ── Core ──
+  function process(file) {
+    if (!file.type.match('image.*')) { alert('Please select an image file.'); return; }
+
+    zone.style.display = 'none';
+    status.classList.add('show');
+    previewWrap.classList.remove('show');
+
+    var reader = new FileReader();
+    reader.onerror = function(){ showError('Could not read file.'); };
+    reader.onload = function(ev) {
+      var bg = new Image();
+      bg.onerror = function(){ showError('Could not load image.'); };
+      bg.onload = function() {
+        var ctx = canvas.getContext('2d');
+        canvas.width  = bg.width;
+        canvas.height = bg.height;
+
+        // 1 – Background
+        ctx.drawImage(bg, 0, 0);
+
+        // 2 – Dark overlay (matches PowerShell engine)
+        ctx.fillStyle = 'rgba(10,10,15,0.82)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // 3 – Standee overlay
+        if (typeof STANDEE_B64 === 'undefined' || !STANDEE_B64) {
+          showError('Standee asset not loaded. Refresh and try again.');
+          return;
+        }
+        var fg = new Image();
+        fg.onerror = function(){ showError('Standee image failed to decode.'); };
+        fg.onload = function() {
+          var fgW = Math.floor(bg.width * 0.9);
+          var fgH = Math.floor(fg.height * (fgW / fg.width));
+          var x   = Math.floor((bg.width  - fgW) / 2);
+          var y   = Math.floor((bg.height - fgH) / 2 + bg.height * 0.05);
+          ctx.drawImage(fg, x, y, fgW, fgH);
+
+          status.classList.remove('show');
+          previewWrap.classList.add('show');
+        };
+        fg.src = STANDEE_B64;
+      };
+      bg.src = ev.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function showError(msg) {
+    status.classList.remove('show');
+    zone.style.display = '';
+    alert('Error: ' + msg);
+  }
+
+  // ── Download ──
+  btnDL.addEventListener('click', function(){
+    var a = document.createElement('a');
+    a.href = canvas.toDataURL('image/jpeg', 0.95);
+    a.download = 'Mockup_Custom.jpg';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  });
+
+  // ── Reset ──
+  btnReset.addEventListener('click', function(){
+    previewWrap.classList.remove('show');
+    status.classList.remove('show');
+    zone.style.display = '';
+    fileInput.value = '';
+    var ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  });
+})();
+</script>
+</body>
+</html>
