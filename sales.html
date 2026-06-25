@@ -2924,17 +2924,49 @@ Interested in setting this up to see if it works?</span>
 
                 <!-- Section 5: Manual Mockup Editor -->
                 <section id="sec-mockup" class="sales-section-content" style="display: none;">
-                    <h2 class="gradient-text" style="margin-bottom: 1rem;">Image Mockup Editor</h2>
-                    <p style="color: var(--text-muted); margin-bottom: 1.2rem; font-size: 0.9rem;">
-                        <i class="fa-solid fa-circle-info" style="color: #818cf8;"></i>
-                        Tap the zone below to select a photo, or drag &amp; drop an image onto it. The engine will automatically apply the cinematic overlay and composite the 3D standee.
-                    </p>
-                    <iframe
-                        src="mockup_tool.html"
-                        style="width:100%; height:700px; border:none; border-radius:16px; background:#0d0d14;"
-                        allow="clipboard-write"
-                        title="Mockup Editor">
-                    </iframe>
+                    <h2 class="gradient-text" style="margin-bottom: 1.5rem;">Manual Image Mockup Editor</h2>
+                    <div class="grid-layout">
+                        <!-- Left Column: Dropzone -->
+                        <div class="glass-card form-column">
+                            <div class="card-header">
+                                <i class="fa-solid fa-camera text-indigo"></i>
+                                <h3>Upload Background</h3>
+                            </div>
+                            
+                            <div id="mockup-dropzone" style="border: 2px dashed rgba(255,255,255,0.2); border-radius: 12px; padding: 3rem 2rem; text-align: center; cursor: pointer; transition: all 0.3s ease; margin-bottom: 1.5rem; background: rgba(0,0,0,0.2); position: relative;">
+                                <i class="fa-solid fa-cloud-arrow-up" style="font-size: 3rem; color: #818cf8; margin-bottom: 1rem;"></i>
+                                <h4 style="margin-bottom: 0.5rem; color: white;">Tap to Upload Image</h4>
+                                <p style="color: var(--text-muted); font-size: 0.9rem;">Select from Camera Roll/Gallery, or Drag & Drop anywhere</p>
+                                <input type="file" id="mockup-file-input" accept="image/*" style="display: none;">
+                            </div>
+                            <!-- Full screen drag overlay to guarantee drop interception -->
+                            <div id="drag-overlay" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 9999; background: rgba(59,130,246,0.2); border: 4px dashed #3b82f6; align-items: center; justify-content: center; pointer-events: none;">
+                                <div style="text-align: center;">
+                                    <i class="fa-solid fa-cloud-arrow-up" style="font-size: 5rem; color: #3b82f6; margin-bottom: 1rem;"></i>
+                                    <h2 style="color: white; font-size: 2rem;">Drop anywhere to generate mockup!</h2>
+                                </div>
+                            </div>
+                            
+                            <div class="input-tip" style="margin-bottom: 1.5rem;">
+                                <i class="fa-solid fa-circle-info"></i> The engine will automatically darken the image and composite the 3D Standee Graphic perfectly in the center.
+                            </div>
+                            
+                            <button id="btn-download-mockup" class="btn btn-primary" style="width: 100%; justify-content: center; display: none;">
+                                <i class="fa-solid fa-download"></i> Download Graphic
+                            </button>
+                        </div>
+                        
+                        <!-- Right Column: Canvas Preview -->
+                        <div class="preview-column">
+                            <div class="simulator-wrapper" style="padding: 1rem; background: rgba(0,0,0,0.4); border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); min-height: 400px; display: flex; align-items: center; justify-content: center;">
+                                <canvas id="mockup-canvas" style="max-width: 100%; max-height: 600px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); display: none;"></canvas>
+                                <div id="mockup-placeholder" style="color: rgba(255,255,255,0.3); text-align: center;">
+                                    <i class="fa-solid fa-image" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                                    <p>Preview will appear here</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </section>
             </main>
         </div>
@@ -3800,26 +3832,45 @@ Interested in setting this up to see if it works?</span>
                 // Bail cleanly if any element is missing – no crash
                 if (!mockupDropzone || !mockupFileInput || !mockupCanvas) return;
 
+                var overlay = document.getElementById('drag-overlay');
+                var dragCounter = 0;
+
                 // Open file picker on tap/click (works on mobile too)
                 mockupDropzone.addEventListener('click', function() { mockupFileInput.click(); });
 
-                // Dropzone drag visual feedback
-                mockupDropzone.addEventListener('dragover', function(e) {
+                // Global drag events to show full-screen overlay
+                window.addEventListener('dragenter', function(e) {
                     e.preventDefault();
-                    mockupDropzone.style.borderColor = '#3b82f6';
-                    mockupDropzone.style.background  = 'rgba(59,130,246,0.1)';
-                });
-                mockupDropzone.addEventListener('dragleave', function() {
-                    mockupDropzone.style.borderColor = 'rgba(255,255,255,0.2)';
-                    mockupDropzone.style.background  = 'rgba(0,0,0,0.2)';
-                });
-                mockupDropzone.addEventListener('drop', function(e) {
+                    dragCounter++;
+                    if (document.getElementById('sec-mockup').style.display !== 'none') {
+                        overlay.style.display = 'flex';
+                    }
+                }, false);
+                
+                window.addEventListener('dragleave', function(e) {
                     e.preventDefault();
-                    mockupDropzone.style.borderColor = 'rgba(255,255,255,0.2)';
-                    mockupDropzone.style.background  = 'rgba(0,0,0,0.2)';
-                    var files = e.dataTransfer && e.dataTransfer.files;
-                    if (files && files[0]) buildMockup(files[0]);
-                });
+                    dragCounter--;
+                    if (dragCounter <= 0) {
+                        dragCounter = 0;
+                        overlay.style.display = 'none';
+                    }
+                }, false);
+
+                window.addEventListener('dragover', function(e) {
+                    e.preventDefault(); // Crucial to allow drop
+                }, false);
+
+                window.addEventListener('drop', function(e) {
+                    e.preventDefault();
+                    dragCounter = 0;
+                    overlay.style.display = 'none';
+                    
+                    // Only process if the mockup editor is visible
+                    if (document.getElementById('sec-mockup').style.display !== 'none') {
+                        var files = e.dataTransfer && e.dataTransfer.files;
+                        if (files && files[0]) buildMockup(files[0]);
+                    }
+                }, false);
 
                 // File picker (mobile gallery / desktop browse)
                 mockupFileInput.addEventListener('change', function(e) {
