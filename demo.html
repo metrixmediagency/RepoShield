@@ -138,23 +138,26 @@
             line-height: 1.5;
         }
 
-        /* QR Code Display Area */
+        /* QR Code Display Area - Glassmorphic */
         .qr-display {
-            background: white;
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.9);
             padding: 1.5rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2), inset 0 0 10px rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 250px;
-            height: 250px;
+            width: 260px;
+            height: 260px;
         }
 
         .qr-display:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.3), 0 0 40px var(--primary-glow);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 40px var(--primary-glow);
         }
 
         /* Call to Action */
