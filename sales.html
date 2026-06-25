@@ -3706,7 +3706,16 @@ Interested in setting this up to see if it works?</span>
                     return;
                 }
 
-                updateSimulators();
+                // Update overlay mock visuals directly instead of the undefined updateSimulators()
+                const ovlPortalName = document.getElementById('ovl-portal-name');
+                const ovlPortalHeader = document.getElementById('ovl-portal-header');
+                const ovlPortalBtn = document.getElementById('ovl-portal-btn');
+                if (ovlPortalName) ovlPortalName.textContent = bizName;
+                if (ovlPortalHeader) ovlPortalHeader.style.borderBottomColor = color;
+                if (ovlPortalBtn) {
+                    ovlPortalBtn.style.backgroundColor = color;
+                    ovlPortalBtn.style.boxShadow = `0 4px 12px ${color}4D`; // 30% opacity hex
+                }
 
                 const theme = document.getElementById('flyer-theme') ? document.getElementById('flyer-theme').value : 'theme-onyx';
                 const qrDot = document.getElementById('qr-dot-style') ? document.getElementById('qr-dot-style').value : 'rounded';
