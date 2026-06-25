@@ -3641,6 +3641,13 @@ Interested in setting this up to see if it works?</span>
                 if (e.key === 'Escape') closeDrawer();
             });
 
+            const btnStepNext = document.getElementById('btn-step-next');
+            const btnStepBack = document.getElementById('btn-step-back');
+            const onboardStep1 = document.getElementById('onboard-step-1');
+            const onboardStep2 = document.getElementById('onboard-step-2');
+            const stepDot1 = document.getElementById('step-dot-1');
+            const stepDot2 = document.getElementById('step-dot-2');
+            const stepLine1 = document.getElementById('step-line-1');
 
             if (btnStepNext) {
                 btnStepNext.addEventListener('click', () => {
