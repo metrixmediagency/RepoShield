@@ -1,7 +1,13 @@
-$Token = "8410914706:AAGsJYGlOrzmNVzIsg4fhwVeYgWrI2GwDws"
-$AllowedChatId = "8979163302"
-$ScriptPath = "C:\Users\sunny\.gemini\antigravity\scratch\MetrixMedia\auto_campaign.ps1"
+# Load secrets from environment variables (Do NOT hardcode tokens here)
+$Token = $env:TELEGRAM_BOT_TOKEN
+$AllowedChatId = $env:TELEGRAM_CHAT_ID
 
+if (-not $Token -or -not $AllowedChatId) {
+    Write-Error "CRITICAL: TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID environment variables are missing."
+    exit 1
+}
+
+$ScriptPath = "C:\Users\sunny\.gemini\antigravity\scratch\MetrixMedia\auto_campaign.ps1"
 Write-Host "==========================================" -ForegroundColor Cyan
 Write-Host "  MetrixMedia Telegram Bot Online" -ForegroundColor Cyan
 Write-Host "  Listening for commands on your phone..." -ForegroundColor Cyan

@@ -7,7 +7,9 @@ param (
     [string]$TelegramChatId = ""
 )
 
-$API_KEY = "e14b3d7d90949177e20301eae605840766b2ae3bdc267e72fc8ad5d9e1688806"
+$API_KEY = $env:SERP_API_KEY
+if (-not $API_KEY) { Write-Error "CRITICAL: SERP_API_KEY environment variable missing."; exit 1 }
+
 $NicheList = $Niches -split ","
 $WORKSPACE_DIR = "C:\Users\sunny\.gemini\antigravity\scratch\MetrixMedia"
 $ARTIFACTS_DIR = "C:\Users\sunny\.gemini\antigravity\brain\aa799871-3906-4e77-80be-ce008463a5a8"
