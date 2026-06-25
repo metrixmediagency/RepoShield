@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        // CRITICAL: Block browser from opening dropped files in a new tab.
+        // Must run immediately, before DOMContentLoaded.
+        (function() {
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(function(ev) {
+                document.addEventListener(ev, function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }, false);
+            });
+        })();
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sales Partner Portal - MetrixMedia</title>
@@ -1670,7 +1682,7 @@
                 <a href="#" class="nav-item" data-tab="kit">
                     <i class="fa-solid fa-book-open"></i> Sales Enablement
                 </a>
-                <a href="#" class="nav-item" data-tab="mockup">
+                <a href="image_editor.html" target="_blank" class="nav-item">
                     <i class="fa-solid fa-camera"></i> Image Editor
                 </a>
             </aside>
@@ -3799,6 +3811,113 @@ Interested in setting this up to see if it works?</span>
                     if (salesKitSelectMobile) salesKitSelectMobile.value = panelId;
                 });
             });
+
+            // ==========================================
+            // MANUAL MOCKUP EDITOR LOGIC
+            // ==========================================
+            const mockupDropzone = document.getElementById('mockup-dropzone');
+            const mockupFileInput = document.getElementById('mockup-file-input');
+            const mockupCanvas = document.getElementById('mockup-canvas');
+            const mockupCtx = mockupCanvas.getContext('2d');
+            const mockupPlaceholder = document.getElementById('mockup-placeholder');
+            const btnDownloadMockup = document.getElementById('btn-download-mockup');
+
+            if (mockupDropzone) {
+                // Global prevent default to completely stop browser from opening dropped files in a new tab
+                ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                    window.addEventListener(eventName, (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }, false);
+                });
+
+                // Open file selector on click
+                mockupDropzone.addEventListener('click', () => mockupFileInput.click());
+
+                // Drag & Drop visual feedback
+                mockupDropzone.addEventListener('dragenter', (e) => {
+                    e.preventDefault();
+                    mockupDropzone.style.borderColor = '#3b82f6';
+                    mockupDropzone.style.background = 'rgba(59, 130, 246, 0.1)';
+                });
+                mockupDropzone.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    mockupDropzone.style.borderColor = '#3b82f6';
+                    mockupDropzone.style.background = 'rgba(59, 130, 246, 0.1)';
+                });
+                mockupDropzone.addEventListener('dragleave', (e) => {
+                    e.preventDefault();
+                    mockupDropzone.style.borderColor = 'rgba(255,255,255,0.2)';
+                    mockupDropzone.style.background = 'rgba(0,0,0,0.2)';
+                });
+                mockupDropzone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    mockupDropzone.style.borderColor = 'rgba(255,255,255,0.2)';
+                    mockupDropzone.style.background = 'rgba(0,0,0,0.2)';
+                    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                        processMockupImage(e.dataTransfer.files[0]);
+                    }
+                });
+                mockupFileInput.addEventListener('change', (e) => {
+                    if (e.target.files && e.target.files[0]) {
+                        processMockupImage(e.target.files[0]);
+                    }
+                });
+
+                function processMockupImage(file) {
+                    if (!file.type.match('image.*')) {
+                        alert("Please upload a valid image file.");
+                        return;
+                    }
+
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        const bgImg = new Image();
+                        bgImg.onload = function() {
+                            // Set canvas to exact dimensions of background image
+                            mockupCanvas.width = bgImg.width;
+                            mockupCanvas.height = bgImg.height;
+
+                            // 1. Draw the background image
+                            mockupCtx.drawImage(bgImg, 0, 0);
+
+                            // 2. Apply the dark cinematic overlay
+                            mockupCtx.fillStyle = 'rgba(10, 10, 15, 0.82)';
+                            mockupCtx.fillRect(0, 0, mockupCanvas.width, mockupCanvas.height);
+
+                            // 3. Load the STANDEE_B64 asset
+                            const standeeImg = new Image();
+                            standeeImg.onload = function() {
+                                const fgWidth = Math.floor(bgImg.width * 0.9);
+                                const ratio = fgWidth / standeeImg.width;
+                                const fgHeight = Math.floor(standeeImg.height * ratio);
+                                const x = Math.floor((bgImg.width - fgWidth) / 2);
+                                const y = Math.floor(((bgImg.height - fgHeight) / 2) + (bgImg.height * 0.05));
+
+                                mockupCtx.drawImage(standeeImg, x, y, fgWidth, fgHeight);
+
+                                mockupPlaceholder.style.display = 'none';
+                                mockupCanvas.style.display = 'block';
+                                btnDownloadMockup.style.display = 'flex';
+                            };
+                            standeeImg.src = STANDEE_B64;
+                        };
+                        bgImg.src = event.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+
+                // Handle Download Button
+                btnDownloadMockup.addEventListener('click', () => {
+                    const dataURL = mockupCanvas.toDataURL('image/jpeg', 0.95);
+                    const a = document.createElement('a');
+                    a.href = dataURL;
+                    a.download = 'Mockup_Custom.jpg';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                });
+            }
         });
 
 
