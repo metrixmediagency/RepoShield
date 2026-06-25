@@ -2933,13 +2933,22 @@ Interested in setting this up to see if it works?</span>
                                 <h3>Upload Background</h3>
                             </div>
                             
-                            <div id="mockup-dropzone" style="border: 2px dashed rgba(255,255,255,0.2); border-radius: 12px; padding: 3rem 2rem; text-align: center; transition: all 0.3s ease; margin-bottom: 1.5rem; background: rgba(0,0,0,0.2); position: relative; overflow: hidden;">
-                                <i class="fa-solid fa-cloud-arrow-up" style="font-size: 3rem; color: #818cf8; margin-bottom: 1rem; pointer-events: none;"></i>
-                                <h4 style="margin-bottom: 0.5rem; color: white; pointer-events: none;">Tap to Upload Image</h4>
-                                <p style="color: var(--text-muted); font-size: 0.9rem; pointer-events: none;">Select from Camera Roll, or Drag &amp; Drop here</p>
-                                <!-- Bulletproof native drag and drop: an invisible input covering the whole zone -->
-                                <input type="file" id="mockup-file-input" accept="image/*" style="opacity: 0; position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height: 100%; cursor: pointer; z-index: 10;">
+                            <div id="mockup-dropzone" style="border: 2px dashed rgba(255,255,255,0.2); border-radius: 12px; padding: 2rem; text-align: center; transition: all 0.3s ease; margin-bottom: 1rem; background: rgba(0,0,0,0.2);">
+                                <i class="fa-solid fa-cloud-arrow-up" style="font-size: 2.5rem; color: #818cf8; margin-bottom: 0.5rem; pointer-events: none;"></i>
+                                <h4 style="margin-bottom: 0.25rem; color: white; pointer-events: none;">Drag &amp; Drop Image Here</h4>
+                                <p style="color: var(--text-muted); font-size: 0.85rem; pointer-events: none; margin-bottom: 0;">Drop your photo directly into this box</p>
                             </div>
+                            
+                            <div style="text-align: center; margin-bottom: 1.5rem;">
+                                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.75rem;">— OR —</p>
+                                <button id="btn-mockup-choose" class="btn btn-secondary" style="width: 100%; justify-content: center;">
+                                    <i class="fa-solid fa-folder-open"></i> Choose File
+                                </button>
+                                <input type="file" id="mockup-file-input" accept="image/*" style="display: none;">
+                            </div>
+                            
+                            <!-- Debug status text to figure out what is failing -->
+                            <div id="mockup-status" style="color: #ef4444; font-size: 0.9rem; margin-bottom: 1rem; text-align: center; font-weight: bold;"></div>
                             
                             <div class="input-tip" style="margin-bottom: 1.5rem;">
                                 <i class="fa-solid fa-circle-info"></i> The engine will automatically darken the image and composite the 3D Standee Graphic perfectly in the center.
@@ -3819,67 +3828,125 @@ Interested in setting this up to see if it works?</span>
             (function() {
                 var mockupDropzone    = document.getElementById('mockup-dropzone');
                 var mockupFileInput  = document.getElementById('mockup-file-input');
+                var btnMockupChoose  = document.getElementById('btn-mockup-choose');
                 var mockupCanvas     = document.getElementById('mockup-canvas');
                 var mockupPlaceholder= document.getElementById('mockup-placeholder');
                 var btnDownloadMockup= document.getElementById('btn-download-mockup');
+                var mockupStatus     = document.getElementById('mockup-status');
 
-                // Bail cleanly if any element is missing – no crash
+                // Bail cleanly if any element is missing
                 if (!mockupDropzone || !mockupFileInput || !mockupCanvas) return;
 
-                // Visual feedback when dragging natively over the invisible input
-                mockupFileInput.addEventListener('dragenter', function() {
+                function setStatus(msg, isError = false) {
+                    if (!mockupStatus) return;
+                    mockupStatus.textContent = msg;
+                    mockupStatus.style.color = isError ? '#ef4444' : '#10b981'; // red for error, green for success
+                }
+
+                // Choose File Button
+                if (btnMockupChoose) {
+                    btnMockupChoose.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        mockupFileInput.click();
+                    });
+                }
+
+                // Standard Javascript Drag and Drop
+                mockupDropzone.addEventListener('dragenter', function(e) {
+                    e.preventDefault(); e.stopPropagation();
                     mockupDropzone.style.borderColor = '#3b82f6';
                     mockupDropzone.style.background = 'rgba(59,130,246,0.1)';
                 });
-                mockupFileInput.addEventListener('dragleave', function() {
+                mockupDropzone.addEventListener('dragleave', function(e) {
+                    e.preventDefault(); e.stopPropagation();
                     mockupDropzone.style.borderColor = 'rgba(255,255,255,0.2)';
                     mockupDropzone.style.background = 'rgba(0,0,0,0.2)';
                 });
-                mockupFileInput.addEventListener('drop', function() {
+                mockupDropzone.addEventListener('dragover', function(e) {
+                    e.preventDefault(); e.stopPropagation();
+                    mockupDropzone.style.borderColor = '#3b82f6';
+                    mockupDropzone.style.background = 'rgba(59,130,246,0.1)';
+                });
+                mockupDropzone.addEventListener('drop', function(e) {
+                    e.preventDefault(); e.stopPropagation();
                     mockupDropzone.style.borderColor = 'rgba(255,255,255,0.2)';
                     mockupDropzone.style.background = 'rgba(0,0,0,0.2)';
+                    
+                    if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+                        buildMockup(e.dataTransfer.files[0]);
+                    } else {
+                        setStatus("Drop failed: No files detected by browser.", true);
+                    }
                 });
 
-                // File picker (mobile gallery / desktop browse)
+                // File picker (Choose File)
                 mockupFileInput.addEventListener('change', function(e) {
-                    if (e.target.files && e.target.files[0]) buildMockup(e.target.files[0]);
+                    if (e.target.files && e.target.files.length > 0) {
+                        buildMockup(e.target.files[0]);
+                    }
                 });
 
                 function buildMockup(file) {
-                    if (!file.type.match('image.*')) { alert('Please select an image file.'); return; }
+                    setStatus("Processing file...");
+                    if (!file.type.match('image.*')) { 
+                        setStatus('Error: Please select an image file.', true); 
+                        return; 
+                    }
 
                     var reader = new FileReader();
                     reader.onload = function(ev) {
+                        setStatus("Image loaded. Rendering background...");
                         var bgImg = new Image();
                         bgImg.onload = function() {
-                            var ctx = mockupCanvas.getContext('2d');
-                            mockupCanvas.width  = bgImg.width;
-                            mockupCanvas.height = bgImg.height;
+                            try {
+                                var ctx = mockupCanvas.getContext('2d');
+                                mockupCanvas.width  = bgImg.width;
+                                mockupCanvas.height = bgImg.height;
 
-                            // 1. Background
-                            ctx.drawImage(bgImg, 0, 0);
+                                // 1. Background
+                                ctx.drawImage(bgImg, 0, 0);
 
-                            // 2. Dark cinematic overlay
-                            ctx.fillStyle = 'rgba(10,10,15,0.82)';
-                            ctx.fillRect(0, 0, mockupCanvas.width, mockupCanvas.height);
+                                // 2. Dark cinematic overlay
+                                ctx.fillStyle = 'rgba(10,10,15,0.82)';
+                                ctx.fillRect(0, 0, mockupCanvas.width, mockupCanvas.height);
 
-                            // 3. Standee composite
-                            var standee = new Image();
-                            standee.onload = function() {
-                                var fgW = Math.floor(bgImg.width * 0.9);
-                                var fgH = Math.floor(standee.height * (fgW / standee.width));
-                                var x   = Math.floor((bgImg.width  - fgW) / 2);
-                                var y   = Math.floor((bgImg.height - fgH) / 2 + bgImg.height * 0.05);
-                                ctx.drawImage(standee, x, y, fgW, fgH);
+                                setStatus("Rendering Standee Graphic...");
+                                
+                                // 3. Standee composite
+                                var standee = new Image();
+                                standee.onload = function() {
+                                    var fgW = Math.floor(bgImg.width * 0.9);
+                                    var fgH = Math.floor(standee.height * (fgW / standee.width));
+                                    var x   = Math.floor((bgImg.width  - fgW) / 2);
+                                    var y   = Math.floor((bgImg.height - fgH) / 2 + bgImg.height * 0.05);
+                                    ctx.drawImage(standee, x, y, fgW, fgH);
 
-                                if (mockupPlaceholder)  mockupPlaceholder.style.display = 'none';
-                                mockupCanvas.style.display   = 'block';
-                                if (btnDownloadMockup) btnDownloadMockup.style.display = 'flex';
-                            };
-                            standee.onerror = function() { alert('Standee asset failed to load. Check standee_asset.js.'); };
-                            standee.src = (typeof STANDEE_B64 !== 'undefined') ? STANDEE_B64 : '';
+                                    if (mockupPlaceholder)  mockupPlaceholder.style.display = 'none';
+                                    mockupCanvas.style.display   = 'block';
+                                    if (btnDownloadMockup) btnDownloadMockup.style.display = 'flex';
+                                    
+                                    setStatus("Success! Mockup Generated.", false);
+                                };
+                                standee.onerror = function() { 
+                                    setStatus('Error: Standee asset (STANDEE_B64) failed to load into canvas!', true);
+                                };
+                                
+                                if (typeof STANDEE_B64 === 'undefined' || !STANDEE_B64) {
+                                    setStatus('Error: STANDEE_B64 is undefined. Check standee_asset.js.', true);
+                                } else {
+                                    standee.src = STANDEE_B64;
+                                }
+                            } catch (err) {
+                                setStatus("Error during rendering: " + err.message, true);
+                            }
+                        };
+                        bgImg.onerror = function() {
+                            setStatus("Error: Selected background image is corrupted or unsupported.", true);
                         };
                         bgImg.src = ev.target.result;
+                    };
+                    reader.onerror = function() {
+                        setStatus("Error reading file data.", true);
                     };
                     reader.readAsDataURL(file);
                 }
