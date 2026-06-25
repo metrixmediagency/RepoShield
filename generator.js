@@ -156,6 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggleButtons = document.querySelectorAll('.toggle-btn');
     const previewMobileWrapper = document.getElementById('preview-mobile-wrapper');
     const previewFlyerWrapper = document.getElementById('preview-flyer-wrapper');
+    const previewDemoWrapper = document.getElementById('preview-demo-wrapper');
 
     toggleButtons.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -164,11 +165,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const previewType = btn.getAttribute('data-preview');
             if (previewType === 'mobile') {
-                previewMobileWrapper.style.display = 'flex';
-                previewFlyerWrapper.style.display = 'none';
-            } else {
-                previewMobileWrapper.style.display = 'none';
-                previewFlyerWrapper.style.display = 'flex';
+                if(previewMobileWrapper) previewMobileWrapper.style.display = 'flex';
+                if(previewFlyerWrapper) previewFlyerWrapper.style.display = 'none';
+                if(previewDemoWrapper) previewDemoWrapper.style.display = 'none';
+            } else if (previewType === 'flyer') {
+                if(previewMobileWrapper) previewMobileWrapper.style.display = 'none';
+                if(previewFlyerWrapper) previewFlyerWrapper.style.display = 'flex';
+                if(previewDemoWrapper) previewDemoWrapper.style.display = 'none';
+            } else if (previewType === 'demo') {
+                if(previewMobileWrapper) previewMobileWrapper.style.display = 'none';
+                if(previewFlyerWrapper) previewFlyerWrapper.style.display = 'none';
+                if(previewDemoWrapper) previewDemoWrapper.style.display = 'flex';
             }
         });
     });
@@ -460,6 +467,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const newPortalSrc = `${baseLocation}/portal.html?${params.toString()}`;
         const newFlyerSrc = `${baseLocation}/flyer.html?${params.toString()}`;
+        const newDemoSrc = `${baseLocation}/demo.html?${params.toString()}`;
 
         // To prevent flickering and race conditions, only reload the iframe src if campaign type changes or it hasn't been set yet
         const currentTypeKey = `last-type-${activeCampaignType}`;
@@ -483,6 +491,12 @@ document.addEventListener('DOMContentLoaded', () => {
             adminIframe.src = newFlyerSrc;
             adminIframe.setAttribute('data-last-type', currentTypeKey);
             adminIframe.setAttribute('data-last-src', newFlyerSrc);
+        }
+        const desktopLiveDemo = document.getElementById('desktop-live-demo');
+        if (desktopLiveDemo && (desktopLiveDemo.getAttribute('data-last-type') !== currentTypeKey || !desktopLiveDemo.src || desktopLiveDemo.src.includes('about:blank'))) {
+            desktopLiveDemo.src = newDemoSrc;
+            desktopLiveDemo.setAttribute('data-last-type', currentTypeKey);
+            desktopLiveDemo.setAttribute('data-last-src', newDemoSrc);
         }
     }
 

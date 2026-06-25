@@ -5,17 +5,18 @@ import os
 
 # --- CONFIGURATION ---
 API_KEY = "e14b3d7d90949177e20301eae605840766b2ae3bdc267e72fc8ad5d9e1688806"  # We need this!
-LOCATION = "Goa, India"    # e.g., "Mumbai", "Austin, TX", "London"
+LOCATION = "Mumbai, India"    # Setting to a major city for better Maps results
 
-# The niches we agreed on (including my suggestions and your additions):
+# The niches we agreed on (excluding ecom since Maps is for local physical stores):
 NICHES = [
+    "Doctors",
     "Dentists",
-    "Auto Repair",
-    "Plumbers",
-    "Roofers",
+    "Cafes",
+    "Bars",
     "Restaurants",
-    "Nike store",
-    "Bata store",
+    "Salons",
+    "Spas",
+    "Gyms"
 ]
 
 def search_google_maps(query, api_key):
@@ -61,14 +62,18 @@ def process_results(data, niche):
                 "Website": result.get("website", "N/A"),
                 "Address": result.get("address", "N/A"),
                 "Maps Link": "N/A",
+                "Image URL": result.get("thumbnail", "N/A")
             }
             
-            # formatting maps link if GPS coordinates exist
-            gps = result.get("gps_coordinates", {})
-            if gps:
-                lat = gps.get("latitude")
-                lng = gps.get("longitude")
-                lead["Maps Link"] = f"https://www.google.com/maps/place/{lat},{lng}"
+            # formatting maps link if Place ID exists (the gold standard for reviews)
+            if result.get("place_id"):
+                lead["Maps Link"] = f"https://search.google.com/local/writereview?placeid={result['place_id']}"
+            else:
+                gps = result.get("gps_coordinates", {})
+                if gps:
+                    lat = gps.get("latitude")
+                    lng = gps.get("longitude")
+                    lead["Maps Link"] = f"https://www.google.com/maps/place/{lat},{lng}"
                 
             leads.append(lead)
     return leads

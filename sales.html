@@ -1670,6 +1670,9 @@
                 <a href="#" class="nav-item" data-tab="kit">
                     <i class="fa-solid fa-book-open"></i> Sales Enablement
                 </a>
+                <a href="#" class="nav-item" data-tab="mockup">
+                    <i class="fa-solid fa-camera"></i> Image Editor
+                </a>
             </aside>
 
             <!-- Main Content Area -->
@@ -2009,6 +2012,9 @@
                                 <button class="toggle-btn active" data-preview="mobile">
                                     <i class="fa-solid fa-mobile-screen-button"></i> Mobile Portal Gater
                                 </button>
+                                <button class="toggle-btn" data-preview="demo" id="btn-demo-toggle">
+                                    <i class="fa-solid fa-desktop"></i> Digital Demo Page
+                                </button>
                                 <button class="toggle-btn" data-preview="flyer" id="btn-print-toggle">
                                     <i class="fa-solid fa-print"></i> 4-per-page Flyer
                                 </button>
@@ -2029,6 +2035,11 @@
                             <!-- Flyer Simulator Mockup -->
                             <div id="preview-flyer-wrapper" class="simulator-wrapper">
                                 <iframe id="desktop-live-flyer" src="flyer.html?v=3.6" style="width: 280px; height: 520px; border: none; background: transparent; overflow: hidden; transform-origin: top center; pointer-events: none;"></iframe>
+                            </div>
+     
+                            <!-- Demo Landing Page Mockup -->
+                            <div id="preview-demo-wrapper" class="simulator-wrapper">
+                                <iframe id="desktop-live-demo" src="demo.html?v=3.6" style="width: 280px; height: 520px; border: none; background: transparent; overflow: hidden; transform-origin: top center; pointer-events: none;"></iframe>
                             </div>
                         </div>
                     </div>
@@ -2898,6 +2909,46 @@ Interested in setting this up to see if it works?</span>
                         })();
                     </script>
                 </section>
+
+                <!-- Section 5: Manual Mockup Editor -->
+                <section id="sec-mockup" class="sales-section-content" style="display: none;">
+                    <h2 class="gradient-text" style="margin-bottom: 1.5rem;">Manual Image Mockup Editor</h2>
+                    <div class="grid-layout">
+                        <!-- Left Column: Dropzone -->
+                        <div class="glass-card form-column">
+                            <div class="card-header">
+                                <i class="fa-solid fa-camera text-indigo"></i>
+                                <h3>Upload Background</h3>
+                            </div>
+                            
+                            <div id="mockup-dropzone" style="border: 2px dashed rgba(255,255,255,0.2); border-radius: 12px; padding: 3rem 2rem; text-align: center; cursor: pointer; transition: all 0.3s ease; margin-bottom: 1.5rem; background: rgba(0,0,0,0.2);">
+                                <i class="fa-solid fa-cloud-arrow-up" style="font-size: 3rem; color: #818cf8; margin-bottom: 1rem;"></i>
+                                <h4 style="margin-bottom: 0.5rem; color: white;">Drag & Drop Image Here</h4>
+                                <p style="color: var(--text-muted); font-size: 0.9rem;">or click to browse from your device</p>
+                                <input type="file" id="mockup-file-input" accept="image/*" style="display: none;">
+                            </div>
+                            
+                            <div class="input-tip" style="margin-bottom: 1.5rem;">
+                                <i class="fa-solid fa-circle-info"></i> The engine will automatically darken the image and composite the 3D Standee Graphic perfectly in the center.
+                            </div>
+                            
+                            <button id="btn-download-mockup" class="btn btn-primary" style="width: 100%; justify-content: center; display: none;">
+                                <i class="fa-solid fa-download"></i> Download Graphic
+                            </button>
+                        </div>
+                        
+                        <!-- Right Column: Canvas Preview -->
+                        <div class="preview-column">
+                            <div class="simulator-wrapper" style="padding: 1rem; background: rgba(0,0,0,0.4); border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); min-height: 400px; display: flex; align-items: center; justify-content: center;">
+                                <canvas id="mockup-canvas" style="max-width: 100%; max-height: 600px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); display: none;"></canvas>
+                                <div id="mockup-placeholder" style="color: rgba(255,255,255,0.3); text-align: center;">
+                                    <i class="fa-solid fa-image" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                                    <p>Preview will appear here</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </main>
         </div>
     </div>
@@ -3043,6 +3094,7 @@ Interested in setting this up to see if it works?</span>
     <script src="generator.js?v=3.6"></script>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script src="razorpay_config.js"></script>
+    <script src="standee_asset.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Check auth state from memory
@@ -3760,7 +3812,7 @@ Interested in setting this up to see if it works?</span>
         function copyPaymentLink() {
             const input = document.getElementById('rzp-link-display');
             input.select();
-            input.setSelectionRange(0, 99999); // For mobile devices
+            input.setSelectionRange(0, 99999);
             navigator.clipboard.writeText(input.value);
             showToastNotification('Payment link copied to clipboard!');
         }

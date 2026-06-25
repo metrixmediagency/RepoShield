@@ -6,3 +6,8 @@ temp/
 *.log
 .gemini/
 .env
+
+test_*.ps1
+temp_*
+mockups/
+test_image.png
