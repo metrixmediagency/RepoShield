@@ -213,10 +213,10 @@
         <div class="header-section">
             <h2 id="biz-name-display">Demo</h2>
             <h3 id="flyer-headline">Review Us</h3>
-            <p id="flyer-sub">Scan the code below with your phone camera to experience the 5-star routing technology.</p>
+            <p id="flyer-sub">Scan or Tap the code below to experience the 5-star routing technology.</p>
         </div>
 
-        <div class="qr-display" id="qr-container">
+        <div class="qr-display" id="qr-container" style="cursor: pointer; position: relative;" title="Tap to Open Live Portal">
             <!-- QR code renders here -->
         </div>
 
@@ -287,6 +287,11 @@
             });
 
             qrCode.append(container);
+
+            // Make the entire QR code clickable for mobile users who cannot scan their own screen
+            container.addEventListener('click', () => {
+                window.location.href = currentPortalUrl;
+            });
         });
     </script>
 </body>
