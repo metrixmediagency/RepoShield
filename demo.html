@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Live Review Portal Demo</title>
+    <!-- Open Graph Meta Tags for Telegram/WhatsApp Link Previews -->
+    <meta property="og:title" content="Aegis Protocol - Live Demo">
+    <meta property="og:description" content="Tap to experience the 5-star routing technology.">
+    <!-- Using a high-quality fallback image for the link preview thumbnail -->
+    <meta property="og:image" content="https://metrixmedia.vercel.app/Mockup_demo.jpg">
+    <meta property="og:type" content="website">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -246,9 +252,12 @@
             <p id="flyer-sub">Scan or Tap the code below to experience the 5-star routing technology.</p>
         </div>
 
-        <div class="qr-display" id="qr-container" style="cursor: pointer; position: relative;" title="Tap to Open Live Portal">
-            <!-- QR code renders here -->
-        </div>
+        <!-- NATIVE ANCHOR WRAPPER TO BYPASS IN-APP BROWSER BLOCKS -->
+        <a id="native-qr-link" href="#" style="text-decoration: none; width: 100%; display: flex; justify-content: center;">
+            <div class="qr-display" id="qr-container" style="cursor: pointer; position: relative;" title="Tap to Open Live Portal">
+                <!-- QR code renders here -->
+            </div>
+        </a>
 
         <!-- EXPLICIT TAP BUTTON FOR MOBILE USERS -->
         <a id="mobile-tap-btn" href="#" class="tap-btn">
@@ -333,22 +342,21 @@
                 qrConfig.imageOptions = { crossOrigin: "anonymous", margin: 8, imageSize: 0.25, hideBackgroundDots: true };
             }
 
-            const qrCode = new QRCodeStyling(qrConfig);
-            
-            // Ensure container is clean before appending
-            container.innerHTML = '';
-            qrCode.append(container);
+            // Decouple the QR generation from the CSS layout engine to prevent Windows crash
+            requestAnimationFrame(() => {
+                const qrCode = new QRCodeStyling(qrConfig);
+                
+                // Ensure container is clean before appending
+                container.innerHTML = '';
+                qrCode.append(container);
 
-            // Make the entire QR code clickable for mobile users
-            container.addEventListener('click', () => {
-                window.location.href = currentPortalUrl;
+                // Set the native anchor tags hrefs so clicks are processed by OS, bypassing In-App Browser blocks
+                const qrLink = document.getElementById('native-qr-link');
+                if (qrLink) qrLink.href = currentPortalUrl;
+
+                const tapBtn = document.getElementById('mobile-tap-btn');
+                if (tapBtn) tapBtn.href = currentPortalUrl;
             });
-
-            // Set the explicitly visible Tap Button href
-            const tapBtn = document.getElementById('mobile-tap-btn');
-            if (tapBtn) {
-                tapBtn.href = currentPortalUrl;
-            }
         });
     </script>
 </body>
