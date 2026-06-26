@@ -177,34 +177,26 @@
             gap: 0.5rem;
         }
 
-        .tap-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            background: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
+        .tap-badge {
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #6366f1;
             color: white;
-            text-decoration: none;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 800;
-            margin-bottom: 2rem;
-            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            animation: pulse 2s infinite;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            white-space: nowrap;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+            animation: bounce 2s infinite;
+            z-index: 20;
         }
 
-        .tap-btn:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 15px 30px rgba(99, 102, 241, 0.6);
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+        @keyframes bounce {
+            0%, 100% { transform: translate(-50%, 0); }
+            50% { transform: translate(-50%, -5px); }
         }
 
         .instruction-box i {
@@ -256,12 +248,8 @@
         <a id="native-qr-link" href="#" style="text-decoration: none; width: 100%; display: flex; justify-content: center;">
             <div class="qr-display" id="qr-container" style="cursor: pointer; position: relative;" title="Tap to Open Live Portal">
                 <!-- QR code renders here -->
+                <div class="tap-badge" id="tap-badge-el">👆 Scan or Tap the code below</div>
             </div>
-        </a>
-
-        <!-- EXPLICIT TAP BUTTON FOR MOBILE USERS -->
-        <a id="mobile-tap-btn" href="#" class="tap-btn">
-            <i class="fa-solid fa-hand-pointer"></i> Tap Here to Open
         </a>
 
         <div class="instruction-box">
@@ -279,7 +267,7 @@
             const qrDot = urlParams.get('qrDot') || 'rounded';
             const qrCorner = urlParams.get('qrCorner') || 'extra-rounded';
             const flyerHeadline = urlParams.get('flyerHeadline') || 'Review Us';
-            const flyerSub = urlParams.get('flyerSub') || 'Scan or Tap the code below to leave a review.';
+            const flyerSub = urlParams.get('flyerSub') || 'Scan or Tap the code below to experience the 5-star routing technology.';
             const flyerFooter = urlParams.get('flyerFooter') || 'Powered by Aegis Protocol';
 
             // Set business name in title
@@ -294,6 +282,9 @@
             
             const footEl = document.getElementById('flyer-footer');
             if (footEl) footEl.textContent = flyerFooter;
+
+            const badgeEl = document.getElementById('tap-badge-el');
+            if (badgeEl) badgeEl.textContent = '👆 ' + flyerSub;
 
             document.title = `${bizName} - Review Portal Demo`;
 
@@ -321,16 +312,10 @@
 
             // STEP 1: Set button hrefs IMMEDIATELY with the full URL.
             // This makes tapping work right away, before any async operation.
-            // Previously, hrefs were set inside an async fetch() that was CORS-blocked
-            // by TinyURL in the browser — so buttons stayed at '#' forever.
             const qrLink = document.getElementById('native-qr-link');
             if (qrLink) qrLink.href = currentPortalUrl;
-            const tapBtn = document.getElementById('mobile-tap-btn');
-            if (tapBtn) tapBtn.href = currentPortalUrl;
 
             // STEP 2: Separately try to shorten URL for QR code only (density reduction).
-            // If shortening fails (CORS/network), we fall back to the full URL for the QR.
-            // Either way, the buttons already work from Step 1.
             async function buildQR() {
                 let qrUrl = currentPortalUrl;
                 try {
@@ -342,13 +327,12 @@
                             qrUrl = short.trim();
                             // Also update button hrefs to the shorter URL
                             if (qrLink) qrLink.href = qrUrl;
-                            if (tapBtn) tapBtn.href = qrUrl;
                         }
                     }
                 } catch(e) { /* fallback to full URL for QR */ }
 
                 const qrConfig = {
-                    type: "svg",
+                    type: "canvas", // Revert to canvas. TinyURL fixes the blurry noise, preventing SVG crash entirely.
                     width: 220,
                     height: 220,
                     data: qrUrl,
