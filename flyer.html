@@ -1066,7 +1066,7 @@
                     const qrCode = new QRCodeStyling({
                         width: size, height: size, data: currentPortalUrl,
                         image: logo !== '' ? logo : "",
-                        qrOptions: { errorCorrectionLevel: 'H' }, // Highest error correction for scannability
+                        qrOptions: { errorCorrectionLevel: 'L' }, // Lower error correction for cleaner density
                         dotsOptions: { color: qrFg, type: safeQrDot },
                         backgroundOptions: { color: qrBg },
                         cornersSquareOptions: { type: qrCorner, color: qrFg },
