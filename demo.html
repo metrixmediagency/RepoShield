@@ -250,7 +250,7 @@
                 <!-- QR code renders here -->
             </div>
             <!-- Placed outside qr-container so it survives innerHTML wipe -->
-            <div class="tap-badge" id="tap-badge-el">👆 Scan or Tap the code below</div>
+            <div class="tap-badge" id="tap-badge-el">👆 Tap / Scan to open</div>
         </a>
 
         <div class="instruction-box">
@@ -285,7 +285,7 @@
             if (footEl) footEl.textContent = flyerFooter;
 
             const badgeEl = document.getElementById('tap-badge-el');
-            if (badgeEl) badgeEl.textContent = '👆 ' + flyerSub;
+            if (badgeEl) badgeEl.textContent = '👆 Tap / Scan to open';
 
             document.title = `${bizName} - Review Portal Demo`;
 
