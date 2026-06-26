@@ -292,11 +292,12 @@
             document.documentElement.style.setProperty('--primary', color);
             document.documentElement.style.setProperty('--primary-glow', color + '40');
 
-            // Generate Portal URL correctly
+            // Generate Portal URL correctly (Handle Vercel path omissions)
             let currentPortalUrl = urlParams.get('portalUrl');
             if (!currentPortalUrl) {
                 const currentParams = window.location.search;
-                currentPortalUrl = window.location.origin + window.location.pathname.replace('demo.html', 'portal.html') + currentParams;
+                // Force routing to portal.html regardless of whether the user is on /demo or /demo.html
+                currentPortalUrl = window.location.origin + '/portal.html' + currentParams;
             }
             // Failsafe: Prevent empty/null URLs from crashing the QR renderer
             if (!currentPortalUrl || currentPortalUrl.includes('null')) {
@@ -316,6 +317,7 @@
 
             // Build options dynamically to avoid passing empty strings which can crash the renderer
             const qrConfig = {
+                type: "svg", // CRITICAL: Use SVG instead of canvas so it renders razor-sharp on Windows displays
                 width: size, 
                 height: size, 
                 data: currentPortalUrl,
