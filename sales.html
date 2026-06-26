@@ -2987,6 +2987,12 @@ Interested in setting this up to see if it works?</span>
 
             <div class="preview-flex">
                 <div class="preview-box">
+                    <i class="fa-solid fa-mobile-button"></i>
+                    <h4>Interactive Demo</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0.5rem 0 1.5rem;">Simulated phone + QR</p>
+                    <a href="#" id="preview-interactive-link" target="_blank" class="btn btn-primary btn-sm" style="width: 100%; justify-content: center;">Open Demo</a>
+                </div>
+                <div class="preview-box">
                     <i class="fa-solid fa-window-restore"></i>
                     <h4>Review Portal</h4>
                     <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0.5rem 0 1.5rem;">Gating page for customers</p>
@@ -3087,7 +3093,10 @@ Interested in setting this up to see if it works?</span>
                         </div>
                     </div>
                 </div>
-                <a id="ovl-open-portal-link" href="#" target="_blank" class="btn btn-primary" style="width: 100%; max-width: 360px; justify-content: center; gap: 0.5rem; text-decoration: none; font-size: 0.9rem;">
+                <a id="ovl-open-interactive-link" href="#" target="_blank" class="btn btn-primary" style="width: 100%; max-width: 360px; justify-content: center; gap: 0.5rem; text-decoration: none; font-size: 0.9rem; margin-bottom: 0.5rem;">
+                    <i class="fa-solid fa-mobile-button"></i> Open Interactive Demo
+                </a>
+                <a id="ovl-open-portal-link" href="#" target="_blank" class="btn btn-secondary" style="width: 100%; max-width: 360px; justify-content: center; gap: 0.5rem; text-decoration: none; font-size: 0.9rem;">
                     <i class="fa-solid fa-up-right-from-square"></i> Open Live Portal
                 </a>
             </div>
@@ -3285,10 +3294,14 @@ Interested in setting this up to see if it works?</span>
                 const baseLocation = window.location.origin;
                 const demoPortalUrl = `${baseLocation}/portal.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&demo=true`;
                 const demoFlyerUrl = `${baseLocation}/flyer.html?name=${encodeURIComponent(bizName)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&theme=${encodeURIComponent(theme)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}`;
+                const demoInteractiveUrl = `${baseLocation}/demo.html?name=${encodeURIComponent(bizName)}&theme=${encodeURIComponent(theme)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}`;
 
                 // Update modal link values
                 document.getElementById('preview-portal-link').href = demoPortalUrl;
                 document.getElementById('preview-flyer-link').href = demoFlyerUrl;
+                if (document.getElementById('preview-interactive-link')) {
+                    document.getElementById('preview-interactive-link').href = demoInteractiveUrl;
+                }
 
                 demoModal.style.display = 'flex';
             });
@@ -3730,9 +3743,15 @@ Interested in setting this up to see if it works?</span>
                 const baseLocation = window.location.origin;
                 const demoPortalUrl = `${baseLocation}/portal.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&demo=true`;
                 const demoFlyerUrl = `${baseLocation}/flyer.html?name=${encodeURIComponent(bizName)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&theme=${encodeURIComponent(theme)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}`;
+                const demoInteractiveUrl = `${baseLocation}/demo.html?name=${encodeURIComponent(bizName)}&theme=${encodeURIComponent(theme)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}`;
 
+                const ovlOpenPortalLink = document.getElementById('ovl-open-portal-link');
+                const ovlOpenFlyerLink = document.getElementById('ovl-open-flyer-link');
+                const ovlOpenInteractiveLink = document.getElementById('ovl-open-interactive-link');
+                
                 if (ovlOpenPortalLink) ovlOpenPortalLink.href = demoPortalUrl;
                 if (ovlOpenFlyerLink) ovlOpenFlyerLink.href = demoFlyerUrl;
+                if (ovlOpenInteractiveLink) ovlOpenInteractiveLink.href = demoInteractiveUrl;
 
                 setOverlayPane('phone');
                 if (simOverlayModal) { simOverlayModal.classList.add('open'); document.body.style.overflow = 'hidden'; }
@@ -3799,11 +3818,14 @@ Interested in setting this up to see if it works?</span>
                         const baseLocation = window.location.origin;
                         const demoPortalUrl = `${baseLocation}/portal.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&demo=true`;
                         const demoFlyerUrl = `${baseLocation}/flyer.html?name=${encodeURIComponent(bizName)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&theme=${encodeURIComponent(theme)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}`;
+                        const demoInteractiveUrl = `${baseLocation}/demo.html?name=${encodeURIComponent(bizName)}&theme=${encodeURIComponent(theme)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}`;
 
                         const ppLink = document.getElementById('preview-portal-link');
                         const pfLink = document.getElementById('preview-flyer-link');
+                        const piLink = document.getElementById('preview-interactive-link');
                         if (ppLink) ppLink.href = demoPortalUrl;
                         if (pfLink) pfLink.href = demoFlyerUrl;
+                        if (piLink) piLink.href = demoInteractiveUrl;
 
                         const demoModal = document.getElementById('demo-modal');
                         if (demoModal) demoModal.style.display = 'flex';
