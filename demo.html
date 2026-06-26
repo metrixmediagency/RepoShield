@@ -245,11 +245,12 @@
         </div>
 
         <!-- NATIVE ANCHOR WRAPPER TO BYPASS IN-APP BROWSER BLOCKS -->
-        <a id="native-qr-link" href="#" style="text-decoration: none; width: 100%; display: flex; justify-content: center;">
-            <div class="qr-display" id="qr-container" style="cursor: pointer; position: relative;" title="Tap to Open Live Portal">
+        <a id="native-qr-link" href="#" style="text-decoration: none; width: 100%; display: flex; justify-content: center; position: relative;">
+            <div class="qr-display" id="qr-container" style="cursor: pointer;" title="Tap to Open Live Portal">
                 <!-- QR code renders here -->
-                <div class="tap-badge" id="tap-badge-el">👆 Scan or Tap the code below</div>
             </div>
+            <!-- Placed outside qr-container so it survives innerHTML wipe -->
+            <div class="tap-badge" id="tap-badge-el">👆 Scan or Tap the code below</div>
         </a>
 
         <div class="instruction-box">
