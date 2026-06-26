@@ -171,27 +171,34 @@
             gap: 0.5rem;
         }
 
-        .tap-badge {
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #6366f1;
+        .tap-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
             color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            white-space: nowrap;
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
-            animation: bounce 2s infinite;
-            pointer-events: none;
-            z-index: 20;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: pulse 2s infinite;
         }
 
-        @keyframes bounce {
-            0%, 100% { transform: translate(-50%, 0); }
-            50% { transform: translate(-50%, -5px); }
+        .tap-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(99, 102, 241, 0.6);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         .instruction-box i {
@@ -241,8 +248,12 @@
 
         <div class="qr-display" id="qr-container" style="cursor: pointer; position: relative;" title="Tap to Open Live Portal">
             <!-- QR code renders here -->
-            <div class="tap-badge">👆 Scan or Tap the code below</div>
         </div>
+
+        <!-- EXPLICIT TAP BUTTON FOR MOBILE USERS -->
+        <a id="mobile-tap-btn" href="#" class="tap-btn">
+            <i class="fa-solid fa-hand-pointer"></i> Tap Here to Open
+        </a>
 
         <div class="instruction-box">
             <i class="fa-solid fa-star"></i>
@@ -323,13 +334,19 @@
             const qrCode = new QRCodeStyling(qrConfig);
             
             // Ensure container is clean before appending
-            container.innerHTML = '<div class="tap-badge">👆 Scan or Tap the code below</div>';
+            container.innerHTML = '';
             qrCode.append(container);
 
-            // Make the entire QR code clickable for mobile users who cannot scan their own screen
+            // Make the entire QR code clickable for mobile users
             container.addEventListener('click', () => {
                 window.location.href = currentPortalUrl;
             });
+
+            // Set the explicitly visible Tap Button href
+            const tapBtn = document.getElementById('mobile-tap-btn');
+            if (tapBtn) {
+                tapBtn.href = currentPortalUrl;
+            }
         });
     </script>
 </body>
