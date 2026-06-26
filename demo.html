@@ -287,6 +287,10 @@
                 const currentParams = window.location.search;
                 currentPortalUrl = window.location.origin + window.location.pathname.replace('demo.html', 'portal.html') + currentParams;
             }
+            // Failsafe: Prevent empty/null URLs from crashing the QR renderer
+            if (!currentPortalUrl || currentPortalUrl.includes('null')) {
+                currentPortalUrl = 'https://metrixmedia.vercel.app/portal.html';
+            }
 
             // Determine safe styling for QR code
             let innerCorner = 'square';
@@ -296,8 +300,8 @@
 
             // Generate QR Code
             const container = document.getElementById('qr-container');
-            const padding = 1.5 * 16; // 1.5rem padding approx
-            const size = container.clientWidth > 0 ? container.clientWidth : 200;
+            // Hardcode QR size to prevent layout race-conditions causing microscopic 2x2 pixel QR codes
+            const size = 220;
 
             const qrCode = new QRCodeStyling({
                 width: size, height: size, data: currentPortalUrl,
