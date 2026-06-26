@@ -453,8 +453,22 @@
                             </div>
                         `;
                         
-                        // Trigger QR generation right after attaching
-                        setTimeout(() => {
+                        // ROOT FIX: Shorten the URL *before* generating the QR.
+                        // pUrl contains 300-500 chars which forces a 40x40+ grid 
+                        // that looks like static noise when printed at small sizes.
+                        // A TinyURL ~25 chars = 21x21 grid = large chunky readable dots.
+                        (async () => {
+                            let finalUrl = pUrl;
+                            try {
+                                const resp = await fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(pUrl)}`);
+                                if (resp.ok) {
+                                    const short = await resp.text();
+                                    if (short && short.startsWith('http') && short.length < 50) {
+                                        finalUrl = short.trim();
+                                    }
+                                }
+                            } catch(e) { /* fallback to full URL */ }
+
                             const qrContainer = document.getElementById(`qr-${campaign.id}`);
                             if (qrContainer && window.QRCodeStyling) {
                                 const tp = themeProps[theme] || themeProps['theme-onyx'];
@@ -466,9 +480,9 @@
                                 const innerCorner = (finalQrCorner === 'extra-rounded' || finalQrCorner === 'rounded') ? 'dot' : 'square';
                                 
                                 const qrCode = new QRCodeStyling({
-                                    width: 190, height: 190, data: pUrl,
+                                    width: 190, height: 190, data: finalUrl,
                                     image: campaign.logo || "",
-                                    qrOptions: { errorCorrectionLevel: 'L' },
+                                    qrOptions: { errorCorrectionLevel: 'M' },
                                     dotsOptions: { color: tp.qrFg, type: finalQrDot },
                                     backgroundOptions: { color: tp.qrBg },
                                     cornersSquareOptions: { type: finalQrCorner, color: tp.qrFg },
@@ -477,7 +491,8 @@
                                 });
                                 qrCode.append(qrContainer);
                             }
-                        }, 50);
+                        })();
+
 
                     } else {
                         // Empty slot to complete the 4-up page

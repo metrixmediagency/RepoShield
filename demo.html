@@ -319,44 +319,53 @@
             if (qrCorner === 'dot') innerCorner = 'dot';
             const safeQrDot = (qrDot === 'dots' || qrDot === 'classy') ? 'rounded' : qrDot;
 
-            // Generate QR Code
-            const container = document.getElementById('qr-container');
-            // Hardcode QR size to prevent layout race-conditions causing microscopic 2x2 pixel QR codes
-            const size = 220;
+            // THE ROOT FIX: Shorten the URL before building the QR.
+            // The portal URL has 300-500 chars of query params. That forces the QR
+            // generator into a 40x40+ grid that looks like static noise.
+            // A TinyURL = ~25 chars = a clean 21x21 grid with large readable dots.
+            async function buildDemo() {
+                let finalUrl = currentPortalUrl;
+                try {
+                    const resp = await fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(currentPortalUrl)}`);
+                    if (resp.ok) {
+                        const short = await resp.text();
+                        if (short && short.startsWith('http') && short.length < 50) {
+                            finalUrl = short.trim();
+                        }
+                    }
+                } catch(e) { /* fallback to full URL */ }
 
-            // Build options dynamically to avoid passing empty strings which can crash the renderer
-            const qrConfig = {
-                type: "svg", // CRITICAL: Use SVG instead of canvas so it renders razor-sharp on Windows displays
-                width: size, 
-                height: size, 
-                data: currentPortalUrl,
-                qrOptions: { errorCorrectionLevel: 'L' }, // Lowest error correction = cleanest density for long URLs
-                dotsOptions: { color: "#000000", type: safeQrDot },
-                backgroundOptions: { color: "#ffffff" },
-                cornersSquareOptions: { type: qrCorner, color: "#000000" },
-                cornersDotOptions: { type: innerCorner, color: "#000000" }
-            };
+                const qrConfig = {
+                    type: "svg",
+                    width: 220,
+                    height: 220,
+                    data: finalUrl,
+                    qrOptions: { errorCorrectionLevel: 'M' },
+                    dotsOptions: { color: "#000000", type: safeQrDot },
+                    backgroundOptions: { color: "#ffffff" },
+                    cornersSquareOptions: { type: qrCorner, color: "#000000" },
+                    cornersDotOptions: { type: innerCorner, color: "#000000" }
+                };
 
-            if (logo && logo.trim() !== '') {
-                qrConfig.image = logo;
-                qrConfig.imageOptions = { crossOrigin: "anonymous", margin: 8, imageSize: 0.25, hideBackgroundDots: true };
+                if (logo && logo.trim() !== '') {
+                    qrConfig.image = logo;
+                    qrConfig.imageOptions = { crossOrigin: "anonymous", margin: 8, imageSize: 0.25, hideBackgroundDots: true };
+                }
+
+                requestAnimationFrame(() => {
+                    const qrCode = new QRCodeStyling(qrConfig);
+                    const container = document.getElementById('qr-container');
+                    container.innerHTML = '';
+                    qrCode.append(container);
+
+                    // Set native anchors to the SHORT url so tapping opens the portal
+                    const qrLink = document.getElementById('native-qr-link');
+                    if (qrLink) qrLink.href = finalUrl;
+                    const tapBtn = document.getElementById('mobile-tap-btn');
+                    if (tapBtn) tapBtn.href = finalUrl;
+                });
             }
-
-            // Decouple the QR generation from the CSS layout engine to prevent Windows crash
-            requestAnimationFrame(() => {
-                const qrCode = new QRCodeStyling(qrConfig);
-                
-                // Ensure container is clean before appending
-                container.innerHTML = '';
-                qrCode.append(container);
-
-                // Set the native anchor tags hrefs so clicks are processed by OS, bypassing In-App Browser blocks
-                const qrLink = document.getElementById('native-qr-link');
-                if (qrLink) qrLink.href = currentPortalUrl;
-
-                const tapBtn = document.getElementById('mobile-tap-btn');
-                if (tapBtn) tapBtn.href = currentPortalUrl;
-            });
+            buildDemo();
         });
     </script>
 </body>

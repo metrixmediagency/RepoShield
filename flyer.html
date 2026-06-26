@@ -1042,39 +1042,63 @@
             document.querySelectorAll('.icon-placeholder').forEach(el => el.className = `${selectedIcon} icon-placeholder`);
 
             // 6. QR Code Injection / Updating
+            // THE ROOT FIX: Shorten the URL before generating the QR code.
+            // Without this, we are packing 300-500 characters into the QR matrix,
+            // which forces the generator to use a massive grid (40x40+) that looks
+            // like television static at small sizes. A short URL = a 25-char QR = 
+            // large, clean, chunky, easily-scannable dots.
             if (window.QRCodeStyling) {
                 const qrContainers = document.querySelectorAll('.qr-wrapper, .insert-qr-mock, .sticker-qr');
                 
-                qrContainers.forEach(container => {
-                    container.innerHTML = ''; // clear completely to force full re-render
-                    const isSticker = container.classList.contains('sticker-qr');
-                    const isInsert = container.classList.contains('insert-qr-mock');
-                    const padding = (parseInt(window.getComputedStyle(container).paddingLeft) || 0) * 2;
-                    let size = container.clientWidth > 0 ? (container.clientWidth - padding) : (isSticker ? 74 : (isInsert ? 98 : 190));
-                    if (size <= 0) {
-                        size = isSticker ? 74 : (isInsert ? 98 : 190);
+                async function renderQRWithShortUrl(qrUrl) {
+                    let finalUrl = qrUrl;
+                    try {
+                        // Use TinyURL's free API (no key needed, no CORS issues via proxy)
+                        const shortResp = await fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(qrUrl)}`);
+                        if (shortResp.ok) {
+                            const short = await shortResp.text();
+                            if (short && short.startsWith('http') && short.length < 50) {
+                                finalUrl = short.trim();
+                            }
+                        }
+                    } catch (e) {
+                        // If shortening fails, fall back to the full URL
+                        finalUrl = qrUrl;
                     }
-                    
-                    // Match inner corner dot style to the outer corner style for a cohesive, premium look
-                    let innerCorner = 'square';
-                    if (qrCorner === 'extra-rounded' || qrCorner === 'rounded') innerCorner = 'dot';
-                    if (qrCorner === 'dot') innerCorner = 'dot';
-                    
-                    // Ensure we don't accidentally use the broken 'dots' type from old neon themes
-                    const safeQrDot = (qrDot === 'dots' || qrDot === 'classy') ? 'rounded' : qrDot;
 
-                    const qrCode = new QRCodeStyling({
-                        width: size, height: size, data: currentPortalUrl,
-                        image: logo !== '' ? logo : "",
-                        qrOptions: { errorCorrectionLevel: 'L' }, // Lower error correction for cleaner density
-                        dotsOptions: { color: qrFg, type: safeQrDot },
-                        backgroundOptions: { color: qrBg },
-                        cornersSquareOptions: { type: qrCorner, color: qrFg },
-                        cornersDotOptions: { type: innerCorner, color: qrFg }, 
-                        imageOptions: { crossOrigin: "anonymous", margin: 8, imageSize: 0.25, hideBackgroundDots: true }
+                    qrContainers.forEach(container => {
+                        container.innerHTML = ''; // clear completely to force full re-render
+                        const isSticker = container.classList.contains('sticker-qr');
+                        const isInsert = container.classList.contains('insert-qr-mock');
+                        const padding = (parseInt(window.getComputedStyle(container).paddingLeft) || 0) * 2;
+                        let size = container.clientWidth > 0 ? (container.clientWidth - padding) : (isSticker ? 74 : (isInsert ? 98 : 190));
+                        if (size <= 0) {
+                            size = isSticker ? 74 : (isInsert ? 98 : 190);
+                        }
+                        
+                        // Match inner corner dot style to the outer corner style for a cohesive, premium look
+                        let innerCorner = 'square';
+                        if (qrCorner === 'extra-rounded' || qrCorner === 'rounded') innerCorner = 'dot';
+                        if (qrCorner === 'dot') innerCorner = 'dot';
+                        
+                        // Ensure we don't accidentally use the broken 'dots' type from old neon themes
+                        const safeQrDot = (qrDot === 'dots' || qrDot === 'classy') ? 'rounded' : qrDot;
+
+                        const qrCode = new QRCodeStyling({
+                            width: size, height: size, data: finalUrl,
+                            image: logo !== '' ? logo : "",
+                            qrOptions: { errorCorrectionLevel: 'M' },
+                            dotsOptions: { color: qrFg, type: safeQrDot },
+                            backgroundOptions: { color: qrBg },
+                            cornersSquareOptions: { type: qrCorner, color: qrFg },
+                            cornersDotOptions: { type: innerCorner, color: qrFg }, 
+                            imageOptions: { crossOrigin: "anonymous", margin: 8, imageSize: 0.25, hideBackgroundDots: true }
+                        });
+                        qrCode.append(container);
                     });
-                    qrCode.append(container);
-                });
+                }
+
+                renderQRWithShortUrl(currentPortalUrl);
             }
         }
 
