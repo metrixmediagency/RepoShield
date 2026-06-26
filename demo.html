@@ -319,27 +319,39 @@
             if (qrCorner === 'dot') innerCorner = 'dot';
             const safeQrDot = (qrDot === 'dots' || qrDot === 'classy') ? 'rounded' : qrDot;
 
-            // THE ROOT FIX: Shorten the URL before building the QR.
-            // The portal URL has 300-500 chars of query params. That forces the QR
-            // generator into a 40x40+ grid that looks like static noise.
-            // A TinyURL = ~25 chars = a clean 21x21 grid with large readable dots.
-            async function buildDemo() {
-                let finalUrl = currentPortalUrl;
+            // STEP 1: Set button hrefs IMMEDIATELY with the full URL.
+            // This makes tapping work right away, before any async operation.
+            // Previously, hrefs were set inside an async fetch() that was CORS-blocked
+            // by TinyURL in the browser — so buttons stayed at '#' forever.
+            const qrLink = document.getElementById('native-qr-link');
+            if (qrLink) qrLink.href = currentPortalUrl;
+            const tapBtn = document.getElementById('mobile-tap-btn');
+            if (tapBtn) tapBtn.href = currentPortalUrl;
+
+            // STEP 2: Separately try to shorten URL for QR code only (density reduction).
+            // If shortening fails (CORS/network), we fall back to the full URL for the QR.
+            // Either way, the buttons already work from Step 1.
+            async function buildQR() {
+                let qrUrl = currentPortalUrl;
                 try {
-                    const resp = await fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(currentPortalUrl)}`);
+                    // is.gd has permissive CORS — works from browser fetch()
+                    const resp = await fetch(`https://is.gd/create.php?format=simple&url=${encodeURIComponent(currentPortalUrl)}`);
                     if (resp.ok) {
                         const short = await resp.text();
-                        if (short && short.startsWith('http') && short.length < 50) {
-                            finalUrl = short.trim();
+                        if (short && short.startsWith('http') && short.length < 40) {
+                            qrUrl = short.trim();
+                            // Also update button hrefs to the shorter URL
+                            if (qrLink) qrLink.href = qrUrl;
+                            if (tapBtn) tapBtn.href = qrUrl;
                         }
                     }
-                } catch(e) { /* fallback to full URL */ }
+                } catch(e) { /* fallback to full URL for QR */ }
 
                 const qrConfig = {
                     type: "svg",
                     width: 220,
                     height: 220,
-                    data: finalUrl,
+                    data: qrUrl,
                     qrOptions: { errorCorrectionLevel: 'M' },
                     dotsOptions: { color: "#000000", type: safeQrDot },
                     backgroundOptions: { color: "#ffffff" },
@@ -353,19 +365,12 @@
                 }
 
                 requestAnimationFrame(() => {
-                    const qrCode = new QRCodeStyling(qrConfig);
                     const container = document.getElementById('qr-container');
                     container.innerHTML = '';
-                    qrCode.append(container);
-
-                    // Set native anchors to the SHORT url so tapping opens the portal
-                    const qrLink = document.getElementById('native-qr-link');
-                    if (qrLink) qrLink.href = finalUrl;
-                    const tapBtn = document.getElementById('mobile-tap-btn');
-                    if (tapBtn) tapBtn.href = finalUrl;
+                    new QRCodeStyling(qrConfig).append(container);
                 });
             }
-            buildDemo();
+            buildQR();
         });
     </script>
 </body>
