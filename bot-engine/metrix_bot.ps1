@@ -7,7 +7,7 @@ if (-not $Token -or -not $AllowedChatId) {
     exit 1
 }
 
-$ScriptPath = "C:\Users\sunny\.gemini\antigravity\scratch\MetrixMedia\auto_campaign.ps1"
+$ScriptPath = "$PSScriptRoot\auto_campaign.ps1"
 Write-Host "==========================================" -ForegroundColor Cyan
 Write-Host "  MetrixMedia Telegram Bot Online" -ForegroundColor Cyan
 Write-Host "  Listening for commands on your phone..." -ForegroundColor Cyan
