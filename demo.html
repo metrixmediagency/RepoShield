@@ -303,17 +303,27 @@
             // Hardcode QR size to prevent layout race-conditions causing microscopic 2x2 pixel QR codes
             const size = 220;
 
-            const qrCode = new QRCodeStyling({
-                width: size, height: size, data: currentPortalUrl,
-                image: logo !== '' ? logo : "",
-                qrOptions: { errorCorrectionLevel: 'H' },
+            // Build options dynamically to avoid passing empty strings which can crash the renderer
+            const qrConfig = {
+                width: size, 
+                height: size, 
+                data: currentPortalUrl,
+                qrOptions: { errorCorrectionLevel: 'M' }, // Lower error correction = less dense QR for long URLs
                 dotsOptions: { color: "#000000", type: safeQrDot },
                 backgroundOptions: { color: "#ffffff" },
                 cornersSquareOptions: { type: qrCorner, color: "#000000" },
-                cornersDotOptions: { type: innerCorner, color: "#000000" }, 
-                imageOptions: { crossOrigin: "anonymous", margin: 8, imageSize: 0.25, hideBackgroundDots: true }
-            });
+                cornersDotOptions: { type: innerCorner, color: "#000000" }
+            };
 
+            if (logo && logo.trim() !== '') {
+                qrConfig.image = logo;
+                qrConfig.imageOptions = { crossOrigin: "anonymous", margin: 8, imageSize: 0.25, hideBackgroundDots: true };
+            }
+
+            const qrCode = new QRCodeStyling(qrConfig);
+            
+            // Ensure container is clean before appending
+            container.innerHTML = '<div class="tap-badge">👆 Scan or Tap the code below</div>';
             qrCode.append(container);
 
             // Make the entire QR code clickable for mobile users who cannot scan their own screen
