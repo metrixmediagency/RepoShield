@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -18,7 +18,7 @@
     gap: 1.2rem;
   }
 
-  /* â”€â”€ Drop overlay â€” covers the entire iframe body â”€â”€ */
+  /* ── Drop overlay — covers the entire iframe body ── */
   #drop-overlay {
     display: none;
     position: fixed;
@@ -36,7 +36,7 @@
   #drop-overlay i { font-size: 3rem; color: #3b82f6; }
   #drop-overlay p { font-size: 1.3rem; font-weight: 700; color: #fff; }
 
-  /* â”€â”€ Upload zone â”€â”€ */
+  /* ── Upload zone ── */
   #upload-zone {
     border: 2px dashed rgba(255,255,255,0.18);
     border-radius: 14px;
@@ -55,7 +55,7 @@
   #upload-zone h3 { font-size: 1.05rem; margin-bottom: .3rem; }
   #upload-zone p { color: #64748b; font-size: .82rem; }
 
-  /* â”€â”€ Status â”€â”€ */
+  /* ── Status ── */
   #status {
     display: none;
     background: rgba(59,130,246,0.12);
@@ -69,7 +69,7 @@
   }
   #status.show { display: flex; }
 
-  /* â”€â”€ Canvas preview â”€â”€ */
+  /* ── Canvas preview ── */
   #preview-wrap {
     display: none;
     flex-direction: column;
@@ -82,7 +82,7 @@
     box-shadow: 0 8px 30px rgba(0,0,0,0.55);
   }
 
-  /* â”€â”€ Buttons â”€â”€ */
+  /* ── Buttons ── */
   .btn {
     display: flex;
     align-items: center;
@@ -130,7 +130,7 @@
 <!-- Processing status -->
 <div id="status">
   <i class="fa-solid fa-spinner fa-spin"></i>
-  <span>Generating your mockupâ€¦</span>
+  <span>Generating your mockup…</span>
 </div>
 
 <!-- Preview + download -->
@@ -144,7 +144,7 @@
   </button>
 </div>
 
-<script src="assets/js/standee_asset.js"></script>
+<script src="standee_asset.js"></script>
 <script>
 (function() {
   var zone       = document.getElementById('upload-zone');
@@ -157,11 +157,11 @@
   var overlay    = document.getElementById('drop-overlay');
   var dragCount  = 0;
 
-  // â”€â”€ Prevent browser opening file in new tab (global on document) â”€â”€
+  // ── Prevent browser opening file in new tab (global on document) ──
   document.addEventListener('dragover',  function(e){ e.preventDefault(); });
   document.addEventListener('drop',      function(e){ e.preventDefault(); });
 
-  // â”€â”€ Full-body drag visual â”€â”€
+  // ── Full-body drag visual ──
   document.addEventListener('dragenter', function(e){
     e.preventDefault();
     dragCount++;
@@ -173,7 +173,7 @@
     if (dragCount <= 0){ dragCount = 0; overlay.classList.remove('show'); }
   });
 
-  // â”€â”€ Drop anywhere on the page â”€â”€
+  // ── Drop anywhere on the page ──
   document.addEventListener('drop', function(e){
     e.preventDefault();
     dragCount = 0;
@@ -182,18 +182,18 @@
     if (f) process(f);
   });
 
-  // â”€â”€ Click / tap to browse â”€â”€
+  // ── Click / tap to browse ──
   zone.addEventListener('click', function(){ fileInput.click(); });
   fileInput.addEventListener('change', function(){
     if (this.files && this.files[0]) process(this.files[0]);
   });
 
-  // â”€â”€ Zone hover state (dragover on zone itself) â”€â”€
+  // ── Zone hover state (dragover on zone itself) ──
   zone.addEventListener('dragover', function(){ zone.classList.add('over'); });
   zone.addEventListener('dragleave', function(){ zone.classList.remove('over'); });
   zone.addEventListener('drop', function(){ zone.classList.remove('over'); });
 
-  // â”€â”€ Core â”€â”€
+  // ── Core ──
   function process(file) {
     if (!file.type.match('image.*')) { alert('Please select an image file.'); return; }
 
@@ -211,14 +211,14 @@
         canvas.width  = bg.width;
         canvas.height = bg.height;
 
-        // 1 â€“ Background
+        // 1 – Background
         ctx.drawImage(bg, 0, 0);
 
-        // 2 â€“ Dark overlay (matches PowerShell engine)
+        // 2 – Dark overlay (matches PowerShell engine)
         ctx.fillStyle = 'rgba(10,10,15,0.82)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // 3 â€“ Standee overlay
+        // 3 – Standee overlay
         if (typeof STANDEE_B64 === 'undefined' || !STANDEE_B64) {
           showError('Standee asset not loaded. Refresh and try again.');
           return;
@@ -248,7 +248,7 @@
     alert('Error: ' + msg);
   }
 
-  // â”€â”€ Download â”€â”€
+  // ── Download ──
   btnDL.addEventListener('click', function(){
     var a = document.createElement('a');
     a.href = canvas.toDataURL('image/jpeg', 0.95);
@@ -258,7 +258,7 @@
     document.body.removeChild(a);
   });
 
-  // â”€â”€ Reset â”€â”€
+  // ── Reset ──
   btnReset.addEventListener('click', function(){
     previewWrap.classList.remove('show');
     status.classList.remove('show');

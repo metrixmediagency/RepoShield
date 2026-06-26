@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MetrixMedia â€“ Aegis Protocol Dashboard</title>
+    <title>MetrixMedia – Aegis Protocol Dashboard</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -78,6 +78,9 @@
                 <a href="#" class="nav-item" data-tab="campaigns">
                     <i class="fa-solid fa-list-check"></i> Active Campaigns
                 </a>
+                <a href="#" class="nav-item" data-tab="social">
+                    <i class="fa-solid fa-calendar-days"></i> July Calendar
+                </a>
                 <a href="#" class="nav-item" data-tab="academy">
                     <i class="fa-solid fa-graduation-cap"></i> Sales Playbook
                 </a>
@@ -90,6 +93,9 @@
                 <a href="#" class="nav-item" data-tab="agents">
                     <i class="fa-solid fa-user-tie"></i> Sales Partners
                 </a>
+                <a href="terms.html" class="nav-item"><i class="fa-solid fa-file-contract"></i> Terms</a>
+                <a href="refund.html" class="nav-item"><i class="fa-solid fa-hand-holding-usd"></i> Refund</a>
+                <a href="privacy.html" class="nav-item"><i class="fa-solid fa-user-shield"></i> Privacy</a>
             </nav>
 
             <div class="partner-card">
@@ -191,12 +197,12 @@
                                     <label for="biz-category" id="category-label">Category</label>
                                     <div class="input-wrapper">
                                         <select id="biz-category">
-                                            <option value="cafe">â˜• Cafe / Restaurant</option>
-                                            <option value="dental">ðŸ¦· Dental / Medical Clinic</option>
-                                            <option value="gym">ðŸ’ª Fitness Gym</option>
-                                            <option value="salon">âœ‚ï¸ Salon / Spa</option>
-                                            <option value="law">âš–ï¸ Law Firm</option>
-                                            <option value="other">ðŸ’¼ Professional Services</option>
+                                            <option value="cafe">☕ Cafe / Restaurant</option>
+                                            <option value="dental">🦷 Dental / Medical Clinic</option>
+                                            <option value="gym">💪 Fitness Gym</option>
+                                            <option value="salon">✂️ Salon / Spa</option>
+                                            <option value="law">⚖️ Law Firm</option>
+                                            <option value="other">💼 Professional Services</option>
                                         </select>
                                     </div>
                                 </div>
@@ -526,7 +532,7 @@
                         <!-- Right Dynamic Info Content -->
                         <div class="academy-body">
                             <div id="subtab-prospect" class="academy-subtabactive">
-                                <h4>ðŸŽ¯ How to Find 50 High-Probability Prospects in 30 Minutes</h4>
+                                <h4>🎯 How to Find 50 High-Probability Prospects in 30 Minutes</h4>
                                 <ol class="playbook-list">
                                     <li>Open Google Maps and search for a niche + city, e.g., <code>"Dental clinic Indiranagar, Bangalore"</code> or <code>"Cafe Bandra, Mumbai"</code>.</li>
                                     <li>Filter for businesses that have a rating between **3.8 and 4.3 stars** with at least 15 reviews.
@@ -541,7 +547,7 @@
                             </div>
                             <!-- More Sub-tabs will be populated statically -->
                             <div id="subtab-pitch" style="display: none;">
-                                <h4>âœ‰ï¸ High-Converting Pitch Email (The "Value-First" Script)</h4>
+                                <h4>✉️ High-Converting Pitch Email (The "Value-First" Script)</h4>
                                 <p>Copy this template, fill in the brackets, and send it to the business email you scraped. Keep it short, focused on their revenue loss, and attach their custom preview link.</p>
                                 <div class="code-box">
 <pre>Subject: Feedback issue on Google Maps for [Business Name]
@@ -554,11 +560,11 @@ To help local businesses, I built a custom Aegis Protocol system for you.
 
 When customers scan it, it automatically sends 4/5-star happy reviews straight to Google, while negative feedback (1-3 stars) is sent privately to you so you can fix the issue before it goes public.
 
-Iâ€™ve already generated your live demo. You can test it on your phone here:
-ðŸ‘‰ [Your Deployed Gating URL]
+I’ve already generated your live demo. You can test it on your phone here:
+👉 [Your Deployed Gating URL]
 
 I also designed a printable table standee card containing your custom QR code:
-ðŸ‘‰ [Your Deployed Flyer URL]
+👉 [Your Deployed Flyer URL]
 
 I'd love to activate this for your counter. Normally we charge Rs. 4,999, but I want to give it to you for just Rs. 1,999 one-time setup fee so you can experience it. 
 
@@ -570,7 +576,7 @@ MetrixMedia Digital</pre>
                                 </div>
                             </div>
                             <div id="subtab-close" style="display: none;">
-                                <h4>ðŸ¤ Handling Objections & Closing</h4>
+                                <h4>🤝 Handling Objections & Closing</h4>
                                 <ul class="playbook-list">
                                     <li><strong>Objection: "Is Google review gating allowed?"</strong>
                                         <ul>
@@ -586,7 +592,7 @@ MetrixMedia Digital</pre>
                                 </ul>
                             </div>
                             <div id="subtab-delivery" style="display: none;">
-                                <h4>ðŸš€ Fulfilling Your Orders in 5 Minutes</h4>
+                                <h4>🚀 Fulfilling Your Orders in 5 Minutes</h4>
                                 <ol class="playbook-list">
                                     <li>When a client agrees, open this RepuShield Dashboard.</li>
                                     <li>Verify the Campaign details are correct. Copy the generated **Review Portal Link** and **Flyer Link**.</li>
@@ -737,8 +743,8 @@ MetrixMedia Digital</pre>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="assets/js/supabase_config.js"></script>
-    <script src="assets/js/razorpay_config.js"></script>
+    <script src="supabase_config.js"></script>
+    <script src="razorpay_config.js"></script>
     <script src="generator.js?v=3.6"></script>
 </body>
 </html>
