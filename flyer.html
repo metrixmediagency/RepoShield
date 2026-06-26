@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -460,7 +460,7 @@
         .theme-artisan .standee-body p { font-family: 'Montserrat', sans-serif; color: #5c4033; font-weight: 500; font-size: 1rem; }
         .theme-artisan .qr-wrapper { border-radius: 8px; border: 3px dashed #8b5a2b; background: #ffffff; padding: 1.2rem; box-shadow: 5px 5px 0px rgba(139,90,43,0.1); }
         .theme-artisan .standee-footer { border-top: 1px solid #d1d5db; position: relative; margin-top: 1.5rem; width: 80%; }
-        .theme-artisan .standee-footer::before { content: '✤'; position: absolute; top: -11px; background: #f4ecd8; padding: 0 10px; color: #8b5a2b; font-size: 1.2rem; }
+        .theme-artisan .standee-footer::before { content: 'âœ¤'; position: absolute; top: -11px; background: #f4ecd8; padding: 0 10px; color: #8b5a2b; font-size: 1.2rem; }
         .theme-artisan .stars-row i { color: #d97706; }
         .theme-artisan .icon-placeholder { color: #8b5a2b; background: #fff; padding: 0.8rem; border-radius: 50%; box-shadow: 2px 2px 0px rgba(139,90,43,0.1); border: 1px solid #8b5a2b; margin-top: 1rem; }
 
@@ -640,7 +640,7 @@
     <div class="print-page">
         <!-- Floating Guide info on screen -->
         <div class="folding-guide-lines" id="print-guide">
-            <h4>✂️ Instructions:</h4>
+            <h4>âœ‚ï¸ Instructions:</h4>
             <p id="guide-text">Print out on high-quality paper or cardstock.</p>
         </div>
 
@@ -994,15 +994,15 @@
             if (campaignType === 'ecommerce') {
                 if(ecommerceAsset) ecommerceAsset.style.display = 'flex';
                 if(toolbarTitle) toolbarTitle.textContent = 'MetrixMedia Package Insert Builder';
-                if(guideText) guideText.innerHTML = '<strong>✂️ Package Insert Instructions:</strong><br>1. Print in color on standard 4" x 6" cardstock paper.<br>2. Place directly inside every shipped package box.<br>3. Track leads and reviews via your MetrixMedia dashboard.';
+                if(guideText) guideText.innerHTML = '<strong>âœ‚ï¸ Package Insert Instructions:</strong><br>1. Print in color on standard 4" x 6" cardstock paper.<br>2. Place directly inside every shipped package box.<br>3. Track leads and reviews via your MetrixMedia dashboard.';
             } else if (campaignType === 'delivery') {
                 if(deliveryAsset) deliveryAsset.style.display = 'grid';
                 if(toolbarTitle) toolbarTitle.textContent = 'MetrixMedia Delivery Sticker sheet';
-                if(guideText) guideText.innerHTML = '<strong>✂️ Packaging Sticker Instructions:</strong><br>1. Print on round adhesive label sheets or standard paper.<br>2. Cut along the circular borders.<br>3. Stick to paper bags or container lids before delivery.';
+                if(guideText) guideText.innerHTML = '<strong>âœ‚ï¸ Packaging Sticker Instructions:</strong><br>1. Print on round adhesive label sheets or standard paper.<br>2. Cut along the circular borders.<br>3. Stick to paper bags or container lids before delivery.';
             } else {
                 if(gmbAsset) gmbAsset.style.display = 'grid';
                 if(toolbarTitle) toolbarTitle.textContent = 'MetrixMedia Flyer Sheet (4-per-page)';
-                if(guideText) guideText.innerHTML = '<strong>✂️ Print Instructions:</strong><br>1. Print in color on standard A4 cardstock.<br>2. Cut along the dashed lines to separate the 4 identical flyers.';
+                if(guideText) guideText.innerHTML = '<strong>âœ‚ï¸ Print Instructions:</strong><br>1. Print in color on standard A4 cardstock.<br>2. Cut along the dashed lines to separate the 4 identical flyers.';
             }
 
             // 4. Update Text Nodes
