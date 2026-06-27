@@ -3128,7 +3128,6 @@ Interested in setting this up to see if it works?</span>
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase_config.js"></script>
-    <script src="generator.js?v=3.6"></script>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script src="razorpay_config.js"></script>
     <script src="standee_asset.js"></script>
@@ -3273,44 +3272,6 @@ Interested in setting this up to see if it works?</span>
 
                 return { name: `${planName} (${cycle})`, setup: setup, recurring: cost, total: cost + setup };
             }
-
-            // Action A: Generate Live Demo link
-            document.getElementById('btn-generate-demo').addEventListener('click', () => {
-                const bizName = document.getElementById('biz-name').value.trim();
-                const targetUrl = document.getElementById('biz-gmb').value.trim();
-                const category = document.getElementById('biz-category').value;
-                const color = document.getElementById('biz-accent').value;
-                
-                // Typography, custom designs
-                const font = document.getElementById('biz-font').value;
-                const theme = document.getElementById('flyer-theme').value;
-                const qrDot = document.getElementById('qr-dot-style').value;
-                const qrCorner = document.getElementById('qr-corner-style').value;
-                const flyerHeadline = document.getElementById('flyer-headline').value;
-                const flyerSub = document.getElementById('flyer-sub').value;
-                const flyerFooter = document.getElementById('flyer-footer').value;
-                const flyerTextStyle = document.getElementById('flyer-text-style').value;
-
-                if (!bizName || !targetUrl) {
-                    alert('Please enter a Business Name and Target Link to generate a demo.');
-                    return;
-                }
-
-                // Create clean mock preview links
-                const baseLocation = window.location.origin;
-                const demoPortalUrl = `${baseLocation}/portal.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&demo=true`;
-                const demoFlyerUrl = `${baseLocation}/flyer.html?name=${encodeURIComponent(bizName)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&theme=${encodeURIComponent(theme)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}`;
-                const demoInteractiveUrl = `${baseLocation}/demo.html?name=${encodeURIComponent(bizName)}&theme=${encodeURIComponent(theme)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}`;
-
-                // Update modal link values
-                document.getElementById('preview-portal-link').href = demoPortalUrl;
-                document.getElementById('preview-flyer-link').href = demoFlyerUrl;
-                if (document.getElementById('preview-interactive-link')) {
-                    document.getElementById('preview-interactive-link').href = demoInteractiveUrl;
-                }
-
-                demoModal.style.display = 'flex';
-            });
 
             // Action B: Launch & Request Payment
             let currentOnboardingCampaign = null;
@@ -3614,90 +3575,6 @@ Interested in setting this up to see if it works?</span>
             });
 
             // -------------------------------------------------------
-            // Note: Simulator preview frames are handled directly by generator.js using unified IDs
-
-            // -------------------------------------------------------
-            // Hamburger → Slide-In Sidebar Drawer (Mobile)
-            // -------------------------------------------------------
-            const mobMenuBtn = document.getElementById('mob-menu-btn');
-            const mobDrawerBackdrop = document.getElementById('mob-drawer-backdrop');
-            const drawerSidebar = document.querySelector('.sales-sidebar');
-
-            function closeDrawer() {
-                drawerSidebar?.classList.remove('drawer-open');
-                mobMenuBtn?.classList.remove('open');
-                mobDrawerBackdrop?.classList.remove('show');
-                document.body.style.overflow = '';
-                if (mobMenuBtn) mobMenuBtn.querySelector('i').className = 'fa-solid fa-bars';
-            }
-
-            function openDrawer() {
-                drawerSidebar?.classList.add('drawer-open');
-                mobMenuBtn?.classList.add('open');
-                mobDrawerBackdrop?.classList.add('show');
-                document.body.style.overflow = 'hidden';
-                if (mobMenuBtn) mobMenuBtn.querySelector('i').className = 'fa-solid fa-xmark';
-            }
-
-            mobMenuBtn?.addEventListener('click', () => {
-                drawerSidebar?.classList.contains('drawer-open') ? closeDrawer() : openDrawer();
-            });
-
-            mobDrawerBackdrop?.addEventListener('click', closeDrawer);
-
-            // Close drawer when a nav item is tapped on mobile
-            drawerSidebar?.querySelectorAll('.nav-item').forEach(item => {
-                item.addEventListener('click', () => {
-                    if (window.matchMedia('(max-width: 768px)').matches) {
-                        closeDrawer();
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }
-                });
-            });
-
-            // Close on Escape
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') closeDrawer();
-            });
-
-            const btnStepNext = document.getElementById('btn-step-next');
-            const btnStepBack = document.getElementById('btn-step-back');
-            const onboardStep1 = document.getElementById('onboard-step-1');
-            const onboardStep2 = document.getElementById('onboard-step-2');
-            const stepDot1 = document.getElementById('step-dot-1');
-            const stepDot2 = document.getElementById('step-dot-2');
-            const stepLine1 = document.getElementById('step-line-1');
-
-            if (btnStepNext) {
-                btnStepNext.addEventListener('click', () => {
-                    const bizName = document.getElementById('biz-name');
-                    const bizEmail = document.getElementById('biz-email');
-                    const bizUrl = document.getElementById('biz-gmb');
-                    if (!bizName.value.trim()) { bizName.focus(); showToastNotification('Please enter the Business Name.'); return; }
-                    if (!bizEmail.value.trim()) { bizEmail.focus(); showToastNotification('Please enter the Client Email.'); return; }
-                    if (!bizUrl.value.trim()) { bizUrl.focus(); showToastNotification('Please enter the Target URL.'); return; }
-
-                    if (onboardStep1) onboardStep1.classList.remove('active');
-                    if (onboardStep2) onboardStep2.classList.add('active');
-                    if (stepDot1) { stepDot1.classList.remove('active'); stepDot1.classList.add('done'); stepDot1.innerHTML = '<i class="fa-solid fa-check" style="font-size:0.7rem;"></i>'; }
-                    if (stepDot2) stepDot2.classList.add('active');
-                    if (stepLine1) stepLine1.classList.add('done');
-                    document.getElementById('step-indicator')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                });
-            }
-
-            if (btnStepBack) {
-                btnStepBack.addEventListener('click', () => {
-                    if (onboardStep2) onboardStep2.classList.remove('active');
-                    if (onboardStep1) onboardStep1.classList.add('active');
-                    if (stepDot1) { stepDot1.classList.add('active'); stepDot1.classList.remove('done'); stepDot1.textContent = '1'; }
-                    if (stepDot2) stepDot2.classList.remove('active');
-                    if (stepLine1) stepLine1.classList.remove('done');
-                    document.getElementById('step-indicator')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                });
-            }
-
-            // -------------------------------------------------------
             // Mobile Simulator Overlay Modal
             // -------------------------------------------------------
             const simOverlayModal = document.getElementById('sim-overlay-modal');
@@ -3706,8 +3583,65 @@ Interested in setting this up to see if it works?</span>
             const ovlBtnFlyer = document.getElementById('ovl-btn-flyer');
             const ovlPhonePane = document.getElementById('ovl-phone-pane');
             const ovlFlyerPane = document.getElementById('ovl-flyer-pane');
-            const ovlOpenPortalLink = document.getElementById('ovl-open-portal-link');
-            const ovlOpenFlyerLink = document.getElementById('ovl-open-flyer-link');
+
+            // Real-Time Simulator Updates
+            function updateSimulators() {
+                const bizName = document.getElementById('biz-name').value.trim() || 'Your Brand';
+                const color = document.getElementById('biz-accent').value || '#3b82f6';
+                const font = document.getElementById('biz-font').value || 'Outfit';
+                const theme = document.getElementById('flyer-theme').value || 'theme-onyx';
+                const targetUrl = document.getElementById('biz-gmb').value.trim() || '#';
+                const category = document.getElementById('biz-category').value || 'other';
+                
+                const qrDot = document.getElementById('qr-dot-style').value || 'rounded';
+                const qrCorner = document.getElementById('qr-corner-style').value || 'extra-rounded';
+                const flyerHeadline = document.getElementById('flyer-headline').value || 'Review Us';
+                const flyerSub = document.getElementById('flyer-sub').value || 'Scan to Rate';
+                const flyerFooter = document.getElementById('flyer-footer').value || 'Help us serve you better!';
+                const flyerTextStyle = document.getElementById('flyer-text-style').value || 'normal';
+
+                // 1. Update DOM Phone Simulator
+                const ovlPortalName = document.getElementById('ovl-portal-name');
+                const ovlPortalHeader = document.getElementById('ovl-portal-header');
+                const ovlPortalBtn = document.getElementById('ovl-portal-btn');
+                
+                if (ovlPortalName) {
+                    ovlPortalName.textContent = bizName;
+                    ovlPortalName.style.fontFamily = `'${font}', sans-serif`;
+                }
+                if (ovlPortalHeader) ovlPortalHeader.style.borderBottomColor = color;
+                if (ovlPortalBtn) {
+                    ovlPortalBtn.style.backgroundColor = color;
+                    ovlPortalBtn.style.boxShadow = `0 4px 12px ${color}4D`;
+                }
+
+                // 2. Update Live Iframe Flyer
+                const iframe = document.getElementById('mobile-live-flyer');
+                if (iframe) {
+                    const baseLocation = window.location.origin;
+                    const demoPortalUrl = `${baseLocation}/portal.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&demo=true`;
+                    const demoFlyerUrl = `flyer.html?name=${encodeURIComponent(bizName)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&theme=${encodeURIComponent(theme)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}`;
+                    
+                    // Only reload if URL actually changed to prevent flicker
+                    if (iframe.src.indexOf(demoFlyerUrl) === -1) {
+                        iframe.src = demoFlyerUrl;
+                    }
+                }
+            }
+
+            // Attach listeners to all inputs
+            let updateTimeout;
+            const allInputs = document.querySelectorAll('#onboard-client-form input, #onboard-client-form select');
+            allInputs.forEach(input => {
+                input.addEventListener('input', () => {
+                    clearTimeout(updateTimeout);
+                    updateTimeout = setTimeout(updateSimulators, 300);
+                });
+                input.addEventListener('change', updateSimulators);
+            });
+            
+            // Initial call
+            setTimeout(updateSimulators, 500);
 
             function openSimOverlay() {
                 const bizNameEl = document.getElementById('biz-name');
@@ -3725,39 +3659,7 @@ Interested in setting this up to see if it works?</span>
                     return;
                 }
 
-                // Update overlay mock visuals directly instead of the undefined updateSimulators()
-                const ovlPortalName = document.getElementById('ovl-portal-name');
-                const ovlPortalHeader = document.getElementById('ovl-portal-header');
-                const ovlPortalBtn = document.getElementById('ovl-portal-btn');
-                if (ovlPortalName) ovlPortalName.textContent = bizName;
-                if (ovlPortalHeader) ovlPortalHeader.style.borderBottomColor = color;
-                if (ovlPortalBtn) {
-                    ovlPortalBtn.style.backgroundColor = color;
-                    ovlPortalBtn.style.boxShadow = `0 4px 12px ${color}4D`; // 30% opacity hex
-                }
-
-                const theme = document.getElementById('flyer-theme') ? document.getElementById('flyer-theme').value : 'theme-onyx';
-                const qrDot = document.getElementById('qr-dot-style') ? document.getElementById('qr-dot-style').value : 'rounded';
-                const qrCorner = document.getElementById('qr-corner-style') ? document.getElementById('qr-corner-style').value : 'extra-rounded';
-                const font = document.getElementById('biz-font') ? document.getElementById('biz-font').value : 'Outfit';
-                
-                const flyerHeadline = document.getElementById('flyer-headline') ? document.getElementById('flyer-headline').value : 'Review Us';
-                const flyerSub = document.getElementById('flyer-sub') ? document.getElementById('flyer-sub').value : 'Scan to Rate';
-                const flyerFooter = document.getElementById('flyer-footer') ? document.getElementById('flyer-footer').value : 'Help us serve you better!';
-                const flyerTextStyle = document.getElementById('flyer-text-style') ? document.getElementById('flyer-text-style').value : 'normal';
-
-                const baseLocation = window.location.origin;
-                const demoPortalUrl = `${baseLocation}/portal.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&demo=true`;
-                const demoFlyerUrl = `${baseLocation}/flyer.html?name=${encodeURIComponent(bizName)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&theme=${encodeURIComponent(theme)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}`;
-                const demoInteractiveUrl = `${baseLocation}/demo.html?name=${encodeURIComponent(bizName)}&theme=${encodeURIComponent(theme)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}`;
-
-                const ovlOpenPortalLink = document.getElementById('ovl-open-portal-link');
-                const ovlOpenFlyerLink = document.getElementById('ovl-open-flyer-link');
-                const ovlOpenInteractiveLink = document.getElementById('ovl-open-interactive-link');
-                
-                if (ovlOpenPortalLink) ovlOpenPortalLink.href = demoPortalUrl;
-                if (ovlOpenFlyerLink) ovlOpenFlyerLink.href = demoFlyerUrl;
-                if (ovlOpenInteractiveLink) ovlOpenInteractiveLink.href = demoInteractiveUrl;
+                updateSimulators();
 
                 setOverlayPane('phone');
                 if (simOverlayModal) { simOverlayModal.classList.add('open'); document.body.style.overflow = 'hidden'; }
@@ -3796,7 +3698,6 @@ Interested in setting this up to see if it works?</span>
             // Wire "Preview Portal" button (replaces old btn-generate-demo listener)
             const btnGenerateDemo = document.getElementById('btn-generate-demo');
             if (btnGenerateDemo) {
-                // Remove any listener set earlier in the file for this button
                 const newBtn = btnGenerateDemo.cloneNode(true);
                 btnGenerateDemo.parentNode.replaceChild(newBtn, btnGenerateDemo);
                 newBtn.addEventListener('click', () => {
@@ -3975,6 +3876,32 @@ Interested in setting this up to see if it works?</span>
                                     var x   = Math.floor((bgImg.width  - fgW) / 2);
                                     var y   = Math.floor((bgImg.height - fgH) / 2 + bgImg.height * 0.05);
                                     ctx.drawImage(standee, x, y, fgW, fgH);
+
+                                    // 4. Draw dynamic branding (Name & Color)
+                                    var bizName = document.getElementById('biz-name') ? document.getElementById('biz-name').value.trim() : 'Brand Name';
+                                    var color = document.getElementById('biz-accent') ? document.getElementById('biz-accent').value : '#3b82f6';
+                                    var font = document.getElementById('biz-font') ? document.getElementById('biz-font').value : 'Outfit';
+                                    
+                                    if (!bizName) bizName = "Your Brand";
+
+                                    ctx.textAlign = 'center';
+                                    // Headline
+                                    ctx.font = `bold ${Math.floor(fgW * 0.08)}px '${font}'`;
+                                    ctx.fillStyle = 'white';
+                                    ctx.fillText(bizName, x + fgW/2, y + fgH * 0.2);
+
+                                    // Subheadline
+                                    ctx.font = `600 ${Math.floor(fgW * 0.045)}px '${font}'`;
+                                    ctx.fillStyle = '#cbd5e1';
+                                    ctx.fillText("Scan to Rate Us", x + fgW/2, y + fgH * 0.28);
+                                    
+                                    // Simulated QR box
+                                    var qrSize = Math.floor(fgW * 0.35);
+                                    ctx.fillStyle = 'white';
+                                    ctx.fillRect(x + fgW/2 - qrSize/2, y + fgH * 0.4, qrSize, qrSize);
+                                    ctx.strokeStyle = color;
+                                    ctx.lineWidth = 4;
+                                    ctx.strokeRect(x + fgW/2 - qrSize/2, y + fgH * 0.4, qrSize, qrSize);
 
                                     if (mockupPlaceholder) mockupPlaceholder.style.display = 'none';
                                     if (mockupDropzone) mockupDropzone.style.display = 'none';
