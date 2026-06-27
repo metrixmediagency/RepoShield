@@ -8,7 +8,6 @@
             ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(function(ev) {
                 document.addEventListener(ev, function(e) {
                     e.preventDefault();
-                    // We REMOVED stopPropagation() so the dropzone can actually receive the event!
                 }, false);
             });
         })();
@@ -20,7 +19,9 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="generator.css?v=2.3">
+    <link rel="stylesheet" href="generator.css?v=2.4">
+    <!-- Google Places API for Lead Generation Autocomplete -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY_HERE&libraries=places"></script>
     <script src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
     <style>
         /* --- Fx Retina Inspired Cyber-Luxury Design System --- */
@@ -32,7 +33,6 @@
             padding: 0;
             overflow-x: hidden;
             position: relative;
-            /* backface-visibility on body is a no-op — removed */
         }
 
         body::before {
@@ -1671,20 +1671,20 @@
         <div class="sales-layout">
             <!-- Sidebar Navigation -->
             <aside class="sales-sidebar">
-                <a href="#" class="nav-item active" data-tab="earnings">
+                <a href="#" class="nav-item active" data-tab="generator">
+                    <i class="fa-solid fa-bolt"></i> The Generator
+                </a>
+                <a href="#" class="nav-item" data-tab="leads">
+                    <i class="fa-solid fa-radar"></i> The Lead Finder
+                </a>
+                <a href="#" class="nav-item" data-tab="training">
+                    <i class="fa-solid fa-graduation-cap"></i> Training & Scripts
+                </a>
+                <a href="#" class="nav-item" data-tab="links">
+                    <i class="fa-solid fa-link"></i> My Links
+                </a>
+                <a href="#" class="nav-item" data-tab="earnings">
                     <i class="fa-solid fa-wallet"></i> My Earnings
-                </a>
-                <a href="#" class="nav-item" data-tab="onboard">
-                    <i class="fa-solid fa-user-plus"></i> Onboard Client
-                </a>
-                <a href="#" class="nav-item" data-tab="pipeline">
-                    <i class="fa-solid fa-chart-line"></i> My Pipeline
-                </a>
-                <a href="#" class="nav-item" data-tab="kit">
-                    <i class="fa-solid fa-book-open"></i> Sales Enablement
-                </a>
-                <a href="#" class="nav-item" data-tab="mockup">
-                    <i class="fa-solid fa-camera"></i> Image Editor
                 </a>
             </aside>
 
@@ -1774,8 +1774,8 @@
                     </div>
                 </section>
 
-                <!-- Section 2: Onboard Client Form -->
-                <section id="sec-onboard" class="sales-section-content" style="display: none;">
+                <!-- Section 2: The Generator Form -->
+                <section id="sec-generator" class="sales-section-content" style="display: none;">
                     <h2 class="gradient-text" style="margin-bottom: 1.5rem;">Onboard a New Client</h2>
                     <div class="grid-layout">
                         <!-- Left Column: Inputs Form -->
@@ -1812,10 +1812,10 @@
                                 </div>
 
                                 <div class="input-group">
-                                    <label for="biz-name" id="name-label">Business Name</label>
+                                    <label for="biz-name" id="name-label">Business Name (Search via Google)</label>
                                     <div class="input-wrapper">
                                         <i class="fa-solid fa-store input-icon" id="name-icon"></i>
-                                        <input type="text" id="biz-name" placeholder="e.g., Bandra Crust Café" required autocomplete="off">
+                                        <input type="text" id="biz-name" class="places-autocomplete" placeholder="Start typing a local business name..." required autocomplete="off">
                                     </div>
                                 </div>
 
@@ -1859,12 +1859,23 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="input-group">
-                                    <label for="biz-email">Client Email Address (for private feedback)</label>
-                                    <div class="input-wrapper">
-                                        <i class="fa-solid fa-envelope input-icon"></i>
-                                        <input type="email" id="biz-email" placeholder="owner@business.com" required autocomplete="off">
+                                <div class="grid-2-col">
+                                    <div class="input-group">
+                                        <label for="biz-email">Client Email Address</label>
+                                        <div class="input-wrapper">
+                                            <i class="fa-solid fa-envelope input-icon"></i>
+                                            <input type="email" id="biz-email" placeholder="owner@business.com" required autocomplete="off">
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <label for="biz-urgency">Pitch Urgency Level</label>
+                                        <div class="input-wrapper">
+                                            <select id="biz-urgency">
+                                                <option value="standard" selected>Standard (Professional)</option>
+                                                <option value="aggressive">Aggressive (Pain-focused)</option>
+                                                <option value="curious">Curious (Question-based)</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -1952,28 +1963,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="grid-2-col" style="margin-top: 1rem;">
-                                            <div class="input-group">
-                                                <label for="qr-dot-style">QR Pattern Style</label>
-                                                <div class="input-wrapper">
-                                                    <select id="qr-dot-style">
-                                                        <option value="theme-default" selected>Theme Default</option>
-                                                        <option value="square">Standard Squares</option>
-                                                        <option value="rounded">Rounded</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="input-group">
-                                                <label for="qr-corner-style">QR Corner Style</label>
-                                                <div class="input-wrapper">
-                                                    <select id="qr-corner-style">
-                                                        <option value="square">Standard Square</option>
-                                                        <option value="dot">Dot</option>
-                                                        <option value="extra-rounded" selected>Rounded</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
 
@@ -2008,11 +1997,11 @@
                                 </div>
 
                                 <div style="display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap;">
-                                    <button type="button" class="btn btn-secondary" id="btn-generate-demo" style="flex: 1; justify-content: center;">
-                                        <i class="fa-solid fa-mobile-screen-button"></i> Preview Demo Links
+                                    <button type="button" class="btn btn-secondary" id="btn-generate-demo" style="flex: 1; justify-content: center; border-color: #8b5cf6; color: #8b5cf6;">
+                                        <i class="fa-solid fa-bolt"></i> Generate Pitch & Mockups
                                     </button>
-                                    <button type="submit" class="btn btn-primary" style="flex: 1; justify-content: center;">
-                                        <i class="fa-solid fa-credit-card"></i> Launch Campaign & Payout
+                                    <button type="button" class="btn btn-primary" id="btn-generate-payment" style="flex: 1; justify-content: center;">
+                                        <i class="fa-solid fa-credit-card"></i> Generate Payment Link
                                     </button>
                                 </div>
                             </form>
@@ -2058,13 +2047,8 @@
                     </div>
                 </section>
 
-                <!-- Mobile-only Simulator Full-Screen Overlay -->
-                <!-- Triggered by "Preview Portal" button on mobile. Hidden by default. -->
-
-                <!-- Section 3: My Pipeline -->
-
-                <!-- Section 3: My Pipeline -->
-                <section id="sec-pipeline" class="sales-section-content" style="display: none;">
+                <!-- Section 3: The Lead Finder -->
+                <section id="sec-leads" class="sales-section-content" style="display: none;">
                     <h2 class="gradient-text" style="margin-bottom: 1.5rem;">My Referrals Pipeline</h2>
                     <div class="pipeline-grid">
                         <div class="glass-card">
@@ -2119,8 +2103,8 @@
                     </div>
                 </section>
 
-                <!-- Section 4: Sales Kit -->
-                <section id="sec-kit" class="sales-section-content" style="display: none;">
+                <!-- Section 4: Training & Scripts -->
+                <section id="sec-training" class="sales-section-content" style="display: none;">
 
                     <h2 class="gradient-text" style="margin-bottom: 1.5rem;">Sales Enablement Kit</h2>
                     
@@ -2923,8 +2907,8 @@ Interested in setting this up to see if it works?</span>
                     </script>
                 </section>
 
-                <!-- Section 5: Manual Mockup Editor -->
-                <section id="sec-mockup" class="sales-section-content" style="display: none;">
+                <!-- Section 5: My Links -->
+                <section id="sec-links" class="sales-section-content" style="display: none;">
                     <h2 class="gradient-text" style="margin-bottom: 1.5rem;">Manual Image Mockup Editor</h2>
                     <div class="grid-layout">
                         <!-- Left Column: Dropzone -->
@@ -2976,36 +2960,56 @@ Interested in setting this up to see if it works?</span>
         </div>
     </div>
 
-    <!-- Modal 1: Live Demo Mockup Preview -->
+    <!-- Modal 1: Unified Demo Hub -->
     <div id="demo-modal" class="modal" style="display:none;">
-        <div class="modal-content" style="max-width: 650px;">
+        <div class="modal-content" style="max-width: 1100px; width: 95%;">
             <span class="modal-close" id="demo-modal-close">&times;</span>
-            <h3 style="margin-bottom: 1.5rem; color: white;"><i class="fa-solid fa-mobile-screen"></i> Client Live Demo Preview</h3>
+            <h3 style="margin-bottom: 1.5rem; color: white;"><i class="fa-solid fa-bolt"></i> Unified Demo Hub</h3>
             
-            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">
-                Show these links to the business owner. The Review Portal mimics exactly what their customers will see, and the flyer link shows their printable counter standee mockup.
+            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 2rem;">
+                Your pitch is ready. Copy the script, grab the link, and download the visual mockup to send to the client.
             </p>
 
-            <div class="preview-flex">
-                <div class="preview-box">
-                    <i class="fa-solid fa-mobile-button"></i>
-                    <h4>Interactive Demo</h4>
-                    <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0.5rem 0 1.5rem;">Simulated phone + QR</p>
-                    <a href="#" id="preview-interactive-link" target="_blank" class="btn btn-primary btn-sm" style="width: 100%; justify-content: center;">Open Demo</a>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <!-- Column 1: Interactive URL -->
+                <div class="preview-box" style="text-align: left; padding: 1.5rem;">
+                    <h4 style="margin-top:0; color: #0ea5e9;"><i class="fa-solid fa-link"></i> 1. The Demo Link</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">This is the magic link that opens the simulated phone on their screen.</p>
+                    <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+                        <input type="text" id="demo-interactive-input" readonly style="flex: 1; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 0.5rem; border-radius: 6px; font-size: 0.8rem;">
+                        <button class="btn btn-secondary btn-sm" onclick="copyInput('demo-interactive-input')" style="padding: 0.5rem;"><i class="fa-solid fa-copy"></i></button>
+                    </div>
+                    <a href="#" id="preview-interactive-link" target="_blank" class="btn btn-primary btn-sm" style="width: 100%; justify-content: center;">Open in New Tab</a>
                 </div>
-                <div class="preview-box">
-                    <i class="fa-solid fa-window-restore"></i>
-                    <h4>Review Portal</h4>
-                    <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0.5rem 0 1.5rem;">Gating page for customers</p>
-                    <a href="#" id="preview-portal-link" target="_blank" class="btn btn-primary btn-sm" style="width: 100%; justify-content: center;">Open Portal</a>
+
+                <!-- Column 2: Auto-Pitch Script -->
+                <div class="preview-box" style="text-align: left; padding: 1.5rem;">
+                    <h4 style="margin-top:0; color: #10b981;"><i class="fa-solid fa-message"></i> 2. Auto-Pitch Script</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Optimized for WhatsApp/Instagram DM.</p>
+                    <div id="auto-pitch-script" style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); color: #e2e8f0; padding: 1rem; border-radius: 6px; font-size: 0.85rem; height: 180px; overflow-y: auto; white-space: pre-wrap; font-family: monospace; margin-bottom: 1rem;"></div>
+                    <button class="btn btn-primary btn-sm" onclick="copyDiv('auto-pitch-script')" style="width: 100%; justify-content: center; background: #10b981; border-color: #10b981;">Copy Pitch Script</button>
                 </div>
-                <div class="preview-box">
-                    <i class="fa-solid fa-file-pdf"></i>
-                    <h4>QR Table Flyer</h4>
-                    <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0.5rem 0 1.5rem;">Printable standee design</p>
-                    <a href="#" id="preview-flyer-link" target="_blank" class="btn btn-primary btn-sm" style="width: 100%; justify-content: center;">Open Flyer</a>
+
+                <!-- Column 3: Standee Image Mockup -->
+                <div class="preview-box" style="text-align: left; padding: 1.5rem;">
+                    <h4 style="margin-top:0; color: #8b5cf6;"><i class="fa-solid fa-image"></i> 3. Visual Mockup</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Drag a photo of their venue here to generate the custom standee image.</p>
+                    
+                    <div id="hub-dropzone" style="border: 2px dashed rgba(255,255,255,0.2); border-radius: 12px; height: 140px; display: flex; align-items: center; justify-content: center; flex-direction: column; cursor: pointer; transition: all 0.3s ease; margin-bottom: 1rem; background: rgba(0,0,0,0.2);">
+                        <i class="fa-solid fa-cloud-arrow-up" style="font-size: 2rem; color: #8b5cf6; margin-bottom: 0.5rem; text-shadow: none;"></i>
+                        <span style="font-size: 0.85rem; color: #94a3b8;">Drop photo or click</span>
+                    </div>
+                    <input type="file" id="hub-file-input" accept="image/*" style="display: none;">
+                    
+                    <canvas id="hub-canvas" style="display: none; width: 100%; border-radius: 8px; margin-bottom: 1rem;"></canvas>
+                    <p id="hub-status" style="font-size: 0.8rem; text-align: center; margin-bottom: 1rem;"></p>
+                    
+                    <button id="btn-hub-download" class="btn btn-primary btn-sm" style="width: 100%; justify-content: center; display: none; background: #8b5cf6; border-color: #8b5cf6;"><i class="fa-solid fa-download"></i> Download JPG</button>
                 </div>
             </div>
+        </div>
+    </div>
+            </main>
         </div>
     </div>
 
@@ -3801,14 +3805,13 @@ Interested in setting this up to see if it works?</span>
                     } else {
                         const bizName = document.getElementById('biz-name').value.trim();
                         const targetUrl = document.getElementById('biz-gmb').value.trim();
-                        const category = document.getElementById('biz-category').value;
+                        const category = document.getElementById('biz-category') ? document.getElementById('biz-category').value : 'other';
+                        const urgency = document.getElementById('biz-urgency') ? document.getElementById('biz-urgency').value : 'standard';
                         const color = document.getElementById('biz-accent').value;
 
                         if (!bizName || !targetUrl) { showToastNotification('Please enter a Business Name and Target URL first.'); return; }
 
                         const theme = document.getElementById('flyer-theme') ? document.getElementById('flyer-theme').value : 'theme-onyx';
-                        const qrDot = document.getElementById('qr-dot-style') ? document.getElementById('qr-dot-style').value : 'rounded';
-                        const qrCorner = document.getElementById('qr-corner-style') ? document.getElementById('qr-corner-style').value : 'extra-rounded';
                         const font = document.getElementById('biz-font').value;
                         
                         const flyerHeadline = document.getElementById('flyer-headline') ? document.getElementById('flyer-headline').value : 'Review Us';
@@ -3817,16 +3820,27 @@ Interested in setting this up to see if it works?</span>
                         const flyerTextStyle = document.getElementById('flyer-text-style') ? document.getElementById('flyer-text-style').value : 'normal';
 
                         const baseLocation = window.location.origin;
-                        const demoPortalUrl = `${baseLocation}/portal.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&demo=true`;
-                        const demoFlyerUrl = `${baseLocation}/flyer.html?name=${encodeURIComponent(bizName)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&theme=${encodeURIComponent(theme)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}`;
-                        const demoInteractiveUrl = `${baseLocation}/demo.html?name=${encodeURIComponent(bizName)}&theme=${encodeURIComponent(theme)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}`;
+                        const demoInteractiveUrl = `${baseLocation}/demo.html?name=${encodeURIComponent(bizName)}&theme=${encodeURIComponent(theme)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}`;
 
-                        const ppLink = document.getElementById('preview-portal-link');
-                        const pfLink = document.getElementById('preview-flyer-link');
+                        // 1. Set Interactive Link
                         const piLink = document.getElementById('preview-interactive-link');
-                        if (ppLink) ppLink.href = demoPortalUrl;
-                        if (pfLink) pfLink.href = demoFlyerUrl;
+                        const piInput = document.getElementById('demo-interactive-input');
                         if (piLink) piLink.href = demoInteractiveUrl;
+                        if (piInput) piInput.value = demoInteractiveUrl;
+
+                        // 2. Generate Pitch Script
+                        const pitchBox = document.getElementById('auto-pitch-script');
+                        if (pitchBox) {
+                            let script = '';
+                            if (urgency === 'aggressive') {
+                                script = `Hey ${bizName},\n\nI was looking at your Google reviews and noticed a few recent 1-star complaints that are probably driving away foot traffic right now.\n\nI built a custom NFC standee system for you that intercepts angry customers BEFORE they can post publicly, and sends them straight to your phone instead.\n\nI built a live demo of your venue's standee here. Tap this on your phone:\n${demoInteractiveUrl}`;
+                            } else if (urgency === 'curious') {
+                                script = `Hey ${bizName},\n\nQuick question - are you currently using NFC table standees to capture 5-star reviews before customers leave?\n\nIf not, you're leaving a lot of easy SEO rankings on the table. I went ahead and built a custom interactive mockup of what this would look like for your venue.\n\nYou can test the live demo on your phone here:\n${demoInteractiveUrl}`;
+                            } else {
+                                script = `Hi ${bizName} Team,\n\nI'm reaching out because we help top venues automate their 5-star Google Review collection using Smart NFC acrylic standees.\n\nI built a custom branded mockup for your venue to show you exactly how the private intercept technology works.\n\nPlease tap this link on your mobile device to test it out:\n${demoInteractiveUrl}`;
+                            }
+                            pitchBox.innerText = script;
+                        }
 
                         const demoModal = document.getElementById('demo-modal');
                         if (demoModal) demoModal.style.display = 'flex';
@@ -3863,16 +3877,16 @@ Interested in setting this up to see if it works?</span>
             });
 
             // ==========================================
-            // MANUAL MOCKUP EDITOR LOGIC
+            // MANUAL MOCKUP EDITOR LOGIC (Ported to Hub)
             // ==========================================
             (function() {
-                var mockupDropzone    = document.getElementById('mockup-dropzone');
-                var mockupFileInput  = document.getElementById('mockup-file-input');
-                var btnMockupChoose  = document.getElementById('btn-mockup-choose');
-                var mockupCanvas     = document.getElementById('mockup-canvas');
-                var mockupPlaceholder= document.getElementById('mockup-placeholder');
-                var btnDownloadMockup= document.getElementById('btn-download-mockup');
-                var mockupStatus     = document.getElementById('mockup-status');
+                var mockupDropzone    = document.getElementById('hub-dropzone');
+                var mockupFileInput  = document.getElementById('hub-file-input');
+                var btnMockupChoose  = document.getElementById('hub-dropzone');
+                var mockupCanvas     = document.getElementById('hub-canvas');
+                var mockupPlaceholder= null;
+                var btnDownloadMockup= document.getElementById('btn-hub-download');
+                var mockupStatus     = document.getElementById('hub-status');
 
                 // Bail cleanly if any element is missing
                 if (!mockupDropzone || !mockupFileInput || !mockupCanvas) return;
@@ -3961,7 +3975,8 @@ Interested in setting this up to see if it works?</span>
                                     var y   = Math.floor((bgImg.height - fgH) / 2 + bgImg.height * 0.05);
                                     ctx.drawImage(standee, x, y, fgW, fgH);
 
-                                    if (mockupPlaceholder)  mockupPlaceholder.style.display = 'none';
+                                    if (mockupPlaceholder) mockupPlaceholder.style.display = 'none';
+                                    if (mockupDropzone) mockupDropzone.style.display = 'none';
                                     mockupCanvas.style.display   = 'block';
                                     if (btnDownloadMockup) btnDownloadMockup.style.display = 'flex';
                                     
@@ -4006,6 +4021,44 @@ Interested in setting this up to see if it works?</span>
             })();
         });
 
+
+        // Copy utility for new unified modal
+        function copyInput(elementId) {
+            const input = document.getElementById(elementId);
+            input.select();
+            input.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(input.value);
+            showToastNotification('Link copied to clipboard!');
+        }
+
+        function copyDiv(elementId) {
+            const text = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(text);
+            showToastNotification('Script copied to clipboard!');
+        }
+
+        // Initialize Google Places Autocomplete
+        function initAutocomplete() {
+            const input = document.getElementById('biz-name');
+            if (typeof google === 'object' && typeof google.maps === 'object') {
+                const autocomplete = new google.maps.places.Autocomplete(input, { types: ['establishment'] });
+                autocomplete.addListener('place_changed', () => {
+                    const place = autocomplete.getPlace();
+                    if (place.url) {
+                        document.getElementById('biz-gmb').value = place.url;
+                    }
+                    if (place.website) {
+                        const baseUrlInput = document.getElementById('biz-base-url');
+                        if(baseUrlInput) baseUrlInput.value = place.website;
+                    }
+                });
+            } else {
+                console.warn("Google Maps API not loaded. Autocomplete disabled.");
+            }
+        }
+        
+        // Wait for script to load
+        setTimeout(initAutocomplete, 1500);
 
         // Copy utility for scripts & links
         function copyText(elementId) {
