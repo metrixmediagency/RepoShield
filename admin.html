@@ -3,37 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MetrixMedia – Aegis Protocol Dashboard</title>
+    <title>God-Mode Operations - MetrixMedia</title>
     <link rel="icon" type="image/png" href="/favicon.png">
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="generator.css?v=2.3">
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-    <script src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+    <link rel="stylesheet" href="generator.css?v=2.4">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <!-- Passcode Security Gate -->
-    <div id="passcode-gate" class="passcode-gate">
-        <div class="passcode-card">
-            <div class="brand-icon pass-icon">
-                <i class="fa-solid fa-lock"></i>
-            </div>
-            <h2>Agency Dashboard</h2>
-            <p>Please enter your access key to continue.</p>
-            <form id="passcode-form">
-                <div class="pass-input-wrapper">
-                    <input type="password" id="passcode-input" placeholder="Enter Access Key" autocomplete="off" required>
-                    <button type="submit" class="btn btn-primary pass-btn">Unlock <i class="fa-solid fa-arrow-right"></i></button>
-                </div>
-                <p id="passcode-error" class="passcode-error">Incorrect passcode. Access denied.</p>
-            </form>
-        </div>
-    </div>
-
     <div class="glow-bg-1"></div>
     <div class="glow-bg-2"></div>
 
@@ -41,11 +20,11 @@
     <header class="mobile-header">
         <div class="brand">
             <div class="brand-icon">
-                <i class="fa-solid fa-shield-halved"></i>
+                <i class="fa-solid fa-crown"></i>
             </div>
             <div class="brand-text">
                 <h1>MetrixMedia</h1>
-                <span>Aegis Protocol</span>
+                <span>God-Mode HQ</span>
             </div>
         </div>
         <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
@@ -61,11 +40,11 @@
         <aside class="sidebar" id="sidebar">
             <div class="brand">
                 <div class="brand-icon">
-                    <i class="fa-solid fa-shield-halved"></i>
+                    <i class="fa-solid fa-crown" style="color: #fbbf24;"></i>
                 </div>
                 <div class="brand-text">
                     <h1>MetrixMedia</h1>
-                    <span>Aegis Protocol</span>
+                    <span>God-Mode HQ</span>
                 </div>
                 <button class="sidebar-close" id="sidebar-close" aria-label="Close menu">
                     <i class="fa-solid fa-xmark"></i>
@@ -73,33 +52,30 @@
             </div>
             
             <nav class="nav-menu">
-                <a href="#" class="nav-item active" data-tab="create">
-                    <i class="fa-solid fa-plus"></i> Create Campaign
+                <a href="#" class="nav-item active" data-tab="analytics">
+                    <i class="fa-solid fa-chart-line"></i> Global Analytics
                 </a>
-                <a href="#" class="nav-item" data-tab="campaigns">
-                    <i class="fa-solid fa-list-check"></i> Active Campaigns
+                <a href="#" class="nav-item" data-tab="fulfillment">
+                    <i class="fa-solid fa-boxes-packing"></i> Fulfillment Pipeline
                 </a>
-                <a href="#" class="nav-item" data-tab="academy">
-                    <i class="fa-solid fa-graduation-cap"></i> Sales Playbook
+                <a href="#" class="nav-item" data-tab="revenue">
+                    <i class="fa-solid fa-sack-dollar"></i> Revenue Engine
                 </a>
-                <a href="#" class="nav-item" data-tab="billing">
-                    <i class="fa-solid fa-file-invoice-dollar"></i> Billing
+                <a href="#" class="nav-item" data-tab="team">
+                    <i class="fa-solid fa-users-gear"></i> Team Management
                 </a>
-                <a href="#" class="nav-item" data-tab="clients">
-                    <i class="fa-solid fa-users"></i> Clients
-                </a>
-                <a href="#" class="nav-item" data-tab="agents">
-                    <i class="fa-solid fa-user-tie"></i> Sales Partners
+                <a href="#" class="nav-item" data-tab="database">
+                    <i class="fa-solid fa-database"></i> Client Database
                 </a>
             </nav>
 
             <div class="partner-card">
                 <div class="partner-avatar">
-                    <i class="fa-solid fa-robot"></i>
+                    <i class="fa-solid fa-user-secret"></i>
                 </div>
                 <div class="partner-info">
-                    <h4>Antigravity AI</h4>
-                    <p>Co-Pilot Active</p>
+                    <h4>Sunny (Founder)</h4>
+                    <p style="color: #fbbf24;"><i class="fa-solid fa-key"></i> God-Mode Active</p>
                 </div>
             </div>
         </aside>
@@ -109,399 +85,155 @@
             <!-- Header -->
             <header class="content-header">
                 <div class="header-title">
-                    <h2 id="tab-title">Generate GMB Review Campaign</h2>
-                    <p id="tab-subtitle">Enter local business details to instantly generate custom Aegis Protocol portals and print-ready QR standees.</p>
+                    <h2 id="tab-title">Global Analytics</h2>
+                    <p id="tab-subtitle">High-level overview of the entire agency's performance, live revenue tracking, and global scan metrics.</p>
                 </div>
-                <div class="stats-badge">
-                    <i class="fa-solid fa-indian-rupee-sign text-emerald"></i>
-                    <span>Target: Rs. 100k/mo</span>
+                <div class="stats-badge" style="background: rgba(251, 191, 36, 0.1); border-color: rgba(251, 191, 36, 0.3); color: #fbbf24;">
+                    <i class="fa-solid fa-bolt"></i>
+                    <span>System Online</span>
                 </div>
             </header>
 
-            <!-- Tab 1: Create Campaign -->
-            <section id="tab-create-content" class="tab-content active">
-                <div class="grid-layout">
-                    <!-- Left Column: Inputs Form -->
-                    <div class="glass-card form-column">
-                        <div class="card-header">
-                            <i class="fa-solid fa-sliders text-indigo"></i>
-                            <h3>Campaign Parameters</h3>
+            <!-- Tab 1: Global Analytics -->
+            <section id="tab-analytics-content" class="tab-content active">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+                    <!-- KPI Cards -->
+                    <div class="glass-card" style="padding: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <h4 style="color: var(--text-muted); font-size: 0.9rem; font-weight: 500;">Monthly Recurring Rev</h4>
+                            <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(52, 211, 153, 0.1); display: flex; align-items: center; justify-content: center; color: #34d399;">
+                                <i class="fa-solid fa-indian-rupee-sign"></i>
+                            </div>
                         </div>
-                        
-                        <form id="campaign-form" class="campaign-form">
-                            <!-- Campaign Type Segment Selector -->
-                            <div class="campaign-type-selector">
-                                <label>Campaign Type</label>
-                                <div class="segment-control">
-                                    <button type="button" class="segment-btn active" data-type="gmb">
-                                        <i class="fa-solid fa-map-location-dot"></i> Local GMB
-                                    </button>
-                                    <button type="button" class="segment-btn" data-type="ecommerce">
-                                        <i class="fa-solid fa-box-open"></i> E-Commerce
-                                    </button>
-                                    <button type="button" class="segment-btn" data-type="delivery">
-                                        <i class="fa-solid fa-motorcycle"></i> Zomato/Swiggy
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- Local Warning Banner -->
-                            <div class="local-warning-banner" id="local-warning" style="display: none;">
-                                <i class="fa-solid fa-circle-exclamation"></i>
-                                <div>
-                                    <strong>Local Offline Mode Active</strong>
-                                    <p>Scanning QR codes on your phone will not work because they point to your local hard drive (<code>file://</code>). To test on mobile, host your folder for free or enter a custom URL below.</p>
-                                </div>
-                            </div>
-
-                            <div class="input-group">
-                                <label for="biz-name" id="name-label">Business Name</label>
-                                <div class="input-wrapper">
-                                    <i class="fa-solid fa-store input-icon" id="name-icon"></i>
-                                    <input type="text" id="biz-name" placeholder="e.g., The Roasted Bean Cafe" required autocomplete="off">
-                                </div>
-                            </div>
-
-                            <div class="input-group">
-                                <label for="biz-gmb" id="destination-label">Google Review URL</label>
-                                <div class="input-wrapper">
-                                    <i class="fa-brands fa-google input-icon" id="destination-icon"></i>
-                                    <input type="url" id="biz-gmb" placeholder="e.g., https://g.page/r/XYZ/review" required autocomplete="off">
-                                </div>
-                                <span class="input-tip" id="destination-tip"><i class="fa-solid fa-circle-info"></i> Paste their direct Google Review prompt link.</span>
-                            </div>
-
-                            <div class="input-group" id="product-tier-group" style="display: none;">
-                                <label for="ecommerce-tier">Product Tier / Variant</label>
-                                <div class="input-wrapper">
-                                    <i class="fa-solid fa-layer-group input-icon"></i>
-                                    <input type="text" id="ecommerce-tier" placeholder="e.g., Premium Leather Wallet, Basic Case" autocomplete="off">
-                                </div>
-                                <span class="input-tip"><i class="fa-solid fa-circle-info"></i> E-commerce Multi-product tracking: Use this to generate unique portals per product tier.</span>
-                            </div>
-
-                            <div class="grid-2-col">
-                                <div class="input-group">
-                                    <label for="biz-accent">Accent Color</label>
-                                    <div class="color-picker-wrapper">
-                                        <input type="color" id="biz-accent" value="#6366f1">
-                                        <input type="text" id="biz-accent-hex" value="#6366f1" placeholder="#6366f1">
-                                    </div>
-                                </div>
-                                <div class="input-group">
-                                    <label for="biz-category" id="category-label">Category</label>
-                                    <div class="input-wrapper">
-                                        <select id="biz-category">
-                                            <option value="cafe">☕ Cafe / Restaurant</option>
-                                            <option value="dental">🦷 Dental / Medical Clinic</option>
-                                            <option value="gym">💪 Fitness Gym</option>
-                                            <option value="salon">✂️ Salon / Spa</option>
-                                            <option value="law">⚖️ Law Firm</option>
-                                            <option value="other">💼 Professional Services</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="input-group">
-                                <label for="biz-email">Owner Email (for private feedback)</label>
-                                <div class="input-wrapper">
-                                    <i class="fa-solid fa-envelope input-icon"></i>
-                                    <input type="email" id="biz-email" placeholder="e.g., owner@cafe.com" required autocomplete="off">
-                                </div>
-                            </div>
-
-                            <div class="input-group">
-                                <label for="biz-font">Brand Typography</label>
-                                <div class="input-wrapper">
-                                    <i class="fa-solid fa-font input-icon"></i>
-                                    <select id="biz-font">
-                                        <option value="Outfit">Outfit (Modern Tech)</option>
-                                        <option value="Inter">Inter (Clean & Clinical)</option>
-                                        <option value="Playfair Display">Playfair Display (Luxury / Boutique)</option>
-                                        <option value="Space Grotesk">Space Grotesk (Edgy / Cyber)</option>
-                                        <option value="Cinzel">Cinzel (High-End / Classic)</option>
-                                        <option value="Montserrat">Montserrat (Geometric / Bold)</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="input-group">
-                                <label for="biz-logo">Logo Image URL (Optional)</label>
-                                <div class="input-wrapper">
-                                    <i class="fa-solid fa-image input-icon"></i>
-                                    <input type="url" id="biz-logo" placeholder="e.g., https://domain.com/logo.png" autocomplete="off">
-                                </div>
-                                <span class="input-tip"><i class="fa-solid fa-circle-info"></i> Leave empty to use beautiful typography branding instead.</span>
-                            </div>
-
-                            <div class="input-group">
-                                <label for="biz-base-url">Deployment / Base URL (Optional)</label>
-                                <div class="input-wrapper">
-                                    <i class="fa-solid fa-globe input-icon"></i>
-                                    <input type="url" id="biz-base-url" placeholder="e.g., https://repushield-agency.vercel.app" autocomplete="off">
-                                </div>
-                                <span class="input-tip"><i class="fa-solid fa-circle-info"></i> Once deployed, enter your domain here. The generated QR codes will instantly point to your public site!</span>
-                            </div>
-
-                            <div style="margin-top: 2rem; margin-bottom: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
-                                <h4 style="margin-bottom: 1rem; color: #818cf8;"><i class="fa-solid fa-gem"></i> Premium Flyer Theme</h4>
-                                <div class="input-group">
-                                    <label for="flyer-theme">Select Curated Design</label>
-                                    <div class="input-wrapper">
-                                        <i class="fa-solid fa-palette input-icon"></i>
-                                        <select id="flyer-theme">
-                                            <option value="theme-onyx" selected>Onyx Elegance (Dark Luxury)</option>
-                                            <option value="theme-glass">Frosted Glass (Modern Tech)</option>
-                                            <option value="theme-artisan">Artisan Kraft (Warm & Organic)</option>
-                                            <option value="theme-neon">Neon Pulse (High Energy)</option>
-                                        </select>
-                                    </div>
-                                    <span class="input-tip"><i class="fa-solid fa-circle-info"></i> Instantly applies a curated layout, typography, and QR style to your print flyer.</span>
-                                </div>
-                                <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px dashed rgba(255,255,255,0.1);">
-                                    <h5 style="margin-bottom: 0.8rem; color: #cbd5e1;"><i class="fa-solid fa-sliders"></i> Granular Customization</h5>
-                                    <div class="grid-2-col">
-                                        <div class="input-group">
-                                            <label for="flyer-headline">Flyer Headline</label>
-                                            <div class="input-wrapper">
-                                                <i class="fa-solid fa-heading input-icon"></i>
-                                                <input type="text" id="flyer-headline" value="Review Us" placeholder="e.g. Review Us">
-                                            </div>
-                                        </div>
-                                        <div class="input-group">
-                                            <label for="flyer-sub">Flyer Subheadline</label>
-                                            <div class="input-wrapper">
-                                                <i class="fa-solid fa-font input-icon"></i>
-                                                <input type="text" id="flyer-sub" value="Scan to Rate" placeholder="e.g. Scan to Rate">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="grid-2-col" style="margin-top: 1rem;">
-                                        <div class="input-group">
-                                            <label for="flyer-footer">Footer Text</label>
-                                            <div class="input-wrapper">
-                                                <i class="fa-solid fa-font input-icon"></i>
-                                                <input type="text" id="flyer-footer" value="Help us serve you better!" placeholder="e.g. Help us serve you better!">
-                                            </div>
-                                        </div>
-                                        <div class="input-group">
-                                            <label for="flyer-text-style">Text Style</label>
-                                            <div class="input-wrapper">
-                                                <select id="flyer-text-style">
-                                                    <option value="normal" selected>Normal</option>
-                                                    <option value="bold">Bold</option>
-                                                    <option value="italic">Italic</option>
-                                                    <option value="bold-italic">Bold & Italic</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="grid-2-col" style="margin-top: 1rem;">
-                                        <div class="input-group">
-                                            <label for="qr-dot-style">QR Pattern Style</label>
-                                            <div class="input-wrapper">
-                                                <select id="qr-dot-style">
-                                                    <option value="theme-default" selected>Theme Default</option>
-                                                    <option value="square">Standard Squares</option>
-                                                    <option value="rounded">Rounded</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="input-group">
-                                            <label for="qr-corner-style">QR Corner Style</label>
-                                            <div class="input-wrapper">
-                                                <select id="qr-corner-style">
-                                                    <option value="square">Standard Square</option>
-                                                    <option value="dot">Dot</option>
-                                                    <option value="extra-rounded" selected>Rounded</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary" id="btn-generate">
-                                <i class="fa-solid fa-wand-magic-sparkles"></i> Build Campaign Assets
-                            </button>
-                            <button type="button" class="btn btn-secondary" id="btn-mob-preview" style="display: none; margin-top: 1rem; width: 100%;">
-                                <i class="fa-solid fa-eye"></i> Preview Mockups
-                            </button>
-                        </form>
+                        <h2 style="font-size: 2rem; margin: 0; color: white;">₹4,25,000</h2>
+                        <p style="color: #34d399; font-size: 0.8rem; margin-top: 0.5rem;"><i class="fa-solid fa-arrow-trend-up"></i> +12.5% vs last month</p>
                     </div>
 
-                    <!-- Right Column: Interactive Simulators -->
-                    <div class="preview-column">
-                        <!-- Toggle Buttons -->
-                        <div class="preview-toggles">
-                            <button class="toggle-btn active" data-preview="mobile">
-                                <i class="fa-solid fa-mobile-screen-button"></i> Mobile Portal Gater
-                            </button>
-                            <button class="toggle-btn" data-preview="flyer" id="btn-print-toggle">
-                                <i class="fa-solid fa-print"></i> 4-per-page Flyer
-                            </button>
-                        </div>
- 
-                        <!-- Mobile Simulator Mockup -->
-                        <div id="preview-mobile-wrapper" class="simulator-wrapper mobile-active">
-                            <div class="phone-frame">
-                                <div class="phone-speaker"></div>
-                                <div class="phone-screen">
-                                    <!-- Embedded Portal Frame -->
-                                    <iframe id="portal-iframe" src="about:blank"></iframe>
-                                </div>
-                                <div class="phone-home"></div>
+                    <div class="glass-card" style="padding: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <h4 style="color: var(--text-muted); font-size: 0.9rem; font-weight: 500;">Active Clients</h4>
+                            <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(14, 165, 233, 0.1); display: flex; align-items: center; justify-content: center; color: #0ea5e9;">
+                                <i class="fa-solid fa-building"></i>
                             </div>
                         </div>
- 
-                        <!-- Flyer Simulator Mockup -->
-                        <div id="preview-flyer-wrapper" class="simulator-wrapper">
-                            <iframe id="admin-live-flyer" src="flyer.html?v=3.6" style="width: 280px; height: 520px; border: none; background: transparent; overflow: hidden; transform-origin: top center; pointer-events: none;"></iframe>
+                        <h2 style="font-size: 2rem; margin: 0; color: white;">142</h2>
+                        <p style="color: #0ea5e9; font-size: 0.8rem; margin-top: 0.5rem;"><i class="fa-solid fa-user-plus"></i> 18 new this month</p>
+                    </div>
+
+                    <div class="glass-card" style="padding: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <h4 style="color: var(--text-muted); font-size: 0.9rem; font-weight: 500;">Total Global Scans</h4>
+                            <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(139, 92, 246, 0.1); display: flex; align-items: center; justify-content: center; color: #8b5cf6;">
+                                <i class="fa-solid fa-qrcode"></i>
+                            </div>
                         </div>
+                        <h2 style="font-size: 2rem; margin: 0; color: white;">18,492</h2>
+                        <p style="color: #8b5cf6; font-size: 0.8rem; margin-top: 0.5rem;"><i class="fa-solid fa-bolt"></i> +3,400 across all portals</p>
+                    </div>
+
+                    <div class="glass-card" style="padding: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <h4 style="color: var(--text-muted); font-size: 0.9rem; font-weight: 500;">1-Star Intercepts</h4>
+                            <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(239, 68, 68, 0.1); display: flex; align-items: center; justify-content: center; color: #ef4444;">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                        </div>
+                        <h2 style="font-size: 2rem; margin: 0; color: white;">415</h2>
+                        <p style="color: #ef4444; font-size: 0.8rem; margin-top: 0.5rem;"><i class="fa-solid fa-ban"></i> Disasters prevented</p>
                     </div>
                 </div>
-            </section>
 
-            <!-- Tab: July Content Calendar & Instagram Simulator -->
-            <section id="tab-social-content" class="tab-content">
-                <div class="social-dashboard-grid">
-                    <!-- Left Column: Calendar List -->
-                    <div class="glass-card social-calendar-card">
-                        <div class="card-header social-calendar-header">
-                            <div class="header-title-row">
-                                <i class="fa-solid fa-calendar-days text-primary"></i>
-                                <h3>July Schedule</h3>
-                            </div>
-                            <div class="calendar-filters">
-                                <button class="filter-btn active" data-filter="all">All</button>
-                                <button class="filter-btn" data-filter="reel">Reels</button>
-                                <button class="filter-btn" data-filter="carousel">Carousels</button>
-                            </div>
-                        </div>
-                        <div class="calendar-posts-list" id="calendar-posts-list">
-                            <!-- Populated dynamically by generator.js -->
+                <div class="grid-layout" style="grid-template-columns: 2fr 1fr;">
+                    <!-- Chart Area -->
+                    <div class="glass-card" style="padding: 1.5rem;">
+                        <h3 style="margin-bottom: 1.5rem; color: white; font-size: 1.1rem;"><i class="fa-solid fa-chart-area text-indigo"></i> MRR Growth Trajectory</h3>
+                        <div style="position: relative; height: 300px; width: 100%;">
+                            <canvas id="mrrChart"></canvas>
                         </div>
                     </div>
 
-                    <!-- Right Column: Instagram Simulator -->
-                    <div class="glass-card social-simulator-card">
-                        <div class="card-header social-simulator-header">
-                            <div class="header-title-row">
-                                <i class="fa-brands fa-instagram text-pink"></i>
-                                <h3>Instagram Feed Simulator</h3>
+                    <!-- Live Sales Feed -->
+                    <div class="glass-card" style="padding: 1.5rem; display: flex; flex-direction: column;">
+                        <h3 style="margin-bottom: 1.5rem; color: white; font-size: 1.1rem;"><i class="fa-solid fa-satellite-dish text-emerald"></i> Live Sales Feed</h3>
+                        <div style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem; padding-right: 0.5rem;">
+                            <!-- Feed Item -->
+                            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span style="color: #34d399; font-size: 0.8rem; font-weight: 600;"><i class="fa-solid fa-circle-check"></i> Deal Closed</span>
+                                    <span style="color: var(--text-muted); font-size: 0.75rem;">2m ago</span>
+                                </div>
+                                <p style="font-size: 0.9rem; margin: 0; color: #e2e8f0;">Agent <strong>Raj K.</strong> closed <span style="color: white; font-weight: 600;">Bandra Crust Cafe</span></p>
+                                <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0.3rem 0 0;">₹4,999/mo (GMB Booster Plan)</p>
                             </div>
-                            <div class="simulator-actions">
-                                <button id="btn-export-slide" class="btn btn-secondary btn-sm" style="display: none;">
-                                    <i class="fa-solid fa-download"></i> Export Slide
-                                </button>
-                                <button id="btn-play-storyboard" class="btn btn-primary btn-sm" style="display: none;">
-                                    <i class="fa-solid fa-play"></i> Play Reel
-                                </button>
+                            <!-- Feed Item -->
+                            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span style="color: #0ea5e9; font-size: 0.8rem; font-weight: 600;"><i class="fa-solid fa-box"></i> Fulfillment</span>
+                                    <span style="color: var(--text-muted); font-size: 0.75rem;">45m ago</span>
+                                </div>
+                                <p style="font-size: 0.9rem; margin: 0; color: #e2e8f0;">Standees shipped for <span style="color: white; font-weight: 600;">Gymkhana Elite</span></p>
                             </div>
-                        </div>
-                        <div class="simulator-body">
-                            <!-- Mobile Instagram Frame -->
-                            <div class="instagram-frame-wrapper">
-                                <div class="instagram-frame">
-                                    <div class="instagram-header">
-                                        <div class="ig-user-info">
-                                            <div class="ig-avatar"></div>
-                                            <div class="ig-username-details">
-                                                <span class="ig-username">metrixmedia</span>
-                                                <span class="ig-location">Goa, India</span>
-                                            </div>
-                                        </div>
-                                        <i class="fa-solid fa-ellipsis"></i>
-                                    </div>
-                                    
-                                    <div class="instagram-content-area" id="instagram-content-area">
-                                        <!-- Dynamic content here (carousel swipe or reel video overlay) -->
-                                    </div>
-                                    
-                                    <div class="instagram-footer">
-                                        <div class="ig-actions">
-                                            <div class="ig-left-actions">
-                                                <i class="fa-regular fa-heart"></i>
-                                                <i class="fa-regular fa-comment"></i>
-                                                <i class="fa-regular fa-paper-plane"></i>
-                                            </div>
-                                            <div class="ig-dots-indicator" id="ig-dots-indicator"></div>
-                                            <i class="fa-regular fa-bookmark"></i>
-                                        </div>
-                                        <div class="ig-likes">Liked by <strong>aegis_protocol</strong> and <strong>142 others</strong></div>
-                                        
-                                        <!-- Caption drawer -->
-                                        <div class="ig-caption-container">
-                                            <span class="ig-username">metrixmedia</span>
-                                            <span class="ig-caption-text" id="ig-caption-text">Select a post from the calendar to preview the caption.</span>
-                                        </div>
-                                    </div>
+                            <!-- Feed Item -->
+                            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span style="color: #34d399; font-size: 0.8rem; font-weight: 600;"><i class="fa-solid fa-circle-check"></i> Deal Closed</span>
+                                    <span style="color: var(--text-muted); font-size: 0.75rem;">2h ago</span>
                                 </div>
-                            </div>
-
-                            <!-- Sidebar controls for Simulator -->
-                            <div class="simulator-controls">
-                                <div class="control-group">
-                                    <label>Copywriting Tone</label>
-                                    <div class="tone-selector-buttons">
-                                        <button class="tone-btn active" data-tone="original">Original</button>
-                                        <button class="tone-btn" data-tone="controversial">Aggressive</button>
-                                        <button class="tone-btn" data-tone="humorous">Sarcastic</button>
-                                    </div>
-                                </div>
-                                
-                                <div class="control-group">
-                                    <label>Interactive Settings</label>
-                                    <div class="settings-toggles">
-                                        <button id="btn-toggle-audio" class="settings-btn">
-                                            <i class="fa-solid fa-volume-xmark"></i> Ambient Audio: Off
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div class="control-group text-copier-container">
-                                    <label>Copy Caption</label>
-                                    <textarea id="copy-caption-textarea" readonly class="caption-textarea"></textarea>
-                                    <button id="btn-copy-caption" class="btn btn-primary btn-block">
-                                        <i class="fa-solid fa-copy"></i> Copy Caption
-                                    </button>
-                                </div>
+                                <p style="font-size: 0.9rem; margin: 0; color: #e2e8f0;">Agent <strong>Simran S.</strong> closed <span style="color: white; font-weight: 600;">3 Stories Bar</span></p>
+                                <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0.3rem 0 0;">₹9,999/mo (E-com Growth)</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Tab 2: Active Campaigns -->
-            <section id="tab-campaigns-content" class="tab-content">
-                <div class="glass-card card-full">
-                    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-                        <div style="display: flex; align-items: center; gap: 0.65rem;">
-                            <i class="fa-solid fa-circle-check text-emerald"></i>
-                            <h3>Active Portals & Campaigns</h3>
+            <!-- Tab 2: Fulfillment Pipeline -->
+            <section id="tab-fulfillment-content" class="tab-content">
+                <div class="glass-card">
+                    <div class="card-header" style="justify-content: space-between;">
+                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                            <i class="fa-solid fa-boxes-packing text-indigo"></i>
+                            <h3>Standee Fulfillment Board</h3>
                         </div>
-                        <a href="bulk_flyer.html" target="_blank" class="btn btn-secondary btn-sm" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600; font-size: 0.8rem; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #fff;">
-                            <i class="fa-solid fa-print"></i> Bulk Print A6 Standees
-                        </a>
+                        <button class="btn btn-primary btn-sm"><i class="fa-solid fa-download"></i> Export Shipping Manifest</button>
                     </div>
-                    <div class="table-container">
-                        <table class="campaigns-table" id="campaigns-table">
+                    
+                    <div class="table-responsive">
+                        <table class="data-table">
                             <thead>
                                 <tr>
-                                    <th style="width: 25%;">Business Name</th>
-                                    <th style="width: 15%;">Category</th>
-                                    <th style="width: 30%;">Target Destination</th>
-                                    <th style="width: 15%;">Billing Status</th>
-                                    <th style="width: 15%;">Actions</th>
+                                    <th>Client Name</th>
+                                    <th>Agent</th>
+                                    <th>Standee Qty</th>
+                                    <th>Design Variant</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody id="campaign-list-body">
+                            <tbody>
                                 <tr>
-                                    <td colspan="5" class="empty-state">
-                                        <i class="fa-solid fa-box-open"></i>
-                                        <p>No campaigns generated yet. Create your first campaign above!</p>
-                                    </td>
+                                    <td><strong>Bandra Crust Cafe</strong><br><span style="font-size: 0.8rem; color: var(--text-muted);">Order #4429</span></td>
+                                    <td>Raj K.</td>
+                                    <td>5</td>
+                                    <td>Onyx Elegance</td>
+                                    <td><span class="status-badge status-pending">Pending Print</span></td>
+                                    <td><button class="btn btn-secondary btn-sm" style="border-color: #0ea5e9; color: #0ea5e9;">Mark Printed</button></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>3 Stories Bar</strong><br><span style="font-size: 0.8rem; color: var(--text-muted);">Order #4428</span></td>
+                                    <td>Simran S.</td>
+                                    <td>15</td>
+                                    <td>Neon Pulse</td>
+                                    <td><span class="status-badge status-active">Printing</span></td>
+                                    <td><button class="btn btn-primary btn-sm" style="background: #10b981; border-color: #10b981;">Mark Shipped</button></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Gymkhana Elite</strong><br><span style="font-size: 0.8rem; color: var(--text-muted);">Order #4420</span></td>
+                                    <td>Arjun M.</td>
+                                    <td>10</td>
+                                    <td>Frosted Glass</td>
+                                    <td><span class="status-badge" style="background: rgba(52, 211, 153, 0.1); color: #34d399;">Shipped</span></td>
+                                    <td><span style="font-size: 0.85rem; color: var(--text-muted);"><i class="fa-solid fa-truck"></i> In Transit</span></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -509,205 +241,156 @@
                 </div>
             </section>
 
-            <!-- Tab 3: Sales Playbook Academy -->
-            <section id="tab-academy-content" class="tab-content">
-                <div class="glass-card card-full academy-card">
-                    <div class="card-header">
-                        <i class="fa-solid fa-graduation-cap text-indigo"></i>
-                        <h3>The 10k to 100k Sales Academy Playbook</h3>
-                    </div>
-                    <div class="academy-content">
-                        <!-- Left Navigation Sub-Menu -->
-                        <div class="academy-tabs">
-                            <button class="academy-nav active" data-subtab="prospect">1. Finding Clients</button>
-                            <button class="academy-nav" data-subtab="pitch">2. Outreaching</button>
-                            <button class="academy-nav" data-subtab="close">3. Closing the Deal</button>
-                            <button class="academy-nav" data-subtab="delivery">4. Quick Delivery</button>
-                        </div>
-                        <!-- Right Dynamic Info Content -->
-                        <div class="academy-body">
-                            <div id="subtab-prospect" class="academy-subtabactive">
-                                <h4>🎯 How to Find 50 High-Probability Prospects in 30 Minutes</h4>
-                                <ol class="playbook-list">
-                                    <li>Open Google Maps and search for a niche + city, e.g., <code>"Dental clinic Indiranagar, Bangalore"</code> or <code>"Cafe Bandra, Mumbai"</code>.</li>
-                                    <li>Filter for businesses that have a rating between **3.8 and 4.3 stars** with at least 15 reviews.
-                                        <ul>
-                                            <li>*Why?* They are actively getting customers but suffering from negative reviews pulling down their average. They are desperate for more positive reviews.</li>
-                                        </ul>
-                                    </li>
-                                    <li>Look at their website link: If they have a basic or outdated website, they are an even higher-value target!</li>
-                                    <li>Note down their business name, GMB link, and email/social handles (usually listed on their site).</li>
-                                    <li>Use this **MetrixMedia Dashboard** to instantly generate a custom portal and QR Standee preview for them. Having a completed mockup ready *before* reaching out increases response rates by 400%.</li>
-                                </ol>
-                            </div>
-                            <!-- More Sub-tabs will be populated statically -->
-                            <div id="subtab-pitch" style="display: none;">
-                                <h4>✉️ High-Converting Pitch Email (The "Value-First" Script)</h4>
-                                <p>Copy this template, fill in the brackets, and send it to the business email you scraped. Keep it short, focused on their revenue loss, and attach their custom preview link.</p>
-                                <div class="code-box">
-<pre>Subject: Feedback issue on Google Maps for [Business Name]
-
-Hi [Owner Name],
-
-I was looking at places to visit in [Area] and noticed [Business Name] has a [Current Rating]-star rating on Google Maps. You have fantastic reviews, but a few disgruntled 1-star ratings are dragging down your ranking and costing you high-paying customers.
-
-To help local businesses, I built a custom Aegis Protocol system for you. 
-
-When customers scan it, it automatically sends 4/5-star happy reviews straight to Google, while negative feedback (1-3 stars) is sent privately to you so you can fix the issue before it goes public.
-
-I’ve already generated your live demo. You can test it on your phone here:
-👉 [Your Deployed Gating URL]
-
-I also designed a printable table standee card containing your custom QR code:
-👉 [Your Deployed Flyer URL]
-
-I'd love to activate this for your counter. Normally we charge Rs. 4,999, but I want to give it to you for just Rs. 1,999 one-time setup fee so you can experience it. 
-
-If you'd like to put this up at your cashier counter today, just reply to this email, and I'll send over the active high-resolution files.
-
-Best,
-[Your Name]
-MetrixMedia Digital</pre>
-                                </div>
-                            </div>
-                            <div id="subtab-close" style="display: none;">
-                                <h4>🤝 Handling Objections & Closing</h4>
-                                <ul class="playbook-list">
-                                    <li><strong>Objection: "Is Google review gating allowed?"</strong>
-                                        <ul>
-                                            <li><em>Response:</em> "Our portal simply asks for their initial rating to route customer experience. We are providing a private feedback channel for unsatisfied customers, which every excellent business has. Google encourages businesses to actively gather reviews, and our system ensures your happiest customers do so on the spot."</li>
-                                        </ul>
-                                    </li>
-                                    <li><strong>Objection: "Can I just print a QR code linking directly to Google Reviews?"</strong>
-                                        <ul>
-                                            <li><em>Response:</em> "You can, but that is extremely risky. An angry customer can scan that and post a 1-star review on the spot. Our system gates that, routing angry customers to a private suggestion form, protecting your brand reputation."</li>
-                                        </ul>
-                                    </li>
-                                    <li><strong>Closing Pitch:</strong> Highlight our **7-day money-back guarantee**. Send them the active QR standee digital PDF, let them print it, and explain that if they are not completely satisfied within the first 7 days, they get a 100% refund. This removes 100% of their friction!</li>
-                                </ul>
-                            </div>
-                            <div id="subtab-delivery" style="display: none;">
-                                <h4>🚀 Fulfilling Your Orders in 5 Minutes</h4>
-                                <ol class="playbook-list">
-                                    <li>When a client agrees, open this RepuShield Dashboard.</li>
-                                    <li>Verify the Campaign details are correct. Copy the generated **Review Portal Link** and **Flyer Link**.</li>
-                                    <li>Use a free QR code generator or print the Flyer directly from our **Flyer URL**. You can export/save the flyer page as a high-quality PDF from your browser (Control + P -> Save as PDF).</li>
-                                    <li>Send the PDF flyer and the digital link to the client. Ask them to print it out in color and place it right next to their cash register or on tables.</li>
-                                    <li>Collect your Rs. 1,999 payment via Google Pay, UPI, or Stripe/Gumroad!</li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Tab 4: Billing -->
-            <section id="tab-billing-content" class="tab-content">
-                <div class="glass-card">
-                    <h3>Billing &amp; Subscriptions</h3>
-                    <p>Generate secure payment links for your clients.</p>
-                    <form id="billing-form" class="billing-form">
-                        <div class="input-group">
-                            <label for="billing-email">Client Email</label>
-                            <input type="email" id="billing-email" placeholder="e.g., client@example.com" required />
-                        </div>
-                        <div class="input-group">
-                            <label for="billing-amount">Amount (INR)</label>
-                            <input type="number" id="billing-amount" placeholder="e.g., 1999" min="1" required />
-                        </div>
-                        <div class="input-group">
-                            <label for="billing-description">Description (optional)</label>
-                            <input type="text" id="billing-description" placeholder="Monthly subscription" />
-                        </div>
-                        <button type="submit" class="btn btn-primary">Create Payment Link</button>
-                    </form>
-                </div>
-            </section>
-
-            <!-- Tab 5: Clients -->
-            <section id="tab-clients-content" class="tab-content">
+            <!-- Tab 3: Revenue Engine -->
+            <section id="tab-revenue-content" class="tab-content">
                 <div class="glass-card">
                     <div class="card-header">
-                        <h3>Clients</h3>
-                        <button id="add-client-btn" class="btn btn-primary">Add Client</button>
+                        <i class="fa-solid fa-sack-dollar text-emerald"></i>
+                        <h3>Subscription Management (Stripe/Razorpay)</h3>
                     </div>
-                    <div id="clients-table-container" class="clients-table-container table-container"></div>
-                </div>
-                <!-- Modal for Add/Edit Client -->
-                <div id="client-modal" class="modal" style="display:none;">
-                    <div class="modal-content">
-                        <span class="modal-close" id="client-modal-close">&times;</span>
-                        <h3 id="client-modal-title">Add Client</h3>
-                        <form id="client-form">
-                            <div class="input-group"><label for="client-name">Name</label><input type="text" id="client-name" required></div>
-                            <div class="input-group"><label for="client-email">Email</label><input type="email" id="client-email" required></div>
-                            <div class="input-group"><label for="client-amount">Monthly Amount (INR)</label><input type="number" id="client-amount" min="1" required></div>
-                            <div class="input-group"><label for="client-description">Description (optional)</label><input type="text" id="client-description"></div>
-                            <button type="submit" class="btn btn-primary" id="client-save-btn">Save</button>
-                        </form>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Tab 6: Sales Partners -->
-            <section id="tab-agents-content" class="tab-content">
-                <div class="glass-card">
-                    <div class="card-header">
-                        <h3>Sales Partners</h3>
-                        <button id="add-agent-btn" class="btn btn-primary">Add Sales Partner</button>
-                    </div>
-                    <div id="agents-table-container" class="agents-table-container table-container"></div>
-                </div>
-
-                <!-- Modal for Add/Edit Agent -->
-                <div id="agent-modal" class="modal" style="display:none;">
-                    <div class="modal-content">
-                        <span class="modal-close" id="agent-modal-close">&times;</span>
-                        <h3 id="agent-modal-title">Add Sales Partner</h3>
-                        <form id="agent-form">
-                            <div class="input-group">
-                                <label for="agent-name">Name</label>
-                                <input type="text" id="agent-name" required>
-                            </div>
-                            <div class="input-group">
-                                <label for="agent-username">User ID / Username</label>
-                                <input type="text" id="agent-username" required>
-                            </div>
-                            <div class="input-group">
-                                <label for="agent-password">Password</label>
-                                <input type="password" id="agent-password" required>
-                            </div>
-                            <div class="input-group">
-                                <label for="agent-upi">UPI ID</label>
-                                <input type="text" id="agent-upi" placeholder="e.g. agent@upi" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary" id="agent-save-btn">Save Partner</button>
-                        </form>
-                    </div>
-                </div>
-
-                <!-- Commission pipeline log for Admin review -->
-                <div class="glass-card" style="margin-top: 2rem;">
-                    <h3>Sales Pipeline Payouts</h3>
-                    <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Review and clear pending commissions for closed sales.</p>
-                    <div class="table-container">
-                        <table class="campaigns-table">
+                    
+                    <div class="table-responsive">
+                        <table class="data-table">
                             <thead>
                                 <tr>
-                                    <th style="width: 20%;">Client Business</th>
-                                    <th style="width: 20%;">Sales Partner</th>
-                                    <th style="width: 15%;">Commission</th>
-                                    <th style="width: 15%;">UPI ID</th>
-                                    <th style="width: 15%;">Status</th>
-                                    <th style="width: 15%;">Action</th>
+                                    <th>Client Name</th>
+                                    <th>Plan</th>
+                                    <th>MRR</th>
+                                    <th>Billing Cycle</th>
+                                    <th>Next Charge</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
-                            <tbody id="admin-payouts-body">
+                            <tbody>
                                 <tr>
-                                    <td colspan="6" class="empty-state">
-                                        <i class="fa-solid fa-receipt"></i>
-                                        <p>No commissions logged yet.</p>
+                                    <td><strong>The Roasted Bean Cafe</strong></td>
+                                    <td>Local GMB Booster</td>
+                                    <td>₹4,999</td>
+                                    <td>Monthly</td>
+                                    <td>July 14, 2026</td>
+                                    <td><span class="status-badge status-active">Active</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Urban Threads E-Com</strong></td>
+                                    <td>D2C Growth</td>
+                                    <td>₹9,999</td>
+                                    <td>Monthly</td>
+                                    <td>July 16, 2026</td>
+                                    <td><span class="status-badge status-active">Active</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Smile Dental Clinic</strong></td>
+                                    <td>Local GMB Booster</td>
+                                    <td>₹4,999</td>
+                                    <td>Monthly</td>
+                                    <td>July 05, 2026</td>
+                                    <td><span class="status-badge status-pending">Past Due</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab 4: Team Management -->
+            <section id="tab-team-content" class="tab-content">
+                <div class="glass-card">
+                    <div class="card-header" style="justify-content: space-between;">
+                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                            <i class="fa-solid fa-users-gear text-indigo"></i>
+                            <h3>Sales Partner Roster (104 Active)</h3>
+                        </div>
+                        <button class="btn btn-primary btn-sm"><i class="fa-solid fa-user-plus"></i> Invite Agent</button>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Agent Name</th>
+                                    <th>Active Clients Closed</th>
+                                    <th>MRR Brought In</th>
+                                    <th>Pending Commission</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                            <div style="width: 32px; height: 32px; border-radius: 50%; background: rgba(59, 130, 246, 0.2); display: flex; align-items: center; justify-content: center; color: #3b82f6; font-weight: 700;">R</div>
+                                            <strong>Raj K.</strong>
+                                        </div>
                                     </td>
+                                    <td>24</td>
+                                    <td>₹1,19,976</td>
+                                    <td>₹12,400</td>
+                                    <td><button class="btn btn-primary btn-sm" style="background: #8b5cf6; border-color: #8b5cf6;">Payout</button></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                            <div style="width: 32px; height: 32px; border-radius: 50%; background: rgba(236, 72, 153, 0.2); display: flex; align-items: center; justify-content: center; color: #ec4899; font-weight: 700;">S</div>
+                                            <strong>Simran S.</strong>
+                                        </div>
+                                    </td>
+                                    <td>18</td>
+                                    <td>₹95,500</td>
+                                    <td>₹4,500</td>
+                                    <td><button class="btn btn-primary btn-sm" style="background: #8b5cf6; border-color: #8b5cf6;">Payout</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab 5: Client Database -->
+            <section id="tab-database-content" class="tab-content">
+                <div class="glass-card">
+                    <div class="card-header" style="justify-content: space-between;">
+                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                            <i class="fa-solid fa-database text-indigo"></i>
+                            <h3>Master Client CRM</h3>
+                        </div>
+                        <div style="position: relative; width: 300px;">
+                            <i class="fa-solid fa-search" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-muted);"></i>
+                            <input type="text" placeholder="Search businesses..." style="width: 100%; padding: 0.5rem 1rem 0.5rem 2.5rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: white; font-family: inherit;">
+                        </div>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Business Name</th>
+                                    <th>Niche</th>
+                                    <th>Contact Email</th>
+                                    <th>Portal Link</th>
+                                    <th>Onboarding Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Bandra Crust Cafe</strong></td>
+                                    <td>Cafe / Restaurant</td>
+                                    <td>hello@bandracrust.com</td>
+                                    <td><a href="#" style="color: #0ea5e9; text-decoration: none;"><i class="fa-solid fa-external-link-alt"></i> View Portal</a></td>
+                                    <td>Jun 12, 2026</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>3 Stories Bar</strong></td>
+                                    <td>Nightlife</td>
+                                    <td>owner@3stories.com</td>
+                                    <td><a href="#" style="color: #0ea5e9; text-decoration: none;"><i class="fa-solid fa-external-link-alt"></i> View Portal</a></td>
+                                    <td>Jun 25, 2026</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Smile Dental Clinic</strong></td>
+                                    <td>Medical</td>
+                                    <td>dr.smile@gmail.com</td>
+                                    <td><a href="#" style="color: #0ea5e9; text-decoration: none;"><i class="fa-solid fa-external-link-alt"></i> View Portal</a></td>
+                                    <td>May 04, 2026</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -717,29 +400,132 @@ MetrixMedia Digital</pre>
         </main>
     </div>
 
-    <!-- Toast Notification -->
-    <div id="toast" class="toast">
-        <i class="fa-solid fa-circle-check"></i>
-        <span id="toast-message">Campaign Generated Successfully!</span>
-    </div>
+    <script>
+        // Mobile Sidebar Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const sidebarClose = document.getElementById('sidebar-close');
+        const sidebarOverlay = document.getElementById('sidebar-overlay');
+        const sidebar = document.getElementById('sidebar');
 
-    <!-- Mobile-only Simulator Full-Screen Overlay Modal -->
-    <div id="sim-overlay-modal">
-        <div class="sim-overlay-header">
-            <h3><i class="fa-solid fa-laptop-code" style="color: #0ea5e9; margin-right: 0.5rem;"></i> Portal Preview</h3>
-            <button type="button" class="sim-overlay-close" id="btn-sim-overlay-close">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-        </div>
-        <div class="sim-overlay-body" id="sim-overlay-body">
-            <!-- Simulator elements will be moved here on mobile -->
-        </div>
-    </div>
+        function toggleSidebar() {
+            sidebar.classList.toggle('open');
+            sidebarOverlay.classList.toggle('open');
+        }
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="supabase_config.js"></script>
-    <script src="razorpay_config.js"></script>
-    <script src="generator.js?v=3.6"></script>
+        if (menuToggle) menuToggle.addEventListener('click', toggleSidebar);
+        if (sidebarClose) sidebarClose.addEventListener('click', toggleSidebar);
+        if (sidebarOverlay) sidebarOverlay.addEventListener('click', toggleSidebar);
+
+        // Tab Navigation Logic
+        const navItems = document.querySelectorAll('.nav-item');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const tabTitle = document.getElementById('tab-title');
+        const tabSubtitle = document.getElementById('tab-subtitle');
+
+        const tabHeaders = {
+            analytics: {
+                title: 'Global Analytics',
+                subtitle: 'High-level overview of the entire agency\'s performance, live revenue tracking, and global scan metrics.'
+            },
+            fulfillment: {
+                title: 'Fulfillment Pipeline',
+                subtitle: 'Track physical NFC standee printing, processing, and shipping statuses.'
+            },
+            revenue: {
+                title: 'Revenue Engine',
+                subtitle: 'Manage active subscriptions, MRR, past-due accounts, and payment gateways.'
+            },
+            team: {
+                title: 'Team Management',
+                subtitle: 'Manage your 100+ sales agents, track their closed deals, and issue commission payouts.'
+            },
+            database: {
+                title: 'Client Database',
+                subtitle: 'Master CRM directory of all businesses currently active on the Aegis Protocol.'
+            }
+        };
+
+        navItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const tabId = item.getAttribute('data-tab');
+                const targetContent = document.getElementById(`tab-${tabId}-content`);
+                
+                if (!targetContent) return;
+
+                navItems.forEach(n => n.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+
+                item.classList.add('active');
+                targetContent.classList.add('active');
+
+                if (tabHeaders[tabId]) {
+                    if (tabTitle) tabTitle.textContent = tabHeaders[tabId].title;
+                    if (tabSubtitle) tabSubtitle.textContent = tabHeaders[tabId].subtitle;
+                }
+
+                // Close sidebar on mobile
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.remove('open');
+                    sidebarOverlay.classList.remove('open');
+                }
+            });
+        });
+
+        // Initialize Chart.js MRR Graph
+        document.addEventListener('DOMContentLoaded', () => {
+            const ctx = document.getElementById('mrrChart');
+            if (ctx) {
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                        datasets: [{
+                            label: 'Monthly Recurring Revenue (₹)',
+                            data: [120000, 185000, 240000, 290000, 360000, 425000],
+                            borderColor: '#8b5cf6',
+                            backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4,
+                            pointBackgroundColor: '#8b5cf6',
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: '#8b5cf6',
+                            pointRadius: 4,
+                            pointHoverRadius: 6
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                                titleColor: '#fff',
+                                bodyColor: '#fff',
+                                borderColor: 'rgba(255,255,255,0.1)',
+                                borderWidth: 1,
+                                padding: 10,
+                                displayColors: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: { color: 'rgba(255,255,255,0.05)', drawBorder: false },
+                                ticks: { color: '#94a3b8', callback: function(value) { return '₹' + (value/1000) + 'k'; } }
+                            },
+                            x: {
+                                grid: { display: false, drawBorder: false },
+                                ticks: { color: '#94a3b8' }
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
