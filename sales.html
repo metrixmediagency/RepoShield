@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <script>
@@ -1758,9 +1758,77 @@
                                 <div class="reward-milestone" style="border-top: 1px solid var(--border-color); padding-top: 1.25rem;">
                                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
                                         <h4 style="color: white; font-size: 0.95rem; margin: 0;">Bronze Milestone</h4>
+                                        <span class="reward-tag pending">5 Active Clients</span>
+                                    </div>
+                                    <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin: 0;">Close 5 active campaigns to unlock a bonus of ₹2,500 + official marketing support assets.</p>
+                                </div>
+                                <div class="reward-milestone" style="border-top: 1px solid var(--border-color); padding-top: 1.25rem;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                        <h4 style="color: white; font-size: 0.95rem; margin: 0;">Silver Milestone</h4>
+                                        <span class="reward-tag pending">10 Active Clients</span>
+                                    </div>
+                                    <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin: 0;">Close 10 active campaigns to unlock a bonus of ₹5,000 + agency email account.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 
-                <!-- Section 1: The Generator Form -->
-                <section id="sec-generator" class="sales-section-content">
+                    <h2 class="gradient-text" style="margin-top: 2rem; margin-bottom: 1.5rem;">My Referrals Pipeline</h2>
+                    <div class="pipeline-grid">
+                        <div class="glass-card">
+                            <div class="table-container">
+                                <table class="campaigns-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Business Name</th>
+                                            <th>Billing Plan</th>
+                                            <th>Target Link</th>
+                                            <th>Payment Link</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="pipeline-list-body">
+                                        <tr>
+                                            <td colspan="5" class="empty-state">
+                                                <i class="fa-solid fa-folder-open"></i>
+                                                <p>No referrals in your pipeline yet. Start onboarding above!</p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="glass-card">
+                            <div class="card-header" style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                                <i class="fa-solid fa-circle-info text-primary" style="font-size: 1.5rem;"></i>
+                                <h3 style="color: white; margin: 0;">Pipeline Management</h3>
+                            </div>
+                            <div style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem;">
+                                <div>
+                                    <h4 style="color: white; font-size: 0.95rem; margin: 0 0 0.5rem;">Tracking Statuses</h4>
+                                    <ul style="color: var(--text-muted); font-size: 0.85rem; padding-left: 1.2rem; line-height: 1.6; display: flex; flex-direction: column; gap: 0.5rem; margin: 0;">
+                                        <li><strong style="color: #34d399;">Paid:</strong> Payment successfully closed by admin. Your commission is ready or paid out.</li>
+                                        <li><strong style="color: #ef4444;">Unpaid:</strong> Onboarding portal generated but payment request is still pending.</li>
+                                    </ul>
+                                </div>
+                                <div style="border-top: 1px solid var(--border-color); padding-top: 1.25rem;">
+                                    <h4 style="color: white; font-size: 0.95rem; margin: 0 0 0.5rem;">Outreach Quick Actions</h4>
+                                    <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin: 0 0 1rem;">Share your custom agency flyers with prospects to demonstrate GMB gating instantly.</p>
+                                    <a href="bulk_flyer.html" target="_blank" class="btn btn-primary btn-sm" style="display: inline-flex; width: 100%; justify-content: center; gap: 0.5rem; text-decoration: none; margin-bottom: 0.5rem; background: var(--primary); color: white; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600; font-size: 0.8rem; border: none;">
+                                        <i class="fa-solid fa-print"></i> Bulk Print A6 Standees
+                                    </a>
+                                    <a href="pricing.html" target="_blank" class="btn btn-secondary btn-sm" style="display: inline-flex; width: 100%; justify-content: center; gap: 0.5rem; text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600; font-size: 0.8rem; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #fff;">
+                                        <i class="fa-solid fa-eye"></i> View pricing tables
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: The Generator Form -->
+                <section id="sec-generator" class="sales-section-content" style="display: none;">
                     <h2 class="gradient-text" style="margin-bottom: 1.5rem;">Onboard a New Client</h2>
                     <div class="grid-layout">
                         <!-- Left Column: Inputs Form -->
@@ -2033,8 +2101,8 @@
                     </div>
                 </section>
 
-                <!-- Section 2: The Lead Finder -->
-                <section id="sec-leads" class="sales-section-content" style="display: none;">
+                <!-- Section 3: The Lead Finder -->
+                                <section id="sec-leads" class="sales-section-content" style="display: none;">
                     <h2 class="gradient-text" style="margin-bottom: 1.5rem;">Scraped Lead Hitlist & Automation</h2>
                     <div class="glass-card" style="text-align: center; padding: 4rem 2rem;">
                         <i class="fa-solid fa-satellite-dish text-primary" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.8;"></i>
@@ -2045,7 +2113,7 @@
                     </div>
                 </section>
 
-                <!-- Section 3: Training & Scripts -->
+                <!-- Section 4: Training & Scripts -->
                 <section id="sec-training" class="sales-section-content" style="display: none;">
 
                     <h2 class="gradient-text" style="margin-bottom: 1.5rem;">Sales Enablement Kit</h2>
@@ -2849,8 +2917,8 @@ Interested in setting this up to see if it works?</span>
                     </script>
                 </section>
 
-                <!-- Section 4: My Links -->
-                <section id="sec-links" class="sales-section-content" style="display: none;">
+                <!-- Section 5: My Links -->
+                                <section id="sec-links" class="sales-section-content" style="display: none;">
                     <h2 class="gradient-text" style="margin-bottom: 1.5rem;">Generic Self-Checkout Links</h2>
                     <p style="color: var(--text-muted); margin-bottom: 2rem;">Share these generic, non-customized payment links with clients who want to sign up immediately without a custom standee demo.</p>
                     
@@ -2860,7 +2928,7 @@ Interested in setting this up to see if it works?</span>
                                 <i class="fa-solid fa-store text-indigo"></i>
                                 <h3>Local GMB Booster</h3>
                             </div>
-                            <p style="color: white; font-weight: bold; font-size: 1.25rem; margin-bottom: 1.5rem;">₹2,998 <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: normal;">(Setup + Month 1)</span></p>
+                            <p style="color: white; font-weight: bold; font-size: 1.25rem; margin-bottom: 1.5rem;">â‚¹2,998 <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: normal;">(Setup + Month 1)</span></p>
                             
                             <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
                                 <input type="text" id="generic-link-gmb" value="https://rzp.io/l/gmb-starter" readonly style="flex: 1; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 0.5rem; border-radius: 6px; font-size: 0.85rem;">
@@ -2873,7 +2941,7 @@ Interested in setting this up to see if it works?</span>
                                 <i class="fa-solid fa-motorcycle text-emerald"></i>
                                 <h3>Food Delivery Gater</h3>
                             </div>
-                            <p style="color: white; font-weight: bold; font-size: 1.25rem; margin-bottom: 1.5rem;">₹3,498 <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: normal;">(Setup + Month 1)</span></p>
+                            <p style="color: white; font-weight: bold; font-size: 1.25rem; margin-bottom: 1.5rem;">â‚¹3,498 <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: normal;">(Setup + Month 1)</span></p>
                             
                             <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
                                 <input type="text" id="generic-link-food" value="https://rzp.io/l/food-gater" readonly style="flex: 1; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 0.5rem; border-radius: 6px; font-size: 0.85rem;">
@@ -3139,11 +3207,10 @@ Interested in setting this up to see if it works?</span>
                         b.classList.toggle('active', b.getAttribute('data-mob-tab') === tabId);
                     });
 
-                    if (tabId === 'earnings') {
+                    if (tabId === 'pipeline') {
                         renderPipeline();
+                    } else if (tabId === 'earnings') {
                         renderEarnings();
-                    } else if (tabId === 'pipeline') {
-                        renderPipeline();
                     }
                 });
             });
