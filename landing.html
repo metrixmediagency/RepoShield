@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aegis Protocol - Stop Losing Customers to Bad Reviews</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="generator.css?v=2.6">
+
+    <style>
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Funnel layout has no nav. Direct psychological slide. */
+        .funnel-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* --- Section 1: Hero & Hook --- */
+        .hero-section {
+            text-align: center;
+            padding: 4rem 0 2rem;
+        }
+
+        .pre-headline {
+            color: #ef4444;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            background: rgba(239, 68, 68, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .headline {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .headline span {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sub-headline {
+            font-size: 1.25rem;
+            color: #cbd5e1;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+        }
+
+        /* VSL Placeholder */
+        .vsl-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255,255,255,0.1);
+            background: #0f172a;
+            aspect-ratio: 16 / 9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .vsl-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(99, 102, 241, 0.2) 0%, transparent 70%);
+            z-index: 1;
+        }
+
+        .vsl-play-btn {
+            width: 80px;
+            height: 80px;
+            background: #6366f1;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            z-index: 2;
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .vsl-wrapper:hover .vsl-play-btn {
+            transform: scale(1.1);
+        }
+
+        .vsl-text {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 0;
+            right: 0;
+            text-align: center;
+            z-index: 2;
+            font-weight: 600;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9rem;
+        }
+
+        /* CTA Button */
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            padding: 1.25rem 3rem;
+            border-radius: 12px;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 25px -5px rgba(239, 68, 68, 0.5);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 20px 30px -10px rgba(239, 68, 68, 0.7);
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+
+        /* --- Section 2: Agitation --- */
+        .agitation-section {
+            padding: 5rem 0;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            background: rgba(0,0,0,0.2);
+            margin-top: 3rem;
+        }
+
+        .pain-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .pain-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .pain-card i {
+            font-size: 2.5rem;
+            color: #ef4444;
+            margin-bottom: 1rem;
+        }
+
+        .pain-card h3 {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .pain-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* --- Section 3: The Solution --- */
+        .solution-section {
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .solution-image {
+            width: 100%;
+            max-width: 600px;
+            margin: 3rem auto;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px -10px rgba(99, 102, 241, 0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .feature-list {
+            text-align: left;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-item i {
+            color: #10b981;
+            font-size: 1.5rem;
+            margin-top: 0.2rem;
+        }
+
+        .feature-item h4 {
+            color: white;
+            margin: 0 0 0.25rem 0;
+            font-size: 1.1rem;
+        }
+
+        .feature-item p {
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* --- Section 4: ROI Calculator --- */
+        .calculator-section {
+            padding: 4rem;
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.9), rgba(0,0,0,0.8));
+            border-radius: 24px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            margin: 4rem 0;
+            text-align: center;
+            box-shadow: 0 0 50px rgba(99, 102, 241, 0.1);
+        }
+
+        .slider-container {
+            margin: 3rem 0;
+            text-align: left;
+        }
+
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: #e2e8f0;
+        }
+
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        
+        input[type=range]:focus {
+            outline: none;
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 12px;
+            cursor: pointer;
+            background: rgba(255,255,255,0.1);
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            height: 28px;
+            width: 28px;
+            border-radius: 50%;
+            background: #6366f1;
+            cursor: pointer;
+            -webkit-appearance: none;
+            margin-top: -9px;
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.6);
+            border: 2px solid white;
+        }
+
+        .roi-result {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+        }
+
+        .roi-result h3 {
+            color: #10b981;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .roi-result .amount {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
+            text-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+        }
+
+        /* --- Section 5: Risk Reversal --- */
+        .guarantee-box {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            padding: 3rem;
+            background: #0f172a;
+            border: 2px dashed rgba(251, 191, 36, 0.4);
+            border-radius: 16px;
+            margin: 4rem 0;
+        }
+
+        .guarantee-box i {
+            font-size: 4rem;
+            color: #fbbf24;
+        }
+
+        .guarantee-content h3 {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .guarantee-content p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* --- Section 6: Scarcity & Urgency --- */
+        .urgency-section {
+            text-align: center;
+            padding: 3rem 0 5rem;
+        }
+
+        .spots-left {
+            color: #ef4444;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .headline { font-size: 2.5rem; }
+            .pain-grid { grid-template-columns: 1fr; }
+            .guarantee-box { flex-direction: column; text-align: center; }
+            .calculator-section { padding: 2rem; }
+            .roi-result .amount { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="glow-bg-1"></div>
+    <div class="glow-bg-2"></div>
+
+    <div class="funnel-container">
+        
+        <!-- SECTION 1: THE HOOK (HERO) -->
+        <section class="hero-section">
+            <div class="pre-headline"><i class="fa-solid fa-triangle-exclamation"></i> Warning to Local Business Owners</div>
+            <h1 class="headline">How much revenue did your last <span>1-Star Review</span> cost you?</h1>
+            <p class="sub-headline">
+                93% of consumers read local reviews before visiting. When a frustrated customer leaves a 1-star review, it sits at the top of your Google page like a permanent scar, quietly bleeding your daily revenue to your competitors.
+            </p>
+
+            <div class="vsl-wrapper">
+                <div class="vsl-play-btn"><i class="fa-solid fa-play" style="margin-left: 5px;"></i></div>
+                <div class="vsl-text">Click to reveal the Aegis Protocol Framework</div>
+            </div>
+
+            <a href="checkout.html?plan=gmb&cycle=monthly" class="cta-button">
+                Stop Losing Customers <i class="fa-solid fa-arrow-right" style="margin-left: 10px;"></i>
+            </a>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 1rem;">
+                <i class="fa-solid fa-lock"></i> Secure 256-bit Checkout. Takes 60 seconds.
+            </p>
+        </section>
+
+    </div> <!-- End Funnel Container 1 -->
+
+    <!-- SECTION 2: THE AGITATION -->
+    <section class="agitation-section">
+        <div class="funnel-container" style="padding-top: 0; padding-bottom: 0;">
+            <h2 style="text-align: center; font-size: 2.5rem; color: white; margin-bottom: 1rem; font-family: 'Outfit', sans-serif;">The Invisible Bleed</h2>
+            <p style="text-align: center; color: var(--text-muted); max-width: 600px; margin: 0 auto;">You spend thousands on marketing, rent, and staff. But a single disgruntled customer can wipe out a week's worth of profit in 30 seconds.</p>
+            
+            <div class="pain-grid">
+                <div class="pain-card">
+                    <i class="fa-solid fa-arrow-trend-down"></i>
+                    <h3>The 9% Drop</h3>
+                    <p>Harvard Business School proved that a 1-star drop on your average rating leads to a 5-9% immediate drop in revenue.</p>
+                </div>
+                <div class="pain-card">
+                    <i class="fa-solid fa-eye-slash"></i>
+                    <h3>Silent Defection</h3>
+                    <p>Customers don't tell you they read a bad review. They just walk past your door and go to the competitor across the street.</p>
+                </div>
+                <div class="pain-card">
+                    <i class="fa-solid fa-bullhorn"></i>
+                    <h3>The Megaphone Effect</h3>
+                    <p>Happy customers rarely review. Angry customers become highly motivated writers determined to hurt your business.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="funnel-container">
+        
+        <!-- SECTION 3: THE REVELATION (SOLUTION) -->
+        <section class="solution-section">
+            <div class="pre-headline" style="background: rgba(99, 102, 241, 0.1); color: #6366f1; border-color: rgba(99, 102, 241, 0.3);">
+                <i class="fa-solid fa-shield-halved"></i> The Solution
+            </div>
+            <h2 style="font-size: 2.5rem; color: white; margin-bottom: 1.5rem; font-family: 'Outfit', sans-serif;">Enter the <span style="color: #6366f1;">Aegis Protocol</span></h2>
+            <p style="color: var(--text-muted); max-width: 700px; margin: 0 auto;">
+                We place premium NFC-enabled acrylic standees on your counters and tables. Customers tap their phone to leave feedback. Our AI intercepts it instantly.
+            </p>
+
+            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80" alt="Cafe Counter" class="solution-image" style="opacity: 0.8;">
+
+            <div class="feature-list">
+                <div class="feature-item">
+                    <i class="fa-solid fa-star"></i>
+                    <div>
+                        <h4>5-Star Reviews go straight to Google</h4>
+                        <p>If the customer is happy, the software immediately routes them to your public Google Business page to boost your ranking.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <i class="fa-solid fa-ban"></i>
+                    <div>
+                        <h4>1-Star Reviews are Intercepted</h4>
+                        <p>If the customer is angry, the software blocks the Google link and opens a private feedback form that goes directly to your email. You handle it internally. It never sees the internet.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <i class="fa-solid fa-microchip"></i>
+                    <div>
+                        <h4>Zero Friction for Customers</h4>
+                        <p>No apps to download. No URLs to type. They just tap the acrylic standee with their phone and the portal opens instantly.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: ROI CALCULATOR -->
+        <section class="calculator-section">
+            <h2 style="font-size: 2.5rem; color: white; margin-bottom: 1rem; font-family: 'Outfit', sans-serif;">Calculate Your Lost Revenue</h2>
+            <p style="color: var(--text-muted);">Use the slider below to see how much money you are leaving on the table every year by not actively managing your reputation.</p>
+
+            <div class="slider-container">
+                <div class="slider-label">
+                    <span>Average Daily Customers</span>
+                    <span id="customers-val" style="color: #6366f1; font-size: 1.2rem;">150</span>
+                </div>
+                <input type="range" id="traffic-slider" min="10" max="1000" step="10" value="150">
+            </div>
+
+            <div class="roi-result">
+                <h3>Estimated Annual Revenue Recovered</h3>
+                <p class="amount" id="roi-val">₹4,92,750</p>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 1rem;">*Based on industry averages of 9% revenue loss tied to poor ratings and an average ₹300 ticket size.</p>
+            </div>
+        </section>
+
+        <!-- SECTION 5: RISK REVERSAL -->
+        <section class="guarantee-box">
+            <i class="fa-solid fa-certificate"></i>
+            <div class="guarantee-content">
+                <h3>Ironclad 7-Day Guarantee</h3>
+                <p>
+                    <strong>No-questions-asked 7-day refund guarantee.</strong> If you aren't completely blown away by the quality of the premium acrylic hardware and the power of the AI interception software, simply email us and we will refund your money immediately. No hassle, no risk.
+                </p>
+            </div>
+        </section>
+
+        <!-- SECTION 6: URGENCY & FINAL CTA -->
+        <section class="urgency-section">
+            <div class="spots-left">
+                <i class="fa-solid fa-fire"></i> Warning: Only 5 spots available in your city this month.
+            </div>
+            <h2 style="font-size: 2.5rem; color: white; margin-bottom: 2rem; font-family: 'Outfit', sans-serif;">Secure Your Dominance on Google</h2>
+            
+            <a href="checkout.html?plan=gmb&cycle=monthly" class="cta-button" style="padding: 1.5rem 4rem; font-size: 1.8rem;">
+                Claim Your Setup Now
+            </a>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 1.5rem;">
+                <i class="fa-solid fa-truck-fast"></i> Hardware ships within 48 hours of purchase.
+            </p>
+        </section>
+
+    </div>
+
+    <script>
+        // Interactive ROI Calculator Logic
+        const slider = document.getElementById('traffic-slider');
+        const customersVal = document.getElementById('customers-val');
+        const roiVal = document.getElementById('roi-val');
+
+        function updateROI() {
+            const dailyCustomers = parseInt(slider.value);
+            customersVal.textContent = dailyCustomers;
+
+            // Math logic for the psychological effect:
+            // Assuming 9% loss on total revenue if ratings drop.
+            // Avg ticket: ₹300
+            // Annual Revenue = daily * 300 * 365
+            // Recovered (9%) = Annual Revenue * 0.09
+            
+            const annualRevenue = dailyCustomers * 300 * 365;
+            const recovered = Math.floor(annualRevenue * 0.09);
+
+            // Format as Indian Rupee string
+            const formatted = recovered.toLocaleString('en-IN');
+            roiVal.textContent = '₹' + formatted;
+        }
+
+        slider.addEventListener('input', updateROI);
+        
+        // Inherit affiliate agent from URL if present and append to CTAs
+        const urlParams = new URLSearchParams(window.location.search);
+        const agentId = urlParams.get('agent');
+        
+        if (agentId) {
+            const ctas = document.querySelectorAll('.cta-button');
+            ctas.forEach(cta => {
+                let currentHref = cta.getAttribute('href');
+                if (currentHref.includes('?')) {
+                    cta.setAttribute('href', currentHref + '&agent=' + agentId);
+                } else {
+                    cta.setAttribute('href', currentHref + '?agent=' + agentId);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
