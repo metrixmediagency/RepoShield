@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Checkout - Aegis Protocol</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Re-use generator styles for aesthetics -->
+    <link rel="stylesheet" href="generator.css?v=2.5">
+
+    <style>
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .checkout-container {
+            width: 100%;
+            max-width: 1000px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .checkout-col {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .checkout-col::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.5), transparent);
+        }
+
+        .brand-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .brand-header i {
+            font-size: 2rem;
+            color: #6366f1;
+        }
+
+        .brand-header h1 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .brand-header span {
+            display: block;
+            font-size: 0.85rem;
+            color: #10b981;
+            font-weight: 600;
+        }
+
+        .order-summary {
+            flex: 1;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .summary-title {
+            font-weight: 600;
+            color: #e2e8f0;
+        }
+
+        .summary-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        .summary-price {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: white;
+        }
+
+        .total-row {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 2px dashed rgba(255,255,255,0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .total-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .total-price {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #10b981;
+        }
+
+        .trust-box {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .trust-box i {
+            color: #10b981;
+            font-size: 1.5rem;
+            margin-top: 0.2rem;
+        }
+
+        .trust-box h4 {
+            margin: 0 0 0.25rem 0;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .trust-box p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            line-height: 1.4;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            color: white;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+        }
+
+        .btn-checkout {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .btn-checkout:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.5);
+        }
+
+        .secure-badges {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        .secure-badges span {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        @media (max-width: 768px) {
+            .checkout-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="glow-bg-1"></div>
+    <div class="glow-bg-2"></div>
+
+    <div class="checkout-container">
+        <!-- Left: Order Summary -->
+        <div class="checkout-col">
+            <div class="brand-header">
+                <i class="fa-solid fa-shield-halved"></i>
+                <div>
+                    <h1>Aegis Protocol</h1>
+                    <span>by MetrixMedia</span>
+                </div>
+            </div>
+
+            <div class="order-summary">
+                <h3 style="margin-bottom: 1.5rem;">Order Summary</h3>
+                
+                <div class="summary-item">
+                    <div>
+                        <div class="summary-title" id="plan-name">GMB Booster Plan</div>
+                        <div class="summary-desc" id="plan-desc">NFC Standees + AI Review Interception</div>
+                    </div>
+                    <div class="summary-price" id="plan-price">₹4,999</div>
+                </div>
+
+                <div class="summary-item">
+                    <div>
+                        <div class="summary-title">Physical Hardware</div>
+                        <div class="summary-desc">Premium Acrylic NFC Standees</div>
+                    </div>
+                    <div class="summary-price">Included</div>
+                </div>
+                
+                <div class="summary-item">
+                    <div>
+                        <div class="summary-title">Setup Fee</div>
+                        <div class="summary-desc">One-time configuration</div>
+                    </div>
+                    <div class="summary-price"><span style="text-decoration: line-through; color: var(--text-muted); margin-right: 0.5rem;">₹1,999</span> Waived</div>
+                </div>
+
+                <div class="total-row">
+                    <div class="total-title">Total Today</div>
+                    <div class="total-price" id="total-price">₹4,999</div>
+                </div>
+                <div style="text-align: right; font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">
+                    Billed <span id="billing-cycle-text">monthly</span> thereafter.
+                </div>
+            </div>
+
+            <!-- Risk Reversal -->
+            <div class="trust-box">
+                <i class="fa-solid fa-handshake-angle"></i>
+                <div>
+                    <h4>Ironclad Guarantee</h4>
+                    <p>No-questions-asked 7-day refund guarantee. If you aren't completely blown away by the quality of the hardware and software, we will refund your money immediately.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Payment Form -->
+        <div class="checkout-col">
+            <h3 style="margin-bottom: 1.5rem;">Payment Details</h3>
+
+            <form id="checkout-form">
+                <div class="form-group">
+                    <label for="client-name">Full Name</label>
+                    <input type="text" id="client-name" placeholder="John Doe" required autocomplete="name">
+                </div>
+                <div class="form-group">
+                    <label for="client-email">Email Address</label>
+                    <input type="email" id="client-email" placeholder="john@example.com" required autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label for="client-phone">Phone Number</label>
+                    <input type="tel" id="client-phone" placeholder="+91 98765 43210" required autocomplete="tel">
+                </div>
+
+                <button type="submit" class="btn-checkout" id="btn-pay">
+                    <i class="fa-solid fa-lock"></i> Complete Secure Checkout
+                </button>
+            </form>
+
+            <div class="secure-badges">
+                <span><i class="fa-solid fa-shield-check"></i> AES-256 Encryption</span>
+                <span><i class="fa-brands fa-cc-stripe"></i> Secure Gateway</span>
+            </div>
+            
+            <div style="margin-top: auto; text-align: center; padding-top: 2rem;">
+                <p style="font-size: 0.75rem; color: var(--text-muted);">
+                    By confirming your subscription, you allow MetrixMedia to charge your card for this payment and future payments in accordance with their terms.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Razorpay Scripts -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="razorpay_config.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Parse URL Parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const planCode = urlParams.get('plan') || 'gmb';
+            const cycleCode = urlParams.get('cycle') || 'monthly';
+            const agentCode = urlParams.get('agent') || 'direct';
+
+            // 2. Pricing Dictionary (Display mapping)
+            const planDisplayMap = {
+                'gmb': { name: 'Local GMB Booster', price_monthly: '₹4,999', price_annual: '₹49,999' },
+                'delivery': { name: 'Zomato/Swiggy Booster', price_monthly: '₹5,999', price_annual: '₹59,999' },
+                'ecom_basic': { name: 'E-Com Basic', price_monthly: '₹7,999', price_annual: '₹79,999' },
+                'ecom_starter': { name: 'E-Com Starter', price_monthly: '₹14,999', price_annual: '₹1,49,999' },
+                'ecom_growth': { name: 'E-Com Growth', price_monthly: '₹24,999', price_annual: '₹2,49,999' },
+                'ecom_enterprise': { name: 'E-Com Enterprise', price_monthly: '₹49,999', price_annual: '₹4,99,999' }
+            };
+
+            // 3. Update DOM with selected plan info
+            const planInfo = planDisplayMap[planCode] || planDisplayMap['gmb'];
+            const displayPrice = cycleCode === 'annual' ? planInfo.price_annual : planInfo.price_monthly;
+
+            document.getElementById('plan-name').textContent = planInfo.name;
+            document.getElementById('plan-price').textContent = displayPrice;
+            document.getElementById('total-price').textContent = displayPrice;
+            document.getElementById('billing-cycle-text').textContent = cycleCode === 'annual' ? 'annually' : 'monthly';
+
+            // 4. Handle Razorpay Checkout
+            const form = document.getElementById('checkout-form');
+            
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Fetch correct Razorpay Plan ID from the global config
+                let razorpayPlanId = window.DEFAULT_PLAN_ID;
+                if (window.RAZORPAY_PLANS && window.RAZORPAY_PLANS[planCode] && window.RAZORPAY_PLANS[planCode][cycleCode]) {
+                    razorpayPlanId = window.RAZORPAY_PLANS[planCode][cycleCode];
+                }
+
+                const name = document.getElementById('client-name').value;
+                const email = document.getElementById('client-email').value;
+                const phone = document.getElementById('client-phone').value;
+
+                var options = {
+                    "key": window.RAZORPAY_KEY_ID, 
+                    "subscription_id": "", // In a real app, this is generated via backend API
+                    "name": "MetrixMedia",
+                    "description": planInfo.name + " (" + cycleCode + ")",
+                    "image": "https://raw.githubusercontent.com/metrixmediagency/RepoShield/main/favicon.png",
+                    "handler": function (response){
+                        // Payment successful
+                        alert("Payment successful! Subscription ID: " + response.razorpay_subscription_id);
+                        // Redirect to thank you page or portal
+                        window.location.href = `thank-you.html?sub=${response.razorpay_subscription_id}&agent=${agentCode}`;
+                    },
+                    "prefill": {
+                        "name": name,
+                        "email": email,
+                        "contact": phone
+                    },
+                    "notes": {
+                        "agent": agentCode,
+                        "plan": planCode
+                    },
+                    "theme": {
+                        "color": "#6366f1"
+                    }
+                };
+                
+                // If we don't have a backend to create the subscription ID right now, 
+                // Razorpay checkout modal will fail to open without a valid order_id or subscription_id.
+                // For demonstration purposes, we alert if no backend exists, OR we could use standard payment logic.
+                
+                // Simulating checkout open (it will fail without a valid ID from the server, but the UI triggers correctly)
+                try {
+                    var rzp1 = new Razorpay(options);
+                    rzp1.open();
+                } catch(err) {
+                    console.error(err);
+                    alert("Razorpay requires a backend server to generate a valid Subscription ID before opening the modal. UI Logic is complete!");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
