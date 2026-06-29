@@ -131,8 +131,8 @@
                                 <i class="fa-solid fa-indian-rupee-sign"></i>
                             </div>
                         </div>
-                        <h2 style="font-size: 2rem; margin: 0; color: white;">₹4,25,000</h2>
-                        <p style="color: #34d399; font-size: 0.8rem; margin-top: 0.5rem;"><i class="fa-solid fa-arrow-trend-up"></i> +12.5% vs last month</p>
+                        <h2 id="kpi-mrr" style="font-size: 2rem; margin: 0; color: white;">₹0</h2>
+                        <p style="color: #34d399; font-size: 0.8rem; margin-top: 0.5rem;"><i class="fa-solid fa-arrow-trend-up"></i> Dynamic MRR</p>
                     </div>
 
                     <div class="glass-card" style="padding: 1.5rem;">
@@ -142,8 +142,8 @@
                                 <i class="fa-solid fa-building"></i>
                             </div>
                         </div>
-                        <h2 style="font-size: 2rem; margin: 0; color: white;">142</h2>
-                        <p style="color: #0ea5e9; font-size: 0.8rem; margin-top: 0.5rem;"><i class="fa-solid fa-user-plus"></i> 18 new this month</p>
+                        <h2 id="kpi-clients" style="font-size: 2rem; margin: 0; color: white;">0</h2>
+                        <p style="color: #0ea5e9; font-size: 0.8rem; margin-top: 0.5rem;"><i class="fa-solid fa-user-plus"></i> Generated Portals</p>
                     </div>
 
                     <div class="glass-card" style="padding: 1.5rem;">
@@ -153,8 +153,8 @@
                                 <i class="fa-solid fa-qrcode"></i>
                             </div>
                         </div>
-                        <h2 style="font-size: 2rem; margin: 0; color: white;">18,492</h2>
-                        <p style="color: #8b5cf6; font-size: 0.8rem; margin-top: 0.5rem;"><i class="fa-solid fa-bolt"></i> +3,400 across all portals</p>
+                        <h2 id="kpi-scans" style="font-size: 2rem; margin: 0; color: white;">0</h2>
+                        <p style="color: #8b5cf6; font-size: 0.8rem; margin-top: 0.5rem;"><i class="fa-solid fa-bolt"></i> Simulated Traffic</p>
                     </div>
 
                     <div class="glass-card" style="padding: 1.5rem;">
@@ -164,7 +164,7 @@
                                 <i class="fa-solid fa-shield-halved"></i>
                             </div>
                         </div>
-                        <h2 style="font-size: 2rem; margin: 0; color: white;">415</h2>
+                        <h2 id="kpi-intercepts" style="font-size: 2rem; margin: 0; color: white;">0</h2>
                         <p style="color: #ef4444; font-size: 0.8rem; margin-top: 0.5rem;"><i class="fa-solid fa-ban"></i> Disasters prevented</p>
                     </div>
                 </div>
@@ -181,33 +181,8 @@
                     <!-- Live Sales Feed -->
                     <div class="glass-card" style="padding: 1.5rem; display: flex; flex-direction: column;">
                         <h3 style="margin-bottom: 1.5rem; color: white; font-size: 1.1rem;"><i class="fa-solid fa-satellite-dish text-emerald"></i> Live Sales Feed</h3>
-                        <div style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem; padding-right: 0.5rem;">
-                            <!-- Feed Item -->
-                            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                    <span style="color: #34d399; font-size: 0.8rem; font-weight: 600;"><i class="fa-solid fa-circle-check"></i> Deal Closed</span>
-                                    <span style="color: var(--text-muted); font-size: 0.75rem;">2m ago</span>
-                                </div>
-                                <p style="font-size: 0.9rem; margin: 0; color: #e2e8f0;">Agent <strong>Raj K.</strong> closed <span style="color: white; font-weight: 600;">Bandra Crust Cafe</span></p>
-                                <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0.3rem 0 0;">₹4,999/mo (GMB Booster Plan)</p>
-                            </div>
-                            <!-- Feed Item -->
-                            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                    <span style="color: #0ea5e9; font-size: 0.8rem; font-weight: 600;"><i class="fa-solid fa-box"></i> Fulfillment</span>
-                                    <span style="color: var(--text-muted); font-size: 0.75rem;">45m ago</span>
-                                </div>
-                                <p style="font-size: 0.9rem; margin: 0; color: #e2e8f0;">Standees shipped for <span style="color: white; font-weight: 600;">Gymkhana Elite</span></p>
-                            </div>
-                            <!-- Feed Item -->
-                            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                    <span style="color: #34d399; font-size: 0.8rem; font-weight: 600;"><i class="fa-solid fa-circle-check"></i> Deal Closed</span>
-                                    <span style="color: var(--text-muted); font-size: 0.75rem;">2h ago</span>
-                                </div>
-                                <p style="font-size: 0.9rem; margin: 0; color: #e2e8f0;">Agent <strong>Simran S.</strong> closed <span style="color: white; font-weight: 600;">3 Stories Bar</span></p>
-                                <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0.3rem 0 0;">₹9,999/mo (E-com Growth)</p>
-                            </div>
+                        <div id="live-feed-container" style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem; padding-right: 0.5rem;">
+                            <!-- Populated dynamically by JS -->
                         </div>
                     </div>
                 </div>
@@ -236,31 +211,8 @@
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>Bandra Crust Cafe</strong><br><span style="font-size: 0.8rem; color: var(--text-muted);">Order #4429</span></td>
-                                    <td>Raj K.</td>
-                                    <td>5</td>
-                                    <td>Onyx Elegance</td>
-                                    <td><span class="status-badge status-pending">Pending Print</span></td>
-                                    <td><button class="btn btn-secondary btn-sm" style="border-color: #0ea5e9; color: #0ea5e9;">Mark Printed</button></td>
-                                </tr>
-                                <tr>
-                                    <td><strong>3 Stories Bar</strong><br><span style="font-size: 0.8rem; color: var(--text-muted);">Order #4428</span></td>
-                                    <td>Simran S.</td>
-                                    <td>15</td>
-                                    <td>Neon Pulse</td>
-                                    <td><span class="status-badge status-active">Printing</span></td>
-                                    <td><button class="btn btn-primary btn-sm" style="background: #10b981; border-color: #10b981;">Mark Shipped</button></td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Gymkhana Elite</strong><br><span style="font-size: 0.8rem; color: var(--text-muted);">Order #4420</span></td>
-                                    <td>Arjun M.</td>
-                                    <td>10</td>
-                                    <td>Frosted Glass</td>
-                                    <td><span class="status-badge" style="background: rgba(52, 211, 153, 0.1); color: #34d399;">Shipped</span></td>
-                                    <td><span style="font-size: 0.85rem; color: var(--text-muted);"><i class="fa-solid fa-truck"></i> In Transit</span></td>
-                                </tr>
+                            <tbody id="fulfillment-table-body">
+                                <!-- Populated dynamically by JS -->
                             </tbody>
                         </table>
                     </div>
@@ -287,31 +239,7 @@
                                     <th>Status</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>The Roasted Bean Cafe</strong></td>
-                                    <td>Local GMB Booster</td>
-                                    <td>₹4,999</td>
-                                    <td>Monthly</td>
-                                    <td>July 14, 2026</td>
-                                    <td><span class="status-badge status-active">Active</span></td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Urban Threads E-Com</strong></td>
-                                    <td>D2C Growth</td>
-                                    <td>₹9,999</td>
-                                    <td>Monthly</td>
-                                    <td>July 16, 2026</td>
-                                    <td><span class="status-badge status-active">Active</span></td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Smile Dental Clinic</strong></td>
-                                    <td>Local GMB Booster</td>
-                                    <td>₹4,999</td>
-                                    <td>Monthly</td>
-                                    <td>July 05, 2026</td>
-                                    <td><span class="status-badge status-pending">Past Due</span></td>
-                                </tr>
+                            <tbody id="revenue-table-body">
                             </tbody>
                         </table>
                     </div>
@@ -710,6 +638,152 @@
 
         // Load clients on start
         loadClients();
+
+        // --------------------------------------------------------
+        // Dynamic Analytics, Fulfillment, & Revenue Logic
+        // --------------------------------------------------------
+        
+        function getCampaignPrice(type) {
+            if (!type) return 4999;
+            const lowerType = type.toLowerCase();
+            if (lowerType.includes('ecom') || lowerType.includes('e-com') || lowerType.includes('d2c')) return 9999;
+            if (lowerType.includes('delivery') || lowerType.includes('restaurant')) return 6999;
+            return 4999;
+        }
+
+        function loadAnalytics() {
+            let campaigns = [];
+            try { campaigns = JSON.parse(localStorage.getItem('repushield_campaigns')) || []; } catch(e) {}
+            if (!Array.isArray(campaigns)) campaigns = [];
+
+            let totalMRR = 0;
+            campaigns.forEach(c => { totalMRR += getCampaignPrice(c.campaignType); });
+
+            // Update KPI Cards
+            const kpiMrr = document.getElementById('kpi-mrr');
+            if (kpiMrr) kpiMrr.textContent = '₹' + totalMRR.toLocaleString('en-IN');
+
+            const kpiClients = document.getElementById('kpi-clients');
+            if (kpiClients) kpiClients.textContent = campaigns.length;
+
+            const kpiScans = document.getElementById('kpi-scans');
+            if (kpiScans) kpiScans.textContent = (campaigns.length * 135).toLocaleString('en-IN'); // Simulate 135 scans per client
+
+            const kpiIntercepts = document.getElementById('kpi-intercepts');
+            if (kpiIntercepts) kpiIntercepts.textContent = (campaigns.length * 4).toLocaleString('en-IN'); // Simulate 4 intercepts per client
+
+            // Update Live Feed
+            const liveFeed = document.getElementById('live-feed-container');
+            if (liveFeed) {
+                liveFeed.innerHTML = '';
+                if (campaigns.length === 0) {
+                    liveFeed.innerHTML = '<p style="color: #94a3b8; text-align: center; padding: 1rem;">No recent sales activity.</p>';
+                } else {
+                    const sorted = [...campaigns].sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0)).slice(0, 10);
+                    sorted.forEach((camp, i) => {
+                        const price = getCampaignPrice(camp.campaignType);
+                        const mins = (i * 25) + 2; // Simulated relative time
+                        liveFeed.innerHTML += `
+                            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span style="color: #34d399; font-size: 0.8rem; font-weight: 600;"><i class="fa-solid fa-circle-check"></i> Deal Closed</span>
+                                    <span style="color: var(--text-muted); font-size: 0.75rem;">${mins}m ago</span>
+                                </div>
+                                <p style="font-size: 0.9rem; margin: 0; color: #e2e8f0;">Portal generated for <span style="color: white; font-weight: 600;">${camp.businessName || 'Unknown'}</span></p>
+                                <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0.3rem 0 0;">₹${price.toLocaleString('en-IN')}/mo (${camp.campaignType || 'Standard'})</p>
+                            </div>
+                        `;
+                    });
+                }
+            }
+        }
+
+        function loadFulfillment() {
+            const table = document.getElementById('fulfillment-table-body');
+            if (!table) return;
+
+            let campaigns = [];
+            try { campaigns = JSON.parse(localStorage.getItem('repushield_campaigns')) || []; } catch(e) {}
+            if (!Array.isArray(campaigns)) campaigns = [];
+
+            table.innerHTML = '';
+            if (campaigns.length === 0) {
+                table.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #94a3b8;">No pending orders.</td></tr>';
+            } else {
+                campaigns.forEach(camp => {
+                    const status = camp.fulfillmentStatus || 'pending';
+                    let badge, action;
+
+                    if (status === 'pending') {
+                        badge = '<span class="status-badge status-pending" style="color: #fbbf24; background: rgba(251,191,36,0.1);">Pending Print</span>';
+                        action = `<button class="btn btn-secondary btn-sm" onclick="updateFulfillment('${camp.id}', 'printed')" style="border-color: #0ea5e9; color: #0ea5e9;">Mark Printed</button>`;
+                    } else if (status === 'printed') {
+                        badge = '<span class="status-badge status-active" style="color: #0ea5e9; background: rgba(14,165,233,0.1);">Printed</span>';
+                        action = `<button class="btn btn-primary btn-sm" onclick="updateFulfillment('${camp.id}', 'shipped')" style="background: #10b981; border-color: #10b981;">Mark Shipped</button>`;
+                    } else {
+                        badge = '<span class="status-badge" style="background: rgba(52, 211, 153, 0.1); color: #34d399;">Shipped</span>';
+                        action = '<span style="font-size: 0.85rem; color: var(--text-muted);"><i class="fa-solid fa-truck"></i> In Transit</span>';
+                    }
+
+                    table.innerHTML += `
+                        <tr>
+                            <td><strong>${camp.businessName || 'Unknown'}</strong><br><span style="font-size: 0.8rem; color: var(--text-muted);">Ref: ${camp.id.substring(0,6)}</span></td>
+                            <td>Agent</td>
+                            <td>3</td>
+                            <td>Standard</td>
+                            <td>${badge}</td>
+                            <td>${action}</td>
+                        </tr>
+                    `;
+                });
+            }
+        }
+
+        window.updateFulfillment = function(id, newStatus) {
+            let campaigns = JSON.parse(localStorage.getItem('repushield_campaigns')) || [];
+            const idx = campaigns.findIndex(c => c.id === id);
+            if (idx > -1) {
+                campaigns[idx].fulfillmentStatus = newStatus;
+                localStorage.setItem('repushield_campaigns', JSON.stringify(campaigns));
+                loadFulfillment(); // refresh table
+            }
+        };
+
+        function loadRevenue() {
+            const table = document.getElementById('revenue-table-body');
+            if (!table) return;
+
+            let campaigns = [];
+            try { campaigns = JSON.parse(localStorage.getItem('repushield_campaigns')) || []; } catch(e) {}
+            if (!Array.isArray(campaigns)) campaigns = [];
+
+            table.innerHTML = '';
+            if (campaigns.length === 0) {
+                table.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #94a3b8;">No active subscriptions.</td></tr>';
+            } else {
+                campaigns.forEach(camp => {
+                    const price = getCampaignPrice(camp.campaignType);
+                    let chargeDate = new Date(camp.createdAt || Date.now());
+                    chargeDate.setDate(chargeDate.getDate() + 30);
+                    
+                    table.innerHTML += `
+                        <tr>
+                            <td><strong>${camp.businessName || 'Unknown'}</strong></td>
+                            <td>${camp.campaignType || 'Standard'}</td>
+                            <td>₹${price.toLocaleString('en-IN')}</td>
+                            <td>Monthly</td>
+                            <td>${chargeDate.toLocaleDateString('en-IN')}</td>
+                            <td><span class="status-badge status-active">Active</span></td>
+                        </tr>
+                    `;
+                });
+            }
+        }
+
+        // Initialize all tabs
+        loadAnalytics();
+        loadFulfillment();
+        loadRevenue();
     </script>
 </body>
 </html>
