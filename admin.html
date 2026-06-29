@@ -300,7 +300,7 @@
                             <i class="fa-solid fa-users-gear text-indigo"></i>
                             <h3>Sales Partner Roster (104 Active)</h3>
                         </div>
-                        <button class="btn btn-primary btn-sm"><i class="fa-solid fa-user-plus"></i> Invite Agent</button>
+                        <button class="btn btn-primary btn-sm" id="btn-open-invite"><i class="fa-solid fa-user-plus"></i> Invite Agent</button>
                     </div>
                     
                     <div class="table-responsive">
@@ -314,33 +314,35 @@
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <div style="display: flex; align-items: center; gap: 0.75rem;">
-                                            <div style="width: 32px; height: 32px; border-radius: 50%; background: rgba(59, 130, 246, 0.2); display: flex; align-items: center; justify-content: center; color: #3b82f6; font-weight: 700;">R</div>
-                                            <strong>Raj K.</strong>
-                                        </div>
-                                    </td>
-                                    <td>24</td>
-                                    <td>₹1,19,976</td>
-                                    <td>₹12,400</td>
-                                    <td><button class="btn btn-primary btn-sm" style="background: #8b5cf6; border-color: #8b5cf6;">Payout</button></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div style="display: flex; align-items: center; gap: 0.75rem;">
-                                            <div style="width: 32px; height: 32px; border-radius: 50%; background: rgba(236, 72, 153, 0.2); display: flex; align-items: center; justify-content: center; color: #ec4899; font-weight: 700;">S</div>
-                                            <strong>Simran S.</strong>
-                                        </div>
-                                    </td>
-                                    <td>18</td>
-                                    <td>₹95,500</td>
-                                    <td>₹4,500</td>
-                                    <td><button class="btn btn-primary btn-sm" style="background: #8b5cf6; border-color: #8b5cf6;">Payout</button></td>
-                                </tr>
+                            <tbody id="agent-table-body">
+                                <!-- Populated dynamically by JS -->
                             </tbody>
                         </table>
+                    </div>
+                </div>
+
+                <!-- Invite Agent Modal -->
+                <div id="invite-agent-modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(5px);">
+                    <div class="glass-card" style="width: 100%; max-width: 400px; padding: 2rem;">
+                        <h3 style="margin-bottom: 1.5rem; color: white;">Create Salesman ID</h3>
+                        <form id="invite-agent-form">
+                            <div style="margin-bottom: 1rem;">
+                                <label style="display: block; color: #94a3b8; margin-bottom: 0.5rem; font-size: 0.9rem;">Full Name</label>
+                                <input type="text" id="new-agent-name" required style="width: 100%; padding: 0.75rem; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: white;">
+                            </div>
+                            <div style="margin-bottom: 1rem;">
+                                <label style="display: block; color: #94a3b8; margin-bottom: 0.5rem; font-size: 0.9rem;">Username</label>
+                                <input type="text" id="new-agent-username" required style="width: 100%; padding: 0.75rem; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: white;">
+                            </div>
+                            <div style="margin-bottom: 1.5rem;">
+                                <label style="display: block; color: #94a3b8; margin-bottom: 0.5rem; font-size: 0.9rem;">Password</label>
+                                <input type="text" id="new-agent-password" required style="width: 100%; padding: 0.75rem; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: white;">
+                            </div>
+                            <div style="display: flex; gap: 1rem;">
+                                <button type="button" id="btn-cancel-invite" class="btn btn-secondary" style="flex: 1; justify-content: center;">Cancel</button>
+                                <button type="submit" class="btn btn-primary" style="flex: 1; justify-content: center;">Create ID</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </section>
@@ -526,6 +528,117 @@
                 });
             }
         });
+
+        // --------------------------------------------------------
+        // Team Management & Agent Registration Logic
+        // --------------------------------------------------------
+        const agentTableBody = document.getElementById('agent-table-body');
+        const inviteModal = document.getElementById('invite-agent-modal');
+        const btnOpenInvite = document.getElementById('btn-open-invite');
+        const btnCancelInvite = document.getElementById('btn-cancel-invite');
+        const inviteForm = document.getElementById('invite-agent-form');
+
+        function loadAgents() {
+            let registeredAgents = [];
+            try {
+                registeredAgents = JSON.parse(localStorage.getItem('repushield_agents')) || [];
+            } catch(e) {
+                registeredAgents = [];
+            }
+
+            if (!Array.isArray(registeredAgents)) registeredAgents = [];
+
+            if (agentTableBody) {
+                agentTableBody.innerHTML = '';
+                if (registeredAgents.length === 0) {
+                    agentTableBody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #94a3b8;">No Salesmen registered yet.</td></tr>`;
+                } else {
+                    registeredAgents.forEach((agent, index) => {
+                        const initial = agent.name ? agent.name.charAt(0).toUpperCase() : 'A';
+                        const colors = ['#3b82f6', '#ec4899', '#10b981', '#f59e0b', '#8b5cf6'];
+                        const color = colors[index % colors.length];
+                        
+                        agentTableBody.innerHTML += `
+                            <tr>
+                                <td>
+                                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                        <div style="width: 32px; height: 32px; border-radius: 50%; background: ${color}33; display: flex; align-items: center; justify-content: center; color: ${color}; font-weight: 700;">${initial}</div>
+                                        <div>
+                                            <strong style="display: block;">${agent.name}</strong>
+                                            <span style="font-size: 0.75rem; color: #94a3b8;">@${agent.username}</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>0</td>
+                                <td>₹0</td>
+                                <td>₹0</td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm" onclick="removeAgent('${agent.username}')" style="background: rgba(239,68,68,0.2); border-color: rgba(239,68,68,0.3); color: #ef4444;">
+                                        <i class="fa-solid fa-trash"></i> Revoke
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                }
+            }
+        }
+
+        window.removeAgent = function(username) {
+            if(confirm(`Are you sure you want to revoke access for @${username}?`)) {
+                let agents = JSON.parse(localStorage.getItem('repushield_agents')) || [];
+                agents = agents.filter(a => a.username !== username);
+                localStorage.setItem('repushield_agents', JSON.stringify(agents));
+                loadAgents();
+            }
+        };
+
+        if (btnOpenInvite) {
+            btnOpenInvite.addEventListener('click', () => {
+                inviteModal.style.display = 'flex';
+            });
+        }
+        
+        if (btnCancelInvite) {
+            btnCancelInvite.addEventListener('click', () => {
+                inviteModal.style.display = 'none';
+                inviteForm.reset();
+            });
+        }
+
+        if (inviteForm) {
+            inviteForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('new-agent-name').value.trim();
+                const username = document.getElementById('new-agent-username').value.trim().toLowerCase();
+                const password = document.getElementById('new-agent-password').value.trim();
+
+                let agents = JSON.parse(localStorage.getItem('repushield_agents')) || [];
+                
+                if (agents.find(a => a.username === username)) {
+                    alert('This username is already taken!');
+                    return;
+                }
+
+                agents.push({
+                    name: name,
+                    username: username,
+                    password: password,
+                    upi: ''
+                });
+
+                localStorage.setItem('repushield_agents', JSON.stringify(agents));
+                
+                inviteModal.style.display = 'none';
+                inviteForm.reset();
+                loadAgents();
+                
+                alert(`Success! Salesman ID created for ${name}.\nUsername: ${username}\nPassword: ${password}`);
+            });
+        }
+
+        // Load initially
+        loadAgents();
     </script>
 </body>
 </html>
