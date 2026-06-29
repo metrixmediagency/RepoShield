@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <script>
@@ -2102,14 +2102,44 @@
                 </section>
 
                 <!-- Section 3: The Lead Finder -->
-                                <section id="sec-leads" class="sales-section-content" style="display: none;">
-                    <h2 class="gradient-text" style="margin-bottom: 1.5rem;">Scraped Lead Hitlist & Automation</h2>
-                    <div class="glass-card" style="text-align: center; padding: 4rem 2rem;">
-                        <i class="fa-solid fa-satellite-dish text-primary" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.8;"></i>
-                        <h3 style="color: white; margin-bottom: 0.5rem;">Google Maps Scraper - Coming Soon</h3>
-                        <p style="color: var(--text-muted); max-width: 500px; margin: 0 auto;">
-                            We are building a proprietary tool to instantly pull 1-star rated businesses from Google Maps in your area. This will automate your outreach hitlist!
-                        </p>
+                <section id="sec-leads" class="sales-section-content" style="display: none;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                        <h2 class="gradient-text">Aegis Lead Finder <i class="fa-solid fa-radar" style="font-size: 0.8em; margin-left: 0.5rem; color: var(--primary-light);"></i></h2>
+                        <span style="background: rgba(99,102,241,0.2); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem; border: 1px solid var(--primary-light); color: white;">Powered by SerpApi</span>
+                    </div>
+                    
+                    <div class="glass-card" style="padding: 2rem; margin-bottom: 2rem; border-left: 4px solid var(--primary-light);">
+                        <div class="grid-layout" style="grid-template-columns: 1fr 1fr auto; align-items: end; gap: 1rem;">
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label>Target City / Area</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-location-dot input-icon"></i>
+                                    <input type="text" id="lf-city" placeholder="e.g. Mumbai, Andheri West">
+                                </div>
+                            </div>
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label>Business Niche / Industry</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-briefcase input-icon"></i>
+                                    <input type="text" id="lf-niche" placeholder="e.g. Cafes, Dentists, Gyms">
+                                </div>
+                            </div>
+                            <button id="lf-scan-btn" class="btn btn-primary" style="padding: 0.8rem 2rem;">
+                                <i class="fa-solid fa-satellite-dish"></i> Start Radar Scan
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Scanning State -->
+                    <div id="lf-scanning-state" style="display: none; text-align: center; padding: 3rem 0;">
+                        <i class="fa-solid fa-circle-notch fa-spin text-primary" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                        <h3 style="color: white;">Scanning Local Data Grid...</h3>
+                        <p id="lf-scan-text" style="color: var(--primary-light); font-family: monospace; margin-top: 0.5rem;">Connecting to API...</p>
+                    </div>
+
+                    <!-- Results Grid -->
+                    <div id="lf-results-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; display: none;">
+                        <!-- Leads will be injected here -->
                     </div>
                 </section>
 
@@ -4033,5 +4063,122 @@ Interested in setting this up to see if it works?</span>
             showToastNotification('Payment link copied to clipboard!');
         }
     </script>
+            // -------------------------------------------------------
+            // Lead Finder Logic
+            // -------------------------------------------------------
+            const lfScanBtn = document.getElementById('lf-scan-btn');
+            const lfCityInput = document.getElementById('lf-city');
+            const lfNicheInput = document.getElementById('lf-niche');
+            const lfScanningState = document.getElementById('lf-scanning-state');
+            const lfScanText = document.getElementById('lf-scan-text');
+            const lfResultsGrid = document.getElementById('lf-results-grid');
+
+            if (lfScanBtn) {
+                lfScanBtn.addEventListener('click', async () => {
+                    const city = lfCityInput.value.trim();
+                    const niche = lfNicheInput.value.trim();
+
+                    if (!city || !niche) {
+                        alert("Please enter both a City and a Niche.");
+                        return;
+                    }
+
+                    // Hide grid, show scanning
+                    lfResultsGrid.style.display = 'none';
+                    lfScanningState.style.display = 'block';
+                    lfScanBtn.disabled = true;
+
+                    // Animation sequence
+                    const steps = [
+                        "Initializing secure connection...",
+                        "Bypassing location blocks...",
+                        "Fetching Google Maps metadata...",
+                        "Parsing customer reviews...",
+                        "Filtering leads with poor ratings (< 3.9)...",
+                        "Compiling target hitlist..."
+                    ];
+
+                    let stepIndex = 0;
+                    const animInterval = setInterval(() => {
+                        if (stepIndex < steps.length) {
+                            lfScanText.innerText = steps[stepIndex];
+                            stepIndex++;
+                        }
+                    }, 400);
+
+                    try {
+                        const response = await fetch(/api/scrape?city= + encodeURIComponent(city) + &niche= + encodeURIComponent(niche));
+                        const data = await response.json();
+                        
+                        clearInterval(animInterval);
+                        lfScanningState.style.display = 'none';
+                        lfScanBtn.disabled = false;
+
+                        if (data.success && data.leads.length > 0) {
+                            lfResultsGrid.innerHTML = '';
+                            data.leads.forEach(lead => {
+                                const card = document.createElement('div');
+                                card.className = 'glass-card';
+                                card.style.padding = '1.5rem';
+                                card.style.position = 'relative';
+                                card.style.borderTop = '3px solid #ef4444'; // Red for poor rating
+                                
+                                card.innerHTML = 
+                                    <div style="position: absolute; top: 1rem; right: 1rem; background: rgba(239, 68, 68, 0.2); color: #ef4444; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: bold; font-size: 0.8rem;">
+                                        <i class="fa-solid fa-star"></i>  + lead.rating + 
+                                    </div>
+                                    <h3 style="margin-bottom: 0.25rem; padding-right: 3rem;"> + lead.name + </h3>
+                                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.5rem;">
+                                        <i class="fa-solid fa-location-dot"></i>  + lead.address + 
+                                    </p>
+                                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;">
+                                        <i class="fa-solid fa-comment-dots"></i>  + lead.reviews +  Reviews
+                                    </p>
+                                    <button class="btn btn-primary generate-pitch-btn" style="width: 100%; padding: 0.6rem; font-size: 0.9rem;" data-name=" + lead.name + " data-address=" + lead.address + ">
+                                        <i class="fa-solid fa-bolt"></i> Generate Pitch
+                                    </button>
+                                ;
+                                lfResultsGrid.appendChild(card);
+                            });
+                            
+                            lfResultsGrid.style.display = 'grid';
+
+                            // Bind pitch generation
+                            document.querySelectorAll('.generate-pitch-btn').forEach(btn => {
+                                btn.addEventListener('click', (e) => {
+                                    const bName = e.target.closest('button').getAttribute('data-name');
+                                    const bAddress = e.target.closest('button').getAttribute('data-address');
+                                    
+                                    // Switch to tab 1
+                                    document.querySelectorAll('.sales-section-content').forEach(s => s.style.display = 'none');
+                                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                                    document.getElementById('sec-generator').style.display = 'block';
+                                    document.querySelector('.tab-btn[data-tab="sec-generator"]').classList.add('active');
+
+                                    // Fill the form
+                                    const nameInput = document.getElementById('biz-name');
+                                    if(nameInput) {
+                                        nameInput.value = bName;
+                                    }
+                                    
+                                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                                });
+                            });
+
+                        } else {
+                            lfResultsGrid.innerHTML = '<p style="color: var(--text-muted); text-align: center; grid-column: 1/-1;">No poor-rated leads found in this area. Try a broader search.</p>';
+                            lfResultsGrid.style.display = 'grid';
+                        }
+
+                    } catch (err) {
+                        clearInterval(animInterval);
+                        lfScanningState.style.display = 'none';
+                        lfScanBtn.disabled = false;
+                        lfResultsGrid.innerHTML = '<p style="color: #ef4444; text-align: center; grid-column: 1/-1;">Error connecting to radar grid. Please try again.</p>';
+                        lfResultsGrid.style.display = 'grid';
+                    }
+                });
+            }
+
 </body>
 </html>
