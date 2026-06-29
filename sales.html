@@ -20,8 +20,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="generator.css?v=2.4">
-    <!-- Google Places API for Lead Generation Autocomplete -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY_HERE&libraries=places"></script>
+    <!-- Google Places API removed per user request for manual entry -->
     <script src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
     <style>
         /* --- Fx Retina Inspired Cyber-Luxury Design System --- */
@@ -1865,10 +1864,10 @@
                                 </div>
 
                                 <div class="input-group">
-                                    <label for="biz-name" id="name-label">Business Name (Search via Google)</label>
+                                    <label for="biz-name" id="name-label">Business Name</label>
                                     <div class="input-wrapper">
                                         <i class="fa-solid fa-store input-icon" id="name-icon"></i>
-                                        <input type="text" id="biz-name" class="places-autocomplete" placeholder="Start typing a local business name..." required autocomplete="off">
+                                        <input type="text" id="biz-name" placeholder="Enter the local business name..." required>
                                     </div>
                                 </div>
 
@@ -4077,30 +4076,6 @@ Interested in setting this up to see if it works?</span>
             navigator.clipboard.writeText(text);
             showToastNotification('Script copied to clipboard!');
         }
-
-        // Initialize Google Places Autocomplete
-        function initAutocomplete() {
-            const input = document.getElementById('biz-name');
-            if (typeof google === 'object' && typeof google.maps === 'object') {
-                const autocomplete = new google.maps.places.Autocomplete(input, { types: ['establishment'] });
-                autocomplete.addListener('place_changed', () => {
-                    const place = autocomplete.getPlace();
-                    if (place.url) {
-                        document.getElementById('biz-gmb').value = place.url;
-                    }
-                    if (place.website) {
-                        const baseUrlInput = document.getElementById('biz-base-url');
-                        if(baseUrlInput) baseUrlInput.value = place.website;
-                    }
-                });
-            } else {
-                console.warn("Google Maps API not loaded. Autocomplete disabled.");
-            }
-        }
-        
-        // Wait for script to load
-        setTimeout(initAutocomplete, 1500);
-
         // Copy utility for scripts & links
         function copyText(elementId) {
             const text = document.getElementById(elementId).innerText;
