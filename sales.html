@@ -1901,12 +1901,12 @@
                                         <label for="biz-category" id="category-label">Category</label>
                                         <div class="input-wrapper">
                                             <select id="biz-category">
-                                                <option value="cafe" selected>Ã¢Ëœâ€¢ Cafe / Restaurant</option>
-                                                <option value="bakery">Ã°Å¸Â¥Â Bakery</option>
-                                                <option value="dental">Ã°Å¸Â¦Â· Dental / Medical Clinic</option>
-                                                <option value="gym">Ã°Å¸â€™Âª Fitness Gym</option>
-                                                <option value="salon">Ã¢Å“â€šÃ¯Â¸Â Salon / Spa</option>
-                                                <option value="other">Ã°Å¸â€™Â¼ Professional Services</option>
+                                                <option value="cafe" selected>Cafe / Restaurant</option>
+                                                <option value="bakery">Bakery / Dessert</option>
+                                                <option value="dental">Dental / Medical Clinic</option>
+                                                <option value="gym">Fitness Gym</option>
+                                                <option value="salon">Salon / Spa</option>
+                                                <option value="other">Professional Services</option>
                                             </select>
                                         </div>
                                     </div>
@@ -3284,24 +3284,58 @@ Interested in setting this up to see if it works?</span>
                     this.classList.add('active');
                     currentCampaignType = this.getAttribute('data-type');
                     
+                    const categorySelect = document.getElementById('biz-category');
+
                     if (currentCampaignType === 'gmb') {
                         nameLabel.innerText = "Business Name (Search via Google)";
-                        bizNameInput.placeholder = "Start typing a local business name...";
+                        bizNameInput.placeholder = "Enter the local business name...";
                         destLabel.innerText = "Target Google Maps / Review URL";
                         destIcon.className = "fa-brands fa-google input-icon";
                         destTip.innerHTML = '<i class="fa-solid fa-circle-info"></i> Paste their direct Google Review prompt link.';
+                        
+                        if (categorySelect) {
+                            categorySelect.innerHTML = `
+                                <option value="cafe" selected>Cafe / Restaurant</option>
+                                <option value="bakery">Bakery / Dessert</option>
+                                <option value="dental">Dental / Medical Clinic</option>
+                                <option value="gym">Fitness Gym</option>
+                                <option value="salon">Salon / Spa</option>
+                                <option value="other">Professional Services</option>
+                            `;
+                        }
                     } else if (currentCampaignType === 'ecommerce') {
                         nameLabel.innerText = "Brand Name (E-Commerce)";
                         bizNameInput.placeholder = "Enter the e-commerce store name...";
                         destLabel.innerText = "Target Product / Trustpilot URL";
                         destIcon.className = "fa-solid fa-cart-shopping input-icon";
                         destTip.innerHTML = '<i class="fa-solid fa-circle-info"></i> Paste their Trustpilot or specific product review page link.';
+                        
+                        if (categorySelect) {
+                            categorySelect.innerHTML = `
+                                <option value="clothing" selected>Clothing & Apparel</option>
+                                <option value="electronics">Electronics & Gadgets</option>
+                                <option value="beauty">Beauty & Cosmetics</option>
+                                <option value="home">Home & Kitchen</option>
+                                <option value="supplements">Health & Supplements</option>
+                                <option value="retail">Other Retail</option>
+                            `;
+                        }
                     } else if (currentCampaignType === 'delivery') {
                         nameLabel.innerText = "Restaurant Name (Cloud Kitchen)";
                         bizNameInput.placeholder = "Enter the restaurant name...";
                         destLabel.innerText = "Target Zomato / Swiggy URL";
                         destIcon.className = "fa-solid fa-motorcycle input-icon";
                         destTip.innerHTML = '<i class="fa-solid fa-circle-info"></i> Paste their direct Zomato or Swiggy restaurant link.';
+                        
+                        if (categorySelect) {
+                            categorySelect.innerHTML = `
+                                <option value="cloud_kitchen" selected>Cloud Kitchen</option>
+                                <option value="fast_food">Fast Food / QSR</option>
+                                <option value="grocery">Grocery Delivery</option>
+                                <option value="meal_prep">Meal Prep Services</option>
+                                <option value="other_food">Other Food Delivery</option>
+                            `;
+                        }
                     }
                 });
             });
@@ -3700,17 +3734,17 @@ Interested in setting this up to see if it works?</span>
             function updateSimulators() {
                 const bizName = document.getElementById('biz-name').value.trim() || 'Your Brand';
                 const color = document.getElementById('biz-accent').value || '#3b82f6';
-                const font = document.getElementById('biz-font').value || 'Outfit';
-                const theme = document.getElementById('flyer-theme').value || 'theme-onyx';
-                const targetUrl = document.getElementById('biz-gmb').value.trim() || '#';
-                const category = document.getElementById('biz-category').value || 'other';
+                const font = document.getElementById('biz-font') ? document.getElementById('biz-font').value : 'Outfit';
+                const theme = document.getElementById('flyer-theme') ? document.getElementById('flyer-theme').value : 'theme-onyx';
+                const targetUrl = document.getElementById('biz-gmb') ? document.getElementById('biz-gmb').value.trim() : '#';
+                const category = document.getElementById('biz-category') ? document.getElementById('biz-category').value : 'other';
                 
-                const qrDot = document.getElementById('qr-dot-style').value || 'rounded';
-                const qrCorner = document.getElementById('qr-corner-style').value || 'extra-rounded';
-                const flyerHeadline = document.getElementById('flyer-headline').value || 'Review Us';
-                const flyerSub = document.getElementById('flyer-sub').value || 'Scan to Rate';
-                const flyerFooter = document.getElementById('flyer-footer').value || 'Help us serve you better!';
-                const flyerTextStyle = document.getElementById('flyer-text-style').value || 'normal';
+                const qrDot = document.getElementById('qr-dot-style') ? document.getElementById('qr-dot-style').value : 'rounded';
+                const qrCorner = document.getElementById('qr-corner-style') ? document.getElementById('qr-corner-style').value : 'extra-rounded';
+                const flyerHeadline = document.getElementById('flyer-headline') ? document.getElementById('flyer-headline').value : 'Review Us';
+                const flyerSub = document.getElementById('flyer-sub') ? document.getElementById('flyer-sub').value : 'Scan to Rate';
+                const flyerFooter = document.getElementById('flyer-footer') ? document.getElementById('flyer-footer').value : 'Help us serve you better!';
+                const flyerTextStyle = document.getElementById('flyer-text-style') ? document.getElementById('flyer-text-style').value : 'normal';
 
                 // 1. Update DOM Phone Simulator
                 const ovlPortalName = document.getElementById('ovl-portal-name');
