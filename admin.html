@@ -398,28 +398,8 @@
                                     <th>Onboarding Date</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>Bandra Crust Cafe</strong></td>
-                                    <td>Cafe / Restaurant</td>
-                                    <td>hello@bandracrust.com</td>
-                                    <td><a href="#" style="color: #0ea5e9; text-decoration: none;"><i class="fa-solid fa-external-link-alt"></i> View Portal</a></td>
-                                    <td>Jun 12, 2026</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>3 Stories Bar</strong></td>
-                                    <td>Nightlife</td>
-                                    <td>owner@3stories.com</td>
-                                    <td><a href="#" style="color: #0ea5e9; text-decoration: none;"><i class="fa-solid fa-external-link-alt"></i> View Portal</a></td>
-                                    <td>Jun 25, 2026</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Smile Dental Clinic</strong></td>
-                                    <td>Medical</td>
-                                    <td>dr.smile@gmail.com</td>
-                                    <td><a href="#" style="color: #0ea5e9; text-decoration: none;"><i class="fa-solid fa-external-link-alt"></i> View Portal</a></td>
-                                    <td>May 04, 2026</td>
-                                </tr>
+                            <tbody id="client-table-body">
+                                <!-- Populated dynamically by JS -->
                             </tbody>
                         </table>
                     </div>
@@ -665,6 +645,71 @@
 
         // Load initially
         loadAgents();
+
+        // --------------------------------------------------------
+        // Client Database Logic (Master Client CRM)
+        // --------------------------------------------------------
+        const clientTableBody = document.getElementById('client-table-body');
+        
+        function loadClients() {
+            let campaigns = [];
+            try {
+                campaigns = JSON.parse(localStorage.getItem('repushield_campaigns')) || [];
+            } catch(e) {
+                campaigns = [];
+            }
+
+            if (!Array.isArray(campaigns)) campaigns = [];
+
+            if (clientTableBody) {
+                clientTableBody.innerHTML = '';
+                if (campaigns.length === 0) {
+                    clientTableBody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #94a3b8;">No clients generated yet.</td></tr>`;
+                } else {
+                    // Sort campaigns by latest first
+                    campaigns.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+
+                    campaigns.forEach((camp) => {
+                        const dateStr = camp.createdAt ? new Date(camp.createdAt).toLocaleDateString() : 'N/A';
+                        
+                        clientTableBody.innerHTML += `
+                            <tr>
+                                <td><strong>${camp.businessName || 'Unknown Business'}</strong></td>
+                                <td>${camp.campaignType || 'N/A'}</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td>
+                                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                        <a href="portal.html?cid=${camp.id}" target="_blank" class="btn btn-sm" style="background: rgba(14,165,233,0.2); border: 1px solid rgba(14,165,233,0.4); color: #0ea5e9; font-size: 0.75rem; text-decoration: none;">
+                                            <i class="fa-solid fa-external-link-alt"></i> Portal
+                                        </a>
+                                        <a href="demo.html?cid=${camp.id}" target="_blank" class="btn btn-sm" style="background: rgba(139,92,246,0.2); border: 1px solid rgba(139,92,246,0.4); color: #8b5cf6; font-size: 0.75rem; text-decoration: none;">
+                                            <i class="fa-solid fa-laptop"></i> Demo
+                                        </a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm" onclick="removeClient('${camp.id}')" style="background: rgba(239,68,68,0.2); border-color: rgba(239,68,68,0.3); color: #ef4444; font-size: 0.75rem;">
+                                        <i class="fa-solid fa-trash"></i> Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                }
+            }
+        }
+
+        window.removeClient = function(campaignId) {
+            if(confirm('Are you sure you want to permanently delete this client? The portal link will instantly stop working.')) {
+                let campaigns = JSON.parse(localStorage.getItem('repushield_campaigns')) || [];
+                campaigns = campaigns.filter(c => c.id !== campaignId);
+                localStorage.setItem('repushield_campaigns', JSON.stringify(campaigns));
+                loadClients();
+            }
+        };
+
+        // Load clients on start
+        loadClients();
     </script>
 </body>
 </html>
