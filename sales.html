@@ -3172,7 +3172,12 @@ Interested in setting this up to see if it works?</span>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Check auth state from memory
-            let currentAgent = JSON.parse(localStorage.getItem('metrix_current_agent')) || null;
+            let currentAgent = null;
+            try {
+                currentAgent = JSON.parse(localStorage.getItem('metrix_current_agent')) || null;
+            } catch (err) {
+                localStorage.removeItem('metrix_current_agent');
+            }
             
             const loginScreen = document.getElementById('login-screen');
             const dashboardScreen = document.getElementById('dashboard-screen');
