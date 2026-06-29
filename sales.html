@@ -2071,7 +2071,7 @@
                                     <i class="fa-solid fa-desktop"></i> Digital Demo Page
                                 </button>
                                 <button class="toggle-btn" data-preview="flyer" id="btn-print-toggle">
-                                    <i class="fa-solid fa-print"></i> 4-per-page Flyer
+                                    <i class="fa-solid fa-print"></i> Flyer Mockup
                                 </button>
                             </div>
      
@@ -3108,7 +3108,7 @@ Interested in setting this up to see if it works?</span>
                     <i class="fa-solid fa-mobile-screen"></i> Phone Portal
                 </button>
                 <button type="button" id="ovl-btn-flyer" style="padding: 0.65rem; border-radius: 9px; border: 1px solid transparent; background: transparent; color: #94a3b8; font-weight: 600; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.4rem; transition: all 0.2s ease;">
-                    <i class="fa-solid fa-file-image"></i> 4-per-page Flyer
+                    <i class="fa-solid fa-file-image"></i> Flyer Mockup
                 </button>
             </div>
 
@@ -3148,7 +3148,7 @@ Interested in setting this up to see if it works?</span>
             <div id="ovl-flyer-pane" style="display: none; flex-direction: column; align-items: center; gap: 0.75rem; width: 100%;">
                 <iframe id="mobile-live-flyer" src="flyer.html?v=3.6" style="width: 240px; height: 500px; border: none; background: transparent; overflow: hidden; transform-origin: top left; pointer-events: none;"></iframe>
                 <a id="ovl-open-flyer-link" href="#" target="_blank" class="btn btn-secondary" style="width: 100%; max-width: 360px; justify-content: center; gap: 0.5rem; text-decoration: none; font-size: 0.9rem;">
-                    <i class="fa-solid fa-up-right-from-square"></i> Open 4-per-page Flyer
+                    <i class="fa-solid fa-up-right-from-square"></i> Open Flyer Mockup
                 </a>
             </div>
 
@@ -3778,6 +3778,16 @@ Interested in setting this up to see if it works?</span>
 
                 const iframe4 = document.getElementById('portal-iframe');
                 if (iframe4 && iframe4.src.indexOf(demoPortalUrl) === -1) iframe4.src = demoPortalUrl;
+
+                // 3. Update Mobile Modal Links
+                const ovlLink1 = document.getElementById('ovl-open-interactive-link');
+                if (ovlLink1) ovlLink1.href = demoLandingUrl;
+
+                const ovlLink2 = document.getElementById('ovl-open-portal-link');
+                if (ovlLink2) ovlLink2.href = demoPortalUrl;
+
+                const ovlLink3 = document.getElementById('ovl-open-flyer-link');
+                if (ovlLink3) ovlLink3.href = demoFlyerUrl;
             }
 
             // Attach listeners to all inputs
