@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <script>
@@ -3260,6 +3260,15 @@ Interested in setting this up to see if it works?</span>
             // ----------------------------------------------------
             const navItems = document.querySelectorAll('.sales-sidebar .nav-item');
             const sections = document.querySelectorAll('.sales-section-content');
+            const salesSidebar = document.querySelector('.sales-sidebar');
+            const mobMenuBtn = document.getElementById('mob-menu-btn');
+
+            if (mobMenuBtn && salesSidebar) {
+                mobMenuBtn.addEventListener('click', () => {
+                    salesSidebar.classList.toggle('drawer-open');
+                });
+            }
+
 
             // Campaign Type Logic
             let currentCampaignType = 'gmb';
@@ -3308,6 +3317,10 @@ Interested in setting this up to see if it works?</span>
 
                     item.classList.add('active');
                     document.getElementById(`sec-${tabId}`).style.display = 'block';
+                    
+                    if (salesSidebar.classList.contains('drawer-open')) {
+                        salesSidebar.classList.remove('drawer-open');
+                    }
 
                     // Sync FAB nav sheet active state
                     document.querySelectorAll('.mob-nav-btn').forEach(b => {
