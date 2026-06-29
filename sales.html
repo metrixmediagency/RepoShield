@@ -3191,6 +3191,43 @@ Interested in setting this up to see if it works?</span>
             const navItems = document.querySelectorAll('.sales-sidebar .nav-item');
             const sections = document.querySelectorAll('.sales-section-content');
 
+            // Campaign Type Logic
+            let currentCampaignType = 'gmb';
+            const segmentBtns = document.querySelectorAll('.segment-btn');
+            const nameLabel = document.getElementById('name-label');
+            const bizNameInput = document.getElementById('biz-name');
+            const destLabel = document.getElementById('destination-label');
+            const destIcon = document.getElementById('destination-icon');
+            const destTip = document.getElementById('destination-tip');
+
+            segmentBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    segmentBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentCampaignType = this.getAttribute('data-type');
+                    
+                    if (currentCampaignType === 'gmb') {
+                        nameLabel.innerText = "Business Name (Search via Google)";
+                        bizNameInput.placeholder = "Start typing a local business name...";
+                        destLabel.innerText = "Target Google Maps / Review URL";
+                        destIcon.className = "fa-brands fa-google input-icon";
+                        destTip.innerHTML = '<i class="fa-solid fa-circle-info"></i> Paste their direct Google Review prompt link.';
+                    } else if (currentCampaignType === 'ecommerce') {
+                        nameLabel.innerText = "Brand Name (E-Commerce)";
+                        bizNameInput.placeholder = "Enter the e-commerce store name...";
+                        destLabel.innerText = "Target Product / Trustpilot URL";
+                        destIcon.className = "fa-solid fa-cart-shopping input-icon";
+                        destTip.innerHTML = '<i class="fa-solid fa-circle-info"></i> Paste their Trustpilot or specific product review page link.';
+                    } else if (currentCampaignType === 'delivery') {
+                        nameLabel.innerText = "Restaurant Name (Cloud Kitchen)";
+                        bizNameInput.placeholder = "Enter the restaurant name...";
+                        destLabel.innerText = "Target Zomato / Swiggy URL";
+                        destIcon.className = "fa-solid fa-motorcycle input-icon";
+                        destTip.innerHTML = '<i class="fa-solid fa-circle-info"></i> Paste their direct Zomato or Swiggy restaurant link.';
+                    }
+                });
+            });
+
             navItems.forEach(item => {
                 item.addEventListener('click', (e) => {
                     e.preventDefault();
