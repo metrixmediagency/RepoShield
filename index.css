@@ -42,8 +42,7 @@ html {
   scroll-behavior: smooth;
   font-size: 16px;
   background-color: var(--mm-bg-dark);
-  /* NOTE: overflow-x NOT set on html — keeping it only on body preserves
-     the browser's native composited-scroll fast path */
+  overflow-x: hidden;
 }
 
 body {
