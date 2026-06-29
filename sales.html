@@ -3761,18 +3761,23 @@ Interested in setting this up to see if it works?</span>
                     ovlPortalBtn.style.boxShadow = `0 4px 12px ${color}4D`;
                 }
 
-                // 2. Update Live Iframe Flyer
-                const iframe = document.getElementById('mobile-live-flyer');
-                if (iframe) {
-                    const baseLocation = window.location.origin;
-                    const demoPortalUrl = `${baseLocation}/portal.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&demo=true`;
-                    const demoFlyerUrl = `flyer.html?name=${encodeURIComponent(bizName)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&theme=${encodeURIComponent(theme)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}`;
-                    
-                    // Only reload if URL actually changed to prevent flicker
-                    if (iframe.src.indexOf(demoFlyerUrl) === -1) {
-                        iframe.src = demoFlyerUrl;
-                    }
-                }
+                // 2. Update Live Iframe Flyer & Simulators
+                const baseLocation = window.location.origin;
+                const demoPortalUrl = `${baseLocation}/portal.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&demo=true`;
+                const demoFlyerUrl = `flyer.html?name=${encodeURIComponent(bizName)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&theme=${encodeURIComponent(theme)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}`;
+                const demoLandingUrl = `demo.html?name=${encodeURIComponent(bizName)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}`;
+
+                const iframe1 = document.getElementById('mobile-live-flyer');
+                if (iframe1 && iframe1.src.indexOf(demoFlyerUrl) === -1) iframe1.src = demoFlyerUrl;
+
+                const iframe2 = document.getElementById('desktop-live-flyer');
+                if (iframe2 && iframe2.src.indexOf(demoFlyerUrl) === -1) iframe2.src = demoFlyerUrl;
+
+                const iframe3 = document.getElementById('desktop-live-demo');
+                if (iframe3 && iframe3.src.indexOf(demoLandingUrl) === -1) iframe3.src = demoLandingUrl;
+
+                const iframe4 = document.getElementById('portal-iframe');
+                if (iframe4 && iframe4.src.indexOf(demoPortalUrl) === -1) iframe4.src = demoPortalUrl;
             }
 
             // Attach listeners to all inputs
