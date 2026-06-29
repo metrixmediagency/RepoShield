@@ -210,23 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 if (count <= 0) {
                     clearInterval(interval);
-                    if (isDemo) {
-                        const destinationNames = {
-                            gmb: 'Google Maps Review page',
-                            ecommerce: 'Amazon/Shopify Product Review page',
-                            delivery: 'Zomato/Swiggy order rating page'
-                        };
-                        const destName = destinationNames[campaignType] || 'Review page';
-                        alert(`[DEMO MODE ACTIVE]\nIn a live setting, this would now redirect the customer directly to the business ${destName}:\n\n${gmbUrl}`);
-                        redirectOverlay.classList.remove('show');
-                        // Reset selection
-                        selectedRating = 0;
-                        highlightStars(0);
-                        ratingHelper.textContent = 'Tap a star to rate';
-                        ratingHelper.classList.remove('ready');
-                    } else {
-                        window.location.href = gmbUrl;
-                    }
+                    window.location.href = gmbUrl;
                 }
             }, 1000);
         } else {
