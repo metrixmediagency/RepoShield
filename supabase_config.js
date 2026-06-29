@@ -140,7 +140,7 @@ if (supabaseClient) {
         try {
             // Campaigns Sync
             const { data: dbCampaigns } = await supabaseClient.from('campaigns').select('*');
-            if (dbCampaigns && dbCampaigns.length > 0) {
+            if (dbCampaigns) {
                 const mappedCampaigns = dbCampaigns.map(c => {
                     let dest = c.destination || '';
                     let meta = {};
@@ -184,31 +184,50 @@ if (supabaseClient) {
                         }
                     };
                 });
-                originalSetItem.call(localStorage, 'repushield_campaigns', JSON.stringify(mappedCampaigns));
-                prevCampaigns = mappedCampaigns;
-            } else if (dbCampaigns && dbCampaigns.length === 0) {
-                const localCampaigns = JSON.parse(localStorage.getItem('repushield_campaigns')) || [];
-                if (localCampaigns.length > 0) syncCampaigns(localCampaigns);
+                
+                let localCampaigns = [];
+                try { localCampaigns = JSON.parse(localStorage.getItem('repushield_campaigns')) || []; } catch(e){}
+                if (!Array.isArray(localCampaigns)) localCampaigns = [];
+                
+                const dbIds = mappedCampaigns.map(c => c.id);
+                const missingLocal = localCampaigns.filter(c => !dbIds.includes(c.id));
+                const finalCampaigns = [...mappedCampaigns, ...missingLocal];
+                
+                originalSetItem.call(localStorage, 'repushield_campaigns', JSON.stringify(finalCampaigns));
+                prevCampaigns = finalCampaigns;
+                if (missingLocal.length > 0) syncCampaigns(missingLocal);
             }
 
             // Agents Sync
             const { data: dbAgents } = await supabaseClient.from('agents').select('*');
-            if (dbAgents && dbAgents.length > 0) {
-                originalSetItem.call(localStorage, 'repushield_agents', JSON.stringify(dbAgents));
-                prevAgents = dbAgents;
-            } else if (dbAgents && dbAgents.length === 0) {
-                const localAgents = JSON.parse(localStorage.getItem('repushield_agents')) || [];
-                if (localAgents.length > 0) syncAgents(localAgents);
+            if (dbAgents) {
+                let localAgents = [];
+                try { localAgents = JSON.parse(localStorage.getItem('repushield_agents')) || []; } catch(e){}
+                if (!Array.isArray(localAgents)) localAgents = [];
+                
+                const dbUsernames = dbAgents.map(a => a.username);
+                const missingLocal = localAgents.filter(a => !dbUsernames.includes(a.username));
+                const finalAgents = [...dbAgents, ...missingLocal];
+                
+                originalSetItem.call(localStorage, 'repushield_agents', JSON.stringify(finalAgents));
+                prevAgents = finalAgents;
+                if (missingLocal.length > 0) syncAgents(missingLocal);
             }
 
             // Clients Sync
             const { data: dbClients } = await supabaseClient.from('clients').select('*');
-            if (dbClients && dbClients.length > 0) {
-                originalSetItem.call(localStorage, 'repushield_clients', JSON.stringify(dbClients));
-                prevClients = dbClients;
-            } else if (dbClients && dbClients.length === 0) {
-                const localClients = JSON.parse(localStorage.getItem('repushield_clients')) || [];
-                if (localClients.length > 0) syncClients(localClients);
+            if (dbClients) {
+                let localClients = [];
+                try { localClients = JSON.parse(localStorage.getItem('repushield_clients')) || []; } catch(e){}
+                if (!Array.isArray(localClients)) localClients = [];
+                
+                const dbIds = dbClients.map(c => c.id);
+                const missingLocal = localClients.filter(c => !dbIds.includes(c.id));
+                const finalClients = [...dbClients, ...missingLocal];
+                
+                originalSetItem.call(localStorage, 'repushield_clients', JSON.stringify(finalClients));
+                prevClients = finalClients;
+                if (missingLocal.length > 0) syncClients(missingLocal);
             }
 
             console.log("Supabase data pulled and synced to local storage cache.");
