@@ -35,7 +35,13 @@ if (supabaseClient) {
         // Perform standard local storage write
         originalSetItem.apply(this, arguments);
 
-        const list = JSON.parse(value);
+        let list = [];
+        try {
+            list = JSON.parse(value);
+        } catch (err) {
+            // If another script stores a non-JSON string, ignore it to prevent crashing the interceptor
+            return;
+        }
 
         if (key === 'repushield_campaigns') {
             // Detect deletions

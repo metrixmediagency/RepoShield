@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <script>
@@ -3240,8 +3240,8 @@ Interested in setting this up to see if it works?</span>
                 loginScreen.style.display = 'none';
                 dashboardScreen.style.display = 'flex';
                 agentNameDisplay.textContent = currentAgent.name;
-                renderEarnings();
-                renderPipeline();
+                try { renderEarnings(); } catch(e) { console.error(e); }
+                try { renderPipeline(); } catch(e) { console.error(e); }
             }
 
             // Logout
@@ -4218,3 +4218,4 @@ Interested in setting this up to see if it works?</span>
     </script>
 </body>
 </html>
+
