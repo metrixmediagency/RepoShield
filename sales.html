@@ -1202,6 +1202,15 @@
             align-items: center;
         }
 
+        .simulator-wrapper {
+            display: none;
+            width: 100%;
+            justify-content: center;
+        }
+        .simulator-wrapper.mobile-active {
+            display: flex;
+        }
+
         /* ---- Mobile Simulator Overlay Modal ---- */
         #sim-overlay-modal {
             display: none;
@@ -3801,6 +3810,27 @@ Interested in setting this up to see if it works?</span>
                 input.addEventListener('change', updateSimulators);
             });
             
+            // Desktop Simulator Toggle Logic
+            const simToggles = document.querySelectorAll('.preview-toggles .toggle-btn');
+            const simWrappers = document.querySelectorAll('.simulator-wrapper');
+
+            simToggles.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Update active state on buttons
+                    simToggles.forEach(t => t.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    // Update active state on wrappers
+                    const target = btn.getAttribute('data-preview');
+                    simWrappers.forEach(w => {
+                        w.classList.remove('mobile-active');
+                        if (w.id === `preview-${target}-wrapper`) {
+                            w.classList.add('mobile-active');
+                        }
+                    });
+                });
+            });
+
             // Initial call
             setTimeout(updateSimulators, 500);
 
