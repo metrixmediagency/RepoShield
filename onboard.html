@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MetrixMedia | Client Onboarding</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="index.css">
+    <!-- Component CSS (reuse the beautiful dashboard styling) -->
+    <link rel="stylesheet" href="generator.css">
+
+    <style>
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 1rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Hero Background Elements */
+        .hero-glow-1 {
+            position: fixed;
+            top: -20%;
+            left: -10%;
+            width: 70vw;
+            height: 70vw;
+            background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .hero-glow-2 {
+            position: fixed;
+            bottom: -20%;
+            right: -10%;
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, rgba(168,85,247,0.15) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .onboarding-container {
+            width: 100%;
+            max-width: 800px;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            animation: fadeUp 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .header-section h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-section p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* Form Layout */
+        .form-section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        /* Drag & Drop Uploader */
+        .file-upload-wrapper {
+            border: 2px dashed rgba(255,255,255,0.2);
+            border-radius: 12px;
+            padding: 3rem 2rem;
+            text-align: center;
+            background: rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .file-upload-wrapper:hover, .file-upload-wrapper.dragover {
+            border-color: var(--primary-light);
+            background: rgba(99,102,241,0.05);
+        }
+
+        .file-upload-wrapper input[type="file"] {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .upload-icon {
+            font-size: 2.5rem;
+            color: var(--primary-light);
+            margin-bottom: 1rem;
+        }
+
+        .upload-text {
+            color: white;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .upload-subtext {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Color Picker Tuning */
+        .color-picker-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+        }
+        
+        input[type="color"] {
+            -webkit-appearance: none;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            background: none;
+            padding: 0;
+        }
+        input[type="color"]::-webkit-color-swatch-wrapper {
+            padding: 0;
+        }
+        input[type="color"]::-webkit-color-swatch {
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 50%;
+        }
+
+        .submit-container {
+            margin-top: 2rem;
+            text-align: right;
+        }
+
+        .btn-large {
+            padding: 1rem 3rem;
+            font-size: 1.1rem;
+            width: 100%;
+        }
+
+        /* Success Screen */
+        #success-screen {
+            display: none;
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .success-icon {
+            font-size: 5rem;
+            color: var(--accent-green);
+            margin-bottom: 1.5rem;
+            animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes scaleIn {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+
+        /* Mobile tweaks */
+        @media (max-width: 768px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .header-section h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero-glow-1"></div>
+    <div class="hero-glow-2"></div>
+
+    <div class="onboarding-container" id="onboarding-form-container">
+        
+        <div class="header-section">
+            <h1 class="gradient-text">Welcome to MetrixMedia</h1>
+            <p>Thank you for your purchase! Let's grab the assets our Operations Team needs to manufacture and program your Smart NFC Standee.</p>
+        </div>
+
+        <div class="glass-card" style="padding: 2.5rem;">
+            <form id="onboarding-form">
+                
+                <!-- Section 1: Business Details -->
+                <h3 class="form-section-title"><i class="fa-solid fa-store text-indigo"></i> 1. Business & Destination Details</h3>
+                <div class="form-grid" style="margin-bottom: 3rem;">
+                    <div class="form-group">
+                        <label>Business / Brand Name *</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-signature input-icon"></i>
+                            <input type="text" id="ob-name" placeholder="e.g. Starbucks Cafe" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Target Platform *</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-bullseye input-icon"></i>
+                            <select id="ob-platform" required style="padding-left: 2.5rem;">
+                                <option value="gmb">Google Maps</option>
+                                <option value="trustpilot">Trustpilot</option>
+                                <option value="zomato">Zomato / Swiggy</option>
+                                <option value="other">Other / Custom</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Exact Target URL *</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-link input-icon"></i>
+                            <input type="url" id="ob-url" placeholder="Paste the exact link you want customers routed to..." required>
+                        </div>
+                        <span class="input-tip" style="margin-top: 0.5rem; display: block;">
+                            <i class="fa-solid fa-circle-info"></i> Make sure to test this link in an incognito window!
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Section 2: Design Assets -->
+                <h3 class="form-section-title"><i class="fa-solid fa-palette text-fuchsia"></i> 2. Design Assets</h3>
+                <div class="form-grid" style="margin-bottom: 3rem;">
+                    <div class="form-group full-width">
+                        <label>High-Resolution Logo (PNG/JPEG) *</label>
+                        <div class="file-upload-wrapper" id="drop-zone">
+                            <input type="file" id="ob-logo" accept="image/png, image/jpeg" required>
+                            <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
+                            <div class="upload-text" id="upload-filename">Drag & Drop or Click to Upload</div>
+                            <div class="upload-subtext">Max size 5MB. Transparent PNG preferred.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label>Primary Brand Color</label>
+                        <div class="color-picker-wrapper">
+                            <input type="color" id="ob-color" value="#6366f1">
+                            <span style="color: white; font-weight: 500;" id="color-hex">#6366f1</span>
+                            <span style="color: var(--text-muted); font-size: 0.85rem; margin-left: auto;">We'll match your standee border to this color.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3: Shipping & Contact -->
+                <h3 class="form-section-title"><i class="fa-solid fa-truck-fast text-emerald"></i> 3. Shipping Information</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Manager / Point of Contact *</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-user input-icon"></i>
+                            <input type="text" id="ob-manager" placeholder="Name of person receiving package" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>WhatsApp Number (For Tracking) *</label>
+                        <div class="input-wrapper">
+                            <i class="fa-brands fa-whatsapp input-icon"></i>
+                            <input type="tel" id="ob-phone" placeholder="+91 XXXXX XXXXX" required>
+                        </div>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Complete Shipping Address *</label>
+                        <div class="input-wrapper">
+                            <textarea id="ob-address" rows="3" placeholder="Shop Number, Building, Street, City, Pincode" style="width: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 1rem; border-radius: 8px; font-family: inherit; resize: vertical;" required></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="submit-container">
+                    <button type="submit" class="btn btn-primary btn-large" id="submit-btn">
+                        Submit Assets to Operations <i class="fa-solid fa-paper-plane" style="margin-left: 0.5rem;"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Screen (Hidden by Default) -->
+    <div class="onboarding-container" id="success-screen">
+        <div class="glass-card" style="padding: 4rem 2rem;">
+            <i class="fa-solid fa-circle-check success-icon"></i>
+            <h1 class="gradient-text" style="margin-bottom: 1rem;">Assets Received!</h1>
+            <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 500px; margin: 0 auto;">
+                Your onboarding details have been successfully transmitted to our Operations Team. We will begin programming and manufacturing your NFC standee immediately.
+            </p>
+            <div style="margin-top: 2.5rem; padding: 1.5rem; background: rgba(0,0,0,0.3); border-radius: 12px; display: inline-block; border: 1px solid rgba(255,255,255,0.05);">
+                <p style="color: white; margin-bottom: 0.5rem;"><strong>What happens next?</strong></p>
+                <p style="color: var(--text-muted); font-size: 0.95rem; margin: 0;">You will receive a WhatsApp message on the provided number with your shipping tracking ID within 24-48 hours.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // File Upload UI Update
+        const fileInput = document.getElementById('ob-logo');
+        const fileNameDisplay = document.getElementById('upload-filename');
+        const dropZone = document.getElementById('drop-zone');
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                fileNameDisplay.innerText = e.target.files[0].name;
+                fileNameDisplay.style.color = 'var(--primary-light)';
+            } else {
+                fileNameDisplay.innerText = 'Drag & Drop or Click to Upload';
+                fileNameDisplay.style.color = 'white';
+            }
+        });
+
+        // Drag and Drop styling
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => dropZone.classList.add('dragover'), false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => dropZone.classList.remove('dragover'), false);
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            let dt = e.dataTransfer;
+            let files = dt.files;
+            fileInput.files = files;
+            if(files.length > 0) {
+                fileNameDisplay.innerText = files[0].name;
+                fileNameDisplay.style.color = 'var(--primary-light)';
+            }
+        });
+
+        // Color Picker Sync
+        const colorInput = document.getElementById('ob-color');
+        const colorHex = document.getElementById('color-hex');
+        
+        colorInput.addEventListener('input', (e) => {
+            colorHex.innerText = e.target.value.toUpperCase();
+        });
+
+        // Form Submit Simulation
+        const form = document.getElementById('onboarding-form');
+        const formContainer = document.getElementById('onboarding-form-container');
+        const successScreen = document.getElementById('success-screen');
+        const submitBtn = document.getElementById('submit-btn');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Simulate processing
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Transmitting...';
+            submitBtn.disabled = true;
+
+            setTimeout(() => {
+                formContainer.style.display = 'none';
+                successScreen.style.display = 'block';
+                window.scrollTo(0, 0);
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
