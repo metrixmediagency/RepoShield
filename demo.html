@@ -272,6 +272,21 @@
             const flyerSub = urlParams.get('flyerSub') || 'Scan or Tap the code below to experience the 5-star routing technology.';
             const flyerFooter = urlParams.get('flyerFooter') || 'Powered by Aegis Protocol';
 
+            const validity = urlParams.get('validity');
+            if (validity) {
+                const banner = document.createElement('div');
+                banner.style.cssText = 'position: absolute; top: 0; left: 0; right: 0; background: rgba(220,38,38,0.95); color: white; text-align: center; padding: 0.6rem; font-size: 0.95rem; font-weight: 700; z-index: 100; letter-spacing: 0.5px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);';
+                banner.innerHTML = <i class="fa-solid fa-hourglass-half" style="margin-right: 8px; animation: pulse 2s infinite;"></i> Interactive Demo Expires in  + validity +  Hours;
+                document.body.appendChild(banner);
+                
+                if (!document.getElementById('pulse-anim')) {
+                    const style = document.createElement('style');
+                    style.id = 'pulse-anim';
+                    style.innerHTML = @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } };
+                    document.head.appendChild(style);
+                }
+            }
+
             // Set business name in title
             const bizNameDisplay = document.getElementById('biz-name-display');
             if (bizNameDisplay) bizNameDisplay.textContent = bizName;
@@ -361,3 +376,4 @@
     </script>
 </body>
 </html>
+
