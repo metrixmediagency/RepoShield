@@ -2082,6 +2082,9 @@
                                 <button class="toggle-btn" data-preview="flyer" id="btn-print-toggle">
                                     <i class="fa-solid fa-print"></i> Flyer Mockup
                                 </button>
+                                <button class="toggle-btn" data-preview="mockup" id="btn-mockup-toggle">
+                                    <i class="fa-solid fa-image"></i> Custom Image Generator
+                                </button>
                             </div>
      
                             <!-- Mobile Simulator Mockup -->
@@ -2104,6 +2107,23 @@
                             <!-- Demo Landing Page Mockup -->
                             <div id="preview-demo-wrapper" class="simulator-wrapper">
                                 <iframe id="desktop-live-demo" src="demo.html?v=3.7" style="width: 280px; height: 520px; border: none; background: transparent; overflow: hidden; transform-origin: top center; pointer-events: none;"></iframe>
+                            </div>
+                            
+                            <!-- Custom Image Generator Mockup -->
+                            <div id="preview-mockup-wrapper" class="simulator-wrapper" style="padding: 1.5rem; text-align: center;">
+                                <h4 style="margin-top:0; color: #8b5cf6;"><i class="fa-solid fa-image"></i> Visual BG Generator</h4>
+                                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Drag a photo of their venue here to generate the custom standee image.</p>
+                                
+                                <div id="hub-dropzone" style="border: 2px dashed rgba(255,255,255,0.2); border-radius: 12px; height: 140px; display: flex; align-items: center; justify-content: center; flex-direction: column; cursor: pointer; transition: all 0.3s ease; margin-bottom: 1rem; background: rgba(0,0,0,0.2);">
+                                    <i class="fa-solid fa-cloud-arrow-up" style="font-size: 2rem; color: #8b5cf6; margin-bottom: 0.5rem; text-shadow: none;"></i>
+                                    <span style="font-size: 0.85rem; color: #94a3b8;">Drop photo or click</span>
+                                </div>
+                                <input type="file" id="hub-file-input" accept="image/*" style="display: none;">
+                                
+                                <canvas id="hub-canvas" style="display: none; width: 100%; border-radius: 8px; margin-bottom: 1rem;"></canvas>
+                                <p id="hub-status" style="font-size: 0.8rem; text-align: center; margin-bottom: 1rem;"></p>
+                                
+                                <button id="btn-hub-download" class="btn btn-primary btn-sm" style="width: 100%; justify-content: center; display: none; background: #8b5cf6; border-color: #8b5cf6;"><i class="fa-solid fa-download"></i> Download JPG</button>
                             </div>
                         </div>
                     </div>
@@ -3035,23 +3055,6 @@ Interested in setting this up to see if it works?</span>
                     <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Optimized for WhatsApp/Instagram DM.</p>
                     <div id="auto-pitch-script" style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); color: #e2e8f0; padding: 1rem; border-radius: 6px; font-size: 0.85rem; height: 180px; overflow-y: auto; white-space: pre-wrap; font-family: monospace; margin-bottom: 1rem;"></div>
                     <button class="btn btn-primary btn-sm" onclick="copyDiv('auto-pitch-script')" style="width: 100%; justify-content: center; background: #10b981; border-color: #10b981;">Copy Pitch Script</button>
-                </div>
-
-                <!-- Column 3: Standee Image Mockup -->
-                <div class="preview-box" style="text-align: left; padding: 1.5rem;">
-                    <h4 style="margin-top:0; color: #8b5cf6;"><i class="fa-solid fa-image"></i> 3. Visual Mockup</h4>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Drag a photo of their venue here to generate the custom standee image.</p>
-                    
-                    <div id="hub-dropzone" style="border: 2px dashed rgba(255,255,255,0.2); border-radius: 12px; height: 140px; display: flex; align-items: center; justify-content: center; flex-direction: column; cursor: pointer; transition: all 0.3s ease; margin-bottom: 1rem; background: rgba(0,0,0,0.2);">
-                        <i class="fa-solid fa-cloud-arrow-up" style="font-size: 2rem; color: #8b5cf6; margin-bottom: 0.5rem; text-shadow: none;"></i>
-                        <span style="font-size: 0.85rem; color: #94a3b8;">Drop photo or click</span>
-                    </div>
-                    <input type="file" id="hub-file-input" accept="image/*" style="display: none;">
-                    
-                    <canvas id="hub-canvas" style="display: none; width: 100%; border-radius: 8px; margin-bottom: 1rem;"></canvas>
-                    <p id="hub-status" style="font-size: 0.8rem; text-align: center; margin-bottom: 1rem;"></p>
-                    
-                    <button id="btn-hub-download" class="btn btn-primary btn-sm" style="width: 100%; justify-content: center; display: none; background: #8b5cf6; border-color: #8b5cf6;"><i class="fa-solid fa-download"></i> Download JPG</button>
                 </div>
             </div>
         </div>
