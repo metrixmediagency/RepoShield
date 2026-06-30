@@ -286,6 +286,12 @@
                 banner.innerHTML = `<i class="fa-solid fa-hourglass-half" style="margin-right: 8px; animation: pulse 2s infinite;"></i> Interactive Demo Expires in ${validity} Hours`;
                 document.body.appendChild(banner);
                 
+                // Prevent overlap by pushing the brand header down
+                const brandHeader = document.querySelector('.brand-header');
+                if (brandHeader) {
+                    brandHeader.style.top = '4rem';
+                }
+                
                 if (!document.getElementById('pulse-anim')) {
                     const style = document.createElement('style');
                     style.id = 'pulse-anim';
