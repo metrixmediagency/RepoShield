@@ -2110,7 +2110,7 @@
                             </div>
                             
                             <!-- Custom Image Generator Mockup -->
-                            <div id="preview-mockup-wrapper" class="simulator-wrapper" style="padding: 1.5rem; text-align: center;">
+                            <div id="preview-mockup-wrapper" class="simulator-wrapper" style="padding: 1.5rem; text-align: center; flex-direction: column; align-items: center;">
                                 <h4 style="margin-top:0; color: #8b5cf6;"><i class="fa-solid fa-image"></i> Visual BG Generator</h4>
                                 <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Drag a photo of their venue here to generate the custom standee image.</p>
                                 
@@ -4089,14 +4089,6 @@ Interested in setting this up to see if it works?</span>
                                     ctx.fillStyle = '#cbd5e1';
                                     ctx.fillText("Scan to Rate Us", x + fgW/2, y + fgH * 0.28);
                                     
-                                    // Simulated QR box
-                                    var qrSize = Math.floor(fgW * 0.35);
-                                    ctx.fillStyle = 'white';
-                                    ctx.fillRect(x + fgW/2 - qrSize/2, y + fgH * 0.4, qrSize, qrSize);
-                                    ctx.strokeStyle = color;
-                                    ctx.lineWidth = 4;
-                                    ctx.strokeRect(x + fgW/2 - qrSize/2, y + fgH * 0.4, qrSize, qrSize);
-
                                     if (mockupPlaceholder) mockupPlaceholder.style.display = 'none';
                                     if (mockupDropzone) mockupDropzone.style.display = 'none';
                                     mockupCanvas.style.display   = 'block';
