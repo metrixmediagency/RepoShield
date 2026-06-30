@@ -593,6 +593,7 @@ html, body {
 
 .preview-toggles {
     display: flex;
+    flex-wrap: wrap;
     background: rgba(10, 12, 26, 0.6);
     border: 1px solid var(--border-color);
     padding: 0.4rem;
@@ -603,6 +604,8 @@ html, body {
 
 .toggle-btn {
     display: flex;
+    flex: 1;
+    justify-content: center;
     align-items: center;
     gap: 0.5rem;
     padding: 0.6rem 1.2rem;
