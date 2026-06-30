@@ -169,6 +169,13 @@
             transform: scale(1.02);
         }
 
+        .qr-display svg, .qr-display canvas {
+            width: 100% !important;
+            height: 100% !important;
+            max-width: 100%;
+            display: block;
+        }
+
         /* Minimal Footer */
         .instruction-box {
             margin-top: auto;
@@ -332,23 +339,20 @@
             const qrLink = document.getElementById('native-qr-link');
             if (qrLink) qrLink.href = currentPortalUrl;
 
-            // STEP 2: Separately try to shorten URL for QR code only (density reduction).
-            async function buildQR() {
+            // STEP 2: Instant QR Building + Async Shortening
+            function buildQR() {
                 let qrUrl = currentPortalUrl;
-                try {
-                    const proxyUrl = 'https://api.allorigins.win/raw?url=';
-                    const targetUrl = `https://is.gd/create.php?format=simple&url=${encodeURIComponent(currentPortalUrl)}`;
-                    const resp = await fetch(proxyUrl + encodeURIComponent(targetUrl));
-                    if (resp.ok) {
-                        const short = await resp.text();
-                        if (short && short.startsWith('http') && short.length < 40) {
-                            qrUrl = short.trim();
-                            // Also update button hrefs to the shorter URL
-                            if (qrLink) qrLink.href = qrUrl;
-                        }
+                
+                // Fire off URL shortener in background ONLY for the anchor link href
+                const proxyUrl = 'https://api.allorigins.win/raw?url=';
+                const targetUrl = `https://is.gd/create.php?format=simple&url=${encodeURIComponent(currentPortalUrl)}`;
+                fetch(proxyUrl + encodeURIComponent(targetUrl)).then(r => r.text()).then(short => {
+                    if (short && short.startsWith('http') && short.length < 50 && qrLink) {
+                        qrLink.href = short.trim();
                     }
-                } catch(e) { /* fallback to full URL for QR */ }
+                }).catch(e => console.warn("URL shorten failed"));
 
+                // Render immediately with full URL to eliminate load delay
                 const qrConfig = {
                     type: "svg", // SVG is strictly more reliable than Canvas for DOM injection
                     width: 220,
