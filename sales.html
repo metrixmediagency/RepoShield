@@ -1874,7 +1874,7 @@
                                 </div>
                             </div>
 
-                            <div class="grid-layout" style="grid-template-columns: 1fr 1fr auto; align-items: end; gap: 1rem;">
+                            <div class="grid-layout" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); align-items: end; gap: 1rem;">
                                 <div class="input-group" style="margin-bottom: 0;">
                                     <label for="biz-name" id="name-label">Business Name</label>
                                     <div class="input-wrapper">
@@ -1915,7 +1915,7 @@
                             </div>
                             
                             <div class="grid-2-col">
-                                <div class="input-group">
+                                <div class="input-group" style="display: none;">
                                     <label for="biz-accent">Accent Color</label>
                                     <div class="color-picker-wrapper">
                                         <input type="color" id="biz-accent" value="#3b82f6">
@@ -1935,7 +1935,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="input-group">
+                                <div class="input-group" style="display: none;">
                                     <label for="biz-email">Client Email Address</label>
                                     <div class="input-wrapper">
                                         <i class="fa-solid fa-envelope input-icon"></i>
@@ -1952,7 +1952,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="input-group">
+                                <div class="input-group" style="display: none;">
                                     <label for="biz-font">Brand Typography</label>
                                     <div class="input-wrapper">
                                         <i class="fa-solid fa-font input-icon"></i>
@@ -1966,14 +1966,14 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="input-group">
+                                <div class="input-group" style="display: none;">
                                     <label for="biz-logo">Logo Image URL (Optional)</label>
                                     <div class="input-wrapper">
                                         <i class="fa-solid fa-image input-icon"></i>
                                         <input type="url" id="biz-logo" placeholder="e.g., https://domain.com/logo.png" autocomplete="off">
                                     </div>
                                 </div>
-                                <div class="input-group">
+                                <div class="input-group" style="display: none;">
                                     <label for="biz-base-url">Deployment / Base URL (Optional)</label>
                                     <div class="input-wrapper">
                                         <i class="fa-solid fa-globe input-icon"></i>
@@ -1986,7 +1986,7 @@
                             <div style="margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem;">
                                 <h4 style="margin-bottom: 1rem; color: #818cf8;"><i class="fa-solid fa-gem"></i> Premium Flyer Theme</h4>
                                 <div class="grid-2-col">
-                                    <div class="input-group">
+                                    <div class="input-group" style="display: none;">
                                         <label for="flyer-theme">Select Curated Design</label>
                                         <div class="input-wrapper">
                                             <i class="fa-solid fa-palette input-icon"></i>
@@ -2065,7 +2065,7 @@
                     </form>
 
                     <!-- STEP 4: Pitch Assets (Output) -->
-                    <div id="pitch-assets-container" style="display: none; border-top: 1px dashed rgba(255,255,255,0.2); padding-top: 2rem;">
+                    <div id="pitch-assets-container" style="border-top: 1px dashed rgba(255,255,255,0.2); padding-top: 2rem;">
                         <h3 style="margin-bottom: 1.5rem; color: #818cf8; font-size: 1.4rem;"><i class="fa-solid fa-box-open"></i> Step 4: Your Pitch Arsenal</h3>
                         
                         <div class="grid-layout">
@@ -2145,7 +2145,7 @@
                     </div>
                     
                     <div class="glass-card" style="padding: 2rem; margin-bottom: 2rem; border-left: 4px solid var(--primary-light);">
-                        <div class="grid-layout" style="grid-template-columns: 1fr 1fr auto; align-items: end; gap: 1rem;">
+                        <div class="grid-layout" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); align-items: end; gap: 1rem;">
                             <div class="form-group" style="margin-bottom: 0;">
                                 <label>Target City / Area</label>
                                 <div class="input-wrapper">
@@ -4185,6 +4185,7 @@
     </script>
 </body>
 </html>
+
 
 
 
