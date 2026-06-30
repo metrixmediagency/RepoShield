@@ -374,6 +374,14 @@
                     const container = document.getElementById('qr-container');
                     container.innerHTML = '';
                     new QRCodeStyling(qrConfig).append(container);
+                    
+                    // Force a viewBox so the internal SVG paths scale with the container
+                    setTimeout(() => {
+                        const svg = container.querySelector('svg');
+                        if (svg && !svg.getAttribute('viewBox')) {
+                            svg.setAttribute('viewBox', '0 0 220 220');
+                        }
+                    }, 50);
                 });
             }
             buildQR();
