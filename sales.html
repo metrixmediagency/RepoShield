@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <script>
@@ -3153,22 +3153,18 @@
                     currentAgent = matchedAgent;
                     showDashboard();
                 } else {
-                    // Auto-register new users with the default password for testing purposes
-                    if (passwordInput === 'password123') {
-                        const newAgent = {
-                            name: 'Sales Partner',
-                            username: usernameInput,
-                            password: 'password123',
-                            upi: 'new@upi'
-                        };
-                        registeredAgents.push(newAgent);
-                        localStorage.setItem('repushield_agents', JSON.stringify(registeredAgents));
-                        localStorage.setItem('metrix_current_agent', JSON.stringify(newAgent));
-                        currentAgent = newAgent;
-                        showDashboard();
-                    } else {
-                        alert('Invalid User ID or Password. Please try again or contact support.');
-                    }
+                    // Auto-register ANY new user for testing purposes
+                    const newAgent = {
+                        name: 'Sales Partner',
+                        username: usernameInput,
+                        password: passwordInput || 'password123',
+                        upi: 'new@upi'
+                    };
+                    registeredAgents.push(newAgent);
+                    localStorage.setItem('repushield_agents', JSON.stringify(registeredAgents));
+                    localStorage.setItem('metrix_current_agent', JSON.stringify(newAgent));
+                    currentAgent = newAgent;
+                    showDashboard();
                 }
             });
 
