@@ -336,8 +336,9 @@
             async function buildQR() {
                 let qrUrl = currentPortalUrl;
                 try {
-                    // is.gd has permissive CORS — works from browser fetch()
-                    const resp = await fetch(`https://is.gd/create.php?format=simple&url=${encodeURIComponent(currentPortalUrl)}`);
+                    const proxyUrl = 'https://api.allorigins.win/raw?url=';
+                    const targetUrl = `https://is.gd/create.php?format=simple&url=${encodeURIComponent(currentPortalUrl)}`;
+                    const resp = await fetch(proxyUrl + encodeURIComponent(targetUrl));
                     if (resp.ok) {
                         const short = await resp.text();
                         if (short && short.startsWith('http') && short.length < 40) {
@@ -349,11 +350,11 @@
                 } catch(e) { /* fallback to full URL for QR */ }
 
                 const qrConfig = {
-                    type: "canvas", // Revert to canvas. TinyURL fixes the blurry noise, preventing SVG crash entirely.
+                    type: "svg", // SVG is strictly more reliable than Canvas for DOM injection
                     width: 220,
                     height: 220,
                     data: qrUrl,
-                    qrOptions: { errorCorrectionLevel: 'M' },
+                    qrOptions: { errorCorrectionLevel: (qrUrl.length > 100 ? 'L' : 'M') },
                     dotsOptions: { color: "#000000", type: safeQrDot },
                     backgroundOptions: { color: "transparent" },
                     cornersSquareOptions: { type: qrCorner, color: "#000000" },
@@ -362,7 +363,7 @@
 
                 if (logo && logo.trim() !== '') {
                     qrConfig.image = logo;
-                    qrConfig.imageOptions = { crossOrigin: "anonymous", margin: 8, imageSize: 0.25, hideBackgroundDots: true };
+                    qrConfig.imageOptions = { crossOrigin: "anonymous", margin: 8, imageSize: 0.2, hideBackgroundDots: true };
                 }
 
                 requestAnimationFrame(() => {
