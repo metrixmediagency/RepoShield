@@ -1713,14 +1713,14 @@
                             <div class="stat-icon"><i class="fa-solid fa-clock"></i></div>
                             <div class="stat-info">
                                 <h4>Pending Commissions</h4>
-                                <p id="stat-pending-commission">ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¹0</p>
+                                <p id="stat-pending-commission">₹0</p>
                             </div>
                         </div>
                         <div class="glass-card stat-card emerald">
                             <div class="stat-icon"><i class="fa-solid fa-hand-holding-dollar"></i></div>
                             <div class="stat-info">
                                 <h4>Paid Payouts</h4>
-                                <p id="stat-paid-commission">ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¹0</p>
+                                <p id="stat-paid-commission">₹0</p>
                             </div>
                         </div>
                     </div>
@@ -1759,23 +1759,23 @@
                                 <div class="reward-milestone">
                                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
                                         <h4 style="color: white; font-size: 0.95rem; margin: 0;">Standard Payout</h4>
-                                        <span class="reward-tag">ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¹1,000 / closed deal</span>
+                                        <span class="reward-tag">₹1,000 / closed deal</span>
                                     </div>
-                                    <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin: 0;">Earn flat ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¹1,000 setup commission for every client you onboard that closes payment.</p>
+                                    <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin: 0;">Earn flat ₹1,000 setup commission for every client you onboard that closes payment.</p>
                                 </div>
                                 <div class="reward-milestone" style="border-top: 1px solid var(--border-color); padding-top: 1.25rem;">
                                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
                                         <h4 style="color: white; font-size: 0.95rem; margin: 0;">Bronze Milestone</h4>
                                         <span class="reward-tag pending">5 Active Clients</span>
                                     </div>
-                                    <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin: 0;">Close 5 active campaigns to unlock a bonus of ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¹2,500 + official marketing support assets.</p>
+                                    <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin: 0;">Close 5 active campaigns to unlock a bonus of ₹2,500 + official marketing support assets.</p>
                                 </div>
                                 <div class="reward-milestone" style="border-top: 1px solid var(--border-color); padding-top: 1.25rem;">
                                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
                                         <h4 style="color: white; font-size: 0.95rem; margin: 0;">Silver Milestone</h4>
                                         <span class="reward-tag pending">10 Active Clients</span>
                                     </div>
-                                    <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin: 0;">Close 10 active campaigns to unlock a bonus of ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¹5,000 + agency email account.</p>
+                                    <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin: 0;">Close 10 active campaigns to unlock a bonus of ₹5,000 + agency email account.</p>
                                 </div>
                             </div>
                         </div>
@@ -2798,7 +2798,7 @@
                                         let cleanLine = trimmed.replace(/^(&gt;|>)\s*/, '');
                                         // Apply basic formatting inside quotes
                                         cleanLine = cleanLine.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-                                        cleanLine = cleanLine.replace(/^\*\s+/, 'ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ ');
+                                        cleanLine = cleanLine.replace(/^\*\s+/, '• ');
                                         quoteContent.push(cleanLine);
                                     } else {
                                         if (inQuote) {
@@ -2815,7 +2815,7 @@
                                         } else if (trimmed !== '') {
                                              let formattedLine = trimmed;
                                              formattedLine = formattedLine.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-                                             formattedLine = formattedLine.replace(/^\*\s+/, 'ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ ');
+                                             formattedLine = formattedLine.replace(/^\*\s+/, '• ');
                                              formattedHTML += `<p class="portal-script-para">${formattedLine}</p>`;
                                         }
                                     }
@@ -2931,7 +2931,7 @@
                         </div>
                         <div class="glass-card" style="padding: 1.5rem; text-align: center;">
                             <i class="fa-solid fa-sack-dollar text-emerald" style="font-size: 2rem; margin-bottom: 1rem;"></i>
-                            <h2 style="color: white; font-size: 2.5rem; margin: 0;">ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¹42,000</h2>
+                            <h2 style="color: white; font-size: 2.5rem; margin: 0;">₹42,000</h2>
                             <p style="color: var(--text-muted); font-size: 0.9rem; text-transform: uppercase; font-weight: 600; margin-top: 0.5rem;">Passive Revenue</p>
                         </div>
                     </div>
@@ -2997,7 +2997,7 @@
             </div>
             
             <p style="color: var(--text-muted); font-size: 0.9rem;">Payment requested by MetrixMedia Digital</p>
-            <div class="rzp-amount" id="rzp-amount-display">ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¹2,998</div>
+            <div class="rzp-amount" id="rzp-amount-display">₹2,998</div>
             
             <div style="font-size: 0.85rem; padding: 0.5rem 1rem; background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.2); border-radius: 8px; color: #34d399; margin: 1rem 0;">
                 One-Time Setup Fee + Month 1 Subscription Combined
@@ -3455,7 +3455,7 @@
                     currentSubscriptionId = data.subscriptionId;
 
                     // Display Razorpay details
-                    document.getElementById('rzp-amount-display').textContent = `ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¹${plan.total}`;
+                    document.getElementById('rzp-amount-display').textContent = `₹${plan.total}`;
                     
                     const paymentUrl = data.shortUrl || '';
                     document.getElementById('rzp-link-display').value = paymentUrl;
@@ -3593,7 +3593,7 @@
                         <td data-label="Business Name"><strong>${campaign.name}</strong></td>
                         <td data-label="Billing Plan">${planTitle}</td>
                         <td data-label="Target Link"><a href="${finalPortalUrl}" target="_blank" class="btn btn-secondary btn-sm" style="display:inline-flex;"><i class="fa-solid fa-up-right-from-square"></i> Portal</a></td>
-                        <td data-label="Total Revenue">ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¹${campaign.setupFee + campaign.recurringFee}</td>
+                        <td data-label="Total Revenue">₹${campaign.setupFee + campaign.recurringFee}</td>
                         <td data-label="Status">${statusBadge}</td>
                     `;
                     tbody.appendChild(tr);
@@ -3607,7 +3607,7 @@
                 // Commission count
                 const totalSales = myCampaigns.length;
                 
-                // Setup payout commissions: ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¹1,000 for each closed campaign
+                // Setup payout commissions: ₹1,000 for each closed campaign
                 const pendingCommission = myCampaigns
                     .filter(c => c.commissionStatus === 'pending')
                     .length * 1000;
@@ -3617,8 +3617,8 @@
                     .length * 1000;
 
                 document.getElementById('stat-sales-count').textContent = totalSales;
-                document.getElementById('stat-pending-commission').textContent = `ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¹${pendingCommission}`;
-                document.getElementById('stat-paid-commission').textContent = `ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¹${paidCommission}`;
+                document.getElementById('stat-pending-commission').textContent = `₹${pendingCommission}`;
+                document.getElementById('stat-paid-commission').textContent = `₹${paidCommission}`;
 
                 // Payout logs
                 const tbody = document.getElementById('payout-history-body');
@@ -3639,7 +3639,7 @@
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
                         <td data-label="Date">${campaign.createdAt || 'N/A'}</td>
-                        <td data-label="Amount"><strong>ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¹1,000</strong></td>
+                        <td data-label="Amount"><strong>₹1,000</strong></td>
                         <td data-label="Payout Method">UPI (${currentAgent.upi || 'GPay'})</td>
                         <td data-label="Status"><span class="badge" style="background: rgba(52, 211, 153, 0.2); border: 1px solid rgba(52, 211, 153, 0.5); color: #34d399;"><i class="fa-solid fa-check-double"></i> Paid</span></td>
                     `;
