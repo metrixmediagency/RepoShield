@@ -11,12 +11,13 @@ $API_KEY = $env:SERP_API_KEY
 if (-not $API_KEY) { Write-Error "CRITICAL: SERP_API_KEY environment variable missing."; exit 1 }
 
 $NicheList = $Niches -split ","
-$WORKSPACE_DIR = "C:\Users\sunny\.gemini\antigravity\scratch\MetrixMedia"
-$ARTIFACTS_DIR = "C:\Users\sunny\.gemini\antigravity\brain\aa799871-3906-4e77-80be-ce008463a5a8"
-$STANDEE_PATH = "$ARTIFACTS_DIR\test_silver_transparent.png"
-$MOCKUPS_DIR = "$ARTIFACTS_DIR"
+$WORKSPACE_DIR = (Get-Item $PSScriptRoot).Parent.FullName
+$ARTIFACTS_DIR = "$WORKSPACE_DIR\artifacts"
+$STANDEE_PATH = "$WORKSPACE_DIR\assets\test_silver_transparent.png"
+$MOCKUPS_DIR = "$ARTIFACTS_DIR\mockups"
 $HITLIST_FILE = "$ARTIFACTS_DIR\auto_hitlist.md"
 
+if (-not (Test-Path $ARTIFACTS_DIR)) { New-Item -ItemType Directory -Path $ARTIFACTS_DIR | Out-Null }
 if (-not (Test-Path $MOCKUPS_DIR)) { New-Item -ItemType Directory -Path $MOCKUPS_DIR | Out-Null }
 
 Add-Type -AssemblyName System.Drawing
@@ -130,8 +131,8 @@ foreach ($niche in $NicheList) {
                     
                     # TELEGRAM PUSH NOTIFICATION
                     if ($TelegramToken -ne "" -and $TelegramChatId -ne "") {
-                        $shortCaption = "🚨 NEW LEAD: $bizName`n⭐ Rating: $rating Stars ($reviews Reviews)$priceStr"
-                        $longText = "💬 WhatsApp: $waLink`n📸 Instagram: $igLink`n`n📝 COPY & PASTE SCRIPT:`n$rawMessage"
+                        $shortCaption = "[NEW LEAD]: $bizName`n* Rating: $rating Stars ($reviews Reviews)$priceStr"
+                        $longText = "- WhatsApp: $waLink`n- Instagram: $igLink`n`n[COPY & PASTE SCRIPT]:`n$rawMessage"
                         
                         if ($mockupSavedPath -ne "") {
                             $captionPath = "$MOCKUPS_DIR\temp_caption.txt"
