@@ -25,7 +25,7 @@
                     <i class="fa-solid fa-store" id="category-icon"></i>
                 </div>
                 <h2 id="business-name">Business Name</h2>
-                <p class="tagline">Thank you for visiting us today! We value your feedback.</p>
+                <p class="tagline">Thank you for dining with us today. We would love to hear about your experience.</p>
             </div>
 
             <!-- Star Rating Input Screen -->
@@ -61,6 +61,10 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="client-dob">Date of Birth</label>
+                        <input type="text" id="client-dob" placeholder="DD/MM/YYYY" pattern="\d{2}/\d{2}/\d{4}" title="Please enter in DD/MM/YYYY format" required>
+                    </div>
+                    <div class="form-group">
                         <label for="client-message">How can we improve?</label>
                         <textarea id="client-message" rows="4" placeholder="Please describe the issue..." required></textarea>
                     </div>
@@ -75,9 +79,9 @@
             <div class="vip-screen" id="vip-screen" style="display: none;">
                 <div class="screen-header">
                     <button class="back-btn" id="vip-back-to-stars" aria-label="Go back"><i class="fa-solid fa-arrow-left"></i></button>
-                    <h3>Join our VIP Club! 🎉</h3>
+                    <h3>Unlock VIP Privileges 🥂</h3>
                 </div>
-                <p class="feedback-subtitle">Before you share your review on Google, drop your name and WhatsApp number below to get exclusive VIP offers and discounts!</p>
+                <p class="feedback-subtitle">As a thank you for your feedback, we invite you to join our exclusive guest list. Enter your details below to unlock complimentary perks and priority access on future visits.</p>
                 
                 <form id="vip-form" class="feedback-form">
                     <div class="input-row">

@@ -338,6 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const name = document.getElementById('client-name').value;
         const phone = document.getElementById('client-phone').value;
+        const dob = document.getElementById('client-dob') ? document.getElementById('client-dob').value : '';
         const message = document.getElementById('client-message').value;
 
         // Construct lead data
@@ -348,6 +349,7 @@ document.addEventListener('DOMContentLoaded', () => {
             rating: selectedRating,
             clientName: name,
             clientPhone: phone,
+            clientDOB: dob,
             clientMessage: message,
             submittedAt: new Date().toLocaleString()
         };
