@@ -7,10 +7,11 @@ MetrixMedia is a B2B SaaS and Digital Marketing Agency. The core value propositi
 
 The goal is to provide a "Toast" or "Olo" style digital infrastructure to local businesses, using the automated interactive demos as the primary sales hook.
 
-## 2. Core Project Files & UI Pipeline
+## 2. Core Project Files & Data Pipeline
 The frontend infrastructure allows the user to generate, preview, and download custom digital assets.
-* **`sales.html`**: The monolithic control center. This UI allows the user to configure the campaign (business name, colors, styling, fonts). It contains direct links and generates the customized sales script.
-* **`demo.html`**: The interactive "Digital Demo" portal that simulates what the client's customers will see on their mobile phones. It features a responsive SVG QR code generator, an urgency expiry banner, and dynamic glassmorphism styling.
+* **`sales.html`**: The monolithic control center. This UI allows the user to configure the campaign (business name, colors, styling, fonts). It contains direct links and generates the customized sales script. **It pushes generated campaigns directly into the Supabase database.**
+* **`demo.html` / `portal.html`**: The interactive "Digital Demo" portal that simulates what the client's customers will see on their mobile phones. It features a responsive SVG QR code generator, an urgency expiry banner, and dynamic glassmorphism styling. **It now features a VIP Club Lead Capture gate for 5-star ratings (capturing Name, Phone, and DOB), sending data to both Supabase and custom Google Sheets webhooks.**
+* **`live.html`**: The Master Demo redirector. Scanned physical standees hit this URL, which queries the Supabase `campaigns` table for the most recent entry and dynamically redirects the user to the custom generated `portal_url`.
 * **`flyer.html`**: The physical print asset generator. It sizes QR codes and elements specifically for physical standees and stickers using `@media print` CSS rules.
 * **`bulk_flyer.html`**: The automated printing loop that processes multiple leads instantly.
 
