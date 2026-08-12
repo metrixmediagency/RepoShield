@@ -1667,8 +1667,8 @@
                 </div>
             </a>
             <div style="display: flex; align-items: center; gap: 1rem;">
-                <button class="btn btn-primary btn-sm" id="btn-master-qr" style="background: rgba(14, 165, 233, 0.15); border: 1px solid rgba(14, 165, 233, 0.3); color: #0ea5e9; padding: 0.4rem 0.8rem; border-radius: 8px;">
-                    <i class="fa-solid fa-qrcode"></i> <span style="margin-left: 5px;">Master QR</span>
+                <button class="btn btn-primary btn-sm" id="btn-master-qr" style="background: rgba(212, 175, 55, 0.15); border: 1px solid rgba(212, 175, 55, 0.3); color: #d4af37; padding: 0.4rem 0.8rem; border-radius: 8px;">
+                    <i class="fa-solid fa-print"></i> <span style="margin-left: 5px;">Print Standees</span>
                 </button>
                 <div class="agent-badge">
                     <i class="fa-solid fa-user-tie"></i> <span id="agent-name-display">Agent Rohit</span>
@@ -2137,7 +2137,7 @@
                                 
                                 <!-- Flyer Simulator Mockup -->
                                 <div id="preview-flyer-wrapper" class="simulator-wrapper">
-                                    <iframe id="desktop-live-flyer" src="flyer.html?v=4.0" style="width: 280px; height: 520px; border: none; background: transparent; overflow: hidden; transform-origin: top center; pointer-events: none;"></iframe>
+                                    <iframe id="desktop-live-flyer" src="flyer.html?v=5.0" style="width: 280px; height: 520px; border: none; background: transparent; overflow: hidden; transform-origin: top center; pointer-events: none;"></iframe>
                                 </div>
                                 
                                 <!-- Demo Landing Page Mockup -->
@@ -3090,7 +3090,7 @@
 
             <!-- Flyer Preview Pane -->
             <div id="ovl-flyer-pane" style="display: none; flex-direction: column; align-items: center; gap: 0.75rem; width: 100%;">
-                <iframe id="mobile-live-flyer" src="flyer.html?v=4.0" style="width: 240px; height: 500px; border: none; background: transparent; overflow: hidden; transform-origin: top left; pointer-events: none;"></iframe>
+                <iframe id="mobile-live-flyer" src="flyer.html?v=5.0" style="width: 240px; height: 500px; border: none; background: transparent; overflow: hidden; transform-origin: top left; pointer-events: none;"></iframe>
                 <a id="ovl-open-flyer-link" href="#" target="_blank" class="btn btn-secondary" style="width: 100%; max-width: 360px; justify-content: center; gap: 0.5rem; text-decoration: none; font-size: 0.9rem;">
                     <i class="fa-solid fa-up-right-from-square"></i> Open Flyer Mockup
                 </a>
@@ -4257,11 +4257,9 @@
             const btnMasterQr = document.getElementById('btn-master-qr');
             if (btnMasterQr) {
                 btnMasterQr.addEventListener('click', () => {
-                    // Construct the live.html URL based on the current origin
-                    const baseUrl = window.location.origin + window.location.pathname.replace('/sales.html', '/live.html');
-                    // Use QRServer API with gold foreground and matte black background
-                    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=${encodeURIComponent(baseUrl)}&margin=20&color=d4af37&bgcolor=0a0a0a`;
-                    window.open(qrUrl, '_blank');
+                    // Open the perfected flyer/standee generator directly
+                    const flyerUrl = window.location.origin + window.location.pathname.replace('/sales.html', '/flyer.html');
+                    window.open(flyerUrl, '_blank');
                 });
             }
 

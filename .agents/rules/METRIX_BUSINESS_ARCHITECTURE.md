@@ -8,10 +8,10 @@ The goal is to provide a "Toast" or "Olo" style digital infrastructure to local 
 
 ## 2. Core Project Files & Data Pipeline
 The frontend infrastructure allows the user to generate, preview, and download custom digital assets.
-* **`sales.html`**: The monolithic control center. Configures campaigns (business name, styling) and pushes generated campaigns directly into the Supabase database. It also features a "Master QR" button in the top navigation that dynamically generates the static QR code for the `live.html` redirector.
+* **`sales.html`**: The monolithic control center. Configures campaigns (business name, styling) and pushes generated campaigns directly into the Supabase database. Features a "Print Standees" button in the top navigation that opens `flyer.html` in a new tab for immediate printing.
 * **`portal.html`**: The interactive "Digital Demo" portal that simulates the client's mobile experience. Features a premium "Unlock VIP Privileges 🥂" gate for 5-star ratings and a private negative feedback gate for 1-3 stars. BOTH gates capture Name, Phone, and Date of Birth (DOB) and send this data to custom Google Sheets webhooks.
 * **`live.html`**: The Master Demo redirector. Scanned physical standees hit this URL, which queries the Supabase `campaigns` table for the most recent entry and dynamically redirects the user to the custom generated `portal_url`. The loading screen mirrors the premium portal UI to ensure a seamless transition.
-* **`flyer.html`**: The physical print asset generator. Sizes QR codes and elements for physical standees and stickers using `@media print` CSS rules.
+* **`flyer.html`**: The physical print asset generator. Strictly sized for 100mm x 155mm acrylic standees. It utilizes a resilient `@media print` layout that rotates the vertical standees -90 degrees and stacks them vertically on standard A4 portrait paper to completely bypass printer hardware clipping.
 
 ## 3. The Telegram Bot Engine (`bot-engine/`)
 To automate prospecting and lead generation, a custom Telegram bot was built natively in Python for Linux compatibility.
@@ -27,6 +27,6 @@ To automate prospecting and lead generation, a custom Telegram bot was built nat
 - **Iframe Initialization**: Set the iframe `src` once during initial page load or when the campaign type changes.
 - **Real-time Sync**: Apply all text, color, font, and theme changes instantly using window `postMessage` (`type: 'UPDATE_FLYER'`).
 - **Print Media Queries**: Ensure `@media print` CSS rules preserve theme backgrounds, gradients, and images. Use `-webkit-print-color-adjust: exact !important`.
-- **Template Parity**: Any changes made to the HTML/CSS template structures in `flyer.html` must be manually aligned inside the JavaScript printing loop of `bulk_flyer.html`.
+- **Print Dimensions & Scaling**: Do not alter the 100mm x 155mm hardcoded sizing in `flyer.html` or the rotational `@media print` architecture, as this guarantees a 1:1 hardware fit on A4 paper regardless of the printer model used.
 - **No `canvas` for QR Codes on Mobile**: The QR code rendering must always use `type: "svg"` with an injected `viewBox` attribute. Canvas rendering on mobile browsers is unreliable for complex strings.
 - **No CORS Blocks**: External API calls for URL shortening MUST be routed through a CORS proxy (e.g., `allorigins.win`) to prevent browser fetch blocking on Vercel.
