@@ -105,9 +105,9 @@ foreach ($niche in $NicheList) {
                     $encodedName = [uri]::EscapeDataString($bizName)
                     if ($null -ne $result.place_id) {
                         $encodedMapsLink = [uri]::EscapeDataString("https://search.google.com/local/writereview?placeid=$($result.place_id)")
-                        $demoUrl = "https://metrixmedia.vercel.app/demo.html?name=$encodedName&theme=$Theme&url=$encodedMapsLink"
+                        $demoUrl = "https://www.metrixmedia.agency/demo.html?name=$encodedName&theme=$Theme&url=$encodedMapsLink"
                     } else {
-                        $demoUrl = "https://metrixmedia.vercel.app/demo.html?name=$encodedName&theme=$Theme"
+                        $demoUrl = "https://www.metrixmedia.agency/demo.html?name=$encodedName&theme=$Theme"
                     }
 
                     $rawMessage = "Hey $bizName team! Sunny here from MetrixMedia. I noticed you guys have an awesome venue but you're missing out on hundreds of automated reviews. I mocked up a custom Review Portal and physical standee for your tables that forces customers to leave 5 stars, and routes complaints to your WhatsApp instead of posting publicly. Take a look at the attached concept I made for you! See the live digital demo here (Scan or Tap the QR code!): $demoUrl"

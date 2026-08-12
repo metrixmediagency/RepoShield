@@ -438,8 +438,8 @@
                 console.error("Generation failed, falling back to local client URLs:", err);
                 
                 // Fallback local URL builder if Vercel serverless function fails
-                const portalUrl = `https://metrixmedia.vercel.app/portal.html?name=${encodeURIComponent(name)}&url=${encodeURIComponent(gmb)}&email=${encodeURIComponent(email)}&category=${encodeURIComponent(selectedNiche)}&color=${encodeURIComponent(selectedColor)}&demo=true`;
-                const flyerUrl = `https://metrixmedia.vercel.app/flyer.html?name=${encodeURIComponent(name)}&category=${encodeURIComponent(selectedNiche)}&color=${encodeURIComponent(selectedColor)}&type=gmb&portalUrl=${encodeURIComponent(portalUrl)}`;
+                const portalUrl = `https://www.metrixmedia.agency/portal.html?name=${encodeURIComponent(name)}&url=${encodeURIComponent(gmb)}&email=${encodeURIComponent(email)}&category=${encodeURIComponent(selectedNiche)}&color=${encodeURIComponent(selectedColor)}&demo=true`;
+                const flyerUrl = `https://www.metrixmedia.agency/flyer.html?name=${encodeURIComponent(name)}&category=${encodeURIComponent(selectedNiche)}&color=${encodeURIComponent(selectedColor)}&type=gmb&portalUrl=${encodeURIComponent(portalUrl)}`;
                 
                 document.getElementById('link-portal').href = portalUrl;
                 document.getElementById('link-flyer').href = flyerUrl;

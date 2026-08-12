@@ -14,7 +14,7 @@ export default async function handler(req, res) {
 
     try {
         const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
-        const { name, email, phone, gmb_link, source, niche, color } = body;
+        const { name, email, phone, gmb_link, source, niche, color, webhook } = body;
 
         // Validation
         if (!name || !email || !gmb_link) {
@@ -31,11 +31,18 @@ export default async function handler(req, res) {
         // IMPORTANT: Set these as Vercel Environment Variables for security:
         //   SUPABASE_URL = your Supabase project URL
         //   SUPABASE_ANON_KEY = your Supabase anon/public key (starts with eyJ...)
-        const supabaseUrl = process.env.SUPABASE_URL || "https://emxhibjyofqqvuwtdevo.supabase.co";
-        const supabaseKey = process.env.SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVteGhpYmp5b2ZxcXZ1d3RkZXZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1NzUwMDYsImV4cCI6MjA5NjE1MTAwNn0.605yhNQUptFhSXl6sor8aM8MEXyoC0O41Wu8sLKqEAg";
+        const supabaseUrl = process.env.SUPABASE_URL || "https://lvjwccjobjaxpqcfrtz.supabase.co";
+        const supabaseKey = process.env.SUPABASE_ANON_KEY || "sb_publishable_HG5SCpe-lMYJLoF3UxwbBQ_JYLXMK-2";
 
         // Generate a unique ID for the campaign
         const campaignId = `mc_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
+
+        // Build URLs — NO demo=true so portals actually redirect to Google
+        let portalUrl = `https://www.metrixmedia.agency/portal.html?name=${encodeURIComponent(name)}&url=${encodeURIComponent(gmb_link)}&email=${encodeURIComponent(email)}&category=${encodeURIComponent(niche || 'other')}&color=${encodeURIComponent(color || '#00F2FE')}`;
+        if (webhook) {
+            portalUrl += `&webhook=${encodeURIComponent(webhook)}`;
+        }
+        const flyerUrl = `https://www.metrixmedia.agency/flyer.html?name=${encodeURIComponent(name)}&category=${encodeURIComponent(niche || 'other')}&color=${encodeURIComponent(color || '#00F2FE')}&type=gmb&theme=theme-onyx&qrDot=theme-default&qrCorner=extra-rounded&flyerHeadline=Review%20Us&flyerSub=Scan%20to%20Rate&flyerFooter=Help%20us%20serve%20you%20better!&flyerTextStyle=normal&portalUrl=${encodeURIComponent(portalUrl)}`;
 
         // Build campaign payload matching the Supabase table schema
         const supabasePayload = {
@@ -45,6 +52,7 @@ export default async function handler(req, res) {
             email: email,
             color: color || '#00F2FE',
             destination: gmb_link,
+            portal_url: portalUrl,
             plan: 'free_trial',
             setup_fee: setupFee,
             recurring_fee: 299,
@@ -79,10 +87,6 @@ export default async function handler(req, res) {
         } else {
             console.warn("SUPABASE_ANON_KEY not set — skipping database write.");
         }
-
-        // Build URLs — NO demo=true so portals actually redirect to Google
-        const portalUrl = `https://metrixmedia.vercel.app/portal.html?name=${encodeURIComponent(name)}&url=${encodeURIComponent(gmb_link)}&email=${encodeURIComponent(email)}&category=${encodeURIComponent(niche || 'other')}&color=${encodeURIComponent(color || '#00F2FE')}`;
-        const flyerUrl = `https://metrixmedia.vercel.app/flyer.html?name=${encodeURIComponent(name)}&category=${encodeURIComponent(niche || 'other')}&color=${encodeURIComponent(color || '#00F2FE')}&type=gmb&theme=theme-onyx&qrDot=theme-default&qrCorner=extra-rounded&flyerHeadline=Review%20Us&flyerSub=Scan%20to%20Rate&flyerFooter=Help%20us%20serve%20you%20better!&flyerTextStyle=normal&portalUrl=${encodeURIComponent(portalUrl)}`;
 
         // Return the success payload
         return res.status(200).json({

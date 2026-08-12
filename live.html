@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading...</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #0f172a; /* Sleek dark background matching matte black standee */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #ffffff;
+            flex-direction: column;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            border-top-color: #3b82f6;
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            color: #94a3b8;
+        }
+        
+        .error-message {
+            color: #ef4444;
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="spinner" id="spinner"></div>
+    <div class="loading-text" id="loading-text">Connecting...</div>
+    <div class="error-message" id="error-message">
+        Unable to load campaign.<br>Please try scanning again.
+    </div>
+
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- MetrixMedia Supabase Configuration -->
+    <script src="supabase_config.js"></script>
+
+    <script>
+        async function fetchLatestCampaignAndRedirect() {
+            try {
+                // Ensure Supabase client is initialized from supabase_config.js
+                if (!window.supabaseClient) {
+                    throw new Error("Supabase client not found.");
+                }
+
+                document.getElementById('loading-text').innerText = "Loading Campaign...";
+
+                // Fetch the most recent campaign by sorting 'id' descending
+                // (Since 'id' is generated via Date.now().toString() in generator.js)
+                const { data, error } = await window.supabaseClient
+                    .from('campaigns')
+                    .select('destination, portal_url, gmb')
+                    .order('id', { ascending: false })
+                    .limit(1);
+
+                if (error) {
+                    console.error("Database query error:", error);
+                    showError();
+                    return;
+                }
+
+                if (data && data.length > 0) {
+                    const campaign = data[0];
+                    
+                    // Prioritize the 'portal_url' column to show the custom generated portal,
+                    // falling back to 'destination' or 'gmb' if it's an old legacy entry.
+                    const targetUrl = campaign.portal_url || campaign.destination || campaign.gmb;
+                    
+                    if (targetUrl) {
+                        // Use replace() so users can't click the "Back" button to get stuck on this page
+                        window.location.replace(targetUrl);
+                    } else {
+                        console.error("Campaign found, but no destination URL exists.");
+                        showError();
+                    }
+                } else {
+                    console.error("No campaigns found in the database.");
+                    showError();
+                }
+
+            } catch (err) {
+                console.error("Critical error in live router:", err);
+                showError();
+            }
+        }
+
+        function showError() {
+            document.getElementById('spinner').style.display = 'none';
+            document.getElementById('loading-text').style.display = 'none';
+            document.getElementById('error-message').style.display = 'block';
+        }
+
+        // Initialize immediately on page load
+        window.onload = () => {
+            // Slight timeout to ensure supabase_config.js has fully initialized the client
+            setTimeout(fetchLatestCampaignAndRedirect, 300);
+        };
+    </script>
+</body>
+</html>

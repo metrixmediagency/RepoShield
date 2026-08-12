@@ -208,8 +208,8 @@ body {
     color: var(--primary);
 }
 
-/* Feedback Form Screen */
-.feedback-screen {
+/* Feedback Form & VIP Screen */
+.feedback-screen, .vip-screen {
     display: none;
     flex-direction: column;
     gap: 1.25rem;

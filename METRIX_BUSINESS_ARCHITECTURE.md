@@ -15,17 +15,17 @@ The frontend infrastructure allows the user to generate, preview, and download c
 * **`bulk_flyer.html`**: The automated printing loop that processes multiple leads instantly.
 
 ## 3. The Telegram Bot Engine (`bot-engine/`)
-To automate prospecting and lead generation, a custom Telegram bot was built using PowerShell.
-* **Architecture**: The bot runs locally on the user's computer via `metrix_bot.ps1`. When it receives a command (e.g., `Pune - Bars`) from the user's phone, it executes `auto_campaign.ps1`.
-* **Lead Generation**: `auto_campaign.ps1` hits the SERP API to scrape Google Maps for leads, filtering out poor ratings.
-* **Image Compositing**: The bot uses Windows `.NET System.Drawing` to dynamically composite a transparent standee (`assets/test_silver_transparent.png`) onto the lead's Google Maps photo.
+To automate prospecting and lead generation, a custom Telegram bot was built natively in Python for Linux compatibility.
+* **Architecture**: The bot runs in the cloud via `metrix_bot.py`. It listens for commands (e.g., `Pune - Bars`) 24/7.
+* **Lead Generation**: The script hits the SERP API to scrape Google Maps for leads, filtering out poor ratings and finding premium pricing brackets.
+* **Image Compositing**: The bot uses Python's `Pillow` (PIL) library to dynamically composite a transparent standee (`assets/test_silver_transparent.png`) onto the lead's Google Maps photo with a sleek dark overlay.
 * **Delivery**: The bot writes a custom sales script and pushes the image, lead details, and script back to the user's phone via the Telegram API.
 
 ## 4. Cloud Deployment Strategy (AWS)
-The Telegram bot is currently configured for a local Windows environment.
-* **AWS Constraints**: The AWS Free Tier provides 750 hours/month, which covers exactly ONE virtual computer running 24/7.
-* **Compatibility**: Because the bot uses Windows `.NET System.Drawing` to generate the mockups, it **must** run on a Windows Server instance. If the user's existing trading bot is on an AWS Linux instance (e.g., Ubuntu), the Telegram bot cannot run there without a complete rewrite of the image-generation logic into a cross-platform language (like Python with `Pillow` or Node.js with `canvas`).
-* **Deployment Package**: The bot has been made portable and zipped into `deploy.zip`. It requires three environment variables on the host machine: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, and `SERP_API_KEY`.
+The Telegram bot is currently configured and deployed on the user's AWS Ubuntu Server.
+* **Linux Compatibility**: The bot engine was rewritten into Python specifically to run flawlessly on Ubuntu alongside the user's existing trading bots, completely bypassing Windows dependencies.
+* **Deployment Package**: The isolated bot files have been packaged into `bot_deploy_ubuntu.zip`. It requires three environment variables on the host machine: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, and `SERP_API_KEY`, and is launched via `start_bot.sh`.
+* **Physical Sales Strategy**: The physical product pitched to clients is a "Master Demo Standee" containing a static QR code and/or NFC chip that redirects dynamically to specific custom pitches, preventing the need to print custom QR codes for every pitch.
 
 ## 5. Critical Technical Rules
 * **No `canvas` for QR Codes on Mobile**: The QR code rendering in `demo.html` must always use `type: "svg"` with an injected `viewBox` attribute. Canvas rendering on mobile browsers is unreliable for complex strings.

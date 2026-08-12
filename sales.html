@@ -1989,9 +1989,17 @@
                                     <label for="biz-base-url">Deployment / Base URL (Optional)</label>
                                     <div class="input-wrapper">
                                         <i class="fa-solid fa-globe input-icon"></i>
-                                        <input type="url" id="biz-base-url" placeholder="e.g., https://metrixmedia.vercel.app" autocomplete="off">
+                                        <input type="url" id="biz-base-url" placeholder="e.g., https://www.metrixmedia.agency" autocomplete="off">
                                     </div>
                                     <span class="input-tip" style="margin-top: 0.25rem;"><i class="fa-solid fa-circle-info"></i> Leave empty to use relative paths.</span>
+                                </div>
+                                <div class="input-group" style="display: none;">
+                                    <label for="biz-webhook">Google Sheet Webhook URL (Optional)</label>
+                                    <div class="input-wrapper">
+                                        <i class="fa-solid fa-link input-icon"></i>
+                                        <input type="url" id="biz-webhook" placeholder="e.g., https://script.google.com/macros/s/.../exec" autocomplete="off">
+                                    </div>
+                                    <span class="input-tip" style="margin-top: 0.25rem;"><i class="fa-solid fa-circle-info"></i> Collect leads into Google Sheets.</span>
                                 </div>
                             </div>
                             
@@ -3395,6 +3403,7 @@
                 const validity = document.getElementById('qr-validity') ? document.getElementById('qr-validity').value : '48';
                 const font = document.getElementById('biz-font') ? document.getElementById('biz-font').value : 'Outfit';
                 const logo = document.getElementById('biz-logo') ? document.getElementById('biz-logo').value.trim() : '';
+                const webhook = document.getElementById('biz-webhook') ? document.getElementById('biz-webhook').value.trim() : '';
                 const flyerHeadline = document.getElementById('flyer-headline') ? document.getElementById('flyer-headline').value : 'Review Us';
                 const flyerSub = document.getElementById('flyer-sub') ? document.getElementById('flyer-sub').value : 'Scan to Rate';
                 const flyerFooter = document.getElementById('flyer-footer') ? document.getElementById('flyer-footer').value : 'Help us serve you better!';
@@ -3407,6 +3416,7 @@
                     email,
                     color,
                     destination,
+                    webhook,
                     plan: plan.name,
                     setupFee: plan.setup,
                     recurringFee: plan.recurring,
@@ -3582,7 +3592,10 @@
                     const planTitle = campaign.plan || 'GMB Booster';
                     
                     const baseLocation = window.location.origin;
-                    const finalPortalUrl = `${baseLocation}/portal.html?name=${encodeURIComponent(campaign.name)}&url=${encodeURIComponent(campaign.destination)}&color=${encodeURIComponent(campaign.color)}&category=${encodeURIComponent(campaign.category)}`;
+                    let finalPortalUrl = `${baseLocation}/portal.html?name=${encodeURIComponent(campaign.name)}&url=${encodeURIComponent(campaign.destination)}&color=${encodeURIComponent(campaign.color)}&category=${encodeURIComponent(campaign.category)}`;
+                    if (campaign.webhook) {
+                        finalPortalUrl += `&webhook=${encodeURIComponent(campaign.webhook)}`;
+                    }
                     
                     const statusBadge = campaign.status === 'active'
                         ? `<span class="badge" style="background: rgba(52, 211, 153, 0.2); border: 1px solid rgba(52, 211, 153, 0.5); color: #34d399;"><i class="fa-solid fa-circle-check"></i> Paid</span>`
@@ -3711,7 +3724,11 @@
 
                 // 2. Update Live Iframe Flyer & Simulators
                 const baseLocation = window.location.origin;
-                const demoPortalUrl = `${baseLocation}/portal.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&validity=${encodeURIComponent(validity)}&demo=true`;
+                const webhook = document.getElementById('biz-webhook') ? document.getElementById('biz-webhook').value.trim() : '';
+                let demoPortalUrl = `${baseLocation}/portal.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&validity=${encodeURIComponent(validity)}&demo=true`;
+                if (webhook) {
+                    demoPortalUrl += `&webhook=${encodeURIComponent(webhook)}`;
+                }
                 const demoFlyerUrl = `flyer.html?name=${encodeURIComponent(bizName)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&theme=${encodeURIComponent(theme)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}&validity=${encodeURIComponent(validity)}`;
                 const demoLandingUrl = `demo.html?name=${encodeURIComponent(bizName)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&validity=${encodeURIComponent(validity)}`;
 
@@ -3883,6 +3900,29 @@
                     // 2. Trigger Simulators Update
                     if(typeof updateSimulators === 'function') {
                         updateSimulators();
+                    }
+
+                    // Push pitch to Supabase so the Master Demo (live.html) updates instantly
+                    if (window.supabaseClient) {
+                        const webhook = document.getElementById('biz-webhook') ? document.getElementById('biz-webhook').value.trim() : '';
+                        let portalUrl = `${baseLocation}/portal.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}`;
+                        if (webhook) {
+                            portalUrl += `&webhook=${encodeURIComponent(webhook)}`;
+                        }
+                        
+                        const pitchPayload = {
+                            id: Date.now().toString(),
+                            name: bizName,
+                            category: category,
+                            color: color,
+                            destination: targetUrl,
+                            portal_url: portalUrl,
+                            status: 'pitch'
+                        };
+                        
+                        window.supabaseClient.from('campaigns').insert([pitchPayload]).then(({error}) => {
+                            if (error) console.error("Error updating Master Demo in Supabase:", error);
+                        });
                     }
 
                     // 3. Show the Pitch Assets Container

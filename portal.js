@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const logoUrl = urlParams.get('logo') || '';
     const campaignType = urlParams.get('type') || 'gmb'; // Parse campaign type
     const font = urlParams.get('font') || 'Outfit'; // Parse font type
+    const webhookUrl = urlParams.get('webhook') || ''; // Parse webhook URL
     const isDemo = urlParams.get('demo') === 'true'; // Sandbox editor preview flag
 
     // Apply Brand Accent Color dynamically
@@ -191,28 +192,34 @@ document.addEventListener('DOMContentLoaded', () => {
     // ----------------------------------------------------
     const ratingScreen = document.getElementById('rating-screen');
     const feedbackScreen = document.getElementById('feedback-screen');
+    const vipScreen = document.getElementById('vip-screen');
     const redirectOverlay = document.getElementById('redirect-overlay');
     const timerCount = document.getElementById('timer-count');
     const directGmbLink = document.getElementById('direct-gmb-link');
 
+    function startRedirectTimer() {
+        directGmbLink.href = gmbUrl;
+        redirectOverlay.classList.add('show');
+
+        let count = 3;
+        timerCount.textContent = count;
+
+        const interval = setInterval(() => {
+            count--;
+            timerCount.textContent = count;
+            
+            if (count <= 0) {
+                clearInterval(interval);
+                window.location.href = gmbUrl;
+            }
+        }, 1000);
+    }
+
     function routeRating(rating) {
         if (rating >= 4) {
-            // Positive Routing: Redirect to destination review URL
-            directGmbLink.href = gmbUrl;
-            redirectOverlay.classList.add('show');
-
-            let count = 3;
-            timerCount.textContent = count;
-
-            const interval = setInterval(() => {
-                count--;
-                timerCount.textContent = count;
-                
-                if (count <= 0) {
-                    clearInterval(interval);
-                    window.location.href = gmbUrl;
-                }
-            }, 1000);
+            // Positive Routing: Show lead capture form instead of immediate redirect
+            ratingScreen.style.display = 'none';
+            vipScreen.style.display = 'flex';
         } else {
             // Negative Routing: Show private feedback form
             ratingScreen.style.display = 'none';
@@ -220,18 +227,106 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Back to rating screen
+    // Back to rating screen from Negative Feedback
     document.getElementById('back-to-stars').addEventListener('click', () => {
         feedbackScreen.style.display = 'none';
         ratingScreen.style.display = 'flex';
+        resetRatingState();
+    });
+
+    // Back to rating screen from Positive Lead Capture
+    document.getElementById('vip-back-to-stars').addEventListener('click', () => {
+        vipScreen.style.display = 'none';
+        ratingScreen.style.display = 'flex';
+        resetRatingState();
+    });
+
+    function resetRatingState() {
         selectedRating = 0;
         highlightStars(0);
         ratingHelper.textContent = 'Tap a star to rate';
         ratingHelper.classList.remove('ready');
+    }
+
+    // ----------------------------------------------------
+    // Shared Data Submission Logic
+    // ----------------------------------------------------
+    function saveAndSendWebhook(lead) {
+        // Save locally
+        let leads = JSON.parse(localStorage.getItem('repushield_leads')) || [];
+        leads.unshift(lead);
+        localStorage.setItem('repushield_leads', JSON.stringify(leads));
+
+        // POST to Supabase
+        const SUPABASE_URL = "https://emxhibjyofqqvuwtdevo.supabase.co";
+        const SUPABASE_KEY = (typeof window !== 'undefined' && window.SUPABASE_ANON_KEY) || "";
+        if (SUPABASE_KEY) {
+            fetch(`${SUPABASE_URL}/rest/v1/feedback`, {
+                method: 'POST',
+                headers: {
+                    'apikey': SUPABASE_KEY,
+                    'Authorization': `Bearer ${SUPABASE_KEY}`,
+                    'Content-Type': 'application/json',
+                    'Prefer': 'return=minimal'
+                },
+                body: JSON.stringify({
+                    business_name: lead.businessName,
+                    business_email: lead.businessEmail,
+                    rating: lead.rating,
+                    client_name: lead.clientName,
+                    client_phone: lead.clientPhone,
+                    client_message: lead.clientMessage || "",
+                    submitted_at: new Date().toISOString()
+                })
+            }).catch(err => console.warn("Feedback cloud sync failed:", err));
+        }
+
+        // Webhook Integration (Google Sheet)
+        if (webhookUrl) {
+            fetch(webhookUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(lead)
+            }).catch(err => console.warn("Webhook failed:", err));
+        }
+    }
+
+    // ----------------------------------------------------
+    // Lead Capture Submission (4-5 Stars)
+    // ----------------------------------------------------
+    const vipForm = document.getElementById('vip-form');
+    
+    document.getElementById('skip-vip-link').addEventListener('click', (e) => {
+        e.preventDefault();
+        vipScreen.style.display = 'none';
+        startRedirectTimer();
+    });
+
+    vipForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('vip-name').value;
+        const phone = document.getElementById('vip-phone').value;
+
+        const lead = {
+            id: Date.now().toString(),
+            businessName: bizName,
+            businessEmail: bizEmail,
+            rating: selectedRating,
+            clientName: name,
+            clientPhone: phone,
+            clientMessage: "Captured Lead (Positive)",
+            submittedAt: new Date().toLocaleString()
+        };
+
+        saveAndSendWebhook(lead);
+
+        vipScreen.style.display = 'none';
+        startRedirectTimer();
     });
 
     // ----------------------------------------------------
-    // Private Feedback Submission
+    // Private Feedback Submission (1-3 Stars)
     // ----------------------------------------------------
     const feedbackForm = document.getElementById('feedback-form');
     const successScreen = document.getElementById('success-screen');
@@ -255,36 +350,7 @@ document.addEventListener('DOMContentLoaded', () => {
             submittedAt: new Date().toLocaleString()
         };
 
-        // Save Private Lead locally in LocalStorage (so the Agency owner can show leads to clients)
-        let leads = JSON.parse(localStorage.getItem('repushield_leads')) || [];
-        leads.unshift(lead);
-        localStorage.setItem('repushield_leads', JSON.stringify(leads));
-
-        // Also POST to Supabase so the business owner actually gets notified
-        // Uses the REST API directly — no JS client needed on the portal page
-        const SUPABASE_URL = "https://emxhibjyofqqvuwtdevo.supabase.co";
-        // Try to get key from window (if supabase_config.js is loaded) or use env
-        const SUPABASE_KEY = (typeof window !== 'undefined' && window.SUPABASE_ANON_KEY) || "";
-        if (SUPABASE_KEY) {
-            fetch(`${SUPABASE_URL}/rest/v1/feedback`, {
-                method: 'POST',
-                headers: {
-                    'apikey': SUPABASE_KEY,
-                    'Authorization': `Bearer ${SUPABASE_KEY}`,
-                    'Content-Type': 'application/json',
-                    'Prefer': 'return=minimal'
-                },
-                body: JSON.stringify({
-                    business_name: lead.businessName,
-                    business_email: lead.businessEmail,
-                    rating: lead.rating,
-                    client_name: lead.clientName,
-                    client_phone: lead.clientPhone,
-                    client_message: lead.clientMessage,
-                    submitted_at: new Date().toISOString()
-                })
-            }).catch(err => console.warn("Feedback cloud sync failed (non-blocking):", err));
-        }
+        saveAndSendWebhook(lead);
 
         // Submit complete visual switch
         feedbackScreen.style.display = 'none';
