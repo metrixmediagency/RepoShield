@@ -500,16 +500,26 @@
             }
             .standee-container {
                 display: flex !important;
-                flex-direction: row !important;
+                flex-direction: column !important; /* Stack wrappers vertically on portrait page */
                 flex-wrap: nowrap !important;
                 gap: 0 !important;
                 justify-content: center !important;
                 align-items: center !important;
             }
+            .print-wrapper {
+                width: 155mm !important; /* Wrapper takes visual width of rotated face */
+                height: 100mm !important; /* Wrapper takes visual height of rotated face */
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                overflow: visible !important;
+            }
             .standee-face {
                 width: 100mm !important;
                 height: 155mm !important;
                 flex-shrink: 0 !important;
+                transform: rotate(-90deg) !important;
+                transform-origin: center center !important;
             }
             .theme-onyx .standee-face {
                 background-color: #0a0a0a !important;
@@ -598,8 +608,8 @@
                 justify-content: center;
                 align-items: center;
             }
-            /* Hide the other 3 flyers */
-            .standee-face:nth-child(n+2) {
+            /* Hide the other flyers */
+            .print-wrapper:nth-child(n+2) {
                 display: none !important;
             }
             /* Premium Frosted Glass Standee Card */
@@ -662,54 +672,58 @@
         <!-- 1. 4-Flyer A4 Grid Layout (GMB Mode) -->
         <div class="standee-container" id="gmb-asset">
             <!-- Flyer 1 -->
-            <div class="standee-face">
-                <div class="face-accent-bar"></div>
-                <div class="standee-header">
-                    <i class="fa-solid fa-store icon-placeholder"></i>
-                    <h2 class="biz-title-placeholder">Business Name</h2>
-                </div>
-                <div class="standee-body">
-                    <h3>How was your experience today?</h3>
-                    <p>Scan to share your feedback and unlock exclusive VIP privileges on your next visit.</p>
-                </div>
-                <div class="qr-wrapper">
-                    <img class="qr-placeholder" src="" alt="Campaign QR Code">
-                </div>
-                <div class="standee-footer">
-                    <div class="stars-row">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
+            <div class="print-wrapper">
+                <div class="standee-face">
+                    <div class="face-accent-bar"></div>
+                    <div class="standee-header">
+                        <i class="fa-solid fa-store icon-placeholder"></i>
+                        <h2 class="biz-title-placeholder">Business Name</h2>
                     </div>
-                    <p>Thank you for dining with us.</p>
+                    <div class="standee-body">
+                        <h3>How was your experience today?</h3>
+                        <p>Scan to share your feedback and unlock exclusive VIP privileges on your next visit.</p>
+                    </div>
+                    <div class="qr-wrapper">
+                        <img class="qr-placeholder" src="" alt="Campaign QR Code">
+                    </div>
+                    <div class="standee-footer">
+                        <div class="stars-row">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <p>Thank you for dining with us.</p>
+                    </div>
                 </div>
             </div>
             
             <!-- Flyer 2 (Duplicate for efficient printing) -->
-            <div class="standee-face">
-                <div class="face-accent-bar"></div>
-                <div class="standee-header">
-                    <i class="fa-solid fa-store icon-placeholder"></i>
-                    <h2 class="biz-title-placeholder">Business Name</h2>
-                </div>
-                <div class="standee-body">
-                    <h3>How was your experience today?</h3>
-                    <p>Scan to share your feedback and unlock exclusive VIP privileges on your next visit.</p>
-                </div>
-                <div class="qr-wrapper">
-                    <img class="qr-placeholder" src="" alt="Campaign QR Code">
-                </div>
-                <div class="standee-footer">
-                    <div class="stars-row">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
+            <div class="print-wrapper">
+                <div class="standee-face">
+                    <div class="face-accent-bar"></div>
+                    <div class="standee-header">
+                        <i class="fa-solid fa-store icon-placeholder"></i>
+                        <h2 class="biz-title-placeholder">Business Name</h2>
                     </div>
-                    <p>Thank you for dining with us.</p>
+                    <div class="standee-body">
+                        <h3>How was your experience today?</h3>
+                        <p>Scan to share your feedback and unlock exclusive VIP privileges on your next visit.</p>
+                    </div>
+                    <div class="qr-wrapper">
+                        <img class="qr-placeholder" src="" alt="Campaign QR Code">
+                    </div>
+                    <div class="standee-footer">
+                        <div class="stars-row">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <p>Thank you for dining with us.</p>
+                    </div>
                 </div>
             </div>
 
