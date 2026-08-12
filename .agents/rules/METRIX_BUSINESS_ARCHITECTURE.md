@@ -12,7 +12,6 @@ The frontend infrastructure allows the user to generate, preview, and download c
 * **`portal.html`**: The interactive "Digital Demo" portal that simulates the client's mobile experience. Features a premium "Unlock VIP Privileges 🥂" gate for 5-star ratings and a private negative feedback gate for 1-3 stars. BOTH gates capture Name, Phone, and Date of Birth (DOB) and send this data to custom Google Sheets webhooks.
 * **`live.html`**: The Master Demo redirector. Scanned physical standees hit this URL, which queries the Supabase `campaigns` table for the most recent entry and dynamically redirects the user to the custom generated `portal_url`. The loading screen mirrors the premium portal UI to ensure a seamless transition.
 * **`flyer.html`**: The physical print asset generator. Sizes QR codes and elements for physical standees and stickers using `@media print` CSS rules.
-* **`bulk_flyer.html`**: Automated printing loop that processes multiple leads instantly.
 
 ## 3. The Telegram Bot Engine (`bot-engine/`)
 To automate prospecting and lead generation, a custom Telegram bot was built natively in Python for Linux compatibility.

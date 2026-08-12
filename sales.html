@@ -1826,9 +1826,7 @@
                                 <div style="border-top: 1px solid var(--border-color); padding-top: 1.25rem;">
                                     <h4 style="color: white; font-size: 0.95rem; margin: 0 0 0.5rem;">Outreach Quick Actions</h4>
                                     <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin: 0 0 1rem;">Share your custom agency flyers with prospects to demonstrate GMB gating instantly.</p>
-                                    <a href="bulk_flyer.html" target="_blank" class="btn btn-primary btn-sm" style="display: inline-flex; width: 100%; justify-content: center; gap: 0.5rem; text-decoration: none; margin-bottom: 0.5rem; background: var(--primary); color: white; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600; font-size: 0.8rem; border: none;">
-                                        <i class="fa-solid fa-print"></i> Bulk Print A6 Standees
-                                    </a>
+
                                     <a href="pricing.html" target="_blank" class="btn btn-secondary btn-sm" style="display: inline-flex; width: 100%; justify-content: center; gap: 0.5rem; text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600; font-size: 0.8rem; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #fff;">
                                         <i class="fa-solid fa-eye"></i> View pricing tables
                                     </a>
@@ -2025,14 +2023,14 @@
                                         <label for="flyer-headline">Flyer Headline</label>
                                         <div class="input-wrapper">
                                             <i class="fa-solid fa-heading input-icon"></i>
-                                            <input type="text" id="flyer-headline" value="Review Us" placeholder="e.g. Review Us">
+                                            <input type="text" id="flyer-headline" value="How was your experience today?" placeholder="e.g. How was your experience today?">
                                         </div>
                                     </div>
                                     <div class="input-group">
                                         <label for="flyer-sub">Flyer Subheadline</label>
                                         <div class="input-wrapper">
                                             <i class="fa-solid fa-font input-icon"></i>
-                                            <input type="text" id="flyer-sub" value="Scan to Rate" placeholder="e.g. Scan to Rate">
+                                            <input type="text" id="flyer-sub" value="Scan to share your feedback and unlock VIP privileges." placeholder="e.g. Scan to share your feedback...">
                                         </div>
                                     </div>
                                     <div class="input-group">
@@ -3407,8 +3405,8 @@
                 const font = document.getElementById('biz-font') ? document.getElementById('biz-font').value : 'Outfit';
                 const logo = document.getElementById('biz-logo') ? document.getElementById('biz-logo').value.trim() : '';
                 const webhook = document.getElementById('biz-webhook') ? document.getElementById('biz-webhook').value.trim() : '';
-                const flyerHeadline = document.getElementById('flyer-headline') ? document.getElementById('flyer-headline').value : 'Review Us';
-                const flyerSub = document.getElementById('flyer-sub') ? document.getElementById('flyer-sub').value : 'Scan to Rate';
+                const flyerHeadline = document.getElementById('flyer-headline') ? document.getElementById('flyer-headline').value : 'How was your experience today?';
+                const flyerSub = document.getElementById('flyer-sub') ? document.getElementById('flyer-sub').value : 'Scan to share your feedback and unlock VIP privileges.';
                 const flyerFooter = document.getElementById('flyer-footer') ? document.getElementById('flyer-footer').value : 'Help us serve you better!';
                 const flyerTextStyle = document.getElementById('flyer-text-style') ? document.getElementById('flyer-text-style').value : 'normal';
 
@@ -3705,8 +3703,8 @@
                 const qrDot = document.getElementById('qr-dot-style') ? document.getElementById('qr-dot-style').value : 'rounded';
                 const qrCorner = document.getElementById('qr-corner-style') ? document.getElementById('qr-corner-style').value : 'extra-rounded';
                 const validity = document.getElementById('qr-validity') ? document.getElementById('qr-validity').value : '48';
-                const flyerHeadline = document.getElementById('flyer-headline') ? document.getElementById('flyer-headline').value : 'Review Us';
-                const flyerSub = document.getElementById('flyer-sub') ? document.getElementById('flyer-sub').value : 'Scan to Rate';
+                const flyerHeadline = document.getElementById('flyer-headline') ? document.getElementById('flyer-headline').value : 'How was your experience today?';
+                const flyerSub = document.getElementById('flyer-sub') ? document.getElementById('flyer-sub').value : 'Scan to share your feedback and unlock VIP privileges.';
                 const flyerFooter = document.getElementById('flyer-footer') ? document.getElementById('flyer-footer').value : 'Help us serve you better!';
                 const flyerTextStyle = document.getElementById('flyer-text-style') ? document.getElementById('flyer-text-style').value : 'normal';
 
@@ -3878,8 +3876,8 @@
                     const font = document.getElementById('biz-font').value;
                     const validity = document.getElementById('qr-validity') ? document.getElementById('qr-validity').value : '48';
                     
-                    const flyerHeadline = document.getElementById('flyer-headline') ? document.getElementById('flyer-headline').value : 'Review Us';
-                    const flyerSub = document.getElementById('flyer-sub') ? document.getElementById('flyer-sub').value : 'Scan to Rate';
+                    const flyerHeadline = document.getElementById('flyer-headline') ? document.getElementById('flyer-headline').value : 'How was your experience today?';
+                    const flyerSub = document.getElementById('flyer-sub') ? document.getElementById('flyer-sub').value : 'Scan to share your feedback and unlock VIP privileges.';
                     const flyerFooter = document.getElementById('flyer-footer') ? document.getElementById('flyer-footer').value : 'Help us serve you better!';
                     const flyerTextStyle = document.getElementById('flyer-text-style') ? document.getElementById('flyer-text-style').value : 'normal';
 
