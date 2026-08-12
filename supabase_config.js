@@ -1,7 +1,7 @@
 // Supabase Client Initialization Configuration
 // Get your real keys from: Supabase Dashboard → Settings → API
 // The Anon Key is a JWT starting with "eyJ..." (200+ characters)
-window.SUPABASE_URL = "https://lvjwccjobjaxpqcfrtz.supabase.co"; 
+window.SUPABASE_URL = "https://lvjwccjobbjaxpqcfrtz.supabase.co"; 
 window.SUPABASE_ANON_KEY = "sb_publishable_HG5SCpe-lMYJLoF3UxwbBQ_JYLXMK-2";
 
 // Initialize Supabase Client if configured

@@ -31,7 +31,7 @@ export default async function handler(req, res) {
         // IMPORTANT: Set these as Vercel Environment Variables for security:
         //   SUPABASE_URL = your Supabase project URL
         //   SUPABASE_ANON_KEY = your Supabase anon/public key (starts with eyJ...)
-        const supabaseUrl = process.env.SUPABASE_URL || "https://lvjwccjobjaxpqcfrtz.supabase.co";
+        const supabaseUrl = process.env.SUPABASE_URL || "https://lvjwccjobbjaxpqcfrtz.supabase.co";
         const supabaseKey = process.env.SUPABASE_ANON_KEY || "sb_publishable_HG5SCpe-lMYJLoF3UxwbBQ_JYLXMK-2";
 
         // Generate a unique ID for the campaign
