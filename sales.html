@@ -1668,7 +1668,7 @@
             </a>
             <div style="display: flex; align-items: center; gap: 1rem;">
                 <button class="btn btn-primary btn-sm" id="btn-master-qr" style="background: rgba(212, 175, 55, 0.15); border: 1px solid rgba(212, 175, 55, 0.3); color: #d4af37; padding: 0.4rem 0.8rem; border-radius: 8px;">
-                    <i class="fa-solid fa-print"></i> <span style="margin-left: 5px;">Print Standees</span>
+                    <i class="fa-solid fa-crown"></i> <span style="margin-left: 5px;">Master Standee</span>
                 </button>
                 <div class="agent-badge">
                     <i class="fa-solid fa-user-tie"></i> <span id="agent-name-display">Agent Rohit</span>
@@ -3764,6 +3764,15 @@
 
                 const inLink3 = document.getElementById('inline-link-flyer');
                 if (inLink3) inLink3.href = demoFlyerUrl;
+
+                // 5. Update Master Standee Button in top nav
+                const btnMasterQr = document.getElementById('btn-master-qr');
+                if (btnMasterQr) {
+                    const liveHtmlUrl = window.location.origin + window.location.pathname.replace('/sales.html', '/live.html');
+                    const masterName = "Your Business";
+                    const masterFlyerUrl = `flyer.html?name=${encodeURIComponent(masterName)}&portalUrl=${encodeURIComponent(liveHtmlUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&theme=${encodeURIComponent(theme)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}&validity=${encodeURIComponent(validity)}`;
+                    btnMasterQr.onclick = () => window.open(masterFlyerUrl, '_blank');
+                }
             }
 
             // Attach listeners to all inputs
@@ -4254,14 +4263,7 @@
                 });
             }
 
-            const btnMasterQr = document.getElementById('btn-master-qr');
-            if (btnMasterQr) {
-                btnMasterQr.addEventListener('click', () => {
-                    // Open the perfected flyer/standee generator directly
-                    const flyerUrl = window.location.origin + window.location.pathname.replace('/sales.html', '/flyer.html');
-                    window.open(flyerUrl, '_blank');
-                });
-            }
+            // btn-master-qr is now dynamically bound in updateSimulators()
 
     </script>
 </body>
