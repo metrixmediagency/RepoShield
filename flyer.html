@@ -142,12 +142,17 @@
         }
 
         .standee-container {
-            display: contents; /* Allows face to size properly in flex parent */
+            display: flex;
+            flex-direction: row;
+            gap: 10mm;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
         }
 
         .standee-face {
-            width: 50%;
-            height: 100%;
+            width: 100mm; /* Exactly 10cm */
+            height: 155mm; /* Exactly 15.5cm */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -648,6 +653,32 @@
         <!-- 1. 4-Flyer A4 Grid Layout (GMB Mode) -->
         <div class="standee-container" id="gmb-asset">
             <!-- Flyer 1 -->
+            <div class="standee-face">
+                <div class="face-accent-bar"></div>
+                <div class="standee-header">
+                    <i class="fa-solid fa-store icon-placeholder"></i>
+                    <h2 class="biz-title-placeholder">Business Name</h2>
+                </div>
+                <div class="standee-body">
+                    <h3>How was your experience today?</h3>
+                    <p>Scan to share your feedback and unlock exclusive VIP privileges on your next visit.</p>
+                </div>
+                <div class="qr-wrapper">
+                    <img class="qr-placeholder" src="" alt="Campaign QR Code">
+                </div>
+                <div class="standee-footer">
+                    <div class="stars-row">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p>Thank you for dining with us.</p>
+                </div>
+            </div>
+            
+            <!-- Flyer 2 (Duplicate for efficient printing) -->
             <div class="standee-face">
                 <div class="face-accent-bar"></div>
                 <div class="standee-header">
