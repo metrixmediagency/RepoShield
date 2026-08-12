@@ -75,7 +75,7 @@
                 // (Since 'id' is generated via Date.now().toString() in generator.js)
                 const { data, error } = await window.supabaseClient
                     .from('campaigns')
-                    .select('destination, portal_url, gmb')
+                    .select('destination, portal_url')
                     .order('id', { ascending: false })
                     .limit(1);
 
@@ -89,8 +89,8 @@
                     const campaign = data[0];
                     
                     // Prioritize the 'portal_url' column to show the custom generated portal,
-                    // falling back to 'destination' or 'gmb' if it's an old legacy entry.
-                    const targetUrl = campaign.portal_url || campaign.destination || campaign.gmb;
+                    // falling back to 'destination' if it's an old legacy entry.
+                    const targetUrl = campaign.portal_url || campaign.destination;
                     
                     if (targetUrl) {
                         // Use replace() so users can't click the "Back" button to get stuck on this page
