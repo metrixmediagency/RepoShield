@@ -4259,8 +4259,8 @@
                 btnMasterQr.addEventListener('click', () => {
                     // Construct the live.html URL based on the current origin
                     const baseUrl = window.location.origin + window.location.pathname.replace('/sales.html', '/live.html');
-                    // Use Google Charts API to generate the QR code
-                    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=${encodeURIComponent(baseUrl)}&margin=20`;
+                    // Use QRServer API with gold foreground and matte black background
+                    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=${encodeURIComponent(baseUrl)}&margin=20&color=d4af37&bgcolor=0a0a0a`;
                     window.open(qrUrl, '_blank');
                 });
             }
