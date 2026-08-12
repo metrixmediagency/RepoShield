@@ -481,7 +481,7 @@
          @media print {
             @page {
                 margin: 0;
-                size: A4 portrait;
+                size: A4 landscape;
             }
             body { background: white !important; margin: 0; padding: 0; }
             .toolbar, .folding-guide-lines { display: none !important; }
@@ -489,8 +489,8 @@
                 box-shadow: none;
                 margin: 0;
                 padding: 0;
-                width: 210mm;
-                height: 296mm; /* slightly under 297 to prevent 2nd page spill */
+                width: 100%;
+                height: 100%;
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -644,11 +644,6 @@
 
     <!-- Page Content Container -->
     <div class="print-page">
-        <!-- Floating Guide info on screen -->
-        <div class="folding-guide-lines" id="print-guide">
-            <h4>✂️ Instructions:</h4>
-            <p id="guide-text">Print out on high-quality paper or cardstock.</p>
-        </div>
 
         <!-- 1. 4-Flyer A4 Grid Layout (GMB Mode) -->
         <div class="standee-container" id="gmb-asset">
@@ -941,7 +936,6 @@
             const ecommerceAsset = document.getElementById('ecommerce-asset');
             const deliveryAsset = document.getElementById('delivery-asset');
             const toolbarTitle = document.getElementById('toolbar-title');
-            const guideText = document.getElementById('guide-text');
 
             if (gmbAsset) gmbAsset.style.display = 'none';
             if (ecommerceAsset) ecommerceAsset.style.display = 'none';
@@ -950,15 +944,12 @@
             if (campaignType === 'ecommerce') {
                 if(ecommerceAsset) ecommerceAsset.style.display = 'flex';
                 if(toolbarTitle) toolbarTitle.textContent = 'MetrixMedia Package Insert Builder';
-                if(guideText) guideText.innerHTML = '<strong>✂️ Package Insert Instructions:</strong><br>1. Print in color on standard 4" x 6" cardstock paper.<br>2. Place directly inside every shipped package box.<br>3. Track leads and reviews via your MetrixMedia dashboard.';
             } else if (campaignType === 'delivery') {
                 if(deliveryAsset) deliveryAsset.style.display = 'grid';
                 if(toolbarTitle) toolbarTitle.textContent = 'MetrixMedia Delivery Sticker sheet';
-                if(guideText) guideText.innerHTML = '<strong>✂️ Packaging Sticker Instructions:</strong><br>1. Print on round adhesive label sheets or standard paper.<br>2. Cut along the circular borders.<br>3. Stick to paper bags or container lids before delivery.';
             } else {
                 if(gmbAsset) gmbAsset.style.display = 'grid';
-                if(toolbarTitle) toolbarTitle.textContent = 'MetrixMedia Flyer Sheet (4-per-page)';
-                if(guideText) guideText.innerHTML = '<strong>✂️ Print Instructions:</strong><br>1. Print in color on standard A4 cardstock.<br>2. Cut along the dashed lines to separate the 4 identical flyers.';
+                if(toolbarTitle) toolbarTitle.textContent = 'MetrixMedia Flyer Sheet';
             }
 
             // 4. Update Text Nodes
