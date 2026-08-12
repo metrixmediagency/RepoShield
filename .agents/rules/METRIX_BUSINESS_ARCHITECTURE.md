@@ -9,8 +9,8 @@ The goal is to provide a "Toast" or "Olo" style digital infrastructure to local 
 ## 2. Core Project Files & Data Pipeline
 The frontend infrastructure allows the user to generate, preview, and download custom digital assets.
 * **`sales.html`**: The monolithic control center. Configures campaigns (business name, styling). Pushes generated campaigns directly into the Supabase database.
-* **`portal.html`**: The interactive "Digital Demo" portal that simulates the client's mobile experience. It features a VIP Club Lead Capture gate for 5-star ratings (capturing Name, Phone, and DOB), sending data to both Supabase and custom Google Sheets webhooks.
-* **`live.html`**: The Master Demo redirector. Scanned physical standees hit this URL, which queries the Supabase `campaigns` table for the most recent entry and dynamically redirects the user to the custom generated `portal_url`.
+* **`portal.html`**: The interactive "Digital Demo" portal that simulates the client's mobile experience. Features a premium "Unlock VIP Privileges 🥂" gate for 5-star ratings and a private negative feedback gate for 1-3 stars. BOTH gates capture Name, Phone, and Date of Birth (DOB) and send this data to custom Google Sheets webhooks.
+* **`live.html`**: The Master Demo redirector. Scanned physical standees hit this URL, which queries the Supabase `campaigns` table for the most recent entry and dynamically redirects the user to the custom generated `portal_url`. The loading screen mirrors the premium portal UI to ensure a seamless transition.
 * **`flyer.html`**: The physical print asset generator. Sizes QR codes and elements for physical standees and stickers using `@media print` CSS rules.
 * **`bulk_flyer.html`**: Automated printing loop that processes multiple leads instantly.
 

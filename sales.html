@@ -1667,6 +1667,9 @@
                 </div>
             </a>
             <div style="display: flex; align-items: center; gap: 1rem;">
+                <button class="btn btn-primary btn-sm" id="btn-master-qr" style="background: rgba(14, 165, 233, 0.15); border: 1px solid rgba(14, 165, 233, 0.3); color: #0ea5e9; padding: 0.4rem 0.8rem; border-radius: 8px;">
+                    <i class="fa-solid fa-qrcode"></i> <span style="margin-left: 5px;">Master QR</span>
+                </button>
                 <div class="agent-badge">
                     <i class="fa-solid fa-user-tie"></i> <span id="agent-name-display">Agent Rohit</span>
                 </div>
@@ -4250,6 +4253,17 @@
                         lfResultsGrid.innerHTML = '<p style="color: #ef4444; text-align: center; grid-column: 1/-1;">Error connecting to radar grid. Please try again.</p>';
                         lfResultsGrid.style.display = 'grid';
                     }
+                });
+            }
+
+            const btnMasterQr = document.getElementById('btn-master-qr');
+            if (btnMasterQr) {
+                btnMasterQr.addEventListener('click', () => {
+                    // Construct the live.html URL based on the current origin
+                    const baseUrl = window.location.origin + window.location.pathname.replace('/sales.html', '/live.html');
+                    // Use Google Charts API to generate the QR code
+                    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=${encodeURIComponent(baseUrl)}&margin=20`;
+                    window.open(qrUrl, '_blank');
                 });
             }
 
