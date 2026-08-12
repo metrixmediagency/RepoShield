@@ -258,9 +258,9 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('repushield_leads', JSON.stringify(leads));
 
         // POST to Supabase
-        const SUPABASE_URL = "https://emxhibjyofqqvuwtdevo.supabase.co";
+        const SUPABASE_URL = (typeof window !== 'undefined' && window.SUPABASE_URL) || "";
         const SUPABASE_KEY = (typeof window !== 'undefined' && window.SUPABASE_ANON_KEY) || "";
-        if (SUPABASE_KEY) {
+        if (SUPABASE_KEY && SUPABASE_URL) {
             fetch(`${SUPABASE_URL}/rest/v1/feedback`, {
                 method: 'POST',
                 headers: {
@@ -307,6 +307,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         const name = document.getElementById('vip-name').value;
         const phone = document.getElementById('vip-phone').value;
+        const dob = document.getElementById('vip-dob') ? document.getElementById('vip-dob').value : '';
 
         const lead = {
             id: Date.now().toString(),
@@ -315,6 +316,7 @@ document.addEventListener('DOMContentLoaded', () => {
             rating: selectedRating,
             clientName: name,
             clientPhone: phone,
+            clientDOB: dob,
             clientMessage: "Captured Lead (Positive)",
             submittedAt: new Date().toLocaleString()
         };
