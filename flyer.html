@@ -1027,19 +1027,6 @@
                 
                 async function renderQRWithShortUrl(qrUrl) {
                     let finalUrl = qrUrl;
-                    try {
-                        // Use TinyURL's free API (no key needed, no CORS issues via proxy)
-                        const shortResp = await fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(qrUrl)}`);
-                        if (shortResp.ok) {
-                            const short = await shortResp.text();
-                            if (short && short.startsWith('http') && short.length < 50) {
-                                finalUrl = short.trim();
-                            }
-                        }
-                    } catch (e) {
-                        // If shortening fails, fall back to the full URL
-                        finalUrl = qrUrl;
-                    }
 
                     qrContainers.forEach(container => {
                         container.innerHTML = ''; // clear completely to force full re-render
