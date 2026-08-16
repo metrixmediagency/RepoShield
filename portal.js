@@ -249,6 +249,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ----------------------------------------------------
+    // DOB Auto-Formatting
+    // ----------------------------------------------------
+    function formatDOB(e) {
+        // Remove all non-digits and limit to 8 characters
+        let input = e.target.value.replace(/\D/g, '').substring(0, 8);
+        
+        // Auto-insert slashes for DD/MM/YYYY
+        if (input.length > 4) {
+            e.target.value = input.substring(0, 2) + '/' + input.substring(2, 4) + '/' + input.substring(4, 8);
+        } else if (input.length > 2) {
+            e.target.value = input.substring(0, 2) + '/' + input.substring(2, 4);
+        } else {
+            e.target.value = input;
+        }
+    }
+
+    const clientDob = document.getElementById('client-dob');
+    if (clientDob) clientDob.addEventListener('input', formatDOB);
+
+    const vipDob = document.getElementById('vip-dob');
+    if (vipDob) vipDob.addEventListener('input', formatDOB);
+
+    // ----------------------------------------------------
     // Shared Data Submission Logic
     // ----------------------------------------------------
     function saveAndSendWebhook(lead) {
