@@ -252,6 +252,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // DOB Auto-Formatting
     // ----------------------------------------------------
     function formatDOB(e) {
+        // Allow backspace to work naturally
+        if (e.inputType === 'deleteContentBackward') {
+            return;
+        }
+        
         // Remove all non-digits and limit to 8 characters
         let input = e.target.value.replace(/\D/g, '').substring(0, 8);
         
@@ -270,6 +275,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const vipDob = document.getElementById('vip-dob');
     if (vipDob) vipDob.addEventListener('input', formatDOB);
+
+    // ----------------------------------------------------
+    // Phone Auto-Formatting
+    // ----------------------------------------------------
+    function formatPhone(e) {
+        // Remove all non-digits
+        let input = e.target.value.replace(/\D/g, '');
+        // Limit to 10 digits
+        e.target.value = input.substring(0, 10);
+    }
+
+    const clientPhone = document.getElementById('client-phone');
+    if (clientPhone) clientPhone.addEventListener('input', formatPhone);
+
+    const vipPhone = document.getElementById('vip-phone');
+    if (vipPhone) vipPhone.addEventListener('input', formatPhone);
 
     // ----------------------------------------------------
     // Shared Data Submission Logic

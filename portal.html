@@ -53,11 +53,11 @@
                     <div class="input-row">
                         <div class="form-group">
                             <label for="client-name">Your Name</label>
-                            <input type="text" id="client-name" placeholder="e.g. Rahul Sharma" required autocomplete="name">
+                            <input type="text" id="client-name" placeholder="e.g. Rahul Sharma" minlength="3" pattern="^[a-zA-Z\s]+$" title="Name must be at least 3 characters (letters only)" required autocomplete="name">
                         </div>
                         <div class="form-group">
                             <label for="client-phone">Phone Number</label>
-                            <input type="tel" id="client-phone" placeholder="e.g. +91 9876543210" required autocomplete="tel">
+                            <input type="tel" id="client-phone" placeholder="e.g. 9876543210" minlength="10" maxlength="10" pattern="\d{10}" title="Please enter exactly 10 digits" required autocomplete="tel">
                         </div>
                     </div>
                     <div class="form-group">
@@ -87,11 +87,11 @@
                     <div class="input-row">
                         <div class="form-group">
                             <label for="vip-name">Your Name</label>
-                            <input type="text" id="vip-name" placeholder="e.g. Rahul Sharma" required autocomplete="name">
+                            <input type="text" id="vip-name" placeholder="e.g. Rahul Sharma" minlength="3" pattern="^[a-zA-Z\s]+$" title="Name must be at least 3 characters (letters only)" required autocomplete="name">
                         </div>
                         <div class="form-group">
                             <label for="vip-phone">WhatsApp Number</label>
-                            <input type="tel" id="vip-phone" placeholder="e.g. +91 9876543210" required autocomplete="tel">
+                            <input type="tel" id="vip-phone" placeholder="e.g. 9876543210" minlength="10" maxlength="10" pattern="\d{10}" title="Please enter exactly 10 digits" required autocomplete="tel">
                         </div>
                     </div>
                     <div class="form-group">
@@ -140,6 +140,6 @@
     </div>
 
     <script src="supabase_config.js"></script>
-    <script src="portal.js?v=2.2"></script>
+    <script src="portal.js?v=2.4"></script>
 </body>
 </html>
