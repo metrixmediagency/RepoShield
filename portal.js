@@ -319,6 +319,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     rating: lead.rating,
                     client_name: lead.clientName,
                     client_phone: lead.clientPhone,
+                    client_dob: lead.clientDOB || "",
                     client_message: lead.clientMessage || "",
                     submitted_at: new Date().toISOString()
                 })
