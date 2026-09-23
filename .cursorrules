@@ -6,3 +6,4 @@
    - The AI must present the proposed change/draft to the user in the chat first.
    - The AI must ask the user: "Would you like me to apply these changes?"
    - The AI must wait for the user's approval before calling any file modification tools (e.g., `write_to_file`, `replace_file_content`, `multi_replace_file_content`).
+
