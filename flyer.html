@@ -1210,6 +1210,7 @@
                         const safeQrDot = (qrDot === 'dots' || qrDot === 'classy') ? 'rounded' : qrDot;
 
                         const qrCode = new QRCodeStyling({
+                            type: "svg",
                             width: size, height: size, data: finalUrl,
                             image: logo !== '' ? logo : "",
                             qrOptions: { errorCorrectionLevel: 'M' },
