@@ -112,6 +112,74 @@
             box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
         }
 
+        /* Toolbar Mode Toggle Group */
+        .mode-toggle-group {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 4px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            gap: 6px;
+        }
+
+        .mode-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding: 0.45rem 0.85rem;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            transition: all 0.2s ease;
+        }
+
+        .mode-btn:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .mode-btn.active {
+            background: #6366f1;
+            color: white;
+            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4);
+        }
+
+        /* SINGLE STANDEE SCREEN MODE */
+        body.single-print-mode .print-page {
+            width: 100mm !important;
+            min-height: 155mm !important;
+            height: 155mm !important;
+            padding: 0 !important;
+            margin: 2rem auto !important;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.18) !important;
+        }
+        body.single-print-mode .standee-container {
+            width: 100mm !important;
+            height: 155mm !important;
+            flex-direction: column !important;
+        }
+        body.single-print-mode .print-wrapper {
+            width: 100mm !important;
+            height: 155mm !important;
+        }
+        body.single-print-mode .print-wrapper:nth-child(n+2) {
+            display: none !important;
+        }
+        body.single-print-mode .standee-face {
+            width: 100mm !important;
+            height: 155mm !important;
+            transform: none !important;
+            border-radius: 0 !important;
+        }
+
         /* Printable Page Frame Layout */
         .print-page {
             background: var(--bg-print);
@@ -537,6 +605,41 @@
             .standee-container, .ecommerce-container, .delivery-container {
                 margin: auto;
             }
+
+            /* Single Standee Pro Print Override (100mm x 155mm Upright) */
+            body.single-print-mode .print-page {
+                width: 100mm !important;
+                height: 155mm !important;
+                min-height: 155mm !important;
+                max-height: 155mm !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+            }
+            body.single-print-mode .standee-container {
+                width: 100mm !important;
+                height: 155mm !important;
+                display: block !important;
+                margin: 0 !important;
+            }
+            body.single-print-mode .print-wrapper {
+                width: 100mm !important;
+                height: 155mm !important;
+                display: block !important;
+                margin: 0 !important;
+            }
+            body.single-print-mode .print-wrapper:nth-child(n+2) {
+                display: none !important;
+            }
+            body.single-print-mode .standee-face {
+                width: 100mm !important;
+                height: 155mm !important;
+                transform: none !important; /* No rotation in single standee mode */
+                border-radius: 0 !important;
+                margin: 0 !important;
+            }
+
             * {
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
@@ -653,6 +756,7 @@
             .face-accent-bar { display: none !important; }
         }
     </style>
+    <style id="dynamic-page-size">@media print { @page { size: portrait; margin: 0; } }</style>
 </head>
 <body>
     <!-- Top Interactive Toolbar -->
@@ -660,6 +764,14 @@
         <div class="toolbar-brand">
             <i class="fa-solid fa-shield-halved"></i>
             <h1 id="toolbar-title">MetrixMedia Asset Center</h1>
+        </div>
+        <div class="mode-toggle-group">
+            <button type="button" id="btn-mode-a4" class="mode-btn active" onclick="setPrintMode('a4')" title="2 Standees stacked on standard A4 portrait">
+                <i class="fa-solid fa-copy"></i> 2x on A4 Sheet
+            </button>
+            <button type="button" id="btn-mode-single" class="mode-btn" onclick="setPrintMode('single')" title="Single 100x155mm Standee for professional print shops">
+                <i class="fa-solid fa-file-image"></i> 1x Single Standee (Print Shop)
+            </button>
         </div>
         <button class="btn-print" onclick="window.print()">
             <i class="fa-solid fa-print"></i> Save PDF / Print Asset
@@ -861,6 +973,25 @@
         if (!currentPortalUrl) {
             const currentParams = window.location.search;
             currentPortalUrl = window.location.origin + window.location.pathname.replace('flyer.html', 'portal.html') + currentParams;
+        }
+
+        // Mode Switching: A4 Sheet (2x) vs Single Standee (1x 100x155mm for Pro Print Shops)
+        function setPrintMode(mode) {
+            const styleEl = document.getElementById('dynamic-page-size');
+            const btnA4 = document.getElementById('btn-mode-a4');
+            const btnSingle = document.getElementById('btn-mode-single');
+            
+            if (mode === 'single') {
+                document.body.classList.add('single-print-mode');
+                if (btnSingle) btnSingle.classList.add('active');
+                if (btnA4) btnA4.classList.remove('active');
+                if (styleEl) styleEl.textContent = '@media print { @page { size: 100mm 155mm; margin: 0; } }';
+            } else {
+                document.body.classList.remove('single-print-mode');
+                if (btnA4) btnA4.classList.add('active');
+                if (btnSingle) btnSingle.classList.remove('active');
+                if (styleEl) styleEl.textContent = '@media print { @page { size: portrait; margin: 0; } }';
+            }
         }
         // Utility to generate SVG background patterns
         function getPatternCSS(patternName, baseColor) {
@@ -1104,6 +1235,10 @@
             }
 
             renderFlyer(initialState);
+
+            if (urlParams.get('mode') === 'single') {
+                setPrintMode('single');
+            }
         });
 
         // Listen for real-time postMessage payloads from the Live Editor
