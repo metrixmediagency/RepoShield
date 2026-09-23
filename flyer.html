@@ -617,6 +617,7 @@
                 box-shadow: none !important;
                 border-radius: 0 !important;
                 position: relative;
+                overflow: visible !important;
             }
             body.single-print-mode .standee-container {
                 width: 100mm !important;
@@ -630,6 +631,7 @@
                 display: block !important;
                 margin: 0 !important;
                 position: relative;
+                overflow: visible !important;
             }
             /* Crop Marks for Print Shop */
             body.single-print-mode .print-wrapper::before,
@@ -786,7 +788,7 @@
             .face-accent-bar { display: none !important; }
         }
     </style>
-    <style id="dynamic-page-size">@media print { @page { size: portrait; margin: 0; } }</style>
+    <style id="dynamic-page-size">@page { size: portrait; margin: 0; }</style>
 </head>
 <body>
     <!-- Top Interactive Toolbar -->
@@ -1015,12 +1017,12 @@
                 document.body.classList.add('single-print-mode');
                 if (btnSingle) btnSingle.classList.add('active');
                 if (btnA4) btnA4.classList.remove('active');
-                if (styleEl) styleEl.textContent = '@media print { @page { size: 100mm 155mm; margin: 0; } }';
+                if (styleEl) styleEl.textContent = '@page { size: 100mm 155mm; margin: 0; }';
             } else {
                 document.body.classList.remove('single-print-mode');
                 if (btnA4) btnA4.classList.add('active');
                 if (btnSingle) btnSingle.classList.remove('active');
-                if (styleEl) styleEl.textContent = '@media print { @page { size: portrait; margin: 0; } }';
+                if (styleEl) styleEl.textContent = '@page { size: portrait; margin: 0; }';
             }
         }
         // Utility to generate SVG background patterns
