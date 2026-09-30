@@ -966,8 +966,32 @@
             };
             const tp = themeProps[theme] || themeProps['theme-onyx'];
             
-            const qrFg = tp.qrFg;
-            const qrBg = tp.qrBg;
+            const qrFg = state.flyerAccent || tp.qrFg;
+            const qrBg = state.flyerBg || tp.qrBg;
+
+            // Dynamically override theme-onyx with custom colors if provided
+            if (state.flyerBg || state.flyerAccent || state.flyerText) {
+                const bg = state.flyerBg || '#0a0a0a';
+                const accent = state.flyerAccent || '#d4af37';
+                const text = state.flyerText || '#ffffff';
+                
+                let customStyle = document.getElementById('custom-flyer-colors');
+                if (!customStyle) {
+                    customStyle = document.createElement('style');
+                    customStyle.id = 'custom-flyer-colors';
+                    document.head.appendChild(customStyle);
+                }
+                customStyle.innerHTML = `
+                    .theme-onyx .standee-face { background: ${bg} !important; background-color: ${bg} !important; color: ${text} !important; }
+                    .theme-onyx .standee-header h2 { background: ${accent} !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; }
+                    .theme-onyx .standee-body h3 { background: ${accent} !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; }
+                    .theme-onyx .standee-body p { color: ${text} !important; }
+                    .theme-onyx .qr-wrapper { border-color: ${accent} !important; box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 0 20px ${accent}22 !important; }
+                    .theme-onyx .standee-footer { border-top-color: ${accent}44 !important; }
+                    .theme-onyx .standee-footer p { color: ${text} !important; }
+                    .theme-onyx .stars-row i { color: ${accent} !important; filter: drop-shadow(0 0 8px ${accent}66) !important; }
+                `;
+            }
             let qrDot = (state.qrDot && state.qrDot !== 'theme-default') ? state.qrDot : tp.qrDot;
             let qrCorner = (state.qrCorner && state.qrCorner !== 'theme-default') ? state.qrCorner : tp.qrCorner;
 
@@ -1139,7 +1163,7 @@
                 flyerHeadline: urlParams.get('flyerHeadline'),
                 flyerSub: urlParams.get('flyerSub'),
                 flyerFooter: urlParams.get('flyerFooter'),
-                flyerTextStyle: urlParams.get('flyerTextStyle')
+                flyerTextStyle: urlParams.get('flyerTextStyle'), flyerBg: urlParams.get('flyerBg'), flyerAccent: urlParams.get('flyerAccent'), flyerText: urlParams.get('flyerText')
             };
 
             // Hide toolbar and scale to fit if viewed inside a Live Editor Iframe

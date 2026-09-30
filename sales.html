@@ -1917,15 +1917,24 @@
                             
                             <div class="grid-2-col">
                                 <div class="input-group">
-                                    <label for="flyer-theme">Select Curated Design</label>
-                                    <div class="input-wrapper">
-                                        <i class="fa-solid fa-palette input-icon"></i>
-                                        <select id="flyer-theme">
-                                            <option value="theme-onyx" selected>Onyx Elegance (Matte Black)</option>
-                                            <option value="theme-ivory">Ivory Minimalist (Pure White)</option>
-                                            <option value="theme-sapphire">Midnight Sapphire (Dark Navy)</option>
-                                            <option value="theme-emerald">Forest Executive (Deep Green)</option>
-                                        </select>
+                                    <label for="flyer-bg-color">Background Color</label>
+                                    <div class="color-picker-wrapper" style="display: flex; align-items: center; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; overflow: hidden; padding: 0.2rem;">
+                                        <input type="color" id="flyer-bg-color" value="#0a0a0a" style="height: 32px; width: 40px; cursor: pointer; border: none; background: none; padding: 0; margin-left: 0.2rem;" oninput="document.getElementById('flyer-bg-hex').value = this.value; if(typeof updateSimulators === 'function') updateSimulators();">
+                                        <input type="text" id="flyer-bg-hex" value="#0a0a0a" style="border: none; background: transparent; padding-left: 0.5rem; flex: 1; outline: none; color: white;" oninput="document.getElementById('flyer-bg-color').value = this.value; if(typeof updateSimulators === 'function') updateSimulators();">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label for="flyer-accent-color">Primary Accent (Headline & QR)</label>
+                                    <div class="color-picker-wrapper" style="display: flex; align-items: center; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; overflow: hidden; padding: 0.2rem;">
+                                        <input type="color" id="flyer-accent-color" value="#d4af37" style="height: 32px; width: 40px; cursor: pointer; border: none; background: none; padding: 0; margin-left: 0.2rem;" oninput="document.getElementById('flyer-accent-hex').value = this.value; if(typeof updateSimulators === 'function') updateSimulators();">
+                                        <input type="text" id="flyer-accent-hex" value="#d4af37" style="border: none; background: transparent; padding-left: 0.5rem; flex: 1; outline: none; color: white;" oninput="document.getElementById('flyer-accent-color').value = this.value; if(typeof updateSimulators === 'function') updateSimulators();">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label for="flyer-text-color">Secondary Text Color</label>
+                                    <div class="color-picker-wrapper" style="display: flex; align-items: center; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; overflow: hidden; padding: 0.2rem;">
+                                        <input type="color" id="flyer-text-color" value="#ffffff" style="height: 32px; width: 40px; cursor: pointer; border: none; background: none; padding: 0; margin-left: 0.2rem;" oninput="document.getElementById('flyer-text-hex').value = this.value; if(typeof updateSimulators === 'function') updateSimulators();">
+                                        <input type="text" id="flyer-text-hex" value="#ffffff" style="border: none; background: transparent; padding-left: 0.5rem; flex: 1; outline: none; color: white;" oninput="document.getElementById('flyer-text-color').value = this.value; if(typeof updateSimulators === 'function') updateSimulators();">
                                     </div>
                                 </div>
                                     <div class="input-group">
@@ -2046,7 +2055,7 @@
                                 
                                 <!-- Flyer Simulator Mockup -->
                                 <div id="preview-flyer-wrapper" class="simulator-wrapper">
-                                    <iframe id="desktop-live-flyer" src="flyer.html?v=6.0" style="width: 280px; height: 520px; border: none; background: transparent; overflow: hidden; transform-origin: top center; pointer-events: none;"></iframe>
+                                    <iframe id="desktop-live-flyer" src="flyer.html?v=6.1" style="width: 280px; height: 520px; border: none; background: transparent; overflow: hidden; transform-origin: top center; pointer-events: none;"></iframe>
                                 </div>
                                 
                                 <!-- Demo Landing Page Mockup -->
@@ -2999,7 +3008,7 @@
 
             <!-- Flyer Preview Pane -->
             <div id="ovl-flyer-pane" style="display: none; flex-direction: column; align-items: center; gap: 0.75rem; width: 100%;">
-                <iframe id="mobile-live-flyer" src="flyer.html?v=6.0" style="width: 240px; height: 500px; border: none; background: transparent; overflow: hidden; transform-origin: top left; pointer-events: none;"></iframe>
+                <iframe id="mobile-live-flyer" src="flyer.html?v=6.1" style="width: 240px; height: 500px; border: none; background: transparent; overflow: hidden; transform-origin: top left; pointer-events: none;"></iframe>
                 <a id="ovl-open-flyer-link" href="#" target="_blank" class="btn btn-secondary" style="width: 100%; max-width: 360px; justify-content: center; gap: 0.5rem; text-decoration: none; font-size: 0.9rem;">
                     <i class="fa-solid fa-up-right-from-square"></i> Open Flyer Mockup
                 </a>
@@ -3308,7 +3317,7 @@
                     return;
                 }
 
-                const theme = document.getElementById('flyer-theme') ? document.getElementById('flyer-theme').value : 'theme-onyx';
+                const theme = 'theme-onyx'; const flyerBg = document.getElementById('flyer-bg-color') ? document.getElementById('flyer-bg-color').value : '#0a0a0a'; const flyerAccent = document.getElementById('flyer-accent-color') ? document.getElementById('flyer-accent-color').value : '#d4af37'; const flyerText = document.getElementById('flyer-text-color') ? document.getElementById('flyer-text-color').value : '#ffffff';
                 const qrDot = document.getElementById('qr-dot-style') ? document.getElementById('qr-dot-style').value : 'theme-default';
                 const qrCorner = document.getElementById('qr-corner-style') ? document.getElementById('qr-corner-style').value : 'extra-rounded';
                 const validity = document.getElementById('qr-validity') ? document.getElementById('qr-validity').value : '48';
@@ -3606,7 +3615,7 @@
                 const bizName = document.getElementById('biz-name').value.trim() || 'Your Brand';
                 const color = (document.getElementById('biz-accent') ? document.getElementById('biz-accent').value : '#3b82f6') || '#3b82f6';
                 const font = document.getElementById('biz-font') ? document.getElementById('biz-font').value : 'Outfit';
-                const theme = document.getElementById('flyer-theme') ? document.getElementById('flyer-theme').value : 'theme-onyx';
+                const theme = 'theme-onyx'; const flyerBg = document.getElementById('flyer-bg-color') ? document.getElementById('flyer-bg-color').value : '#0a0a0a'; const flyerAccent = document.getElementById('flyer-accent-color') ? document.getElementById('flyer-accent-color').value : '#d4af37'; const flyerText = document.getElementById('flyer-text-color') ? document.getElementById('flyer-text-color').value : '#ffffff';
                 const targetUrl = document.getElementById('biz-gmb') ? document.getElementById('biz-gmb').value.trim() : '#';
                 const category = document.getElementById('biz-category') ? document.getElementById('biz-category').value : 'other';
                 
@@ -3636,12 +3645,12 @@
                 // 2. Update Live Iframe Flyer & Simulators
                 const baseLocation = window.location.origin;
                 const webhook = document.getElementById('biz-webhook') ? document.getElementById('biz-webhook').value.trim() : '';
-                let demoPortalUrl = `${baseLocation}/portal.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&validity=${encodeURIComponent(validity)}&demo=true`;
+                let demoPortalUrl = `${baseLocation}/portal.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&validity=${encodeURIComponent(validity)}&flyerBg=${encodeURIComponent(flyerBg)}&flyerAccent=${encodeURIComponent(flyerAccent)}&flyerText=${encodeURIComponent(flyerText)}&demo=true`;
                 if (webhook) {
                     demoPortalUrl += `&webhook=${encodeURIComponent(webhook)}`;
                 }
-                const demoFlyerUrl = `flyer.html?v=6.0&id=${window.currentCampaignId}&name=${encodeURIComponent(bizName)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&theme=${encodeURIComponent(theme)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}&validity=${encodeURIComponent(validity)}`;
-                const demoLandingUrl = `demo.html?name=${encodeURIComponent(bizName)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&validity=${encodeURIComponent(validity)}`;
+                const demoFlyerUrl = `flyer.html?v=6.1&id=${window.currentCampaignId}&name=${encodeURIComponent(bizName)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&theme=${encodeURIComponent(theme)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}&validity=${encodeURIComponent(validity)}&flyerBg=${encodeURIComponent(flyerBg)}&flyerAccent=${encodeURIComponent(flyerAccent)}&flyerText=${encodeURIComponent(flyerText)}`;
+                const demoLandingUrl = `demo.html?name=${encodeURIComponent(bizName)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&validity=${encodeURIComponent(validity)}&flyerBg=${encodeURIComponent(flyerBg)}&flyerAccent=${encodeURIComponent(flyerAccent)}&flyerText=${encodeURIComponent(flyerText)}`;
 
                 const iframe1 = document.getElementById('mobile-live-flyer');
                 if (iframe1 && iframe1.src.indexOf(demoFlyerUrl) === -1) iframe1.src = demoFlyerUrl;
@@ -3680,7 +3689,7 @@
                 if (btnMasterQr) {
                     const liveHtmlUrl = window.location.origin + window.location.pathname.replace('/sales.html', '/live.html');
                     const masterName = "Your Business";
-                    const masterFlyerUrl = `flyer.html?v=6.0&name=${encodeURIComponent(masterName)}&portalUrl=${encodeURIComponent(liveHtmlUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&theme=${encodeURIComponent(theme)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}&validity=${encodeURIComponent(validity)}`;
+                    const masterFlyerUrl = `flyer.html?v=6.1&name=${encodeURIComponent(masterName)}&portalUrl=${encodeURIComponent(liveHtmlUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&theme=${encodeURIComponent(theme)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}&validity=${encodeURIComponent(validity)}&flyerBg=${encodeURIComponent(flyerBg)}&flyerAccent=${encodeURIComponent(flyerAccent)}&flyerText=${encodeURIComponent(flyerText)}`;
                     btnMasterQr.onclick = () => window.open(masterFlyerUrl, '_blank');
                 }
             }
@@ -3791,7 +3800,7 @@
                         return; 
                     }
 
-                    const theme = document.getElementById('flyer-theme') ? document.getElementById('flyer-theme').value : 'theme-onyx';
+                    const theme = 'theme-onyx'; const flyerBg = document.getElementById('flyer-bg-color') ? document.getElementById('flyer-bg-color').value : '#0a0a0a'; const flyerAccent = document.getElementById('flyer-accent-color') ? document.getElementById('flyer-accent-color').value : '#d4af37'; const flyerText = document.getElementById('flyer-text-color') ? document.getElementById('flyer-text-color').value : '#ffffff';
                     const font = document.getElementById('biz-font') ? document.getElementById('biz-font').value : 'Outfit';
                     const validity = document.getElementById('qr-validity') ? document.getElementById('qr-validity').value : '48';
                     
@@ -3801,7 +3810,7 @@
                     const flyerTextStyle = document.getElementById('flyer-text-style') ? document.getElementById('flyer-text-style').value : 'normal';
 
                     const baseLocation = window.location.origin;
-                    const demoInteractiveUrl = `${baseLocation}/demo.html?name=${encodeURIComponent(bizName)}&theme=${encodeURIComponent(theme)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}&validity=${encodeURIComponent(validity)}`;
+                    const demoInteractiveUrl = `${baseLocation}/demo.html?name=${encodeURIComponent(bizName)}&theme=${encodeURIComponent(theme)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}&validity=${encodeURIComponent(validity)}&flyerBg=${encodeURIComponent(flyerBg)}&flyerAccent=${encodeURIComponent(flyerAccent)}&flyerText=${encodeURIComponent(flyerText)}`;
 
                     // 1. Generate Pitch Script (auto-fills into the new pipeline layout)
                     const pitchBox = document.getElementById('generated-script-box');
