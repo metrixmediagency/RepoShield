@@ -510,41 +510,7 @@
         .theme-onyx .stars-row i { color: #d4af37; font-size: 0.9rem; margin: 0 2px; filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.4)); }
         .theme-onyx .icon-placeholder { display: none; /* Hide icon for ultra-minimalist look */ }
 
-        /* Ivory Minimalist */
-        .theme-ivory .standee-face { background: #ffffff; color: #111111; border: 1px solid #e2e8f0; }
-        .theme-ivory .face-accent-bar { display: none; }
-        .theme-ivory .standee-header h2 { font-family: 'Inter', sans-serif; font-weight: 600; color: #111111; letter-spacing: 2px; text-transform: uppercase; font-size: 0.9rem; }
-        .theme-ivory .standee-body h3 { font-family: 'Playfair Display', serif; font-weight: 700; color: #111111; font-size: 2.2rem; margin-top: 1rem; line-height: 1.1; }
-        .theme-ivory .standee-body p { color: #475569; font-weight: 400; font-size: 0.95rem; margin-top: 1.5rem; }
-        .theme-ivory .qr-wrapper { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 12px; padding: 0.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.03); margin: 1.5rem 0; }
-        .theme-ivory .standee-footer { border-top: 1px solid #f1f5f9; margin-top: auto; padding-top: 1.5rem; padding-bottom: 1.5rem; width: 60%; }
-        .theme-ivory .standee-footer p { color: #64748b; letter-spacing: 1.5px; text-transform: uppercase; font-size: 0.65rem; font-weight: 500; margin-top: 0.5rem; }
-        .theme-ivory .stars-row i { color: #111111; font-size: 0.9rem; margin: 0 2px; }
-        .theme-ivory .icon-placeholder { display: none; }
 
-        /* Midnight Sapphire */
-        .theme-sapphire .standee-face { background: #060d1a; color: #e2e8f0; }
-        .theme-sapphire .face-accent-bar { display: none; }
-        .theme-sapphire .standee-header h2 { font-family: 'Montserrat', sans-serif; font-weight: 500; color: #94a3b8; letter-spacing: 3px; text-transform: uppercase; font-size: 0.85rem; }
-        .theme-sapphire .standee-body h3 { font-family: 'Outfit', sans-serif; font-weight: 600; color: #ffffff; font-size: 2.1rem; margin-top: 1rem; line-height: 1.15; letter-spacing: -0.5px; }
-        .theme-sapphire .standee-body p { color: #94a3b8; font-weight: 300; font-size: 0.9rem; margin-top: 1.5rem; }
-        .theme-sapphire .qr-wrapper { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(226, 232, 240, 0.2); border-radius: 12px; padding: 0.5rem; margin: 1.5rem 0; }
-        .theme-sapphire .standee-footer { border-top: 1px solid rgba(226, 232, 240, 0.1); margin-top: auto; padding-top: 1.5rem; padding-bottom: 1.5rem; width: 60%; }
-        .theme-sapphire .standee-footer p { color: #94a3b8; letter-spacing: 1.5px; text-transform: uppercase; font-size: 0.65rem; font-weight: 400; margin-top: 0.5rem; }
-        .theme-sapphire .stars-row i { color: #e2e8f0; font-size: 0.9rem; margin: 0 2px; }
-        .theme-sapphire .icon-placeholder { display: none; }
-
-        /* Forest Executive */
-        .theme-emerald .standee-face { background: #061f14; color: #e5d3b3; }
-        .theme-emerald .face-accent-bar { display: none; }
-        .theme-emerald .standee-header h2 { font-family: 'Outfit', sans-serif; font-weight: 400; color: #a3b8a8; letter-spacing: 2px; text-transform: uppercase; font-size: 0.85rem; }
-        .theme-emerald .standee-body h3 { font-family: 'Playfair Display', serif; font-weight: 700; color: #e5d3b3; font-size: 2.2rem; margin-top: 1rem; line-height: 1.1; }
-        .theme-emerald .standee-body p { color: #a3b8a8; font-weight: 400; font-size: 0.9rem; margin-top: 1.5rem; }
-        .theme-emerald .qr-wrapper { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(229, 211, 179, 0.3); border-radius: 12px; padding: 0.5rem; margin: 1.5rem 0; }
-        .theme-emerald .standee-footer { border-top: 1px solid rgba(229, 211, 179, 0.15); margin-top: auto; padding-top: 1.5rem; padding-bottom: 1.5rem; width: 60%; }
-        .theme-emerald .standee-footer p { color: #a3b8a8; letter-spacing: 2px; text-transform: uppercase; font-size: 0.65rem; font-weight: 400; margin-top: 0.5rem; }
-        .theme-emerald .stars-row i { color: #e5d3b3; font-size: 0.9rem; margin: 0 2px; }
-        .theme-emerald .icon-placeholder { display: none; }
         /* PRINT STYLES */
          @media print {
             @page {
@@ -591,15 +557,6 @@
             .theme-onyx .standee-face {
                 background-color: #0a0a0a !important;
                 background: #0a0a0a !important;
-            }
-            .theme-glass .standee-face {
-                background: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop') center/cover !important;
-            }
-            .theme-artisan .standee-face {
-                background-color: #f4ecd8 !important;
-            }
-            .theme-neon .standee-face {
-                background-color: #0a0a0a !important;
             }
             .standee-container, .ecommerce-container, .delivery-container {
                 margin: auto;
@@ -948,23 +905,11 @@
             const campaignType = state.type || 'gmb';
             currentPortalUrl = state.portalUrl || currentPortalUrl;
             
-            let theme = state.theme || 'theme-onyx';
-            if (!['theme-onyx', 'theme-ivory', 'theme-sapphire', 'theme-emerald'].includes(theme)) {
-                theme = 'theme-onyx';
-            }
-            
-            // Clear previous theme classes and apply new one
-            document.body.classList.remove('theme-onyx', 'theme-ivory', 'theme-sapphire', 'theme-emerald');
+            const theme = 'theme-onyx';
             document.body.classList.add(theme);
 
-            // Theme-specific properties for JS dependencies (e.g. QR Code Library)
-            const themeProps = {
-                'theme-onyx': { qrFg: '#d4af37', qrBg: '#0a0a0a', qrDot: 'rounded', qrCorner: 'extra-rounded' },
-                'theme-ivory': { qrFg: '#111111', qrBg: '#ffffff', qrDot: 'rounded', qrCorner: 'extra-rounded' },
-                'theme-sapphire': { qrFg: '#e2e8f0', qrBg: '#060d1a', qrDot: 'rounded', qrCorner: 'extra-rounded' },
-                'theme-emerald': { qrFg: '#e5d3b3', qrBg: '#061f14', qrDot: 'rounded', qrCorner: 'extra-rounded' }
-            };
-            const tp = themeProps[theme] || themeProps['theme-onyx'];
+            // QR Code defaults (Onyx baseline)
+            const tp = { qrFg: '#d4af37', qrBg: '#0a0a0a', qrDot: 'rounded', qrCorner: 'extra-rounded' };
             
             const qrFg = state.flyerAccent || tp.qrFg;
             const qrBg = state.flyerBg || tp.qrBg;

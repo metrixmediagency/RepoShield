@@ -2055,7 +2055,7 @@
                                 
                                 <!-- Flyer Simulator Mockup -->
                                 <div id="preview-flyer-wrapper" class="simulator-wrapper">
-                                    <iframe id="desktop-live-flyer" src="flyer.html?v=6.3" style="width: 280px; height: 520px; border: none; background: transparent; overflow: hidden; transform-origin: top center; pointer-events: none;"></iframe>
+                                    <iframe id="desktop-live-flyer" src="flyer.html?v=6.4" style="width: 280px; height: 520px; border: none; background: transparent; overflow: hidden; transform-origin: top center; pointer-events: none;"></iframe>
                                 </div>
                                 
                                 <!-- Demo Landing Page Mockup -->
@@ -3008,7 +3008,7 @@
 
             <!-- Flyer Preview Pane -->
             <div id="ovl-flyer-pane" style="display: none; flex-direction: column; align-items: center; gap: 0.75rem; width: 100%;">
-                <iframe id="mobile-live-flyer" src="flyer.html?v=6.3" style="width: 240px; height: 500px; border: none; background: transparent; overflow: hidden; transform-origin: top left; pointer-events: none;"></iframe>
+                <iframe id="mobile-live-flyer" src="flyer.html?v=6.4" style="width: 240px; height: 500px; border: none; background: transparent; overflow: hidden; transform-origin: top left; pointer-events: none;"></iframe>
                 <a id="ovl-open-flyer-link" href="#" target="_blank" class="btn btn-secondary" style="width: 100%; max-width: 360px; justify-content: center; gap: 0.5rem; text-decoration: none; font-size: 0.9rem;">
                     <i class="fa-solid fa-up-right-from-square"></i> Open Flyer Mockup
                 </a>
@@ -3301,9 +3301,9 @@
                 e.preventDefault();
                 
                 const name = document.getElementById('biz-name').value.trim();
-                const category = document.getElementById('biz-category') ? document.getElementById('biz-category').value : 'other';
+                const category = 'other';
                 const email = document.getElementById('biz-email').value.trim();
-                const color = (document.getElementById('biz-accent') ? document.getElementById('biz-accent').value : '#3b82f6');
+                const color = '#3b82f6';
                 const destination = document.getElementById('biz-gmb').value.trim();
                 const planValue = document.getElementById('biz-plan').value;
                 const cycleValue = document.getElementById('billing-cycle').value;
@@ -3318,12 +3318,12 @@
                 }
 
                 const theme = 'theme-onyx'; const flyerBg = document.getElementById('flyer-bg-color') ? document.getElementById('flyer-bg-color').value : '#0a0a0a'; const flyerAccent = document.getElementById('flyer-accent-color') ? document.getElementById('flyer-accent-color').value : '#d4af37'; const flyerText = document.getElementById('flyer-text-color') ? document.getElementById('flyer-text-color').value : '#ffffff';
-                const qrDot = document.getElementById('qr-dot-style') ? document.getElementById('qr-dot-style').value : 'theme-default';
-                const qrCorner = document.getElementById('qr-corner-style') ? document.getElementById('qr-corner-style').value : 'extra-rounded';
-                const validity = document.getElementById('qr-validity') ? document.getElementById('qr-validity').value : '48';
-                const font = document.getElementById('biz-font') ? document.getElementById('biz-font').value : 'Outfit';
-                const logo = document.getElementById('biz-logo') ? document.getElementById('biz-logo').value.trim() : '';
-                const webhook = document.getElementById('biz-webhook') ? document.getElementById('biz-webhook').value.trim() : '';
+                const qrDot = 'rounded';
+                const qrCorner = 'extra-rounded';
+                const validity = '48';
+                const font = 'Outfit';
+                const logo = '';
+                const webhook = '';
                 const flyerHeadline = document.getElementById('flyer-headline') ? document.getElementById('flyer-headline').value : 'How was your experience today?';
                 const flyerSub = document.getElementById('flyer-sub') ? document.getElementById('flyer-sub').value : 'Scan to share your feedback and unlock VIP privileges.';
                 const flyerFooter = document.getElementById('flyer-footer') ? document.getElementById('flyer-footer').value : 'Help us serve you better!';
@@ -3613,15 +3613,15 @@
             // Real-Time Simulator Updates
             function updateSimulators() {
                 const bizName = document.getElementById('biz-name').value.trim() || 'Your Brand';
-                const color = (document.getElementById('biz-accent') ? document.getElementById('biz-accent').value : '#3b82f6') || '#3b82f6';
-                const font = document.getElementById('biz-font') ? document.getElementById('biz-font').value : 'Outfit';
+                const color = '#3b82f6';
+                const font = 'Outfit';
                 const theme = 'theme-onyx'; const flyerBg = document.getElementById('flyer-bg-color') ? document.getElementById('flyer-bg-color').value : '#0a0a0a'; const flyerAccent = document.getElementById('flyer-accent-color') ? document.getElementById('flyer-accent-color').value : '#d4af37'; const flyerText = document.getElementById('flyer-text-color') ? document.getElementById('flyer-text-color').value : '#ffffff';
                 const targetUrl = document.getElementById('biz-gmb') ? document.getElementById('biz-gmb').value.trim() : '#';
-                const category = document.getElementById('biz-category') ? document.getElementById('biz-category').value : 'other';
+                const category = 'other';
                 
-                const qrDot = document.getElementById('qr-dot-style') ? document.getElementById('qr-dot-style').value : 'rounded';
-                const qrCorner = document.getElementById('qr-corner-style') ? document.getElementById('qr-corner-style').value : 'extra-rounded';
-                const validity = document.getElementById('qr-validity') ? document.getElementById('qr-validity').value : '48';
+                const qrDot = 'rounded';
+                const qrCorner = 'extra-rounded';
+                const validity = '48';
                 const flyerHeadline = document.getElementById('flyer-headline') ? document.getElementById('flyer-headline').value : 'How was your experience today?';
                 const flyerSub = document.getElementById('flyer-sub') ? document.getElementById('flyer-sub').value : 'Scan to share your feedback and unlock VIP privileges.';
                 const flyerFooter = document.getElementById('flyer-footer') ? document.getElementById('flyer-footer').value : 'Help us serve you better!';
@@ -3644,12 +3644,12 @@
 
                 // 2. Update Live Iframe Flyer & Simulators
                 const baseLocation = window.location.origin;
-                const webhook = document.getElementById('biz-webhook') ? document.getElementById('biz-webhook').value.trim() : '';
+                const webhook = '';
                 let demoPortalUrl = `${baseLocation}/portal.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&validity=${encodeURIComponent(validity)}&flyerBg=${encodeURIComponent(flyerBg)}&flyerAccent=${encodeURIComponent(flyerAccent)}&flyerText=${encodeURIComponent(flyerText)}&demo=true`;
                 if (webhook) {
                     demoPortalUrl += `&webhook=${encodeURIComponent(webhook)}`;
                 }
-                const demoFlyerUrl = `flyer.html?v=6.3&id=${window.currentCampaignId}&name=${encodeURIComponent(bizName)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&theme=${encodeURIComponent(theme)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}&validity=${encodeURIComponent(validity)}&flyerBg=${encodeURIComponent(flyerBg)}&flyerAccent=${encodeURIComponent(flyerAccent)}&flyerText=${encodeURIComponent(flyerText)}`;
+                const demoFlyerUrl = `flyer.html?v=6.4&id=${window.currentCampaignId}&name=${encodeURIComponent(bizName)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&theme=${encodeURIComponent(theme)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}&validity=${encodeURIComponent(validity)}&flyerBg=${encodeURIComponent(flyerBg)}&flyerAccent=${encodeURIComponent(flyerAccent)}&flyerText=${encodeURIComponent(flyerText)}`;
                 const demoLandingUrl = `demo.html?name=${encodeURIComponent(bizName)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&validity=${encodeURIComponent(validity)}&flyerBg=${encodeURIComponent(flyerBg)}&flyerAccent=${encodeURIComponent(flyerAccent)}&flyerText=${encodeURIComponent(flyerText)}`;
 
                 const iframe1 = document.getElementById('mobile-live-flyer');
@@ -3689,7 +3689,7 @@
                 if (btnMasterQr) {
                     const liveHtmlUrl = window.location.origin + window.location.pathname.replace('/sales.html', '/live.html');
                     const masterName = "Your Business";
-                    const masterFlyerUrl = `flyer.html?v=6.3&name=${encodeURIComponent(masterName)}&portalUrl=${encodeURIComponent(liveHtmlUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&theme=${encodeURIComponent(theme)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}&validity=${encodeURIComponent(validity)}&flyerBg=${encodeURIComponent(flyerBg)}&flyerAccent=${encodeURIComponent(flyerAccent)}&flyerText=${encodeURIComponent(flyerText)}`;
+                    const masterFlyerUrl = `flyer.html?v=6.4&name=${encodeURIComponent(masterName)}&portalUrl=${encodeURIComponent(liveHtmlUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&theme=${encodeURIComponent(theme)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}&validity=${encodeURIComponent(validity)}&flyerBg=${encodeURIComponent(flyerBg)}&flyerAccent=${encodeURIComponent(flyerAccent)}&flyerText=${encodeURIComponent(flyerText)}`;
                     btnMasterQr.onclick = () => window.open(masterFlyerUrl, '_blank');
                 }
             }
@@ -3732,8 +3732,8 @@
             function openSimOverlay() {
                 const bizNameEl = document.getElementById('biz-name');
                 const targetUrlEl = document.getElementById('biz-gmb');
-                const categoryEl = document.getElementById('biz-category');
-                const colorEl = document.getElementById('biz-accent');
+                const categoryEl = null; // Removed: biz-category
+                const colorEl = null; // Removed: biz-accent
 
                 const bizName = bizNameEl ? bizNameEl.value.trim() : '';
                 const targetUrl = targetUrlEl ? targetUrlEl.value.trim() : '';
@@ -3789,11 +3789,10 @@
                 newBtn.addEventListener('click', () => {
                     const bizName = document.getElementById('biz-name').value.trim();
                     const targetUrl = document.getElementById('biz-gmb').value.trim();
-                    const category = document.getElementById('biz-category') ? document.getElementById('biz-category').value : 'other';
-                    const urgency = document.getElementById('biz-urgency') ? document.getElementById('biz-urgency').value : 'standard';
-                    const color = (document.getElementById('biz-accent') ? document.getElementById('biz-accent').value : '#3b82f6');
-                    const ratingInput = document.getElementById('biz-rating');
-                    const rating = ratingInput ? ratingInput.value : '3.8';
+                    const category = 'other';
+                    const urgency = 'standard';
+                    const color = '#3b82f6';
+                    const rating = '3.8';
 
                     if (!bizName || !targetUrl) { 
                         showToastNotification('Please enter a Business Name and Target URL first.'); 
@@ -3801,8 +3800,8 @@
                     }
 
                     const theme = 'theme-onyx'; const flyerBg = document.getElementById('flyer-bg-color') ? document.getElementById('flyer-bg-color').value : '#0a0a0a'; const flyerAccent = document.getElementById('flyer-accent-color') ? document.getElementById('flyer-accent-color').value : '#d4af37'; const flyerText = document.getElementById('flyer-text-color') ? document.getElementById('flyer-text-color').value : '#ffffff';
-                    const font = document.getElementById('biz-font') ? document.getElementById('biz-font').value : 'Outfit';
-                    const validity = document.getElementById('qr-validity') ? document.getElementById('qr-validity').value : '48';
+                    const font = 'Outfit';
+                    const validity = '48';
                     
                     const flyerHeadline = document.getElementById('flyer-headline') ? document.getElementById('flyer-headline').value : 'How was your experience today?';
                     const flyerSub = document.getElementById('flyer-sub') ? document.getElementById('flyer-sub').value : 'Scan to share your feedback and unlock VIP privileges.';
@@ -3833,7 +3832,7 @@
 
                     // Push pitch to Supabase so the Master Demo (live.html) updates instantly
                     if (window.supabaseClient) {
-                        const webhook = document.getElementById('biz-webhook') ? document.getElementById('biz-webhook').value.trim() : '';
+                        const webhook = '';
                         let portalUrl = `${baseLocation}/portal.html?name=${encodeURIComponent(bizName)}&url=${encodeURIComponent(targetUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}`;
                         if (webhook) {
                             portalUrl += `&webhook=${encodeURIComponent(webhook)}`;
@@ -3994,8 +3993,8 @@
 
                                     // 4. Draw dynamic branding (Name & Color)
                                     var bizName = document.getElementById('biz-name') ? document.getElementById('biz-name').value.trim() : 'Brand Name';
-                                    var color = document.getElementById('biz-accent') ? (document.getElementById('biz-accent') ? document.getElementById('biz-accent').value : '#3b82f6') : '#3b82f6';
-                                    var font = document.getElementById('biz-font') ? document.getElementById('biz-font').value : 'Outfit';
+                                    var color = '#3b82f6';
+                                    var font = 'Outfit';
                                     
                                     if (!bizName) bizName = "Your Brand";
 
@@ -4187,6 +4186,8 @@
     </script>
 </body>
 </html>
+
+
 
 
 
