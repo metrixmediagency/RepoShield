@@ -2137,7 +2137,7 @@
                                 
                                 <!-- Flyer Simulator Mockup -->
                                 <div id="preview-flyer-wrapper" class="simulator-wrapper">
-                                    <iframe id="desktop-live-flyer" src="flyer.html?v=5.0" style="width: 280px; height: 520px; border: none; background: transparent; overflow: hidden; transform-origin: top center; pointer-events: none;"></iframe>
+                                    <iframe id="desktop-live-flyer" src="flyer.html?v=5.1" style="width: 280px; height: 520px; border: none; background: transparent; overflow: hidden; transform-origin: top center; pointer-events: none;"></iframe>
                                 </div>
                                 
                                 <!-- Demo Landing Page Mockup -->
@@ -3090,7 +3090,7 @@
 
             <!-- Flyer Preview Pane -->
             <div id="ovl-flyer-pane" style="display: none; flex-direction: column; align-items: center; gap: 0.75rem; width: 100%;">
-                <iframe id="mobile-live-flyer" src="flyer.html?v=5.0" style="width: 240px; height: 500px; border: none; background: transparent; overflow: hidden; transform-origin: top left; pointer-events: none;"></iframe>
+                <iframe id="mobile-live-flyer" src="flyer.html?v=5.1" style="width: 240px; height: 500px; border: none; background: transparent; overflow: hidden; transform-origin: top left; pointer-events: none;"></iframe>
                 <a id="ovl-open-flyer-link" href="#" target="_blank" class="btn btn-secondary" style="width: 100%; max-width: 360px; justify-content: center; gap: 0.5rem; text-decoration: none; font-size: 0.9rem;">
                     <i class="fa-solid fa-up-right-from-square"></i> Open Flyer Mockup
                 </a>
@@ -3730,7 +3730,7 @@
                 if (webhook) {
                     demoPortalUrl += `&webhook=${encodeURIComponent(webhook)}`;
                 }
-                const demoFlyerUrl = `flyer.html?name=${encodeURIComponent(bizName)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&theme=${encodeURIComponent(theme)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}&validity=${encodeURIComponent(validity)}`;
+                const demoFlyerUrl = `flyer.html?v=5.1&name=${encodeURIComponent(bizName)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&theme=${encodeURIComponent(theme)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}&validity=${encodeURIComponent(validity)}`;
                 const demoLandingUrl = `demo.html?name=${encodeURIComponent(bizName)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&validity=${encodeURIComponent(validity)}`;
 
                 const iframe1 = document.getElementById('mobile-live-flyer');
@@ -3770,7 +3770,7 @@
                 if (btnMasterQr) {
                     const liveHtmlUrl = window.location.origin + window.location.pathname.replace('/sales.html', '/live.html');
                     const masterName = "Your Business";
-                    const masterFlyerUrl = `flyer.html?name=${encodeURIComponent(masterName)}&portalUrl=${encodeURIComponent(liveHtmlUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&theme=${encodeURIComponent(theme)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}&validity=${encodeURIComponent(validity)}`;
+                    const masterFlyerUrl = `flyer.html?v=5.1&name=${encodeURIComponent(masterName)}&portalUrl=${encodeURIComponent(liveHtmlUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&theme=${encodeURIComponent(theme)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}&validity=${encodeURIComponent(validity)}`;
                     btnMasterQr.onclick = () => window.open(masterFlyerUrl, '_blank');
                 }
             }
