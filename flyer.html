@@ -510,42 +510,41 @@
         .theme-onyx .stars-row i { color: #d4af37; font-size: 0.9rem; margin: 0 2px; filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.4)); }
         .theme-onyx .icon-placeholder { display: none; /* Hide icon for ultra-minimalist look */ }
 
-        /* Frosted Glass */
-        .theme-glass .standee-face { background: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop') center/cover; color: #0f172a; position: relative; z-index: 1; }
-        .theme-glass .standee-face::before { content: ''; position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 100%); z-index: -1; backdrop-filter: blur(8px); }
-        .theme-glass .face-accent-bar { display: none; }
-        .theme-glass .standee-body { background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); padding: 1.8rem 1.5rem; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.6); box-shadow: 0 20px 40px rgba(31, 38, 135, 0.15); width: 88%; margin: 0 auto; transform: translateY(-10px); }
-        .theme-glass .standee-header { background: rgba(255, 255, 255, 0.85); margin: 1rem; padding: 0.8rem; border-radius: 100px; display: inline-flex; flex-direction: row; align-items: center; gap: 0.8rem; box-shadow: 0 8px 32px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.8); }
-        .theme-glass .standee-header h2 { font-family: 'Outfit', sans-serif; font-weight: 800; color: #1e3a8a; font-size: 1.2rem; margin: 0; }
-        .theme-glass .standee-body h3 { font-family: 'Outfit', sans-serif; color: #0f172a; font-weight: 900; font-size: 1.9rem; letter-spacing: -0.5px; background: linear-gradient(to right, #1e3a8a, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .theme-glass .qr-wrapper { background: rgba(255, 255, 255, 0.95); border: 2px solid rgba(255,255,255,0.8); border-radius: 28px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); padding: 1rem; transform: translateY(-20px); }
-        .theme-glass .standee-footer { border-top: none; background: rgba(255,255,255,0.6); backdrop-filter: blur(10px); width: 88%; border-radius: 100px; padding: 0.6rem; margin: auto auto 1rem auto; border: 1px solid rgba(255,255,255,0.5); }
-        .theme-glass .stars-row i { color: #f59e0b; }
+        /* Ivory Minimalist */
+        .theme-ivory .standee-face { background: #ffffff; color: #111111; border: 1px solid #e2e8f0; }
+        .theme-ivory .face-accent-bar { display: none; }
+        .theme-ivory .standee-header h2 { font-family: 'Inter', sans-serif; font-weight: 600; color: #111111; letter-spacing: 2px; text-transform: uppercase; font-size: 0.9rem; }
+        .theme-ivory .standee-body h3 { font-family: 'Playfair Display', serif; font-weight: 700; color: #111111; font-size: 2.2rem; margin-top: 1rem; line-height: 1.1; }
+        .theme-ivory .standee-body p { color: #475569; font-weight: 400; font-size: 0.95rem; margin-top: 1.5rem; }
+        .theme-ivory .qr-wrapper { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 12px; padding: 0.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.03); margin: 1.5rem 0; }
+        .theme-ivory .standee-footer { border-top: 1px solid #f1f5f9; margin-top: auto; padding-top: 1.5rem; padding-bottom: 1.5rem; width: 60%; }
+        .theme-ivory .standee-footer p { color: #64748b; letter-spacing: 1.5px; text-transform: uppercase; font-size: 0.65rem; font-weight: 500; margin-top: 0.5rem; }
+        .theme-ivory .stars-row i { color: #111111; font-size: 0.9rem; margin: 0 2px; }
+        .theme-ivory .icon-placeholder { display: none; }
 
-        /* Artisan Kraft */
-        .theme-artisan .standee-face { background-color: #f4ecd8; background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png'); color: #3f3f3f; box-shadow: inset 0 0 60px rgba(139,90,43,0.1); }
-        .theme-artisan .face-accent-bar { background-color: #8b5a2b; height: 16px; border-radius: 0 0 10px 10px; width: 80%; left: 10%; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .theme-artisan .standee-header h2 { font-family: 'Montserrat', sans-serif; font-weight: 700; color: #4a3728; letter-spacing: 3px; text-transform: uppercase; border-bottom: 2px solid #8b5a2b; padding-bottom: 0.3rem; }
-        .theme-artisan .standee-body h3 { font-family: 'Playfair Display', serif; font-weight: 700; color: #3f3f3f; font-size: 2rem; font-style: italic; }
-        .theme-artisan .standee-body p { font-family: 'Montserrat', sans-serif; color: #5c4033; font-weight: 500; font-size: 1rem; }
-        .theme-artisan .qr-wrapper { border-radius: 8px; border: 3px dashed #8b5a2b; background: #ffffff; padding: 1.2rem; box-shadow: 5px 5px 0px rgba(139,90,43,0.1); }
-        .theme-artisan .standee-footer { border-top: 1px solid #d1d5db; position: relative; margin-top: 1.5rem; width: 80%; }
-        .theme-artisan .standee-footer::before { content: '✤'; position: absolute; top: -11px; background: #f4ecd8; padding: 0 10px; color: #8b5a2b; font-size: 1.2rem; }
-        .theme-artisan .stars-row i { color: #d97706; }
-        .theme-artisan .icon-placeholder { color: #8b5a2b; background: #fff; padding: 0.8rem; border-radius: 50%; box-shadow: 2px 2px 0px rgba(139,90,43,0.1); border: 1px solid #8b5a2b; margin-top: 1rem; }
+        /* Midnight Sapphire */
+        .theme-sapphire .standee-face { background: #060d1a; color: #e2e8f0; }
+        .theme-sapphire .face-accent-bar { display: none; }
+        .theme-sapphire .standee-header h2 { font-family: 'Montserrat', sans-serif; font-weight: 500; color: #94a3b8; letter-spacing: 3px; text-transform: uppercase; font-size: 0.85rem; }
+        .theme-sapphire .standee-body h3 { font-family: 'Outfit', sans-serif; font-weight: 600; color: #ffffff; font-size: 2.1rem; margin-top: 1rem; line-height: 1.15; letter-spacing: -0.5px; }
+        .theme-sapphire .standee-body p { color: #94a3b8; font-weight: 300; font-size: 0.9rem; margin-top: 1.5rem; }
+        .theme-sapphire .qr-wrapper { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(226, 232, 240, 0.2); border-radius: 12px; padding: 0.5rem; margin: 1.5rem 0; }
+        .theme-sapphire .standee-footer { border-top: 1px solid rgba(226, 232, 240, 0.1); margin-top: auto; padding-top: 1.5rem; padding-bottom: 1.5rem; width: 60%; }
+        .theme-sapphire .standee-footer p { color: #94a3b8; letter-spacing: 1.5px; text-transform: uppercase; font-size: 0.65rem; font-weight: 400; margin-top: 0.5rem; }
+        .theme-sapphire .stars-row i { color: #e2e8f0; font-size: 0.9rem; margin: 0 2px; }
+        .theme-sapphire .icon-placeholder { display: none; }
 
-        /* Neon Pulse */
-        .theme-neon .standee-face { background: #0a0a0a; background-image: radial-gradient(circle at 50% 0%, #1a1a2e 0%, #0a0a0a 70%); color: #ffffff; }
-        .theme-neon .face-accent-bar { background: linear-gradient(90deg, #ff00cc, #3333ff, #00ffcc); height: 8px; box-shadow: 0 0 20px rgba(0, 255, 204, 0.5); }
-        .theme-neon .standee-header h2 { font-family: 'Space Grotesk', sans-serif; font-weight: 900; color: #00ffcc; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 10px rgba(0,255,204,0.5); }
-        .theme-neon .standee-body h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 900; color: #ffffff; text-transform: uppercase; font-style: italic; font-size: 2.2rem; line-height: 1.1; text-shadow: 2px 2px 0px #ff00cc; }
-        .theme-neon .standee-body p { font-family: 'Inter', sans-serif; color: #cbd5e1; font-weight: 500; font-size: 1.05rem; }
-        .theme-neon .qr-wrapper { background: #ffffff; border: 4px solid #00ffcc; border-radius: 16px; box-shadow: 0 0 30px rgba(0, 255, 204, 0.3), inset 0 0 20px rgba(0,0,0,0.1); padding: 0.8rem; position: relative; margin: 1.5rem 0; }
-        .theme-neon .qr-wrapper::after { content: ''; position: absolute; inset: -8px; border: 1px solid #ff00cc; border-radius: 22px; pointer-events: none; }
-        .theme-neon .standee-footer { border-top: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); width: 100%; padding: 1rem 0; margin-top: auto; }
-        .theme-neon .standee-footer p { font-family: 'Space Grotesk', sans-serif; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; color: #00ffcc; margin-top: 0.5rem; }
-        .theme-neon .stars-row i { color: #ff00cc; filter: drop-shadow(0 0 5px rgba(255,0,204,0.5)); }
-        .theme-neon .icon-placeholder { color: #ff00cc; text-shadow: 0 0 15px rgba(255,0,204,0.8); }
+        /* Forest Executive */
+        .theme-emerald .standee-face { background: #061f14; color: #e5d3b3; }
+        .theme-emerald .face-accent-bar { display: none; }
+        .theme-emerald .standee-header h2 { font-family: 'Outfit', sans-serif; font-weight: 400; color: #a3b8a8; letter-spacing: 2px; text-transform: uppercase; font-size: 0.85rem; }
+        .theme-emerald .standee-body h3 { font-family: 'Playfair Display', serif; font-weight: 700; color: #e5d3b3; font-size: 2.2rem; margin-top: 1rem; line-height: 1.1; }
+        .theme-emerald .standee-body p { color: #a3b8a8; font-weight: 400; font-size: 0.9rem; margin-top: 1.5rem; }
+        .theme-emerald .qr-wrapper { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(229, 211, 179, 0.3); border-radius: 12px; padding: 0.5rem; margin: 1.5rem 0; }
+        .theme-emerald .standee-footer { border-top: 1px solid rgba(229, 211, 179, 0.15); margin-top: auto; padding-top: 1.5rem; padding-bottom: 1.5rem; width: 60%; }
+        .theme-emerald .standee-footer p { color: #a3b8a8; letter-spacing: 2px; text-transform: uppercase; font-size: 0.65rem; font-weight: 400; margin-top: 0.5rem; }
+        .theme-emerald .stars-row i { color: #e5d3b3; font-size: 0.9rem; margin: 0 2px; }
+        .theme-emerald .icon-placeholder { display: none; }
         /* PRINT STYLES */
          @media print {
             @page {
@@ -961,9 +960,9 @@
             // Theme-specific properties for JS dependencies (e.g. QR Code Library)
             const themeProps = {
                 'theme-onyx': { qrFg: '#d4af37', qrBg: '#0a0a0a', qrDot: 'rounded', qrCorner: 'extra-rounded' },
-                'theme-glass': { qrFg: '#0f172a', qrBg: '#ffffff', qrDot: 'rounded', qrCorner: 'extra-rounded' },
-                'theme-artisan': { qrFg: '#3f3f3f', qrBg: '#ffffff', qrDot: 'rounded', qrCorner: 'extra-rounded' },
-                'theme-neon': { qrFg: '#000000', qrBg: '#ffffff', qrDot: 'square', qrCorner: 'square' }
+                'theme-ivory': { qrFg: '#111111', qrBg: '#ffffff', qrDot: 'rounded', qrCorner: 'extra-rounded' },
+                'theme-sapphire': { qrFg: '#e2e8f0', qrBg: '#060d1a', qrDot: 'rounded', qrCorner: 'extra-rounded' },
+                'theme-emerald': { qrFg: '#e5d3b3', qrBg: '#061f14', qrDot: 'rounded', qrCorner: 'extra-rounded' }
             };
             const tp = themeProps[theme] || themeProps['theme-onyx'];
             
