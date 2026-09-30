@@ -1890,11 +1890,11 @@
                                         <input type="url" id="biz-gmb" placeholder="https://..." required autocomplete="off">
                                     </div>
                                 </div>
-                                <div class="input-group" style="margin-bottom: 0; width: 140px;" id="rating-group">
-                                    <label for="biz-rating">Star Rating</label>
+                                <div class="input-group">
+                                    <label for="biz-email">Client Email Address</label>
                                     <div class="input-wrapper">
-                                        <i class="fa-solid fa-star input-icon" style="color: #fbbf24;"></i>
-                                        <input type="number" step="0.1" max="5.0" min="1.0" id="biz-rating" placeholder="4.1" value="3.8" required>
+                                        <i class="fa-solid fa-envelope input-icon"></i>
+                                        <input type="email" id="biz-email" placeholder="owner@business.com" required autocomplete="off">
                                     </div>
                                 </div>
                             </div>
@@ -1908,117 +1908,26 @@
                             </div>
                         </div>
 
-                        <!-- STEP 2: Customization -->
+                        <!-- STEP 2: Premium Flyer Settings -->
                         <div class="glass-card" style="margin-bottom: 2rem;">
                             <div class="card-header" style="margin-bottom: 1.5rem;">
-                                <i class="fa-solid fa-palette text-indigo"></i>
-                                <h3>Step 2: Brand Customization</h3>
+                                <i class="fa-solid fa-gem text-indigo"></i>
+                                <h3>Step 2: Premium Flyer Settings</h3>
                             </div>
                             
                             <div class="grid-2-col">
-                                <div class="input-group" style="display: none;">
-                                    <label for="biz-accent">Accent Color</label>
-                                    <div class="color-picker-wrapper">
-                                        <input type="color" id="biz-accent" value="#3b82f6">
-                                        <input type="text" id="biz-accent-hex" value="#3b82f6" placeholder="#3b82f6">
-                                    </div>
-                                </div>
                                 <div class="input-group">
-                                    <label for="biz-category" id="category-label">Category</label>
+                                    <label for="flyer-theme">Select Curated Design</label>
                                     <div class="input-wrapper">
-                                        <select id="biz-category">
-                                            <option value="cafe" selected>Cafe / Restaurant</option>
-                                            <option value="bakery">Bakery / Dessert</option>
-                                            <option value="dental">Dental / Medical Clinic</option>
-                                            <option value="gym">Fitness Gym</option>
-                                            <option value="salon">Salon / Spa</option>
-                                            <option value="other">Professional Services</option>
+                                        <i class="fa-solid fa-palette input-icon"></i>
+                                        <select id="flyer-theme">
+                                            <option value="theme-onyx" selected>Onyx Elegance (Dark Luxury)</option>
+                                            <option value="theme-glass">Frosted Glass (Modern Tech)</option>
+                                            <option value="theme-artisan">Artisan Kraft (Warm & Organic)</option>
+                                            <option value="theme-neon">Neon Pulse (High Energy)</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="input-group">
-                                    <label for="qr-validity">QR Code Expiry</label>
-                                    <div class="input-wrapper">
-                                        <i class="fa-solid fa-clock input-icon"></i>
-                                        <select id="qr-validity">
-                                            <option value="24">24 Hours</option>
-                                            <option value="48">48 Hours</option>
-                                            <option value="72">72 Hours</option>
-                                        </select>
-                                    </div>
-                                    <span class="input-tip" style="margin-top: 0.25rem;"><i class="fa-solid fa-circle-info"></i> For demo urgency</span>
-                                </div>
-                                <div class="input-group">
-                                    <label for="biz-email">Client Email Address</label>
-                                    <div class="input-wrapper">
-                                        <i class="fa-solid fa-envelope input-icon"></i>
-                                        <input type="email" id="biz-email" placeholder="owner@business.com" required autocomplete="off">
-                                    </div>
-                                </div>
-                                <div class="input-group">
-                                    <label for="biz-urgency">Pitch Urgency Level</label>
-                                    <div class="input-wrapper">
-                                        <select id="biz-urgency">
-                                            <option value="standard" selected>Standard (Professional)</option>
-                                            <option value="aggressive">Aggressive (Pain-focused)</option>
-                                            <option value="curious">Curious (Question-based)</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="input-group" style="display: none;">
-                                    <label for="biz-font">Brand Typography</label>
-                                    <div class="input-wrapper">
-                                        <i class="fa-solid fa-font input-icon"></i>
-                                        <select id="biz-font">
-                                            <option value="Outfit">Outfit (Modern Tech)</option>
-                                            <option value="Inter">Inter (Clean & Clinical)</option>
-                                            <option value="Playfair Display">Playfair Display (Luxury / Boutique)</option>
-                                            <option value="Space Grotesk">Space Grotesk (Edgy / Cyber)</option>
-                                            <option value="Cinzel">Cinzel (High-End / Classic)</option>
-                                            <option value="Montserrat">Montserrat (Geometric / Bold)</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="input-group" style="display: none;">
-                                    <label for="biz-logo">Logo Image URL (Optional)</label>
-                                    <div class="input-wrapper">
-                                        <i class="fa-solid fa-image input-icon"></i>
-                                        <input type="url" id="biz-logo" placeholder="e.g., https://domain.com/logo.png" autocomplete="off">
-                                    </div>
-                                </div>
-                                <div class="input-group" style="display: none;">
-                                    <label for="biz-base-url">Deployment / Base URL (Optional)</label>
-                                    <div class="input-wrapper">
-                                        <i class="fa-solid fa-globe input-icon"></i>
-                                        <input type="url" id="biz-base-url" placeholder="e.g., https://www.metrixmedia.agency" autocomplete="off">
-                                    </div>
-                                    <span class="input-tip" style="margin-top: 0.25rem;"><i class="fa-solid fa-circle-info"></i> Leave empty to use relative paths.</span>
-                                </div>
-                                <div class="input-group" style="display: none;">
-                                    <label for="biz-webhook">Google Sheet Webhook URL (Optional)</label>
-                                    <div class="input-wrapper">
-                                        <i class="fa-solid fa-link input-icon"></i>
-                                        <input type="url" id="biz-webhook" placeholder="e.g., https://script.google.com/macros/s/.../exec" autocomplete="off">
-                                    </div>
-                                    <span class="input-tip" style="margin-top: 0.25rem;"><i class="fa-solid fa-circle-info"></i> Collect leads into Google Sheets.</span>
-                                </div>
-                            </div>
-                            
-                            <div style="margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem;">
-                                <h4 style="margin-bottom: 1rem; color: #818cf8;"><i class="fa-solid fa-gem"></i> Premium Flyer Theme</h4>
-                                <div class="grid-2-col">
-                                    <div class="input-group" style="display: none;">
-                                        <label for="flyer-theme">Select Curated Design</label>
-                                        <div class="input-wrapper">
-                                            <i class="fa-solid fa-palette input-icon"></i>
-                                            <select id="flyer-theme">
-                                                <option value="theme-onyx" selected>Onyx Elegance (Dark Luxury)</option>
-                                                <option value="theme-glass">Frosted Glass (Modern Tech)</option>
-                                                <option value="theme-artisan">Artisan Kraft (Warm & Organic)</option>
-                                                <option value="theme-neon">Neon Pulse (High Energy)</option>
-                                            </select>
-                                        </div>
-                                    </div>
                                     <div class="input-group">
                                         <label for="flyer-headline">Flyer Headline</label>
                                         <div class="input-wrapper">
@@ -2137,7 +2046,7 @@
                                 
                                 <!-- Flyer Simulator Mockup -->
                                 <div id="preview-flyer-wrapper" class="simulator-wrapper">
-                                    <iframe id="desktop-live-flyer" src="flyer.html?v=5.6" style="width: 280px; height: 520px; border: none; background: transparent; overflow: hidden; transform-origin: top center; pointer-events: none;"></iframe>
+                                    <iframe id="desktop-live-flyer" src="flyer.html?v=5.7" style="width: 280px; height: 520px; border: none; background: transparent; overflow: hidden; transform-origin: top center; pointer-events: none;"></iframe>
                                 </div>
                                 
                                 <!-- Demo Landing Page Mockup -->
@@ -3090,7 +2999,7 @@
 
             <!-- Flyer Preview Pane -->
             <div id="ovl-flyer-pane" style="display: none; flex-direction: column; align-items: center; gap: 0.75rem; width: 100%;">
-                <iframe id="mobile-live-flyer" src="flyer.html?v=5.6" style="width: 240px; height: 500px; border: none; background: transparent; overflow: hidden; transform-origin: top left; pointer-events: none;"></iframe>
+                <iframe id="mobile-live-flyer" src="flyer.html?v=5.7" style="width: 240px; height: 500px; border: none; background: transparent; overflow: hidden; transform-origin: top left; pointer-events: none;"></iframe>
                 <a id="ovl-open-flyer-link" href="#" target="_blank" class="btn btn-secondary" style="width: 100%; max-width: 360px; justify-content: center; gap: 0.5rem; text-decoration: none; font-size: 0.9rem;">
                     <i class="fa-solid fa-up-right-from-square"></i> Open Flyer Mockup
                 </a>
@@ -3383,9 +3292,9 @@
                 e.preventDefault();
                 
                 const name = document.getElementById('biz-name').value.trim();
-                const category = document.getElementById('biz-category').value;
+                const category = document.getElementById('biz-category') ? document.getElementById('biz-category').value : 'other';
                 const email = document.getElementById('biz-email').value.trim();
-                const color = document.getElementById('biz-accent').value;
+                const color = (document.getElementById('biz-accent') ? document.getElementById('biz-accent').value : '#3b82f6');
                 const destination = document.getElementById('biz-gmb').value.trim();
                 const planValue = document.getElementById('biz-plan').value;
                 const cycleValue = document.getElementById('billing-cycle').value;
@@ -3695,7 +3604,7 @@
             // Real-Time Simulator Updates
             function updateSimulators() {
                 const bizName = document.getElementById('biz-name').value.trim() || 'Your Brand';
-                const color = document.getElementById('biz-accent').value || '#3b82f6';
+                const color = (document.getElementById('biz-accent') ? document.getElementById('biz-accent').value : '#3b82f6') || '#3b82f6';
                 const font = document.getElementById('biz-font') ? document.getElementById('biz-font').value : 'Outfit';
                 const theme = document.getElementById('flyer-theme') ? document.getElementById('flyer-theme').value : 'theme-onyx';
                 const targetUrl = document.getElementById('biz-gmb') ? document.getElementById('biz-gmb').value.trim() : '#';
@@ -3731,7 +3640,7 @@
                 if (webhook) {
                     demoPortalUrl += `&webhook=${encodeURIComponent(webhook)}`;
                 }
-                const demoFlyerUrl = `flyer.html?v=5.6&id=${window.currentCampaignId}&name=${encodeURIComponent(bizName)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&theme=${encodeURIComponent(theme)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}&validity=${encodeURIComponent(validity)}`;
+                const demoFlyerUrl = `flyer.html?v=5.7&id=${window.currentCampaignId}&name=${encodeURIComponent(bizName)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&theme=${encodeURIComponent(theme)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}&validity=${encodeURIComponent(validity)}`;
                 const demoLandingUrl = `demo.html?name=${encodeURIComponent(bizName)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&portalUrl=${encodeURIComponent(demoPortalUrl)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&validity=${encodeURIComponent(validity)}`;
 
                 const iframe1 = document.getElementById('mobile-live-flyer');
@@ -3771,7 +3680,7 @@
                 if (btnMasterQr) {
                     const liveHtmlUrl = window.location.origin + window.location.pathname.replace('/sales.html', '/live.html');
                     const masterName = "Your Business";
-                    const masterFlyerUrl = `flyer.html?v=5.6&name=${encodeURIComponent(masterName)}&portalUrl=${encodeURIComponent(liveHtmlUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&theme=${encodeURIComponent(theme)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}&validity=${encodeURIComponent(validity)}`;
+                    const masterFlyerUrl = `flyer.html?v=5.7&name=${encodeURIComponent(masterName)}&portalUrl=${encodeURIComponent(liveHtmlUrl)}&color=${encodeURIComponent(color)}&category=${encodeURIComponent(category)}&font=${encodeURIComponent(font)}&theme=${encodeURIComponent(theme)}&qrDot=${encodeURIComponent(qrDot)}&qrCorner=${encodeURIComponent(qrCorner)}&flyerHeadline=${encodeURIComponent(flyerHeadline)}&flyerSub=${encodeURIComponent(flyerSub)}&flyerFooter=${encodeURIComponent(flyerFooter)}&flyerTextStyle=${encodeURIComponent(flyerTextStyle)}&validity=${encodeURIComponent(validity)}`;
                     btnMasterQr.onclick = () => window.open(masterFlyerUrl, '_blank');
                 }
             }
@@ -3873,7 +3782,7 @@
                     const targetUrl = document.getElementById('biz-gmb').value.trim();
                     const category = document.getElementById('biz-category') ? document.getElementById('biz-category').value : 'other';
                     const urgency = document.getElementById('biz-urgency') ? document.getElementById('biz-urgency').value : 'standard';
-                    const color = document.getElementById('biz-accent').value;
+                    const color = (document.getElementById('biz-accent') ? document.getElementById('biz-accent').value : '#3b82f6');
                     const ratingInput = document.getElementById('biz-rating');
                     const rating = ratingInput ? ratingInput.value : '3.8';
 
@@ -4076,7 +3985,7 @@
 
                                     // 4. Draw dynamic branding (Name & Color)
                                     var bizName = document.getElementById('biz-name') ? document.getElementById('biz-name').value.trim() : 'Brand Name';
-                                    var color = document.getElementById('biz-accent') ? document.getElementById('biz-accent').value : '#3b82f6';
+                                    var color = document.getElementById('biz-accent') ? (document.getElementById('biz-accent') ? document.getElementById('biz-accent').value : '#3b82f6') : '#3b82f6';
                                     var font = document.getElementById('biz-font') ? document.getElementById('biz-font').value : 'Outfit';
                                     
                                     if (!bizName) bizName = "Your Brand";
