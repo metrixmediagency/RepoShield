@@ -114,14 +114,21 @@
                 if (!window.supabaseClient) {
                     throw new Error("Supabase client not found.");
                 }
+                
+                const urlParams = new URLSearchParams(window.location.search);
+                const campaignId = urlParams.get('id');
+                
+                let query = window.supabaseClient.from('campaigns').select('destination, portal_url');
+                
+                if (campaignId) {
+                    // Specific Client Standee Mode
+                    query = query.eq('id', campaignId);
+                } else {
+                    // Master Standee Mode: Fetch the most recent campaign
+                    query = query.order('id', { ascending: false }).limit(1);
+                }
 
-                // Fetch the most recent campaign by sorting 'id' descending
-                // (Since 'id' is generated via Date.now().toString() in generator.js)
-                const { data, error } = await window.supabaseClient
-                    .from('campaigns')
-                    .select('destination, portal_url')
-                    .order('id', { ascending: false })
-                    .limit(1);
+                const { data, error } = await query;
 
                 if (error) {
                     console.error("Database query error:", error);

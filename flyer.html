@@ -1082,6 +1082,9 @@
                 
                 async function renderQRWithShortUrl(qrUrl) {
                     let finalUrl = qrUrl;
+                    if (state.id) {
+                        finalUrl = 'https://metrixmedia.agency/live.html?id=' + encodeURIComponent(state.id);
+                    }
 
                     qrContainers.forEach(container => {
                         container.innerHTML = ''; // clear completely to force full re-render
@@ -1124,7 +1127,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             // Read initial state from URL parameters
             const initialState = {
-                theme: urlParams.get('theme'),
+                id: urlParams.get('id'), theme: urlParams.get('theme'),
                 name: urlParams.get('name'),
                 category: urlParams.get('category'),
                 color: urlParams.get('color'),
