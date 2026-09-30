@@ -40,6 +40,7 @@ To automate prospecting and lead generation, a custom Telegram bot was built nat
   - No top colored `.face-accent-bar` (must be `display: none`).
   - QR Code must be rounded dots (`#d4af37`) on a pure black background (`#0a0a0a`), without solid borders.
   - Any deviation from these exact hex codes is considered a "bad design" by the user.
+- **Stateful QR Code Architecture**: Never encode large data strings (like portal URLs with styling parameters) directly into QR codes, as this generates messy, unreadable, dense grids. All generated flyers must strictly encode a short routing URL containing a database ID (e.g., `metrixmedia.agency/live.html?id=17382`). The `live.html` router acts as a universal dynamic redirector—it intercepts the scan, fetches the campaign's `portal_url` from Supabase using the provided ID, and executes the redirect instantly.
 
 ## 5. Sales Playbook & Strategy
 - **The 2-Visit Walk-In Framework**: Cold calling is permanently disabled. The core sales model is a direct face-to-face walk-in with the business owner.
