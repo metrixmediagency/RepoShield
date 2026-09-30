@@ -34,6 +34,12 @@ To automate prospecting and lead generation, a custom Telegram bot was built nat
 - **No `canvas` for QR Codes on Mobile**: The QR code rendering must always use `type: "svg"` with an injected `viewBox` attribute. Canvas rendering on mobile browsers is unreliable for complex strings.
 - **No CORS Blocks**: External API calls for URL shortening MUST be routed through a CORS proxy (e.g., `allorigins.win`) to prevent browser fetch blocking on Vercel.
 - **Live Deployment Updates**: Any edits made to `portal.html` or `portal.js` must be pushed to GitHub to take effect on the live hosted site. Always bump the cache-buster string (e.g., `?v=2.4`) in `portal.html` when updating `portal.js` to clear mobile caches.
+- **Theme Preservation (Onyx Elegance)**: Never alter or "upgrade" the Onyx Elegance (`theme-onyx`) design in `flyer.html`. The user specifically requested this exact "Premium Matte Black" design:
+  - Background must be pure, flat black (`#0a0a0a`). No gradients.
+  - Text must be subtle, muted gold (`#d4af37`), using `Outfit` and `Playfair Display`.
+  - No top colored `.face-accent-bar` (must be `display: none`).
+  - QR Code must be rounded dots (`#d4af37`) on a pure black background (`#0a0a0a`), without solid borders.
+  - Any deviation from these exact hex codes is considered a "bad design" by the user.
 
 ## 5. Sales Playbook & Strategy
 - **The 2-Visit Walk-In Framework**: Cold calling is permanently disabled. The core sales model is a direct face-to-face walk-in with the business owner.
