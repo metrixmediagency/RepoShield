@@ -678,12 +678,9 @@
             }
         }
         
-        /* MOBILE DIGITAL DEMO MODE (1x1 Glassmorphism Layout) */
+        /* MOBILE RESPONSIVE LAYOUT (Keep Themes Intact) */
         @media screen and (max-width: 768px) {
             body {
-                /* Animated Mesh Gradient Background */
-                background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4c1d95 100%);
-                background-attachment: fixed;
                 padding: 1rem;
                 display: flex;
                 align-items: center;
@@ -691,32 +688,9 @@
                 min-height: 100vh;
                 position: relative;
                 overflow: hidden;
+                background: #f1f5f9;
             }
             
-            /* Ambient background glow orbs */
-            body::before {
-                content: '';
-                position: absolute;
-                top: -10%;
-                left: -10%;
-                width: 60%;
-                height: 60%;
-                background: radial-gradient(circle, rgba(99, 102, 241, 0.4) 0%, transparent 70%);
-                filter: blur(40px);
-                z-index: 0;
-            }
-            body::after {
-                content: '';
-                position: absolute;
-                bottom: -10%;
-                right: -10%;
-                width: 60%;
-                height: 60%;
-                background: radial-gradient(circle, rgba(236, 72, 153, 0.4) 0%, transparent 70%);
-                filter: blur(40px);
-                z-index: 0;
-            }
-
             .toolbar, .folding-guide-lines {
                 display: none !important;
             }
@@ -747,45 +721,24 @@
             .print-wrapper:nth-child(n+2) {
                 display: none !important;
             }
-            /* Premium Frosted Glass Standee Card */
+            
+            /* Responsive Standee Card Scaling */
             .standee-face {
                 width: 100%;
                 max-width: 400px;
                 height: auto;
                 aspect-ratio: 105 / 148.5;
-                background: rgba(255, 255, 255, 0.1) !important; /* Force glass backdrop */
-                backdrop-filter: blur(20px);
-                -webkit-backdrop-filter: blur(20px);
-                border: 1px solid rgba(255, 255, 255, 0.3) !important;
-                border-radius: 24px !important;
-                box-shadow: 0 30px 60px rgba(0,0,0,0.4), inset 0 0 20px rgba(255,255,255,0.05);
                 padding: 8% 6%;
-                color: #ffffff !important; /* Force text to white for contrast */
+                border-radius: 24px !important;
             }
             
-            /* Override inner elements for dark glass mode */
-            .standee-face .standee-header h2,
-            .standee-face .standee-body h3 {
-                color: #ffffff !important;
-                text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-            }
-            
-            .standee-face .standee-body p {
-                color: #e2e8f0 !important;
-            }
-            
-            /* Glassmorphic QR Wrapper */
+            /* Responsive QR Wrapper Scaling */
             .qr-wrapper {
                 width: 65%;
                 height: auto;
                 aspect-ratio: 1/1;
-                background: rgba(255, 255, 255, 0.8) !important;
-                border: 1px solid rgba(255, 255, 255, 0.9) !important;
-                box-shadow: 0 10px 25px rgba(0,0,0,0.2) !important;
-                backdrop-filter: none;
+                margin: 1.5rem auto;
             }
-            
-            .face-accent-bar { display: none !important; }
         }
     </style>
     <style id="dynamic-page-size">@page { size: portrait; margin: 0; }</style>
