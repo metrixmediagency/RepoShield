@@ -34,12 +34,11 @@ To automate prospecting and lead generation, a custom Telegram bot was built nat
 - **No `canvas` for QR Codes on Mobile**: The QR code rendering must always use `type: "svg"` with an injected `viewBox` attribute. Canvas rendering on mobile browsers is unreliable for complex strings.
 - **No CORS Blocks**: External API calls for URL shortening MUST be routed through a CORS proxy (e.g., `allorigins.win`) to prevent browser fetch blocking on Vercel.
 - **Live Deployment Updates**: Any edits made to `portal.html` or `portal.js` must be pushed to GitHub to take effect on the live hosted site. Always bump the cache-buster string (e.g., `?v=2.4`) in `portal.html` when updating `portal.js` to clear mobile caches.
-- **Theme Preservation (Onyx Elegance)**: Never alter or "upgrade" the Onyx Elegance (`theme-onyx`) design in `flyer.html`. The user specifically requested this exact "Premium Matte Black" design:
-  - Background must be pure, flat black (`#0a0a0a`). No gradients.
-  - Text must be subtle, muted gold (`#d4af37`), using `Outfit` and `Playfair Display`.
-  - No top colored `.face-accent-bar` (must be `display: none`).
-  - QR Code must be rounded dots (`#d4af37`) on a pure black background (`#0a0a0a`), without solid borders.
-  - Any deviation from these exact hex codes is considered a "bad design" by the user.
+- **3-Color Infinite Customization Engine (The Master Layout)**: Static CSS themes have been permanently deleted. The system now uses the structure of the "Premium Matte Black" (`theme-onyx`) design as the unbreakable Master Layout for all flyers.
+  - **No Dark Vignettes**: The `.standee-face` must have `box-shadow: none !important` to ensure custom background colors never look muddy or mixed.
+  - **Dynamic Metallic Gradients**: The user configures 3 colors via URL parameters: `flyerBg` (Background), `flyerAccent` (Primary Headline & QR Code), and `flyerText` (Secondary text).
+  - **Preserving Depth**: The `flyerAccent` color is dynamically converted into a 3-stage metallic `linear-gradient` in JS to ensure the headline text always looks premium and "two-tone", preventing flat/cheap solid colors.
+  - **The Default Baseline**: If no colors are provided, the system perfectly defaults to the user's favorite Matte Black standard (`#0a0a0a` background, `#d4af37` gold metallic accent, `#ffffff` white text). Never alter this foundational baseline structure.
 - **Stateful QR Code Architecture**: Never encode large data strings (like portal URLs with styling parameters) directly into QR codes, as this generates messy, unreadable, dense grids. All generated flyers must strictly encode a short routing URL containing a database ID (e.g., `metrixmedia.agency/live.html?id=17382`). The `live.html` router acts as a universal dynamic redirector—it intercepts the scan, fetches the campaign's `portal_url` from Supabase using the provided ID, and executes the redirect instantly.
 
 ## 5. Sales Playbook & Strategy
