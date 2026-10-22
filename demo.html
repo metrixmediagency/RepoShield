@@ -3,28 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Review Portal Demo</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
-    <!-- Open Graph Meta Tags for Telegram/WhatsApp Link Previews -->
-    <meta property="og:title" content="Aegis Protocol - Live Demo">
-    <meta property="og:description" content="Tap to experience the 5-star routing technology.">
-    <!-- Using a high-quality fallback image for the link preview thumbnail -->
-    <meta property="og:image" content="https://www.metrixmedia.agency/Mockup_demo.jpg">
-    <meta property="og:type" content="website">
+    <title>METRIX | Interactive Review Shield Simulator</title>
+    <link rel="icon" type="image/jpeg" href="/metrix_logo.jpg">
+    <meta name="description" content="Test the METRIX Onyx Review Shield live. Experience the 5-star Google Maps handshake and the 3-second private manager incident interception.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- QR Code Styling Library -->
-    <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
     <style>
         :root {
-            --primary: #6366f1;
+            --bg-void: #090d16;
+            --bg-card: #0f172a;
+            --gold: #d4af37;
+            --gold-glow: rgba(212, 175, 55, 0.25);
             --text-main: #ffffff;
-            --font-main: 'Outfit', sans-serif;
-            --font-display: 'Plus Jakarta Sans', sans-serif;
+            --text-muted: #94a3b8;
+            --border-color: rgba(212, 175, 55, 0.2);
         }
 
         * {
@@ -34,365 +30,390 @@
         }
 
         body {
-            /* Animated Mesh Gradient Background */
-            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4c1d95 100%);
-            background-attachment: fixed;
-            padding: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background-color: var(--bg-void);
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 85% 80%, rgba(15, 23, 42, 0.8) 0%, transparent 40%);
             min-height: 100vh;
-            position: relative;
-            overflow: hidden;
-            font-family: var(--font-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
             color: var(--text-main);
-        }
-        
-        /* Ambient background glow orbs */
-        body::before {
-            content: '';
-            position: absolute;
-            top: -10%;
-            left: -10%;
-            width: 60%;
-            height: 60%;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.4) 0%, transparent 70%);
-            filter: blur(40px);
-            z-index: 0;
-        }
-        body::after {
-            content: '';
-            position: absolute;
-            bottom: -10%;
-            right: -10%;
-            width: 60%;
-            height: 60%;
-            background: radial-gradient(circle, rgba(236, 72, 153, 0.4) 0%, transparent 70%);
-            filter: blur(40px);
-            z-index: 0;
-        }
-
-        /* Branding Top Corner */
-        .brand-header {
-            position: absolute;
-            top: 2rem;
-            left: 2rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            z-index: 10;
-        }
-
-        .brand-header i {
-            font-size: 1.5rem;
-            color: #ffffff;
-        }
-
-        .brand-header span {
-            font-family: var(--font-display);
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #ffffff;
-        }
-
-        /* Premium Frosted Glass Standee Card */
-        .demo-container {
-            position: relative;
-            z-index: 10;
-            width: 100%;
-            max-width: 400px;
-            height: auto;
-            aspect-ratio: 105 / 148.5;
-            background: rgba(255, 255, 255, 0.1) !important;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.3) !important;
-            border-radius: 24px !important;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.4), inset 0 0 20px rgba(255,255,255,0.05);
-            padding: 8% 6%;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            text-align: center;
+            overflow-x: hidden;
         }
 
-        .header-section {
-            margin-bottom: 2rem;
-            width: 100%;
-        }
-
-        .header-section h2 {
-            font-family: var(--font-display);
-            font-size: 2.2rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            line-height: 1.1;
-            color: #ffffff;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        }
-
-        .header-section h3 {
-            font-size: 1.4rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 0.75rem;
-            color: #ffffff;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        }
-
-        .header-section p {
-            font-size: 0.95rem;
-            line-height: 1.5;
-            color: #e2e8f0;
-            font-weight: 500;
-        }
-
-        /* Glassmorphic QR Wrapper */
-        .qr-display {
-            width: 65%;
-            height: auto;
-            aspect-ratio: 1/1;
-            background: rgba(255, 255, 255, 0.8) !important;
-            border: 1px solid rgba(255, 255, 255, 0.9) !important;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2) !important;
-            border-radius: 16px;
-            padding: 1.5rem;
+        /* 1. TOP HEADER */
+        .demo-nav {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            margin: 0 auto 2rem auto;
-            transition: transform 0.3s ease;
+            padding: 1.25rem 2.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(9, 13, 22, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 100;
         }
 
-        .qr-display:hover {
-            transform: scale(1.02);
+        .demo-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
         }
 
-        .qr-display svg, .qr-display canvas {
-            width: 100% !important;
-            height: 100% !important;
-            max-width: 100%;
+        .demo-brand img {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            border: 1px solid var(--gold);
+            box-shadow: 0 0 12px var(--gold-glow);
+        }
+
+        .demo-brand span {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: 0.15em;
+            color: #ffffff;
+            text-transform: uppercase;
+        }
+
+        .demo-nav-cta {
+            background: linear-gradient(135deg, #d4af37, #aa820a);
+            color: #000;
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .demo-nav-cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.5);
+        }
+
+        /* 2. MAIN SIMULATOR ARENA */
+        .simulator-arena {
+            flex: 1;
+            display: flex;
+            max-width: 1300px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem;
+            gap: 50px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Left Side: Controls & Live Protocol Explanation */
+        .sim-control-panel {
+            flex: 1;
+            min-width: 320px;
+            max-width: 520px;
+        }
+
+        .sim-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 999px;
+            color: #f1c40f;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .sim-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.4rem;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 14px;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sim-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        /* Venue Presets Selector */
+        .preset-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gold);
+            font-weight: 700;
+            margin-bottom: 10px;
             display: block;
         }
 
-        /* Minimal Footer */
-        .instruction-box {
-            margin-top: auto;
+        .preset-buttons {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
+            gap: 10px;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
         }
 
-        .tap-badge {
+        .preset-btn {
+            background: #111827;
+            border: 1px solid #1f2937;
+            color: #cbd5e1;
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .preset-btn:hover {
+            border-color: #475569;
+            color: #fff;
+        }
+
+        .preset-btn.active {
+            background: rgba(212, 175, 55, 0.15);
+            border-color: var(--gold);
+            color: #fff;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+        }
+
+        /* Live Feedback Flow Inspector Box */
+        .live-inspector {
+            background: #0f172a;
+            border: 1px solid #1e293b;
+            border-radius: 16px;
+            padding: 20px;
+            position: relative;
+        }
+
+        .inspector-title {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .inspector-pulse {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #10b981;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.7; }
+            50% { transform: scale(1.3); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.7; }
+        }
+
+        .alert-sim-card {
+            background: #090d16;
+            border-left: 3px solid #f59e0b;
+            padding: 14px;
+            border-radius: 6px;
+            margin-top: 10px;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .alert-sim-card.active {
+            display: block;
+        }
+
+        .alert-sim-card h5 {
+            color: #f59e0b;
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .alert-sim-card p {
+            font-size: 0.8rem;
+            color: #cbd5e1;
+            line-height: 1.4;
+        }
+
+        /* Right Side: High-End Smartphone Frame */
+        .sim-phone-wrapper {
+            position: relative;
+            width: 360px;
+            height: 720px;
+            background: #000000;
+            border-radius: 48px;
+            border: 4px solid #334155;
+            box-shadow: 
+                0 0 0 4px #0f172a,
+                0 30px 80px rgba(0, 0, 0, 0.8),
+                0 0 40px rgba(212, 175, 55, 0.15);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* iPhone Speaker & Dynamic Island */
+        .phone-island {
+            width: 100px;
+            height: 24px;
+            background: #000;
             position: absolute;
-            bottom: -15px;
+            top: 10px;
             left: 50%;
             transform: translateX(-50%);
-            background: #6366f1;
-            color: white;
-            padding: 8px 16px;
             border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            white-space: nowrap;
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
-            animation: bounce 2s infinite;
             z-index: 20;
         }
 
-        @keyframes bounce {
-            0%, 100% { transform: translate(-50%, 0); }
-            50% { transform: translate(-50%, -5px); }
+        /* Embedded Iframe Simulator */
+        .phone-screen {
+            flex: 1;
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #0a0a0a;
+            border-radius: 44px;
         }
 
-        .instruction-box i {
-            font-size: 1.5rem;
-            color: #ffffff;
-            opacity: 0.9;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .instruction-box span {
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: rgba(255,255,255,0.7);
-        }
-
-        @media (max-width: 600px) {
-            .brand-header {
-                top: 1.5rem;
-                left: 1.5rem;
+        @media (max-width: 850px) {
+            .simulator-arena {
+                flex-direction: column;
+                padding: 1.5rem 1rem;
             }
-            .header-section h2 {
-                font-size: 1.8rem;
+            .sim-phone-wrapper {
+                width: 320px;
+                height: 650px;
             }
-            .header-section h3 {
-                font-size: 1.2rem;
-            }
-            .qr-display {
-                width: 75%;
+            .sim-title {
+                font-size: 1.9rem;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="brand-header">
-        <i class="fa-solid fa-chart-line"></i>
-        <span>MetrixMedia</span>
-    </div>
-
-    <div class="demo-container">
-        <div class="header-section">
-            <h2 id="biz-name-display">Demo</h2>
-            <h3 id="flyer-headline">Review Us</h3>
-            <p id="flyer-sub">Scan or Tap the code below to experience the 5-star routing technology.</p>
-        </div>
-
-        <!-- NATIVE ANCHOR WRAPPER TO BYPASS IN-APP BROWSER BLOCKS -->
-        <a id="native-qr-link" href="#" style="text-decoration: none; width: 100%; display: flex; justify-content: center; position: relative;">
-            <div class="qr-display" id="qr-container" style="cursor: pointer;" title="Tap to Open Live Portal">
-                <!-- QR code renders here -->
-            </div>
-            <!-- Placed outside qr-container so it survives innerHTML wipe -->
-            <div class="tap-badge" id="tap-badge-el">👆 Tap / Scan to open</div>
+    <!-- 1. NAVIGATION -->
+    <header class="demo-nav">
+        <a href="/" class="demo-brand">
+            <img src="/metrix_logo.jpg" alt="METRIX Sovereign Crest">
+            <span>METRIX</span>
         </a>
+        <a href="/#pricing" class="demo-nav-cta">
+            <i class="fa-solid fa-shield-halved" style="margin-right: 6px;"></i> Deploy 7-Day Trial
+        </a>
+    </header>
 
-        <div class="instruction-box">
-            <i class="fa-solid fa-star"></i>
-            <span id="flyer-footer">Powered by Aegis Protocol</span>
+    <!-- 2. SIMULATOR ARENA -->
+    <main class="simulator-arena">
+        
+        <!-- Left: Control Column -->
+        <div class="sim-control-panel">
+            <div class="sim-badge">
+                <i class="fa-solid fa-microchip"></i> Live Architecture Sandbox
+            </div>
+            <h1 class="sim-title">Test the Onyx Review Shield in Real-Time.</h1>
+            <p class="sim-desc">
+                Interact with the phone simulator on the right. Tap different star ratings to see how the intelligent protocol bifurcates 5-star Google Maps advocates from private 1-star complaints.
+            </p>
+
+            <!-- Venue Switcher -->
+            <span class="preset-label">Select Venue Profile Simulation:</span>
+            <div class="preset-buttons">
+                <button class="preset-btn active" onclick="loadVenue('Alchemy Coffee', 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=150', this)">
+                    <i class="fa-solid fa-mug-hot"></i> Specialty Coffee
+                </button>
+                <button class="preset-btn" onclick="loadVenue('Mirage Lounge Dubai', 'https://images.unsplash.com/photo-1543007630-9710e4a00a20?w=150', this)">
+                    <i class="fa-solid fa-smoking"></i> Shisha Lounge
+                </button>
+                <button class="preset-btn" onclick="loadVenue('Luxe Derma Clinic Jumeirah', 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=150', this)">
+                    <i class="fa-solid fa-spa"></i> Aesthetic Clinic
+                </button>
+            </div>
+
+            <!-- Protocol Monitor Box -->
+            <div class="live-inspector">
+                <div class="inspector-title">
+                    <span>Protocol Routing Engine</span>
+                    <span style="display:flex; align-items:center; gap:6px; font-size:0.75rem; color:#10b981;">
+                        <span class="inspector-pulse"></span> SYSTEM ACTIVE
+                    </span>
+                </div>
+                <div style="font-size: 0.85rem; color: #cbd5e1; line-height: 1.5;">
+                    <p style="margin-bottom: 8px;"><strong>How the Gate Functions:</strong></p>
+                    <ul style="padding-left: 18px; margin-bottom: 12px; color: #94a3b8; font-size: 0.82rem;">
+                        <li><strong>5 Stars:</strong> Triggers Google Maps Handshake &amp; unlocks VIP privileges.</li>
+                        <li><strong>1–3 Stars:</strong> Activates private concierge alert sent directly to GM's WhatsApp in &lt; 3 seconds.</li>
+                    </ul>
+                </div>
+
+                <!-- Simulated WhatsApp Dispatch Message -->
+                <div class="alert-sim-card active" id="simAlertCard">
+                    <h5><i class="fa-brands fa-whatsapp" style="color: #25d366; font-size: 1rem;"></i> Simulated Duty Manager Alert:</h5>
+                    <p id="alertSimText">
+                        <em>"🚨 VIP Shield Incident Alert: Table 4 guest at <span id="alertBizName" style="color:#d4af37; font-weight:700;">Alchemy Coffee</span> rated 2 Stars: 'Coffee was served lukewarm'. Intercept now before guest departs."</em>
+                    </p>
+                </div>
+            </div>
+
+            <div style="margin-top: 24px; display: flex; gap: 16px; align-items: center;">
+                <a href="/" style="color: #94a3b8; font-size: 0.85rem; text-decoration: none;">
+                    <i class="fa-solid fa-arrow-left"></i> Return to Homepage
+                </a>
+            </div>
         </div>
-    </div>
+
+        <!-- Right: Mobile Device Frame -->
+        <div class="sim-phone-wrapper">
+            <div class="phone-island"></div>
+            <iframe class="phone-screen" id="simPortalFrame" src="/portal.html?name=Alchemy%20Coffee&flyerAccent=%23d4af37&flyerBg=%230a0a0a&flyerText=%23ffffff&v=3.0"></iframe>
+        </div>
+
+    </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const bizName = urlParams.get('name') || 'Your Business';
-            const color = urlParams.get('color') || '#6366f1';
-            const logo = urlParams.get('logo') || '';
-            const qrDot = urlParams.get('qrDot') || 'rounded';
-            const qrCorner = urlParams.get('qrCorner') || 'extra-rounded';
-            const flyerHeadline = urlParams.get('flyerHeadline') || 'Review Us';
-            const flyerSub = urlParams.get('flyerSub') || 'Scan or Tap the code below to experience the 5-star routing technology.';
-            const flyerFooter = urlParams.get('flyerFooter') || 'Powered by Aegis Protocol';
-
-            const validity = urlParams.get('validity');
-            if (validity) {
-                const banner = document.createElement('div');
-                banner.style.cssText = 'position: absolute; top: 0; left: 0; right: 0; background: rgba(220,38,38,0.95); color: white; text-align: center; padding: 0.6rem; font-size: 0.95rem; font-weight: 700; z-index: 100; letter-spacing: 0.5px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);';
-                banner.innerHTML = `<i class="fa-solid fa-hourglass-half" style="margin-right: 8px; animation: pulse 2s infinite;"></i> Interactive Demo Expires in ${validity} Hours`;
-                document.body.appendChild(banner);
-                
-                // Prevent overlap by pushing the brand header down
-                const brandHeader = document.querySelector('.brand-header');
-                if (brandHeader) {
-                    brandHeader.style.top = '4rem';
-                }
-                
-                if (!document.getElementById('pulse-anim')) {
-                    const style = document.createElement('style');
-                    style.id = 'pulse-anim';
-                    style.innerHTML = `@keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }`;
-                    document.head.appendChild(style);
-                }
-            }
-
-            // Set business name in title
-            const bizNameDisplay = document.getElementById('biz-name-display');
-            if (bizNameDisplay) bizNameDisplay.textContent = bizName;
+        function loadVenue(name, logo, btn) {
+            document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
             
-            const headEl = document.getElementById('flyer-headline');
-            if (headEl) headEl.textContent = flyerHeadline;
+            // Update Iframe Source
+            const frame = document.getElementById('simPortalFrame');
+            const encodedName = encodeURIComponent(name);
+            const encodedLogo = encodeURIComponent(logo);
+            frame.src = `/portal.html?name=${encodedName}&logo=${encodedLogo}&flyerAccent=%23d4af37&flyerBg=%230a0a0a&flyerText=%23ffffff&v=3.0`;
             
-            const subEl = document.getElementById('flyer-sub');
-            if (subEl) subEl.textContent = flyerSub;
-            
-            const footEl = document.getElementById('flyer-footer');
-            if (footEl) footEl.textContent = flyerFooter;
-
-            const badgeEl = document.getElementById('tap-badge-el');
-            if (badgeEl) badgeEl.textContent = '👆 Tap / Scan to open';
-
-            document.title = `${bizName} - Review Portal Demo`;
-
-            // Set primary color
-            document.documentElement.style.setProperty('--primary', color);
-            document.documentElement.style.setProperty('--primary-glow', color + '40');
-
-            // Generate Portal URL correctly (Handle Vercel path omissions)
-            let currentPortalUrl = urlParams.get('portalUrl');
-            if (!currentPortalUrl) {
-                const currentParams = window.location.search;
-                // Force routing to portal.html regardless of whether the user is on /demo or /demo.html
-                currentPortalUrl = window.location.origin + '/portal.html' + currentParams;
-            }
-            // Failsafe: Prevent empty/null URLs from crashing the QR renderer
-            if (!currentPortalUrl || currentPortalUrl.includes('null')) {
-                currentPortalUrl = 'https://www.metrixmedia.agency/portal.html';
-            }
-
-            // Determine safe styling for QR code
-            let innerCorner = 'square';
-            if (qrCorner === 'extra-rounded' || qrCorner === 'rounded') innerCorner = 'dot';
-            if (qrCorner === 'dot') innerCorner = 'dot';
-            const safeQrDot = (qrDot === 'dots' || qrDot === 'classy') ? 'rounded' : qrDot;
-
-            // STEP 1: Set button hrefs IMMEDIATELY with the full URL.
-            // This makes tapping work right away, before any async operation.
-            const qrLink = document.getElementById('native-qr-link');
-            if (qrLink) qrLink.href = currentPortalUrl;
-
-            // STEP 2: Instant QR Building + Async Shortening
-            function buildQR() {
-                let qrUrl = currentPortalUrl;
-                
-                // Fire off URL shortener in background ONLY for the anchor link href
-                const proxyUrl = 'https://api.allorigins.win/raw?url=';
-                const targetUrl = `https://is.gd/create.php?format=simple&url=${encodeURIComponent(currentPortalUrl)}`;
-                fetch(proxyUrl + encodeURIComponent(targetUrl)).then(r => r.text()).then(short => {
-                    if (short && short.startsWith('http') && short.length < 50 && qrLink) {
-                        qrLink.href = short.trim();
-                    }
-                }).catch(e => console.warn("URL shorten failed"));
-
-                // Render immediately with full URL to eliminate load delay
-                const qrConfig = {
-                    type: "svg", // SVG is strictly more reliable than Canvas for DOM injection
-                    width: 220,
-                    height: 220,
-                    data: qrUrl,
-                    qrOptions: { errorCorrectionLevel: (qrUrl.length > 100 ? 'L' : 'M') },
-                    dotsOptions: { color: "#000000", type: safeQrDot },
-                    backgroundOptions: { color: "transparent" },
-                    cornersSquareOptions: { type: qrCorner, color: "#000000" },
-                    cornersDotOptions: { type: innerCorner, color: "#000000" }
-                };
-
-                if (logo && logo.trim() !== '') {
-                    qrConfig.image = logo;
-                    qrConfig.imageOptions = { crossOrigin: "anonymous", margin: 8, imageSize: 0.2, hideBackgroundDots: true };
-                }
-
-                requestAnimationFrame(() => {
-                    const container = document.getElementById('qr-container');
-                    container.innerHTML = '';
-                    new QRCodeStyling(qrConfig).append(container);
-                    
-                    // Force a viewBox so the internal SVG paths scale with the container
-                    setTimeout(() => {
-                        const svg = container.querySelector('svg');
-                        if (svg && !svg.getAttribute('viewBox')) {
-                            svg.setAttribute('viewBox', '0 0 220 220');
-                        }
-                    }, 50);
-                });
-            }
-            buildQR();
-        });
+            // Update simulated text
+            const alertBiz = document.getElementById('alertBizName');
+            if (alertBiz) alertBiz.innerText = name;
+        }
     </script>
 </body>
 </html>
-
