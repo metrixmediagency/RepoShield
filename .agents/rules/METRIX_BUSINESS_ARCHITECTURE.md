@@ -64,3 +64,17 @@ Metrix has evolved beyond review capture into a full **Zero-Commission Direct Or
 - **White-Label B2C UI (The Ghost Brand):** To the end-consumer, the ordering portal is 100% branded as the Restaurant (e.g., "Cafe Mocha VIP"). Metrix remains invisible except for a tiny *"Powered by Metrix"* trust badge at the footer (designed to drive B2B viral loops from visiting cafe owners).
 - **Financial Architecture (Zero Legal Liability):** Metrix NEVER touches the principal transaction funds to avoid RBI Payment Aggregator compliance. The checkout flow routes UPI payments *directly* to the restaurant's bank account instantly. Metrix bills the restaurant post-paid (SaaS fee + transaction usage) via an AWS-style invoice.
 - **Logistics Integration (The Ghost Fleet):** Metrix software integrates with white-label delivery APIs (Shadowfax, Borzo, Porter). Instead of the restaurant paying 30% to Zomato, they pay a premium flat fee (e.g., ₹80) directly to the gig-rider. Result: Restaurant nets more profit, Rider gets paid double, and Metrix takes zero variable delivery risk while remaining a high-margin software company.
+
+## 7. Official Brand Identity & The Sovereign Logo
+- **Official Brand Name:** **METRIX** (Suffixes like "Media" and "Digital Agency" are permanently deprecated across all client-facing assets).
+- **Core Category Identity:** In-Store Guest Intelligence & Google Review Protection Platform (O2O Hospitality SaaS).
+- **The Sovereign Emblem (Concept 2 - Locked Master Asset):**
+  - **Visual:** The Sovereign 'M' Monogram Crest. An architectural, razor-sharp 'M' monogram integrated into a sovereign royal crest. The base is rooted in a shattered matrix lattice, rising into sharp crown-like metallic facets and an ascending platinum-gold prism.
+  - **Symbolism:** Represents absolute sovereignty over customer data, institutional authority, and breaking free from the corporate aggregator matrix.
+  - **Asset Location:** `metrix_logo.jpg` (Master high-resolution brand asset).
+- **Brand Palette:**
+  - Obsidian Void Black: `#090d16` / `#0f172a`
+  - Metallic Brushed Gold: `#d4af37` / `#f59e0b`
+  - Platinum Chrome: `#f8fafc` / `#cbd5e1`
+- **Global Pricing Standard:** 500 AED / $136 USD / ₹11,500 INR flat monthly SaaS license with 7-day risk-free in-store hardware deployment trial.
+
