@@ -415,39 +415,64 @@
                 </div>
             </div>
             
-            <div class="pricing-grid" style="display: flex; justify-content: center; max-width: 900px; margin: 40px auto 0;">
-                <!-- Flagship Plan Card -->
-                <div class="pricing-card featured" style="width: 100%; max-width: 580px; border: 2px solid #d4af37; background: #0f172a;">
-                    <span class="badge-featured" style="background: #d4af37; color: #000;">All-Inclusive License</span>
+            <div class="pricing-grid" style="display: flex; justify-content: center; gap: 30px; max-width: 1050px; margin: 40px auto 0; flex-wrap: wrap;">
+                <!-- Tier 1: Sentinel Shield -->
+                <div class="pricing-card" style="flex: 1; min-width: 300px; max-width: 480px; border: 1px solid #1f2937; background: #0f172a; text-align: left; padding: 36px 30px; border-radius: 20px;">
                     <div>
                         <div class="pricing-header">
-                            <h3 style="font-size: 1.6rem; color: #fff;">METRIX Sentinel Suite</h3>
-                            <p style="color: #cbd5e1; font-size: 0.95rem;">Full In-Store Hardware + Reputation Shield + VIP Engine</p>
+                            <h3 style="font-size: 1.5rem; color: #fff;">Sentinel Shield</h3>
+                            <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 6px;">In-Store Counter Hardware &amp; Google Review Defense</p>
                         </div>
                         
-                        <div class="pricing-price" id="mainPriceDisplay" style="color: #ffffff; font-size: 3.2rem; margin: 20px 0 10px;">
-                            500 AED<span style="font-size: 1rem; color: #94a3b8;">/month</span>
+                        <div class="pricing-price tier-price" id="tier1PriceDisplay" style="color: #ffffff; font-size: 2.8rem; margin: 20px 0 10px; font-weight: 800;">
+                            500 AED<span style="font-size: 0.95rem; color: #94a3b8; font-weight: 400;">/month</span>
                         </div>
-                        <div class="setup-fee" style="color: #10b981; font-weight: 700; font-size: 0.95rem; margin-bottom: 24px;">
+                        <div class="setup-fee" style="color: #10b981; font-weight: 700; font-size: 0.9rem; margin-bottom: 24px;">
                             <i class="fa-solid fa-circle-check"></i> Zero Setup Fee (Custom Hardware Included)
                         </div>
 
-                        <ul class="pricing-features" style="text-align: left; margin-bottom: 30px;">
-                            <li><i class="fa-solid fa-circle-check" style="color: #d4af37;"></i> <strong>1x Precision Matte Black NFC Standee</strong> (Custom Branded)</li>
-                            <li><i class="fa-solid fa-circle-check" style="color: #d4af37;"></i> <strong>The Google Review Shield:</strong> Automatic 1–3 star interception</li>
-                            <li><i class="fa-solid fa-circle-check" style="color: #d4af37;"></i> <strong>Real-Time WhatsApp Alerts</strong> dispatched to Duty Manager</li>
-                            <li><i class="fa-solid fa-circle-check" style="color: #d4af37;"></i> <strong>Unlimited VIP Guest Lead Capture</strong> (Name, Phone, DOB)</li>
-                            <li><i class="fa-solid fa-circle-check" style="color: #d4af37;"></i> <strong>Direct WhatsApp Ordering Gateway</strong> (0% Commission)</li>
-                            <li><i class="fa-solid fa-circle-check" style="color: #d4af37;"></i> <strong>Full First-Party Data Sovereignty:</strong> 1-click CSV export</li>
-                            <li><i class="fa-solid fa-circle-check" style="color: #d4af37;"></i> <strong>Dynamic Cloud Routing:</strong> Change links instantly without reprinting</li>
+                        <ul class="pricing-features" style="text-align: left; margin-bottom: 30px; list-style: none; padding: 0;">
+                            <li style="margin-bottom: 12px; color: #cbd5e1; font-size: 0.9rem;"><i class="fa-solid fa-circle-check" style="color: #d4af37; margin-right: 8px;"></i> <strong>1x Custom Matte Black NFC Standee</strong></li>
+                            <li style="margin-bottom: 12px; color: #cbd5e1; font-size: 0.9rem;"><i class="fa-solid fa-circle-check" style="color: #d4af37; margin-right: 8px;"></i> <strong>The Google Review Shield</strong> (1–3 Star Interception)</li>
+                            <li style="margin-bottom: 12px; color: #cbd5e1; font-size: 0.9rem;"><i class="fa-solid fa-circle-check" style="color: #d4af37; margin-right: 8px;"></i> <strong>Real-Time WhatsApp Alerts</strong> to Duty Manager</li>
+                            <li style="margin-bottom: 12px; color: #cbd5e1; font-size: 0.9rem;"><i class="fa-solid fa-circle-check" style="color: #d4af37; margin-right: 8px;"></i> <strong>Unlimited In-Store VIP Guest Capture</strong> (Name, Phone, DOB)</li>
+                            <li style="margin-bottom: 12px; color: #cbd5e1; font-size: 0.9rem;"><i class="fa-solid fa-circle-check" style="color: #d4af37; margin-right: 8px;"></i> <strong>First-Party Data Vault:</strong> 1-Click CSV Export</li>
+                            <li style="margin-bottom: 12px; color: #cbd5e1; font-size: 0.9rem;"><i class="fa-solid fa-circle-check" style="color: #d4af37; margin-right: 8px;"></i> <strong>Dynamic Cloud Routing:</strong> Update links without reprinting</li>
                         </ul>
                     </div>
-                    <button class="fx-btn-grad pricing-btn js-open-popup" style="width: 100%; font-size: 1.1rem; padding: 16px;">
-                        Start 7-Day In-Store Trial
+                    <button class="fx-btn-outline js-open-popup" style="width: 100%; padding: 14px; font-size: 1rem;">
+                        Start 7-Day Shield Trial
                     </button>
-                    <p style="color: #64748b; font-size: 0.8rem; margin-top: 14px; text-align: center;">
-                        <i class="fa-solid fa-shield-halved"></i> No long-term lock-in. Cancel or suspend anytime.
-                    </p>
+                </div>
+
+                <!-- Tier 2: Sovereign D2C Suite (Featured) -->
+                <div class="pricing-card featured" style="flex: 1; min-width: 300px; max-width: 480px; border: 2px solid #d4af37; background: #0b1120; text-align: left; padding: 36px 30px; border-radius: 20px; position: relative;">
+                    <span class="badge-featured" style="background: #d4af37; color: #000; font-weight: 800; font-size: 0.75rem; letter-spacing: 0.05em; padding: 4px 12px; border-radius: 20px; position: absolute; top: -12px; right: 24px;">FULL O2O PLATFORM</span>
+                    <div>
+                        <div class="pricing-header">
+                            <h3 style="font-size: 1.5rem; color: #fff;">Sovereign D2C Suite</h3>
+                            <p style="color: #cbd5e1; font-size: 0.9rem; margin-top: 6px;">In-Store Shield + Zero-Commission Direct Delivery Engine</p>
+                        </div>
+                        
+                        <div class="pricing-price tier-price" id="tier2PriceDisplay" style="color: #ffffff; font-size: 2.8rem; margin: 20px 0 10px; font-weight: 800;">
+                            850 AED<span style="font-size: 0.95rem; color: #94a3b8; font-weight: 400;">/month</span>
+                        </div>
+                        <div class="setup-fee" style="color: #10b981; font-weight: 700; font-size: 0.9rem; margin-bottom: 24px;">
+                            <i class="fa-solid fa-circle-check"></i> Replaces 30% Aggregator Commission
+                        </div>
+
+                        <ul class="pricing-features" style="text-align: left; margin-bottom: 30px; list-style: none; padding: 0;">
+                            <li style="margin-bottom: 12px; color: #ffffff; font-size: 0.9rem;"><i class="fa-solid fa-crown" style="color: #d4af37; margin-right: 8px;"></i> <strong>Everything in Sentinel Shield Plan</strong></li>
+                            <li style="margin-bottom: 12px; color: #cbd5e1; font-size: 0.9rem;"><i class="fa-solid fa-circle-check" style="color: #d4af37; margin-right: 8px;"></i> <strong>Zero-Commission WhatsApp Web-Menu</strong></li>
+                            <li style="margin-bottom: 12px; color: #cbd5e1; font-size: 0.9rem;"><i class="fa-solid fa-circle-check" style="color: #d4af37; margin-right: 8px;"></i> <strong>Direct Apple Pay &amp; Card Checkout</strong> straight to your bank</li>
+                            <li style="margin-bottom: 12px; color: #cbd5e1; font-size: 0.9rem;"><i class="fa-solid fa-circle-check" style="color: #d4af37; margin-right: 8px;"></i> <strong>Automated Delivery Fleet Integration</strong> (Careem Box / Quiqup)</li>
+                            <li style="margin-bottom: 12px; color: #cbd5e1; font-size: 0.9rem;"><i class="fa-solid fa-circle-check" style="color: #d4af37; margin-right: 8px;"></i> <strong>Direct VIP Broadcast Engine:</strong> Send targeted menu drops</li>
+                            <li style="margin-bottom: 12px; color: #cbd5e1; font-size: 0.9rem;"><i class="fa-solid fa-circle-check" style="color: #d4af37; margin-right: 8px;"></i> <strong>Dedicated Hospitality Solutions Engineer</strong></li>
+                        </ul>
+                    </div>
+                    <button class="fx-btn-grad js-open-popup" style="width: 100%; padding: 14px; font-size: 1rem;">
+                        Deploy Sovereign Pilot
+                    </button>
                 </div>
             </div>
         </div>
@@ -660,11 +685,14 @@
             document.querySelectorAll('.curr-btn').forEach(btn => {
                 btn.classList.toggle('active', btn.innerText.includes(curr));
             });
-            const priceEl = document.getElementById('mainPriceDisplay');
+            const t1 = document.getElementById('tier1PriceDisplay');
+            const t2 = document.getElementById('tier2PriceDisplay');
             if (curr === 'AED') {
-                priceEl.innerHTML = '500 AED<span style="font-size: 1rem; color: #94a3b8;">/month</span>';
+                if (t1) t1.innerHTML = '500 AED<span style="font-size: 0.95rem; color: #94a3b8; font-weight: 400;">/month</span>';
+                if (t2) t2.innerHTML = '850 AED<span style="font-size: 0.95rem; color: #94a3b8; font-weight: 400;">/month</span>';
             } else if (curr === 'USD') {
-                priceEl.innerHTML = '$136 USD<span style="font-size: 1rem; color: #94a3b8;">/month</span>';
+                if (t1) t1.innerHTML = '$136 USD<span style="font-size: 0.95rem; color: #94a3b8; font-weight: 400;">/month</span>';
+                if (t2) t2.innerHTML = '$230 USD<span style="font-size: 0.95rem; color: #94a3b8; font-weight: 400;">/month</span>';
             }
         }
 
