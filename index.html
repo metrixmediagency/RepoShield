@@ -412,7 +412,6 @@
                 <div class="currency-switch-wrap">
                     <button class="curr-btn active" onclick="setCurrency('AED')">AED (د.إ)</button>
                     <button class="curr-btn" onclick="setCurrency('USD')">USD ($)</button>
-                    <button class="curr-btn" onclick="setCurrency('INR')">INR (₹)</button>
                 </div>
             </div>
             
@@ -611,7 +610,8 @@
                     <select id="auditLocation" style="width: 100%; padding: 12px; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: #fff;">
                         <option value="Dubai / UAE" selected>Dubai / UAE (GCC)</option>
                         <option value="London / UK">London / UK</option>
-                        <option value="India">India (Mumbai / Delhi / Goa / Pune)</option>
+                        <option value="Singapore / APAC">Singapore / APAC</option>
+                        <option value="United States / Americas">United States / Americas</option>
                         <option value="Other International">Other International</option>
                     </select>
                 </div>
@@ -665,8 +665,6 @@
                 priceEl.innerHTML = '500 AED<span style="font-size: 1rem; color: #94a3b8;">/month</span>';
             } else if (curr === 'USD') {
                 priceEl.innerHTML = '$136 USD<span style="font-size: 1rem; color: #94a3b8;">/month</span>';
-            } else if (curr === 'INR') {
-                priceEl.innerHTML = '₹11,500<span style="font-size: 1rem; color: #94a3b8;">/month</span>';
             }
         }
 
