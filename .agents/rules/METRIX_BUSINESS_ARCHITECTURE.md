@@ -45,8 +45,8 @@ To automate prospecting and lead generation, a custom Telegram bot was built nat
 ## 5. Sales Playbook & Strategy
 - **The 2-Visit Walk-In Framework**: Cold calling is permanently disabled. The core sales model is a direct face-to-face walk-in with the business owner.
   - **Visit 1 (Day 1)**: Introduce the Standee on the counter, demonstrate the live portal, and attempt an immediate close (₹1000). If they object, drop the 3-Day Free Trial and leave.
-  - **Visit 2 (Day 3)**: Return to reveal the captured VIP Phone Numbers and trapped complaints. Ask for the payment. If they object, deploy the Sentinel Protocol Straight Line Loops.
-- **Sentinel Protocol Straight Line Loops**: On Day 3 objections, systematically build Certainty (using the "Dirty Cup" rating story and highlighting the dual benefit of Rating Protection + Database Building), lower their Action Threshold (with a 7-Day Moneyback Guarantee), and raise their Pain Threshold (bleeding customers to competitors).
+  - **Visit 2 (Day 3)**: Return to reveal the captured VIP Phone Numbers and trapped complaints. Ask for the payment. If they object, deploy the Sovereign Protocol Straight Line Loops.
+- **Sovereign Protocol Straight Line Loops**: On Day 3 objections, systematically build Certainty (using the "Dirty Cup" rating story and highlighting the dual benefit of Rating Protection + Database Building), lower their Action Threshold (with a 7-Day Moneyback Guarantee), and raise their Pain Threshold (bleeding customers to competitors).
 - **Gatekeeper Bypass Rule**: Never pitch to employees or cashiers.
 - **The Absentee Owner Playbook (Fixing the 66% Absence Rate)**: If the owner is not available, deploy the Envelope Drop strategy.
   - **The Envelope Drop**: Leave a physical "Confidential Digital Audit" flyer (A4 folded to A5, 130 GSM Matte paper) inside a 9x6 (C5) white or brown envelope. Write "CONFIDENTIAL: DIGITAL AUDIT FOR [OWNER NAME]" on the outside in thick black marker.
