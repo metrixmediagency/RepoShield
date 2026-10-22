@@ -3,13 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy - MetrixMedia Agency</title>
+    <title>Privacy Policy - METRIX</title>
+    <link rel="icon" type="image/jpeg" href="/metrix_logo.jpg">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="generator.css">
     <style>
-        body { background-color: var(--bg-dark); }
+        :root {
+            --bg-void: #090d16;
+            --bg-card: #0f172a;
+            --gold: #d4af37;
+            --border-color: rgba(212, 175, 55, 0.2);
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--bg-void);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .navbar {
+            padding: 1.25rem 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(9, 13, 22, 0.9);
+            backdrop-filter: blur(10px);
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .brand img {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            border: 1px solid var(--gold);
+        }
+        .brand span {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: 0.15em;
+            color: #fff;
+            text-transform: uppercase;
+        }
         .page-header {
             padding: 4rem 2rem 2rem;
             text-align: center;
@@ -17,123 +62,114 @@
             margin: 0 auto;
         }
         .page-header h1 {
+            font-family: 'Outfit', sans-serif;
             font-size: 2.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, #ffffff, var(--primary));
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         .content-section {
-            padding: 2rem;
-            max-width: 800px;
+            padding: 2.5rem;
+            max-width: 820px;
             margin: 0 auto 5rem;
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 20px;
-            box-shadow: var(--shadow-premium);
-            backdrop-filter: blur(var(--blur-strength));
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
         .content-section h3 {
-            color: white;
+            color: #ffffff;
             margin-top: 2rem;
-            margin-bottom: 1rem;
-            font-size: 1.25rem;
-            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 0.75rem;
+            font-size: 1.2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
             padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
+        .content-section h3 i { color: var(--gold); }
         .content-section p, .content-section ul {
             color: var(--text-muted);
             line-height: 1.7;
             margin-bottom: 1rem;
+            font-size: 0.95rem;
         }
-        .content-section ul {
-            padding-left: 1.5rem;
-        }
-        .content-section li {
-            margin-bottom: 0.5rem;
-        }
-        
-        /* Navbar & Footer (Shared) */
-        .navbar {
-            padding: 1.5rem 3rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        .navbar .brand { display: flex; align-items: center; gap: 1rem; text-decoration: none; }
-        .navbar .brand-icon { width: 40px; height: 40px; margin: 0; }
-        .navbar .brand-text h1 { margin: 0; }
-        
+        .content-section ul { padding-left: 1.5rem; }
+        .content-section li { margin-bottom: 0.5rem; }
         footer {
-            border-top: 1px solid var(--border-color);
-            padding: 3rem 2rem;
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 2.5rem 2rem;
             text-align: center;
             color: var(--text-muted);
+            font-size: 0.85rem;
         }
-        footer a { color: var(--primary); text-decoration: none; margin: 0 1rem; transition: var(--transition-smooth); }
-        footer a:hover { color: white; }
+        footer a { color: var(--gold); text-decoration: none; margin: 0 0.8rem; }
+        footer a:hover { color: #fff; }
     </style>
 </head>
 <body>
-    <div class="glow-bg-1"></div>
-
     <nav class="navbar">
         <a href="/" class="brand">
-            <div class="brand-icon">
-                <i class="fa-solid fa-shield-halved"></i>
-            </div>
-            <div class="brand-text">
-                <h1>MetrixMedia</h1>
-                <span>Digital Agency</span>
-            </div>
+            <img src="/metrix_logo.jpg" alt="METRIX Sovereign Crest">
+            <span>METRIX</span>
+        </a>
+        <a href="/" style="color: var(--gold); font-size: 0.85rem; text-decoration: none; font-weight: 600;">
+            <i class="fa-solid fa-arrow-left"></i> Return Home
         </a>
     </nav>
 
     <div class="page-header">
         <h1>Privacy Policy</h1>
-        <p style="color: var(--text-muted);">Last Updated: June 02, 2026</p>
+        <p style="color: var(--text-muted);">Last Updated: October 2026</p>
     </div>
 
     <section class="content-section">
-        <p>MetrixMedia values your privacy. This Privacy Policy explains how we collect, use, store, and protect client information and feedback data collected through our services.</p>
+        <p>At METRIX Technologies ("METRIX", "we", "us", or "our"), privacy, data security, and client data sovereignty are core to our architectural philosophy. This Privacy Policy outlines how we collect, process, and secure merchant data and guest feedback data when using our software, NFC hubs, and digital portals.</p>
         
-        <h3>1. Information We Collect</h3>
+        <h3><i class="fa-solid fa-user-lock"></i> 1. Information We Collect</h3>
         <ul>
-            <li><strong>Client Account Data:</strong> When you sign up for our services, we collect your name, business name, business address, email, phone number, and billing details.</li>
-            <li><strong>Customer Feedback Logs:</strong> For clients using our reputation gating tools, our system collects feedback from your customers (rating stars and private text reviews). This data is stored securely in our database and is used solely to generate your private feedback reports.</li>
-            <li><strong>Payment Transaction Data:</strong> Financial data (card numbers, UPI IDs, bank details) are processed directly by Razorpay. We do not store your credit card or bank details on our servers. We only store transaction confirmations and transaction IDs.</li>
+            <li><strong>Merchant Account Information:</strong> When onboarding, we collect your business name, venue location, manager contact name, business email, and WhatsApp/phone number for real-time guest alert routing.</li>
+            <li><strong>In-Store Guest Engagement Data:</strong> When customers tap an in-store METRIX NFC counter hub or scan a QR code, they may voluntarily provide their name, phone/WhatsApp number, date of birth (for VIP reward loyalty), and satisfaction ratings/feedback.</li>
+            <li><strong>Technical Telemetry:</strong> Anonymized interaction logs such as timestamp of scan, browser user-agent, and portal completion status to ensure system reliability and combat automated bot abuse.</li>
         </ul>
 
-        <h3>2. How We Use Your Information</h3>
+        <h3><i class="fa-solid fa-vault"></i> 2. Financial &amp; Payment Data</h3>
         <ul>
-            <li>To manage your subscriptions and process monthly payments.</li>
-            <li>To generate your custom marketing assets, QR codes, and landing pages.</li>
-            <li>To deliver daily or weekly email digests compiling your customers' private feedback logs.</li>
-            <li>To improve our web tools and troubleshoot software issues.</li>
+            <li><strong>Merchant of Record:</strong> All international payments, subscription billing, and renewals are handled directly by our authorized Merchant of Record, <strong>Lemon Squeezy LLC</strong>.</li>
+            <li><strong>No Stored Card Data:</strong> METRIX never stores, sees, or accesses your credit card numbers, CVVs, or bank account credentials. All financial transactions are secured under PCI-DSS Level 1 compliance through Lemon Squeezy and its banking infrastructure.</li>
         </ul>
 
-        <h3>3. Data Protection & Sharing</h3>
+        <h3><i class="fa-solid fa-shield-halved"></i> 3. Client Data Sovereignty (Zero Data Selling)</h3>
         <ul>
-            <li><strong>No Third-Party Sharing:</strong> We do not sell, rent, or share client data or customer feedback logs with third parties for marketing purposes.</li>
-            <li><strong>Gated Feedback Data Privacy:</strong> The private feedback submitted by your customers is kept confidential and is accessible only by you (the business owner) and MetrixMedia admins for system maintenance.</li>
-            <li><strong>Security Measures:</strong> We use Secure Sockets Layer (SSL) encryption, firewalls, and secure Supabase database servers to keep all client and customer data protected.</li>
+            <li><strong>You Own Your Database:</strong> Guest lists, VIP contact information, and feedback records captured at your venues belong exclusively to your business. METRIX does not claim ownership of guest records.</li>
+            <li><strong>No Commercial Data Brokering:</strong> We will never sell, rent, monetize, or lease your guest data or business contacts to third-party advertisers, data aggregators, or brokers.</li>
+            <li><strong>Instant Export:</strong> You may export your entire customer feedback and VIP database at any time in standard CSV format from your administrative dashboard.</li>
         </ul>
+
+        <h3><i class="fa-solid fa-server"></i> 4. Infrastructure &amp; Security Architecture</h3>
+        <ul>
+            <li><strong>Encryption:</strong> All data transmitted between guest mobile devices, our NFC hubs, and our infrastructure is encrypted using industry-standard TLS/SSL (HTTPS) 256-bit encryption.</li>
+            <li><strong>Database Protection:</strong> Backend databases are hosted on enterprise-grade Supabase infrastructure with granular Row Level Security (RLS) policies, isolated schema access, and regular encrypted backups.</li>
+        </ul>
+
+        <h3><i class="fa-solid fa-scale-balanced"></i> 5. Data Retention &amp; Deletion Rights</h3>
+        <p>Merchant and guest records are retained for the duration of the active subscription to maintain historical reporting and VIP loyalty tracking. You have the right to request full deletion of your business account and all associated guest data by emailing <code>privacy@metrixmedia.agency</code>. Data deletion requests are completed within 7 business days.</p>
+
+        <h3><i class="fa-solid fa-envelope"></i> 6. Privacy Inquiries</h3>
+        <p>If you have any questions regarding data processing, security compliance, or privacy practices, please contact our Data Protection Officer at <code>privacy@metrixmedia.agency</code>.</p>
     </section>
 
     <footer>
-        <p>&copy; 2026 MetrixMedia Agency. All rights reserved.</p>
-        <p style="margin-top: 1.5rem; display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem;">
+        <p>&copy; 2026 METRIX Technologies. All rights reserved.</p>
+        <p style="margin-top: 1rem;">
             <a href="/terms.html">Terms of Service</a>
             <a href="/privacy.html">Privacy Policy</a>
             <a href="/refund.html">Refund Policy</a>
-            <a href="/admin.html">Admin Login</a>
         </p>
-        <p style="margin-top: 1.5rem; color: var(--text-muted); font-size: 0.9rem;">Contact: info@metrixmedia.agency</p>
+        <p style="margin-top: 1rem; color: #64748b;">Contact: privacy@metrixmedia.agency | Dubai &amp; Global Operations</p>
     </footer>
 </body>
 </html>

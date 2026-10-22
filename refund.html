@@ -3,13 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Refund Policy - MetrixMedia Agency</title>
+    <title>Refund &amp; Cancellation Policy - METRIX</title>
+    <link rel="icon" type="image/jpeg" href="/metrix_logo.jpg">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="generator.css">
     <style>
-        body { background-color: var(--bg-dark); }
+        :root {
+            --bg-void: #090d16;
+            --bg-card: #0f172a;
+            --gold: #d4af37;
+            --border-color: rgba(212, 175, 55, 0.2);
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--bg-void);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .navbar {
+            padding: 1.25rem 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(9, 13, 22, 0.9);
+            backdrop-filter: blur(10px);
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .brand img {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            border: 1px solid var(--gold);
+        }
+        .brand span {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: 0.15em;
+            color: #fff;
+            text-transform: uppercase;
+        }
         .page-header {
             padding: 4rem 2rem 2rem;
             text-align: center;
@@ -17,125 +62,108 @@
             margin: 0 auto;
         }
         .page-header h1 {
+            font-family: 'Outfit', sans-serif;
             font-size: 2.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, #ffffff, var(--primary));
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         .content-section {
-            padding: 2rem;
-            max-width: 800px;
+            padding: 2.5rem;
+            max-width: 820px;
             margin: 0 auto 5rem;
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 20px;
-            box-shadow: var(--shadow-premium);
-            backdrop-filter: blur(var(--blur-strength));
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
         .content-section h3 {
-            color: white;
+            color: #ffffff;
             margin-top: 2rem;
-            margin-bottom: 1rem;
-            font-size: 1.25rem;
-            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 0.75rem;
+            font-size: 1.2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
             padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
+        .content-section h3 i { color: var(--gold); }
         .content-section p, .content-section ul {
             color: var(--text-muted);
             line-height: 1.7;
             margin-bottom: 1rem;
+            font-size: 0.95rem;
         }
-        .content-section ul {
-            padding-left: 1.5rem;
-        }
-        .content-section li {
-            margin-bottom: 0.5rem;
-        }
-        
-        /* Navbar & Footer (Shared) */
-        .navbar {
-            padding: 1.5rem 3rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        .navbar .brand { display: flex; align-items: center; gap: 1rem; text-decoration: none; }
-        .navbar .brand-icon { width: 40px; height: 40px; margin: 0; }
-        .navbar .brand-text h1 { margin: 0; }
-        
+        .content-section ul { padding-left: 1.5rem; }
+        .content-section li { margin-bottom: 0.5rem; }
         footer {
-            border-top: 1px solid var(--border-color);
-            padding: 3rem 2rem;
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 2.5rem 2rem;
             text-align: center;
             color: var(--text-muted);
+            font-size: 0.85rem;
         }
-        footer a { color: var(--primary); text-decoration: none; margin: 0 1rem; transition: var(--transition-smooth); }
-        footer a:hover { color: white; }
+        footer a { color: var(--gold); text-decoration: none; margin: 0 0.8rem; }
+        footer a:hover { color: #fff; }
     </style>
 </head>
 <body>
-    <div class="glow-bg-1"></div>
-
     <nav class="navbar">
         <a href="/" class="brand">
-            <div class="brand-icon">
-                <i class="fa-solid fa-shield-halved"></i>
-            </div>
-            <div class="brand-text">
-                <h1>MetrixMedia</h1>
-                <span>Digital Agency</span>
-            </div>
+            <img src="/metrix_logo.jpg" alt="METRIX Sovereign Crest">
+            <span>METRIX</span>
+        </a>
+        <a href="/" style="color: var(--gold); font-size: 0.85rem; text-decoration: none; font-weight: 600;">
+            <i class="fa-solid fa-arrow-left"></i> Return Home
         </a>
     </nav>
 
     <div class="page-header">
-        <h1>Refund Policy</h1>
-        <p style="color: var(--text-muted);">Last Updated: June 02, 2026</p>
+        <h1>Refund &amp; Cancellation Policy</h1>
+        <p style="color: var(--text-muted);">Last Updated: October 2026</p>
     </div>
 
     <section class="content-section">
-        <p>At MetrixMedia, we strive to deliver premium digital marketing services that drive growth. Because our services involve digital setups and recurring labor, our refund terms are outlined as follows:</p>
+        <p>At METRIX Technologies ("METRIX", "we", "us", or "our"), we provide B2B in-store reputation management software, hardware hubs, and guest intelligence infrastructure for hospitality operators. Our refund and subscription cancellation policies are transparent and straightforward.</p>
         
-        <h3>1. Aegis Protocol 7-Day Money-Back Guarantee</h3>
+        <h3><i class="fa-solid fa-shield-halved"></i> 1. The 7-Day Risk-Free Trial &amp; Money-Back Guarantee</h3>
         <ul>
-            <li>All Aegis Protocol setup fees and initial subscription payments are covered by a <strong>7-Day No-Questions-Asked Money-Back Guarantee</strong>.</li>
-            <li>If you are not completely satisfied with your Aegis review portal or print-ready digital QR standee within the first 7 days of your purchase, you may request a 100% refund of all fees paid.</li>
+            <li>All new monthly subscriptions for the <strong>Onyx Shield</strong> and <strong>Sovereign D2C Suite</strong> are backed by an initial <strong>7-Day Risk-Free In-Store Trial</strong>.</li>
+            <li>If you cancel your subscription within the first 7 days of deployment, your card will not be charged (or any initial subscription payment will be refunded 100%, no questions asked).</li>
+            <li>To cancel during your trial, you can click "Manage Subscription" in your billing receipt or email support at <code>billing@metrixmedia.agency</code>.</li>
         </ul>
 
-        <h3>2. Other One-Time Setup Fees</h3>
+        <h3><i class="fa-solid fa-rotate"></i> 2. Monthly Subscription &amp; Cancellation</h3>
         <ul>
-            <li>Any one-time fees paid for custom website development, graphic designs, initial SEO setups, or printable asset creations (outside of standard Aegis Protocol templates) are non-refundable once design and development work has commenced.</li>
-            <li>If you cancel a setup request <em>before</em> our team starts working on your assets, you are eligible for a 100% refund.</li>
+            <li><strong>Cancel Anytime:</strong> Subscriptions are billed on a recurring monthly basis. You can cancel or pause your subscription at any time with one click. There are zero long-term lock-in contracts.</li>
+            <li><strong>Billing Cycle:</strong> Upon cancellation, your software service, active review routing, and dashboard access will remain fully functional until the end of your current paid billing period. You will not be charged again.</li>
+            <li><strong>No Pro-Rata Refunds:</strong> Once a monthly renewal payment has been processed after the 7-day guarantee window, we do not issue partial or pro-rated refunds for the remainder of that billing cycle.</li>
         </ul>
 
-        <h3>2. Monthly Subscription Services</h3>
+        <h3><i class="fa-solid fa-cube"></i> 3. In-Store Hardware Hubs</h3>
         <ul>
-            <li><strong>No Pro-Rata Refunds:</strong> Monthly subscription payments for active campaigns (including review portals, serverless hosting, and daily reporting) are billed in advance. We do not offer partial or pro-rata refunds for mid-month cancellations.</li>
-            <li><strong>Cancellation Policy:</strong> You can cancel your subscription at any time through your client billing link or by contacting us directly. Once cancelled, your service will remain active until the end of your current paid billing cycle, and you will not be charged again.</li>
+            <li>Custom branded Matte Black NFC/QR counter hubs provided as part of active subscriptions are covered by a full hardware replacement warranty against manufacturing defects during your active subscription period.</li>
+            <li>If hardware arrives damaged during delivery, a replacement unit is dispatched within 24 hours at zero cost to you.</li>
         </ul>
 
-        <h3>3. Non-Payment & Grace Period</h3>
+        <h3><i class="fa-solid fa-credit-card"></i> 4. Payment Processing &amp; Invoicing</h3>
         <ul>
-            <li>If a payment fails on your monthly renewal date, you will receive notifications to clear the balance.</li>
-            <li>No fees are refunded or discounted for days during which your campaigns were suspended due to overdue invoices. Access will be instantly restored once the payment is cleared through Razorpay.</li>
+            <li>All international transactions are securely processed by our authorized Merchant of Record, <strong>Lemon Squeezy</strong> (or authorized payment partners).</li>
+            <li>Compliant commercial tax invoices detailing UAE VAT / international tax breakdowns and transaction receipts are automatically issued to your billing email upon every renewal.</li>
         </ul>
     </section>
 
     <footer>
-        <p>&copy; 2026 MetrixMedia Agency. All rights reserved.</p>
-        <p style="margin-top: 1.5rem; display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem;">
+        <p>&copy; 2026 METRIX Technologies. All rights reserved.</p>
+        <p style="margin-top: 1rem;">
             <a href="/terms.html">Terms of Service</a>
             <a href="/privacy.html">Privacy Policy</a>
             <a href="/refund.html">Refund Policy</a>
-            <a href="/admin.html">Admin Login</a>
         </p>
-        <p style="margin-top: 1.5rem; color: var(--text-muted); font-size: 0.9rem;">Contact: info@metrixmedia.agency</p>
+        <p style="margin-top: 1rem; color: #64748b;">Contact: billing@metrixmedia.agency | Dubai &amp; Global Operations</p>
     </footer>
 </body>
 </html>

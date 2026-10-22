@@ -3,13 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terms of Service - MetrixMedia Agency</title>
+    <title>Terms of Service - METRIX</title>
+    <link rel="icon" type="image/jpeg" href="/metrix_logo.jpg">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="generator.css">
     <style>
-        body { background-color: var(--bg-dark); }
+        :root {
+            --bg-void: #090d16;
+            --bg-card: #0f172a;
+            --gold: #d4af37;
+            --border-color: rgba(212, 175, 55, 0.2);
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--bg-void);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .navbar {
+            padding: 1.25rem 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(9, 13, 22, 0.9);
+            backdrop-filter: blur(10px);
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .brand img {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            border: 1px solid var(--gold);
+        }
+        .brand span {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: 0.15em;
+            color: #fff;
+            text-transform: uppercase;
+        }
         .page-header {
             padding: 4rem 2rem 2rem;
             text-align: center;
@@ -17,125 +62,115 @@
             margin: 0 auto;
         }
         .page-header h1 {
+            font-family: 'Outfit', sans-serif;
             font-size: 2.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, #ffffff, var(--primary));
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         .content-section {
-            padding: 2rem;
-            max-width: 800px;
+            padding: 2.5rem;
+            max-width: 820px;
             margin: 0 auto 5rem;
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 20px;
-            box-shadow: var(--shadow-premium);
-            backdrop-filter: blur(var(--blur-strength));
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
         .content-section h3 {
-            color: white;
+            color: #ffffff;
             margin-top: 2rem;
-            margin-bottom: 1rem;
-            font-size: 1.25rem;
-            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 0.75rem;
+            font-size: 1.2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
             padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
+        .content-section h3 i { color: var(--gold); }
         .content-section p, .content-section ul {
             color: var(--text-muted);
             line-height: 1.7;
             margin-bottom: 1rem;
+            font-size: 0.95rem;
         }
-        .content-section ul {
-            padding-left: 1.5rem;
-        }
-        .content-section li {
-            margin-bottom: 0.5rem;
-        }
-        
-        /* Navbar & Footer (Shared) */
-        .navbar {
-            padding: 1.5rem 3rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        .navbar .brand { display: flex; align-items: center; gap: 1rem; text-decoration: none; }
-        .navbar .brand-icon { width: 40px; height: 40px; margin: 0; }
-        .navbar .brand-text h1 { margin: 0; }
-        
+        .content-section ul { padding-left: 1.5rem; }
+        .content-section li { margin-bottom: 0.5rem; }
         footer {
-            border-top: 1px solid var(--border-color);
-            padding: 3rem 2rem;
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 2.5rem 2rem;
             text-align: center;
             color: var(--text-muted);
+            font-size: 0.85rem;
         }
-        footer a { color: var(--primary); text-decoration: none; margin: 0 1rem; transition: var(--transition-smooth); }
-        footer a:hover { color: white; }
+        footer a { color: var(--gold); text-decoration: none; margin: 0 0.8rem; }
+        footer a:hover { color: #fff; }
     </style>
 </head>
 <body>
-    <div class="glow-bg-1"></div>
-
     <nav class="navbar">
         <a href="/" class="brand">
-            <div class="brand-icon">
-                <i class="fa-solid fa-shield-halved"></i>
-            </div>
-            <div class="brand-text">
-                <h1>MetrixMedia</h1>
-                <span>Digital Agency</span>
-            </div>
+            <img src="/metrix_logo.jpg" alt="METRIX Sovereign Crest">
+            <span>METRIX</span>
+        </a>
+        <a href="/" style="color: var(--gold); font-size: 0.85rem; text-decoration: none; font-weight: 600;">
+            <i class="fa-solid fa-arrow-left"></i> Return Home
         </a>
     </nav>
 
     <div class="page-header">
         <h1>Terms of Service</h1>
-        <p style="color: var(--text-muted);">Last Updated: June 02, 2026</p>
+        <p style="color: var(--text-muted);">Last Updated: October 2026</p>
     </div>
 
     <section class="content-section">
-        <p>Welcome to MetrixMedia. These Terms of Service ("Terms") govern your use of the website, software tools, marketing campaigns, and digital services (collectively, the "Services") provided by MetrixMedia ("Agency", "we", "us", or "our"). By accessing or using our Services, you agree to be bound by these Terms.</p>
+        <p>Welcome to METRIX. These Terms of Service ("Terms") constitute a legally binding agreement between you ("Customer", "Merchant", or "Client") and METRIX Technologies ("METRIX", "we", "us", or "our"). By activating a subscription, accessing our software, deploying our physical counter hardware, or using our guest portals, you agree to these Terms.</p>
         
-        <h3>1. Services & Subscriptions</h3>
+        <h3><i class="fa-solid fa-cube"></i> 1. Software &amp; In-Store Infrastructure</h3>
         <ul>
-            <li><strong>Scope of Services:</strong> MetrixMedia provides digital marketing services, including but not limited to Online Reputation Engineering, GMB/Local SEO optimization, Custom Web Development, Paid Advertising, and Social Media Marketing.</li>
-            <li><strong>Subscription Model:</strong> Certain Services are billed on a recurring monthly subscription basis. Active subscriptions grant you license to use generated assets (such as review gating portals, print assets, and QR codes) for your registered business locations.</li>
-            <li><strong>Fair Use & Account Limits:</strong> Your subscription tier defines the limit on active campaigns, product listings, or GMB locations. Exceeding these limits requires upgrading your subscription tier.</li>
+            <li><strong>The Platform:</strong> METRIX provides an in-store guest intelligence platform, Google review interception infrastructure, proprietary QR/NFC dynamic routing engines, and direct customer data capture systems for hospitality operators.</li>
+            <li><strong>Hardware Hubs:</strong> Active monthly subscriptions include physical hardware touchpoints (Matte Black NFC/QR counter stands). These hubs remain an integrated component of the METRIX service. METRIX replaces any malfunctioning or damaged hardware units during an active subscription period.</li>
+            <li><strong>License Grant:</strong> METRIX grants you a non-exclusive, non-transferable, revocable license to access the platform and deploy the hardware within your authorized hospitality venues for the duration of your active subscription.</li>
         </ul>
 
-        <h3>2. Payments & Billing</h3>
+        <h3><i class="fa-solid fa-credit-card"></i> 2. Subscriptions, Trials &amp; Merchant of Record</h3>
         <ul>
-            <li><strong>Payment Processing:</strong> All payments are securely processed through Razorpay, our third-party payment gateway. By initiating a subscription, you authorize automatic recurring billing on your designated monthly due date.</li>
-            <li><strong>Late Payments & Grace Period:</strong> If a monthly payment fails, you will enter a <strong>3-day grace period</strong>. During this period, your campaigns and services will remain active.</li>
-            <li><strong>Suspension:</strong> If payments are not cleared by the end of the 3-day grace period, all active portals, campaign links, and digital marketing services will be automatically suspended or put on hold until full payment is received.</li>
+            <li><strong>Merchant of Record:</strong> Our order fulfillment, international currency conversion, global sales tax/VAT compliance, and subscription billing are processed by our authorized Merchant of Record, <strong>Lemon Squeezy LLC</strong> (or authorized payment partners). By placing an order, you agree to their buyer terms and conditions.</li>
+            <li><strong>7-Day Risk-Free Trial:</strong> New subscriptions include an initial 7-day risk-free trial. You may cancel at any point within the first 7 days without incurring renewal charges, or receive a 100% immediate refund if charged, as detailed in our <a href="/refund.html" style="color: var(--gold);">Refund &amp; Cancellation Policy</a>.</li>
+            <li><strong>Billing &amp; Renewal:</strong> Subscriptions renew automatically on a monthly basis unless cancelled prior to the renewal date. You may cancel your subscription anytime via your customer billing portal or by contacting <code>billing@metrixmedia.agency</code>.</li>
         </ul>
 
-        <h3>3. Client Responsibilities</h3>
+        <h3><i class="fa-solid fa-database"></i> 3. Guest Data Ownership &amp; Privacy</h3>
         <ul>
-            <li>You are solely responsible for the links, logos, descriptions, and business information you provide for your campaigns.</li>
-            <li>You agree not to use our Services for any fraudulent, deceptive, or malicious marketing practices.</li>
-            <li><strong>Platform Compliance:</strong> While our reputation gating system is designed to route customer feedback organically, you acknowledge that you are responsible for complying with the guidelines of third-party platforms (like Google Maps, Amazon, Swiggy, or Zomato) regarding customer reviews.</li>
+            <li><strong>Customer Sovereignty:</strong> You retain 100% ownership of all guest contact details, phone numbers, feedback records, and VIP opt-ins captured through your in-store METRIX portals.</li>
+            <li><strong>Zero Data Monetization:</strong> METRIX will never sell, rent, monetize, or market to your captured guest database. All guest records can be exported in CSV format from your client dashboard at any time.</li>
+            <li><strong>Data Processing:</strong> In handling guest entries, METRIX operates strictly as a Data Processor on behalf of your establishment as Data Controller. You are responsible for ensuring your in-store privacy notices comply with applicable local hospitality regulations.</li>
         </ul>
 
-        <h3>4. Limitation of Liability</h3>
-        <p>MetrixMedia is not responsible for any search ranking changes, account suspensions, or loss of revenue resulting from third-party platform algorithm updates or review policy modifications. Our total liability under these Terms will not exceed the amount paid by you in the single month preceding the event giving rise to liability.</p>
+        <h3><i class="fa-solid fa-shield-check"></i> 4. Platform Compliance &amp; Review Policies</h3>
+        <ul>
+            <li><strong>Policy Adherence:</strong> METRIX provides real-time private feedback resolution channels to help managers resolve dissatisfaction before it escalates publicly. METRIX does not alter, delete, or fabricate reviews on third-party platforms (such as Google Maps, TripAdvisor, or Zomato).</li>
+            <li><strong>Third-Party Ecosystems:</strong> You acknowledge that third-party platforms maintain their own terms, algorithms, and policies. METRIX is not affiliated with or endorsed by Google LLC or other review aggregators.</li>
+        </ul>
+
+        <h3><i class="fa-solid fa-scale-balanced"></i> 5. Limitation of Liability</h3>
+        <p>To the maximum extent permitted by applicable law, METRIX Technologies and its officers, directors, and affiliates shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues. METRIX's aggregate liability under these Terms shall not exceed the total fees paid by you to METRIX in the one (1) month preceding the event giving rise to the claim.</p>
+
+        <h3><i class="fa-solid fa-envelope"></i> 6. Contact Information</h3>
+        <p>For legal inquiries, enterprise agreements, or compliance questions, contact us at <code>legal@metrixmedia.agency</code>.</p>
     </section>
 
     <footer>
-        <p>&copy; 2026 MetrixMedia Agency. All rights reserved.</p>
-        <p style="margin-top: 1.5rem; display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem;">
+        <p>&copy; 2026 METRIX Technologies. All rights reserved.</p>
+        <p style="margin-top: 1rem;">
             <a href="/terms.html">Terms of Service</a>
             <a href="/privacy.html">Privacy Policy</a>
             <a href="/refund.html">Refund Policy</a>
-            <a href="/admin.html">Admin Login</a>
         </p>
-        <p style="margin-top: 1.5rem; color: var(--text-muted); font-size: 0.9rem;">Contact: info@metrixmedia.agency</p>
+        <p style="margin-top: 1rem; color: #64748b;">Contact: legal@metrixmedia.agency | Dubai &amp; Global Operations</p>
     </footer>
 </body>
 </html>
