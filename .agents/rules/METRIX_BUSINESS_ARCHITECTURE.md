@@ -68,10 +68,10 @@ Metrix has evolved beyond review capture into a full **Zero-Commission Direct Or
 ## 7. Official Brand Identity & The Sovereign Logo
 - **Official Brand Name:** **METRIX** (Suffixes like "Media" and "Digital Agency" are permanently deprecated across all client-facing assets).
 - **Core Category Identity:** In-Store Guest Intelligence & Google Review Protection Platform (O2O Hospitality SaaS).
-- **The Sovereign Emblem (Concept 2 - Locked Master Asset):**
-  - **Visual:** The Sovereign 'M' Monogram Crest. An architectural, razor-sharp 'M' monogram integrated into a sovereign royal crest. The base is rooted in a shattered matrix lattice, rising into sharp crown-like metallic facets and an ascending platinum-gold prism.
-  - **Symbolism:** Represents absolute sovereignty over customer data, institutional authority, and breaking free from the corporate aggregator matrix.
-  - **Asset Location:** `metrix_logo.jpg` (Master high-resolution brand asset).
+- **The Sovereign Emblem (Concept 1 - Precision Vector Monogram - Locked Master Asset):**
+  - **Visual:** The Precision Vector Monogram. An ultra-minimalist, razor-sharp architectural 'M' formed by converging precision chevrons in brushed champagne gold with high negative space against pure matte obsidian void black.
+  - **Symbolism:** Represents razor-sharp data sovereignty, precision engineering, and effortless luxury without ornate visual clutter.
+  - **Asset Location:** `metrix_logo.jpg` & `favicon.jpg` (Master brand assets).
 - **Brand Palette:**
   - Obsidian Void Black: `#090d16` / `#0f172a`
   - Metallic Brushed Gold: `#d4af37` / `#f59e0b`
