@@ -102,12 +102,10 @@ Metrix has evolved beyond review capture into a full **Zero-Commission Direct Or
 
 ## 9. Payment Gateway & Merchant of Record (MoR) Strategy
 - **Vendor-Agnostic Policy Rule:** Client-facing legal policies (`terms.html`, `privacy.html`, `refund.html`) must NEVER hardcode specific gateway vendor names (e.g. avoid naming "Dodo Payments" or "Lemon Squeezy"). Strictly use the universal corporate standard: *"authorized Merchant of Record and certified payment processing partners under PCI-DSS Level 1 compliance"*.
-- **Primary MoR (Global Cards & Apple Pay):** **Dodo Payments** (`dodopayments.com`).
-  - Acts as legal reseller / MoR for UAE, US, and international buyers.
-  - Handles international VAT, sales tax, and currency conversion to INR.
-  - Settles directly to Indian Slice Current Account.
-- **Secondary Payment Gateway (Direct Invoicing):** **Razorpay International**.
-  - Direct RBI-licensed Indian payment aggregator.
+- **Payment Gateway (Direct Invoicing & Live Gateway):** **Razorpay International (APPROVED & ACTIVE)**.
+  - Video KYC and business verification successfully cleared under entity `ONEGRV` / `METRIXMEDIA`.
+  - Direct RBI-licensed Indian payment aggregator settling to Slice Current Account.
   - Configured under RBI Purpose Code **`P0802`** (*Software consultancy/implementation other than those covered in SOFTEX form*), legally exempting transactions from STPI SOFTEX regulatory filings.
+- **Secondary MoR (Global Cards & Apple Pay):** **Dodo Payments** (`dodopayments.com`) — Persona KYC approved; bank settlement verification in progress.
 - **Stripe India Ban/Invite-Only Rule:** Never attempt self-serve Stripe India signups, as Stripe India is restricted to invite-only and blocks personal PANs for international payments.
 
