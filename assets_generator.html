@@ -327,7 +327,264 @@
       color: rgba(212, 175, 55, 0.9);
     }
 
-    /* Template Styles */
+    /* CSS Phone & Hardware Mockup Components */
+    .mockup-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      position: relative;
+      gap: 40px;
+    }
+
+    /* Ultra-sleek CSS Phone Frame */
+    .phone-frame {
+      width: 320px;
+      height: 640px;
+      background: #090d16;
+      border: 4px solid #2d3748;
+      border-radius: 44px;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9), 0 0 0 2px rgba(212, 175, 55, 0.4), 0 0 30px rgba(212, 175, 55, 0.2);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .phone-notch {
+      width: 100px;
+      height: 20px;
+      background: #000;
+      border-radius: 0 0 14px 14px;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 50;
+    }
+
+    .phone-screen {
+      flex: 1;
+      background: #0d121d;
+      padding: 40px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: #fff;
+      font-size: 14px;
+      position: relative;
+    }
+
+    /* Acrylic Standee Vector Mockup */
+    .standee-mockup-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .standee-acrylic-card {
+      width: 340px;
+      height: 520px;
+      background: linear-gradient(145deg, #121824 0%, #06090e 100%);
+      border: 2px solid rgba(212, 175, 55, 0.5);
+      border-radius: 16px;
+      box-shadow: 
+        0 30px 60px rgba(0, 0, 0, 0.95),
+        inset 0 0 20px rgba(212, 175, 55, 0.15),
+        0 0 25px rgba(212, 175, 55, 0.25);
+      padding: 30px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .standee-acrylic-card::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        45deg,
+        transparent 40%,
+        rgba(255, 255, 255, 0.05) 50%,
+        transparent 60%
+      );
+      pointer-events: none;
+    }
+
+    .standee-pedestal {
+      width: 380px;
+      height: 24px;
+      background: linear-gradient(180deg, #1e293b 0%, #0b0f17 100%);
+      border-radius: 4px;
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.8);
+      margin-top: -6px;
+      z-index: 5;
+    }
+
+    .standee-header-mini {
+      text-align: center;
+    }
+    .standee-header-mini .biz-name {
+      font-family: 'Cinzel', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 2px;
+    }
+    .standee-header-mini .biz-sub {
+      font-size: 11px;
+      color: var(--gold-primary);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .qr-container-mini {
+      width: 170px;
+      height: 170px;
+      background: #000;
+      border: 2px solid var(--gold-primary);
+      border-radius: 12px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+    }
+    .qr-container-mini svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .nfc-tap-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid var(--gold-primary);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 1px;
+    }
+
+    /* Interactive UI Screen Mockups (Inside Phone) */
+    .ui-vip-badge {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.25) 0%, rgba(212, 175, 55, 0.05) 100%);
+      border: 1px solid var(--gold-primary);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      margin: 12px 0;
+    }
+    .ui-vip-badge h4 {
+      color: var(--gold-primary);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .ui-stars {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      font-size: 22px;
+      color: var(--gold-primary);
+      margin: 10px 0;
+    }
+    .ui-input {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 6px;
+      padding: 10px 12px;
+      font-size: 12px;
+      color: #94a3b8;
+      margin-bottom: 8px;
+    }
+    .ui-btn {
+      background: var(--gold-gradient);
+      color: #000;
+      font-weight: 700;
+      text-align: center;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+
+    /* Intercept Shield Screen */
+    .ui-shield-box {
+      background: rgba(239, 68, 68, 0.08);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      margin: 12px 0;
+    }
+    .ui-shield-box h4 {
+      color: #f87171;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .ui-badge-private {
+      background: rgba(239, 68, 68, 0.2);
+      color: #fca5a5;
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 8px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* CRM Table inside Post 6 */
+    .crm-ledger-box {
+      background: rgba(11, 16, 23, 0.95);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 10px;
+      padding: 24px;
+      width: 100%;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+    }
+    .crm-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 16px;
+    }
+    .crm-table th {
+      text-align: left;
+      color: var(--gold-primary);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      letter-spacing: 1px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .crm-table td {
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: #cbd5e1;
+    }
+    .vip-tag {
+      background: rgba(212, 175, 55, 0.15);
+      color: var(--gold-primary);
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+    }
 
     /* Typography Manifesto Layout (Post 1) */
     .manifesto-body {
@@ -811,14 +1068,49 @@ Defend your margins. Reclaim direct ordering.
             <div class="artboard-brand">METRIX</div>
             <div class="artboard-tag">PHYSICAL INFRASTRUCTURE // 02</div>
           </div>
-          <div class="manifesto-body">
-            <div class="manifesto-eyebrow">ARCHITECTURAL STANDARD</div>
-            <div class="manifesto-headline">
-              Monolithic Matte Black.
-              <span class="accent-gold">Zero cheap paper. Zero stickers.</span>
+          <div class="mockup-container">
+            <div class="standee-mockup-wrapper">
+              <div class="standee-acrylic-card">
+                <div class="standee-header-mini">
+                  <div class="biz-name">METRIX HUB</div>
+                  <div class="biz-sub">GUEST INTELLIGENCE</div>
+                </div>
+                <div class="qr-container-mini">
+                  <svg viewBox="0 0 100 100" fill="#d4af37">
+                    <rect x="10" y="10" width="25" height="25" fill="#d4af37" />
+                    <rect x="15" y="15" width="15" height="15" fill="#000" />
+                    <rect x="18" y="18" width="9" height="9" fill="#d4af37" />
+                    <rect x="65" y="10" width="25" height="25" fill="#d4af37" />
+                    <rect x="70" y="15" width="15" height="15" fill="#000" />
+                    <rect x="73" y="18" width="9" height="9" fill="#d4af37" />
+                    <rect x="10" y="65" width="25" height="25" fill="#d4af37" />
+                    <rect x="15" y="70" width="15" height="15" fill="#000" />
+                    <rect x="18" y="73" width="9" height="9" fill="#d4af37" />
+                    <circle cx="50" cy="50" r="10" fill="#d4af37" />
+                    <rect x="42" y="20" width="6" height="12" fill="#d4af37" />
+                    <rect x="42" y="68" width="6" height="12" fill="#d4af37" />
+                    <rect x="68" y="42" width="12" height="6" fill="#d4af37" />
+                    <rect x="20" y="42" width="12" height="6" fill="#d4af37" />
+                  </svg>
+                </div>
+                <div class="nfc-tap-badge">
+                  <span>((( • )))</span> TAP OR SCAN TO CONNECT
+                </div>
+              </div>
+              <div class="standee-pedestal"></div>
             </div>
-            <div class="manifesto-sub">
-              Precision 100mm x 155mm high-density acrylic with chamfered edges and brushed champagne gold inlays. Designed specifically to complement marble counters, high-end espresso setups, and ambient luxury lighting.
+            <div style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+              <div class="manifesto-eyebrow">PHYSICAL SPECIFICATION</div>
+              <div class="manifesto-headline" style="font-size: 42px;">
+                Monolithic Matte Black.
+                <span class="accent-gold">Zero cheap paper.</span>
+              </div>
+              <div class="manifesto-sub" style="font-size: 20px;">
+                ▪️ 100mm x 155mm high-density acrylic<br>
+                ▪️ Razor chamfered edge geometry<br>
+                ▪️ High-frequency NTAG424 NFC chip<br>
+                ▪️ Zero battery, zero charging required
+              </div>
             </div>
           </div>
           <div class="artboard-footer">
@@ -898,14 +1190,39 @@ If it doesn't trap bad reviews or capture 100+ verified guest contacts in 7 days
             <div class="artboard-brand">METRIX</div>
             <div class="artboard-tag">GUEST INTELLIGENCE // 04</div>
           </div>
-          <div class="manifesto-body">
-            <div class="manifesto-eyebrow">REPUTATION ACCELERATION</div>
-            <div class="manifesto-headline">
-              5-Star Experiences Routed
-              <span class="accent-gold">Directly to Google Maps.</span>
+          <div class="mockup-container">
+            <div style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+              <div class="manifesto-eyebrow">AUTOMATED ACCELERATION</div>
+              <div class="manifesto-headline" style="font-size: 40px;">
+                5-Star Ratings Pushed Directly to
+                <span class="accent-gold">Google Maps.</span>
+              </div>
+              <div class="manifesto-sub" style="font-size: 20px;">
+                Happy guests unlock an exclusive VIP privilege. We capture their verified Name, Phone, and Birthday before redirecting them to leave a verified 5-star Google review.
+              </div>
             </div>
-            <div class="manifesto-sub">
-              When a guest rates their visit 5 stars, METRIX routes them directly to Google Maps with pre-formatted praise tags, while unlocking an exclusive VIP privilege. Every happy customer becomes a verified public asset.
+            <div class="phone-frame">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <div style="text-align: center; margin-top: 10px;">
+                  <div style="font-family: 'Cinzel', serif; font-size: 16px; font-weight: 700; color: #d4af37;">CAFE MOCHA DUBAI</div>
+                  <div style="font-size: 10px; color: #94a3b8; letter-spacing: 1px;">VIP PRIVILEGE PORTAL</div>
+                </div>
+                <div>
+                  <div class="ui-stars">★★★★★</div>
+                  <div class="ui-vip-badge">
+                    <h4>🥂 VIP PRIVILEGE UNLOCKED</h4>
+                    <p style="font-size: 11px; color: #cbd5e1;">Enjoy 15% off your next visit on direct counter orders.</p>
+                  </div>
+                  <div class="ui-input">Name: Sarah Jenkins</div>
+                  <div class="ui-input">Phone: +971 50 849 2011</div>
+                  <div class="ui-input">Birthday: 14 October</div>
+                  <div class="ui-btn">Post 5-Star Review to Google →</div>
+                </div>
+                <div style="text-align: center; font-size: 9px; color: #64748b; letter-spacing: 1px;">
+                  POWERED BY METRIX INFRASTRUCTURE
+                </div>
+              </div>
             </div>
           </div>
           <div class="artboard-footer">
@@ -932,14 +1249,39 @@ Turn in-person satisfaction into permanent Google Maps ranking dominance.
             <div class="artboard-brand">METRIX</div>
             <div class="artboard-tag">REPUTATION DEFENSE // 05</div>
           </div>
-          <div class="manifesto-body">
-            <div class="manifesto-eyebrow">THE PR SHIELD PROTOCOL</div>
-            <div class="manifesto-headline">
-              Bad Ratings Intercepted
-              <span class="accent-gold">Before Reaching Google Maps.</span>
+          <div class="mockup-container">
+            <div class="phone-frame">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <div style="text-align: center; margin-top: 10px;">
+                  <div style="font-family: 'Cinzel', serif; font-size: 16px; font-weight: 700; color: #fff;">CAFE MOCHA DUBAI</div>
+                  <div style="font-size: 10px; color: #f87171; letter-spacing: 1px;">PRIVATE ESCALATION</div>
+                </div>
+                <div>
+                  <div class="ui-stars" style="color: #f87171;">★★☆☆☆</div>
+                  <div class="ui-shield-box">
+                    <div class="ui-badge-private">GOOGLE REVIEW INTERCEPTED</div>
+                    <h4>Direct Manager Resolution</h4>
+                    <p style="font-size: 11px; color: #cbd5e1;">Your feedback goes directly to our General Manager. We will call you within 15 minutes.</p>
+                  </div>
+                  <div class="ui-input" style="border-color: rgba(239, 68, 68, 0.4);">Issue: Cold cappuccino & slow billing</div>
+                  <div class="ui-input">Phone: +971 52 319 4482</div>
+                  <div class="ui-btn" style="background: #f87171; color: #000;">Send Directly to Manager</div>
+                </div>
+                <div style="text-align: center; font-size: 9px; color: #64748b; letter-spacing: 1px;">
+                  REPUTATION DEFENSE ACTIVE
+                </div>
+              </div>
             </div>
-            <div class="manifesto-sub">
-              A cold latte or a delayed bill should never become a permanent 1-star public scar. 1-star to 3-star ratings are instantly bypassed to a private General Manager escalation screen, allowing resolution before public damage occurs.
+            <div style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+              <div class="manifesto-eyebrow" style="color: #f87171;">THE PR SHIELD PROTOCOL</div>
+              <div class="manifesto-headline" style="font-size: 40px;">
+                Bad Ratings Intercepted
+                <span class="accent-gold">Before Google Maps.</span>
+              </div>
+              <div class="manifesto-sub" style="font-size: 20px;">
+                A single off-shift waiter shouldn't damage your 4.4 rating permanently. 1-star to 3-star ratings bypass Google and alert the GM in private so issues can be resolved instantly.
+              </div>
             </div>
           </div>
           <div class="artboard-footer">
@@ -966,14 +1308,49 @@ You fix the customer relationship in private, protect your 4.3+ rating in public
             <div class="artboard-brand">METRIX</div>
             <div class="artboard-tag">DATA INFRASTRUCTURE // 06</div>
           </div>
-          <div class="manifesto-body">
-            <div class="manifesto-eyebrow">CLIENT DATA OWNERSHIP</div>
-            <div class="manifesto-headline">
-              Build Your Own Asset.
-              <span class="accent-gold">Own 100% of Your Clientele.</span>
+          <div style="display: flex; flex-direction: column; justify-content: center; flex: 1; gap: 28px;">
+            <div class="manifesto-eyebrow">SOVEREIGN CUSTOMER DATABASE</div>
+            <div class="manifesto-headline" style="font-size: 44px;">
+              Every Scan Builds Your Private Asset.
+              <span class="accent-gold">100% Direct Guest Ownership.</span>
             </div>
-            <div class="manifesto-sub">
-              Every guest tap systematically logs verified Name, Mobile Number, and Birthday into your sovereign cloud database. Zero reliance on third-party algorithms. Direct zero-cost WhatsApp & SMS broadcast capability on demand.
+            <div class="crm-ledger-box">
+              <table class="crm-table">
+                <thead>
+                  <tr>
+                    <th>GUEST NAME</th>
+                    <th>MOBILE NUMBER</th>
+                    <th>VISIT COUNT</th>
+                    <th>VIP STATUS</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Farah Al-Maktoum</td>
+                    <td>+971 50 382 1992</td>
+                    <td>8 Visits</td>
+                    <td><span class="vip-tag">Tier 1 VIP</span></td>
+                  </tr>
+                  <tr>
+                    <td>Marcus Vance</td>
+                    <td>+971 55 901 4421</td>
+                    <td>5 Visits</td>
+                    <td><span class="vip-tag">Regular</span></td>
+                  </tr>
+                  <tr>
+                    <td>Elena Rostova</td>
+                    <td>+971 52 718 2039</td>
+                    <td>12 Visits</td>
+                    <td><span class="vip-tag">Gold Elite</span></td>
+                  </tr>
+                  <tr>
+                    <td>Tariq Mansoor</td>
+                    <td>+971 50 491 8830</td>
+                    <td>4 Visits</td>
+                    <td><span class="vip-tag">Regular</span></td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
           <div class="artboard-footer">
@@ -1178,18 +1555,61 @@ A ONEGRV Enterprise.
             <div class="artboard-brand">METRIX</div>
             <div class="artboard-tag">FLAGSHIP HARDWARE // 11</div>
           </div>
-          <div class="manifesto-body">
-            <div class="manifesto-eyebrow">PHYSICAL TOUCHPOINT</div>
-            <div class="manifesto-headline">
-              The Trojan Horse on the
-              <span class="accent-gold">Checkout Counter.</span>
+          <div class="mockup-container">
+            <div class="standee-mockup-wrapper">
+              <div class="standee-acrylic-card" style="width: 290px; height: 460px;">
+                <div class="standee-header-mini">
+                  <div class="biz-name" style="font-size: 17px;">METRIX STAND</div>
+                  <div class="biz-sub" style="font-size: 10px;">COUNTER INTELLIGENCE</div>
+                </div>
+                <div class="qr-container-mini" style="width: 140px; height: 140px;">
+                  <svg viewBox="0 0 100 100" fill="#d4af37">
+                    <rect x="10" y="10" width="25" height="25" fill="#d4af37" />
+                    <rect x="15" y="15" width="15" height="15" fill="#000" />
+                    <rect x="18" y="18" width="9" height="9" fill="#d4af37" />
+                    <rect x="65" y="10" width="25" height="25" fill="#d4af37" />
+                    <rect x="70" y="15" width="15" height="15" fill="#000" />
+                    <rect x="73" y="18" width="9" height="9" fill="#d4af37" />
+                    <rect x="10" y="65" width="25" height="25" fill="#d4af37" />
+                    <rect x="15" y="70" width="15" height="15" fill="#000" />
+                    <rect x="18" y="73" width="9" height="9" fill="#d4af37" />
+                    <circle cx="50" cy="50" r="10" fill="#d4af37" />
+                    <rect x="42" y="20" width="6" height="12" fill="#d4af37" />
+                    <rect x="42" y="68" width="6" height="12" fill="#d4af37" />
+                    <rect x="68" y="42" width="12" height="6" fill="#d4af37" />
+                    <rect x="20" y="42" width="12" height="6" fill="#d4af37" />
+                  </svg>
+                </div>
+                <div class="nfc-tap-badge" style="font-size: 9px; padding: 4px 10px;">
+                  ((( • ))) TAP WITH PHONE
+                </div>
+              </div>
+              <div class="standee-pedestal" style="width: 320px;"></div>
             </div>
-            <div class="manifesto-sub">
-              Physical elegance acts as the bait for interaction. The underlying software acts as the engine for recurring retention, rating defense, and direct guest communication.
+            <div style="font-size: 32px; color: var(--gold-primary); font-weight: 800;">➔</div>
+            <div class="phone-frame" style="width: 280px; height: 560px;">
+              <div class="phone-notch"></div>
+              <div class="phone-screen" style="padding: 30px 16px 16px;">
+                <div style="text-align: center; margin-top: 8px;">
+                  <div style="font-family: 'Cinzel', serif; font-size: 15px; font-weight: 700; color: #d4af37;">CONNECTING...</div>
+                  <div style="font-size: 9px; color: #94a3b8; letter-spacing: 1px;">0.3s INSTANT NFC LAUNCH</div>
+                </div>
+                <div style="text-align: center; margin: 20px 0;">
+                  <div style="font-size: 44px; margin-bottom: 10px;">⚡</div>
+                  <div style="font-size: 14px; font-weight: 700; color: #fff;">NO APP DOWNLOAD</div>
+                  <div style="font-size: 11px; color: #cbd5e1; margin-top: 4px;">Instant in-browser hospitality experience.</div>
+                </div>
+                <div class="ui-vip-badge" style="padding: 10px; margin: 8px 0;">
+                  <div style="font-size: 10px; font-weight: 700; color: #d4af37;">ZERO FRICTION FOR GUESTS</div>
+                </div>
+                <div style="text-align: center; font-size: 8px; color: #64748b; letter-spacing: 1px;">
+                  METRIX INFRASTRUCTURE
+                </div>
+              </div>
             </div>
           </div>
           <div class="artboard-footer">
-            <div>METRICSMEDIA.AGENCY</div>
+            <div>PHYSICAL HARDWARE + INSTANT BROWSER FLOW</div>
             <div class="mono">FLAGSHIP MONOLITH</div>
           </div>
         `,
@@ -1212,14 +1632,38 @@ Deploy once. Protect your venue permanently.
             <div class="artboard-brand">METRIX</div>
             <div class="artboard-tag">LIVE DEMONSTRATION // 12</div>
           </div>
-          <div class="manifesto-body">
-            <div class="manifesto-eyebrow">60-SECOND SIMULATOR</div>
-            <div class="manifesto-headline">
-              Experience the Counter Flow
-              <span class="accent-gold">On Your Own Device.</span>
+          <div class="mockup-container">
+            <div style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+              <div class="manifesto-eyebrow">60-SECOND SIMULATOR</div>
+              <div class="manifesto-headline" style="font-size: 42px;">
+                Experience the Counter Flow
+                <span class="accent-gold">On Your Device.</span>
+              </div>
+              <div class="manifesto-sub" style="font-size: 20px;">
+                See how a guest unlocks the VIP 5-star reward gate and how negative feedback is intercepted before it can damage your Google Maps rating.
+              </div>
+              <div style="display: inline-flex; align-items: center; gap: 10px; color: var(--gold-primary); font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 700;">
+                <span>👉 TAP LINK IN BIO TO TEST</span>
+              </div>
             </div>
-            <div class="manifesto-sub">
-              Test how a guest interacts with the VIP 5-star reward gate and how negative feedback is intercepted before it can damage your Google Maps rating.
+            <div class="phone-frame">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <div style="text-align: center; margin-top: 10px;">
+                  <div style="font-family: 'Cinzel', serif; font-size: 15px; font-weight: 700; color: #d4af37;">DEMO.HTML</div>
+                  <div style="font-size: 9px; color: #94a3b8; letter-spacing: 1px;">LIVE SIMULATOR</div>
+                </div>
+                <div style="margin: 20px 0; text-align: center;">
+                  <div style="font-size: 13px; color: #94a3b8; margin-bottom: 8px;">Rate your experience:</div>
+                  <div class="ui-stars">★★★★★</div>
+                  <div style="font-size: 10px; color: #4ade80; margin-top: 6px;">[ Tap 5 stars to unlock VIP ]</div>
+                  <div style="font-size: 10px; color: #f87171; margin-top: 4px;">[ Tap 1-3 stars to test PR Shield ]</div>
+                </div>
+                <div class="ui-btn" style="margin-top: auto;">Launch Interactive Portal</div>
+                <div style="text-align: center; font-size: 8px; color: #64748b; letter-spacing: 1px; margin-top: 8px;">
+                  METRIXMEDIA.AGENCY/DEMO.HTML
+                </div>
+              </div>
             </div>
           </div>
           <div class="artboard-footer">
