@@ -377,6 +377,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // ----------------------------------------------------
     const feedbackForm = document.getElementById('feedback-form');
     const successScreen = document.getElementById('success-screen');
+    const feedbackDirectGmbLink = document.getElementById('feedback-direct-gmb-link');
+
+    if (feedbackDirectGmbLink) {
+        feedbackDirectGmbLink.href = gmbUrl;
+        feedbackDirectGmbLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            feedbackScreen.style.display = 'none';
+            startRedirectTimer();
+        });
+    }
 
     feedbackForm.addEventListener('submit', (e) => {
         e.preventDefault();
