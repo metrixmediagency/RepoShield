@@ -110,7 +110,7 @@ foreach ($niche in $NicheList) {
                         $demoUrl = "https://www.metrixmedia.agency/demo.html?name=$encodedName&theme=$Theme"
                     }
 
-                    $rawMessage = "Hey $bizName team! Sunny here from MetrixMedia. I noticed you guys have an awesome venue but you're missing out on hundreds of automated reviews. I mocked up a custom Review Portal and physical standee for your tables that forces customers to leave 5 stars, and routes complaints to your WhatsApp instead of posting publicly. Take a look at the attached concept I made for you! See the live digital demo here (Scan or Tap the QR code!): $demoUrl"
+                    $rawMessage = "Hey $bizName team! Sunny here from METRIX. I noticed your venue has great foot traffic, but like most hospitality brands, you might be losing repeat direct orders to delivery apps. I mocked up a custom In-Store Guest Intelligence Portal and bespoke tabletop assets for your dining tables to capture VIP diner WhatsApp contacts and route real-time table service feedback directly to your floor team. Take a look at your live digital simulation here: $demoUrl"
                     
                     if ($phone -ne "") {
                         $waLink = "https://wa.me/$phone"

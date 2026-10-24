@@ -1426,8 +1426,8 @@ It’s not fair, but it’s how the local economy works.
 
 Happy diners leave silently; annoyed diners leave reviews. Aegis Protocol stops the leak.
 
-We set up a custom review gating portal and send you a print-ready digital QR standee PDF for your billing counter:
-✅ Happy diners scan and are auto-routed to post a public 5-star Google review.
+We set up a custom guest feedback portal and send you print-ready digital tabletop assets for your dining tables:
+✅ Happy diners scan to unlock VIP privileges and access public Google reviews.
 ⚠️ Annoyed diners (wait times, cold food) go to a private feedback page straight to the owner.
 
 Handle complaints privately, fix the issue, and protect your rating.
@@ -1767,9 +1767,9 @@ You integrate reviews into a compliant digital product warranty registration.
 
 By providing a professional warranty activation card in the box:
 ✅ Satisfied buyers activate their warranty and are prompted to share their experience.
-⚠️ Unsatisfied buyers (damaged shipping, missing user guide, defects) are routed straight to a private support desk.
+⚠️ Unsatisfied buyers (service issues, questions, defects) are routed straight to a private support desk.
 
-You resolve their issues instantly by shipping replacements, blocking negative ratings entirely while playing 100% within platform Terms of Service.
+You resolve their issues instantly via direct VIP support, resolving concerns while playing 100% within platform Terms of Service.
 
 🛡️ 100% PLATFORM COMPLIANT:
 We build your warranty registration page and design your digital insert cards. Backed by our 7-day money-back guarantee. Pay a one-time ₹1,999 setup fee.
@@ -2260,7 +2260,7 @@ Aegis QR counter standees route happy clients to Google Maps, and damp towel gri
         storyboard: [
             { time: 0, text: "Trapped at a 3.9 product rating?" },
             { time: 3, text: "Your Amazon organic ranking is in a death spiral." },
-            { time: 6, text: "Aegis redirects shipping defects to private support tickets." },
+            { time: 6, text: "Aegis redirects customer inquiries to private support tickets." },
             { time: 9, text: "Rescue listings compliantly. DM <span class='highlight'>'SELLER'</span> for the portal setup." }
         ],
         captions: {
@@ -2270,9 +2270,9 @@ Your PPC ad costs double, your listing drops off page 1, and your buy-box owners
 
 By placing a professional, compliant warranty activation card inside your product packaging:
 ✅ Delighted buyers scan to activate warranty and are prompted to post reviews.
-⚠️ Annoyed buyers (shipping defects, broken parts) go straight to a private support page.
+⚠️ Annoyed buyers (customer inquiries, issues) go straight to a private support page.
 
-You ship replacements instantly, resolving their issues and keeping negative reviews completely off your listing.
+You resolve concerns instantly, keeping customer satisfaction high.
 
 🛡️ 100% PLATFORM COMPLIANT:
 We build your warranty registration page and design your digital insert cards. Backed by our 7-day money-back guarantee. Pay a one-time ₹1,999 setup fee.
@@ -2300,7 +2300,7 @@ You get penalised for the postman's bad day.
 
 Let's fix it legally.
 
-Our warranty inserts redirect shipping and packaging complaints straight to a private replacement desk.
+Our customer support portals redirect feedback inquiries straight to a private resolution desk.
 
 🛡️ TERMS:
 ₹1,999 onboarding. 7-day money-back guarantee.

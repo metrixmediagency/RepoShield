@@ -86,7 +86,7 @@ def process_lead(result, location, is_premium):
         else:
             demo_url = f"https://www.metrixmedia.agency/demo.html?name={encoded_name}&theme=dark"
             
-        raw_msg = f"Hey {biz_name} team! Sunny here from MetrixMedia. I noticed you guys have an awesome venue but you're missing out on hundreds of automated reviews. I mocked up a custom Review Portal and physical standee for your tables that forces customers to leave 5 stars, and routes complaints to your WhatsApp instead of posting publicly. Take a look at the attached concept I made for you! See the live digital demo here (Scan or Tap the QR code!): {demo_url}"
+        raw_msg = f"Hey {biz_name} team! Sunny here from METRIX. I noticed your venue has great foot traffic, but like most hospitality brands, you might be losing repeat direct orders to delivery apps. I mocked up a custom In-Store Guest Intelligence Portal and bespoke tabletop assets for your dining tables to capture VIP diner WhatsApp contacts and route real-time table service feedback directly to your floor team. Take a look at your live digital simulation here: {demo_url}"
         
         wa_link = f"https://wa.me/{phone}" if phone else "No Phone Number Found"
         price_str = f" | Price: {price}" if price else ""
