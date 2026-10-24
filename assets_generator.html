@@ -319,9 +319,7 @@
       font-size: 26px;
       font-weight: 800;
       letter-spacing: 4px;
-      background: var(--gold-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: var(--gold-primary);
     }
 
     .artboard-tag {
@@ -379,10 +377,9 @@
       letter-spacing: 1px;
     }
 
+    .accent-gold,
     .slide-headline .accent-gold {
-      background: var(--gold-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: var(--gold-primary);
       display: block;
       margin-top: 10px;
     }
@@ -2179,7 +2176,15 @@ Test our 60-second interactive tabletop simulator directly on your phone:
         backgroundColor: '#070a0f',
         useCORS: true,
         allowTaint: true,
-        logging: false
+        logging: false,
+        onclone: (clonedDoc) => {
+          clonedDoc.querySelectorAll('.artboard-brand, .accent-gold').forEach(el => {
+            el.style.background = 'none';
+            el.style.webkitBackgroundClip = 'unset';
+            el.style.webkitTextFillColor = 'initial';
+            el.style.color = '#d4af37';
+          });
+        }
       }).then(canvas => {
         artboard.style.transform = originalTransform;
         btn.textContent = originalText;
