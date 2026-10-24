@@ -2134,6 +2134,7 @@
                         <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem; display: block;">Select Enablement Tool</label>
                         <div class="input-wrapper">
                             <select id="sales-kit-tabs-mobile" style="padding-left: 1rem; width: 100%;">
+                                <option value="whatsapp-playbook" selected>Dubai WhatsApp Playbook (O-W-P-A)</option>
                                 <option value="pricing-deck">Pricing Deck &amp; PDF Generator</option>
                                 <option value="two-call-script">Two-Call Script</option>
                                 <option value="one-call-script">One-Call Live-Drop</option>
@@ -2144,7 +2145,10 @@
                     </div>
 
                     <div class="sales-kit-tabs">
-                        <button class="sales-kit-tab-btn active" data-kit-tab="pricing-deck">
+                        <button class="sales-kit-tab-btn active" data-kit-tab="whatsapp-playbook">
+                            <i class="fa-brands fa-whatsapp" style="color: #25d366;"></i> WhatsApp Playbook
+                        </button>
+                        <button class="sales-kit-tab-btn" data-kit-tab="pricing-deck">
                             <i class="fa-solid fa-file-pdf"></i> Pricing Deck
                         </button>
                         <button class="sales-kit-tab-btn" data-kit-tab="two-call-script">
@@ -2162,7 +2166,154 @@
                     </div>
 
                     <!-- Panel 1: Pricing Deck -->
-                    <div class="sales-kit-panel active" id="kit-panel-pricing-deck">
+                    <!-- Panel 0: Dubai WhatsApp Playbook -->
+                    <div class="sales-kit-panel active" id="kit-panel-whatsapp-playbook">
+                        <div class="glass-card" style="border: 1px solid rgba(37, 211, 102, 0.3); background: linear-gradient(135deg, rgba(37, 211, 102, 0.05) 0%, rgba(15, 23, 42, 0.4) 100%); margin-bottom: 1.5rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                                <div>
+                                    <h3 style="color: white; margin-bottom: 0.5rem;"><i class="fa-brands fa-whatsapp" style="color: #25d366; margin-right: 0.5rem;"></i> Dubai WhatsApp Outreach Engine (O-W-P-A Framework)</h3>
+                                    <p style="color: var(--text-muted); margin-bottom: 0; font-size: 0.9rem;">Mobile-first conversion framework for Dubai hospitality: Observation &rarr; Wound (30% Commission/Table Friction) &rarr; Proof (Pre-Built Demo) &rarr; Ask (7-Day Trial).</p>
+                                </div>
+                                <span style="background: rgba(37, 211, 102, 0.15); color: #25d366; border: 1px solid rgba(37, 211, 102, 0.3); padding: 0.35rem 0.85rem; border-radius: 20px; font-size: 0.8rem; font-weight: 700;">Dubai Corridors: Jumeirah, DIFC, Downtown</span>
+                            </div>
+                        </div>
+
+                        <!-- Sub-Navigation for WhatsApp Niche Scripts -->
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
+                            <!-- Niche 1: Specialty Coffee -->
+                            <div class="glass-card" style="padding: 1.5rem; border-top: 3px solid #d4af37;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                    <h4 style="color: white; margin: 0;"><i class="fa-solid fa-mug-hot" style="color: #d4af37; margin-right: 0.5rem;"></i> Specialty Coffee &amp; Cafes</h4>
+                                    <button class="copy-btn" onclick="copyText('wa-script-coffee')">Copy</button>
+                                </div>
+                                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem;">Target: Founders / Managing Partners in Jumeirah &amp; Al Wasl.</p>
+                                <div class="script-box" style="max-height: 220px; overflow-y: auto; font-size: 0.85rem;">
+                                    <span id="wa-script-coffee">Hi [Name/Founder], Sunny here from METRIX.
+
+Admiring what you guys built at [Venue Name] in [Area, e.g. Jumeirah 2]—the roasting aesthetic and foot traffic are top-tier.
+
+Quick observation: Most specialty coffee brands in Dubai lose repeat diners to aggregators like Talabat or Deliveroo, paying up to 30% commission simply because they don't capture guest WhatsApp contacts while customers are seated at tables.
+
+We built an in-store guest intelligence platform that deploys bespoke matte black tabletop assets at dining tables. Guests tap to unlock VIP privileges, and your floor team gets real-time WhatsApp service alerts in &lt; 3 seconds if any dish or brew isn't perfect.
+
+I put together a 60-second live interactive simulation for [Venue Name] directly on your phone:
+👉 https://metrixmedia.agency/demo.html?name=[Venue+Name]
+
+We deliver bespoke 300 DPI vector tabletop print assets with zero POS integration needed.
+
+Open to deploying a complimentary 7-day digital pilot for [Venue Name] during weekend service?</span>
+                                </div>
+                            </div>
+
+                            <!-- Niche 2: Artisan Pizzerias & Bistros -->
+                            <div class="glass-card" style="padding: 1.5rem; border-top: 3px solid #f97316;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                    <h4 style="color: white; margin: 0;"><i class="fa-solid fa-pizza-slice" style="color: #f97316; margin-right: 0.5rem;"></i> Pizzerias &amp; Bistros</h4>
+                                    <button class="copy-btn" onclick="copyText('wa-script-bistro')">Copy</button>
+                                </div>
+                                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem;">Target: Operations Leads &amp; Directors in Marina &amp; DIFC.</p>
+                                <div class="script-box" style="max-height: 220px; overflow-y: auto; font-size: 0.85rem;">
+                                    <span id="wa-script-bistro">Hi [Name], Sunny from METRIX. Hope afternoon prep is going well at [Venue Name].
+
+Reaching out because high-volume venues in [Area] share the exact same weekend challenge: a diner experiences a slightly delayed order or cold side, says "everything's great" when the waiter asks, leaves dissatisfied, and drops a 2-star review online 4 hours later.
+
+With METRIX, guests tap the luxury tabletop asset right at their table. If a table notes service friction, management receives a direct WhatsApp alert in 3 seconds with the table number—allowing your team to attend to the guest and resolve it before the bill is paid.
+
+Tested the live flow with [Venue Name]’s branding here:
+👉 https://metrixmedia.agency/demo.html?name=[Venue+Name]
+
+Takes 60 seconds to slide our bespoke vector tabletop assets into your existing table holders.
+
+Worth testing risk-free at [Venue Name] for 7 days this weekend?</span>
+                                </div>
+                            </div>
+
+                            <!-- Niche 3: Luxury Shisha Lounges -->
+                            <div class="glass-card" style="padding: 1.5rem; border-top: 3px solid #8b5cf6;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                    <h4 style="color: white; margin: 0;"><i class="fa-solid fa-wind" style="color: #8b5cf6; margin-right: 0.5rem;"></i> Luxury Shisha Lounges</h4>
+                                    <button class="copy-btn" onclick="copyText('wa-script-lounge')">Copy</button>
+                                </div>
+                                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem;">Target: Lounge Operations in Business Bay &amp; Downtown.</p>
+                                <div class="script-box" style="max-height: 220px; overflow-y: auto; font-size: 0.85rem;">
+                                    <span id="wa-script-lounge">Hi [Name], Sunny here from METRIX. 
+
+Respect what you’ve created at [Venue Name] in [Area]—the evening vibe and guest dwell time are exceptional.
+
+Because guests stay 90 to 120 minutes at your tables, table operations are make-or-break. If coal rotation or drink service lags, guests get restless, and you miss capturing their direct contact details for your next weekend DJ event.
+
+We deploy bespoke matte black tabletop assets that let guests request instant table attention or join your VIP lounge list directly on WhatsApp. Your floor team gets live alerts within 3 seconds:
+👉 https://metrixmedia.agency/demo.html?name=[Venue+Name]
+
+Zero hardware to purchase, zero POS setup. 
+
+Open to testing a complimentary 7-day tabletop pilot across your lounge tables this weekend?</span>
+                                </div>
+                            </div>
+
+                            <!-- Niche 4: Aesthetic & Medical Clinics -->
+                            <div class="glass-card" style="padding: 1.5rem; border-top: 3px solid #38bdf8;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                    <h4 style="color: white; margin: 0;"><i class="fa-solid fa-stethoscope" style="color: #38bdf8; margin-right: 0.5rem;"></i> Aesthetic &amp; Wellness Clinics</h4>
+                                    <button class="copy-btn" onclick="copyText('wa-script-clinic')">Copy</button>
+                                </div>
+                                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem;">Target: Clinic Directors &amp; Surgeons in Jumeirah 1 &amp; Umm Suqeim.</p>
+                                <div class="script-box" style="max-height: 220px; overflow-y: auto; font-size: 0.85rem;">
+                                    <span id="wa-script-clinic">Dear Dr. [Last Name] / [Clinic Director], Sunny here from METRIX.
+
+Compliments on [Clinic Name]’s reputation in [Area]—your aesthetic standards and clinical team are widely respected.
+
+In aesthetic medicine, prospective patients check Google Maps before booking high-ticket treatments. When patients experience administrative delays (like appointment waiting times), paper reception feedback is ignored, and minor grievances occasionally turn into public reviews.
+
+We engineered a discreet in-clinic patient intelligence protocol. Patients tap a sleek tabletop touchpoint at reception to unlock VIP member privileges, while service feedback is routed directly and privately to management's phone in real-time.
+
+I’ve configured a live simulation for [Clinic Name] here:
+👉 https://metrixmedia.agency/demo.html?name=[Clinic+Name]
+
+We would love to activate a risk-free 7-day digital pilot for [Clinic Name]. Would you be open to a 3-minute walkthrough on WhatsApp this week?</span>
+                                </div>
+                            </div>
+
+                            <!-- Niche 5: Trojan Horse Delivery Bag -->
+                            <div class="glass-card" style="padding: 1.5rem; border-top: 3px solid #ec4899;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                    <h4 style="color: white; margin: 0;"><i class="fa-solid fa-bag-shopping" style="color: #ec4899; margin-right: 0.5rem;"></i> "Trojan Horse" Bag Insert</h4>
+                                    <button class="copy-btn" onclick="copyText('wa-script-bag')">Copy</button>
+                                </div>
+                                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem;">Target: Any venue doing 50+ daily orders on Talabat / Deliveroo.</p>
+                                <div class="script-box" style="max-height: 220px; overflow-y: auto; font-size: 0.85rem;">
+                                    <span id="wa-script-bag">Hey [Name], quick question for [Venue Name]:
+
+When Talabat or Deliveroo riders pick up orders from your kitchen, how do you currently capture those diners' phone numbers to turn them into direct, commission-free customers next time?
+
+We designed a "Trojan Horse" QR insert for outgoing delivery bags ("Scan to unlock 20% off direct next order"). It captures the customer's WhatsApp number and routes direct re-orders straight to your venue at 0% commission.
+
+See the live customer mobile flow for [Venue Name] here:
+👉 https://metrixmedia.agency/demo.html?name=[Venue+Name]
+
+If you want to plug that 30% commission leak this weekend, I can send over your print-ready digital vector bag inserts today. Free to test for 7 days. Fair enough?</span>
+                                </div>
+                            </div>
+
+                            <!-- Follow-Up Engine & Objections -->
+                            <div class="glass-card" style="padding: 1.5rem; border-top: 3px solid #10b981;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                    <h4 style="color: white; margin: 0;"><i class="fa-solid fa-reply-all" style="color: #10b981; margin-right: 0.5rem;"></i> 24h &amp; 72h Follow-Ups</h4>
+                                    <button class="copy-btn" onclick="copyText('wa-script-bump')">Copy Bump</button>
+                                </div>
+                                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem;">Send 24 hours later between 3:30 PM – 4:30 PM GST.</p>
+                                <div class="script-box" style="max-height: 220px; overflow-y: auto; font-size: 0.85rem;">
+                                    <span id="wa-script-bump">Hey [Name]—know service keeps you flat out! 
+
+Just checking if you had 30 seconds to tap through the [Venue Name] tabletop simulation I sent above? 
+
+Happy to send over your venue's bespoke 300 DPI vector tabletop assets today so your team can test it completely free this weekend.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sales-kit-panel" id="kit-panel-pricing-deck">
                         <div class="glass-card" style="border: 1px solid rgba(59, 130, 246, 0.3); background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(15, 23, 42, 0.4) 100%);">
                             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
                                 <div>
