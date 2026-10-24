@@ -159,13 +159,13 @@
 
                     <div class="glass-card" style="padding: 1.5rem;">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                            <h4 style="color: var(--text-muted); font-size: 0.9rem; font-weight: 500;">1-Star Intercepts</h4>
+                            <h4 style="color: var(--text-muted); font-size: 0.9rem; font-weight: 500;">Service Alerts</h4>
                             <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(239, 68, 68, 0.1); display: flex; align-items: center; justify-content: center; color: #ef4444;">
                                 <i class="fa-solid fa-shield-halved"></i>
                             </div>
                         </div>
-                        <h2 id="kpi-intercepts" style="font-size: 2rem; margin: 0; color: white;">0</h2>
-                        <p style="color: #ef4444; font-size: 0.8rem; margin-top: 0.5rem;"><i class="fa-solid fa-ban"></i> Disasters prevented</p>
+                        <h2 id="kpi-alerts" style="font-size: 2rem; margin: 0; color: white;">0</h2>
+                        <p style="color: #ef4444; font-size: 0.8rem; margin-top: 0.5rem;"><i class="fa-solid fa-bell"></i> Table alerts resolved</p>
                     </div>
                 </div>
 
@@ -669,8 +669,8 @@
             const kpiScans = document.getElementById('kpi-scans');
             if (kpiScans) kpiScans.textContent = (campaigns.length * 135).toLocaleString('en-IN'); // Simulate 135 scans per client
 
-            const kpiIntercepts = document.getElementById('kpi-intercepts');
-            if (kpiIntercepts) kpiIntercepts.textContent = (campaigns.length * 4).toLocaleString('en-IN'); // Simulate 4 intercepts per client
+            const kpiAlerts = document.getElementById('kpi-alerts');
+            if (kpiAlerts) kpiAlerts.textContent = (campaigns.length * 4).toLocaleString('en-IN'); // Simulate 4 table alerts per client
 
             // Update Live Feed
             const liveFeed = document.getElementById('live-feed-container');
