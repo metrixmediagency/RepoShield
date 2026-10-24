@@ -121,10 +121,10 @@
                 let query = window.supabaseClient.from('campaigns').select('destination, portal_url');
                 
                 if (campaignId) {
-                    // Specific Client Standee Mode
+                    // Specific Client Tabletop Mode
                     query = query.eq('id', campaignId);
                 } else {
-                    // Master Standee Mode: Fetch the most recent campaign
+                    // Master Tabletop Mode: Fetch the most recent campaign
                     query = query.order('id', { ascending: false }).limit(1);
                 }
 

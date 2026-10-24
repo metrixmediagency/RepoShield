@@ -11,3 +11,5 @@ test_*.ps1
 temp_*
 mockups/
 test_image.png
+__pycache__/
+*.pyc

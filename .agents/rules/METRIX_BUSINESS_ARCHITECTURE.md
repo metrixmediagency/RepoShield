@@ -1,7 +1,7 @@
 ---
 trigger: always_on
 ---
-# RepoShield / MetrixMedia Project Rules & Architecture
+# METRIX Project Rules & System Architecture
 
 This document serves as the permanent memory, architectural blueprint, and strictly enforced system rules for the MetrixMedia business and its digital infrastructure.
 

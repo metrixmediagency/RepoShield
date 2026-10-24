@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Checkout - Aegis Protocol</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
+    <title>Secure Checkout - METRIX</title>
+    <link rel="icon" type="image/jpeg" href="/metrix_logo.jpg">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -390,9 +390,9 @@
                 var options = {
                     "key": window.RAZORPAY_KEY_ID, 
                     "subscription_id": "", // In a real app, this is generated via backend API
-                    "name": "MetrixMedia",
+                    "name": "METRIX",
                     "description": planInfo.name + " (" + cycleCode + ")",
-                    "image": "https://raw.githubusercontent.com/metrixmediagency/RepoShield/main/favicon.png",
+                    "image": "https://metrixmedia.agency/metrix_logo.jpg",
                     "handler": function (response){
                         // Payment successful
                         alert("Payment successful! Subscription ID: " + response.razorpay_subscription_id);

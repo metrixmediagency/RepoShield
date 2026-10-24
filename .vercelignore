@@ -1,0 +1,14 @@
+.agents/
+social_media/
+archive-tests/
+bot-engine/
+lead_bot_standalone/
+mockups/
+*.zip
+*.ps1
+*.py
+*.bat
+*.sh
+*.vbs
+node.exe
+MARKETING_ENGINE.md
