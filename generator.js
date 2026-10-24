@@ -2467,7 +2467,7 @@ function renderCarouselMedia(post) {
             badUser = "BUYER 404";
             goodUser = "VERIFIED BUYER";
             chatInText = "PRODUCT BOX ARRIVED DAMAGED, ITEM IS DEFECTIVE. 📦";
-            chatOutText = "VERY SORRY. A REPLACEMENT HAS BEEN SHIPPED VIA EXPRESS DELIVERY.";
+            chatOutText = "VERY SORRY. A VIP CREDIT HAS BEEN ISSUED TO YOUR ACCOUNT.";
             if (niche === 'zomato' || niche === 'swiggy') {
                 badReviewTextVal = "SPILLED CURRY. COLD PACKAGING.";
                 goodReviewTextVal = "HOT DELICIOUS FOOD. NEAT PACKING.";

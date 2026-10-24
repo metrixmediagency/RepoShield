@@ -205,7 +205,7 @@
                                 <tr>
                                     <th>Client Name</th>
                                     <th>Agent</th>
-                                    <th>Standee Qty</th>
+                                    <th>Asset Qty</th>
                                     <th>Design Variant</th>
                                     <th>Status</th>
                                     <th>Action</th>
@@ -715,14 +715,14 @@
                     let badge, action;
 
                     if (status === 'pending') {
-                        badge = '<span class="status-badge status-pending" style="color: #fbbf24; background: rgba(251,191,36,0.1);">Pending Print</span>';
-                        action = `<button class="btn btn-secondary btn-sm" onclick="updateFulfillment('${camp.id}', 'printed')" style="border-color: #0ea5e9; color: #0ea5e9;">Mark Printed</button>`;
-                    } else if (status === 'printed') {
-                        badge = '<span class="status-badge status-active" style="color: #0ea5e9; background: rgba(14,165,233,0.1);">Printed</span>';
-                        action = `<button class="btn btn-primary btn-sm" onclick="updateFulfillment('${camp.id}', 'shipped')" style="background: #10b981; border-color: #10b981;">Mark Shipped</button>`;
+                        badge = '<span class="status-badge status-pending" style="color: #fbbf24; background: rgba(251,191,36,0.1);">Pending Setup</span>';
+                        action = `<button class="btn btn-secondary btn-sm" onclick="updateFulfillment('${camp.id}', 'generated')" style="border-color: #0ea5e9; color: #0ea5e9;">Mark Generated</button>`;
+                    } else if (status === 'generated') {
+                        badge = '<span class="status-badge status-active" style="color: #0ea5e9; background: rgba(14,165,233,0.1);">Generated</span>';
+                        action = `<button class="btn btn-primary btn-sm" onclick="updateFulfillment('${camp.id}', 'delivered')" style="background: #10b981; border-color: #10b981;">Mark Delivered</button>`;
                     } else {
-                        badge = '<span class="status-badge" style="background: rgba(52, 211, 153, 0.1); color: #34d399;">Shipped</span>';
-                        action = '<span style="font-size: 0.85rem; color: var(--text-muted);"><i class="fa-solid fa-truck"></i> In Transit</span>';
+                        badge = '<span class="status-badge" style="background: rgba(52, 211, 153, 0.1); color: #34d399;">Active &amp; Delivered</span>';
+                        action = '<span style="font-size: 0.85rem; color: #10b981;"><i class="fa-solid fa-circle-check"></i> Live</span>';
                     }
 
                     table.innerHTML += `

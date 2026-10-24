@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
             tagline: "Thank you for your purchase! Register your warranty here.",
             ratingTitle: "How do you rate your product?",
             feedbackTitle: "Let us make it right!",
-            feedbackSubtitle: "We are sorry your product wasn't perfect! Please share what went wrong and we will ship you a free replacement or process a full refund instantly.",
+            feedbackSubtitle: "We are sorry your experience wasn't perfect! Please share what went wrong and our dedicated support team will contact you directly to make it right.",
             redirectTitle: "Excellent!",
             redirectText: `We are thrilled you love your product! We are redirecting you to our product page to submit your warranty review.`,
             redirectBtn: "Click here to submit review & activate warranty"
