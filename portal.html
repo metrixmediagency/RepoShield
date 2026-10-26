@@ -3,113 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Share Your Feedback</title>
+    <title>In-Store Tabletop Companion</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="portal.css">
+    <link rel="stylesheet" href="portal.css?v=3.5">
 </head>
 <body>
     <div class="blob-1" id="accent-blob-1"></div>
     <div class="blob-2" id="accent-blob-2"></div>
 
     <div class="portal-container">
-        <!-- Main Rating Card -->
-        <div class="portal-card" id="rating-card">
+        <!-- Main Tabletop Card -->
+        <div class="portal-card" id="main-card">
             <!-- Brand/Logo Section -->
             <div class="brand-section">
                 <div class="logo-wrapper" id="logo-container">
                     <i class="fa-solid fa-store" id="category-icon"></i>
                 </div>
                 <h2 id="business-name">Business Name</h2>
-                <p class="tagline">Thank you for dining with us today. We would love to hear about your experience.</p>
+                <p class="tagline">Welcome! Tap below to join our VIP Dining Club, request table service, or browse our menu.</p>
             </div>
 
-            <!-- Star Rating Input Screen -->
-            <div class="rating-screen" id="rating-screen">
-                <h3>How was your experience?</h3>
-                <div class="stars-container">
-                    <button class="star-btn" data-rating="1" aria-label="1 star"><i class="fa-regular fa-star"></i></button>
-                    <button class="star-btn" data-rating="2" aria-label="2 stars"><i class="fa-regular fa-star"></i></button>
-                    <button class="star-btn" data-rating="3" aria-label="3 stars"><i class="fa-regular fa-star"></i></button>
-                    <button class="star-btn" data-rating="4" aria-label="4 stars"><i class="fa-regular fa-star"></i></button>
-                    <button class="star-btn" data-rating="5" aria-label="5 stars"><i class="fa-regular fa-star"></i></button>
+            <!-- Main Navigation Hub Screen -->
+            <div class="hub-screen" id="hub-screen">
+                <!-- 1. VIP Club Option -->
+                <button type="button" class="hub-action-card" id="btn-open-vip">
+                    <div class="hub-action-icon" style="background: rgba(212, 175, 55, 0.15); color: #d4af37; border-color: rgba(212, 175, 55, 0.4);">
+                        <i class="fa-solid fa-crown"></i>
+                    </div>
+                    <div class="hub-action-text">
+                        <h4>Join VIP Dining Club 🥂</h4>
+                        <p>Unlock complimentary perks &amp; birthday gifts</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right hub-action-arrow"></i>
+                </button>
+
+                <!-- 2. Table Service Calling Option -->
+                <button type="button" class="hub-action-card" id="btn-open-service">
+                    <div class="hub-action-icon" style="background: rgba(59, 130, 246, 0.15); color: #60a5fa; border-color: rgba(59, 130, 246, 0.4);">
+                        <i class="fa-solid fa-bell-concierge"></i>
+                    </div>
+                    <div class="hub-action-text">
+                        <h4>Call Table Service 🛎️</h4>
+                        <p>Request water, waiter, or bill in &lt; 3 seconds</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right hub-action-arrow"></i>
+                </button>
+
+                <!-- 3. Direct Menu & Open Reviews -->
+                <div class="hub-quick-links">
+                    <a href="#" id="hub-gmb-link" class="hub-link-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-brands fa-google" style="color: #ea4335;"></i>
+                        <span>Review on Google</span>
+                    </a>
+                    <a href="#" id="hub-menu-link" class="hub-link-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-solid fa-utensils" style="color: #d4af37;"></i>
+                        <span>Browse Menu</span>
+                    </a>
                 </div>
-                <p class="rating-helper-text" id="rating-helper">Tap a star to rate</p>
             </div>
 
-            <!-- Private Negative Feedback Screen (Hidden by Default) -->
-            <div class="feedback-screen" id="feedback-screen">
-                <div class="screen-header">
-                    <button class="back-btn" id="back-to-stars" aria-label="Go back"><i class="fa-solid fa-arrow-left"></i></button>
-                    <h3>We'd love to make it right</h3>
-                </div>
-                <p class="feedback-subtitle">We are sorry your experience wasn't perfect. Please tell us what we can do better, and our manager will contact you directly to resolve this.</p>
-                
-                <form id="feedback-form" class="feedback-form">
-                    <div class="input-row">
-                        <div class="form-group">
-                            <label for="client-name">Your Name</label>
-                            <input type="text" id="client-name" placeholder="e.g. Rahul Sharma" minlength="3" pattern="^[a-zA-Z\s]+$" title="Name must be at least 3 characters (letters only)" required autocomplete="name">
-                        </div>
-                        <div class="form-group">
-                            <label for="client-phone">Phone Number</label>
-                            <input type="tel" id="client-phone" placeholder="e.g. 9876543210" minlength="10" maxlength="10" pattern="\d{10}" title="Please enter exactly 10 digits" required autocomplete="tel">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="client-dob">Date of Birth</label>
-                        <input type="text" id="client-dob" placeholder="DD/MM/YYYY" pattern="\d{2}/\d{2}/\d{4}" title="Please enter in DD/MM/YYYY format" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="client-message">How can we improve?</label>
-                        <textarea id="client-message" rows="4" placeholder="Please describe the issue..." required></textarea>
-                    </div>
-                    
-                    <button type="submit" class="submit-btn" id="btn-submit-feedback">
-                        Submit Private Feedback <i class="fa-solid fa-paper-plane"></i></button>
-                    <a href="#" id="feedback-direct-gmb-link" class="btn-direct-redirect" style="display: block; text-align: center; margin-top: 15px; font-size: 0.85rem; color: #94a3b8; text-decoration: underline;">Or leave a public review on Google Maps</a>
-
-                    <!---->
-                </form>
-            </div>
-
-            <!-- Lead Capture Screen (VIP Club) -->
+            <!-- VIP Registration Screen -->
             <div class="vip-screen" id="vip-screen" style="display: none;">
                 <div class="screen-header">
-                    <button class="back-btn" id="vip-back-to-stars" aria-label="Go back"><i class="fa-solid fa-arrow-left"></i></button>
+                    <button class="back-btn" id="vip-back-to-hub" aria-label="Go back"><i class="fa-solid fa-arrow-left"></i></button>
                     <h3>Unlock VIP Privileges 🥂</h3>
                 </div>
-                <p class="feedback-subtitle">As a thank you for your feedback, we invite you to join our exclusive guest list. Enter your details below to unlock complimentary perks and priority access on future visits.</p>
+                <p class="feedback-subtitle">Join our guest list to receive exclusive dining privileges, chef welcome treats, and birthday celebration perks.</p>
                 
                 <form id="vip-form" class="feedback-form">
                     <div class="input-row">
                         <div class="form-group">
                             <label for="vip-name">Your Name</label>
-                            <input type="text" id="vip-name" placeholder="e.g. Rahul Sharma" minlength="3" pattern="^[a-zA-Z\s]+$" title="Name must be at least 3 characters (letters only)" required autocomplete="name">
+                            <input type="text" id="vip-name" placeholder="e.g. Marcus Vance" minlength="3" pattern="^[a-zA-Z\s]+$" title="Name must be at least 3 characters (letters only)" required autocomplete="name">
                         </div>
                         <div class="form-group">
                             <label for="vip-phone">WhatsApp Number</label>
-                            <input type="tel" id="vip-phone" placeholder="e.g. 9876543210" minlength="10" maxlength="10" pattern="\d{10}" title="Please enter exactly 10 digits" required autocomplete="tel">
+                            <input type="tel" id="vip-phone" placeholder="e.g. 501234567" minlength="8" maxlength="15" required autocomplete="tel">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="vip-dob">Date of Birth</label>
+                        <label for="vip-dob">Date of Birth (For Birthday Treats)</label>
                         <input type="text" id="vip-dob" placeholder="DD/MM/YYYY" pattern="\d{2}/\d{2}/\d{4}" title="Please enter in DD/MM/YYYY format" required>
                     </div>
                     
                     <button type="submit" class="submit-btn" id="btn-submit-vip">
-                        Join VIP & Continue to Google <i class="fa-solid fa-gift"></i></button>
-                    <!---->
-                    <a href="#" id="skip-vip-link" class="btn-direct-redirect" style="display: block; text-align: center; margin-top: 15px;">No thanks, just take me to Google</a>
+                        Claim VIP Privileges <i class="fa-solid fa-gift"></i>
+                    </button>
                 </form>
             </div>
 
-            <!-- Success/Confirmation Screen (Hidden by Default) -->
-            <div class="success-screen" id="success-screen">
+            <!-- Table Service Screen -->
+            <div class="service-screen" id="service-screen" style="display: none;">
+                <div class="screen-header">
+                    <button class="back-btn" id="service-back-to-hub" aria-label="Go back"><i class="fa-solid fa-arrow-left"></i></button>
+                    <h3>Call Table Service 🛎️</h3>
+                </div>
+                <p class="feedback-subtitle">Tap a service option below to alert our floor staff immediately:</p>
+                
+                <div class="service-grid">
+                    <button type="button" class="service-tile" id="service-btn-water">
+                        <i class="fa-solid fa-bottle-water"></i>
+                        <span>Water Refill</span>
+                    </button>
+                    <button type="button" class="service-tile" id="service-btn-waiter">
+                        <i class="fa-solid fa-hand"></i>
+                        <span>Call Waiter</span>
+                    </button>
+                    <button type="button" class="service-tile" id="service-btn-bill">
+                        <i class="fa-solid fa-receipt"></i>
+                        <span>Request Bill</span>
+                    </button>
+                    <button type="button" class="service-tile" id="service-btn-custom">
+                        <i class="fa-solid fa-message"></i>
+                        <span>Special Note</span>
+                    </button>
+                </div>
+
+                <form id="custom-service-form" class="feedback-form" style="display: none; margin-top: 10px;">
+                    <div class="form-group">
+                        <label for="service-table">Table Number (Optional)</label>
+                        <input type="text" id="service-table" placeholder="e.g. Table 4">
+                    </div>
+                    <div class="form-group">
+                        <label for="service-message">How can our team help you?</label>
+                        <textarea id="service-message" rows="3" placeholder="e.g. Extra napkins, sauce, etc." required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn" id="btn-submit-service">
+                        Send Request to Floor Staff <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Success Screen -->
+            <div class="success-screen" id="success-screen" style="display: none;">
                 <div class="success-checkmark">
                     <div class="check-icon">
                         <span class="icon-line line-tip"></span>
@@ -118,30 +149,19 @@
                         <div class="icon-fix"></div>
                     </div>
                 </div>
-                <h3>Thank You!</h3>
-                <p id="success-message">Your feedback has been sent directly to our management team. We value your input and will look into this immediately to serve you better next time.</p>
-                <div class="footer-brand">
+                <h3 id="success-title">Confirmed!</h3>
+                <p id="success-message">Your request has been received. Our floor staff will attend to your table shortly.</p>
+                <button type="button" class="submit-btn" id="btn-back-to-hub" style="margin-top: 20px;">
+                    Back to Table Options <i class="fa-solid fa-house"></i>
+                </button>
+                <div class="footer-brand" style="margin-top: 25px;">
                     <i class="fa-solid fa-shield-halved"></i> Secured by METRIX
                 </div>
-            </div>
-        </div>
-
-        <!-- Positive Redirection Notification overlay -->
-        <div class="redirect-overlay" id="redirect-overlay">
-            <div class="redirect-card">
-                <div class="spinner-accent"></div>
-                <div class="redirect-icon-wrapper">
-                    <i class="fa-solid fa-heart-pulse"></i>
-                </div>
-                <h2>Fantastic!</h2>
-                <p>We are thrilled you loved your experience! We are redirecting you to Google to share your 5-star rating with the world.</p>
-                <span class="redirect-timer">Redirecting in <strong id="timer-count">3</strong> seconds...</span>
-                <a href="#" id="direct-gmb-link" class="btn-direct-redirect">Click here if not redirected automatically</a>
             </div>
         </div>
     </div>
 
     <script src="supabase_config.js"></script>
-    <script src="portal.js?v=2.7"></script>
+    <script src="portal.js?v=3.5"></script>
 </body>
 </html>
