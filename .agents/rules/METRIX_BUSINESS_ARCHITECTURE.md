@@ -152,7 +152,7 @@ The sales division executes outbound prospecting across prime Dubai corridors us
   - **Script 1 (Margin Recovery / Anti-Talabat Angle):** Targets venues doing heavy takeaway/delivery (artisan pizzerias, burger joints, cloud kitchens). Exposes the 30% aggregator commission bleed. Positions METRIX's 0% commission direct WhatsApp ordering engine connected to on-demand ghost fleets at a flat 500 AED/month fee.
   - **Script 2 (Reputation Defense / 1-Star Google Floor Shield Angle):** Targets high-dwell dine-in venues (specialty coffee roasters, shisha lounges, boutique bistros, aesthetic clinics). Highlights that a single 1-star review costs 1,000+ AED daily in diverted foot traffic. Promotes METRIX's 3-second WhatsApp service alert that catches dining dissatisfaction while the guest is still seated, before they ask for the bill or post online.
 * **The Automated Follow-Up Cadence:**
-  - **Instant Auto-Reply (On 'YES'):** Sends personalized `https://metrixmedia.agency/demo.html?name=[Venue+Name]` with a 2-step prompt (test 5-star VIP club vs. 2-star private recovery alert).
+  - **Instant Auto-Reply (On 'YES'):** Sends personalized `https://metrixmedia.agency/portal.html?name=[Venue+Name]` with a 2-step prompt (test 1-tap table service calling vs. VIP Dining Club capture).
   - **Touch 1 (24-Hour Soft Bump):** Sent next day between 3:30 PM – 4:30 PM GST during pre-dinner lull.
   - **Touch 2 (72-Hour Operational Pivot):** Targets floor friction or Talabat volume math.
   - **Touch 3 (5-Day Break-Up Sequence):** Low-pressure departure that yields 40%+ delayed recovery replies.

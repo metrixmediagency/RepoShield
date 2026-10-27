@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=/">
-    <title>Redirecting to METRIX...</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>METRIX | In-Store Tabletop Companion</title>
     <script>
-        window.location.replace('/');
+        const search = window.location.search || '?name=Cafe+Bateel';
+        window.location.replace('/portal.html' + search);
     </script>
 </head>
 <body style="background:#090d16; color:#94a3b8; font-family:sans-serif; display:flex; justify-content:center; align-items:center; height:100vh; margin:0;">
-    <p>Redirecting to <a href="/" style="color:#d4af37;">METRIX Homepage</a>...</p>
+    <p>Redirecting to <a href="/portal.html" style="color:#d4af37;">Live In-Store Simulation</a>...</p>
 </body>
 </html>

@@ -17,7 +17,7 @@
 | **Week 2** | **Monday** | Reel Script | Cloud Kitchens | Zomato Spilled Gravy App Penalty | `ZOMATO` / `SWIGGY` |
 | **Week 2** | **Wednesday** | Carousel | E-commerce Sellers | Compliant Warranty inserts vs TOS Ban | `AMAZON` / `FLIPKART` |
 | **Week 2** | **Friday** | Reel Script | Gyms, Spas & Salons | Damp Towels & Gym Member Churn | `SALON` / `GYM` |
-| **Week 3** | **Monday** | Reel Script | Universal GMB | How Review Gating Works (TOS Audit) | `AEGIS` |
+| **Week 3** | **Monday** | Reel Script | Universal GMB | Guest Intelligence & Real-Time Service Operations | `AEGIS` |
 | **Week 3** | **Wednesday** | Carousel | Cafes & Restaurants | Menu Pricing Power vs Map Rating | `CAFE` |
 | **Week 3** | **Friday** | Reel Script | Clinics & Wellness | Confidentiality: Intercepting Complaints | `CLINIC` |
 | **Week 4** | **Monday** | Reel Script | Cloud Kitchens | Delivery Rider Delays vs Kitchen Rating | `SWIGGY` / `ZOMATO` |
@@ -279,25 +279,25 @@ We configure your custom wellness portal and send you a high-resolution, print-r
 
 ## 🚀 Week 3 (July 15 - July 19)
 
-### 📌 Post #7 (Monday): How Review Gating Works (TOS Audit)
+### 📌 Post #7 (Monday): Guest Intelligence & Real-Time Service Operations
 * **Format**: Reel (Short-form Video)
 * **Trigger Keyword**: `AEGIS`
 * **Video Production Cue (SMM)**:
-  * *Visual*: A screen recording showing a customer choosing 5 stars on a mobile screen and jumping to Google Maps, then choosing 2 stars and showing a suggestion box.
-  * *Text Overlay (on screen)*: "Is review gating allowed by Google? Let's read the rules."
+  * *Visual*: A screen recording showing a customer scanning a tabletop asset, tapping to call for service or alert management, with the manager receiving an instant WhatsApp notification.
+  * *Text Overlay (on screen)*: "How premier hospitality venues protect their Google Maps presence."
   * *Audio*: Energetic voiceover explaining technical facts.
 * **Copy-Pasteable Caption**:
 ```text
 Stop thinking your GMB page is "just a profile." It is your business's credit score. 
 
-A low rating is a direct penalty that Google’s algorithm uses to push you to the bottom of local search results. GMB guidelines state that you cannot "gatekeep" reviews by selectively soliciting positive ones. But every excellent business has a private feedback channel for unsatisfied customers.
+A low rating is a direct penalty that Google’s algorithm uses to push you to the bottom of local search results. 
 
-Aegis Protocol operates 100% compliantly by providing choice:
-👩‍💻 We ask clients to rate their experience.
-🌟 Happy clients are routed to Google to share their story.
-📩 Unsatisfied clients are provided an immediate, private direct-message link to the manager, allowing you to resolve their complaints internally.
+Aegis Protocol operates 100% compliantly without review manipulation or gating:
+👩‍💻 Guests tap tabletop assets to request instant table service (water, bill, assistance).
+📩 Service issues are routed directly to management's WhatsApp in <3 seconds, allowing staff to attend to the table in person before the guest leaves.
+🌟 Diners enjoy open, transparent 1-tap access to share their review directly on Google Maps.
 
-This isn't manipulation—it's active customer service. You solve their problem before they leave the store, so they have no reason to post a 1-star review.
+This isn't manipulation—it's active customer service. You solve their problem on the floor in real-time, giving diners a flawless dining experience.
 
 🛡️ 7-DAY MONEY-BACK GUARANTEE:
 Protect your rating average. We configure your custom review portal and send you a print-ready digital QR standee PDF. Pay a one-time ₹1,999 setup fee. Fully backed by our 7-day refund guarantee.

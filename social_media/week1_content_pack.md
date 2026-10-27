@@ -30,11 +30,12 @@ When customers search for "dental clinic near me," "cafe in Goa," or "hair salon
 
 How do you fix it? You install the Aegis Protocol.
 
-It is a simple, smart review gating system that sits at your cash counter or front desk. 
-• When happy customers scan the QR code, they are instantly routed to post a 5-star Google review.
-• When unhappy customers scan, they are sent to a private, internal feedback form. 
+It is a smart guest intelligence and real-time floor recovery system that sits at your venue touchpoints.
+• Guests request instant table service (waiter, bill, assistance) or flag any issue within 3 seconds directly to management's WhatsApp.
+• Your floor team resolves grievances on-site before the customer leaves.
+• Delighted customers enjoy 1-tap open access to post directly on Google Maps.
 
-You handle their complaints privately. They get resolved. Their 1-star review never hits the internet. Your rating climbs.
+You handle complaints on the floor in real-time. Guests leave delighted, and your rating climbs naturally.
 
 🛡️ 7-DAY MONEY-BACK GUARANTEE FOR GOA BUSINESSES:
 Normally we charge a monthly setup fee. For this launch week, we are backing all setups with a **7-Day Money-Back Guarantee**. We configure your custom review portal and deliver your high-resolution print-ready digital QR standee PDF.
@@ -143,10 +144,10 @@ These small administrative issues shouldn't ruin your clinical reputation or cos
 
 Aegis Protocol protects your practice.
 
-We install a professional, HIPAA-compliant Patient Feedback desk card at your checkout:
-👩‍⚕️ Patients scan the QR code to leave feedback.
-🌟 Happy patients are routed to write a public Google review.
-📩 Patients with billing or scheduling grievances are routed to a private clinical manager portal, allowing you to resolve their complaints internally and maintain confidentiality.
+We install a professional Patient Experience touchpoint at your checkout:
+👩‍⚕️ Patients scan the QR code to share feedback or request reception assistance.
+📩 Any administrative or scheduling issue alerts clinic management within 3 seconds to resolve concerns immediately.
+🌟 Delighted patients can easily leave a verified, public Google review with 1 tap.
 
 Protect your hard-earned reputation.
 

@@ -32,7 +32,7 @@ Quick observation: Most specialty coffee brands in Dubai lose repeat diners to a
 We built an in-store guest intelligence platform that deploys bespoke matte black tabletop assets at dining tables. Guests tap to unlock VIP privileges, and your floor team gets real-time WhatsApp service alerts in < 3 seconds if any dish or brew isn't perfect.
 
 I put together a 60-second live interactive simulation for [Venue Name] directly on your phone:
-👉 https://metrixmedia.agency/demo.html?name=[Venue+Name]
+👉 https://metrixmedia.agency/portal.html?name=[Venue+Name]
 
 We deliver bespoke 300 DPI vector tabletop print assets with zero POS integration needed.
 
@@ -54,7 +54,7 @@ Reaching out because high-volume venues in [Area] share the exact same weekend c
 With METRIX, guests tap the luxury tabletop asset right at their table. If a table notes service friction, management receives a direct WhatsApp alert in 3 seconds with the table number—allowing your team to attend to the guest and resolve it before the bill is paid.
 
 Tested the live flow with [Venue Name]’s branding here:
-👉 https://metrixmedia.agency/demo.html?name=[Venue+Name]
+👉 https://metrixmedia.agency/portal.html?name=[Venue+Name]
 
 Takes 60 seconds to slide our bespoke vector tabletop assets into your existing table holders.
 
@@ -76,7 +76,7 @@ Respect what you’ve created at [Venue Name] in [Area]—the evening vibe and g
 Because guests stay 90 to 120 minutes at your tables, table operations are make-or-break. If coal rotation or drink service lags, guests get restless, and you miss capturing their direct contact details for your next weekend DJ event.
 
 We deploy bespoke matte black tabletop assets that let guests request instant table attention or join your VIP lounge list directly on WhatsApp. Your floor team gets live alerts within 3 seconds:
-👉 https://metrixmedia.agency/demo.html?name=[Venue+Name]
+👉 https://metrixmedia.agency/portal.html?name=[Venue+Name]
 
 Zero hardware to purchase, zero POS setup. 
 
@@ -100,7 +100,7 @@ In aesthetic medicine, prospective patients check Google Maps before booking hig
 We engineered a discreet in-clinic patient intelligence protocol. Patients tap a sleek tabletop touchpoint at reception to unlock VIP member privileges, while service feedback is routed directly and privately to management's phone in real-time.
 
 I’ve configured a live simulation for [Clinic Name] here:
-👉 https://metrixmedia.agency/demo.html?name=[Clinic+Name]
+👉 https://metrixmedia.agency/portal.html?name=[Clinic+Name]
 
 We would love to activate a risk-free 7-day digital pilot for [Clinic Name]. Would you be open to a 3-minute walkthrough on WhatsApp this week?
 ```
@@ -119,7 +119,7 @@ When Talabat or Deliveroo riders pick up orders from your kitchen, how do you cu
 We designed a "Trojan Horse" QR insert for outgoing delivery bags ("Scan to unlock 20% off direct next order"). It captures the customer's WhatsApp number and routes direct re-orders straight to your venue at 0% commission.
 
 See the live customer mobile flow for [Venue Name] here:
-👉 https://metrixmedia.agency/demo.html?name=[Venue+Name]
+👉 https://metrixmedia.agency/portal.html?name=[Venue+Name]
 
 If you want to plug that 30% commission leak this weekend, I can send over your print-ready digital vector bag inserts today. Free to test for 7 days. Fair enough?
 ```
@@ -182,7 +182,7 @@ METRIX is an intelligent operational layer that slides into your existing table 
 Hospitality operators don't have time to read 20-page PDF decks! 
 
 That’s why I built an interactive 60-second prototype so you can experience it exactly like a diner at Table 4:
-👉 https://metrixmedia.agency/demo.html?name=[Venue+Name]
+👉 https://metrixmedia.agency/portal.html?name=[Venue+Name]
 
 Takes 30 seconds on your phone right now. Tap through and let me know if the flow makes sense!
 ```

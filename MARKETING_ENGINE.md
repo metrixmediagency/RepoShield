@@ -26,12 +26,12 @@ Target corridors and venues where table dwell time is high and aggregator commis
 > Aggregators like Talabat take up to 30% commission and hide your diners' data. We built METRIX to help independent hospitality venues reclaim their guests.
 >
 > When diners sit down and scan the luxury tabletop asset:
-> 1. Enthusiastic diners unlock VIP privileges and can share a 5-star review on Google Maps with 1 tap.
-> 2. Guests noting food or service issues trigger an instant WhatsApp alert to your floor team within 3 seconds, allowing management to attend to the table and fix the issue before the diner even asks for the bill.
-> 3. You capture first-party verified WhatsApp numbers and birthdays for direct, zero-commission repeat orders.
+> 1. Guests call for service (Water, Waiter, Bill) or report table issues with 1 tap, triggering an instant WhatsApp alert to your floor team within 3 seconds—resolving friction before the diner even asks for the bill.
+> 2. Diners join your venue's VIP Dining Club, capturing first-party verified WhatsApp numbers and birthdays for direct, zero-commission repeat orders.
+> 3. Guests can access your digital menu and leave open, transparent Google Maps reviews with 1 tap.
 >
 > I’ve generated your live interactive demo:
-> 👉 **https://metrixmedia.agency/demo.html**
+> 👉 **https://metrixmedia.agency/portal.html?name=[Venue+Name]**
 >
 > We deliver bespoke 300 DPI print-ready vector tabletop assets that slide into your existing tabletop holders in 60 seconds.
 >
