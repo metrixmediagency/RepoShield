@@ -540,6 +540,33 @@
             <p>Every poster on Etsy is a cheap photo filter. These 3 concepts are engineered with mathematical rigor, verified historical commentary, and sacred geometry so no AI in the world can replicate them.</p>
         </div>
 
+        <!-- HERO DUAL MASTERWORK EXHIBITION (VISIBLE IMMEDIATELY) -->
+        <div style="margin-bottom: 50px;">
+            <div style="text-align: center; margin-bottom: 24px;">
+                <span class="badge-edition"><i class="fa-solid fa-crown"></i> Official Masterworks</span>
+                <h3 style="font-family: 'Cinzel', serif; font-size: 1.8rem; margin-top: 8px;">The Immortal Titans: Authentic Likenesses</h3>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 4px;">Museum-grade Renaissance chiaroscuro oil masterworks with verified facial anatomy & sacred geometry.</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+                <!-- Ronaldo Card -->
+                <div class="master-art-container" style="max-width: 100%;">
+                    <img src="cr7_siu_masterwork.jpg" alt="Cristiano Ronaldo The Immortal Siu" class="master-art-img" style="height: 480px; object-fit: cover;">
+                    <div class="art-overlay-badge">
+                        <i class="fa-solid fa-fire" style="color: #ef4444;"></i> Cristiano Ronaldo • The Immortal Siu • 981 Goals
+                    </div>
+                </div>
+
+                <!-- Messi Card -->
+                <div class="master-art-container" style="max-width: 100%;">
+                    <img src="messi_throne_masterwork.jpg" alt="Lionel Messi The 8th Throne" class="master-art-img" style="height: 480px; object-fit: cover;">
+                    <div class="art-overlay-badge">
+                        <i class="fa-solid fa-wand-magic-sparkles" style="color: #38bdf8;"></i> Lionel Messi • The 8th Throne & Golden Octave • 936 Goals
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Concept Switcher Tabs -->
         <div class="concept-tabs-nav">
             <button class="c-tab active" onclick="switchConcept(1)">
@@ -621,7 +648,7 @@
 
             <div class="art-stage">
                 <div class="master-art-container">
-                    <img id="concept2-img" src="/cr7_siu_masterwork.jpg" alt="Masterwork" class="master-art-img">
+                    <img id="concept2-img" src="cr7_siu_masterwork.jpg" alt="Masterwork" class="master-art-img">
                     <div class="art-overlay-badge" id="concept2-badge">
                         <i class="fa-solid fa-crown"></i> Cristiano Ronaldo • The Immortal Siu • 981 Goals
                     </div>
@@ -760,11 +787,11 @@
             const img = document.getElementById('concept2-img');
             const badge = document.getElementById('concept2-badge');
             if (currentPlayer === 'cr7') {
-                img.src = '/cr7_siu_masterwork.jpg';
+                img.src = 'cr7_siu_masterwork.jpg';
                 img.alt = 'Cristiano Ronaldo The Immortal Siu Masterwork';
                 badge.innerHTML = '<i class="fa-solid fa-crown"></i> Cristiano Ronaldo • The Immortal Siu • 981 Goals';
             } else {
-                img.src = '/messi_throne_masterwork.jpg';
+                img.src = 'messi_throne_masterwork.jpg';
                 img.alt = 'Lionel Messi The 8th Throne Masterwork';
                 badge.innerHTML = '<i class="fa-solid fa-crown"></i> Lionel Messi • The 8th Throne & Golden Octave • 936 Goals';
             }
