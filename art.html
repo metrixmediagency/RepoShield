@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>The Immortal 1,000 Monolith | Master Vector Fine Art Edition</title>
+    <meta name="description" content="A monumental mathematical vector artwork immortalizing Cristiano Ronaldo (981) and Lionel Messi (936) in the race to 1,000 official goals. Sacred geometry and career data engraving.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800;900&family=Space+Grotesk:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-void: #04060a;
+            --gold-primary: #d4af37;
+            --gold-bright: #fcd34d;
+            --gold-dim: rgba(212, 175, 55, 0.25);
+            --cr7-color: #ef4444;
+            --messi-color: #38bdf8;
+            --chrome: #f8fafc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            background-color: var(--bg-void);
+            color: #ffffff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Top Gallery Navigation */
+        nav {
+            height: 64px;
+            background: rgba(4, 6, 10, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .nav-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-title h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 40%, var(--gold-primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-badge {
+            font-size: 0.65rem;
+            background: rgba(212, 175, 55, 0.15);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            color: var(--gold-primary);
+            padding: 3px 10px;
+            border-radius: 999px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .ctrl-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .ctrl-btn:hover {
+            background: rgba(212, 175, 55, 0.2);
+            border-color: var(--gold-primary);
+            color: var(--gold-primary);
+        }
+
+        .btn-claim {
+            background: linear-gradient(135deg, var(--gold-primary) 0%, #f59e0b 100%);
+            color: #04060a;
+            font-weight: 800;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            transition: transform 0.2s ease;
+        }
+
+        .btn-claim:hover {
+            transform: scale(1.03);
+        }
+
+        /* Viewport Canvas Container */
+        #art-viewport {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: grab;
+            background: radial-gradient(circle at 50% 50%, #080d18 0%, #020306 100%);
+        }
+
+        #art-viewport:active {
+            cursor: grabbing;
+        }
+
+        #art-container {
+            transform-origin: center center;
+            transition: transform 0.1s ease-out;
+            will-change: transform;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* The Pure Vector SVG Artwork */
+        svg.master-canvas {
+            width: 900px;
+            max-width: 92vw;
+            height: auto;
+            filter: drop-shadow(0 25px 60px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 40px rgba(212, 175, 55, 0.15));
+            border-radius: 12px;
+        }
+
+        /* Floating Tool HUD */
+        .hud-panel {
+            position: absolute;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(10, 15, 26, 0.85);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 10px 20px;
+            border-radius: 999px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            z-index: 50;
+        }
+
+        .hud-indicator {
+            font-size: 0.75rem;
+            color: var(--gold-primary);
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .hud-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: color 0.2s ease;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hud-btn:hover {
+            color: #ffffff;
+        }
+
+        /* Detail Modal / Info Drawer */
+        .info-pill {
+            position: absolute;
+            top: 80px;
+            left: 24px;
+            background: rgba(10, 15, 26, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px 18px;
+            border-radius: 14px;
+            font-size: 0.8rem;
+            color: #94a3b8;
+            max-width: 280px;
+            line-height: 1.4;
+            pointer-events: none;
+        }
+
+        .info-pill strong {
+            color: #ffffff;
+            display: block;
+            margin-bottom: 2px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        @media (max-width: 768px) {
+            .info-pill { display: none; }
+            .nav-badge { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <nav>
+        <div class="nav-title">
+            <a href="/raceto1000.html" style="color: var(--gold-primary); text-decoration: none; font-size: 1.1rem; margin-right: 4px;">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+            <h1>The 1,000 Monolith</h1>
+            <span class="nav-badge">Numbered Edition #001 / 1,000</span>
+        </div>
+
+        <div class="nav-controls">
+            <button class="ctrl-btn" onclick="resetZoom()"><i class="fa-solid fa-expand"></i> Fit Canvas</button>
+            <a href="/raceto1000.html#vault" class="btn-claim">
+                <i class="fa-solid fa-crown"></i> Claim Master Vector
+            </a>
+        </div>
+    </nav>
+
+    <!-- Art Viewer Viewport -->
+    <div id="art-viewport">
+        
+        <div class="info-pill">
+            <strong>Pinch or Scroll to Zoom (1000%)</strong>
+            Inspect the micro-engraved goal coordinates along the golden geometric contours.
+        </div>
+
+        <div id="art-container">
+            <!-- PURE MATHEMATICAL VECTOR SVG MASTERWORK (Lossless 300 DPI Geometry) -->
+            <svg class="master-canvas" viewBox="0 0 1200 1600" fill="none" xmlns="http://www.w3.org/2000/svg">
+                
+                <defs>
+                    <!-- Background Dark Gradients -->
+                    <radialGradient id="bgGlow" cx="50%" cy="40%" r="50%">
+                        <stop offset="0%" stop-color="#141c2e" stop-opacity="0.8"/>
+                        <stop offset="60%" stop-color="#070a12" stop-opacity="0.95"/>
+                        <stop offset="100%" stop-color="#020306" stop-opacity="1"/>
+                    </radialGradient>
+
+                    <!-- Metallic Gold Gradients -->
+                    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#fef08a"/>
+                        <stop offset="35%" stop-color="#d4af37"/>
+                        <stop offset="70%" stop-color="#854d0e"/>
+                        <stop offset="100%" stop-color="#fef08a"/>
+                    </linearGradient>
+
+                    <!-- CR7 Kinetic Crimson Gradient -->
+                    <linearGradient id="cr7GlowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#ef4444"/>
+                        <stop offset="50%" stop-color="#991b1b"/>
+                        <stop offset="100%" stop-color="#d4af37"/>
+                    </linearGradient>
+
+                    <!-- Messi Celestial Cyan Gradient -->
+                    <linearGradient id="messiGlowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#38bdf8"/>
+                        <stop offset="50%" stop-color="#0369a1"/>
+                        <stop offset="100%" stop-color="#f8fafc"/>
+                    </linearGradient>
+
+                    <!-- Subtle Grid Pattern -->
+                    <pattern id="sacredGrid" width="60" height="60" patternUnits="userSpaceOnUse">
+                        <circle cx="30" cy="30" r="0.75" fill="rgba(212, 175, 55, 0.25)"/>
+                        <line x1="0" y1="30" x2="60" y2="30" stroke="rgba(255, 255, 255, 0.02)" stroke-width="0.5"/>
+                        <line x1="30" y1="0" x2="30" y2="60" stroke="rgba(255, 255, 255, 0.02)" stroke-width="0.5"/>
+                    </pattern>
+                </defs>
+
+                <!-- Base Canvas -->
+                <rect width="1200" height="1600" fill="url(#bgGlow)"/>
+                <rect width="1200" height="1600" fill="url(#sacredGrid)"/>
+
+                <!-- Architectural Border & Registration Coordinates -->
+                <rect x="40" y="40" width="1120" height="1520" stroke="rgba(212, 175, 55, 0.3)" stroke-width="1.5" fill="none"/>
+                <rect x="52" y="52" width="1096" height="1496" stroke="rgba(255, 255, 255, 0.08)" stroke-width="0.75" fill="none"/>
+                
+                <!-- Corner Alignment Crosshairs (Draughtsman Precision) -->
+                <path d="M 30 40 L 50 40 M 40 30 L 40 50" stroke="#d4af37" stroke-width="1.5"/>
+                <path d="M 1150 40 L 1170 40 M 1160 30 L 1160 50" stroke="#d4af37" stroke-width="1.5"/>
+                <path d="M 30 1560 L 50 1560 M 40 1550 L 40 1570" stroke="#d4af37" stroke-width="1.5"/>
+                <path d="M 1150 1560 L 1170 1560 M 1160 1550 L 1160 1570" stroke="#d4af37" stroke-width="1.5"/>
+
+                <!-- Top Monolith Coordinates Text -->
+                <text x="600" y="85" text-anchor="middle" font-family="'Cinzel', serif" font-size="14" font-weight="700" letter-spacing="8" fill="#d4af37">
+                    THE MONOLITH OF ONE THOUSAND
+                </text>
+                <text x="600" y="105" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="9" letter-spacing="4" fill="#94a3b8">
+                    LAT 24.7136° N • LON 46.6753° E ➔ MIAMI 25.7617° N • LON 80.1918° W
+                </text>
+
+                <!-- SACRED GEOMETRY: Golden Ratio Circles & Concentric Harmonics -->
+                <g opacity="0.35">
+                    <circle cx="600" cy="720" r="420" stroke="rgba(212, 175, 55, 0.2)" stroke-width="1" stroke-dasharray="4 8"/>
+                    <circle cx="600" cy="720" r="320" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1"/>
+                    <circle cx="600" cy="720" r="210" stroke="rgba(212, 175, 55, 0.3)" stroke-width="1.5"/>
+                    <circle cx="600" cy="720" r="110" stroke="rgba(255, 255, 255, 0.2)" stroke-width="1"/>
+
+                    <!-- Equilateral Harmonic Vectors -->
+                    <polygon points="600,300 963,930 237,930" stroke="rgba(212, 175, 55, 0.18)" stroke-width="1" fill="none"/>
+                    <polygon points="600,1140 237,510 963,510" stroke="rgba(212, 175, 55, 0.18)" stroke-width="1" fill="none"/>
+                </g>
+
+                <!-- THE CENTRAL MONOLITH: The Apex of 1,000 -->
+                <g id="monolith-pillar">
+                    <!-- Light Shaft from the Summit -->
+                    <polygon points="600,140 680,1400 520,1400" fill="url(#goldGradient)" opacity="0.04"/>
+                    
+                    <!-- Vertical Pillar Axis -->
+                    <line x1="600" y1="130" x2="600" y2="1420" stroke="url(#goldGradient)" stroke-width="2"/>
+                    
+                    <!-- Summit Obelisk -->
+                    <polygon points="600,180 635,260 600,280 565,260" fill="url(#goldGradient)" stroke="#fef08a" stroke-width="1.5"/>
+                    <circle cx="600" cy="180" r="6" fill="#ffffff" filter="drop-shadow(0 0 10px #fef08a)"/>
+                    
+                    <!-- The 1,000 Inscription -->
+                    <rect x="530" y="295" width="140" height="42" rx="8" fill="#04060a" stroke="url(#goldGradient)" stroke-width="1.5"/>
+                    <text x="600" y="324" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="22" font-weight="900" letter-spacing="4" fill="url(#goldGradient)">
+                        1,000
+                    </text>
+                    <text x="600" y="352" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="8" letter-spacing="3" fill="#94a3b8">
+                        THE UNTOUCHED APEX
+                    </text>
+                </g>
+
+                <!-- LEFT WING: CRISTIANO RONALDO (981) - THE TITAN OF FORCE -->
+                <g id="cr7-geometry">
+                    <!-- Voronoi Facets / Angular Kinetic Chevrons -->
+                    <polygon points="280,480 460,420 540,560 380,640" stroke="url(#cr7GlowGrad)" stroke-width="1.5" fill="rgba(239, 68, 68, 0.05)"/>
+                    <polygon points="200,600 380,640 440,820 240,780" stroke="url(#cr7GlowGrad)" stroke-width="1.5" fill="rgba(239, 68, 68, 0.08)"/>
+                    <polygon points="320,780 440,820 520,1020 360,980" stroke="url(#cr7GlowGrad)" stroke-width="1.5" fill="rgba(239, 68, 68, 0.05)"/>
+                    <polygon points="180,780 320,780 360,980 200,940" stroke="url(#cr7GlowGrad)" stroke-width="1" fill="rgba(239, 68, 68, 0.03)"/>
+
+                    <!-- Dynamic Kinetic Vector Silhouette Contours -->
+                    <path d="M 340 380 Q 420 400 480 460 T 520 620 T 460 780 T 360 920 T 260 1080" stroke="url(#goldGradient)" stroke-width="2.5" fill="none"/>
+                    <path d="M 310 420 Q 380 440 440 500 T 470 660 T 410 820 T 310 960" stroke="#ef4444" stroke-width="1" stroke-dasharray="3 3" fill="none"/>
+
+                    <!-- Metric & Inscription -->
+                    <text x="320" y="470" font-family="'Cinzel', serif" font-size="32" font-weight="900" fill="#ffffff" letter-spacing="2">
+                        CR7
+                    </text>
+                    <text x="320" y="520" font-family="'Space Grotesk', sans-serif" font-size="54" font-weight="900" fill="url(#cr7GlowGrad)" letter-spacing="-1">
+                        981
+                    </text>
+                    <text x="320" y="545" font-family="'Space Grotesk', sans-serif" font-size="11" font-weight="700" letter-spacing="3" fill="#fca5a5">
+                        19 GOALS TO ASCENSION
+                    </text>
+
+                    <!-- Career Milestone Micro-Coordinates (Impossible to Blur by AI) -->
+                    <g font-family="'Space Grotesk', sans-serif" font-size="8" fill="rgba(255, 255, 255, 0.55)" letter-spacing="1">
+                        <text x="210" y="650">001 • 07.10.02 | SPORTING CP (34' SOLO)</text>
+                        <text x="210" y="670">118 • 21.05.08 | MAN UTD v CHELSEA (26' HEADER)</text>
+                        <text x="210" y="690">450 • 2009–2018 | REAL MADRID C.F. (LEGACY)</text>
+                        <text x="210" y="710">649 • 03.04.18 | JUVENTUS v MADRID (64' BICYCLE)</text>
+                        <text x="210" y="730">850 • 02.09.23 | AL-NASSR FC (MILESTONE)</text>
+                        <text x="210" y="750">981 • CURRENT | PORTUGAL & AL-NASSR</text>
+                    </g>
+                </g>
+
+                <!-- RIGHT WING: LIONEL MESSI (936) - THE CELESTIAL MAESTRO -->
+                <g id="messi-geometry">
+                    <!-- Harmonic Bezier Radians & Celestial Flow Waves -->
+                    <polygon points="920,480 740,420 660,560 820,640" stroke="url(#messiGlowGrad)" stroke-width="1.5" fill="rgba(56, 189, 248, 0.05)"/>
+                    <polygon points="1000,600 820,640 760,820 960,780" stroke="url(#messiGlowGrad)" stroke-width="1.5" fill="rgba(56, 189, 248, 0.08)"/>
+                    <polygon points="880,780 760,820 680,1020 840,980" stroke="url(#messiGlowGrad)" stroke-width="1.5" fill="rgba(56, 189, 248, 0.05)"/>
+                    <polygon points="1020,780 880,780 840,980 1000,940" stroke="url(#messiGlowGrad)" stroke-width="1" fill="rgba(56, 189, 248, 0.03)"/>
+
+                    <!-- Curvilinear Vector Silhouette Contours -->
+                    <path d="M 860 380 Q 780 400 720 460 T 680 620 T 740 780 T 840 920 T 940 1080" stroke="url(#goldGradient)" stroke-width="2.5" fill="none"/>
+                    <path d="M 890 420 Q 820 440 760 500 T 730 660 T 790 820 T 890 960" stroke="#38bdf8" stroke-width="1" stroke-dasharray="3 3" fill="none"/>
+
+                    <!-- Metric & Inscription -->
+                    <text x="880" y="470" text-anchor="end" font-family="'Cinzel', serif" font-size="32" font-weight="900" fill="#ffffff" letter-spacing="2">
+                        LM10
+                    </text>
+                    <text x="880" y="520" text-anchor="end" font-family="'Space Grotesk', sans-serif" font-size="54" font-weight="900" fill="url(#messiGlowGrad)" letter-spacing="-1">
+                        936
+                    </text>
+                    <text x="880" y="545" text-anchor="end" font-family="'Space Grotesk', sans-serif" font-size="11" font-weight="700" letter-spacing="3" fill="#bae6fd">
+                        64 GOALS TO ASCENSION
+                    </text>
+
+                    <!-- Career Milestone Micro-Coordinates -->
+                    <g font-family="'Space Grotesk', sans-serif" font-size="8" fill="rgba(255, 255, 255, 0.55)" letter-spacing="1" text-anchor="end">
+                        <text x="990" y="650">001 • 01.05.05 | FC BARCELONA (90' CHIP)</text>
+                        <text x="990" y="670">234 • 28.05.11 | BARCA v MAN UTD (54' WEMBLEY)</text>
+                        <text x="990" y="690">672 • 2004–2021 | FC BARCELONA (LEGACY)</text>
+                        <text x="990" y="710">793 • 18.12.22 | ARGENTINA v FRANCE (LUSAIL 23', 108')</text>
+                        <text x="990" y="730">830 • 2023–2026 | INTER MIAMI CF (EXPANSION)</text>
+                        <text x="990" y="750">936 • CURRENT | ARGENTINA & INTER MIAMI</text>
+                    </g>
+                </g>
+
+                <!-- BASE MONUMENT: Provenance & Certifications (Fine Art Standard) -->
+                <g id="base-pedestal">
+                    <!-- Horizontal Ground Divider -->
+                    <line x1="80" y1="1240" x2="1120" y2="1240" stroke="url(#goldGradient)" stroke-width="1.5"/>
+                    <circle cx="600" cy="1240" r="16" fill="#04060a" stroke="url(#goldGradient)" stroke-width="2"/>
+                    <polygon points="600,1232 607,1244 593,1244" fill="url(#goldGradient)"/>
+
+                    <!-- Fine Art Curatorial Labels -->
+                    <text x="600" y="1290" text-anchor="middle" font-family="'Cinzel', serif" font-size="16" font-weight="800" letter-spacing="6" fill="#ffffff">
+                        THE DUEL OF ONE THOUSAND
+                    </text>
+                    <text x="600" y="1314" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="10" letter-spacing="3" fill="url(#goldGradient)">
+                        MATHEMATICAL VECTOR EDITION • SERIE HISTORICA
+                    </text>
+                    
+                    <!-- Left Technical Certification -->
+                    <g font-family="'Space Grotesk', sans-serif" font-size="8" fill="#64748b" letter-spacing="1">
+                        <text x="120" y="1360">COORDINATE MESH: VORONOI TESSELLATION</text>
+                        <text x="120" y="1380">RESOLUTION: LOSSLESS VECTOR SCALING (∞ DPI)</text>
+                        <text x="120" y="1400">COLOR SPACE: CMYK ARCHIVAL / OLED VOID</text>
+                    </g>
+
+                    <!-- Right Curatorial Signature -->
+                    <g font-family="'Space Grotesk', sans-serif" font-size="8" fill="#64748b" letter-spacing="1" text-anchor="end">
+                        <text x="1080" y="1360">AUTHENTICATED TELEMETRY: 2026 FIFA DATA</text>
+                        <text x="1080" y="1380">CURATION: ONEGRV SOVEREIGN ENTERPRISE</text>
+                        <text x="1080" y="1400">ORIGINAL CERTIFIED SERIAL MASTER: #001</text>
+                    </g>
+
+                    <!-- Sovereign Seal -->
+                    <circle cx="600" cy="1420" r="28" stroke="url(#goldGradient)" stroke-width="1" fill="none"/>
+                    <circle cx="600" cy="1420" r="23" stroke="rgba(255, 255, 255, 0.15)" stroke-width="0.5" fill="none"/>
+                    <text x="600" y="1425" text-anchor="middle" font-family="'Cinzel', serif" font-size="12" font-weight="900" fill="url(#goldGradient)">
+                        M
+                    </text>
+                </g>
+
+            </svg>
+        </div>
+
+    </div>
+
+    <!-- Floating Interactive Zoom HUD -->
+    <div class="hud-panel">
+        <span class="hud-indicator" id="zoom-level">100% SCALE</span>
+        <button class="hud-btn" onclick="zoomIn()" title="Zoom In"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+        <button class="hud-btn" onclick="zoomOut()" title="Zoom Out"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
+        <button class="hud-btn" onclick="resetZoom()" title="Reset Scale"><i class="fa-solid fa-rotate-right"></i></button>
+    </div>
+
+    <!-- Pan & Zoom Engine -->
+    <script>
+        let scale = 1;
+        let pointX = 0;
+        let pointY = 0;
+        let startX = 0;
+        let startY = 0;
+        let isPanning = false;
+
+        const viewport = document.getElementById('art-viewport');
+        const container = document.getElementById('art-container');
+        const zoomText = document.getElementById('zoom-level');
+
+        function setTransform() {
+            container.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
+            zoomText.innerText = `${Math.round(scale * 100)}% SCALE`;
+        }
+
+        viewport.onmousedown = function (e) {
+            e.preventDefault();
+            startX = e.clientX - pointX;
+            startY = e.clientY - pointY;
+            isPanning = true;
+        };
+
+        window.onmouseup = function () {
+            isPanning = false;
+        };
+
+        window.onmousemove = function (e) {
+            if (!isPanning) return;
+            e.preventDefault();
+            pointX = e.clientX - startX;
+            pointY = e.clientY - startY;
+            setTransform();
+        };
+
+        viewport.onwheel = function (e) {
+            e.preventDefault();
+            const xs = (e.clientX - pointX) / scale;
+            const ys = (e.clientY - pointY) / scale;
+            const delta = -e.deltaY;
+            
+            if (delta > 0) {
+                scale = Math.min(scale * 1.15, 6);
+            } else {
+                scale = Math.max(scale / 1.15, 0.4);
+            }
+
+            pointX = e.clientX - xs * scale;
+            pointY = e.clientY - ys * scale;
+            setTransform();
+        };
+
+        function zoomIn() {
+            scale = Math.min(scale * 1.25, 6);
+            setTransform();
+        }
+
+        function zoomOut() {
+            scale = Math.max(scale / 1.25, 0.4);
+            setTransform();
+        }
+
+        function resetZoom() {
+            scale = 1;
+            pointX = 0;
+            pointY = 0;
+            setTransform();
+        }
+
+        // Initialize responsive fit on mobile
+        window.addEventListener('DOMContentLoaded', () => {
+            if (window.innerWidth < 768) {
+                scale = 0.55;
+                setTransform();
+            }
+        });
+    </script>
+</body>
+</html>
