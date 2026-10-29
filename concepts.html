@@ -272,6 +272,51 @@
             margin-bottom: 28px;
         }
 
+        .master-art-container {
+            width: 100%;
+            max-width: 600px;
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid rgba(212, 175, 55, 0.45);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.95), 0 0 45px rgba(212, 175, 55, 0.25);
+            background: #000000;
+        }
+
+        .master-art-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .master-art-container:hover .master-art-img {
+            transform: scale(1.02);
+        }
+
+        .art-overlay-badge {
+            position: absolute;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(4, 6, 10, 0.88);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            padding: 8px 20px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--gold);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+        }
+
         /* CONCEPT 1: Micro-Typographic Bible */
         .typographic-canvas {
             width: 100%;
@@ -575,35 +620,12 @@
             </div>
 
             <div class="art-stage">
-                <!-- SVG Vector of Vitruvian Proportions -->
-                <svg class="vitruvian-svg" viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Concentric Sacred Circles & Golden Ratio Squares -->
-                    <circle cx="300" cy="300" r="260" stroke="rgba(212, 175, 55, 0.4)" stroke-width="1.5" stroke-dasharray="6 6"/>
-                    <rect x="70" y="70" width="460" height="460" stroke="rgba(212, 175, 55, 0.3)" stroke-width="1.5" fill="none"/>
-                    <circle cx="300" cy="300" r="160" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1"/>
-                    
-                    <!-- Golden Spiral Overlay -->
-                    <path d="M 300 300 A 40 40 0 0 1 340 300 A 80 80 0 0 1 260 300 A 160 160 0 0 1 420 300 A 240 240 0 0 1 180 300" stroke="url(#goldGrad)" stroke-width="1.5" fill="none" opacity="0.6"/>
-
-                    <!-- Equilateral Alignment Axis -->
-                    <line x1="300" y1="20" x2="300" y2="580" stroke="rgba(212, 175, 55, 0.25)" stroke-width="1"/>
-                    <line x1="20" y1="300" x2="580" y2="300" stroke="rgba(212, 175, 55, 0.25)" stroke-width="1"/>
-                    <line x1="70" y1="70" x2="530" y2="530" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1"/>
-                    <line x1="530" y1="70" x2="70" y2="530" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1"/>
-
-                    <!-- DYNAMIC SUBJECT (CR7 / MESSI) -->
-                    <g id="vitruvian-subject">
-                        <!-- Rendered dynamically via JS -->
-                    </g>
-
-                    <defs>
-                        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#fef08a"/>
-                            <stop offset="50%" stop-color="#d4af37"/>
-                            <stop offset="100%" stop-color="#854d0e"/>
-                        </linearGradient>
-                    </defs>
-                </svg>
+                <div class="master-art-container">
+                    <img id="concept2-img" src="/cr7_siu_masterwork.jpg" alt="Masterwork" class="master-art-img">
+                    <div class="art-overlay-badge" id="concept2-badge">
+                        <i class="fa-solid fa-crown"></i> Cristiano Ronaldo • The Immortal Siu • 981 Goals
+                    </div>
+                </div>
             </div>
 
             <div class="analysis-grid">
@@ -733,45 +755,18 @@
             }
         }
 
-        // Render Concept 2: Vitruvian Titan
+        // Render Concept 2: Vitruvian Titan (Now Displays Masterwork Painting)
         function renderConcept2() {
-            const subject = document.getElementById('vitruvian-subject');
+            const img = document.getElementById('concept2-img');
+            const badge = document.getElementById('concept2-badge');
             if (currentPlayer === 'cr7') {
-                subject.innerHTML = `
-                    <!-- The Vitruvian Siu Leap -->
-                    <circle cx="300" cy="220" r="32" stroke="#d4af37" stroke-width="2" fill="rgba(212, 175, 55, 0.2)"/>
-                    <path d="M 300 252 L 300 370" stroke="url(#goldGrad)" stroke-width="3"/>
-                    <!-- Arms Spread at Divine Angle (The SIU Apex) -->
-                    <path d="M 300 280 L 160 210 M 300 280 L 440 210" stroke="#fca5a5" stroke-width="2.5"/>
-                    <path d="M 160 210 L 120 250 M 440 210 L 480 250" stroke="#ef4444" stroke-width="2"/>
-                    <!-- Legs Coiled in Mid-Air Athletic Tension -->
-                    <path d="M 300 370 L 220 470 L 200 520" stroke="#ef4444" stroke-width="2.5"/>
-                    <path d="M 300 370 L 380 470 L 400 520" stroke="#ef4444" stroke-width="2.5"/>
-                    <!-- Biometric Force Annotations -->
-                    <text x="300" y="160" text-anchor="middle" font-family="'Space Grotesk'" font-size="10" fill="#fde047" letter-spacing="2">APEX: 2.93 METERS • GRAVITY OVERCOME</text>
-                    <text x="300" y="560" text-anchor="middle" font-family="'Cinzel'" font-size="12" fill="#d4af37" font-weight="800">THE TITAN OF GEOMETRIC WILL</text>
-                `;
+                img.src = '/cr7_siu_masterwork.jpg';
+                img.alt = 'Cristiano Ronaldo The Immortal Siu Masterwork';
+                badge.innerHTML = '<i class="fa-solid fa-crown"></i> Cristiano Ronaldo • The Immortal Siu • 981 Goals';
             } else {
-                subject.innerHTML = `
-                    <!-- The Divine Throne of 8 Ballon d'Ors -->
-                    <circle cx="300" cy="240" r="30" stroke="#38bdf8" stroke-width="2" fill="rgba(56, 189, 248, 0.2)"/>
-                    <!-- Celestial Halo Rays -->
-                    <circle cx="300" cy="240" r="48" stroke="rgba(212, 175, 55, 0.3)" stroke-width="1" stroke-dasharray="3 3"/>
-                    <!-- Seated Body Contours -->
-                    <path d="M 300 270 L 300 400" stroke="url(#goldGrad)" stroke-width="3"/>
-                    <path d="M 300 320 L 240 370 L 270 410 M 300 320 L 360 370 L 330 410" stroke="#bae6fd" stroke-width="2"/>
-                    <!-- The 8 Golden Spheres Orbiting in Fibonacci Harmonics -->
-                    <circle cx="210" cy="290" r="14" fill="url(#goldGrad)" stroke="#fde047"/>
-                    <circle cx="390" cy="290" r="14" fill="url(#goldGrad)" stroke="#fde047"/>
-                    <circle cx="170" cy="380" r="14" fill="url(#goldGrad)" stroke="#fde047"/>
-                    <circle cx="430" cy="380" r="14" fill="url(#goldGrad)" stroke="#fde047"/>
-                    <circle cx="220" cy="460" r="14" fill="url(#goldGrad)" stroke="#fde047"/>
-                    <circle cx="380" cy="460" r="14" fill="url(#goldGrad)" stroke="#fde047"/>
-                    <circle cx="270" cy="500" r="14" fill="url(#goldGrad)" stroke="#fde047"/>
-                    <circle cx="330" cy="500" r="14" fill="url(#goldGrad)" stroke="#fde047"/>
-                    <text x="300" y="160" text-anchor="middle" font-family="'Space Grotesk'" font-size="10" fill="#38bdf8" letter-spacing="2">THE DIVINE OCTAVE • 8 BALLON D'ORS</text>
-                    <text x="300" y="560" text-anchor="middle" font-family="'Cinzel'" font-size="12" fill="#d4af37" font-weight="800">THE ALTAR OF IMMORTAL TOUCH</text>
-                `;
+                img.src = '/messi_throne_masterwork.jpg';
+                img.alt = 'Lionel Messi The 8th Throne Masterwork';
+                badge.innerHTML = '<i class="fa-solid fa-crown"></i> Lionel Messi • The 8th Throne & Golden Octave • 936 Goals';
             }
         }
 
