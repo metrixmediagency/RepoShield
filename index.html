@@ -122,13 +122,7 @@
                     <i class="fa-solid fa-layer-group"></i>
                     <span>Deploy 7-Day Digital Pilot</span>
                 </button>
-
-
-
-
             </div>
-            
-
         </div>
     </section>
 
@@ -331,7 +325,6 @@
                         </div>
                     </div>
                 </div>
-                </div>
             </div>
         </div>
     </section>
@@ -384,7 +377,7 @@
                 <div class="fx-unique__cols">
                     <!-- Delivery Aggregators -->
                     <div class="fx-unique__col">
-                        <span class="fx-unique__chip fx-chip--muted">TALABAT / DELIVEROO / SWIGGY</span>
+                        <span class="fx-unique__chip fx-chip--muted">TALABAT / DELIVEROO / SWIGGY / ZOMATO</span>
                         <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px;">
                             <li style="display: flex; align-items: flex-start; gap: 12px;">
                                 <i class="fa-solid fa-xmark" style="color: #ef4444; margin-top: 3px; font-size: 1rem; flex-shrink: 0;"></i>
@@ -449,7 +442,6 @@
                     <span>Ready to reclaim your diner margins?</span>
                     <span class="fx-cta-link">Explore Subscription Packages <i class="fa-solid fa-arrow-right"></i></span>
                 </a>
-
             </div>
         </div>
     </section>
@@ -463,7 +455,8 @@
                 
                 <!-- Currency Switcher -->
                 <div class="currency-switch-wrap">
-                    <button class="curr-btn active" onclick="setCurrency('AED')">AED (د.إ)</button>
+                    <button class="curr-btn active" onclick="setCurrency('INR')">INR (₹)</button>
+                    <button class="curr-btn" onclick="setCurrency('AED')">AED (د.إ)</button>
                     <button class="curr-btn" onclick="setCurrency('USD')">USD ($)</button>
                 </div>
             </div>
@@ -478,7 +471,7 @@
                         </div>
                         
                         <div class="pricing-price tier-price" id="tier1PriceDisplay" style="color: #ffffff; font-size: 2.8rem; margin: 20px 0 10px; font-weight: 800;">
-                            500 AED<span style="font-size: 0.95rem; color: #94a3b8; font-weight: 400;">/month</span>
+                            ₹4,500<span style="font-size: 0.95rem; color: #94a3b8; font-weight: 400;">/month</span>
                         </div>
                         <div class="setup-fee" style="color: #10b981; font-weight: 700; font-size: 0.9rem; margin-bottom: 24px;">
                             <i class="fa-solid fa-circle-check"></i> Zero Setup Fee (Digital Print Assets &amp; Cloud Engine Included)
@@ -508,7 +501,7 @@
                         </div>
                         
                         <div class="pricing-price tier-price" id="tier2PriceDisplay" style="color: #ffffff; font-size: 2.8rem; margin: 20px 0 10px; font-weight: 800;">
-                            850 AED<span style="font-size: 0.95rem; color: #94a3b8; font-weight: 400;">/month</span>
+                            ₹7,500<span style="font-size: 0.95rem; color: #94a3b8; font-weight: 400;">/month</span>
                         </div>
                         <div class="setup-fee" style="color: #10b981; font-weight: 700; font-size: 0.9rem; margin-bottom: 24px;">
                             <i class="fa-solid fa-circle-check"></i> Replaces 30% Aggregator Commission
@@ -584,7 +577,7 @@
                         <span class="qa-sign"></span>
                     </summary>
                     <div class="fx-qa__content">
-                        <p>Never. Aggregators like Talabat, Deliveroo, and Zomato take 25% to 32% of your revenue. METRIX is pure software infrastructure. You pay a predictable, flat monthly subscription fee, and you keep 100% of your order revenue directly into your bank account.</p>
+                        <p>Never. Aggregators like Talabat, Deliveroo, Swiggy, and Zomato take 25% to 32% of your revenue. METRIX is pure software infrastructure. You pay a predictable, flat monthly subscription fee, and you keep 100% of your order revenue directly into your bank account.</p>
                     </div>
                 </details>
 
@@ -614,8 +607,6 @@
                     <span>Request 7-Day Digital Pilot</span>
                 </button>
             </div>
-            
-
         </div>
     </section>
 
@@ -629,7 +620,6 @@
                 <a href="/terms.html">Terms of Service</a>
                 <a href="/privacy.html">Privacy Policy</a>
                 <a href="/refund.html">Refund Policy</a>
-
             </div>
         </div>
     </footer>
@@ -659,7 +649,7 @@
                     <label for="auditBusiness">Venue Name &amp; Neighborhood</label>
                     <div class="fx-input-wrapper">
                         <i class="fa-solid fa-utensils"></i>
-                        <input type="text" id="auditBusiness" placeholder="e.g. Cafe Noir, Al Wasl / Jumeirah" required>
+                        <input type="text" id="auditBusiness" placeholder="e.g. Cafe Noir (Assagao / Panjim / Jumeirah)" required>
                     </div>
                 </div>
 
@@ -667,7 +657,7 @@
                     <label for="auditPhone">WhatsApp Number (For Guest Service Alerts &amp; Setup)</label>
                     <div class="fx-input-wrapper">
                         <i class="fa-brands fa-whatsapp" style="color: #25d366;"></i>
-                        <input type="tel" id="auditPhone" placeholder="+971 50 123 4567" required>
+                        <input type="tel" id="auditPhone" placeholder="+91 98765 43210 / +971 50 123 4567" required>
                     </div>
                 </div>
 
@@ -675,14 +665,15 @@
                     <label for="auditEmail">Work Email</label>
                     <div class="fx-input-wrapper">
                         <i class="fa-solid fa-envelope"></i>
-                        <input type="email" id="auditEmail" placeholder="management@cafenoir.ae" required>
+                        <input type="email" id="auditEmail" placeholder="management@venue.com" required>
                     </div>
                 </div>
 
                 <div class="fx-form-group">
                     <label for="auditLocation">City / Market</label>
                     <select id="auditLocation" style="width: 100%; padding: 12px; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: #fff;">
-                        <option value="Dubai / UAE" selected>Dubai / UAE (GCC)</option>
+                        <option value="India (Goa, Mumbai, Delhi, BLR)" selected>India (Goa, Mumbai, Delhi, BLR)</option>
+                        <option value="Dubai / UAE (GCC)">Dubai / UAE (GCC)</option>
                         <option value="London / UK">London / UK</option>
                         <option value="Singapore / APAC">Singapore / APAC</option>
                         <option value="United States / Americas">United States / Americas</option>
@@ -736,7 +727,10 @@
             });
             const t1 = document.getElementById('tier1PriceDisplay');
             const t2 = document.getElementById('tier2PriceDisplay');
-            if (curr === 'AED') {
+            if (curr === 'INR') {
+                if (t1) t1.innerHTML = '₹4,500<span style="font-size: 0.95rem; color: #94a3b8; font-weight: 400;">/month</span>';
+                if (t2) t2.innerHTML = '₹7,500<span style="font-size: 0.95rem; color: #94a3b8; font-weight: 400;">/month</span>';
+            } else if (curr === 'AED') {
                 if (t1) t1.innerHTML = '500 AED<span style="font-size: 0.95rem; color: #94a3b8; font-weight: 400;">/month</span>';
                 if (t2) t2.innerHTML = '850 AED<span style="font-size: 0.95rem; color: #94a3b8; font-weight: 400;">/month</span>';
             } else if (curr === 'USD') {

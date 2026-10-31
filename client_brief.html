@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>METRIX — In-Store Guest Intelligence & Dining Protection</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap');
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
+            line-height: 1.5;
+            padding: 24px;
+        }
+
+        .sheet {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 36px 44px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid #0f172a;
+            padding-bottom: 16px;
+            margin-bottom: 22px;
+        }
+
+        .brand-title {
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #0f172a;
+            text-transform: uppercase;
+        }
+
+        .brand-subtitle {
+            font-size: 11.5px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #64748b;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        .meta-badge {
+            text-align: right;
+            font-size: 11.5px;
+            color: #475569;
+            line-height: 1.45;
+        }
+
+        .meta-badge strong {
+            color: #0f172a;
+        }
+
+        .tag-pill {
+            display: inline-block;
+            background: #0f172a;
+            color: #f59e0b;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .intro-box {
+            background: #f8fafc;
+            border-left: 4px solid #0f172a;
+            padding: 12px 16px;
+            margin-bottom: 22px;
+            font-size: 12.5px;
+            color: #334155;
+            line-height: 1.5;
+        }
+
+        h2 {
+            font-size: 13.5px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #0f172a;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .benefit-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 22px;
+        }
+
+        .benefit-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        }
+
+        .benefit-card.highlight {
+            border-color: #f59e0b;
+            background: #fffdfa;
+        }
+
+        .benefit-icon {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .benefit-card h3 {
+            font-size: 13px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 6px;
+        }
+
+        .benefit-card p {
+            font-size: 11.5px;
+            color: #475569;
+            margin: 0;
+            line-height: 1.45;
+        }
+
+        .how-it-works {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+
+        .step-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px 14px;
+            font-size: 11.5px;
+        }
+
+        .step-box strong {
+            display: block;
+            color: #0f172a;
+            font-size: 12px;
+            margin-bottom: 4px;
+        }
+
+        .step-box p {
+            color: #64748b;
+            font-size: 11px;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .trial-banner {
+            background: #0f172a;
+            color: #ffffff;
+            border-radius: 8px;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .trial-banner h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #f8fafc;
+            margin-bottom: 3px;
+        }
+
+        .trial-banner p {
+            font-size: 11px;
+            color: #94a3b8;
+            margin: 0;
+        }
+
+        .trial-pill {
+            background: #f59e0b;
+            color: #0f172a;
+            font-weight: 800;
+            font-size: 11px;
+            padding: 6px 14px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 14px;
+            font-size: 10.5px;
+            color: #64748b;
+        }
+
+        .footer strong {
+            color: #0f172a;
+        }
+
+        @media print {
+            body { padding: 0; background: #fff; }
+            .sheet { border: none; box-shadow: none; padding: 24px; max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="sheet">
+    <div class="header">
+        <div>
+            <div class="tag-pill">Executive Product Brief</div>
+            <div class="brand-title">METRIX</div>
+            <div class="brand-subtitle">In-Store Tabletop Guest Intelligence Platform</div>
+        </div>
+        <div class="meta-badge">
+            <strong>Target Category:</strong> Boutique Hospitality & Cafes<br>
+            <strong>Hardware:</strong> 100mm × 155mm Tabletop Standees<br>
+            <strong>Integration:</strong> Zero POS / 100% Autonomous
+        </div>
+    </div>
+
+    <div class="intro-box">
+        <strong>The Problem:</strong> A typical restaurant sees 100 walk-ins daily who spend an average of 1 hour dining. But when guests pay the bill and leave, the venue captures zero customer data and has no way to bring them back. METRIX monetizes this table dwell-time with a luxury, discreet tabletop system.
+    </div>
+
+    <h2>Top 4 Benefits for Restaurant Operators</h2>
+    <div class="benefit-grid">
+        <div class="benefit-card highlight">
+            <div class="benefit-icon">🎂</div>
+            <h3>1. The Birthday & VIP Cash Engine</h3>
+            <p>Diners tap the standee and join your VIP club in 3 seconds (Name, WhatsApp & Birthday). The venue triggers automated birthday party invites—turning single diners into <strong>₹10,000 to ₹20,000 group dinner bookings</strong>.</p>
+        </div>
+
+        <div class="benefit-card">
+            <div class="benefit-icon">🚨</div>
+            <h3>2. 3-Second Floor Service Shield</h3>
+            <p>If food is cold or service lags, guests tap 'Call Server' right at the table. Management’s phone vibrates on WhatsApp in <strong>3 seconds with the exact table number</strong>—fixing complaints before a 1-star Google review is posted.</p>
+        </div>
+
+        <div class="benefit-card">
+            <div class="benefit-icon">📱</div>
+            <h3>3. Way Beyond a Basic WhatsApp QR</h3>
+            <p>A basic QR code opens a blank chat where 90% of guests bounce. METRIX provides an interactive 2-tap luxury mobile experience, organizes customer data automatically, and directs happy diners to 5-star Google reviews.</p>
+        </div>
+
+        <div class="benefit-card">
+            <div class="benefit-icon">⚡</div>
+            <h3>4. Zero POS Integration / 60-Second Setup</h3>
+            <p>Runs 100% in the cloud. Zero changes to Petpooja, Posist, or billing machines. No app downloads for diners. Just slide the bespoke luxury insert into your tabletop stands.</p>
+        </div>
+    </div>
+
+    <h2>How It Deploys in 3 Simple Steps</h2>
+    <div class="how-it-works">
+        <div class="step-box">
+            <strong>1. Place on Tables</strong>
+            <p>Discreet, luxury Matte Black & Gold standees placed on dining and lounge tables.</p>
+        </div>
+        <div class="step-box">
+            <strong>2. Guests Tap with Phone</strong>
+            <p>iPhone & Android cameras scan in 2 seconds. No app download or registration hassle.</p>
+        </div>
+        <div class="step-box">
+            <strong>3. WhatsApp Real-Time Alerts</strong>
+            <p>Floor staff receive service pings instantly; guest data flows into your private dashboard.</p>
+        </div>
+    </div>
+
+    <div class="trial-banner">
+        <div>
+            <h4>Risk-Free Tabletop Pilot for Partner Venues</h4>
+            <p>Test METRIX across 3 high-dwell tables for one full weekend (Friday to Sunday) at zero cost.</p>
+        </div>
+        <div class="trial-pill">100% Free Weekend Test</div>
+    </div>
+
+    <div class="footer">
+        <div><strong>METRIX Technologies</strong> (A ONEGRV Enterprise) · Goa, India</div>
+        <div><strong>Official Platform:</strong> https://metrixmedia.agency · sunny@metrixmedia.agency</div>
+    </div>
+</div>
+
+</body>
+</html>
