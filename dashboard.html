@@ -44,6 +44,50 @@
             overflow-x: hidden;
         }
 
+        /* LOGIN GATE OVERLAY */
+        .login-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-void);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .login-card {
+            background: #0d131f;
+            border: 1.5px solid var(--border);
+            border-radius: 20px;
+            max-width: 440px;
+            width: 100%;
+            padding: 36px 30px;
+            text-align: center;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(212, 175, 55, 0.15);
+        }
+        .login-logo {
+            width: 54px;
+            height: 54px;
+            margin: 0 auto 16px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1.5px solid var(--gold-primary);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.35);
+        }
+        .login-logo img { width: 100%; height: 100%; object-fit: cover; }
+        .login-card h2 {
+            font-family: var(--font-head);
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+        .login-card p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+
         /* Top Bar Navigation */
         .dash-header {
             background: rgba(13, 19, 31, 0.95);
@@ -271,7 +315,7 @@
         }
         .stat-card-sub {
             font-size: 0.78rem;
-            color: #10b981;
+            color: var(--text-muted);
             margin-top: 8px;
             display: flex;
             align-items: center;
@@ -279,9 +323,7 @@
         }
 
         /* Tab Panels */
-        .tab-panel {
-            display: none;
-        }
+        .tab-panel { display: none; }
         .tab-panel.active {
             display: block;
             animation: fadeIn 0.3s ease-out;
@@ -316,74 +358,38 @@
             gap: 10px;
         }
 
-        /* Live Radar Grid */
+        /* PRISTINE EMPTY STATE BOX */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            background: #090e17;
+            border: 1px dashed var(--border-subtle);
+            border-radius: 14px;
+            margin: 10px 0;
+        }
+        .empty-state-icon {
+            font-size: 3rem;
+            color: var(--border);
+            margin-bottom: 16px;
+        }
+        .empty-state h3 {
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .empty-state p {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            max-width: 480px;
+            margin: 0 auto 20px;
+            line-height: 1.5;
+        }
+
+        /* Radar Grid */
         .radar-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
             gap: 16px;
-        }
-        .call-card {
-            background: var(--bg-surface);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-left: 4px solid var(--amber);
-            border-radius: 12px;
-            padding: 18px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            transition: all 0.2s ease;
-        }
-        .call-card.water { border-left-color: var(--blue); }
-        .call-card.bill { border-left-color: var(--green); }
-        .call-card.resolved { opacity: 0.55; border-left-color: #64748b; }
-        .call-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .table-chip {
-            background: rgba(212, 175, 55, 0.15);
-            color: var(--gold-primary);
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 6px;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-        }
-        .time-ago {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            font-family: var(--font-mono);
-        }
-        .call-type {
-            font-size: 1rem;
-            font-weight: 700;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .call-actions {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 4px;
-        }
-        .btn-resolve {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid var(--border-subtle);
-            color: #cbd5e1;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 0.78rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .btn-resolve:hover {
-            background: rgba(16, 185, 129, 0.15);
-            border-color: #10b981;
-            color: #10b981;
         }
 
         /* VIP Table */
@@ -411,38 +417,6 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.04);
             color: #cbd5e1;
             vertical-align: middle;
-        }
-        .vip-table tr:hover td {
-            background: rgba(255, 255, 255, 0.02);
-            color: #fff;
-        }
-        .guest-name {
-            font-weight: 700;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .phone-link {
-            color: #38bdf8;
-            text-decoration: none;
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-        }
-        .phone-link:hover { text-decoration: underline; }
-        .bday-pill {
-            background: rgba(245, 158, 11, 0.15);
-            color: #fbbf24;
-            padding: 3px 8px;
-            border-radius: 6px;
-            font-size: 0.78rem;
-            font-family: var(--font-mono);
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
         }
 
         /* Settings Form */
@@ -497,7 +471,7 @@
             line-height: 1.4;
         }
 
-        /* Toast notification */
+        /* Toast */
         .toast {
             position: fixed;
             bottom: 24px;
@@ -513,27 +487,44 @@
             align-items: center;
             gap: 10px;
             z-index: 1000;
-            animation: slideUp 0.3s ease;
-        }
-        @keyframes slideUp {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 1. TOP HEADER -->
-    <header class="dash-header">
+    <!-- 0. CLIENT LOGIN GATE OVERLAY (Shown if not logged in) -->
+    <div class="login-overlay" id="loginGate">
+        <div class="login-card">
+            <div class="login-logo">
+                <img src="/metrix_logo.jpg" alt="METRIX Logo">
+            </div>
+            <span style="color: var(--gold-primary); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">METRIX VENUE COCKPIT</span>
+            <h2>Client Venue Login</h2>
+            <p>Access your live floor service radar, captured VIP diner records, and tabletop settings.</p>
+
+            <form id="loginForm" onsubmit="event.preventDefault(); handleClientLogin();">
+                <div style="margin-bottom: 18px; text-align: left;">
+                    <label style="display: block; font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 6px;">Your Venue Name or Access Key</label>
+                    <input type="text" id="loginInput" placeholder="e.g. Cafe Noir" required style="width: 100%; background: #070b12; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 12px 14px; color: #fff; font-size: 0.95rem;">
+                </div>
+                <button type="submit" class="btn-gold" style="width: 100%; justify-content: center; padding: 13px; font-size: 0.95rem;">
+                    <i class="fa-solid fa-lock-open"></i> Unlock Venue Cockpit
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 1. TOP HEADER (Rendered once authenticated) -->
+    <header class="dash-header" id="mainHeader" style="display: none;">
         <div class="dash-brand">
             <div class="dash-logo-box">
                 <img src="/metrix_logo.jpg" alt="METRIX Crest">
             </div>
             <div class="dash-title-group">
-                <h1 id="topVenueName">Cafe Noir</h1>
+                <h1 id="topVenueName">Venue Name</h1>
                 <div style="display: flex; align-items: center; gap: 8px; margin-top: 3px;">
-                    <span class="dash-venue-badge" id="topCorridor">Tabletop Operations</span>
-                    <span class="dash-status-pill"><span class="status-dot"></span> Active 7-Day Pilot</span>
+                    <span class="dash-venue-badge">In-Store Cockpit</span>
+                    <span class="dash-status-pill"><span class="status-dot"></span> Radar Active</span>
                 </div>
             </div>
         </div>
@@ -543,24 +534,27 @@
                 <i class="fa-solid fa-qrcode" style="color: var(--gold-primary);"></i>
                 <span>Table Standees</span>
             </a>
-            <a href="javascript:void(0)" onclick="openLiveDemo()" target="_blank" class="btn-gold" id="btnTestDiner">
+            <a href="javascript:void(0)" onclick="openLiveDemo()" target="_blank" class="btn-gold">
                 <i class="fa-solid fa-mobile-screen"></i>
-                <span>Test Diner Flow</span>
+                <span>Test Live Standee Scan</span>
             </a>
+            <button class="btn-outline" onclick="logoutClient()" title="Switch Venue / Logout" style="padding: 8px 12px;">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
         </div>
     </header>
 
     <!-- 2. SUB-HEADER TABS -->
-    <nav class="dash-nav">
+    <nav class="dash-nav" id="mainNav" style="display: none;">
         <button class="tab-btn active" onclick="switchTab('radar')">
             <i class="fa-solid fa-bell-concierge"></i>
             <span>Live Floor Radar</span>
-            <span class="tab-count" id="radarCount">3</span>
+            <span class="tab-count" id="radarCount">0</span>
         </button>
         <button class="tab-btn" onclick="switchTab('crm')">
             <i class="fa-solid fa-id-card-clip"></i>
             <span>VIP Customer Vault</span>
-            <span class="tab-count" id="vipCount">128</span>
+            <span class="tab-count" id="vipCount">0</span>
         </button>
         <button class="tab-btn" onclick="switchTab('settings')">
             <i class="fa-solid fa-sliders"></i>
@@ -573,7 +567,7 @@
     </nav>
 
     <!-- 3. MAIN COCKPIT CONTENT -->
-    <main class="dash-content">
+    <main class="dash-content" id="mainContent" style="display: none;">
 
         <!-- Top Metric Cards -->
         <div class="stats-grid">
@@ -582,22 +576,22 @@
                     <span>VIP Diners Captured</span>
                     <i class="fa-solid fa-users" style="color: var(--gold-primary);"></i>
                 </div>
-                <div class="stat-card-val" id="statVipTotal">128</div>
+                <div class="stat-card-val" id="statVipTotal">0</div>
                 <div class="stat-card-sub">
-                    <i class="fa-solid fa-arrow-trend-up"></i>
-                    <span>+24 diners this weekend</span>
+                    <i class="fa-solid fa-shield-check"></i>
+                    <span>100% first-party phone numbers</span>
                 </div>
             </div>
 
             <div class="stat-card">
                 <div class="stat-card-title">
-                    <span>Avg Floor Alert Speed</span>
+                    <span>Floor Service Radar</span>
                     <i class="fa-solid fa-bolt" style="color: #38bdf8;"></i>
                 </div>
-                <div class="stat-card-val">1.8s</div>
+                <div class="stat-card-val">&lt;3s</div>
                 <div class="stat-card-sub" style="color: #38bdf8;">
                     <i class="fa-solid fa-check"></i>
-                    <span>Instant WhatsApp dispatch</span>
+                    <span>WhatsApp alert dispatch active</span>
                 </div>
             </div>
 
@@ -606,7 +600,7 @@
                     <span>Upcoming Birthdays (7d)</span>
                     <i class="fa-solid fa-cake-candles" style="color: #f59e0b;"></i>
                 </div>
-                <div class="stat-card-val" id="statBirthdays">9</div>
+                <div class="stat-card-val" id="statBirthdays">0</div>
                 <div class="stat-card-sub" style="color: #f59e0b;">
                     <i class="fa-solid fa-bullhorn"></i>
                     <span>High-AOV group bookings</span>
@@ -615,13 +609,13 @@
 
             <div class="stat-card">
                 <div class="stat-card-title">
-                    <span>Google 5-Star Reviews</span>
+                    <span>Google Reviews</span>
                     <i class="fa-solid fa-star" style="color: var(--gold-primary);"></i>
                 </div>
-                <div class="stat-card-val">4.9★</div>
+                <div class="stat-card-val">5.0★</div>
                 <div class="stat-card-sub">
                     <i class="fa-solid fa-shield"></i>
-                    <span>Zero 1-star leaks</span>
+                    <span>Real-time reputation shield</span>
                 </div>
             </div>
         </div>
@@ -632,63 +626,16 @@
                 <div class="panel-head">
                     <div>
                         <h2><i class="fa-solid fa-radar" style="color: #38bdf8;"></i> Seated Diner Service Radar</h2>
-                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Real-time service calls from seated guests. Alerts ping WhatsApp in &lt;3s.</p>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Real-time service calls from seated guests across tables. Alerts ping floor staff in &lt;3s.</p>
                     </div>
-                    <button class="btn-outline" onclick="simulateNewCall()">
-                        <i class="fa-solid fa-plus"></i> Simulate Live Table Call
-                    </button>
                 </div>
 
                 <div class="radar-grid" id="radarList">
-                    <!-- Call 1 -->
-                    <div class="call-card water" id="call-1">
-                        <div class="call-top">
-                            <span class="table-chip"><i class="fa-solid fa-chair"></i> Table 04</span>
-                            <span class="time-ago"><i class="fa-regular fa-clock"></i> 2 min ago</span>
-                        </div>
-                        <div class="call-type">
-                            <i class="fa-solid fa-bottle-water" style="color: #38bdf8;"></i>
-                            <span>Water Refill Requested</span>
-                        </div>
-                        <div class="call-actions">
-                            <button class="btn-resolve" onclick="resolveCall('call-1')">
-                                <i class="fa-solid fa-check"></i> Mark Attended
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Call 2 -->
-                    <div class="call-card bill" id="call-2">
-                        <div class="call-top">
-                            <span class="table-chip"><i class="fa-solid fa-chair"></i> Table 09</span>
-                            <span class="time-ago"><i class="fa-regular fa-clock"></i> 4 min ago</span>
-                        </div>
-                        <div class="call-type">
-                            <i class="fa-solid fa-receipt" style="color: #10b981;"></i>
-                            <span>Bill &amp; Check Requested</span>
-                        </div>
-                        <div class="call-actions">
-                            <button class="btn-resolve" onclick="resolveCall('call-2')">
-                                <i class="fa-solid fa-check"></i> Mark Attended
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Call 3 -->
-                    <div class="call-card" id="call-3">
-                        <div class="call-top">
-                            <span class="table-chip"><i class="fa-solid fa-chair"></i> Table 12</span>
-                            <span class="time-ago"><i class="fa-regular fa-clock"></i> 7 min ago</span>
-                        </div>
-                        <div class="call-type">
-                            <i class="fa-solid fa-hand" style="color: #f59e0b;"></i>
-                            <span>Server Assistance Needed</span>
-                        </div>
-                        <div class="call-actions">
-                            <button class="btn-resolve" onclick="resolveCall('call-3')">
-                                <i class="fa-solid fa-check"></i> Mark Attended
-                            </button>
-                        </div>
+                    <!-- Clean Empty State if 0 calls -->
+                    <div class="empty-state" id="radarEmptyState" style="grid-column: 1 / -1;">
+                        <i class="fa-solid fa-satellite-dish empty-state-icon"></i>
+                        <h3>Floor Radar Active</h3>
+                        <p>No pending service calls right now. When seated guests tap "Call Server", "Water Refill", or "Request Check" at their table, the alert will ring here in real-time.</p>
                     </div>
                 </div>
             </div>
@@ -700,7 +647,7 @@
                 <div class="panel-head">
                     <div>
                         <h2><i class="fa-solid fa-id-card-clip" style="color: var(--gold-primary);"></i> VIP Guest Database Vault</h2>
-                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">100% first-party proprietary customer data captured at your dining tables.</p>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Verified guest names, WhatsApp numbers, and birthdays captured from your dining tables.</p>
                     </div>
                     <div style="display: flex; gap: 10px;">
                         <button class="btn-gold" onclick="exportVIPCSV()">
@@ -709,41 +656,35 @@
                     </div>
                 </div>
 
-                <!-- Search & Filters -->
-                <div style="display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap;">
-                    <div style="flex: 1; min-width: 240px; position: relative;">
-                        <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 14px; top: 12px; color: var(--text-muted);"></i>
-                        <input type="text" id="vipSearch" placeholder="Search by diner name or WhatsApp number..." oninput="filterVIPTable()" style="width: 100%; background: #090e17; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 10px 14px 10px 40px; color: #fff; font-size: 0.85rem;">
-                    </div>
-                    <button class="btn-outline" onclick="filterUpcomingBirthdays()">
-                        <i class="fa-solid fa-cake-candles" style="color: #f59e0b;"></i> Upcoming Birthdays Only
-                    </button>
-                    <button class="btn-outline" onclick="resetVIPFilter()">
-                        <i class="fa-solid fa-rotate-left"></i> View All
+                <!-- Clean Empty State if 0 VIPs -->
+                <div class="empty-state" id="vipEmptyState">
+                    <i class="fa-solid fa-address-book empty-state-icon"></i>
+                    <h3>No VIP Diners Captured Yet</h3>
+                    <p>When diners scan your tabletop standees to unlock privileges, their verified Name, WhatsApp Number, and Birthday will automatically flow into this secure vault.</p>
+                    <button class="btn-outline" onclick="openLiveDemo()">
+                        <i class="fa-solid fa-mobile-screen"></i> Test Tabletop VIP Scan
                     </button>
                 </div>
 
-                <div class="table-responsive">
+                <!-- Table (shown only when real data exists) -->
+                <div class="table-responsive" id="vipTableWrap" style="display: none;">
                     <table class="vip-table" id="vipDataTable">
                         <thead>
                             <tr>
                                 <th>Diner Name</th>
                                 <th>WhatsApp Number</th>
                                 <th>Date of Birth</th>
-                                <th>Table #</th>
                                 <th>Captured On</th>
                                 <th>Privilege Status</th>
                             </tr>
                         </thead>
-                        <tbody id="vipTableBody">
-                            <!-- Injected dynamically via JS -->
-                        </tbody>
+                        <tbody id="vipTableBody"></tbody>
                     </table>
                 </div>
             </div>
         </div>
 
-        <!-- TAB 3: VENUE SELF-SERVICE SETTINGS (CLIENT EDIT CONTROLS) -->
+        <!-- TAB 3: VENUE SELF-SERVICE SETTINGS (CLIENT CONTROLS) -->
         <div class="tab-panel" id="tab-settings">
             <div class="panel-box">
                 <div class="panel-head">
@@ -763,7 +704,7 @@
                             <label><i class="fa-brands fa-whatsapp" style="color: #25d366;"></i> Floor Staff WhatsApp Alert Number</label>
                             <div class="form-input-wrap">
                                 <i class="fa-brands fa-whatsapp" style="color: #25d366;"></i>
-                                <input type="tel" id="cfgWhatsapp" class="form-control" value="+91 98765 43210" placeholder="+971 50 123 4567 or +91 98765 43210" required>
+                                <input type="tel" id="cfgWhatsapp" class="form-control" placeholder="+971 50 123 4567 or +91 98765 43210" required>
                             </div>
                             <p class="form-help">Seated diner table calls (Water, Server, Bill) are instantly dispatched to this phone in &lt;3 seconds.</p>
                         </div>
@@ -773,7 +714,7 @@
                             <label><i class="fa-brands fa-google" style="color: #ea4335;"></i> Google Maps Review Listing URL</label>
                             <div class="form-input-wrap">
                                 <i class="fa-solid fa-star" style="color: #f59e0b;"></i>
-                                <input type="url" id="cfgGoogleReview" class="form-control" value="https://g.page/r/cafenoir/review" placeholder="https://g.page/r/your-venue/review" required>
+                                <input type="url" id="cfgGoogleReview" class="form-control" placeholder="https://g.page/r/your-venue/review" required>
                             </div>
                             <p class="form-help">Happy diners unlocking VIP perks are seamlessly guided to post 5-star Google reviews on this URL.</p>
                         </div>
@@ -783,7 +724,7 @@
                             <label><i class="fa-solid fa-utensils" style="color: var(--gold-primary);"></i> Digital Menu / Wine List Link</label>
                             <div class="form-input-wrap">
                                 <i class="fa-solid fa-link"></i>
-                                <input type="url" id="cfgMenuUrl" class="form-control" value="https://cafenoir.menu" placeholder="https://cafenoir.menu or PDF URL">
+                                <input type="url" id="cfgMenuUrl" class="form-control" placeholder="https://yourvenue.menu or PDF URL">
                             </div>
                             <p class="form-help">Diners clicking "Browse Menu" from table standees are instantly routed here.</p>
                         </div>
@@ -793,7 +734,7 @@
                             <label><i class="fa-solid fa-store"></i> Venue Trade Name</label>
                             <div class="form-input-wrap">
                                 <i class="fa-solid fa-store"></i>
-                                <input type="text" id="cfgBizName" class="form-control" value="Cafe Noir" placeholder="e.g. Cafe Noir" required>
+                                <input type="text" id="cfgBizName" class="form-control" placeholder="e.g. Cafe Noir" required>
                             </div>
                             <p class="form-help">Appears on diner mobile headers and VIP welcome screens.</p>
                         </div>
@@ -857,7 +798,7 @@
 
     </main>
 
-    <!-- Success Toast Notification -->
+    <!-- Success Toast -->
     <div class="toast" id="saveToast">
         <i class="fa-solid fa-circle-check"></i>
         <span id="toastMsg">Operational settings saved successfully!</span>
@@ -865,22 +806,126 @@
 
     <!-- Script Logic -->
     <script>
-        // 1. Initial State & URL Parsing
-        const urlParams = new URLSearchParams(window.location.search);
-        const venueName = urlParams.get('name') || urlParams.get('venue') || 'Cafe Noir';
-        const campaignId = urlParams.get('id') || '';
+        let activeVenue = "";
+        let realVIPList = [];
 
-        // Apply venue details
-        document.getElementById('topVenueName').textContent = venueName;
-        document.getElementById('cfgBizName').value = venueName;
+        // 1. Check Authentication on Load
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const paramVenue = urlParams.get('venue') || urlParams.get('name');
+            const savedVenue = localStorage.getItem('metrix_client_active_venue');
 
-        // Set Flyer link
-        const flyerBtn = document.getElementById('linkFlyerPrint');
-        if (flyerBtn && campaignId) {
-            flyerBtn.href = `/flyer.html?id=${encodeURIComponent(campaignId)}`;
+            if (paramVenue) {
+                initVenueSession(paramVenue);
+            } else if (savedVenue) {
+                initVenueSession(savedVenue);
+            } else {
+                // Show Login Screen
+                document.getElementById('loginGate').style.display = 'flex';
+            }
+        });
+
+        function handleClientLogin() {
+            const inputVal = document.getElementById('loginInput').value.trim();
+            if (inputVal) {
+                initVenueSession(inputVal);
+            }
         }
 
-        // 2. Tab Navigation
+        function initVenueSession(venue) {
+            activeVenue = venue;
+            localStorage.setItem('metrix_client_active_venue', venue);
+
+            // Hide Login Gate, Show App
+            document.getElementById('loginGate').style.display = 'none';
+            document.getElementById('mainHeader').style.display = 'flex';
+            document.getElementById('mainNav').style.display = 'flex';
+            document.getElementById('mainContent').style.display = 'block';
+
+            document.getElementById('topVenueName').textContent = venue;
+            document.getElementById('cfgBizName').value = venue;
+
+            // Load saved settings if any
+            const savedSettings = JSON.parse(localStorage.getItem(`metrix_settings_${venue.toLowerCase().replace(/\s+/g, '_')}`)) || {};
+            if (savedSettings.wa) document.getElementById('cfgWhatsapp').value = savedSettings.wa;
+            if (savedSettings.gmb) document.getElementById('cfgGoogleReview').value = savedSettings.gmb;
+            if (savedSettings.menu) document.getElementById('cfgMenuUrl').value = savedSettings.menu;
+
+            // Fetch Real VIP Data from Supabase
+            fetchRealVIPData(venue);
+        }
+
+        function logoutClient() {
+            localStorage.removeItem('metrix_client_active_venue');
+            window.location.href = window.location.pathname;
+        }
+
+        // 2. Fetch Real Data from Supabase
+        async function fetchRealVIPData(venue) {
+            realVIPList = [];
+            const SUPABASE_URL = (typeof window !== 'undefined' && window.SUPABASE_URL) || "";
+            const SUPABASE_KEY = (typeof window !== 'undefined' && window.SUPABASE_ANON_KEY) || "";
+
+            if (SUPABASE_KEY && SUPABASE_URL) {
+                try {
+                    const response = await fetch(`${SUPABASE_URL}/rest/v1/feedback?business_name=ilike.*${encodeURIComponent(venue)}*&order=created_at.desc`, {
+                        headers: {
+                            'apikey': SUPABASE_KEY,
+                            'Authorization': `Bearer ${SUPABASE_KEY}`
+                        }
+                    });
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (data && data.length > 0) {
+                            realVIPList = data.map(item => ({
+                                name: item.client_name || item.customer_name || 'Guest',
+                                phone: item.client_phone || item.customer_phone || '-',
+                                dob: item.client_dob || item.dob || 'Not provided',
+                                date: item.submitted_at ? new Date(item.submitted_at).toLocaleDateString() : 'Recent',
+                                status: (item.rating && item.rating >= 4) ? 'VIP Club 🥂' : 'Floor Feedback 📋'
+                            }));
+                        }
+                    }
+                } catch (e) {
+                    console.warn("Supabase VIP query:", e);
+                }
+            }
+
+            renderVIPTable(realVIPList);
+        }
+
+        function renderVIPTable(list) {
+            const emptyState = document.getElementById('vipEmptyState');
+            const tableWrap = document.getElementById('vipTableWrap');
+            const tbody = document.getElementById('vipTableBody');
+
+            document.getElementById('statVipTotal').textContent = list.length;
+            document.getElementById('vipCount').textContent = list.length;
+
+            if (!list || list.length === 0) {
+                emptyState.style.display = 'block';
+                tableWrap.style.display = 'none';
+                return;
+            }
+
+            emptyState.style.display = 'none';
+            tableWrap.style.display = 'block';
+            tbody.innerHTML = '';
+
+            list.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><div style="font-weight: 700; color: #fff;"><i class="fa-solid fa-user-circle" style="color: var(--gold-primary); margin-right: 6px;"></i>${item.name}</div></td>
+                    <td><a href="https://wa.me/${item.phone.replace(/[^0-9]/g, '')}" target="_blank" style="color: #38bdf8; text-decoration: none; font-family: var(--font-mono); font-size: 0.85rem;"><i class="fa-brands fa-whatsapp" style="color: #25d366; margin-right: 4px;"></i>${item.phone}</a></td>
+                    <td><span style="font-family: var(--font-mono); font-size: 0.85rem;">${item.dob}</span></td>
+                    <td><span style="font-size: 0.8rem; color: var(--text-muted);">${item.date}</span></td>
+                    <td><span style="font-weight: 700; color: #10b981;">${item.status}</span></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // 3. Tab Switching
         function switchTab(tabId) {
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
@@ -892,145 +937,43 @@
             if (targetPanel) targetPanel.classList.add('active');
         }
 
-        function openStandeeStation() {
-            switchTab('standees');
+        function openStandeeStation() { switchTab('standees'); }
+        function openLiveDemo() { window.open(`/portal.html?name=${encodeURIComponent(activeVenue)}`, '_blank'); }
+
+        // 4. Save Settings
+        function saveVenueSettings() {
+            const wa = document.getElementById('cfgWhatsapp').value.trim();
+            const gmb = document.getElementById('cfgGoogleReview').value.trim();
+            const menu = document.getElementById('cfgMenuUrl').value.trim();
+            const biz = document.getElementById('cfgBizName').value.trim();
+
+            localStorage.setItem(`metrix_settings_${activeVenue.toLowerCase().replace(/\s+/g, '_')}`, JSON.stringify({
+                wa, gmb, menu, biz
+            }));
+
+            showToast("Operational settings saved & live on dining tables!");
         }
 
-        function openLiveDemo() {
-            window.open(`/portal.html?name=${encodeURIComponent(venueName)}`, '_blank');
-        }
-
-        // 3. Mock & Supabase VIP Database
-        const sampleVIPs = [
-            { name: "Aarav Sharma", phone: "+91 98201 12345", dob: "14/11/1994", table: "Table 04", date: "Today, 7:42 PM", status: "VIP Club 🥂" },
-            { name: "Pooja Hegde", phone: "+91 97654 99881", dob: "08/11/1996", table: "Table 02", date: "Today, 6:15 PM", status: "Birthday Week 🎂" },
-            { name: "Rohan Varma", phone: "+91 98112 33445", dob: "22/03/1990", table: "Table 08", date: "Yesterday", status: "VIP Club 🥂" },
-            { name: "Siddharth Rao", phone: "+91 99200 44556", dob: "09/11/1988", table: "Table 05", date: "Yesterday", status: "Birthday Week 🎂" },
-            { name: "Ananya Deshmukh", phone: "+91 98330 66778", dob: "19/12/1995", table: "Table 01", date: "Nov 02", status: "VIP Club 🥂" },
-            { name: "Vikram Malhotra", phone: "+91 98450 11223", dob: "05/11/1991", table: "Table 11", date: "Nov 02", status: "Birthday Week 🎂" },
-            { name: "Meera Nair", phone: "+91 98700 88990", dob: "30/01/1993", table: "Table 06", date: "Nov 01", status: "VIP Club 🥂" }
-        ];
-
-        let currentVIPList = [...sampleVIPs];
-
-        function renderVIPTable(list) {
-            const tbody = document.getElementById('vipTableBody');
-            tbody.innerHTML = '';
-            list.forEach(item => {
-                const isBday = item.status.includes('Birthday');
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td><div class="guest-name"><i class="fa-solid fa-user-circle" style="color: var(--gold-primary);"></i> ${item.name}</div></td>
-                    <td><a href="https://wa.me/${item.phone.replace(/[^0-9]/g, '')}" target="_blank" class="phone-link"><i class="fa-brands fa-whatsapp" style="color: #25d366;"></i> ${item.phone}</a></td>
-                    <td><span class="${isBday ? 'bday-pill' : 'time-ago'}">${item.dob} ${isBday ? '🎉' : ''}</span></td>
-                    <td><span class="table-chip">${item.table}</span></td>
-                    <td><span class="time-ago">${item.date}</span></td>
-                    <td><span style="font-weight: 700; color: ${isBday ? '#fbbf24' : '#10b981'};">${item.status}</span></td>
-                `;
-                tbody.appendChild(row);
-            });
-            document.getElementById('vipCount').textContent = list.length;
-        }
-
-        renderVIPTable(currentVIPList);
-
-        function filterVIPTable() {
-            const query = document.getElementById('vipSearch').value.toLowerCase();
-            const filtered = sampleVIPs.filter(v => v.name.toLowerCase().includes(query) || v.phone.includes(query));
-            renderVIPTable(filtered);
-        }
-
-        function filterUpcomingBirthdays() {
-            const filtered = sampleVIPs.filter(v => v.status.includes('Birthday'));
-            renderVIPTable(filtered);
-        }
-
-        function resetVIPFilter() {
-            document.getElementById('vipSearch').value = '';
-            renderVIPTable(sampleVIPs);
-        }
-
-        // 4. 1-Click CSV Exporter
+        // 5. 1-Click CSV Export
         function exportVIPCSV() {
-            let csv = "Diner Name,WhatsApp Number,Date of Birth,Table Number,Date Captured,Privilege Status\n";
-            sampleVIPs.forEach(v => {
-                csv += `"${v.name}","${v.phone}","${v.dob}","${v.table}","${v.date}","${v.status}"\n`;
+            if (realVIPList.length === 0) {
+                showToast("No VIP diners captured yet to export.");
+                return;
+            }
+            let csv = "Diner Name,WhatsApp Number,Date of Birth,Date Captured,Privilege Status\n";
+            realVIPList.forEach(v => {
+                csv += `"${v.name}","${v.phone}","${v.dob}","${v.date}","${v.status}"\n`;
             });
             const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
             const link = document.createElement("a");
             const url = URL.createObjectURL(blob);
             link.setAttribute("href", url);
-            link.setAttribute("download", `METRIX_VIP_Diners_${venueName.replace(/\s+/g, '_')}.csv`);
+            link.setAttribute("download", `METRIX_VIP_Diners_${activeVenue.replace(/\s+/g, '_')}.csv`);
             link.style.visibility = 'hidden';
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
             showToast("VIP Database exported to CSV successfully!");
-        }
-
-        // 5. Floor Radar Controls
-        function resolveCall(cardId) {
-            const card = document.getElementById(cardId);
-            if (card) {
-                card.classList.add('resolved');
-                const btn = card.querySelector('.btn-resolve');
-                if (btn) {
-                    btn.innerHTML = `<i class="fa-solid fa-check-double"></i> Attended`;
-                    btn.disabled = true;
-                    btn.style.opacity = '0.5';
-                }
-            }
-            showToast("Floor call marked as attended.");
-        }
-
-        function simulateNewCall() {
-            const tableNum = Math.floor(Math.random() * 18) + 1;
-            const newId = `call-${Date.now()}`;
-            const radarList = document.getElementById('radarList');
-            const newCard = document.createElement('div');
-            newCard.className = "call-card";
-            newCard.id = newId;
-            newCard.innerHTML = `
-                <div class="call-top">
-                    <span class="table-chip"><i class="fa-solid fa-chair"></i> Table ${tableNum < 10 ? '0' + tableNum : tableNum}</span>
-                    <span class="time-ago"><i class="fa-solid fa-bolt" style="color: #38bdf8;"></i> Just now</span>
-                </div>
-                <div class="call-type">
-                    <i class="fa-solid fa-bell" style="color: var(--amber);"></i>
-                    <span>Floor Service Calling</span>
-                </div>
-                <div class="call-actions">
-                    <button class="btn-resolve" onclick="resolveCall('${newId}')">
-                        <i class="fa-solid fa-check"></i> Mark Attended
-                    </button>
-                </div>
-            `;
-            radarList.prepend(newCard);
-            showToast(`⚡ New Service Call from Table ${tableNum}!`);
-        }
-
-        // 6. Save Venue Settings
-        function saveVenueSettings() {
-            const wa = document.getElementById('cfgWhatsapp').value;
-            const gmb = document.getElementById('cfgGoogleReview').value;
-            const menu = document.getElementById('cfgMenuUrl').value;
-            const biz = document.getElementById('cfgBizName').value;
-
-            // Save to localStorage for instant client state retention
-            localStorage.setItem(`metrix_venue_${campaignId || 'default'}`, JSON.stringify({
-                wa, gmb, menu, biz
-            }));
-
-            // If Supabase is available, sync to cloud
-            if (window.supabaseClient && campaignId) {
-                window.supabaseClient.from('campaigns').update({
-                    name: biz,
-                    destination: gmb
-                }).eq('id', campaignId).catch(console.warn);
-            }
-
-            document.getElementById('topVenueName').textContent = biz;
-            showToast("Operational settings saved & live on dining tables!");
         }
 
         function showToast(msg) {

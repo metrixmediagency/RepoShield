@@ -43,6 +43,50 @@
             overflow-x: hidden;
         }
 
+        /* LOGIN GATE OVERLAY */
+        .login-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-void);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .login-card {
+            background: #0d131f;
+            border: 1.5px solid var(--border);
+            border-radius: 20px;
+            max-width: 440px;
+            width: 100%;
+            padding: 36px 30px;
+            text-align: center;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(212, 175, 55, 0.15);
+        }
+        .login-logo {
+            width: 54px;
+            height: 54px;
+            margin: 0 auto 16px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1.5px solid var(--gold-primary);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.35);
+        }
+        .login-logo img { width: 100%; height: 100%; object-fit: cover; }
+        .login-card h2 {
+            font-family: var(--font-head);
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+        .login-card p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+
         /* Top Header */
         .partner-header {
             background: rgba(13, 19, 31, 0.95);
@@ -182,7 +226,7 @@
         }
         .stat-sub {
             font-size: 0.8rem;
-            color: #10b981;
+            color: var(--text-muted);
             margin-top: 8px;
             display: flex;
             align-items: center;
@@ -255,16 +299,9 @@
             border-radius: 999px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-        }
-        .status-pilot {
             background: rgba(245, 158, 11, 0.15);
             color: #fbbf24;
             border: 1px solid rgba(245, 158, 11, 0.3);
-        }
-        .status-paid {
-            background: rgba(16, 185, 129, 0.15);
-            color: #10b981;
-            border: 1px solid rgba(16, 185, 129, 0.3);
         }
 
         .venue-metrics {
@@ -316,6 +353,33 @@
             color: #070a0f;
         }
 
+        /* PRISTINE EMPTY STATE */
+        .empty-portfolio {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 70px 24px;
+            background: var(--bg-card);
+            border: 1px dashed var(--border-subtle);
+            border-radius: 18px;
+        }
+        .empty-icon {
+            font-size: 3.5rem;
+            color: var(--border);
+            margin-bottom: 18px;
+        }
+        .empty-portfolio h3 {
+            font-size: 1.35rem;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .empty-portfolio p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            max-width: 520px;
+            margin: 0 auto 24px;
+            line-height: 1.6;
+        }
+
         /* Modal */
         .modal-overlay {
             position: fixed;
@@ -327,9 +391,7 @@
             z-index: 1000;
             padding: 20px;
         }
-        .modal-overlay.active {
-            display: grid;
-        }
+        .modal-overlay.active { display: grid; }
         .modal-card {
             background: #0d131f;
             border: 1.5px solid var(--border);
@@ -357,9 +419,7 @@
         }
         .modal-close:hover { color: #fff; }
 
-        .form-row {
-            margin-bottom: 18px;
-        }
+        .form-row { margin-bottom: 18px; }
         .form-row label {
             display: block;
             font-size: 0.8rem;
@@ -368,7 +428,7 @@
             color: var(--text-muted);
             margin-bottom: 6px;
         }
-        .form-row input, .form-row select {
+        .form-row input {
             width: 100%;
             background: #080c14;
             border: 1px solid var(--border-subtle);
@@ -377,7 +437,7 @@
             color: #fff;
             font-size: 0.9rem;
         }
-        .form-row input:focus, .form-row select:focus {
+        .form-row input:focus {
             outline: none;
             border-color: var(--gold-primary);
         }
@@ -403,30 +463,55 @@
 </head>
 <body>
 
-    <!-- 1. TOP BAR -->
-    <header class="partner-header">
+    <!-- 0. PARTNER LOGIN GATE OVERLAY (Shown if not logged in) -->
+    <div class="login-overlay" id="partnerLoginGate">
+        <div class="login-card">
+            <div class="login-logo">
+                <img src="/metrix_logo.jpg" alt="METRIX Logo">
+            </div>
+            <span style="color: var(--gold-primary); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">METRIX PARTNER NETWORK</span>
+            <h2>Partner Workspace Login</h2>
+            <p>Access your multi-venue client portfolio, provision new dining tables, and manage client access.</p>
+
+            <form id="partnerLoginForm" onsubmit="event.preventDefault(); handlePartnerLogin();">
+                <div style="margin-bottom: 18px; text-align: left;">
+                    <label style="display: block; font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 6px;">Partner Workspace Name or Code</label>
+                    <input type="text" id="partnerLoginInput" placeholder="e.g. Blurb Goa" required style="width: 100%; background: #070b12; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 12px 14px; color: #fff; font-size: 0.95rem;">
+                </div>
+                <button type="submit" class="btn-gold" style="width: 100%; justify-content: center; padding: 13px; font-size: 0.95rem;">
+                    <i class="fa-solid fa-lock-open"></i> Unlock Partner Workspace
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 1. TOP BAR (Rendered once authenticated) -->
+    <header class="partner-header" id="partnerHeader" style="display: none;">
         <div class="partner-brand">
             <div class="partner-logo-box">
                 <img src="/metrix_logo.jpg" alt="METRIX Logo">
             </div>
             <div class="partner-title-group">
-                <h1 id="partnerTitle">Blurb Partner Workspace</h1>
+                <h1 id="partnerTitle">Partner Workspace</h1>
                 <div style="display: flex; align-items: center; gap: 8px; margin-top: 3px;">
                     <span class="partner-pill"><i class="fa-solid fa-handshake"></i> Authorized Partner</span>
-                    <span style="font-size: 0.75rem; color: var(--text-muted);">Goa Portfolio</span>
+                    <span style="font-size: 0.75rem; color: var(--text-muted);">Multi-Client Portfolio</span>
                 </div>
             </div>
         </div>
 
-        <div>
+        <div style="display: flex; align-items: center; gap: 12px;">
             <button class="btn-gold" onclick="openOnboardModal()">
                 <i class="fa-solid fa-plus"></i> Onboard New Venue
+            </button>
+            <button class="btn-outline" onclick="logoutPartner()" title="Sign Out">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
             </button>
         </div>
     </header>
 
     <!-- 2. MAIN CONTENT -->
-    <main class="partner-content">
+    <main class="partner-content" id="partnerContent" style="display: none;">
 
         <!-- Partner Portfolio Metrics -->
         <div class="partner-stats">
@@ -435,19 +520,19 @@
                     <span>Managed Venues</span>
                     <i class="fa-solid fa-store" style="color: var(--gold-primary);"></i>
                 </div>
-                <div class="stat-num" id="statVenuesCount">3</div>
+                <div class="stat-num" id="statVenuesCount">0</div>
                 <div class="stat-sub">
                     <i class="fa-solid fa-check"></i>
-                    <span>2 Pilots Active · 1 Paid</span>
+                    <span>Authorized partner portfolio</span>
                 </div>
             </div>
 
             <div class="partner-stat-card">
                 <div class="stat-label">
-                    <span>Total Network Diners Captured</span>
+                    <span>Network Diners Captured</span>
                     <i class="fa-solid fa-users" style="color: #38bdf8;"></i>
                 </div>
-                <div class="stat-num" id="statNetworkDiners">412</div>
+                <div class="stat-num" id="statNetworkDiners">0</div>
                 <div class="stat-sub" style="color: #38bdf8;">
                     <i class="fa-solid fa-arrow-trend-up"></i>
                     <span>100% First-party WhatsApp data</span>
@@ -459,7 +544,7 @@
                     <span>Active Tables Equipped</span>
                     <i class="fa-solid fa-chair" style="color: #f59e0b;"></i>
                 </div>
-                <div class="stat-num">48</div>
+                <div class="stat-num" id="statActiveTables">0</div>
                 <div class="stat-sub" style="color: #f59e0b;">
                     <i class="fa-solid fa-layer-group"></i>
                     <span>100mm × 155mm Standees</span>
@@ -479,124 +564,14 @@
         </div>
 
         <div class="venue-grid" id="venueGrid">
-            <!-- Venue 1: Cafe Noir -->
-            <div class="venue-card" id="venue-cafenoir">
-                <div>
-                    <div class="venue-top">
-                        <div class="venue-title">
-                            <h3>Cafe Noir</h3>
-                            <div class="venue-location"><i class="fa-solid fa-location-dot" style="color: var(--gold-primary);"></i> Panjim, Goa</div>
-                        </div>
-                        <span class="status-badge status-pilot">7-Day Pilot</span>
-                    </div>
-
-                    <div class="venue-metrics" style="margin-top: 18px;">
-                        <div>
-                            <div class="v-metric-val">15</div>
-                            <div class="v-metric-label">Tables</div>
-                        </div>
-                        <div>
-                            <div class="v-metric-val" style="color: var(--gold-primary);">128</div>
-                            <div class="v-metric-label">VIP Diners</div>
-                        </div>
-                        <div>
-                            <div class="v-metric-val" style="color: #10b981;">&lt;2s</div>
-                            <div class="v-metric-label">Alert Speed</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="venue-actions">
-                    <a href="/dashboard.html?venue=Cafe+Noir" target="_blank" class="btn-action-primary">
-                        <i class="fa-solid fa-gauge"></i> Open Client Cockpit
-                    </a>
-                    <button class="btn-outline" onclick="copyClientLink('Cafe Noir')" title="Copy Client Login Link">
-                        <i class="fa-solid fa-link"></i> Copy Client Link
-                    </button>
-                    <a href="/flyer.html" target="_blank" class="btn-outline" title="Print Standees">
-                        <i class="fa-solid fa-print"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Venue 2: Soro Village Pub -->
-            <div class="venue-card" id="venue-soro">
-                <div>
-                    <div class="venue-top">
-                        <div class="venue-title">
-                            <h3>Soro - The Village Pub</h3>
-                            <div class="venue-location"><i class="fa-solid fa-location-dot" style="color: var(--gold-primary);"></i> Assagao, Goa</div>
-                        </div>
-                        <span class="status-badge status-paid">Active Paid</span>
-                    </div>
-
-                    <div class="venue-metrics" style="margin-top: 18px;">
-                        <div>
-                            <div class="v-metric-val">18</div>
-                            <div class="v-metric-label">Tables</div>
-                        </div>
-                        <div>
-                            <div class="v-metric-val" style="color: var(--gold-primary);">194</div>
-                            <div class="v-metric-label">VIP Diners</div>
-                        </div>
-                        <div>
-                            <div class="v-metric-val" style="color: #10b981;">1.6s</div>
-                            <div class="v-metric-label">Alert Speed</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="venue-actions">
-                    <a href="/dashboard.html?venue=Soro+Village+Pub" target="_blank" class="btn-action-primary">
-                        <i class="fa-solid fa-gauge"></i> Open Client Cockpit
-                    </a>
-                    <button class="btn-outline" onclick="copyClientLink('Soro Village Pub')" title="Copy Client Login Link">
-                        <i class="fa-solid fa-link"></i> Copy Client Link
-                    </button>
-                    <a href="/flyer.html" target="_blank" class="btn-outline" title="Print Standees">
-                        <i class="fa-solid fa-print"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Venue 3: Gunpowder Bistro -->
-            <div class="venue-card" id="venue-gunpowder">
-                <div>
-                    <div class="venue-top">
-                        <div class="venue-title">
-                            <h3>Gunpowder Bistro</h3>
-                            <div class="venue-location"><i class="fa-solid fa-location-dot" style="color: var(--gold-primary);"></i> Assagao, Goa</div>
-                        </div>
-                        <span class="status-badge status-pilot">7-Day Pilot</span>
-                    </div>
-
-                    <div class="venue-metrics" style="margin-top: 18px;">
-                        <div>
-                            <div class="v-metric-val">15</div>
-                            <div class="v-metric-label">Tables</div>
-                        </div>
-                        <div>
-                            <div class="v-metric-val" style="color: var(--gold-primary);">90</div>
-                            <div class="v-metric-label">VIP Diners</div>
-                        </div>
-                        <div>
-                            <div class="v-metric-val" style="color: #10b981;">1.9s</div>
-                            <div class="v-metric-label">Alert Speed</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="venue-actions">
-                    <a href="/dashboard.html?venue=Gunpowder+Bistro" target="_blank" class="btn-action-primary">
-                        <i class="fa-solid fa-gauge"></i> Open Client Cockpit
-                    </a>
-                    <button class="btn-outline" onclick="copyClientLink('Gunpowder Bistro')" title="Copy Client Login Link">
-                        <i class="fa-solid fa-link"></i> Copy Client Link
-                    </button>
-                    <a href="/flyer.html" target="_blank" class="btn-outline" title="Print Standees">
-                        <i class="fa-solid fa-print"></i>
-                    </a>
-                </div>
+            <!-- Pristine Empty State if 0 venues -->
+            <div class="empty-portfolio" id="emptyPortfolio">
+                <i class="fa-solid fa-store empty-icon"></i>
+                <h3>No Venues in Portfolio Yet</h3>
+                <p>You have not onboarded any client venues yet. Click <strong>"Onboard New Venue"</strong> above to configure your first restaurant, generate table standees, and receive their dedicated Client Dashboard link.</p>
+                <button class="btn-gold" onclick="openOnboardModal()">
+                    <i class="fa-solid fa-plus"></i> Onboard First Venue
+                </button>
             </div>
         </div>
 
@@ -615,13 +590,13 @@
             <form id="onboardForm" onsubmit="event.preventDefault(); submitOnboard();">
                 <div class="form-row">
                     <label>Venue Name</label>
-                    <input type="text" id="obName" placeholder="e.g. Bawri (Goa / Mumbai)" required>
+                    <input type="text" id="obName" placeholder="e.g. Cafe Noir" required>
                 </div>
 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
                     <div class="form-row">
-                        <label>Location / Neighborhood</label>
-                        <input type="text" id="obLocation" placeholder="e.g. Assagao / Panjim" required>
+                        <label>Location / Area</label>
+                        <input type="text" id="obLocation" placeholder="e.g. Panjim / Assagao" required>
                     </div>
                     <div class="form-row">
                         <label>Table Count</label>
@@ -658,9 +633,125 @@
     </div>
 
     <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const partnerName = urlParams.get('partner') || 'Blurb Partner';
-        document.getElementById('partnerTitle').textContent = `${partnerName} Workspace`;
+        let activePartner = "";
+        let partnerVenues = [];
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const paramPartner = urlParams.get('partner');
+            const savedPartner = localStorage.getItem('metrix_partner_active_name');
+
+            if (paramPartner) {
+                initPartnerSession(paramPartner);
+            } else if (savedPartner) {
+                initPartnerSession(savedPartner);
+            } else {
+                document.getElementById('partnerLoginGate').style.display = 'flex';
+            }
+        });
+
+        function handlePartnerLogin() {
+            const inputVal = document.getElementById('partnerLoginInput').value.trim();
+            if (inputVal) {
+                initPartnerSession(inputVal);
+            }
+        }
+
+        function initPartnerSession(partner) {
+            activePartner = partner;
+            localStorage.setItem('metrix_partner_active_name', partner);
+
+            document.getElementById('partnerLoginGate').style.display = 'none';
+            document.getElementById('partnerHeader').style.display = 'flex';
+            document.getElementById('partnerContent').style.display = 'block';
+
+            document.getElementById('partnerTitle').textContent = `${partner} Workspace`;
+
+            loadPartnerVenues(partner);
+        }
+
+        function logoutPartner() {
+            localStorage.removeItem('metrix_partner_active_name');
+            window.location.href = window.location.pathname;
+        }
+
+        function loadPartnerVenues(partner) {
+            const storageKey = `metrix_partner_venues_${partner.toLowerCase().replace(/\s+/g, '_')}`;
+            partnerVenues = JSON.parse(localStorage.getItem(storageKey)) || [];
+            renderVenueGrid(partnerVenues);
+        }
+
+        function renderVenueGrid(venues) {
+            const grid = document.getElementById('venueGrid');
+            const empty = document.getElementById('emptyPortfolio');
+
+            let totalTables = 0;
+            let totalVIPs = 0;
+
+            if (!venues || venues.length === 0) {
+                grid.innerHTML = '';
+                grid.appendChild(empty);
+                empty.style.display = 'block';
+                document.getElementById('statVenuesCount').textContent = '0';
+                document.getElementById('statActiveTables').textContent = '0';
+                document.getElementById('statNetworkDiners').textContent = '0';
+                return;
+            }
+
+            empty.style.display = 'none';
+            grid.innerHTML = '';
+
+            venues.forEach(v => {
+                totalTables += parseInt(v.tables) || 0;
+                totalVIPs += parseInt(v.vips) || 0;
+
+                const card = document.createElement('div');
+                card.className = 'venue-card';
+                card.innerHTML = `
+                    <div>
+                        <div class="venue-top">
+                            <div class="venue-title">
+                                <h3>${v.name}</h3>
+                                <div class="venue-location"><i class="fa-solid fa-location-dot" style="color: var(--gold-primary);"></i> ${v.location}</div>
+                            </div>
+                            <span class="status-badge">${v.status || '7-Day Pilot'}</span>
+                        </div>
+
+                        <div class="venue-metrics" style="margin-top: 18px;">
+                            <div>
+                                <div class="v-metric-val">${v.tables}</div>
+                                <div class="v-metric-label">Tables</div>
+                            </div>
+                            <div>
+                                <div class="v-metric-val" style="color: var(--gold-primary);">${v.vips || 0}</div>
+                                <div class="v-metric-label">VIP Diners</div>
+                            </div>
+                            <div>
+                                <div class="v-metric-val" style="color: #10b981;">Ready</div>
+                                <div class="v-metric-label">Alert Speed</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="venue-actions">
+                        <a href="/dashboard.html?venue=${encodeURIComponent(v.name)}" target="_blank" class="btn-action-primary">
+                            <i class="fa-solid fa-gauge"></i> Open Client Cockpit
+                        </a>
+                        <button class="btn-outline" onclick="copyClientLink('${v.name}')" title="Copy Client Login Link">
+                            <i class="fa-solid fa-link"></i> Copy Client Link
+                        </button>
+                        <a href="/flyer.html" target="_blank" class="btn-outline" title="Print Standees">
+                            <i class="fa-solid fa-print"></i>
+                        </a>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            document.getElementById('statVenuesCount').textContent = venues.length;
+            document.getElementById('statActiveTables').textContent = totalTables;
+            document.getElementById('statNetworkDiners').textContent = totalVIPs;
+        }
 
         function openOnboardModal() {
             document.getElementById('onboardModal').classList.add('active');
@@ -680,59 +771,31 @@
         }
 
         function submitOnboard() {
-            const name = document.getElementById('obName').value;
-            const loc = document.getElementById('obLocation').value;
-            const tables = document.getElementById('obTables').value;
-            const phone = document.getElementById('obPhone').value;
+            const name = document.getElementById('obName').value.trim();
+            const location = document.getElementById('obLocation').value.trim();
+            const tables = document.getElementById('obTables').value.trim();
+            const phone = document.getElementById('obPhone').value.trim();
+            const gmb = document.getElementById('obGmb').value.trim();
+            const menu = document.getElementById('obMenu').value.trim();
 
-            // Prepend new venue card to grid
-            const grid = document.getElementById('venueGrid');
-            const newCard = document.createElement('div');
-            newCard.className = 'venue-card';
-            newCard.innerHTML = `
-                <div>
-                    <div class="venue-top">
-                        <div class="venue-title">
-                            <h3>${name}</h3>
-                            <div class="venue-location"><i class="fa-solid fa-location-dot" style="color: var(--gold-primary);"></i> ${loc}</div>
-                        </div>
-                        <span class="status-badge status-pilot">7-Day Pilot</span>
-                    </div>
+            const newVenue = {
+                name,
+                location,
+                tables,
+                phone,
+                gmb,
+                menu,
+                vips: 0,
+                status: '7-Day Pilot',
+                created_at: new Date().toISOString()
+            };
 
-                    <div class="venue-metrics" style="margin-top: 18px;">
-                        <div>
-                            <div class="v-metric-val">${tables}</div>
-                            <div class="v-metric-label">Tables</div>
-                        </div>
-                        <div>
-                            <div class="v-metric-val" style="color: var(--gold-primary);">0</div>
-                            <div class="v-metric-label">VIP Diners</div>
-                        </div>
-                        <div>
-                            <div class="v-metric-val" style="color: #10b981;">Ready</div>
-                            <div class="v-metric-label">Alert Speed</div>
-                        </div>
-                    </div>
-                </div>
+            partnerVenues.unshift(newVenue);
 
-                <div class="venue-actions">
-                    <a href="/dashboard.html?venue=${encodeURIComponent(name)}" target="_blank" class="btn-action-primary">
-                        <i class="fa-solid fa-gauge"></i> Open Client Cockpit
-                    </a>
-                    <button class="btn-outline" onclick="copyClientLink('${name}')" title="Copy Client Login Link">
-                        <i class="fa-solid fa-link"></i> Copy Client Link
-                    </button>
-                    <a href="/flyer.html" target="_blank" class="btn-outline" title="Print Standees">
-                        <i class="fa-solid fa-print"></i>
-                    </a>
-                </div>
-            `;
-            grid.prepend(newCard);
+            const storageKey = `metrix_partner_venues_${activePartner.toLowerCase().replace(/\s+/g, '_')}`;
+            localStorage.setItem(storageKey, JSON.stringify(partnerVenues));
 
-            // Update stats
-            const countEl = document.getElementById('statVenuesCount');
-            countEl.textContent = parseInt(countEl.textContent) + 1;
-
+            renderVenueGrid(partnerVenues);
             closeOnboardModal();
             showToast(`Venue "${name}" provisioned! Standees & Client Cockpit ready.`);
         }
