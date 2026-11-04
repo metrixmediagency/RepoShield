@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>METRIX // Client Venue Cockpit &amp; VIP Vault</title>
+    <link rel="icon" type="image/jpeg" href="/metrix_logo.jpg">
+    <!-- Typography & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Supabase JS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase_config.js"></script>
+    <style>
+        :root {
+            --bg-void: #070a0f;
+            --bg-card: #0d131f;
+            --bg-surface: #111a2c;
+            --border: rgba(212, 175, 55, 0.22);
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --gold-primary: #d4af37;
+            --gold-gradient: linear-gradient(135deg, #fce588 0%, #d4af37 50%, #997300 100%);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --green: #10b981;
+            --blue: #38bdf8;
+            --amber: #f59e0b;
+            --red: #ef4444;
+            --font-head: 'Outfit', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--bg-void);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Top Bar Navigation */
+        .dash-header {
+            background: rgba(13, 19, 31, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .dash-brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .dash-logo-box {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1.5px solid var(--gold-primary);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+        }
+        .dash-logo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .dash-title-group h1 {
+            font-family: var(--font-head);
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .dash-venue-badge {
+            background: rgba(212, 175, 55, 0.15);
+            border: 1px solid var(--gold-primary);
+            color: var(--gold-primary);
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .dash-status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            background: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            padding: 4px 12px;
+            border-radius: 999px;
+        }
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #10b981;
+            box-shadow: 0 0 8px #10b981;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.85); }
+        }
+        .dash-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .btn-gold {
+            background: var(--gold-gradient);
+            color: #070a0f;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 0.82rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 14px rgba(212, 175, 55, 0.25);
+            transition: all 0.2s ease;
+        }
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-main);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+        .btn-outline:hover {
+            border-color: var(--gold-primary);
+            color: #fff;
+        }
+
+        /* Sub-Header Tabs */
+        .dash-nav {
+            background: #090e18;
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 0 28px;
+            display: flex;
+            gap: 24px;
+            overflow-x: auto;
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-family: var(--font-head);
+            font-size: 0.92rem;
+            font-weight: 700;
+            padding: 16px 4px;
+            cursor: pointer;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+        .tab-btn:hover { color: #fff; }
+        .tab-btn.active {
+            color: var(--gold-primary);
+        }
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gold-gradient);
+            border-radius: 3px 3px 0 0;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+        .tab-count {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 0.7rem;
+            padding: 2px 7px;
+            border-radius: 12px;
+            font-family: var(--font-mono);
+        }
+        .tab-btn.active .tab-count {
+            background: rgba(212, 175, 55, 0.2);
+            color: var(--gold-primary);
+        }
+
+        /* Main Container */
+        .dash-content {
+            flex: 1;
+            padding: 28px;
+            max-width: 1350px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* Metric Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            margin-bottom: 28px;
+        }
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 14px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+        .stat-card:hover {
+            border-color: var(--border);
+            transform: translateY(-2px);
+        }
+        .stat-card-title {
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .stat-card-val {
+            font-family: var(--font-head);
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #fff;
+            line-height: 1;
+        }
+        .stat-card-sub {
+            font-size: 0.78rem;
+            color: #10b981;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Tab Panels */
+        .tab-panel {
+            display: none;
+        }
+        .tab-panel.active {
+            display: block;
+            animation: fadeIn 0.3s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Table & Cards Styling */
+        .panel-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        .panel-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+        .panel-head h2 {
+            font-family: var(--font-head);
+            font-size: 1.3rem;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Live Radar Grid */
+        .radar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+            gap: 16px;
+        }
+        .call-card {
+            background: var(--bg-surface);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-left: 4px solid var(--amber);
+            border-radius: 12px;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: all 0.2s ease;
+        }
+        .call-card.water { border-left-color: var(--blue); }
+        .call-card.bill { border-left-color: var(--green); }
+        .call-card.resolved { opacity: 0.55; border-left-color: #64748b; }
+        .call-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .table-chip {
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--gold-primary);
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        .time-ago {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+        .call-type {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .call-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 4px;
+        }
+        .btn-resolve {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border-subtle);
+            color: #cbd5e1;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-resolve:hover {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: #10b981;
+            color: #10b981;
+        }
+
+        /* VIP Table */
+        .table-responsive {
+            overflow-x: auto;
+            width: 100%;
+        }
+        .vip-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+        .vip-table th {
+            padding: 12px 16px;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--border-subtle);
+            font-weight: 700;
+        }
+        .vip-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            color: #cbd5e1;
+            vertical-align: middle;
+        }
+        .vip-table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+            color: #fff;
+        }
+        .guest-name {
+            font-weight: 700;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .phone-link {
+            color: #38bdf8;
+            text-decoration: none;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .phone-link:hover { text-decoration: underline; }
+        .bday-pill {
+            background: rgba(245, 158, 11, 0.15);
+            color: #fbbf24;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-family: var(--font-mono);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Settings Form */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+        .form-input-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .form-input-wrap i {
+            position: absolute;
+            left: 14px;
+            color: var(--gold-primary);
+            font-size: 0.95rem;
+        }
+        .form-control {
+            width: 100%;
+            background: #090e17;
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 12px 14px 12px 42px;
+            color: #fff;
+            font-family: var(--font-body);
+            font-size: 0.92rem;
+            transition: all 0.2s ease;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+        }
+        .form-help {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 6px;
+            line-height: 1.4;
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #10b981;
+            color: #070a0f;
+            font-weight: 800;
+            font-size: 0.9rem;
+            padding: 12px 24px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            display: none;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+            animation: slideUp 0.3s ease;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. TOP HEADER -->
+    <header class="dash-header">
+        <div class="dash-brand">
+            <div class="dash-logo-box">
+                <img src="/metrix_logo.jpg" alt="METRIX Crest">
+            </div>
+            <div class="dash-title-group">
+                <h1 id="topVenueName">Cafe Noir</h1>
+                <div style="display: flex; align-items: center; gap: 8px; margin-top: 3px;">
+                    <span class="dash-venue-badge" id="topCorridor">Tabletop Operations</span>
+                    <span class="dash-status-pill"><span class="status-dot"></span> Active 7-Day Pilot</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="dash-header-actions">
+            <a href="javascript:void(0)" onclick="openStandeeStation()" class="btn-outline">
+                <i class="fa-solid fa-qrcode" style="color: var(--gold-primary);"></i>
+                <span>Table Standees</span>
+            </a>
+            <a href="javascript:void(0)" onclick="openLiveDemo()" target="_blank" class="btn-gold" id="btnTestDiner">
+                <i class="fa-solid fa-mobile-screen"></i>
+                <span>Test Diner Flow</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- 2. SUB-HEADER TABS -->
+    <nav class="dash-nav">
+        <button class="tab-btn active" onclick="switchTab('radar')">
+            <i class="fa-solid fa-bell-concierge"></i>
+            <span>Live Floor Radar</span>
+            <span class="tab-count" id="radarCount">3</span>
+        </button>
+        <button class="tab-btn" onclick="switchTab('crm')">
+            <i class="fa-solid fa-id-card-clip"></i>
+            <span>VIP Customer Vault</span>
+            <span class="tab-count" id="vipCount">128</span>
+        </button>
+        <button class="tab-btn" onclick="switchTab('settings')">
+            <i class="fa-solid fa-sliders"></i>
+            <span>Venue Self-Service</span>
+        </button>
+        <button class="tab-btn" onclick="switchTab('standees')">
+            <i class="fa-solid fa-layer-group"></i>
+            <span>Tabletop Assets</span>
+        </button>
+    </nav>
+
+    <!-- 3. MAIN COCKPIT CONTENT -->
+    <main class="dash-content">
+
+        <!-- Top Metric Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-card-title">
+                    <span>VIP Diners Captured</span>
+                    <i class="fa-solid fa-users" style="color: var(--gold-primary);"></i>
+                </div>
+                <div class="stat-card-val" id="statVipTotal">128</div>
+                <div class="stat-card-sub">
+                    <i class="fa-solid fa-arrow-trend-up"></i>
+                    <span>+24 diners this weekend</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-title">
+                    <span>Avg Floor Alert Speed</span>
+                    <i class="fa-solid fa-bolt" style="color: #38bdf8;"></i>
+                </div>
+                <div class="stat-card-val">1.8s</div>
+                <div class="stat-card-sub" style="color: #38bdf8;">
+                    <i class="fa-solid fa-check"></i>
+                    <span>Instant WhatsApp dispatch</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-title">
+                    <span>Upcoming Birthdays (7d)</span>
+                    <i class="fa-solid fa-cake-candles" style="color: #f59e0b;"></i>
+                </div>
+                <div class="stat-card-val" id="statBirthdays">9</div>
+                <div class="stat-card-sub" style="color: #f59e0b;">
+                    <i class="fa-solid fa-bullhorn"></i>
+                    <span>High-AOV group bookings</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-title">
+                    <span>Google 5-Star Reviews</span>
+                    <i class="fa-solid fa-star" style="color: var(--gold-primary);"></i>
+                </div>
+                <div class="stat-card-val">4.9★</div>
+                <div class="stat-card-sub">
+                    <i class="fa-solid fa-shield"></i>
+                    <span>Zero 1-star leaks</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 1: LIVE FLOOR RADAR -->
+        <div class="tab-panel active" id="tab-radar">
+            <div class="panel-box">
+                <div class="panel-head">
+                    <div>
+                        <h2><i class="fa-solid fa-radar" style="color: #38bdf8;"></i> Seated Diner Service Radar</h2>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Real-time service calls from seated guests. Alerts ping WhatsApp in &lt;3s.</p>
+                    </div>
+                    <button class="btn-outline" onclick="simulateNewCall()">
+                        <i class="fa-solid fa-plus"></i> Simulate Live Table Call
+                    </button>
+                </div>
+
+                <div class="radar-grid" id="radarList">
+                    <!-- Call 1 -->
+                    <div class="call-card water" id="call-1">
+                        <div class="call-top">
+                            <span class="table-chip"><i class="fa-solid fa-chair"></i> Table 04</span>
+                            <span class="time-ago"><i class="fa-regular fa-clock"></i> 2 min ago</span>
+                        </div>
+                        <div class="call-type">
+                            <i class="fa-solid fa-bottle-water" style="color: #38bdf8;"></i>
+                            <span>Water Refill Requested</span>
+                        </div>
+                        <div class="call-actions">
+                            <button class="btn-resolve" onclick="resolveCall('call-1')">
+                                <i class="fa-solid fa-check"></i> Mark Attended
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Call 2 -->
+                    <div class="call-card bill" id="call-2">
+                        <div class="call-top">
+                            <span class="table-chip"><i class="fa-solid fa-chair"></i> Table 09</span>
+                            <span class="time-ago"><i class="fa-regular fa-clock"></i> 4 min ago</span>
+                        </div>
+                        <div class="call-type">
+                            <i class="fa-solid fa-receipt" style="color: #10b981;"></i>
+                            <span>Bill &amp; Check Requested</span>
+                        </div>
+                        <div class="call-actions">
+                            <button class="btn-resolve" onclick="resolveCall('call-2')">
+                                <i class="fa-solid fa-check"></i> Mark Attended
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Call 3 -->
+                    <div class="call-card" id="call-3">
+                        <div class="call-top">
+                            <span class="table-chip"><i class="fa-solid fa-chair"></i> Table 12</span>
+                            <span class="time-ago"><i class="fa-regular fa-clock"></i> 7 min ago</span>
+                        </div>
+                        <div class="call-type">
+                            <i class="fa-solid fa-hand" style="color: #f59e0b;"></i>
+                            <span>Server Assistance Needed</span>
+                        </div>
+                        <div class="call-actions">
+                            <button class="btn-resolve" onclick="resolveCall('call-3')">
+                                <i class="fa-solid fa-check"></i> Mark Attended
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: VIP CUSTOMER DATABASE (CRM) -->
+        <div class="tab-panel" id="tab-crm">
+            <div class="panel-box">
+                <div class="panel-head">
+                    <div>
+                        <h2><i class="fa-solid fa-id-card-clip" style="color: var(--gold-primary);"></i> VIP Guest Database Vault</h2>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">100% first-party proprietary customer data captured at your dining tables.</p>
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <button class="btn-gold" onclick="exportVIPCSV()">
+                            <i class="fa-solid fa-download"></i> 1-Click Export CSV
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Search & Filters -->
+                <div style="display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 240px; position: relative;">
+                        <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 14px; top: 12px; color: var(--text-muted);"></i>
+                        <input type="text" id="vipSearch" placeholder="Search by diner name or WhatsApp number..." oninput="filterVIPTable()" style="width: 100%; background: #090e17; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 10px 14px 10px 40px; color: #fff; font-size: 0.85rem;">
+                    </div>
+                    <button class="btn-outline" onclick="filterUpcomingBirthdays()">
+                        <i class="fa-solid fa-cake-candles" style="color: #f59e0b;"></i> Upcoming Birthdays Only
+                    </button>
+                    <button class="btn-outline" onclick="resetVIPFilter()">
+                        <i class="fa-solid fa-rotate-left"></i> View All
+                    </button>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="vip-table" id="vipDataTable">
+                        <thead>
+                            <tr>
+                                <th>Diner Name</th>
+                                <th>WhatsApp Number</th>
+                                <th>Date of Birth</th>
+                                <th>Table #</th>
+                                <th>Captured On</th>
+                                <th>Privilege Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="vipTableBody">
+                            <!-- Injected dynamically via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: VENUE SELF-SERVICE SETTINGS (CLIENT EDIT CONTROLS) -->
+        <div class="tab-panel" id="tab-settings">
+            <div class="panel-box">
+                <div class="panel-head">
+                    <div>
+                        <h2><i class="fa-solid fa-sliders" style="color: var(--gold-primary);"></i> Venue Operational Settings</h2>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Update your alert phone numbers, review destinations, and digital menu links in real time.</p>
+                    </div>
+                    <button class="btn-gold" onclick="saveVenueSettings()">
+                        <i class="fa-solid fa-floppy-disk"></i> Save Operational Changes
+                    </button>
+                </div>
+
+                <form id="venueSettingsForm" onsubmit="event.preventDefault(); saveVenueSettings();">
+                    <div class="form-grid">
+                        <!-- Setting 1: Floor WhatsApp Number -->
+                        <div class="form-group">
+                            <label><i class="fa-brands fa-whatsapp" style="color: #25d366;"></i> Floor Staff WhatsApp Alert Number</label>
+                            <div class="form-input-wrap">
+                                <i class="fa-brands fa-whatsapp" style="color: #25d366;"></i>
+                                <input type="tel" id="cfgWhatsapp" class="form-control" value="+91 98765 43210" placeholder="+971 50 123 4567 or +91 98765 43210" required>
+                            </div>
+                            <p class="form-help">Seated diner table calls (Water, Server, Bill) are instantly dispatched to this phone in &lt;3 seconds.</p>
+                        </div>
+
+                        <!-- Setting 2: Google Review Link -->
+                        <div class="form-group">
+                            <label><i class="fa-brands fa-google" style="color: #ea4335;"></i> Google Maps Review Listing URL</label>
+                            <div class="form-input-wrap">
+                                <i class="fa-solid fa-star" style="color: #f59e0b;"></i>
+                                <input type="url" id="cfgGoogleReview" class="form-control" value="https://g.page/r/cafenoir/review" placeholder="https://g.page/r/your-venue/review" required>
+                            </div>
+                            <p class="form-help">Happy diners unlocking VIP perks are seamlessly guided to post 5-star Google reviews on this URL.</p>
+                        </div>
+
+                        <!-- Setting 3: Digital Menu Link -->
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-utensils" style="color: var(--gold-primary);"></i> Digital Menu / Wine List Link</label>
+                            <div class="form-input-wrap">
+                                <i class="fa-solid fa-link"></i>
+                                <input type="url" id="cfgMenuUrl" class="form-control" value="https://cafenoir.menu" placeholder="https://cafenoir.menu or PDF URL">
+                            </div>
+                            <p class="form-help">Diners clicking "Browse Menu" from table standees are instantly routed here.</p>
+                        </div>
+
+                        <!-- Setting 4: Venue Display Name -->
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-store"></i> Venue Trade Name</label>
+                            <div class="form-input-wrap">
+                                <i class="fa-solid fa-store"></i>
+                                <input type="text" id="cfgBizName" class="form-control" value="Cafe Noir" placeholder="e.g. Cafe Noir" required>
+                            </div>
+                            <p class="form-help">Appears on diner mobile headers and VIP welcome screens.</p>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; justify-content: flex-end; margin-top: 15px;">
+                        <button type="submit" class="btn-gold" style="padding: 12px 24px; font-size: 0.95rem;">
+                            <i class="fa-solid fa-floppy-disk"></i> Save &amp; Apply to Dining Tables
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- TAB 4: TABLETOP STANDEE STATION -->
+        <div class="tab-panel" id="tab-standees">
+            <div class="panel-box">
+                <div class="panel-head">
+                    <div>
+                        <h2><i class="fa-solid fa-layer-group" style="color: var(--gold-primary);"></i> Tabletop Hardware &amp; Print Station</h2>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Download bespoke 300 DPI vector PDF assets engineered for 100mm × 155mm acrylic standees.</p>
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <a href="/flyer.html" target="_blank" class="btn-gold" id="linkFlyerPrint">
+                            <i class="fa-solid fa-print"></i> Launch Print Studio (100mm × 155mm)
+                        </a>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 30px; align-items: center; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
+                    <div style="max-width: 320px; border-radius: 16px; overflow: hidden; border: 1.5px solid var(--border); box-shadow: 0 15px 35px rgba(0,0,0,0.8);">
+                        <img src="/premium_standee_mockup.jpg" alt="METRIX Tabletop Acrylic Standee" style="width: 100%; height: auto; display: block;">
+                    </div>
+
+                    <div style="flex: 1; min-width: 300px; max-width: 550px;">
+                        <h3 style="font-size: 1.4rem; color: #fff; margin-bottom: 12px;">Standard 100mm × 155mm Vector Fit</h3>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px;">
+                            Engineered to slide into your existing acrylic standees, wooden blocks, or bill presenters in 60 seconds. Each table's QR routes dynamically with table identification.
+                        </p>
+                        <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px;">
+                            <li style="display: flex; align-items: center; gap: 10px; color: #cbd5e1; font-size: 0.9rem;">
+                                <i class="fa-solid fa-circle-check" style="color: #10b981;"></i>
+                                <span>Ultra-crisp 300 DPI vector printing (Zero blurring)</span>
+                            </li>
+                            <li style="display: flex; align-items: center; gap: 10px; color: #cbd5e1; font-size: 0.9rem;">
+                                <i class="fa-solid fa-circle-check" style="color: #10b981;"></i>
+                                <span>Pre-configured with dynamic cloud redirect routing</span>
+                            </li>
+                            <li style="display: flex; align-items: center; gap: 10px; color: #cbd5e1; font-size: 0.9rem;">
+                                <i class="fa-solid fa-circle-check" style="color: #10b981;"></i>
+                                <span>Zero reprinting needed when updating menu or reviews</span>
+                            </li>
+                        </ul>
+                        <a href="/flyer.html" target="_blank" class="btn-gold" style="width: 100%; justify-content: center; padding: 14px;">
+                            <i class="fa-solid fa-print"></i> Open Standee Print Studio
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Success Toast Notification -->
+    <div class="toast" id="saveToast">
+        <i class="fa-solid fa-circle-check"></i>
+        <span id="toastMsg">Operational settings saved successfully!</span>
+    </div>
+
+    <!-- Script Logic -->
+    <script>
+        // 1. Initial State & URL Parsing
+        const urlParams = new URLSearchParams(window.location.search);
+        const venueName = urlParams.get('name') || urlParams.get('venue') || 'Cafe Noir';
+        const campaignId = urlParams.get('id') || '';
+
+        // Apply venue details
+        document.getElementById('topVenueName').textContent = venueName;
+        document.getElementById('cfgBizName').value = venueName;
+
+        // Set Flyer link
+        const flyerBtn = document.getElementById('linkFlyerPrint');
+        if (flyerBtn && campaignId) {
+            flyerBtn.href = `/flyer.html?id=${encodeURIComponent(campaignId)}`;
+        }
+
+        // 2. Tab Navigation
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+
+            const targetBtn = Array.from(document.querySelectorAll('.tab-btn')).find(b => b.getAttribute('onclick').includes(tabId));
+            if (targetBtn) targetBtn.classList.add('active');
+
+            const targetPanel = document.getElementById(`tab-${tabId}`);
+            if (targetPanel) targetPanel.classList.add('active');
+        }
+
+        function openStandeeStation() {
+            switchTab('standees');
+        }
+
+        function openLiveDemo() {
+            window.open(`/portal.html?name=${encodeURIComponent(venueName)}`, '_blank');
+        }
+
+        // 3. Mock & Supabase VIP Database
+        const sampleVIPs = [
+            { name: "Aarav Sharma", phone: "+91 98201 12345", dob: "14/11/1994", table: "Table 04", date: "Today, 7:42 PM", status: "VIP Club 🥂" },
+            { name: "Pooja Hegde", phone: "+91 97654 99881", dob: "08/11/1996", table: "Table 02", date: "Today, 6:15 PM", status: "Birthday Week 🎂" },
+            { name: "Rohan Varma", phone: "+91 98112 33445", dob: "22/03/1990", table: "Table 08", date: "Yesterday", status: "VIP Club 🥂" },
+            { name: "Siddharth Rao", phone: "+91 99200 44556", dob: "09/11/1988", table: "Table 05", date: "Yesterday", status: "Birthday Week 🎂" },
+            { name: "Ananya Deshmukh", phone: "+91 98330 66778", dob: "19/12/1995", table: "Table 01", date: "Nov 02", status: "VIP Club 🥂" },
+            { name: "Vikram Malhotra", phone: "+91 98450 11223", dob: "05/11/1991", table: "Table 11", date: "Nov 02", status: "Birthday Week 🎂" },
+            { name: "Meera Nair", phone: "+91 98700 88990", dob: "30/01/1993", table: "Table 06", date: "Nov 01", status: "VIP Club 🥂" }
+        ];
+
+        let currentVIPList = [...sampleVIPs];
+
+        function renderVIPTable(list) {
+            const tbody = document.getElementById('vipTableBody');
+            tbody.innerHTML = '';
+            list.forEach(item => {
+                const isBday = item.status.includes('Birthday');
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><div class="guest-name"><i class="fa-solid fa-user-circle" style="color: var(--gold-primary);"></i> ${item.name}</div></td>
+                    <td><a href="https://wa.me/${item.phone.replace(/[^0-9]/g, '')}" target="_blank" class="phone-link"><i class="fa-brands fa-whatsapp" style="color: #25d366;"></i> ${item.phone}</a></td>
+                    <td><span class="${isBday ? 'bday-pill' : 'time-ago'}">${item.dob} ${isBday ? '🎉' : ''}</span></td>
+                    <td><span class="table-chip">${item.table}</span></td>
+                    <td><span class="time-ago">${item.date}</span></td>
+                    <td><span style="font-weight: 700; color: ${isBday ? '#fbbf24' : '#10b981'};">${item.status}</span></td>
+                `;
+                tbody.appendChild(row);
+            });
+            document.getElementById('vipCount').textContent = list.length;
+        }
+
+        renderVIPTable(currentVIPList);
+
+        function filterVIPTable() {
+            const query = document.getElementById('vipSearch').value.toLowerCase();
+            const filtered = sampleVIPs.filter(v => v.name.toLowerCase().includes(query) || v.phone.includes(query));
+            renderVIPTable(filtered);
+        }
+
+        function filterUpcomingBirthdays() {
+            const filtered = sampleVIPs.filter(v => v.status.includes('Birthday'));
+            renderVIPTable(filtered);
+        }
+
+        function resetVIPFilter() {
+            document.getElementById('vipSearch').value = '';
+            renderVIPTable(sampleVIPs);
+        }
+
+        // 4. 1-Click CSV Exporter
+        function exportVIPCSV() {
+            let csv = "Diner Name,WhatsApp Number,Date of Birth,Table Number,Date Captured,Privilege Status\n";
+            sampleVIPs.forEach(v => {
+                csv += `"${v.name}","${v.phone}","${v.dob}","${v.table}","${v.date}","${v.status}"\n`;
+            });
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            const url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", `METRIX_VIP_Diners_${venueName.replace(/\s+/g, '_')}.csv`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            showToast("VIP Database exported to CSV successfully!");
+        }
+
+        // 5. Floor Radar Controls
+        function resolveCall(cardId) {
+            const card = document.getElementById(cardId);
+            if (card) {
+                card.classList.add('resolved');
+                const btn = card.querySelector('.btn-resolve');
+                if (btn) {
+                    btn.innerHTML = `<i class="fa-solid fa-check-double"></i> Attended`;
+                    btn.disabled = true;
+                    btn.style.opacity = '0.5';
+                }
+            }
+            showToast("Floor call marked as attended.");
+        }
+
+        function simulateNewCall() {
+            const tableNum = Math.floor(Math.random() * 18) + 1;
+            const newId = `call-${Date.now()}`;
+            const radarList = document.getElementById('radarList');
+            const newCard = document.createElement('div');
+            newCard.className = "call-card";
+            newCard.id = newId;
+            newCard.innerHTML = `
+                <div class="call-top">
+                    <span class="table-chip"><i class="fa-solid fa-chair"></i> Table ${tableNum < 10 ? '0' + tableNum : tableNum}</span>
+                    <span class="time-ago"><i class="fa-solid fa-bolt" style="color: #38bdf8;"></i> Just now</span>
+                </div>
+                <div class="call-type">
+                    <i class="fa-solid fa-bell" style="color: var(--amber);"></i>
+                    <span>Floor Service Calling</span>
+                </div>
+                <div class="call-actions">
+                    <button class="btn-resolve" onclick="resolveCall('${newId}')">
+                        <i class="fa-solid fa-check"></i> Mark Attended
+                    </button>
+                </div>
+            `;
+            radarList.prepend(newCard);
+            showToast(`⚡ New Service Call from Table ${tableNum}!`);
+        }
+
+        // 6. Save Venue Settings
+        function saveVenueSettings() {
+            const wa = document.getElementById('cfgWhatsapp').value;
+            const gmb = document.getElementById('cfgGoogleReview').value;
+            const menu = document.getElementById('cfgMenuUrl').value;
+            const biz = document.getElementById('cfgBizName').value;
+
+            // Save to localStorage for instant client state retention
+            localStorage.setItem(`metrix_venue_${campaignId || 'default'}`, JSON.stringify({
+                wa, gmb, menu, biz
+            }));
+
+            // If Supabase is available, sync to cloud
+            if (window.supabaseClient && campaignId) {
+                window.supabaseClient.from('campaigns').update({
+                    name: biz,
+                    destination: gmb
+                }).eq('id', campaignId).catch(console.warn);
+            }
+
+            document.getElementById('topVenueName').textContent = biz;
+            showToast("Operational settings saved & live on dining tables!");
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('saveToast');
+            const toastMsg = document.getElementById('toastMsg');
+            if (toast && toastMsg) {
+                toastMsg.textContent = msg;
+                toast.style.display = 'inline-flex';
+                setTimeout(() => { toast.style.display = 'none'; }, 3500);
+            }
+        }
+    </script>
+</body>
+</html>
