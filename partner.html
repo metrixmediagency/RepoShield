@@ -43,48 +43,138 @@
             overflow-x: hidden;
         }
 
-        /* LOGIN GATE OVERLAY */
-        .login-overlay {
+        /* ----------------------------------------------------
+           SECURE AUTHENTICATION MODAL (SIGN IN / SIGN UP / FORGOT)
+           ---------------------------------------------------- */
+        .auth-overlay {
             position: fixed;
             inset: 0;
-            background: var(--bg-void);
+            background: rgba(7, 10, 15, 0.98);
+            backdrop-filter: blur(16px);
             z-index: 10000;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
         }
-        .login-card {
+        .auth-card {
             background: #0d131f;
             border: 1.5px solid var(--border);
             border-radius: 20px;
-            max-width: 440px;
+            max-width: 480px;
             width: 100%;
-            padding: 36px 30px;
-            text-align: center;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(212, 175, 55, 0.15);
+            padding: 36px 32px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 40px rgba(212, 175, 55, 0.15);
+            position: relative;
         }
-        .login-logo {
-            width: 54px;
-            height: 54px;
+        .auth-logo {
+            width: 52px;
+            height: 52px;
             margin: 0 auto 16px;
             border-radius: 12px;
             overflow: hidden;
             border: 1.5px solid var(--gold-primary);
             box-shadow: 0 0 20px rgba(212, 175, 55, 0.35);
         }
-        .login-logo img { width: 100%; height: 100%; object-fit: cover; }
-        .login-card h2 {
+        .auth-logo img { width: 100%; height: 100%; object-fit: cover; }
+        .auth-header { text-align: center; margin-bottom: 24px; }
+        .auth-header h2 {
             font-family: var(--font-head);
             font-size: 1.5rem;
             color: #fff;
             margin-bottom: 6px;
         }
-        .login-card p {
+        .auth-header p {
             color: var(--text-muted);
             font-size: 0.85rem;
             line-height: 1.5;
+        }
+        .auth-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-subtle);
             margin-bottom: 24px;
+        }
+        .auth-tab-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-family: var(--font-head);
+            font-size: 0.92rem;
+            font-weight: 700;
+            padding: 12px 0;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+        .auth-tab-btn.active {
+            color: var(--gold-primary);
+        }
+        .auth-tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2.5px;
+            background: var(--gold-gradient);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+        .auth-form-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+        .auth-form-group label {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        .auth-input-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .auth-input-wrap i {
+            position: absolute;
+            left: 14px;
+            color: var(--gold-primary);
+            font-size: 0.9rem;
+        }
+        .auth-input {
+            width: 100%;
+            background: #080c14;
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 12px 14px 12px 40px;
+            color: #fff;
+            font-size: 0.92rem;
+            transition: all 0.2s ease;
+        }
+        .auth-input:focus {
+            outline: none;
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+        }
+        .auth-alert {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #f87171;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.82rem;
+            margin-bottom: 18px;
+            display: none;
+            align-items: center;
+            gap: 8px;
+        }
+        .auth-alert.success {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: rgba(16, 185, 129, 0.3);
+            color: #10b981;
         }
 
         /* Top Header */
@@ -442,7 +532,6 @@
             border-color: var(--gold-primary);
         }
 
-        /* Toast */
         .toast {
             position: fixed;
             bottom: 24px;
@@ -463,24 +552,114 @@
 </head>
 <body>
 
-    <!-- 0. PARTNER LOGIN GATE OVERLAY (Shown if not logged in) -->
-    <div class="login-overlay" id="partnerLoginGate">
-        <div class="login-card">
-            <div class="login-logo">
+    <!-- 0. SECURE PARTNER AUTHENTICATION OVERLAY -->
+    <div class="auth-overlay" id="partnerAuthGate">
+        <div class="auth-card">
+            <div class="auth-logo">
                 <img src="/metrix_logo.jpg" alt="METRIX Logo">
             </div>
-            <span style="color: var(--gold-primary); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">METRIX PARTNER NETWORK</span>
-            <h2>Partner Workspace Login</h2>
-            <p>Access your multi-venue client portfolio, provision new dining tables, and manage client access.</p>
+            
+            <div class="auth-header">
+                <span style="color: var(--gold-primary); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">METRIX PARTNER NETWORK</span>
+                <h2 id="partnerAuthHeading">Partner Workspace Sign In</h2>
+                <p id="partnerAuthSub">Manage your multi-venue client portfolio, provision new dining tables, and manage client access.</p>
+            </div>
 
-            <form id="partnerLoginForm" onsubmit="event.preventDefault(); handlePartnerLogin();">
-                <div style="margin-bottom: 18px; text-align: left;">
-                    <label style="display: block; font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 6px;">Partner Workspace Name or Code</label>
-                    <input type="text" id="partnerLoginInput" placeholder="e.g. Blurb Goa" required style="width: 100%; background: #070b12; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 12px 14px; color: #fff; font-size: 0.95rem;">
+            <div class="auth-tabs" id="partnerAuthTabHeader">
+                <button class="auth-tab-btn active" id="tabBtnPartnerSignIn" onclick="setPartnerAuthView('signin')">Sign In</button>
+                <button class="auth-tab-btn" id="tabBtnPartnerSignUp" onclick="setPartnerAuthView('signup')">Register Partner Account</button>
+            </div>
+
+            <!-- Error / Success Alert -->
+            <div class="auth-alert" id="partnerAuthAlertBox">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span id="partnerAuthAlertMsg">Invalid credentials. Please try again.</span>
+            </div>
+
+            <!-- VIEW 1: SIGN IN -->
+            <form id="partnerSignInForm" onsubmit="event.preventDefault(); submitPartnerSignIn();">
+                <div class="auth-form-group">
+                    <label>Work Email</label>
+                    <div class="auth-input-wrap">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" id="partnerLoginEmail" class="auth-input" placeholder="partner@agency.com" required>
+                    </div>
                 </div>
-                <button type="submit" class="btn-gold" style="width: 100%; justify-content: center; padding: 13px; font-size: 0.95rem;">
-                    <i class="fa-solid fa-lock-open"></i> Unlock Partner Workspace
+
+                <div class="auth-form-group">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                        <label style="margin: 0;">Password</label>
+                        <a href="javascript:void(0)" onclick="setPartnerAuthView('forgot')" style="font-size: 0.75rem; color: #38bdf8; text-decoration: none;">Forgot Password?</a>
+                    </div>
+                    <div class="auth-input-wrap">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="partnerLoginPassword" class="auth-input" placeholder="Enter your password" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-gold" style="width: 100%; justify-content: center; padding: 13px; font-size: 0.95rem; margin-top: 8px;">
+                    <i class="fa-solid fa-arrow-right-to-bracket"></i> Sign In to Partner Workspace
                 </button>
+            </form>
+
+            <!-- VIEW 2: SIGN UP (CREATE PARTNER ACCOUNT) -->
+            <form id="partnerSignUpForm" onsubmit="event.preventDefault(); submitPartnerSignUp();" style="display: none;">
+                <div class="auth-form-group">
+                    <label>Partner Organization / Agency Name</label>
+                    <div class="auth-input-wrap">
+                        <i class="fa-solid fa-building"></i>
+                        <input type="text" id="regPartnerName" class="auth-input" placeholder="e.g. Blurb Goa or GrowthGravy" required>
+                    </div>
+                </div>
+
+                <div class="auth-form-group">
+                    <label>Work Email</label>
+                    <div class="auth-input-wrap">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" id="regPartnerEmail" class="auth-input" placeholder="partners@blurb.in" required>
+                    </div>
+                </div>
+
+                <div class="auth-form-group">
+                    <label>Mobile / WhatsApp Number</label>
+                    <div class="auth-input-wrap">
+                        <i class="fa-brands fa-whatsapp" style="color: #25d366;"></i>
+                        <input type="tel" id="regPartnerPhone" class="auth-input" placeholder="+91 98765 43210 / +971 50 123 4567" required>
+                    </div>
+                </div>
+
+                <div class="auth-form-group">
+                    <label>Create Secure Password (Min 6 chars)</label>
+                    <div class="auth-input-wrap">
+                        <i class="fa-solid fa-key"></i>
+                        <input type="password" id="regPartnerPassword" class="auth-input" placeholder="••••••••" minlength="6" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-gold" style="width: 100%; justify-content: center; padding: 13px; font-size: 0.95rem; margin-top: 8px;">
+                    <i class="fa-solid fa-handshake"></i> Register Partner Account
+                </button>
+            </form>
+
+            <!-- VIEW 3: FORGOT PASSWORD -->
+            <form id="partnerForgotForm" onsubmit="event.preventDefault(); submitPartnerForgot();" style="display: none;">
+                <div class="auth-form-group">
+                    <label>Enter Registered Email</label>
+                    <div class="auth-input-wrap">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" id="partnerForgotEmail" class="auth-input" placeholder="partner@agency.com" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-gold" style="width: 100%; justify-content: center; padding: 13px; font-size: 0.95rem; margin-top: 8px;">
+                    <i class="fa-solid fa-paper-plane"></i> Send Password Reset Instructions
+                </button>
+
+                <div style="text-align: center; margin-top: 16px;">
+                    <a href="javascript:void(0)" onclick="setPartnerAuthView('signin')" style="font-size: 0.82rem; color: var(--text-muted); text-decoration: none;">
+                        <i class="fa-solid fa-arrow-left"></i> Back to Sign In
+                    </a>
+                </div>
             </form>
         </div>
     </div>
@@ -495,7 +674,7 @@
                 <h1 id="partnerTitle">Partner Workspace</h1>
                 <div style="display: flex; align-items: center; gap: 8px; margin-top: 3px;">
                     <span class="partner-pill"><i class="fa-solid fa-handshake"></i> Authorized Partner</span>
-                    <span style="font-size: 0.75rem; color: var(--text-muted);">Multi-Client Portfolio</span>
+                    <span style="font-size: 0.75rem; color: var(--text-muted);" id="partnerEmailBadge"></span>
                 </div>
             </div>
         </div>
@@ -504,7 +683,7 @@
             <button class="btn-gold" onclick="openOnboardModal()">
                 <i class="fa-solid fa-plus"></i> Onboard New Venue
             </button>
-            <button class="btn-outline" onclick="logoutPartner()" title="Sign Out">
+            <button class="btn-outline" onclick="logoutPartner()" title="Secure Sign Out" style="padding: 8px 12px;">
                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
             </button>
         </div>
@@ -632,55 +811,215 @@
         <span id="toastMsg">Client Dashboard link copied to clipboard!</span>
     </div>
 
+    <!-- SCRIPT ENGINE -->
     <script>
-        let activePartner = "";
+        let currentPartner = null;
         let partnerVenues = [];
 
+        // 1. Check Session on Page Load
         window.addEventListener('DOMContentLoaded', () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const paramPartner = urlParams.get('partner');
-            const savedPartner = localStorage.getItem('metrix_partner_active_name');
-
-            if (paramPartner) {
-                initPartnerSession(paramPartner);
-            } else if (savedPartner) {
-                initPartnerSession(savedPartner);
-            } else {
-                document.getElementById('partnerLoginGate').style.display = 'flex';
+            const storedSession = localStorage.getItem('metrix_partner_auth_session');
+            if (storedSession) {
+                try {
+                    currentPartner = JSON.parse(storedSession);
+                    loadAuthenticatedPartner(currentPartner);
+                    return;
+                } catch(e) {}
             }
+
+            document.getElementById('partnerAuthGate').style.display = 'flex';
         });
 
-        function handlePartnerLogin() {
-            const inputVal = document.getElementById('partnerLoginInput').value.trim();
-            if (inputVal) {
-                initPartnerSession(inputVal);
+        // 2. Auth View Controller
+        function setPartnerAuthView(view) {
+            hidePartnerAlert();
+            const tabHeader = document.getElementById('partnerAuthTabHeader');
+            const btnSignIn = document.getElementById('tabBtnPartnerSignIn');
+            const btnSignUp = document.getElementById('tabBtnPartnerSignUp');
+            const formSignIn = document.getElementById('partnerSignInForm');
+            const formSignUp = document.getElementById('partnerSignUpForm');
+            const formForgot = document.getElementById('partnerForgotForm');
+            const heading = document.getElementById('partnerAuthHeading');
+            const sub = document.getElementById('partnerAuthSub');
+
+            if (view === 'signin') {
+                tabHeader.style.display = 'flex';
+                btnSignIn.classList.add('active');
+                btnSignUp.classList.remove('active');
+                formSignIn.style.display = 'block';
+                formSignUp.style.display = 'none';
+                formForgot.style.display = 'none';
+                heading.textContent = "Partner Workspace Sign In";
+                sub.textContent = "Manage your multi-venue client portfolio, provision new dining tables, and manage client access.";
+            } else if (view === 'signup') {
+                tabHeader.style.display = 'flex';
+                btnSignUp.classList.add('active');
+                btnSignIn.classList.remove('active');
+                formSignIn.style.display = 'none';
+                formSignUp.style.display = 'block';
+                formForgot.style.display = 'none';
+                heading.textContent = "Register Partner Account";
+                sub.textContent = "Create an authorized partner account to onboard and manage dining clients.";
+            } else if (view === 'forgot') {
+                tabHeader.style.display = 'none';
+                formSignIn.style.display = 'none';
+                formSignUp.style.display = 'none';
+                formForgot.style.display = 'block';
+                heading.textContent = "Reset Partner Password";
+                sub.textContent = "Enter your registered partner email and we'll send password recovery instructions.";
             }
         }
 
-        function initPartnerSession(partner) {
-            activePartner = partner;
-            localStorage.setItem('metrix_partner_active_name', partner);
+        // 3. Submit Partner Sign In
+        async function submitPartnerSignIn() {
+            hidePartnerAlert();
+            const email = document.getElementById('partnerLoginEmail').value.trim().toLowerCase();
+            const password = document.getElementById('partnerLoginPassword').value;
 
-            document.getElementById('partnerLoginGate').style.display = 'none';
+            if (!email || !password) {
+                showPartnerAlert("Please enter both email and password.");
+                return;
+            }
+
+            // Verify in local Partner Account Store
+            const accounts = JSON.parse(localStorage.getItem('metrix_registered_partners')) || [];
+            const matched = accounts.find(a => a.email.toLowerCase() === email && a.password === password);
+
+            if (!matched) {
+                // If not found in local store, test Supabase Auth
+                const SUPABASE_URL = (typeof window !== 'undefined' && window.SUPABASE_URL) || "";
+                const SUPABASE_KEY = (typeof window !== 'undefined' && window.SUPABASE_ANON_KEY) || "";
+
+                if (window.supabaseClient && SUPABASE_KEY && SUPABASE_URL) {
+                    try {
+                        const { data, error } = await window.supabaseClient.auth.signInWithPassword({ email, password });
+                        if (error) {
+                            showPartnerAlert("Invalid partner credentials. Please check your email and password.");
+                            return;
+                        }
+                        if (data && data.user) {
+                            const userObj = {
+                                id: data.user.id,
+                                email: data.user.email,
+                                partnerName: data.user.user_metadata?.partner_name || email.split('@')[0]
+                            };
+                            saveAndStartPartnerSession(userObj);
+                            return;
+                        }
+                    } catch(err) {
+                        showPartnerAlert("Invalid partner credentials. Please check your email and password.");
+                        return;
+                    }
+                }
+
+                showPartnerAlert("Invalid partner credentials. Please verify your email and password or Register an Account.");
+                return;
+            }
+
+            saveAndStartPartnerSession(matched);
+        }
+
+        // 4. Submit Partner Sign Up
+        async function submitPartnerSignUp() {
+            hidePartnerAlert();
+            const partnerName = document.getElementById('regPartnerName').value.trim();
+            const email = document.getElementById('regPartnerEmail').value.trim().toLowerCase();
+            const phone = document.getElementById('regPartnerPhone').value.trim();
+            const password = document.getElementById('regPartnerPassword').value;
+
+            if (!partnerName || !email || !password || !phone) {
+                showPartnerAlert("Please fill in all registration fields.");
+                return;
+            }
+
+            if (password.length < 6) {
+                showPartnerAlert("Password must be at least 6 characters long.");
+                return;
+            }
+
+            let accounts = JSON.parse(localStorage.getItem('metrix_registered_partners')) || [];
+            if (accounts.some(a => a.email.toLowerCase() === email)) {
+                showPartnerAlert("A partner account with this email already exists. Please Sign In.");
+                return;
+            }
+
+            const newPartner = {
+                id: `partner_${Date.now()}`,
+                partnerName,
+                email,
+                phone,
+                password,
+                created_at: new Date().toISOString()
+            };
+
+            accounts.push(newPartner);
+            localStorage.setItem('metrix_registered_partners', JSON.stringify(accounts));
+
+            // Also register in Supabase Auth
+            if (window.supabaseClient) {
+                window.supabaseClient.auth.signUp({
+                    email,
+                    password,
+                    options: { data: { role: 'partner', partner_name: partnerName, phone } }
+                }).catch(console.warn);
+            }
+
+            showPartnerSuccessAlert("Partner account created! Opening workspace...");
+            setTimeout(() => {
+                saveAndStartPartnerSession(newPartner);
+            }, 1000);
+        }
+
+        // 5. Submit Partner Forgot Password
+        async function submitPartnerForgot() {
+            const email = document.getElementById('partnerForgotEmail').value.trim().toLowerCase();
+            if (!email) {
+                showPartnerAlert("Please enter your registered email.");
+                return;
+            }
+
+            if (window.supabaseClient) {
+                try {
+                    await window.supabaseClient.auth.resetPasswordForEmail(email);
+                } catch(e) {}
+            }
+
+            showPartnerSuccessAlert("Password reset link sent to " + email + ". Check your inbox!");
+            setTimeout(() => {
+                setPartnerAuthView('signin');
+            }, 3000);
+        }
+
+        function saveAndStartPartnerSession(partner) {
+            currentPartner = partner;
+            localStorage.setItem('metrix_partner_auth_session', JSON.stringify(partner));
+            loadAuthenticatedPartner(partner);
+        }
+
+        function loadAuthenticatedPartner(partner) {
+            document.getElementById('partnerAuthGate').style.display = 'none';
             document.getElementById('partnerHeader').style.display = 'flex';
             document.getElementById('partnerContent').style.display = 'block';
 
-            document.getElementById('partnerTitle').textContent = `${partner} Workspace`;
+            document.getElementById('partnerTitle').textContent = `${partner.partnerName} Workspace`;
+            document.getElementById('partnerEmailBadge').textContent = `(${partner.email})`;
 
-            loadPartnerVenues(partner);
-        }
-
-        function logoutPartner() {
-            localStorage.removeItem('metrix_partner_active_name');
-            window.location.href = window.location.pathname;
-        }
-
-        function loadPartnerVenues(partner) {
-            const storageKey = `metrix_partner_venues_${partner.toLowerCase().replace(/\s+/g, '_')}`;
+            // Load venues strictly owned by this partner account
+            const storageKey = `metrix_venues_for_${partner.id}`;
             partnerVenues = JSON.parse(localStorage.getItem(storageKey)) || [];
             renderVenueGrid(partnerVenues);
         }
 
+        function logoutPartner() {
+            localStorage.removeItem('metrix_partner_auth_session');
+            currentPartner = null;
+            if (window.supabaseClient) {
+                window.supabaseClient.auth.signOut().catch(console.warn);
+            }
+            window.location.reload();
+        }
+
+        // 6. Venue Grid & Provisioning
         function renderVenueGrid(venues) {
             const grid = document.getElementById('venueGrid');
             const empty = document.getElementById('emptyPortfolio');
@@ -771,6 +1110,7 @@
         }
 
         function submitOnboard() {
+            if (!currentPartner) return;
             const name = document.getElementById('obName').value.trim();
             const location = document.getElementById('obLocation').value.trim();
             const tables = document.getElementById('obTables').value.trim();
@@ -779,6 +1119,8 @@
             const menu = document.getElementById('obMenu').value.trim();
 
             const newVenue = {
+                id: `venue_${Date.now()}`,
+                partner_id: currentPartner.id,
                 name,
                 location,
                 tables,
@@ -792,7 +1134,7 @@
 
             partnerVenues.unshift(newVenue);
 
-            const storageKey = `metrix_partner_venues_${activePartner.toLowerCase().replace(/\s+/g, '_')}`;
+            const storageKey = `metrix_venues_for_${currentPartner.id}`;
             localStorage.setItem(storageKey, JSON.stringify(partnerVenues));
 
             renderVenueGrid(partnerVenues);
@@ -806,6 +1148,26 @@
                 const text = card.textContent.toLowerCase();
                 card.style.display = text.includes(query) ? 'flex' : 'none';
             });
+        }
+
+        function showPartnerAlert(msg) {
+            const box = document.getElementById('partnerAuthAlertBox');
+            const msgEl = document.getElementById('partnerAuthAlertMsg');
+            box.className = 'auth-alert';
+            msgEl.textContent = msg;
+            box.style.display = 'flex';
+        }
+
+        function showPartnerSuccessAlert(msg) {
+            const box = document.getElementById('partnerAuthAlertBox');
+            const msgEl = document.getElementById('partnerAuthAlertMsg');
+            box.className = 'auth-alert success';
+            msgEl.textContent = msg;
+            box.style.display = 'flex';
+        }
+
+        function hidePartnerAlert() {
+            document.getElementById('partnerAuthAlertBox').style.display = 'none';
         }
 
         function showToast(msg) {

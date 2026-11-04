@@ -44,48 +44,138 @@
             overflow-x: hidden;
         }
 
-        /* LOGIN GATE OVERLAY */
-        .login-overlay {
+        /* ----------------------------------------------------
+           SECURE AUTHENTICATION MODAL (SIGN IN / SIGN UP / FORGOT)
+           ---------------------------------------------------- */
+        .auth-overlay {
             position: fixed;
             inset: 0;
-            background: var(--bg-void);
+            background: rgba(7, 10, 15, 0.98);
+            backdrop-filter: blur(16px);
             z-index: 10000;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
         }
-        .login-card {
+        .auth-card {
             background: #0d131f;
             border: 1.5px solid var(--border);
             border-radius: 20px;
-            max-width: 440px;
+            max-width: 460px;
             width: 100%;
-            padding: 36px 30px;
-            text-align: center;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(212, 175, 55, 0.15);
+            padding: 36px 32px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 40px rgba(212, 175, 55, 0.15);
+            position: relative;
         }
-        .login-logo {
-            width: 54px;
-            height: 54px;
+        .auth-logo {
+            width: 52px;
+            height: 52px;
             margin: 0 auto 16px;
             border-radius: 12px;
             overflow: hidden;
             border: 1.5px solid var(--gold-primary);
             box-shadow: 0 0 20px rgba(212, 175, 55, 0.35);
         }
-        .login-logo img { width: 100%; height: 100%; object-fit: cover; }
-        .login-card h2 {
+        .auth-logo img { width: 100%; height: 100%; object-fit: cover; }
+        .auth-header { text-align: center; margin-bottom: 24px; }
+        .auth-header h2 {
             font-family: var(--font-head);
             font-size: 1.5rem;
             color: #fff;
             margin-bottom: 6px;
         }
-        .login-card p {
+        .auth-header p {
             color: var(--text-muted);
             font-size: 0.85rem;
             line-height: 1.5;
+        }
+        .auth-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-subtle);
             margin-bottom: 24px;
+        }
+        .auth-tab-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-family: var(--font-head);
+            font-size: 0.92rem;
+            font-weight: 700;
+            padding: 12px 0;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+        .auth-tab-btn.active {
+            color: var(--gold-primary);
+        }
+        .auth-tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2.5px;
+            background: var(--gold-gradient);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+        .auth-form-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+        .auth-form-group label {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        .auth-input-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .auth-input-wrap i {
+            position: absolute;
+            left: 14px;
+            color: var(--gold-primary);
+            font-size: 0.9rem;
+        }
+        .auth-input {
+            width: 100%;
+            background: #080c14;
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 12px 14px 12px 40px;
+            color: #fff;
+            font-size: 0.92rem;
+            transition: all 0.2s ease;
+        }
+        .auth-input:focus {
+            outline: none;
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+        }
+        .auth-alert {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #f87171;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.82rem;
+            margin-bottom: 18px;
+            display: none;
+            align-items: center;
+            gap: 8px;
+        }
+        .auth-alert.success {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: rgba(16, 185, 129, 0.3);
+            color: #10b981;
         }
 
         /* Top Bar Navigation */
@@ -197,7 +287,7 @@
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--border-subtle);
             color: var(--text-main);
-            padding: 8px 16px;
+            padding: 8px 14px;
             border-radius: 8px;
             font-size: 0.82rem;
             font-weight: 600;
@@ -239,9 +329,7 @@
             transition: all 0.2s ease;
         }
         .tab-btn:hover { color: #fff; }
-        .tab-btn.active {
-            color: var(--gold-primary);
-        }
+        .tab-btn.active { color: var(--gold-primary); }
         .tab-btn.active::after {
             content: '';
             position: absolute;
@@ -333,7 +421,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Table & Cards Styling */
         .panel-box {
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
@@ -358,7 +445,7 @@
             gap: 10px;
         }
 
-        /* PRISTINE EMPTY STATE BOX */
+        /* PRISTINE EMPTY STATE */
         .empty-state {
             text-align: center;
             padding: 60px 20px;
@@ -385,24 +472,9 @@
             line-height: 1.5;
         }
 
-        /* Radar Grid */
-        .radar-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
-            gap: 16px;
-        }
-
-        /* VIP Table */
-        .table-responsive {
-            overflow-x: auto;
-            width: 100%;
-        }
-        .vip-table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            font-size: 0.9rem;
-        }
+        /* Table & Settings Form */
+        .table-responsive { overflow-x: auto; width: 100%; }
+        .vip-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem; }
         .vip-table th {
             padding: 12px 16px;
             color: var(--text-muted);
@@ -416,18 +488,14 @@
             padding: 14px 16px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.04);
             color: #cbd5e1;
-            vertical-align: middle;
         }
 
-        /* Settings Form */
         .form-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 24px;
         }
-        .form-group {
-            margin-bottom: 20px;
-        }
+        .form-group { margin-bottom: 20px; }
         .form-group label {
             display: block;
             font-size: 0.82rem;
@@ -455,14 +523,11 @@
             border-radius: 8px;
             padding: 12px 14px 12px 42px;
             color: #fff;
-            font-family: var(--font-body);
             font-size: 0.92rem;
-            transition: all 0.2s ease;
         }
         .form-control:focus {
             outline: none;
             border-color: var(--gold-primary);
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
         }
         .form-help {
             font-size: 0.75rem;
@@ -471,7 +536,6 @@
             line-height: 1.4;
         }
 
-        /* Toast */
         .toast {
             position: fixed;
             bottom: 24px;
@@ -492,29 +556,119 @@
 </head>
 <body>
 
-    <!-- 0. CLIENT LOGIN GATE OVERLAY (Shown if not logged in) -->
-    <div class="login-overlay" id="loginGate">
-        <div class="login-card">
-            <div class="login-logo">
-                <img src="/metrix_logo.jpg" alt="METRIX Logo">
+    <!-- 0. SECURE CLIENT AUTHENTICATION OVERLAY -->
+    <div class="auth-overlay" id="authGate">
+        <div class="auth-card">
+            <div class="auth-logo">
+                <img src="/metrix_logo.jpg" alt="METRIX Crest">
             </div>
-            <span style="color: var(--gold-primary); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">METRIX VENUE COCKPIT</span>
-            <h2>Client Venue Login</h2>
-            <p>Access your live floor service radar, captured VIP diner records, and tabletop settings.</p>
+            
+            <div class="auth-header">
+                <span style="color: var(--gold-primary); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">METRIX VENUE COCKPIT</span>
+                <h2 id="authHeading">Venue Client Sign In</h2>
+                <p id="authSub">Access your live floor service radar, captured VIP diner records, and tabletop settings.</p>
+            </div>
 
-            <form id="loginForm" onsubmit="event.preventDefault(); handleClientLogin();">
-                <div style="margin-bottom: 18px; text-align: left;">
-                    <label style="display: block; font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 6px;">Your Venue Name or Access Key</label>
-                    <input type="text" id="loginInput" placeholder="e.g. Cafe Noir" required style="width: 100%; background: #070b12; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 12px 14px; color: #fff; font-size: 0.95rem;">
+            <div class="auth-tabs" id="authTabHeader">
+                <button class="auth-tab-btn active" id="tabBtnSignIn" onclick="setAuthView('signin')">Sign In</button>
+                <button class="auth-tab-btn" id="tabBtnSignUp" onclick="setAuthView('signup')">Create Venue Account</button>
+            </div>
+
+            <!-- Error / Success Alert -->
+            <div class="auth-alert" id="authAlertBox">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span id="authAlertMsg">Invalid credentials. Please try again.</span>
+            </div>
+
+            <!-- VIEW 1: SIGN IN -->
+            <form id="signInForm" onsubmit="event.preventDefault(); submitClientSignIn();">
+                <div class="auth-form-group">
+                    <label>Work Email</label>
+                    <div class="auth-input-wrap">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" id="loginEmail" class="auth-input" placeholder="management@venue.com" required>
+                    </div>
                 </div>
-                <button type="submit" class="btn-gold" style="width: 100%; justify-content: center; padding: 13px; font-size: 0.95rem;">
-                    <i class="fa-solid fa-lock-open"></i> Unlock Venue Cockpit
+
+                <div class="auth-form-group">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                        <label style="margin: 0;">Password</label>
+                        <a href="javascript:void(0)" onclick="setAuthView('forgot')" style="font-size: 0.75rem; color: #38bdf8; text-decoration: none;">Forgot Password?</a>
+                    </div>
+                    <div class="auth-input-wrap">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="loginPassword" class="auth-input" placeholder="Enter your password" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-gold" style="width: 100%; justify-content: center; padding: 13px; font-size: 0.95rem; margin-top: 8px;">
+                    <i class="fa-solid fa-arrow-right-to-bracket"></i> Sign In to Cockpit
                 </button>
+            </form>
+
+            <!-- VIEW 2: SIGN UP (CREATE VENUE ACCOUNT) -->
+            <form id="signUpForm" onsubmit="event.preventDefault(); submitClientSignUp();" style="display: none;">
+                <div class="auth-form-group">
+                    <label>Venue Trade Name</label>
+                    <div class="auth-input-wrap">
+                        <i class="fa-solid fa-store"></i>
+                        <input type="text" id="regVenueName" class="auth-input" placeholder="e.g. Cafe Noir" required>
+                    </div>
+                </div>
+
+                <div class="auth-form-group">
+                    <label>Manager Work Email</label>
+                    <div class="auth-input-wrap">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" id="regEmail" class="auth-input" placeholder="manager@cafenoir.com" required>
+                    </div>
+                </div>
+
+                <div class="auth-form-group">
+                    <label>Floor WhatsApp Alert Phone</label>
+                    <div class="auth-input-wrap">
+                        <i class="fa-brands fa-whatsapp" style="color: #25d366;"></i>
+                        <input type="tel" id="regPhone" class="auth-input" placeholder="+91 98765 43210 / +971 50 123 4567" required>
+                    </div>
+                </div>
+
+                <div class="auth-form-group">
+                    <label>Create Secure Password (Min 6 chars)</label>
+                    <div class="auth-input-wrap">
+                        <i class="fa-solid fa-key"></i>
+                        <input type="password" id="regPassword" class="auth-input" placeholder="••••••••" minlength="6" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-gold" style="width: 100%; justify-content: center; padding: 13px; font-size: 0.95rem; margin-top: 8px;">
+                    <i class="fa-solid fa-bolt"></i> Register &amp; Initialize Cockpit
+                </button>
+            </form>
+
+            <!-- VIEW 3: FORGOT PASSWORD -->
+            <form id="forgotForm" onsubmit="event.preventDefault(); submitClientForgot();" style="display: none;">
+                <div class="auth-form-group">
+                    <label>Enter Registered Email</label>
+                    <div class="auth-input-wrap">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" id="forgotEmail" class="auth-input" placeholder="management@venue.com" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-gold" style="width: 100%; justify-content: center; padding: 13px; font-size: 0.95rem; margin-top: 8px;">
+                    <i class="fa-solid fa-paper-plane"></i> Send Password Reset Instructions
+                </button>
+
+                <div style="text-align: center; margin-top: 16px;">
+                    <a href="javascript:void(0)" onclick="setAuthView('signin')" style="font-size: 0.82rem; color: var(--text-muted); text-decoration: none;">
+                        <i class="fa-solid fa-arrow-left"></i> Back to Sign In
+                    </a>
+                </div>
             </form>
         </div>
     </div>
 
-    <!-- 1. TOP HEADER (Rendered once authenticated) -->
+    <!-- 1. TOP HEADER (Rendered after successful authentication) -->
     <header class="dash-header" id="mainHeader" style="display: none;">
         <div class="dash-brand">
             <div class="dash-logo-box">
@@ -525,6 +679,7 @@
                 <div style="display: flex; align-items: center; gap: 8px; margin-top: 3px;">
                     <span class="dash-venue-badge">In-Store Cockpit</span>
                     <span class="dash-status-pill"><span class="status-dot"></span> Radar Active</span>
+                    <span style="font-size: 0.72rem; color: var(--text-muted);" id="userEmailBadge"></span>
                 </div>
             </div>
         </div>
@@ -538,7 +693,7 @@
                 <i class="fa-solid fa-mobile-screen"></i>
                 <span>Test Live Standee Scan</span>
             </a>
-            <button class="btn-outline" onclick="logoutClient()" title="Switch Venue / Logout" style="padding: 8px 12px;">
+            <button class="btn-outline" onclick="logoutClient()" title="Secure Sign Out" style="padding: 8px 12px;">
                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
             </button>
         </div>
@@ -579,13 +734,13 @@
                 <div class="stat-card-val" id="statVipTotal">0</div>
                 <div class="stat-card-sub">
                     <i class="fa-solid fa-shield-check"></i>
-                    <span>100% first-party phone numbers</span>
+                    <span>100% verified customer data</span>
                 </div>
             </div>
 
             <div class="stat-card">
                 <div class="stat-card-title">
-                    <span>Floor Service Radar</span>
+                    <span>Floor Service Speed</span>
                     <i class="fa-solid fa-bolt" style="color: #38bdf8;"></i>
                 </div>
                 <div class="stat-card-val">&lt;3s</div>
@@ -630,13 +785,10 @@
                     </div>
                 </div>
 
-                <div class="radar-grid" id="radarList">
-                    <!-- Clean Empty State if 0 calls -->
-                    <div class="empty-state" id="radarEmptyState" style="grid-column: 1 / -1;">
-                        <i class="fa-solid fa-satellite-dish empty-state-icon"></i>
-                        <h3>Floor Radar Active</h3>
-                        <p>No pending service calls right now. When seated guests tap "Call Server", "Water Refill", or "Request Check" at their table, the alert will ring here in real-time.</p>
-                    </div>
+                <div class="empty-state" id="radarEmptyState">
+                    <i class="fa-solid fa-satellite-dish empty-state-icon"></i>
+                    <h3>Floor Radar Active</h3>
+                    <p>No pending service calls right now. When seated guests tap "Call Server", "Water Refill", or "Request Check" at their table, the alert will ring here in real-time.</p>
                 </div>
             </div>
         </div>
@@ -649,14 +801,13 @@
                         <h2><i class="fa-solid fa-id-card-clip" style="color: var(--gold-primary);"></i> VIP Guest Database Vault</h2>
                         <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Verified guest names, WhatsApp numbers, and birthdays captured from your dining tables.</p>
                     </div>
-                    <div style="display: flex; gap: 10px;">
+                    <div>
                         <button class="btn-gold" onclick="exportVIPCSV()">
                             <i class="fa-solid fa-download"></i> 1-Click Export CSV
                         </button>
                     </div>
                 </div>
 
-                <!-- Clean Empty State if 0 VIPs -->
                 <div class="empty-state" id="vipEmptyState">
                     <i class="fa-solid fa-address-book empty-state-icon"></i>
                     <h3>No VIP Diners Captured Yet</h3>
@@ -666,7 +817,6 @@
                     </button>
                 </div>
 
-                <!-- Table (shown only when real data exists) -->
                 <div class="table-responsive" id="vipTableWrap" style="display: none;">
                     <table class="vip-table" id="vipDataTable">
                         <thead>
@@ -684,7 +834,7 @@
             </div>
         </div>
 
-        <!-- TAB 3: VENUE SELF-SERVICE SETTINGS (CLIENT CONTROLS) -->
+        <!-- TAB 3: VENUE SELF-SERVICE SETTINGS -->
         <div class="tab-panel" id="tab-settings">
             <div class="panel-box">
                 <div class="panel-head">
@@ -699,17 +849,15 @@
 
                 <form id="venueSettingsForm" onsubmit="event.preventDefault(); saveVenueSettings();">
                     <div class="form-grid">
-                        <!-- Setting 1: Floor WhatsApp Number -->
                         <div class="form-group">
                             <label><i class="fa-brands fa-whatsapp" style="color: #25d366;"></i> Floor Staff WhatsApp Alert Number</label>
                             <div class="form-input-wrap">
                                 <i class="fa-brands fa-whatsapp" style="color: #25d366;"></i>
-                                <input type="tel" id="cfgWhatsapp" class="form-control" placeholder="+971 50 123 4567 or +91 98765 43210" required>
+                                <input type="tel" id="cfgWhatsapp" class="form-control" placeholder="+91 98765 43210 or +971 50 123 4567" required>
                             </div>
-                            <p class="form-help">Seated diner table calls (Water, Server, Bill) are instantly dispatched to this phone in &lt;3 seconds.</p>
+                            <p class="form-help">Seated diner table calls are instantly dispatched to this phone in &lt;3 seconds.</p>
                         </div>
 
-                        <!-- Setting 2: Google Review Link -->
                         <div class="form-group">
                             <label><i class="fa-brands fa-google" style="color: #ea4335;"></i> Google Maps Review Listing URL</label>
                             <div class="form-input-wrap">
@@ -719,7 +867,6 @@
                             <p class="form-help">Happy diners unlocking VIP perks are seamlessly guided to post 5-star Google reviews on this URL.</p>
                         </div>
 
-                        <!-- Setting 3: Digital Menu Link -->
                         <div class="form-group">
                             <label><i class="fa-solid fa-utensils" style="color: var(--gold-primary);"></i> Digital Menu / Wine List Link</label>
                             <div class="form-input-wrap">
@@ -729,7 +876,6 @@
                             <p class="form-help">Diners clicking "Browse Menu" from table standees are instantly routed here.</p>
                         </div>
 
-                        <!-- Setting 4: Venue Display Name -->
                         <div class="form-group">
                             <label><i class="fa-solid fa-store"></i> Venue Trade Name</label>
                             <div class="form-input-wrap">
@@ -757,8 +903,8 @@
                         <h2><i class="fa-solid fa-layer-group" style="color: var(--gold-primary);"></i> Tabletop Hardware &amp; Print Station</h2>
                         <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Download bespoke 300 DPI vector PDF assets engineered for 100mm × 155mm acrylic standees.</p>
                     </div>
-                    <div style="display: flex; gap: 10px;">
-                        <a href="/flyer.html" target="_blank" class="btn-gold" id="linkFlyerPrint">
+                    <div>
+                        <a href="/flyer.html" target="_blank" class="btn-gold">
                             <i class="fa-solid fa-print"></i> Launch Print Studio (100mm × 155mm)
                         </a>
                     </div>
@@ -766,28 +912,14 @@
 
                 <div style="display: flex; gap: 30px; align-items: center; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
                     <div style="max-width: 320px; border-radius: 16px; overflow: hidden; border: 1.5px solid var(--border); box-shadow: 0 15px 35px rgba(0,0,0,0.8);">
-                        <img src="/premium_standee_mockup.jpg" alt="METRIX Tabletop Acrylic Standee" style="width: 100%; height: auto; display: block;">
+                        <img src="/premium_standee_mockup.jpg" alt="METRIX Tabletop Standee" style="width: 100%; height: auto; display: block;">
                     </div>
 
                     <div style="flex: 1; min-width: 300px; max-width: 550px;">
                         <h3 style="font-size: 1.4rem; color: #fff; margin-bottom: 12px;">Standard 100mm × 155mm Vector Fit</h3>
                         <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px;">
-                            Engineered to slide into your existing acrylic standees, wooden blocks, or bill presenters in 60 seconds. Each table's QR routes dynamically with table identification.
+                            Engineered to slide into your existing acrylic standees, wooden blocks, or bill presenters in 60 seconds.
                         </p>
-                        <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px;">
-                            <li style="display: flex; align-items: center; gap: 10px; color: #cbd5e1; font-size: 0.9rem;">
-                                <i class="fa-solid fa-circle-check" style="color: #10b981;"></i>
-                                <span>Ultra-crisp 300 DPI vector printing (Zero blurring)</span>
-                            </li>
-                            <li style="display: flex; align-items: center; gap: 10px; color: #cbd5e1; font-size: 0.9rem;">
-                                <i class="fa-solid fa-circle-check" style="color: #10b981;"></i>
-                                <span>Pre-configured with dynamic cloud redirect routing</span>
-                            </li>
-                            <li style="display: flex; align-items: center; gap: 10px; color: #cbd5e1; font-size: 0.9rem;">
-                                <i class="fa-solid fa-circle-check" style="color: #10b981;"></i>
-                                <span>Zero reprinting needed when updating menu or reviews</span>
-                            </li>
-                        </ul>
                         <a href="/flyer.html" target="_blank" class="btn-gold" style="width: 100%; justify-content: center; padding: 14px;">
                             <i class="fa-solid fa-print"></i> Open Standee Print Studio
                         </a>
@@ -798,69 +930,234 @@
 
     </main>
 
-    <!-- Success Toast -->
+    <!-- Toast Notification -->
     <div class="toast" id="saveToast">
         <i class="fa-solid fa-circle-check"></i>
-        <span id="toastMsg">Operational settings saved successfully!</span>
+        <span id="toastMsg">Saved successfully!</span>
     </div>
 
-    <!-- Script Logic -->
+    <!-- SCRIPT ENGINE -->
     <script>
-        let activeVenue = "";
+        let currentUser = null;
         let realVIPList = [];
 
-        // 1. Check Authentication on Load
-        window.addEventListener('DOMContentLoaded', () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const paramVenue = urlParams.get('venue') || urlParams.get('name');
-            const savedVenue = localStorage.getItem('metrix_client_active_venue');
-
-            if (paramVenue) {
-                initVenueSession(paramVenue);
-            } else if (savedVenue) {
-                initVenueSession(savedVenue);
-            } else {
-                // Show Login Screen
-                document.getElementById('loginGate').style.display = 'flex';
+        // 1. Check Session on Page Load
+        window.addEventListener('DOMContentLoaded', async () => {
+            // Check active session
+            const storedSession = localStorage.getItem('metrix_client_auth_session');
+            if (storedSession) {
+                try {
+                    currentUser = JSON.parse(storedSession);
+                    loadAuthenticatedApp(currentUser);
+                    return;
+                } catch(e) {}
             }
+
+            // Otherwise show sign-in gate
+            document.getElementById('authGate').style.display = 'flex';
         });
 
-        function handleClientLogin() {
-            const inputVal = document.getElementById('loginInput').value.trim();
-            if (inputVal) {
-                initVenueSession(inputVal);
+        // 2. Auth View Controller (Sign In vs Sign Up vs Forgot)
+        function setAuthView(view) {
+            hideAlert();
+            const tabHeader = document.getElementById('authTabHeader');
+            const btnSignIn = document.getElementById('tabBtnSignIn');
+            const btnSignUp = document.getElementById('tabBtnSignUp');
+            const formSignIn = document.getElementById('signInForm');
+            const formSignUp = document.getElementById('signUpForm');
+            const formForgot = document.getElementById('forgotForm');
+            const heading = document.getElementById('authHeading');
+            const sub = document.getElementById('authSub');
+
+            if (view === 'signin') {
+                tabHeader.style.display = 'flex';
+                btnSignIn.classList.add('active');
+                btnSignUp.classList.remove('active');
+                formSignIn.style.display = 'block';
+                formSignUp.style.display = 'none';
+                formForgot.style.display = 'none';
+                heading.textContent = "Venue Client Sign In";
+                sub.textContent = "Access your live floor service radar, captured VIP diner records, and tabletop settings.";
+            } else if (view === 'signup') {
+                tabHeader.style.display = 'flex';
+                btnSignUp.classList.add('active');
+                btnSignIn.classList.remove('active');
+                formSignIn.style.display = 'none';
+                formSignUp.style.display = 'block';
+                formForgot.style.display = 'none';
+                heading.textContent = "Register Venue Account";
+                sub.textContent = "Provision your restaurant in 60 seconds to deploy table standees and VIP capture.";
+            } else if (view === 'forgot') {
+                tabHeader.style.display = 'none';
+                formSignIn.style.display = 'none';
+                formSignUp.style.display = 'none';
+                formForgot.style.display = 'block';
+                heading.textContent = "Reset Venue Password";
+                sub.textContent = "Enter your registered email and we'll send password recovery instructions.";
             }
         }
 
-        function initVenueSession(venue) {
-            activeVenue = venue;
-            localStorage.setItem('metrix_client_active_venue', venue);
+        // 3. Submit Client Sign In (Secure Verification)
+        async function submitClientSignIn() {
+            hideAlert();
+            const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+            const password = document.getElementById('loginPassword').value;
 
-            // Hide Login Gate, Show App
-            document.getElementById('loginGate').style.display = 'none';
+            if (!email || !password) {
+                showAlert("Please enter both email and password.");
+                return;
+            }
+
+            // Secure Account Store Verification
+            const accounts = JSON.parse(localStorage.getItem('metrix_registered_venues')) || [];
+            const matched = accounts.find(a => a.email.toLowerCase() === email && a.password === password);
+
+            if (!matched) {
+                // If not found in local registered accounts, test Supabase Auth
+                const SUPABASE_URL = (typeof window !== 'undefined' && window.SUPABASE_URL) || "";
+                const SUPABASE_KEY = (typeof window !== 'undefined' && window.SUPABASE_ANON_KEY) || "";
+
+                if (window.supabaseClient && SUPABASE_KEY && SUPABASE_URL) {
+                    try {
+                        const { data, error } = await window.supabaseClient.auth.signInWithPassword({ email, password });
+                        if (error) {
+                            showAlert("Invalid login credentials. Please check your email and password.");
+                            return;
+                        }
+                        if (data && data.user) {
+                            const userObj = {
+                                id: data.user.id,
+                                email: data.user.email,
+                                venueName: data.user.user_metadata?.venue_name || email.split('@')[0],
+                                phone: data.user.user_metadata?.phone || ""
+                            };
+                            saveAndStartSession(userObj);
+                            return;
+                        }
+                    } catch(err) {
+                        showAlert("Invalid login credentials. Please check your email and password.");
+                        return;
+                    }
+                }
+
+                showAlert("Invalid email or password. Please verify your credentials or Create an Account.");
+                return;
+            }
+
+            // Authenticated successfully!
+            saveAndStartSession(matched);
+        }
+
+        // 4. Submit Client Sign Up (Register New Venue)
+        async function submitClientSignUp() {
+            hideAlert();
+            const venueName = document.getElementById('regVenueName').value.trim();
+            const email = document.getElementById('regEmail').value.trim().toLowerCase();
+            const phone = document.getElementById('regPhone').value.trim();
+            const password = document.getElementById('regPassword').value;
+
+            if (!venueName || !email || !password || !phone) {
+                showAlert("Please fill in all registration fields.");
+                return;
+            }
+
+            if (password.length < 6) {
+                showAlert("Password must be at least 6 characters long.");
+                return;
+            }
+
+            // Check if already registered
+            let accounts = JSON.parse(localStorage.getItem('metrix_registered_venues')) || [];
+            if (accounts.some(a => a.email.toLowerCase() === email)) {
+                showAlert("An account with this email already exists. Please Sign In.");
+                return;
+            }
+
+            const newAccount = {
+                id: `venue_${Date.now()}`,
+                venueName,
+                email,
+                phone,
+                password,
+                created_at: new Date().toISOString()
+            };
+
+            accounts.push(newAccount);
+            localStorage.setItem('metrix_registered_venues', JSON.stringify(accounts));
+
+            // Also register in Supabase Auth in background if client initialized
+            if (window.supabaseClient) {
+                window.supabaseClient.auth.signUp({
+                    email,
+                    password,
+                    options: { data: { role: 'client', venue_name: venueName, phone } }
+                }).catch(console.warn);
+            }
+
+            showSuccessAlert("Venue account created successfully! Unlocking cockpit...");
+            setTimeout(() => {
+                saveAndStartSession(newAccount);
+            }, 1000);
+        }
+
+        // 5. Submit Forgot Password
+        async function submitClientForgot() {
+            const email = document.getElementById('forgotEmail').value.trim().toLowerCase();
+            if (!email) {
+                showAlert("Please enter your registered email.");
+                return;
+            }
+
+            if (window.supabaseClient) {
+                try {
+                    await window.supabaseClient.auth.resetPasswordForEmail(email);
+                } catch(e) {}
+            }
+
+            showSuccessAlert("Password reset instructions sent to " + email + ". Check your inbox!");
+            setTimeout(() => {
+                setAuthView('signin');
+            }, 3000);
+        }
+
+        function saveAndStartSession(user) {
+            currentUser = user;
+            localStorage.setItem('metrix_client_auth_session', JSON.stringify(user));
+            loadAuthenticatedApp(user);
+        }
+
+        function loadAuthenticatedApp(user) {
+            document.getElementById('authGate').style.display = 'none';
             document.getElementById('mainHeader').style.display = 'flex';
             document.getElementById('mainNav').style.display = 'flex';
             document.getElementById('mainContent').style.display = 'block';
 
-            document.getElementById('topVenueName').textContent = venue;
-            document.getElementById('cfgBizName').value = venue;
+            document.getElementById('topVenueName').textContent = user.venueName;
+            document.getElementById('cfgBizName').value = user.venueName;
+            document.getElementById('userEmailBadge').textContent = `(${user.email})`;
 
-            // Load saved settings if any
-            const savedSettings = JSON.parse(localStorage.getItem(`metrix_settings_${venue.toLowerCase().replace(/\s+/g, '_')}`)) || {};
+            // Load saved settings for this specific user account
+            const savedSettings = JSON.parse(localStorage.getItem(`metrix_settings_${user.id}`)) || {};
             if (savedSettings.wa) document.getElementById('cfgWhatsapp').value = savedSettings.wa;
+            else if (user.phone) document.getElementById('cfgWhatsapp').value = user.phone;
+
             if (savedSettings.gmb) document.getElementById('cfgGoogleReview').value = savedSettings.gmb;
             if (savedSettings.menu) document.getElementById('cfgMenuUrl').value = savedSettings.menu;
 
-            // Fetch Real VIP Data from Supabase
-            fetchRealVIPData(venue);
+            // Fetch real VIP records from Supabase for this venue
+            fetchRealVIPData(user.venueName);
         }
 
         function logoutClient() {
-            localStorage.removeItem('metrix_client_active_venue');
-            window.location.href = window.location.pathname;
+            localStorage.removeItem('metrix_client_auth_session');
+            currentUser = null;
+            if (window.supabaseClient) {
+                window.supabaseClient.auth.signOut().catch(console.warn);
+            }
+            window.location.reload();
         }
 
-        // 2. Fetch Real Data from Supabase
+        // 6. Fetch Real Data from Supabase
         async function fetchRealVIPData(venue) {
             realVIPList = [];
             const SUPABASE_URL = (typeof window !== 'undefined' && window.SUPABASE_URL) || "";
@@ -925,7 +1222,6 @@
             });
         }
 
-        // 3. Tab Switching
         function switchTab(tabId) {
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
@@ -938,25 +1234,28 @@
         }
 
         function openStandeeStation() { switchTab('standees'); }
-        function openLiveDemo() { window.open(`/portal.html?name=${encodeURIComponent(activeVenue)}`, '_blank'); }
+        function openLiveDemo() {
+            if (currentUser) {
+                window.open(`/portal.html?name=${encodeURIComponent(currentUser.venueName)}`, '_blank');
+            }
+        }
 
-        // 4. Save Settings
         function saveVenueSettings() {
+            if (!currentUser) return;
             const wa = document.getElementById('cfgWhatsapp').value.trim();
             const gmb = document.getElementById('cfgGoogleReview').value.trim();
             const menu = document.getElementById('cfgMenuUrl').value.trim();
             const biz = document.getElementById('cfgBizName').value.trim();
 
-            localStorage.setItem(`metrix_settings_${activeVenue.toLowerCase().replace(/\s+/g, '_')}`, JSON.stringify({
+            localStorage.setItem(`metrix_settings_${currentUser.id}`, JSON.stringify({
                 wa, gmb, menu, biz
             }));
 
             showToast("Operational settings saved & live on dining tables!");
         }
 
-        // 5. 1-Click CSV Export
         function exportVIPCSV() {
-            if (realVIPList.length === 0) {
+            if (!realVIPList || realVIPList.length === 0) {
                 showToast("No VIP diners captured yet to export.");
                 return;
             }
@@ -968,12 +1267,32 @@
             const link = document.createElement("a");
             const url = URL.createObjectURL(blob);
             link.setAttribute("href", url);
-            link.setAttribute("download", `METRIX_VIP_Diners_${activeVenue.replace(/\s+/g, '_')}.csv`);
+            link.setAttribute("download", `METRIX_VIP_Diners_${currentUser.venueName.replace(/\s+/g, '_')}.csv`);
             link.style.visibility = 'hidden';
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
             showToast("VIP Database exported to CSV successfully!");
+        }
+
+        function showAlert(msg) {
+            const box = document.getElementById('authAlertBox');
+            const msgEl = document.getElementById('authAlertMsg');
+            box.className = 'auth-alert';
+            msgEl.textContent = msg;
+            box.style.display = 'flex';
+        }
+
+        function showSuccessAlert(msg) {
+            const box = document.getElementById('authAlertBox');
+            const msgEl = document.getElementById('authAlertMsg');
+            box.className = 'auth-alert success';
+            msgEl.textContent = msg;
+            box.style.display = 'flex';
+        }
+
+        function hideAlert() {
+            document.getElementById('authAlertBox').style.display = 'none';
         }
 
         function showToast(msg) {
