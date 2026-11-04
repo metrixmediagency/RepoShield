@@ -12,6 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const logoUrl = urlParams.get('logo') || '';
     const font = urlParams.get('font') || 'Outfit';
     const webhookUrl = urlParams.get('webhook') || '';
+    const rawTable = urlParams.get('table') || '';
+    const tableParam = rawTable ? (rawTable.toLowerCase().startsWith('table') ? rawTable : `Table ${rawTable}`) : '';
 
     // Apply Brand Accent Color dynamically
     document.documentElement.style.setProperty('--primary', accentColor);
@@ -39,6 +41,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // Set Business Details in DOM
     const bizNameEl = document.getElementById('business-name');
     if (bizNameEl) bizNameEl.textContent = bizName;
+
+    // Show Table Identification Badge if present
+    if (tableParam) {
+        const tableBadge = document.getElementById('table-badge');
+        const tableBadgeText = document.getElementById('table-badge-text');
+        if (tableBadge && tableBadgeText) {
+            tableBadgeText.textContent = tableParam;
+            tableBadge.style.display = 'inline-flex';
+        }
+        const serviceTableInput = document.getElementById('service-table');
+        if (serviceTableInput) {
+            serviceTableInput.value = tableParam;
+        }
+    }
 
     // Quick links setup
     const gmbLink = document.getElementById('hub-gmb-link');
@@ -211,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 clientName: name,
                 clientPhone: phone,
                 clientDOB: dob,
-                clientMessage: "VIP Guest Loyalty Club Opt-In",
+                clientMessage: tableParam ? `VIP Guest Loyalty Club Opt-In (${tableParam})` : "VIP Guest Loyalty Club Opt-In",
                 submittedAt: new Date().toLocaleString()
             });
 
@@ -229,22 +245,26 @@ document.addEventListener('DOMContentLoaded', () => {
     // 6. Instant Table Service Alerts
     // ----------------------------------------------------
     function triggerServiceRequest(requestType) {
+        const tablePrefix = tableParam ? `[${tableParam}] ` : '';
         dispatchData({
             id: Date.now().toString(),
             businessName: bizName,
             businessEmail: bizEmail,
             rating: 5,
-            clientName: "Seated Guest",
-            clientPhone: "Table Device",
+            clientName: tableParam ? `Seated Guest (${tableParam})` : "Seated Guest",
+            clientPhone: tableParam ? tableParam : "Table Device",
             clientDOB: "",
-            clientMessage: `Table Service Request: ${requestType}`,
+            clientMessage: `${tablePrefix}Service Request: ${requestType}`,
             submittedAt: new Date().toLocaleString()
         });
 
         const titleEl = document.getElementById('success-title');
         const msgEl = document.getElementById('success-message');
         if (titleEl) titleEl.textContent = "Staff Alerted 🛎️";
-        if (msgEl) msgEl.textContent = `Your request for "${requestType}" has been routed to our floor team. We will attend to your table momentarily.`;
+        if (msgEl) {
+            const destination = tableParam ? ` to ${tableParam}` : " to your table";
+            msgEl.textContent = `Your request for "${requestType}" has been routed to our floor team. We will attend${destination} momentarily.`;
+        }
         
         showScreen(successScreen);
     }

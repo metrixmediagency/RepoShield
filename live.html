@@ -141,9 +141,14 @@
                     
                     // Prioritize the 'portal_url' column to show the custom generated portal,
                     // falling back to 'destination' if it's an old legacy entry.
-                    const targetUrl = campaign.portal_url || campaign.destination;
+                    let targetUrl = campaign.portal_url || campaign.destination;
                     
                     if (targetUrl) {
+                        const tableParam = urlParams.get('table');
+                        if (tableParam) {
+                            const separator = targetUrl.includes('?') ? '&' : '?';
+                            targetUrl += `${separator}table=${encodeURIComponent(tableParam)}`;
+                        }
                         // Use replace() so users can't click the "Back" button to get stuck on this page
                         window.location.replace(targetUrl);
                     } else {

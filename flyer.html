@@ -1058,6 +1058,10 @@
                     let finalUrl = qrUrl;
                     if (state.id) {
                         finalUrl = 'https://metrixmedia.agency/live.html?id=' + encodeURIComponent(state.id);
+                        const tableVal = state.table || urlParams.get('table');
+                        if (tableVal) {
+                            finalUrl += '&table=' + encodeURIComponent(tableVal);
+                        }
                     }
 
                     qrContainers.forEach(container => {
@@ -1114,7 +1118,7 @@
                 flyerHeadline: urlParams.get('flyerHeadline'),
                 flyerSub: urlParams.get('flyerSub'),
                 flyerFooter: urlParams.get('flyerFooter'),
-                flyerTextStyle: urlParams.get('flyerTextStyle'), flyerBg: urlParams.get('flyerBg'), flyerAccent: urlParams.get('flyerAccent'), flyerText: urlParams.get('flyerText')
+                flyerTextStyle: urlParams.get('flyerTextStyle'), flyerBg: urlParams.get('flyerBg'), flyerAccent: urlParams.get('flyerAccent'), flyerText: urlParams.get('flyerText'), table: urlParams.get('table')
             };
 
             // Hide toolbar and scale to fit if viewed inside a Live Editor Iframe
