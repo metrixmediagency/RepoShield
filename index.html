@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>METRIX | In-Store Tabletop QR Ordering, VIP Loyalty &amp; Service Platform</title>
+    <title>METRIX | Luxury Tabletop OS, VIP Loyalty &amp; Service Platform</title>
     <link rel="icon" type="image/jpeg" href="/metrix_logo.jpg">
-    <meta name="description" content="Deploy bespoke digital tabletop assets to capture in-store VIP customer data, streamline table service operations in real-time, and unlock direct zero-commission ordering.">
+    <meta name="description" content="Deploy bespoke digital tabletop assets to capture in-store VIP guest data, streamline table service calling in under 3 seconds, and grow 5-star Google reviews.">
     <!-- FontAwesome & Typography -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="index.css?v=3.0">
+    <link rel="stylesheet" href="index.css?v=3.2">
     <style>
         /* Specific Modern Overrides for METRIX Tech Branding */
         .fx-brand-text h1 {
@@ -66,6 +66,55 @@
             border-color: #d4af37;
             box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
         }
+        .fx-btn-hero-secondary {
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: #ffffff;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            background: rgba(212, 175, 55, 0.06);
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+        }
+        .fx-btn-hero-secondary:hover {
+            background: rgba(212, 175, 55, 0.15);
+            border-color: #d4af37;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+        }
+        .fx-grid-pillars {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-top: 40px;
+        }
+        @media (max-width: 820px) {
+            .fx-grid-pillars {
+                grid-template-columns: 1fr;
+            }
+        }
+        .gs-stats-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            max-width: 1050px;
+            margin: clamp(24px, 5vw, 48px) auto clamp(20px, 4vw, 36px);
+        }
+        @media (max-width: 860px) {
+            .gs-stats-4 {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+        }
+        @media (max-width: 480px) {
+            .gs-stats-4 {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -85,7 +134,7 @@
             
             <nav class="fx-nav">
                 <ul class="fx-nav__menu" id="fxNavMenu">
-                    <li><a href="#features" class="fx-nav__link">Platform</a></li>
+                    <li><a href="#features" class="fx-nav__link">The 4 Pillars</a></li>
                     <li><a href="#tabletop" class="fx-nav__link">Tabletop Assets</a></li>
                     <li><a href="#how-it-works" class="fx-nav__link">How It Works</a></li>
                     <li><a href="#comparison" class="fx-nav__link">The Moat</a></li>
@@ -109,19 +158,23 @@
     <section class="fx-hero" id="home">
         <div class="fx-hero__inner">
             <div class="fx-hero__badge">
-                <i class="fa-solid fa-layer-group"></i> In-Store Tabletop Ordering, VIP Loyalty &amp; Service Operations
+                <i class="fa-solid fa-bell-concierge"></i> In-Store Guest Intelligence &amp; Tabletop Operations
             </div>
-            <h1 class="fx-hero__title" style="max-width: 900px; margin: 0 auto 20px;">
-                The In-Store Operating System for Independent Hospitality.
+            <h1 class="fx-hero__title" style="max-width: 920px; margin: 0 auto 20px;">
+                The Luxury Tabletop Operating System for Independent Hospitality.
             </h1>
-            <p class="fx-hero__sub" style="max-width: 760px; margin: 0 auto 30px;">
-                Equip your dining tables with touchless digital ordering, first-party VIP loyalty capture, and instant table service calling. Reclaim direct delivery margins from third-party aggregators at zero commission.
+            <p class="fx-hero__sub" style="max-width: 780px; margin: 0 auto 30px;">
+                Turn every dining table into an autonomous service and data engine. Enable seated guests to call for water, server, or the bill in &lt;3 seconds, capture 100% first-party VIP WhatsApp databases, and drive 5-star Google reviews. Zero apps. Zero hardware clutter.
             </p>
-            <div class="fx-hero__cta">
+            <div class="fx-hero__cta" style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
                 <button class="fx-btn-grad js-open-popup">
-                    <i class="fa-solid fa-layer-group"></i>
+                    <i class="fa-solid fa-bolt"></i>
                     <span>Deploy 7-Day Digital Pilot</span>
                 </button>
+                <a href="https://metrixmedia.agency/portal.html?name=Cafe+Noir" target="_blank" class="fx-btn-hero-secondary">
+                    <i class="fa-solid fa-mobile-screen" style="color: #d4af37;"></i>
+                    <span>Experience Live Diner Demo</span>
+                </a>
             </div>
         </div>
     </section>
@@ -138,26 +191,26 @@
     <section class="fx-section gs-section">
         <div class="fx-wrap">
             <div class="fx-center">
-                <h2 class="fx-h2">Engineered for Guest Sovereignty</h2>
-                <p class="fx-sub">Aggregators tax your profits and hide your customer data. METRIX equips your dining and lounge tables to reclaim both.</p>
+                <h2 class="fx-h2">Engineered for Dining Floor Sovereignty</h2>
+                <p class="fx-sub">98% of walk-in diners leave without sharing their contact details, and floor service bottlenecks create silent 1-star reviews. METRIX equips your tables to fix both.</p>
             </div>
             
-            <div class="gs-stats">
+            <div class="gs-stats-4">
                 <div class="gs-stat">
-                    <div class="gs-stat-num" data-target="0" data-suffix="%">0%</div>
-                    <div class="gs-stat-label">Commission on Direct Orders</div>
+                    <div class="gs-stat-num" data-target="3" data-suffix="s">&lt;3s</div>
+                    <div class="gs-stat-label">Floor Service Alert Speed</div>
                 </div>
                 <div class="gs-stat">
                     <div class="gs-stat-num" data-target="98" data-suffix="%">98%</div>
-                    <div class="gs-stat-label">Table Service &amp; VIP Opt-in Rate</div>
+                    <div class="gs-stat-label">Tabletop Engagement &amp; VIP Opt-in Rate</div>
                 </div>
                 <div class="gs-stat">
                     <div class="gs-stat-num" data-target="100" data-suffix="%">100%</div>
                     <div class="gs-stat-label">First-Party Data Ownership</div>
                 </div>
                 <div class="gs-stat">
-                    <div class="gs-stat-num" data-target="3" data-suffix="s">&lt;3s</div>
-                    <div class="gs-stat-label">Real-Time Table Service Notification</div>
+                    <div class="gs-stat-num" data-target="0" data-suffix="">Zero</div>
+                    <div class="gs-stat-label">App Downloads or POS Friction</div>
                 </div>
             </div>
 
@@ -193,61 +246,45 @@
         </div>
     </section>
 
-    <!-- 4. CORE PLATFORM PILLARS (FEATURES) -->
+    <!-- 4. CORE PLATFORM PILLARS (THE 4 PILLARS) -->
     <section class="fx-section fx-dark-section" id="features">
         <div class="fx-wrap">
             <div class="fx-center">
-                <h2 class="fx-h2">The 4 Pillars of METRIX</h2>
-                <p class="fx-sub">A closed-loop physical and digital defense network built specifically for independent brick-and-mortar operators.</p>
+                <h2 class="fx-h2">The 4 Pillars of Tabletop Intelligence</h2>
+                <p class="fx-sub">A closed-loop physical touchpoint and instant notification engine engineered specifically for high-dwell independent hospitality.</p>
             </div>
             
-            <div class="fx-grid-3">
-                <!-- Pillar 1: Table Service Calling & Operations -->
+            <div class="fx-grid-pillars">
+                <!-- Pillar 1: Instant Tabletop Service Calling (<3s Alerts) -->
                 <article class="fx-card">
                     <div class="fx-ico" style="color: #f59e0b;"><i class="fa-solid fa-bell-concierge"></i></div>
-                    <h3>Tabletop Service &amp; Floor Operations</h3>
-                    <p>Empower seated diners to request water, call table service, or ask for the bill with one tap from their phone. Floor staff are alerted instantly in under 3 seconds to attend to diners without delay, while offering seamless access to public review channels.</p>
-                    <a href="#tabletop" class="fx-link">Explore Tabletop Suite <i class="fa-solid fa-arrow-right-long"></i></a>
+                    <h3>1-Tap Tabletop Service Calling</h3>
+                    <p>Empower seated diners to request water, call table service, or ask for the bill with a single tap from their phone. Floor teams receive instant WhatsApp priority notifications in under 3 seconds with the exact table number—eliminating hand-waving and dining delays.</p>
+                    <a href="#tabletop" class="fx-link">Inspect Tabletop Architecture <i class="fa-solid fa-arrow-right-long"></i></a>
                 </article>
 
-                <!-- Pillar 2: In-Store VIP Capture (CDP) -->
+                <!-- Pillar 2: VIP Customer Data Capture (CDP) -->
                 <article class="fx-card">
                     <div class="fx-ico" style="color: #10b981;"><i class="fa-solid fa-id-card-clip"></i></div>
-                    <h3>VIP Customer Data Capture</h3>
-                    <p>Stop letting Apple Pay transactions walk away anonymously. Every tap captures verified diner Names, WhatsApp Numbers, and Birthdays under the psychological incentive of unlocking VIP privileges and birthday perks.</p>
-                    <a href="#pricing" class="fx-link">See Data Suite <i class="fa-solid fa-arrow-right-long"></i></a>
+                    <h3>VIP Guest Loyalty &amp; CDP Capture</h3>
+                    <p>Stop letting Apple Pay transactions walk away anonymously. Guests unlock VIP privileges and birthday perks by providing their verified Name, WhatsApp Number, and Date of Birth. Build your proprietary database of high-frequency regulars on autopilot.</p>
+                    <a href="#pricing" class="fx-link">Explore Data Vault <i class="fa-solid fa-arrow-right-long"></i></a>
                 </article>
 
-                <!-- Pillar 3: Zero-Commission D2C Engine -->
+                <!-- Pillar 3: Real-Time Floor Shield & Google Review Growth -->
                 <article class="fx-card">
-                    <div class="fx-ico" style="color: #3b82f6;"><i class="fa-solid fa-bag-shopping"></i></div>
-                    <h3>Direct-to-Consumer Ordering</h3>
-                    <p>Reclaim the 25%–32% commission bled to Talabat, Deliveroo, and Swiggy. Convert your captive walk-in audience into direct WhatsApp repeat delivery orders. Direct UPI &amp; card payouts straight to your bank account.</p>
-                    <a href="#how-it-works" class="fx-link">How Ordering Works <i class="fa-solid fa-arrow-right-long"></i></a>
+                    <div class="fx-ico" style="color: #3b82f6;"><i class="fa-solid fa-star"></i></div>
+                    <h3>Google Review Growth &amp; Floor Shield</h3>
+                    <p>Happy diners are seamlessly guided to leave 5-star Google Maps reviews while dining at peak satisfaction. If service or food doesn't meet expectations, instant private alerts give management the power to resolve issues at the table before guests leave the venue.</p>
+                    <a href="#how-it-works" class="fx-link">See Service Flow <i class="fa-solid fa-arrow-right-long"></i></a>
                 </article>
 
-                <!-- Pillar 4: Real-Time Floor Alerts -->
-                <article class="fx-card">
-                    <div class="fx-ico" style="color: #8b5cf6;"><i class="fa-solid fa-bell"></i></div>
-                    <h3>Instant Floor Service Alerts</h3>
-                    <p>When a diner shares feedback regarding table service, temperature, or delays, an automated priority notification is routed to floor management so the team can attend to the guest at the table immediately.</p>
-                    <a href="#faq" class="fx-link">Service Response Protocol <i class="fa-solid fa-arrow-right-long"></i></a>
-                </article>
-
-                <!-- Pillar 5: Dynamic Cloud QR Engine -->
+                <!-- Pillar 4: Dynamic Cloud Architecture & Digital Menus -->
                 <article class="fx-card">
                     <div class="fx-ico" style="color: #ec4899;"><i class="fa-solid fa-qrcode"></i></div>
-                    <h3>Dynamic URL Router</h3>
-                    <p>Never re-generate static table codes again. Change your digital menu, loyalty perks, or promotional landing page instantly from your cloud dashboard without updating your physical table inserts.</p>
-                    <a href="#tabletop" class="fx-link">Inspect Architecture <i class="fa-solid fa-arrow-right-long"></i></a>
-                </article>
-
-                <!-- Pillar 6: Anti-Scraping Data Security -->
-                <article class="fx-card">
-                    <div class="fx-ico" style="color: #d4af37;"><i class="fa-solid fa-lock"></i></div>
-                    <h3>First-Party Data Vault</h3>
-                    <p>Your captured VIP customer list is 100% your proprietary property. Bank-grade encrypted storage ensures no aggregator, competitor, or third-party marketing agency can ever scrape or poach your guest list.</p>
-                    <a href="#pricing" class="fx-link">Deploy Vault <i class="fa-solid fa-arrow-right-long"></i></a>
+                    <h3>Dynamic Cloud QR &amp; Menu Engine</h3>
+                    <p>Never re-generate static table codes or reprint damaged cards again. Update digital menus, wine lists, chef specials, or promotional perks instantly from your cloud dashboard without ever touching physical table displays.</p>
+                    <a href="#tabletop" class="fx-link">View Hardware Fit <i class="fa-solid fa-arrow-right-long"></i></a>
                 </article>
             </div>
         </div>
@@ -257,9 +294,9 @@
     <section class="fx-section" id="tabletop" style="background: #090d16;">
         <div class="fx-wrap">
             <div class="fx-center">
-                <div class="fx-hero__badge"><i class="fa-solid fa-layer-group"></i> Digital Tabletop Architecture</div>
-                <h2 class="fx-h2">Upgrade Your Existing Dining Tables</h2>
-                <p class="fx-sub">Software without high-dwell physical placement is ignored. METRIX delivers bespoke, high-resolution digital tabletop assets engineered to instantly upgrade your existing table displays, table tents, or bill presenters with zero physical wait times.</p>
+                <div class="fx-hero__badge"><i class="fa-solid fa-gem"></i> Digital Tabletop Architecture</div>
+                <h2 class="fx-h2">Upgrade Your Existing Dining Tables in 60 Seconds</h2>
+                <p class="fx-sub">Software without high-dwell physical placement is ignored. METRIX delivers bespoke, 300 DPI ultra-high-resolution print-ready digital vector assets engineered to slide directly into your existing table displays, wooden clips, or check presenters.</p>
             </div>
 
             <div style="display: flex; gap: 40px; align-items: center; justify-content: center; flex-wrap: wrap; margin-top: 40px;">
@@ -333,74 +370,74 @@
     <section class="fx-section" id="how-it-works">
         <div class="fx-wrap">
             <div class="fx-center">
-                <h2 class="fx-h2">Three Steps to Total Sovereignty</h2>
-                <p class="fx-sub">Zero complicated POS integration. No software installation required.</p>
+                <h2 class="fx-h2">Three Steps to Tabletop Sovereignty</h2>
+                <p class="fx-sub">Zero complicated POS integration. No software installation required. Ready for floor service in under 24 hours.</p>
             </div>
             
             <div class="fx-grid-3-step">
                 <!-- Step 1 -->
                 <div class="fx-step">
                     <div class="fx-badge">1</div>
-                    <h4>Deploy Tabletop Assets</h4>
-                    <p>We generate bespoke, print-ready 300 DPI Matte Black Tabletop Assets configured with your venue branding and dynamic routing, ready to slide into your dining table holders or bill presenters in 60 seconds.</p>
+                    <h4>Slide &amp; Deploy</h4>
+                    <p>We configure your custom guest portal and email bespoke 300 DPI Matte Black Tabletop Assets engineered to slide into your existing table stands or bill presenters in 60 seconds.</p>
                 </div>
                 <!-- Step 2 -->
                 <div class="fx-step">
                     <div class="fx-badge">2</div>
-                    <h4>Diners Tap &amp; Connect</h4>
-                    <p>Guests scan the dynamic code at their table to browse menus, call table service, join your VIP rewards club, or access transparent review channels.</p>
+                    <h4>Diners Tap in &lt;1s</h4>
+                    <p>Guests scan the dynamic QR from their smartphone camera with zero app download. They call service (water, server, bill), join your VIP club, or explore digital menus.</p>
                 </div>
                 <!-- Step 3 -->
                 <div class="fx-step">
                     <div class="fx-badge">3</div>
-                    <h4>Own Your Customers</h4>
-                    <p>Every tap logs verified WhatsApp numbers into your private database, ready to receive direct delivery broadcasts with zero aggregator fees.</p>
+                    <h4>Instant Alert &amp; Capture</h4>
+                    <p>Service calls alert your floor team's WhatsApp in &lt;3 seconds, happy guests leave 5-star Google reviews, and verified VIP contacts flow into your private database.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 7. THE MOAT: AGGREGATORS VS METRIX -->
+    <!-- 7. THE MOAT: GENERIC PAPER / DUMP QR VS METRIX -->
     <section class="fx-section fx-unique" id="comparison">
         <div class="fx-wrap">
             <div class="fx-unique__card">
                 <div style="text-align: center;">
                     <div class="fx-unique__eyebrow">THE OPERATIONAL MOAT</div>
-                    <h2 class="fx-unique__title">Third-Party Aggregators vs. METRIX</h2>
+                    <h2 class="fx-unique__title">Static Paper &amp; Generic QR Menus vs. METRIX Tabletop OS</h2>
                     <p class="fx-unique__sub">
-                        <span class="fx-sub-pill">Why Leading Venues Decouple from Marketplace Traps</span>
+                        <span class="fx-sub-pill">Why Premier Venues Upgrade from Cheap Paper to In-Store Intelligence</span>
                     </p>
                 </div>
                 
                 <hr class="fx-unique__divider" />
 
                 <div class="fx-unique__cols">
-                    <!-- Delivery Aggregators -->
+                    <!-- Static Paper Menus -->
                     <div class="fx-unique__col">
-                        <span class="fx-unique__chip fx-chip--muted">TALABAT / DELIVEROO / SWIGGY / ZOMATO</span>
+                        <span class="fx-unique__chip fx-chip--muted">STATIC PAPER &amp; GENERIC "DUMP QR" MENUS</span>
                         <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px;">
                             <li style="display: flex; align-items: flex-start; gap: 12px;">
                                 <i class="fa-solid fa-xmark" style="color: #ef4444; margin-top: 3px; font-size: 1rem; flex-shrink: 0;"></i>
                                 <div style="font-size: 0.92rem; line-height: 1.5; color: #94a3b8;">
-                                    <strong style="color: #f87171; font-weight: 700;">25% to 32% Commission</strong> on top-line revenue
+                                    <strong style="color: #f87171; font-weight: 700;">Anonymous Walkouts:</strong> 98% of diners leave with zero contact information captured
                                 </div>
                             </li>
                             <li style="display: flex; align-items: flex-start; gap: 12px;">
                                 <i class="fa-solid fa-xmark" style="color: #ef4444; margin-top: 3px; font-size: 1rem; flex-shrink: 0;"></i>
                                 <div style="font-size: 0.92rem; line-height: 1.5; color: #94a3b8;">
-                                    <strong style="color: #f87171; font-weight: 700;">Customer Masking:</strong> You never receive guest phone numbers or names
+                                    <strong style="color: #f87171; font-weight: 700;">Slow Service Delays:</strong> Diners wait 10+ minutes waving hands for water, servers, or the bill
                                 </div>
                             </li>
                             <li style="display: flex; align-items: flex-start; gap: 12px;">
                                 <i class="fa-solid fa-xmark" style="color: #ef4444; margin-top: 3px; font-size: 1rem; flex-shrink: 0;"></i>
                                 <div style="font-size: 0.92rem; line-height: 1.5; color: #94a3b8;">
-                                    <strong style="color: #f87171; font-weight: 700;">Zero In-Store Connection:</strong> Aggregators isolate you from diners with zero live service connection
+                                    <strong style="color: #f87171; font-weight: 700;">Blind 1-Star Google Reviews:</strong> Unhappy diners vent online hours later without management ever knowing
                                 </div>
                             </li>
                             <li style="display: flex; align-items: flex-start; gap: 12px;">
                                 <i class="fa-solid fa-xmark" style="color: #ef4444; margin-top: 3px; font-size: 1rem; flex-shrink: 0;"></i>
                                 <div style="font-size: 0.92rem; line-height: 1.5; color: #94a3b8;">
-                                    <strong style="color: #f87171; font-weight: 700;">Algorithmic Churn:</strong> Competitors promoted above you for ad spend
+                                    <strong style="color: #f87171; font-weight: 700;">Reprints &amp; Clutter:</strong> Constant reprinting costs, damaged paper cards, and cheap peeling stickers
                                 </div>
                             </li>
                         </ul>
@@ -408,30 +445,30 @@
 
                     <!-- METRIX -->
                     <div class="fx-unique__col">
-                        <span class="fx-unique__chip fx-chip--brand" style="background:#d4af37; color:#0f172a;">METRIX SOVEREIGNTY</span>
+                        <span class="fx-unique__chip fx-chip--brand" style="background:#d4af37; color:#0f172a;">METRIX TABLETOP INTELLIGENCE</span>
                         <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px;">
                             <li style="display: flex; align-items: flex-start; gap: 12px;">
                                 <i class="fa-solid fa-check" style="color: #d4af37; margin-top: 3px; font-size: 1rem; flex-shrink: 0;"></i>
                                 <div style="font-size: 0.92rem; line-height: 1.5; color: #cbd5e1;">
-                                    <strong style="color: #ffffff; font-weight: 700;">0% Commission</strong> on direct WhatsApp repeat orders
+                                    <strong style="color: #ffffff; font-weight: 700;">100% Owned VIP Database:</strong> Verified guest names, WhatsApp numbers, and birthdays captured seamlessly
                                 </div>
                             </li>
                             <li style="display: flex; align-items: flex-start; gap: 12px;">
                                 <i class="fa-solid fa-check" style="color: #d4af37; margin-top: 3px; font-size: 1rem; flex-shrink: 0;"></i>
                                 <div style="font-size: 0.92rem; line-height: 1.5; color: #cbd5e1;">
-                                    <strong style="color: #ffffff; font-weight: 700;">100% Owned VIP Database:</strong> Export verified guest contacts anytime
+                                    <strong style="color: #ffffff; font-weight: 700;">&lt;3s Floor WhatsApp Alerts:</strong> Table requests for water, server, or bill dispatched to staff phones immediately
                                 </div>
                             </li>
                             <li style="display: flex; align-items: flex-start; gap: 12px;">
                                 <i class="fa-solid fa-check" style="color: #d4af37; margin-top: 3px; font-size: 1rem; flex-shrink: 0;"></i>
                                 <div style="font-size: 0.92rem; line-height: 1.5; color: #cbd5e1;">
-                                    <strong style="color: #ffffff; font-weight: 700;">Real-Time Table Service:</strong> Instant 1-tap table calling for seamless floor operations
+                                    <strong style="color: #ffffff; font-weight: 700;">Proactive Hospitality Shield:</strong> Floor management resolves dining dissatisfaction at the table before the bill is paid
                                 </div>
                             </li>
                             <li style="display: flex; align-items: flex-start; gap: 12px;">
                                 <i class="fa-solid fa-check" style="color: #d4af37; margin-top: 3px; font-size: 1rem; flex-shrink: 0;"></i>
                                 <div style="font-size: 0.92rem; line-height: 1.5; color: #cbd5e1;">
-                                    <strong style="color: #ffffff; font-weight: 700;">Flat Monthly Subscription:</strong> Zero hidden percentage transaction cuts
+                                    <strong style="color: #ffffff; font-weight: 700;">Dynamic Cloud Infrastructure:</strong> Zero reprint costs; update menus, tasting specials, and promotions in 1 click
                                 </div>
                             </li>
                         </ul>
@@ -439,7 +476,7 @@
                 </div>
 
                 <a href="#pricing" class="fx-unique__cta">
-                    <span>Ready to reclaim your diner margins?</span>
+                    <span>Ready to modernize your dining tables?</span>
                     <span class="fx-cta-link">Explore Subscription Packages <i class="fa-solid fa-arrow-right"></i></span>
                 </a>
             </div>
@@ -462,12 +499,13 @@
             </div>
             
             <div class="pricing-grid" style="display: flex; justify-content: center; gap: 30px; max-width: 1050px; margin: 40px auto 0; flex-wrap: wrap;">
-                <!-- Tier 1: Onyx Tabletop -->
-                <div class="pricing-card" style="flex: 1; min-width: 300px; max-width: 480px; border: 1px solid #1f2937; background: #0f172a; text-align: left; padding: 36px 30px; border-radius: 20px;">
+                <!-- Tier 1: Onyx Tabletop (Hero Package) -->
+                <div class="pricing-card featured" style="flex: 1; min-width: 300px; max-width: 480px; border: 2px solid #d4af37; background: #0b1120; text-align: left; padding: 36px 30px; border-radius: 20px; position: relative;">
+                    <span class="badge-featured" style="background: #d4af37; color: #000; font-weight: 800; font-size: 0.75rem; letter-spacing: 0.05em; padding: 4px 12px; border-radius: 20px; position: absolute; top: -12px; right: 24px;">MOST POPULAR</span>
                     <div>
                         <div class="pricing-header">
                             <h3 style="font-size: 1.5rem; color: #fff;">Onyx Tabletop</h3>
-                            <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 6px;">Digital Tabletop Assets, VIP Loyalty &amp; Service Operations</p>
+                            <p style="color: #cbd5e1; font-size: 0.9rem; margin-top: 6px;">Complete In-Store Tabletop Operations, VIP Loyalty &amp; Service Calling</p>
                         </div>
                         
                         <div class="pricing-price tier-price" id="tier1PriceDisplay" style="color: #ffffff; font-size: 2.8rem; margin: 20px 0 10px; font-weight: 800;">
@@ -478,46 +516,47 @@
                         </div>
 
                         <ul class="pricing-features" style="text-align: left; margin-bottom: 30px; list-style: none; padding: 0;">
-                            <li style="margin-bottom: 12px; color: #cbd5e1; font-size: 0.95rem;"><i class="fa-solid fa-circle-check" style="color: #d4af37; margin-right: 8px;"></i> <strong>Bespoke 100mm × 155mm Vector Print Assets</strong></li>
-                            <li style="margin-bottom: 12px; color: #cbd5e1; font-size: 0.95rem;"><i class="fa-solid fa-circle-check" style="color: #d4af37; margin-right: 8px;"></i> <strong>Real-Time Table Service Calling Protocol</strong></li>
-                            <li style="margin-bottom: 12px; color: #cbd5e1; font-size: 0.95rem;"><i class="fa-solid fa-circle-check" style="color: #d4af37; margin-right: 8px;"></i> <strong>Instant Staff WhatsApp Alert Gateway</strong></li>
-                            <li style="margin-bottom: 12px; color: #cbd5e1; font-size: 0.95rem;"><i class="fa-solid fa-circle-check" style="color: #d4af37; margin-right: 8px;"></i> <strong>VIP Guest Loyalty &amp; Birthday Capture</strong></li>
-                            <li style="margin-bottom: 12px; color: #cbd5e1; font-size: 0.95rem;"><i class="fa-solid fa-circle-check" style="color: #d4af37; margin-right: 8px;"></i> <strong>Sovereign Data Vault &amp; Export</strong></li>
-                            <li style="margin-bottom: 12px; color: #cbd5e1; font-size: 0.95rem;"><i class="fa-solid fa-circle-check" style="color: #d4af37; margin-right: 8px;"></i> <strong>Dynamic Cloud Routing Protocol</strong></li>
+                            <li style="margin-bottom: 12px; color: #cbd5e1; font-size: 0.95rem;"><i class="fa-solid fa-circle-check" style="color: #d4af37; margin-right: 8px;"></i> <strong>Bespoke 100mm × 155mm 300 DPI Vector Print Assets</strong></li>
+                            <li style="margin-bottom: 12px; color: #cbd5e1; font-size: 0.95rem;"><i class="fa-solid fa-circle-check" style="color: #d4af37; margin-right: 8px;"></i> <strong>Real-Time Table Service Calling (Water, Server, Bill)</strong></li>
+                            <li style="margin-bottom: 12px; color: #cbd5e1; font-size: 0.95rem;"><i class="fa-solid fa-circle-check" style="color: #d4af37; margin-right: 8px;"></i> <strong>Instant Floor WhatsApp Alert Gateway (&lt;3s speed)</strong></li>
+                            <li style="margin-bottom: 12px; color: #cbd5e1; font-size: 0.95rem;"><i class="fa-solid fa-circle-check" style="color: #d4af37; margin-right: 8px;"></i> <strong>VIP Guest Loyalty &amp; Birthday Capture Engine</strong></li>
+                            <li style="margin-bottom: 12px; color: #cbd5e1; font-size: 0.95rem;"><i class="fa-solid fa-circle-check" style="color: #d4af37; margin-right: 8px;"></i> <strong>Direct 5-Star Google Review Acceleration</strong></li>
+                            <li style="margin-bottom: 12px; color: #cbd5e1; font-size: 0.95rem;"><i class="fa-solid fa-circle-check" style="color: #d4af37; margin-right: 8px;"></i> <strong>Sovereign VIP Data Vault (100% Owned, 1-Click CSV Export)</strong></li>
+                            <li style="margin-bottom: 12px; color: #cbd5e1; font-size: 0.95rem;"><i class="fa-solid fa-circle-check" style="color: #d4af37; margin-right: 8px;"></i> <strong>Dynamic Cloud QR Routing &amp; Menu Architecture</strong></li>
+                            <li style="margin-bottom: 12px; color: #cbd5e1; font-size: 0.95rem;"><i class="fa-solid fa-circle-check" style="color: #d4af37; margin-right: 8px;"></i> <strong>7-Day Risk-Free In-Store Pilot</strong></li>
                         </ul>
                     </div>
-                    <button class="fx-btn-outline js-open-popup" style="width: 100%; padding: 14px; font-size: 1rem;">
-                        Start 7-Day Tabletop Trial
+                    <button class="fx-btn-grad js-open-popup" style="width: 100%; padding: 14px; font-size: 1rem;">
+                        Deploy 7-Day Tabletop Trial
                     </button>
                 </div>
 
-                <!-- Tier 2: Sovereign D2C Suite (Featured) -->
-                <div class="pricing-card featured" style="flex: 1; min-width: 300px; max-width: 480px; border: 2px solid #d4af37; background: #0b1120; text-align: left; padding: 36px 30px; border-radius: 20px; position: relative;">
-                    <span class="badge-featured" style="background: #d4af37; color: #000; font-weight: 800; font-size: 0.75rem; letter-spacing: 0.05em; padding: 4px 12px; border-radius: 20px; position: absolute; top: -12px; right: 24px;">FULL O2O PLATFORM</span>
+                <!-- Tier 2: Sovereign Enterprise -->
+                <div class="pricing-card" style="flex: 1; min-width: 300px; max-width: 480px; border: 1px solid #1f2937; background: #0f172a; text-align: left; padding: 36px 30px; border-radius: 20px;">
                     <div>
                         <div class="pricing-header">
-                            <h3 style="font-size: 1.5rem; color: #fff;">Sovereign D2C Suite</h3>
-                            <p style="color: #cbd5e1; font-size: 0.9rem; margin-top: 6px;">Tabletop Operations + Zero-Commission Direct Delivery Engine</p>
+                            <h3 style="font-size: 1.5rem; color: #fff;">Sovereign Enterprise</h3>
+                            <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 6px;">Multi-Station Floor Routing + Direct Takeaway Ordering Engine</p>
                         </div>
                         
                         <div class="pricing-price tier-price" id="tier2PriceDisplay" style="color: #ffffff; font-size: 2.8rem; margin: 20px 0 10px; font-weight: 800;">
                             ₹7,500<span style="font-size: 0.95rem; color: #94a3b8; font-weight: 400;">/month</span>
                         </div>
                         <div class="setup-fee" style="color: #10b981; font-weight: 700; font-size: 0.9rem; margin-bottom: 24px;">
-                            <i class="fa-solid fa-circle-check"></i> Replaces 30% Aggregator Commission
+                            <i class="fa-solid fa-circle-check"></i> Complete End-to-End Hospitality Infrastructure
                         </div>
 
                         <ul class="pricing-features" style="text-align: left; margin-bottom: 30px; list-style: none; padding: 0;">
                             <li style="margin-bottom: 12px; color: #ffffff; font-size: 0.95rem;"><i class="fa-solid fa-crown" style="color: #d4af37; margin-right: 8px;"></i> <strong>Everything in Onyx Tabletop Plan</strong></li>
-                            <li style="margin-bottom: 12px; color: #cbd5e1; font-size: 0.95rem;"><i class="fa-solid fa-circle-check" style="color: #d4af37; margin-right: 8px;"></i> <strong>Zero-Commission D2C Web-Menu</strong></li>
-                            <li style="margin-bottom: 12px; color: #cbd5e1; font-size: 0.95rem;"><i class="fa-solid fa-circle-check" style="color: #d4af37; margin-right: 8px;"></i> <strong>Direct Sovereign Settlement Gateway</strong></li>
-                            <li style="margin-bottom: 12px; color: #cbd5e1; font-size: 0.95rem;"><i class="fa-solid fa-circle-check" style="color: #d4af37; margin-right: 8px;"></i> <strong>Zero-Commission Delivery Fleet API</strong></li>
-                            <li style="margin-bottom: 12px; color: #cbd5e1; font-size: 0.95rem;"><i class="fa-solid fa-circle-check" style="color: #d4af37; margin-right: 8px;"></i> <strong>VIP Concierge Broadcast Engine</strong></li>
-                            <li style="margin-bottom: 12px; color: #cbd5e1; font-size: 0.95rem;"><i class="fa-solid fa-circle-check" style="color: #d4af37; margin-right: 8px;"></i> <strong>Dedicated Hospitality Solutions Engineer</strong></li>
+                            <li style="margin-bottom: 12px; color: #cbd5e1; font-size: 0.95rem;"><i class="fa-solid fa-circle-check" style="color: #d4af37; margin-right: 8px;"></i> <strong>Multi-Station Floor Routing (Bar, Kitchen, Manager)</strong></li>
+                            <li style="margin-bottom: 12px; color: #cbd5e1; font-size: 0.95rem;"><i class="fa-solid fa-circle-check" style="color: #d4af37; margin-right: 8px;"></i> <strong>Zero-Commission Direct Takeaway Web-Menu</strong></li>
+                            <li style="margin-bottom: 12px; color: #cbd5e1; font-size: 0.95rem;"><i class="fa-solid fa-circle-check" style="color: #d4af37; margin-right: 8px;"></i> <strong>Direct Sovereign Bank Payout Gateway</strong></li>
+                            <li style="margin-bottom: 12px; color: #cbd5e1; font-size: 0.95rem;"><i class="fa-solid fa-circle-check" style="color: #d4af37; margin-right: 8px;"></i> <strong>VIP Concierge WhatsApp Broadcast Engine</strong></li>
+                            <li style="margin-bottom: 12px; color: #cbd5e1; font-size: 0.95rem;"><i class="fa-solid fa-circle-check" style="color: #d4af37; margin-right: 8px;"></i> <strong>Priority Dedicated Hospitality Solutions Engineer</strong></li>
                         </ul>
                     </div>
-                    <button class="fx-btn-grad js-open-popup" style="width: 100%; padding: 14px; font-size: 1rem;">
-                        Deploy Sovereign Pilot
+                    <button class="fx-btn-outline js-open-popup" style="width: 100%; padding: 14px; font-size: 1rem;">
+                        Deploy Sovereign Enterprise
                     </button>
                 </div>
             </div>
@@ -529,7 +568,7 @@
         <div class="fx-wrap">
             <div class="fx-center">
                 <h2 class="fx-h2">Frequently Answered Truths</h2>
-                <p class="fx-sub">Everything you need to know about our digital tabletop assets, guest intelligence, and privacy compliance.</p>
+                <p class="fx-sub">Everything you need to know about our digital tabletop assets, guest intelligence, and floor service operations.</p>
             </div>
             
             <div class="fx-faq">
@@ -537,11 +576,11 @@
                 <details class="fx-qa" open>
                     <summary>
                         <i class="fa-solid fa-circle-question"></i>
-                        <span class="qa-label">How does tabletop QR technology streamline table service and guest loyalty?</span>
+                        <span class="qa-label">How does METRIX streamline table service and floor operations?</span>
                         <span class="qa-sign"></span>
                     </summary>
                     <div class="fx-qa__content">
-                        <p>When a guest scans the digital tabletop QR, they can join your venue's VIP loyalty club, order directly, or call table service (requesting water, calling staff, or requesting the bill). Instant notifications route to floor staff in under 3 seconds so requests are fulfilled immediately without waving hands. Guests also have transparent, direct access to public review platforms like Google Maps.</p>
+                        <p>When seated guests scan the dynamic QR on your table, they can request water, call table service, or ask for the bill with one tap. Floor management receives an instant WhatsApp alert in under 3 seconds specifying the exact table number and request. Guests also get seamless, direct access to leave Google Maps reviews or join your VIP rewards club.</p>
                     </div>
                 </details>
 
@@ -549,7 +588,7 @@
                 <details class="fx-qa">
                     <summary>
                         <i class="fa-solid fa-circle-question"></i>
-                        <span class="qa-label">Does the diner need to download an app?</span>
+                        <span class="qa-label">Does the diner need to download an app or register?</span>
                         <span class="qa-sign"></span>
                     </summary>
                     <div class="fx-qa__content">
@@ -561,11 +600,11 @@
                 <details class="fx-qa">
                     <summary>
                         <i class="fa-solid fa-circle-question"></i>
-                        <span class="qa-label">How does the 7-Day Free Trial work?</span>
+                        <span class="qa-label">How do floor teams receive table calls?</span>
                         <span class="qa-sign"></span>
                     </summary>
                     <div class="fx-qa__content">
-                        <p>We configure your custom branded guest portal and generate your bespoke 300 DPI Matte Black Tabletop Print Assets. You simply slide them into your existing tabletop holders, wooden blocks, or bill presenters during peak weekend service for 7 days completely free. If you are thrilled with the captured VIP phone numbers and streamlined tabletop operations, you continue at our flat subscription rate. If not, cancel with one click with zero questions asked.</p>
+                        <p>Service alerts are routed instantly to floor staff or management WhatsApp phones in real time. The notification displays the exact table number and the specific request (Water Refill, Server Call, or Check Request) so staff can respond in seconds without diners ever waving their hands.</p>
                     </div>
                 </details>
 
@@ -573,11 +612,11 @@
                 <details class="fx-qa">
                     <summary>
                         <i class="fa-solid fa-circle-question"></i>
-                        <span class="qa-label">Do you take a percentage cut of our direct delivery orders?</span>
+                        <span class="qa-label">How does the 7-Day Free Tabletop Pilot work?</span>
                         <span class="qa-sign"></span>
                     </summary>
                     <div class="fx-qa__content">
-                        <p>Never. Aggregators like Talabat, Deliveroo, Swiggy, and Zomato take 25% to 32% of your revenue. METRIX is pure software infrastructure. You pay a predictable, flat monthly subscription fee, and you keep 100% of your order revenue directly into your bank account.</p>
+                        <p>We configure your custom guest portal and email your bespoke 300 DPI Matte Black Tabletop Assets. You slide them into your existing tabletop holders, wooden blocks, or bill presenters during peak weekend service for 7 days completely free. If you are thrilled with the captured VIP phone numbers and streamlined table service, continue at our flat subscription rate. If not, cancel anytime with one click.</p>
                     </div>
                 </details>
 
@@ -600,7 +639,7 @@
     <section class="fx-section fx-contact-section" id="contact">
         <div class="fx-wrap">
             <h2 class="fx-ctaH">Equip Your Dining Tables with METRIX Today.</h2>
-            <p class="fx-sub">Elevate guest satisfaction and start capturing every walk-in diner before dinner service begins.</p>
+            <p class="fx-sub">Eliminate floor service friction and start capturing every walk-in diner before dinner service begins.</p>
             <div class="fx-hero__cta" style="margin-top: 28px;">
                 <button class="fx-btn-grad js-open-popup">
                     <i class="fa-solid fa-shield-halved"></i>
@@ -649,7 +688,7 @@
                     <label for="auditBusiness">Venue Name &amp; Neighborhood</label>
                     <div class="fx-input-wrapper">
                         <i class="fa-solid fa-utensils"></i>
-                        <input type="text" id="auditBusiness" placeholder="e.g. Cafe Noir (Assagao / Panjim / Jumeirah)" required>
+                        <input type="text" id="auditBusiness" placeholder="e.g. Cafe Noir (Jumeirah / Downtown / Panjim)" required>
                     </div>
                 </div>
 
@@ -657,7 +696,7 @@
                     <label for="auditPhone">WhatsApp Number (For Guest Service Alerts &amp; Setup)</label>
                     <div class="fx-input-wrapper">
                         <i class="fa-brands fa-whatsapp" style="color: #25d366;"></i>
-                        <input type="tel" id="auditPhone" placeholder="+91 98765 43210 / +971 50 123 4567" required>
+                        <input type="tel" id="auditPhone" placeholder="+971 50 123 4567 / +91 98765 43210" required>
                     </div>
                 </div>
 
@@ -672,8 +711,8 @@
                 <div class="fx-form-group">
                     <label for="auditLocation">City / Market</label>
                     <select id="auditLocation" style="width: 100%; padding: 12px; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: #fff;">
-                        <option value="India (Goa, Mumbai, Delhi, BLR)" selected>India (Goa, Mumbai, Delhi, BLR)</option>
-                        <option value="Dubai / UAE (GCC)">Dubai / UAE (GCC)</option>
+                        <option value="Dubai / UAE (GCC)" selected>Dubai / UAE (GCC)</option>
+                        <option value="India (Goa, Mumbai, Delhi, BLR)">India (Goa, Mumbai, Delhi, BLR)</option>
                         <option value="London / UK">London / UK</option>
                         <option value="Singapore / APAC">Singapore / APAC</option>
                         <option value="United States / Americas">United States / Americas</option>
