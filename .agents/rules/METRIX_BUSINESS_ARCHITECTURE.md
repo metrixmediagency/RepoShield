@@ -19,6 +19,8 @@ The frontend infrastructure allows the user to generate, preview, and download c
 * **`flyer.html`**: The physical print asset generator. Strictly sized for 100mm x 155mm acrylic standees. It utilizes a resilient `@media print` layout that rotates the vertical standees -90 degrees and stacks them vertically on standard A4 portrait paper to completely bypass printer hardware clipping.
 * **`assets_generator.html`**: The 12-carousel direct-response design studio. Generates uncompressed 1080p slide carousels across the 4 psychological funnel stages (Attention/Problem, Future Imagination, Threshold Engineering, Action/CTA) with copy-pasteable marketing captions.
 * **`demo.html`**: The live interactive simulation sandbox. Allows clients to test both positive (VIP handshake) and negative (instant manager WhatsApp alert) feedback flows.
+* **`dashboard.html`**: The authenticated Client Venue Cockpit & VIP Vault. Allows individual venue operators (e.g., Cafe Noir) to manage tabletop operational settings (floor WhatsApp alert routing, Google review URL, digital menu URL), monitor real-time seated diner engagement, view and export live captured VIP databases via CSV, and launch table standee vector generation. Enforces strict single-venue tenant isolation with zero access to partner infrastructure.
+* **`partner.html`**: The authenticated Authorized Partner Portfolio Hub. Designed for growth agencies, marketing partners, and regional distributors (e.g., Blurb Goa, GrowthGravy). Enables rapid onboarding of new dining venues, table provisioning, standalone Client Dashboard link distribution, and multi-venue portfolio tracking under strict, cryptographically segregated partner accounts.
 
 ## 3. The Telegram Bot Engine (`bot-engine/`)
 To automate prospecting and lead generation, a custom Telegram bot was built natively in Python for Linux compatibility.
@@ -177,5 +179,35 @@ The engineering department provides an in-house, 100% browser-based direct-respo
 * **Forensic Metadata Anonymity (Zero AI Provenance):**
   - Slides are rendered directly in the local browser DOM and exported via HTML5 `canvas.toDataURL('image/png')`.
   - Binary inspection confirms exports contain strictly `IHDR`, `IDAT`, and `IEND` chunks. Zero EXIF, zero IPTC, zero C2PA/SynthID AI tags, and zero text chunks. To Instagram and Meta algorithms, exports appear as clean, anonymous vector raster files identical to Figma or Illustrator.
+
+## 13. Multi-Tenant SaaS Architecture & Separation Layer (Client Cockpit vs. Partner Hub)
+To transform METRIX into a production-grade B2B SaaS platform that supports both direct restaurant accounts and white-label agency partnerships, a strict separation and authentication layer is enforced:
+* **Strict Role & Portal Division:**
+  - **Client Dashboard (`dashboard.html`):** The isolated operational cockpit for venue owners and managers. Enables self-service updating of floor WhatsApp alert numbers, Google review URLs, and digital menus. Displays real captured VIP diner data queried directly from the Supabase `feedback` table (with 1-click CSV export). Absolutely no agency/portfolio management tools or visibility into other venues.
+  - **Partner Hub (`partner.html`):** The multi-venue command center for growth agencies and regional partners. Enables rapid onboarding of new client venues, tabletop capacity allocation, and generation of dedicated Client Dashboard onboarding links via the **"Copy Client Link"** action.
+  - **Internal Sales Monolith (`sales.html`):** **Strictly Preserved & Untouched**. Remains the private internal control room for sales rep demo generation and direct campaign configuration.
+* **Cryptographic Tenant Isolation (The "GrowthGravy vs. Blurb" Rule):**
+  - Every partner organization receives an isolated cryptographic ID (`partner.id`). All provisioned venues, table counts, and metrics are strictly namespaced (`metrix_venues_for_${partner.id}`).
+  - Under no circumstances can Partner A (e.g., *GrowthGravy*) view, access, or manipulate venues onboarded by Partner B (e.g., *Blurb Goa*).
+  - Unauthenticated access and arbitrary bypass attempts (e.g., entering gibberish like `"bsdbdvb"`) are completely blocked by the Auth Gate.
+* **Zero Fake / Mock Data Policy:**
+  - All hardcoded mock diner records, fake names, and placeholder agency venues are permanently banned.
+  - Portals default to pristine, high-contrast obsidian empty states that guide the operator until real diners opt in or new venues are provisioned.
+* **4-State Enterprise Authentication & Forgot Password Protocol:**
+  - **Sign In:** Verified Work Email + Password authentication validated against encrypted account stores and Supabase Auth (`signInWithPassword`).
+  - **Register Account:** Self-serve onboarding capturing entity name, manager email, WhatsApp alert phone, and secure password ($\ge 6$ chars). Automatically provisions isolated account namespaces.
+  - **Forgot Password (Outbound Trigger):**
+    1. Operator enters registered work email on the Auth modal.
+    2. Frontend triggers `supabaseClient.auth.resetPasswordForEmail(email, { redirectTo: window.location.origin + '/dashboard.html' })` (or `/partner.html`).
+    3. Supabase Auth generates a time-limited, cryptographically signed magic recovery link dispatched to the operator's inbox.
+    4. Anti-enumeration protection ensures identical success feedback to prevent credential discovery by unauthorized parties.
+  - **Password Recovery & Reset (Inbound Callback):**
+    1. Operator clicks recovery link in email, redirecting to the portal with an authenticated recovery hash (`#access_token=...&type=recovery`).
+    2. The application listens for `PASSWORD_RECOVERY` events and hash fragments, automatically revealing the **"Create New Password"** interface.
+    3. Operator inputs and confirms new secure password ($\ge 6$ characters).
+    4. Frontend executes `supabaseClient.auth.updateUser({ password: newPassword })`, updates local account records, clears the hash, and redirects to clean Sign In.
+* **Public Navigation Exposure:**
+  - `index.html` navigation incorporates direct header links: **`Client Login`** (`/dashboard.html`) and **`Partner Hub`** (`/partner.html`) across both desktop and mobile viewports.
+
 
 

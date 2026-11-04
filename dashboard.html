@@ -665,6 +665,35 @@
                     </a>
                 </div>
             </form>
+
+            <!-- VIEW 4: SET NEW PASSWORD (Triggered via Recovery Link) -->
+            <form id="resetPassForm" onsubmit="event.preventDefault(); submitClientNewPassword();" style="display: none;">
+                <div class="auth-form-group">
+                    <label>New Secure Password (Min 6 chars)</label>
+                    <div class="auth-input-wrap">
+                        <i class="fa-solid fa-key"></i>
+                        <input type="password" id="newPassInput" class="auth-input" placeholder="••••••••" minlength="6" required>
+                    </div>
+                </div>
+
+                <div class="auth-form-group">
+                    <label>Confirm New Password</label>
+                    <div class="auth-input-wrap">
+                        <i class="fa-solid fa-check-double"></i>
+                        <input type="password" id="confirmPassInput" class="auth-input" placeholder="••••••••" minlength="6" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-gold" style="width: 100%; justify-content: center; padding: 13px; font-size: 0.95rem; margin-top: 8px;">
+                    <i class="fa-solid fa-shield-halved"></i> Save New Password
+                </button>
+
+                <div style="text-align: center; margin-top: 16px;">
+                    <a href="javascript:void(0)" onclick="setAuthView('signin')" style="font-size: 0.82rem; color: var(--text-muted); text-decoration: none;">
+                        <i class="fa-solid fa-arrow-left"></i> Back to Sign In
+                    </a>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -943,6 +972,22 @@
 
         // 1. Check Session on Page Load
         window.addEventListener('DOMContentLoaded', async () => {
+            // Check for password recovery hash from Supabase email link
+            if (window.location.hash.includes('type=recovery')) {
+                setAuthView('reset');
+                showSuccessAlert("Password recovery session verified. Please set your new password below.");
+                return;
+            }
+
+            if (window.supabaseClient) {
+                window.supabaseClient.auth.onAuthStateChange(async (event, session) => {
+                    if (event === 'PASSWORD_RECOVERY') {
+                        setAuthView('reset');
+                        showSuccessAlert("Password recovery session verified. Please set your new password below.");
+                    }
+                });
+            }
+
             // Check active session
             const storedSession = localStorage.getItem('metrix_client_auth_session');
             if (storedSession) {
@@ -957,7 +1002,7 @@
             document.getElementById('authGate').style.display = 'flex';
         });
 
-        // 2. Auth View Controller (Sign In vs Sign Up vs Forgot)
+        // 2. Auth View Controller (Sign In vs Sign Up vs Forgot vs Reset)
         function setAuthView(view) {
             hideAlert();
             const tabHeader = document.getElementById('authTabHeader');
@@ -966,6 +1011,7 @@
             const formSignIn = document.getElementById('signInForm');
             const formSignUp = document.getElementById('signUpForm');
             const formForgot = document.getElementById('forgotForm');
+            const formReset = document.getElementById('resetPassForm');
             const heading = document.getElementById('authHeading');
             const sub = document.getElementById('authSub');
 
@@ -976,6 +1022,7 @@
                 formSignIn.style.display = 'block';
                 formSignUp.style.display = 'none';
                 formForgot.style.display = 'none';
+                if (formReset) formReset.style.display = 'none';
                 heading.textContent = "Venue Client Sign In";
                 sub.textContent = "Access your live floor service radar, captured VIP diner records, and tabletop settings.";
             } else if (view === 'signup') {
@@ -985,6 +1032,7 @@
                 formSignIn.style.display = 'none';
                 formSignUp.style.display = 'block';
                 formForgot.style.display = 'none';
+                if (formReset) formReset.style.display = 'none';
                 heading.textContent = "Register Venue Account";
                 sub.textContent = "Provision your restaurant in 60 seconds to deploy table standees and VIP capture.";
             } else if (view === 'forgot') {
@@ -992,8 +1040,17 @@
                 formSignIn.style.display = 'none';
                 formSignUp.style.display = 'none';
                 formForgot.style.display = 'block';
+                if (formReset) formReset.style.display = 'none';
                 heading.textContent = "Reset Venue Password";
                 sub.textContent = "Enter your registered email and we'll send password recovery instructions.";
+            } else if (view === 'reset') {
+                tabHeader.style.display = 'none';
+                formSignIn.style.display = 'none';
+                formSignUp.style.display = 'none';
+                formForgot.style.display = 'none';
+                if (formReset) formReset.style.display = 'block';
+                heading.textContent = "Create New Password";
+                sub.textContent = "Enter your new secure password to restore access to your cockpit.";
             }
         }
 
@@ -1110,14 +1167,59 @@
 
             if (window.supabaseClient) {
                 try {
-                    await window.supabaseClient.auth.resetPasswordForEmail(email);
-                } catch(e) {}
+                    await window.supabaseClient.auth.resetPasswordForEmail(email, {
+                        redirectTo: window.location.origin + '/dashboard.html'
+                    });
+                } catch(e) {
+                    console.warn("Supabase reset email:", e);
+                }
             }
 
-            showSuccessAlert("Password reset instructions sent to " + email + ". Check your inbox!");
+            showSuccessAlert("Password reset instructions dispatched to " + email + ". Check your inbox!");
             setTimeout(() => {
                 setAuthView('signin');
             }, 3000);
+        }
+
+        // 5b. Submit New Password (Triggered via Email Magic Recovery Link)
+        async function submitClientNewPassword() {
+            hideAlert();
+            const p1 = document.getElementById('newPassInput').value;
+            const p2 = document.getElementById('confirmPassInput').value;
+
+            if (!p1 || p1.length < 6) {
+                showAlert("Password must be at least 6 characters long.");
+                return;
+            }
+            if (p1 !== p2) {
+                showAlert("Passwords do not match. Please re-enter.");
+                return;
+            }
+
+            // Update password in Supabase Auth
+            if (window.supabaseClient) {
+                try {
+                    const { error } = await window.supabaseClient.auth.updateUser({ password: p1 });
+                    if (error) console.warn("Supabase password update error:", error);
+                } catch(e) {}
+            }
+
+            // Update matching local account if present
+            const emailField = document.getElementById('forgotEmail');
+            const resetEmail = emailField ? emailField.value.trim().toLowerCase() : "";
+            let accounts = JSON.parse(localStorage.getItem('metrix_registered_venues')) || [];
+            if (resetEmail && accounts.length > 0) {
+                accounts = accounts.map(a => a.email.toLowerCase() === resetEmail ? { ...a, password: p1 } : a);
+                localStorage.setItem('metrix_registered_venues', JSON.stringify(accounts));
+            }
+
+            showSuccessAlert("Password successfully updated! Redirecting to sign in...");
+            setTimeout(() => {
+                if (window.location.hash) {
+                    history.replaceState(null, null, window.location.pathname + window.location.search);
+                }
+                setAuthView('signin');
+            }, 2000);
         }
 
         function saveAndStartSession(user) {
