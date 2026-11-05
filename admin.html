@@ -3,787 +3,1386 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>God-Mode Operations - MetrixMedia</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
+    <title>METRIX // Master Operations Console (God-Mode HQ)</title>
+    <link rel="icon" type="image/jpeg" href="/metrix_logo.jpg">
+    <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="generator.css?v=2.4">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Supabase JS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase_config.js"></script>
     <style>
-        .table-responsive {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
+        :root {
+            --bg-void: #070a0f;
+            --bg-card: #0d131f;
+            --bg-surface: #111a2c;
+            --border: rgba(212, 175, 55, 0.22);
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --gold-primary: #d4af37;
+            --gold-gradient: linear-gradient(135deg, #fce588 0%, #d4af37 50%, #997300 100%);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --green: #10b981;
+            --blue: #38bdf8;
+            --amber: #f59e0b;
+            --red: #ef4444;
+            --font-head: 'Outfit', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--bg-void);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* ----------------------------------------------------
+           MASTER GOD-MODE PASSKEY GATE OVERLAY
+           ---------------------------------------------------- */
+        .admin-gate-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(7, 10, 15, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .gate-card {
+            background: #0d131f;
+            border: 1.5px solid var(--border);
+            border-radius: 20px;
+            max-width: 440px;
+            width: 100%;
+            padding: 36px 30px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 40px rgba(212, 175, 55, 0.15);
+            text-align: center;
+        }
+        .gate-logo {
+            width: 56px;
+            height: 56px;
+            margin: 0 auto 16px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1.5px solid var(--gold-primary);
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.35);
+        }
+        .gate-logo img { width: 100%; height: 100%; object-fit: cover; }
+        .gate-title { font-family: var(--font-head); font-size: 1.4rem; color: #fff; margin-bottom: 6px; }
+        .gate-sub { color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin-bottom: 24px; }
+        .gate-input-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .gate-input-wrap i {
+            position: absolute;
+            left: 14px;
+            color: var(--gold-primary);
+            font-size: 0.95rem;
+        }
+        .gate-input {
+            width: 100%;
+            background: #080c14;
+            border: 1px solid var(--border-subtle);
+            border-radius: 10px;
+            padding: 13px 14px 13px 44px;
+            color: #fff;
+            font-size: 0.95rem;
+            letter-spacing: 2px;
+            font-family: var(--font-mono);
+            transition: all 0.2s;
+        }
+        .gate-input:focus {
+            outline: none;
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+        }
+        .gate-btn {
+            width: 100%;
+            background: var(--gold-gradient);
+            color: #070a0f;
+            border: none;
+            padding: 13px;
+            font-size: 0.95rem;
+            font-weight: 800;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+            transition: all 0.2s;
+        }
+        .gate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(212, 175, 55, 0.45);
+        }
+        .gate-error {
+            color: var(--red);
+            font-size: 0.82rem;
+            margin-top: 12px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        /* ----------------------------------------------------
+           TOP HEADER & NAVIGATION
+           ---------------------------------------------------- */
+        .ops-header {
+            background: rgba(13, 19, 31, 0.95);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .ops-brand { display: flex; align-items: center; gap: 14px; }
+        .ops-logo-box {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1.5px solid var(--gold-primary);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+        }
+        .ops-logo-box img { width: 100%; height: 100%; object-fit: cover; }
+        .ops-title-group h1 {
+            font-family: var(--font-head);
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .god-badge {
+            background: rgba(212, 175, 55, 0.15);
+            border: 1px solid var(--gold-primary);
+            color: var(--gold-primary);
+            font-size: 0.72rem;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .ops-status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            background: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            padding: 4px 12px;
+            border-radius: 999px;
+        }
+        .ops-actions { display: flex; align-items: center; gap: 12px; }
+
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-muted);
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .btn-outline:hover {
+            color: #fff;
+            border-color: var(--gold-primary);
+            background: rgba(212, 175, 55, 0.08);
+        }
+        .btn-gold-sm {
+            background: var(--gold-gradient);
+            color: #070a0f;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .btn-gold-sm:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35);
+        }
+
+        /* ----------------------------------------------------
+           METRIC BAR / SYSTEM OVERVIEW
+           ---------------------------------------------------- */
+        .metric-bar {
+            background: #090e17;
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 16px 28px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 16px;
+        }
+        .metric-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .metric-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+        .metric-val {
+            font-family: var(--font-head);
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #fff;
+            line-height: 1.1;
+        }
+        .metric-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 4px;
+        }
+
+        /* ----------------------------------------------------
+           NAVIGATION TABS
+           ---------------------------------------------------- */
+        .ops-nav {
+            background: #090e17;
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 0 28px;
+            display: flex;
+            gap: 8px;
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-family: var(--font-head);
+            font-size: 0.95rem;
+            font-weight: 700;
+            padding: 16px 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+        .tab-btn:hover { color: #fff; }
+        .tab-btn.active { color: var(--gold-primary); }
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2.5px;
+            background: var(--gold-gradient);
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.5);
+        }
+
+        /* ----------------------------------------------------
+           MAIN CONTENT AREA
+           ---------------------------------------------------- */
+        .ops-content {
+            flex: 1;
+            padding: 28px;
+            max-width: 1400px;
+            margin: 0 auto;
             width: 100%;
         }
-        .data-table {
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .panel-title h2 { font-family: var(--font-head); font-size: 1.4rem; color: #fff; margin-bottom: 4px; }
+        .panel-title p { color: var(--text-muted); font-size: 0.85rem; }
+
+        .search-box {
+            position: relative;
+            display: flex;
+            align-items: center;
+            min-width: 280px;
+        }
+        .search-box i {
+            position: absolute;
+            left: 14px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        .search-input {
+            width: 100%;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 10px 14px 10px 38px;
+            color: #fff;
+            font-size: 0.88rem;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: var(--gold-primary);
+        }
+
+        /* ----------------------------------------------------
+           DATA TABLES & CARDS
+           ---------------------------------------------------- */
+        .data-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            margin-bottom: 24px;
+        }
+        .table-wrap { overflow-x: auto; width: 100%; }
+        table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 700px; /* Forces horizontal scroll on mobile */
-        }
-        .data-table th, .data-table td {
-            padding: 1rem;
             text-align: left;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            color: white;
         }
-        .data-table th {
-            color: #94a3b8;
-            font-weight: 500;
+        th {
+            background: #090e17;
+            padding: 14px 18px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        td {
+            padding: 16px 18px;
+            font-size: 0.9rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            color: #e2e8f0;
+            vertical-align: middle;
+        }
+        tr:hover td { background: rgba(255, 255, 255, 0.02); }
+
+        .action-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .btn-impersonate {
+            background: rgba(212, 175, 55, 0.15);
+            border: 1px solid var(--gold-primary);
+            color: var(--gold-primary);
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .btn-impersonate:hover {
+            background: var(--gold-primary);
+            color: #070a0f;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+        }
+        .btn-action-icon {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-muted);
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-action-icon:hover {
+            color: #fff;
+            border-color: var(--gold-primary);
+        }
+
+        /* ----------------------------------------------------
+           MODALS (OVERRIDE & PROVISIONING)
+           ---------------------------------------------------- */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(7, 10, 15, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-card {
+            background: #0d131f;
+            border: 1.5px solid var(--border);
+            border-radius: 16px;
+            max-width: 520px;
+            width: 100%;
+            padding: 28px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-subtle);
+            padding-bottom: 14px;
+        }
+        .modal-header h3 { font-family: var(--font-head); font-size: 1.25rem; color: #fff; }
+        .modal-close {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        .modal-close:hover { color: #fff; }
+
+        .form-group { margin-bottom: 18px; }
+        .form-group label {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        .form-input-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .form-input-wrap i {
+            position: absolute;
+            left: 14px;
+            color: var(--gold-primary);
             font-size: 0.9rem;
         }
-        .data-table tbody tr:hover {
-            background: rgba(255, 255, 255, 0.02);
+        .form-control {
+            width: 100%;
+            background: #080c14;
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 11px 14px 11px 40px;
+            color: #fff;
+            font-size: 0.9rem;
+        }
+        .form-control:focus { outline: none; border-color: var(--gold-primary); }
+
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #10b981;
+            color: #070a0f;
+            font-weight: 800;
+            font-size: 0.9rem;
+            padding: 12px 24px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            display: none;
+            align-items: center;
+            gap: 10px;
+            z-index: 20000;
         }
     </style>
 </head>
 <body>
-    <div class="glow-bg-1"></div>
-    <div class="glow-bg-2"></div>
 
-    <!-- Mobile Header Top Bar -->
-    <header class="mobile-header">
-        <div class="brand">
-            <div class="brand-icon">
-                <i class="fa-solid fa-crown"></i>
+    <!-- 0. MASTER GOD-MODE PASSKEY GATE -->
+    <div class="admin-gate-overlay" id="adminGate">
+        <div class="gate-card">
+            <div class="gate-logo">
+                <img src="/metrix_logo.jpg" alt="METRIX Crest">
             </div>
-            <div class="brand-text">
-                <h1>MetrixMedia</h1>
-                <span>God-Mode HQ</span>
+            <div style="color: var(--gold-primary); font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">
+                RESTRICTED SOVEREIGN INFRASTRUCTURE
             </div>
-        </div>
-        <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
-            <i class="fa-solid fa-bars"></i>
-        </button>
-    </header>
+            <h2 class="gate-title">Master Operations Console</h2>
+            <p class="gate-sub">Enter the Founder God-Mode Passkey to access client impersonation, partner controls, and emergency routing overrides.</p>
 
-    <div class="dashboard-container">
-        <!-- Sidebar Navigation Overlay -->
-        <div class="sidebar-overlay" id="sidebar-overlay"></div>
-
-        <!-- Sidebar Navigation -->
-        <aside class="sidebar" id="sidebar">
-            <div class="brand">
-                <div class="brand-icon">
-                    <i class="fa-solid fa-crown" style="color: #fbbf24;"></i>
+            <form onsubmit="event.preventDefault(); verifyGodModePass();">
+                <div class="gate-input-wrap">
+                    <i class="fa-solid fa-key"></i>
+                    <input type="password" id="godPassInput" class="gate-input" placeholder="••••••••" required autofocus>
                 </div>
-                <div class="brand-text">
-                    <h1>MetrixMedia</h1>
-                    <span>God-Mode HQ</span>
-                </div>
-                <button class="sidebar-close" id="sidebar-close" aria-label="Close menu">
-                    <i class="fa-solid fa-xmark"></i>
+                <button type="submit" class="gate-btn">
+                    <i class="fa-solid fa-unlock"></i> Unlock Master Console
                 </button>
-            </div>
-            
-            <nav class="nav-menu">
-                <a href="#" class="nav-item active" data-tab="analytics">
-                    <i class="fa-solid fa-chart-line"></i> Global Analytics
-                </a>
-                <a href="#" class="nav-item" data-tab="fulfillment">
-                    <i class="fa-solid fa-boxes-packing"></i> Fulfillment Pipeline
-                </a>
-                <a href="#" class="nav-item" data-tab="revenue">
-                    <i class="fa-solid fa-sack-dollar"></i> Revenue Engine
-                </a>
-                <a href="#" class="nav-item" data-tab="team">
-                    <i class="fa-solid fa-users-gear"></i> Team Management
-                </a>
-                <a href="#" class="nav-item" data-tab="database">
-                    <i class="fa-solid fa-database"></i> Client Database
-                </a>
-            </nav>
-
-            <div class="partner-card">
-                <div class="partner-avatar">
-                    <i class="fa-solid fa-user-secret"></i>
+                <div class="gate-error" id="gateError">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <span>Invalid Passkey. Access Denied.</span>
                 </div>
-                <div class="partner-info">
-                    <h4>Sunny (Founder)</h4>
-                    <p style="color: #fbbf24;"><i class="fa-solid fa-key"></i> God-Mode Active</p>
-                </div>
-            </div>
-        </aside>
-
-        <!-- Main Dashboard Content -->
-        <main class="main-content">
-            <!-- Header -->
-            <header class="content-header">
-                <div class="header-title">
-                    <h2 id="tab-title">Global Analytics</h2>
-                    <p id="tab-subtitle">High-level overview of the entire agency's performance, live revenue tracking, and global scan metrics.</p>
-                </div>
-                <div class="stats-badge" style="background: rgba(251, 191, 36, 0.1); border-color: rgba(251, 191, 36, 0.3); color: #fbbf24;">
-                    <i class="fa-solid fa-bolt"></i>
-                    <span>System Online</span>
-                </div>
-            </header>
-
-            <!-- Tab 1: Global Analytics -->
-            <section id="tab-analytics-content" class="tab-content active">
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
-                    <!-- KPI Cards -->
-                    <div class="glass-card" style="padding: 1.5rem;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                            <h4 style="color: var(--text-muted); font-size: 0.9rem; font-weight: 500;">Monthly Recurring Rev</h4>
-                            <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(52, 211, 153, 0.1); display: flex; align-items: center; justify-content: center; color: #34d399;">
-                                <i class="fa-solid fa-indian-rupee-sign"></i>
-                            </div>
-                        </div>
-                        <h2 id="kpi-mrr" style="font-size: 2rem; margin: 0; color: white;">₹0</h2>
-                        <p style="color: #34d399; font-size: 0.8rem; margin-top: 0.5rem;"><i class="fa-solid fa-arrow-trend-up"></i> Dynamic MRR</p>
-                    </div>
-
-                    <div class="glass-card" style="padding: 1.5rem;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                            <h4 style="color: var(--text-muted); font-size: 0.9rem; font-weight: 500;">Active Clients</h4>
-                            <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(14, 165, 233, 0.1); display: flex; align-items: center; justify-content: center; color: #0ea5e9;">
-                                <i class="fa-solid fa-building"></i>
-                            </div>
-                        </div>
-                        <h2 id="kpi-clients" style="font-size: 2rem; margin: 0; color: white;">0</h2>
-                        <p style="color: #0ea5e9; font-size: 0.8rem; margin-top: 0.5rem;"><i class="fa-solid fa-user-plus"></i> Generated Portals</p>
-                    </div>
-
-                    <div class="glass-card" style="padding: 1.5rem;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                            <h4 style="color: var(--text-muted); font-size: 0.9rem; font-weight: 500;">Total Global Scans</h4>
-                            <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(139, 92, 246, 0.1); display: flex; align-items: center; justify-content: center; color: #8b5cf6;">
-                                <i class="fa-solid fa-qrcode"></i>
-                            </div>
-                        </div>
-                        <h2 id="kpi-scans" style="font-size: 2rem; margin: 0; color: white;">0</h2>
-                        <p style="color: #8b5cf6; font-size: 0.8rem; margin-top: 0.5rem;"><i class="fa-solid fa-bolt"></i> Simulated Traffic</p>
-                    </div>
-
-                    <div class="glass-card" style="padding: 1.5rem;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                            <h4 style="color: var(--text-muted); font-size: 0.9rem; font-weight: 500;">Service Alerts</h4>
-                            <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(239, 68, 68, 0.1); display: flex; align-items: center; justify-content: center; color: #ef4444;">
-                                <i class="fa-solid fa-shield-halved"></i>
-                            </div>
-                        </div>
-                        <h2 id="kpi-alerts" style="font-size: 2rem; margin: 0; color: white;">0</h2>
-                        <p style="color: #ef4444; font-size: 0.8rem; margin-top: 0.5rem;"><i class="fa-solid fa-bell"></i> Table alerts resolved</p>
-                    </div>
-                </div>
-
-                <div class="grid-layout" style="grid-template-columns: 2fr 1fr;">
-                    <!-- Chart Area -->
-                    <div class="glass-card" style="padding: 1.5rem;">
-                        <h3 style="margin-bottom: 1.5rem; color: white; font-size: 1.1rem;"><i class="fa-solid fa-chart-area text-indigo"></i> MRR Growth Trajectory</h3>
-                        <div style="position: relative; height: 300px; width: 100%;">
-                            <canvas id="mrrChart"></canvas>
-                        </div>
-                    </div>
-
-                    <!-- Live Sales Feed -->
-                    <div class="glass-card" style="padding: 1.5rem; display: flex; flex-direction: column;">
-                        <h3 style="margin-bottom: 1.5rem; color: white; font-size: 1.1rem;"><i class="fa-solid fa-satellite-dish text-emerald"></i> Live Sales Feed</h3>
-                        <div id="live-feed-container" style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem; padding-right: 0.5rem;">
-                            <!-- Populated dynamically by JS -->
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Tab 2: Fulfillment Pipeline -->
-            <section id="tab-fulfillment-content" class="tab-content">
-                <div class="glass-card">
-                    <div class="card-header" style="justify-content: space-between;">
-                        <div style="display: flex; align-items: center; gap: 0.75rem;">
-                            <i class="fa-solid fa-boxes-packing text-indigo"></i>
-                            <h3>Digital Asset Generation Board</h3>
-                        </div>
-                        <button class="btn btn-primary btn-sm"><i class="fa-solid fa-download"></i> Export Client Manifest</button>
-                    </div>
-                    
-                    <div class="table-responsive">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Client Name</th>
-                                    <th>Agent</th>
-                                    <th>Asset Qty</th>
-                                    <th>Design Variant</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="fulfillment-table-body">
-                                <!-- Populated dynamically by JS -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Tab 3: Revenue Engine -->
-            <section id="tab-revenue-content" class="tab-content">
-                <div class="glass-card">
-                    <div class="card-header">
-                        <i class="fa-solid fa-sack-dollar text-emerald"></i>
-                        <h3>Subscription Management (Stripe/Razorpay)</h3>
-                    </div>
-                    
-                    <div class="table-responsive">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Client Name</th>
-                                    <th>Plan</th>
-                                    <th>MRR</th>
-                                    <th>Billing Cycle</th>
-                                    <th>Next Charge</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody id="revenue-table-body">
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Tab 4: Team Management -->
-            <section id="tab-team-content" class="tab-content">
-                <div class="glass-card">
-                    <div class="card-header" style="justify-content: space-between;">
-                        <div style="display: flex; align-items: center; gap: 0.75rem;">
-                            <i class="fa-solid fa-users-gear text-indigo"></i>
-                            <h3>Sales Partner Roster (104 Active)</h3>
-                        </div>
-                        <button class="btn btn-primary btn-sm" id="btn-open-invite"><i class="fa-solid fa-user-plus"></i> Invite Agent</button>
-                    </div>
-                    
-                    <div class="table-responsive">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Agent Name</th>
-                                    <th>Active Clients Closed</th>
-                                    <th>MRR Brought In</th>
-                                    <th>Pending Commission</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="agent-table-body">
-                                <!-- Populated dynamically by JS -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- Invite Agent Modal -->
-                <div id="invite-agent-modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(5px);">
-                    <div class="glass-card" style="width: 100%; max-width: 400px; padding: 2rem;">
-                        <h3 style="margin-bottom: 1.5rem; color: white;">Create Salesman ID</h3>
-                        <form id="invite-agent-form">
-                            <div style="margin-bottom: 1rem;">
-                                <label style="display: block; color: #94a3b8; margin-bottom: 0.5rem; font-size: 0.9rem;">Full Name</label>
-                                <input type="text" id="new-agent-name" required style="width: 100%; padding: 0.75rem; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: white;">
-                            </div>
-                            <div style="margin-bottom: 1rem;">
-                                <label style="display: block; color: #94a3b8; margin-bottom: 0.5rem; font-size: 0.9rem;">Username</label>
-                                <input type="text" id="new-agent-username" required style="width: 100%; padding: 0.75rem; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: white;">
-                            </div>
-                            <div style="margin-bottom: 1.5rem;">
-                                <label style="display: block; color: #94a3b8; margin-bottom: 0.5rem; font-size: 0.9rem;">Password</label>
-                                <input type="text" id="new-agent-password" required style="width: 100%; padding: 0.75rem; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: white;">
-                            </div>
-                            <div style="display: flex; gap: 1rem;">
-                                <button type="button" id="btn-cancel-invite" class="btn btn-secondary" style="flex: 1; justify-content: center;">Cancel</button>
-                                <button type="submit" class="btn btn-primary" style="flex: 1; justify-content: center;">Create ID</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Tab 5: Client Database -->
-            <section id="tab-database-content" class="tab-content">
-                <div class="glass-card">
-                    <div class="card-header" style="justify-content: space-between;">
-                        <div style="display: flex; align-items: center; gap: 0.75rem;">
-                            <i class="fa-solid fa-database text-indigo"></i>
-                            <h3>Master Client CRM</h3>
-                        </div>
-                        <div style="position: relative; width: 300px;">
-                            <i class="fa-solid fa-search" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-muted);"></i>
-                            <input type="text" placeholder="Search businesses..." style="width: 100%; padding: 0.5rem 1rem 0.5rem 2.5rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: white; font-family: inherit;">
-                        </div>
-                    </div>
-                    
-                    <div class="table-responsive">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Business Name</th>
-                                    <th>Niche</th>
-                                    <th>Contact Email</th>
-                                    <th>Portal Link</th>
-                                    <th>Onboarding Date</th>
-                                </tr>
-                            </thead>
-                            <tbody id="client-table-body">
-                                <!-- Populated dynamically by JS -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-        </main>
+            </form>
+        </div>
     </div>
 
+    <!-- 1. TOP HEADER -->
+    <header class="ops-header">
+        <div class="ops-brand">
+            <div class="ops-logo-box">
+                <img src="/metrix_logo.jpg" alt="METRIX Crest">
+            </div>
+            <div class="ops-title-group">
+                <h1>METRIX <span class="god-badge">God-Mode Operations</span></h1>
+                <div style="display: flex; align-items: center; gap: 8px; margin-top: 3px;">
+                    <span class="ops-status-pill"><i class="fa-solid fa-shield-halved"></i> Master Console Active</span>
+                    <span style="font-size: 0.75rem; color: var(--text-muted);">Founder: Sunny Gurav</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="ops-actions">
+            <a href="/flyer.html" target="_blank" class="btn-outline" title="Standee Print Studio">
+                <i class="fa-solid fa-print"></i> Standees
+            </a>
+            <a href="/portal.html?name=Cafe+Noir" target="_blank" class="btn-outline" title="Live Diner Experience">
+                <i class="fa-solid fa-mobile-screen"></i> Diner Demo
+            </a>
+            <button class="btn-outline" onclick="lockConsole()" style="color: #ef4444;" title="Lock Master Console">
+                <i class="fa-solid fa-lock"></i> Lock
+            </button>
+        </div>
+    </header>
+
+    <!-- 2. SYSTEM METRIC BAR -->
+    <div class="metric-bar">
+        <div class="metric-card">
+            <div class="metric-icon" style="background: rgba(212, 175, 55, 0.15); color: var(--gold-primary);">
+                <i class="fa-solid fa-store"></i>
+            </div>
+            <div>
+                <div class="metric-val" id="metricVenuesCount">0</div>
+                <div class="metric-label">Active Venues</div>
+            </div>
+        </div>
+
+        <div class="metric-card">
+            <div class="metric-icon" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8;">
+                <i class="fa-solid fa-handshake"></i>
+            </div>
+            <div>
+                <div class="metric-val" id="metricPartnersCount">0</div>
+                <div class="metric-label">Growth Partners</div>
+            </div>
+        </div>
+
+        <div class="metric-card">
+            <div class="metric-icon" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">
+                <i class="fa-solid fa-users"></i>
+            </div>
+            <div>
+                <div class="metric-val" id="metricDinersCount" style="color: #10b981;">0</div>
+                <div class="metric-label">Network VIP Diners</div>
+            </div>
+        </div>
+
+        <div class="metric-card">
+            <div class="metric-icon" style="background: rgba(168, 85, 247, 0.15); color: #a855f7;">
+                <i class="fa-solid fa-bolt"></i>
+            </div>
+            <div>
+                <div class="metric-val" style="color: #a855f7;">&lt;3s</div>
+                <div class="metric-label">Service Alert Speed</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. NAVIGATION TABS -->
+    <nav class="ops-nav">
+        <button class="tab-btn active" onclick="switchOpsTab('venues')">
+            <i class="fa-solid fa-store"></i> Client Venues Support
+        </button>
+        <button class="tab-btn" onclick="switchOpsTab('partners')">
+            <i class="fa-solid fa-handshake"></i> Partner Portfolios
+        </button>
+        <button class="tab-btn" onclick="switchOpsTab('telemetry')">
+            <i class="fa-solid fa-database"></i> Global Diner Telemetry (Supabase)
+        </button>
+    </nav>
+
+    <!-- 4. MAIN CONTENT AREA -->
+    <main class="ops-content">
+
+        <!-- ==============================================
+             TAB 1: CLIENT VENUES SUPPORT
+             ============================================== -->
+        <section class="tab-panel active" id="tab-venues">
+            <div class="panel-header">
+                <div class="panel-title">
+                    <h2>Client Venue Support &amp; Impersonation</h2>
+                    <p>Live registry of all restaurant clients. Launch cockpits with 1-click support impersonation or override floor settings.</p>
+                </div>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <div class="search-box">
+                        <i class="fa-solid fa-search"></i>
+                        <input type="text" id="venueSearch" class="search-input" placeholder="Search venue by name..." onkeyup="filterVenueTable()">
+                    </div>
+                    <button class="btn-gold-sm" onclick="openNewVenueModal()">
+                        <i class="fa-solid fa-plus"></i> Add Venue
+                    </button>
+                </div>
+            </div>
+
+            <div class="data-card">
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Venue Trade Name</th>
+                                <th>Manager Email</th>
+                                <th>Floor WhatsApp Alert</th>
+                                <th>Onboarded</th>
+                                <th>Support Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="venueTableBody">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+                <div id="venueEmptyState" style="display: none; padding: 40px; text-align: center;">
+                    <i class="fa-solid fa-store-slash" style="font-size: 2.5rem; color: var(--text-muted); margin-bottom: 12px;"></i>
+                    <h3 style="color: #fff; margin-bottom: 6px;">No Venues Registered Yet</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Venues registered via dashboard or partners will appear here automatically.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==============================================
+             TAB 2: PARTNER PORTFOLIOS
+             ============================================== -->
+        <section class="tab-panel" id="tab-partners">
+            <div class="panel-header">
+                <div class="panel-title">
+                    <h2>Authorized Partner Portfolio Hub</h2>
+                    <p>Manage growth marketing agencies (e.g. Blurb Goa, GrowthGravy). Launch partner workspaces or provision client links.</p>
+                </div>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <div class="search-box">
+                        <i class="fa-solid fa-search"></i>
+                        <input type="text" id="partnerSearch" class="search-input" placeholder="Search partner agency..." onkeyup="filterPartnerTable()">
+                    </div>
+                    <button class="btn-gold-sm" onclick="openNewPartnerModal()">
+                        <i class="fa-solid fa-plus"></i> Add Partner Org
+                    </button>
+                </div>
+            </div>
+
+            <div class="data-card">
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Partner Organization</th>
+                                <th>Work Email</th>
+                                <th>Contact WhatsApp</th>
+                                <th>Managed Venues</th>
+                                <th>Support Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="partnerTableBody">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+                <div id="partnerEmptyState" style="display: none; padding: 40px; text-align: center;">
+                    <i class="fa-solid fa-handshake-slash" style="font-size: 2.5rem; color: var(--text-muted); margin-bottom: 12px;"></i>
+                    <h3 style="color: #fff; margin-bottom: 6px;">No Partner Accounts Provisioned</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Click "Add Partner Org" to authorize an agency partner.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==============================================
+             TAB 3: GLOBAL DINER TELEMETRY (SUPABASE)
+             ============================================== -->
+        <section class="tab-panel" id="tab-telemetry">
+            <div class="panel-header">
+                <div class="panel-title">
+                    <h2>Live VIP Guest Telemetry (Supabase)</h2>
+                    <p>Live stream of all captured seated diner interactions, VIP club opt-ins, and floor feedback across the entire METRIX network.</p>
+                </div>
+                <div>
+                    <button class="btn-gold-sm" onclick="exportMasterCSV()">
+                        <i class="fa-solid fa-download"></i> Export Network CSV
+                    </button>
+                </div>
+            </div>
+
+            <div class="data-card">
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Guest Name</th>
+                                <th>WhatsApp Number</th>
+                                <th>Birthday</th>
+                                <th>Venue</th>
+                                <th>Rating</th>
+                                <th>Privilege Status</th>
+                                <th>Timestamp</th>
+                            </tr>
+                        </thead>
+                        <tbody id="telemetryTableBody">
+                            <!-- Populated dynamically from Supabase -->
+                        </tbody>
+                    </table>
+                </div>
+                <div id="telemetryEmptyState" style="display: none; padding: 40px; text-align: center;">
+                    <i class="fa-solid fa-bell-concierge" style="font-size: 2.5rem; color: var(--text-muted); margin-bottom: 12px;"></i>
+                    <h3 style="color: #fff; margin-bottom: 6px;">Telemetry Standing By</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">As guests scan standees across all venues, live records will stream here.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 5. EMERGENCY SETTINGS OVERRIDE MODAL -->
+    <div class="modal-overlay" id="overrideModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="overrideModalTitle">Emergency Floor Settings Override</h3>
+                <button class="modal-close" onclick="closeModal('overrideModal')">&times;</button>
+            </div>
+
+            <input type="hidden" id="overrideVenueId">
+
+            <div class="form-group">
+                <label>Venue Display Name</label>
+                <div class="form-input-wrap">
+                    <i class="fa-solid fa-store"></i>
+                    <input type="text" id="overrideBizName" class="form-control" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Floor WhatsApp Alert Number</label>
+                <div class="form-input-wrap">
+                    <i class="fa-brands fa-whatsapp" style="color: #25d366;"></i>
+                    <input type="tel" id="overrideWhatsapp" class="form-control" placeholder="+971 50 123 4567" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Google Maps Review URL</label>
+                <div class="form-input-wrap">
+                    <i class="fa-brands fa-google" style="color: #ea4335;"></i>
+                    <input type="url" id="overrideGoogleReview" class="form-control" placeholder="https://g.page/r/...">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Digital Menu Link</label>
+                <div class="form-input-wrap">
+                    <i class="fa-solid fa-book-open"></i>
+                    <input type="url" id="overrideMenuUrl" class="form-control" placeholder="https://venue.com/menu">
+                </div>
+            </div>
+
+            <button type="button" class="gate-btn" onclick="saveEmergencyOverride()">
+                <i class="fa-solid fa-floppy-disk"></i> Save &amp; Push to Dining Tables
+            </button>
+        </div>
+    </div>
+
+    <!-- 6. NEW VENUE REGISTRATION MODAL -->
+    <div class="modal-overlay" id="newVenueModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Directly Provision Venue</h3>
+                <button class="modal-close" onclick="closeModal('newVenueModal')">&times;</button>
+            </div>
+
+            <form onsubmit="event.preventDefault(); submitDirectVenue();">
+                <div class="form-group">
+                    <label>Venue Trade Name</label>
+                    <div class="form-input-wrap">
+                        <i class="fa-solid fa-store"></i>
+                        <input type="text" id="nvName" class="form-control" placeholder="e.g. Cafe Noir" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Manager Work Email</label>
+                    <div class="form-input-wrap">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" id="nvEmail" class="form-control" placeholder="manager@venue.com" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Floor WhatsApp Phone</label>
+                    <div class="form-input-wrap">
+                        <i class="fa-brands fa-whatsapp" style="color: #25d366;"></i>
+                        <input type="tel" id="nvPhone" class="form-control" placeholder="+971 50 123 4567" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Assign Temporary Password</label>
+                    <div class="form-input-wrap">
+                        <i class="fa-solid fa-key"></i>
+                        <input type="text" id="nvPass" class="form-control" value="metrix123" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="gate-btn">
+                    <i class="fa-solid fa-bolt"></i> Provision Venue Account
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 7. NEW PARTNER REGISTRATION MODAL -->
+    <div class="modal-overlay" id="newPartnerModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Authorize Growth Partner</h3>
+                <button class="modal-close" onclick="closeModal('newPartnerModal')">&times;</button>
+            </div>
+
+            <form onsubmit="event.preventDefault(); submitDirectPartner();">
+                <div class="form-group">
+                    <label>Partner Organization Name</label>
+                    <div class="form-input-wrap">
+                        <i class="fa-solid fa-building"></i>
+                        <input type="text" id="npName" class="form-control" placeholder="e.g. Blurb Goa or GrowthGravy" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Partner Work Email</label>
+                    <div class="form-input-wrap">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" id="npEmail" class="form-control" placeholder="growth@partner.com" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>WhatsApp Contact</label>
+                    <div class="form-input-wrap">
+                        <i class="fa-brands fa-whatsapp" style="color: #25d366;"></i>
+                        <input type="tel" id="npPhone" class="form-control" placeholder="+91 98765 43210" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Assign Temporary Password</label>
+                    <div class="form-input-wrap">
+                        <i class="fa-solid fa-key"></i>
+                        <input type="text" id="npPass" class="form-control" value="partner123" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="gate-btn">
+                    <i class="fa-solid fa-handshake"></i> Authorize Partner Account
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="opsToast">
+        <i class="fa-solid fa-circle-check"></i>
+        <span id="toastMsg">Action executed successfully!</span>
+    </div>
+
+    <!-- SCRIPT ENGINE -->
     <script>
-        // Mobile Sidebar Toggle
-        const menuToggle = document.getElementById('menu-toggle');
-        const sidebarClose = document.getElementById('sidebar-close');
-        const sidebarOverlay = document.getElementById('sidebar-overlay');
-        const sidebar = document.getElementById('sidebar');
+        const FOUNDER_PASSKEY = "metrix2026";
+        let masterTelemetryList = [];
 
-        function toggleSidebar() {
-            sidebar.classList.toggle('open');
-            sidebarOverlay.classList.toggle('open');
-        }
-
-        if (menuToggle) menuToggle.addEventListener('click', toggleSidebar);
-        if (sidebarClose) sidebarClose.addEventListener('click', toggleSidebar);
-        if (sidebarOverlay) sidebarOverlay.addEventListener('click', toggleSidebar);
-
-        // Tab Navigation Logic
-        const navItems = document.querySelectorAll('.nav-item');
-        const tabContents = document.querySelectorAll('.tab-content');
-        const tabTitle = document.getElementById('tab-title');
-        const tabSubtitle = document.getElementById('tab-subtitle');
-
-        const tabHeaders = {
-            analytics: {
-                title: 'Global Analytics',
-                subtitle: 'High-level overview of the entire agency\'s performance, live revenue tracking, and global scan metrics.'
-            },
-            fulfillment: {
-                title: 'Fulfillment Pipeline',
-                subtitle: 'Track digital vector asset generation, portal deployment, and client activation statuses.'
-            },
-            revenue: {
-                title: 'Revenue Engine',
-                subtitle: 'Manage active subscriptions, MRR, past-due accounts, and payment gateways.'
-            },
-            team: {
-                title: 'Team Management',
-                subtitle: 'Manage your 100+ sales agents, track their closed deals, and issue commission payouts.'
-            },
-            database: {
-                title: 'Client Database',
-                subtitle: 'Master CRM directory of all businesses currently active on the METRIX Platform.'
-            }
-        };
-
-        navItems.forEach(item => {
-            item.addEventListener('click', (e) => {
-                e.preventDefault();
-                const tabId = item.getAttribute('data-tab');
-                const targetContent = document.getElementById(`tab-${tabId}-content`);
-                
-                if (!targetContent) return;
-
-                navItems.forEach(n => n.classList.remove('active'));
-                tabContents.forEach(c => c.classList.remove('active'));
-
-                item.classList.add('active');
-                targetContent.classList.add('active');
-
-                if (tabHeaders[tabId]) {
-                    if (tabTitle) tabTitle.textContent = tabHeaders[tabId].title;
-                    if (tabSubtitle) tabSubtitle.textContent = tabHeaders[tabId].subtitle;
-                }
-
-                // Close sidebar on mobile
-                if (window.innerWidth <= 768) {
-                    sidebar.classList.remove('open');
-                    sidebarOverlay.classList.remove('open');
-                }
-            });
-        });
-
-        // Initialize Chart.js MRR Graph
-        document.addEventListener('DOMContentLoaded', () => {
-            const ctx = document.getElementById('mrrChart');
-            if (ctx) {
-                new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-                        datasets: [{
-                            label: 'Monthly Recurring Revenue (₹)',
-                            data: [120000, 185000, 240000, 290000, 360000, 425000],
-                            borderColor: '#8b5cf6',
-                            backgroundColor: 'rgba(139, 92, 246, 0.1)',
-                            borderWidth: 3,
-                            fill: true,
-                            tension: 0.4,
-                            pointBackgroundColor: '#8b5cf6',
-                            pointBorderColor: '#fff',
-                            pointHoverBackgroundColor: '#fff',
-                            pointHoverBorderColor: '#8b5cf6',
-                            pointRadius: 4,
-                            pointHoverRadius: 6
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: { display: false },
-                            tooltip: {
-                                backgroundColor: 'rgba(15, 23, 42, 0.9)',
-                                titleColor: '#fff',
-                                bodyColor: '#fff',
-                                borderColor: 'rgba(255,255,255,0.1)',
-                                borderWidth: 1,
-                                padding: 10,
-                                displayColors: false
-                            }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                grid: { color: 'rgba(255,255,255,0.05)', drawBorder: false },
-                                ticks: { color: '#94a3b8', callback: function(value) { return '₹' + (value/1000) + 'k'; } }
-                            },
-                            x: {
-                                grid: { display: false, drawBorder: false },
-                                ticks: { color: '#94a3b8' }
-                            }
-                        }
-                    }
-                });
+        // 1. Initial State & God-Mode Verification
+        window.addEventListener('DOMContentLoaded', () => {
+            const unlocked = sessionStorage.getItem('metrix_godmode_unlocked');
+            if (unlocked === 'true') {
+                document.getElementById('adminGate').style.display = 'none';
+                loadMasterData();
+            } else {
+                document.getElementById('adminGate').style.display = 'flex';
             }
         });
 
-        // --------------------------------------------------------
-        // Team Management & Agent Registration Logic
-        // --------------------------------------------------------
-        const agentTableBody = document.getElementById('agent-table-body');
-        const inviteModal = document.getElementById('invite-agent-modal');
-        const btnOpenInvite = document.getElementById('btn-open-invite');
-        const btnCancelInvite = document.getElementById('btn-cancel-invite');
-        const inviteForm = document.getElementById('invite-agent-form');
-
-        function loadAgents() {
-            let registeredAgents = [];
-            try {
-                registeredAgents = JSON.parse(localStorage.getItem('repushield_agents')) || [];
-            } catch(e) {
-                registeredAgents = [];
-            }
-
-            if (!Array.isArray(registeredAgents)) registeredAgents = [];
-
-            if (agentTableBody) {
-                agentTableBody.innerHTML = '';
-                if (registeredAgents.length === 0) {
-                    agentTableBody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #94a3b8;">No Salesmen registered yet.</td></tr>`;
-                } else {
-                    registeredAgents.forEach((agent, index) => {
-                        const initial = agent.name ? agent.name.charAt(0).toUpperCase() : 'A';
-                        const colors = ['#3b82f6', '#ec4899', '#10b981', '#f59e0b', '#8b5cf6'];
-                        const color = colors[index % colors.length];
-                        
-                        agentTableBody.innerHTML += `
-                            <tr>
-                                <td>
-                                    <div style="display: flex; align-items: center; gap: 0.75rem;">
-                                        <div style="width: 32px; height: 32px; border-radius: 50%; background: ${color}33; display: flex; align-items: center; justify-content: center; color: ${color}; font-weight: 700;">${initial}</div>
-                                        <div>
-                                            <strong style="display: block;">${agent.name}</strong>
-                                            <span style="font-size: 0.75rem; color: #94a3b8;">@${agent.username}</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>0</td>
-                                <td>₹0</td>
-                                <td>₹0</td>
-                                <td>
-                                    <button class="btn btn-primary btn-sm" onclick="removeAgent('${agent.username}')" style="background: rgba(239,68,68,0.2); border-color: rgba(239,68,68,0.3); color: #ef4444;">
-                                        <i class="fa-solid fa-trash"></i> Revoke
-                                    </button>
-                                </td>
-                            </tr>
-                        `;
-                    });
-                }
-            }
-        }
-
-        window.removeAgent = function(username) {
-            if(confirm(`Are you sure you want to revoke access for @${username}?`)) {
-                let agents = JSON.parse(localStorage.getItem('repushield_agents')) || [];
-                agents = agents.filter(a => a.username !== username);
-                localStorage.setItem('repushield_agents', JSON.stringify(agents));
-                loadAgents();
-            }
-        };
-
-        if (btnOpenInvite) {
-            btnOpenInvite.addEventListener('click', () => {
-                inviteModal.style.display = 'flex';
-            });
-        }
-        
-        if (btnCancelInvite) {
-            btnCancelInvite.addEventListener('click', () => {
-                inviteModal.style.display = 'none';
-                inviteForm.reset();
-            });
-        }
-
-        if (inviteForm) {
-            inviteForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const name = document.getElementById('new-agent-name').value.trim();
-                const username = document.getElementById('new-agent-username').value.trim().toLowerCase();
-                const password = document.getElementById('new-agent-password').value.trim();
-
-                let agents = JSON.parse(localStorage.getItem('repushield_agents')) || [];
-                
-                if (agents.find(a => a.username === username)) {
-                    alert('This username is already taken!');
-                    return;
-                }
-
-                agents.push({
-                    name: name,
-                    username: username,
-                    password: password,
-                    upi: ''
-                });
-
-                localStorage.setItem('repushield_agents', JSON.stringify(agents));
-                
-                inviteModal.style.display = 'none';
-                inviteForm.reset();
-                loadAgents();
-                
-                alert(`Success! Salesman ID created for ${name}.\nUsername: ${username}\nPassword: ${password}`);
-            });
-        }
-
-        // Load initially
-        loadAgents();
-
-        // --------------------------------------------------------
-        // Client Database Logic (Master Client CRM)
-        // --------------------------------------------------------
-        const clientTableBody = document.getElementById('client-table-body');
-        
-        function loadClients() {
-            let campaigns = [];
-            try {
-                campaigns = JSON.parse(localStorage.getItem('repushield_campaigns')) || [];
-            } catch(e) {
-                campaigns = [];
-            }
-
-            if (!Array.isArray(campaigns)) campaigns = [];
-
-            if (clientTableBody) {
-                clientTableBody.innerHTML = '';
-                if (campaigns.length === 0) {
-                    clientTableBody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #94a3b8;">No clients generated yet.</td></tr>`;
-                } else {
-                    // Sort campaigns by latest first
-                    campaigns.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
-
-                    campaigns.forEach((camp) => {
-                        const dateStr = camp.createdAt ? new Date(camp.createdAt).toLocaleDateString() : 'N/A';
-                        
-                        clientTableBody.innerHTML += `
-                            <tr>
-                                <td><strong>${camp.businessName || 'Unknown Business'}</strong></td>
-                                <td>${camp.campaignType || 'N/A'}</td>
-                                <td><span class="status-badge status-active">Active</span></td>
-                                <td>
-                                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                                        <a href="portal.html?cid=${camp.id}" target="_blank" class="btn btn-sm" style="background: rgba(14,165,233,0.2); border: 1px solid rgba(14,165,233,0.4); color: #0ea5e9; font-size: 0.75rem; text-decoration: none;">
-                                            <i class="fa-solid fa-external-link-alt"></i> Portal
-                                        </a>
-                                        <a href="demo.html?cid=${camp.id}" target="_blank" class="btn btn-sm" style="background: rgba(139,92,246,0.2); border: 1px solid rgba(139,92,246,0.4); color: #8b5cf6; font-size: 0.75rem; text-decoration: none;">
-                                            <i class="fa-solid fa-laptop"></i> Demo
-                                        </a>
-                                    </div>
-                                </td>
-                                <td>
-                                    <button class="btn btn-primary btn-sm" onclick="removeClient('${camp.id}')" style="background: rgba(239,68,68,0.2); border-color: rgba(239,68,68,0.3); color: #ef4444; font-size: 0.75rem;">
-                                        <i class="fa-solid fa-trash"></i> Delete
-                                    </button>
-                                </td>
-                            </tr>
-                        `;
-                    });
-                }
-            }
-        }
-
-        window.removeClient = function(campaignId) {
-            if(confirm('Are you sure you want to permanently delete this client? The portal link will instantly stop working.')) {
-                let campaigns = JSON.parse(localStorage.getItem('repushield_campaigns')) || [];
-                campaigns = campaigns.filter(c => c.id !== campaignId);
-                localStorage.setItem('repushield_campaigns', JSON.stringify(campaigns));
-                loadClients();
-            }
-        };
-
-        // Load clients on start
-        loadClients();
-
-        // --------------------------------------------------------
-        // Dynamic Analytics, Fulfillment, & Revenue Logic
-        // --------------------------------------------------------
-        
-        function getCampaignPrice(type) {
-            if (!type) return 4999;
-            const lowerType = type.toLowerCase();
-            if (lowerType.includes('ecom') || lowerType.includes('e-com') || lowerType.includes('d2c')) return 9999;
-            if (lowerType.includes('delivery') || lowerType.includes('restaurant')) return 6999;
-            return 4999;
-        }
-
-        function loadAnalytics() {
-            let campaigns = [];
-            try { campaigns = JSON.parse(localStorage.getItem('repushield_campaigns')) || []; } catch(e) {}
-            if (!Array.isArray(campaigns)) campaigns = [];
-
-            let totalMRR = 0;
-            campaigns.forEach(c => { totalMRR += getCampaignPrice(c.campaignType); });
-
-            // Update KPI Cards
-            const kpiMrr = document.getElementById('kpi-mrr');
-            if (kpiMrr) kpiMrr.textContent = '₹' + totalMRR.toLocaleString('en-IN');
-
-            const kpiClients = document.getElementById('kpi-clients');
-            if (kpiClients) kpiClients.textContent = campaigns.length;
-
-            const kpiScans = document.getElementById('kpi-scans');
-            if (kpiScans) kpiScans.textContent = (campaigns.length * 135).toLocaleString('en-IN'); // Simulate 135 scans per client
-
-            const kpiAlerts = document.getElementById('kpi-alerts');
-            if (kpiAlerts) kpiAlerts.textContent = (campaigns.length * 4).toLocaleString('en-IN'); // Simulate 4 table alerts per client
-
-            // Update Live Feed
-            const liveFeed = document.getElementById('live-feed-container');
-            if (liveFeed) {
-                liveFeed.innerHTML = '';
-                if (campaigns.length === 0) {
-                    liveFeed.innerHTML = '<p style="color: #94a3b8; text-align: center; padding: 1rem;">No recent sales activity.</p>';
-                } else {
-                    const sorted = [...campaigns].sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0)).slice(0, 10);
-                    sorted.forEach((camp, i) => {
-                        const price = getCampaignPrice(camp.campaignType);
-                        const mins = (i * 25) + 2; // Simulated relative time
-                        liveFeed.innerHTML += `
-                            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                    <span style="color: #34d399; font-size: 0.8rem; font-weight: 600;"><i class="fa-solid fa-circle-check"></i> Deal Closed</span>
-                                    <span style="color: var(--text-muted); font-size: 0.75rem;">${mins}m ago</span>
-                                </div>
-                                <p style="font-size: 0.9rem; margin: 0; color: #e2e8f0;">Portal generated for <span style="color: white; font-weight: 600;">${camp.businessName || 'Unknown'}</span></p>
-                                <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0.3rem 0 0;">₹${price.toLocaleString('en-IN')}/mo (${camp.campaignType || 'Standard'})</p>
-                            </div>
-                        `;
-                    });
-                }
-            }
-        }
-
-        function loadFulfillment() {
-            const table = document.getElementById('fulfillment-table-body');
-            if (!table) return;
-
-            let campaigns = [];
-            try { campaigns = JSON.parse(localStorage.getItem('repushield_campaigns')) || []; } catch(e) {}
-            if (!Array.isArray(campaigns)) campaigns = [];
-
-            table.innerHTML = '';
-            if (campaigns.length === 0) {
-                table.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #94a3b8;">No pending orders.</td></tr>';
+        function verifyGodModePass() {
+            const val = document.getElementById('godPassInput').value.trim();
+            const err = document.getElementById('gateError');
+            if (val === FOUNDER_PASSKEY) {
+                sessionStorage.setItem('metrix_godmode_unlocked', 'true');
+                document.getElementById('adminGate').style.display = 'none';
+                loadMasterData();
             } else {
-                campaigns.forEach(camp => {
-                    const status = camp.fulfillmentStatus || 'pending';
-                    let badge, action;
+                err.style.display = 'flex';
+                document.getElementById('godPassInput').value = '';
+            }
+        }
 
-                    if (status === 'pending') {
-                        badge = '<span class="status-badge status-pending" style="color: #fbbf24; background: rgba(251,191,36,0.1);">Pending Setup</span>';
-                        action = `<button class="btn btn-secondary btn-sm" onclick="updateFulfillment('${camp.id}', 'generated')" style="border-color: #0ea5e9; color: #0ea5e9;">Mark Generated</button>`;
-                    } else if (status === 'generated') {
-                        badge = '<span class="status-badge status-active" style="color: #0ea5e9; background: rgba(14,165,233,0.1);">Generated</span>';
-                        action = `<button class="btn btn-primary btn-sm" onclick="updateFulfillment('${camp.id}', 'delivered')" style="background: #10b981; border-color: #10b981;">Mark Delivered</button>`;
-                    } else {
-                        badge = '<span class="status-badge" style="background: rgba(52, 211, 153, 0.1); color: #34d399;">Active &amp; Delivered</span>';
-                        action = '<span style="font-size: 0.85rem; color: #10b981;"><i class="fa-solid fa-circle-check"></i> Live</span>';
+        function lockConsole() {
+            sessionStorage.removeItem('metrix_godmode_unlocked');
+            window.location.reload();
+        }
+
+        function switchOpsTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
+
+            const targetBtn = Array.from(document.querySelectorAll('.tab-btn')).find(b => b.getAttribute('onclick').includes(tabId));
+            if (targetBtn) targetBtn.classList.add('active');
+
+            const targetPanel = document.getElementById(`tab-${tabId}`);
+            if (targetPanel) targetPanel.classList.add('active');
+        }
+
+        function loadMasterData() {
+            renderVenuesTable();
+            renderPartnersTable();
+            fetchGlobalTelemetry();
+        }
+
+        // ==========================================
+        // VENUES SUPPORT & IMPERSONATION LOGIC
+        // ==========================================
+        function getRegisteredVenues() {
+            return JSON.parse(localStorage.getItem('metrix_registered_venues')) || [];
+        }
+
+        function renderVenuesTable() {
+            const venues = getRegisteredVenues();
+            const tbody = document.getElementById('venueTableBody');
+            const empty = document.getElementById('venueEmptyState');
+            tbody.innerHTML = '';
+
+            document.getElementById('metricVenuesCount').textContent = venues.length;
+
+            if (venues.length === 0) {
+                empty.style.display = 'block';
+                return;
+            }
+            empty.style.display = 'none';
+
+            venues.forEach(v => {
+                // Fetch saved settings for this venue
+                const settings = JSON.parse(localStorage.getItem(`metrix_settings_${v.id}`)) || {};
+                const waNumber = settings.wa || v.phone || '-';
+                const createdDate = v.created_at ? new Date(v.created_at).toLocaleDateString() : 'Active';
+
+                const row = document.createElement('tr');
+                row.className = 'venue-row';
+                row.innerHTML = `
+                    <td>
+                        <strong style="color: #fff; font-size: 0.95rem;">${v.venueName}</strong>
+                        <div style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono);">${v.id}</div>
+                    </td>
+                    <td>
+                        <span style="color: var(--text-muted);">${v.email}</span>
+                    </td>
+                    <td>
+                        <a href="https://wa.me/${waNumber.replace(/[^0-9]/g, '')}" target="_blank" style="color: #38bdf8; text-decoration: none; font-family: var(--font-mono); font-size: 0.85rem;">
+                            <i class="fa-brands fa-whatsapp" style="color: #25d366; margin-right: 4px;"></i>${waNumber}
+                        </a>
+                    </td>
+                    <td>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">${createdDate}</span>
+                    </td>
+                    <td>
+                        <div class="action-group">
+                            <a href="/dashboard.html?impersonate_venue=${encodeURIComponent(v.venueName)}" target="_blank" class="btn-impersonate" title="Log in as Venue">
+                                <i class="fa-solid fa-eye"></i> Launch Cockpit
+                            </a>
+                            <button class="btn-action-icon" onclick="openOverrideModal('${v.id}')" title="Emergency Settings Override">
+                                <i class="fa-solid fa-sliders" style="color: var(--gold-primary);"></i>
+                            </button>
+                            <a href="/flyer.html" target="_blank" class="btn-action-icon" title="Print Standees">
+                                <i class="fa-solid fa-print"></i>
+                            </a>
+                            <button class="btn-action-icon" onclick="deleteVenue('${v.id}')" title="Remove Venue" style="color: #ef4444;">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function filterVenueTable() {
+            const query = document.getElementById('venueSearch').value.toLowerCase();
+            document.querySelectorAll('.venue-row').forEach(row => {
+                row.style.display = row.textContent.toLowerCase().includes(query) ? '' : 'none';
+            });
+        }
+
+        function openOverrideModal(venueId) {
+            const venues = getRegisteredVenues();
+            const venue = venues.find(v => v.id === venueId);
+            if (!venue) return;
+
+            const settings = JSON.parse(localStorage.getItem(`metrix_settings_${venue.id}`)) || {};
+
+            document.getElementById('overrideVenueId').value = venue.id;
+            document.getElementById('overrideModalTitle').textContent = `Override Settings: ${venue.venueName}`;
+            document.getElementById('overrideBizName').value = settings.biz || venue.venueName;
+            document.getElementById('overrideWhatsapp').value = settings.wa || venue.phone || '';
+            document.getElementById('overrideGoogleReview').value = settings.gmb || '';
+            document.getElementById('overrideMenuUrl').value = settings.menu || '';
+
+            document.getElementById('overrideModal').classList.add('active');
+        }
+
+        function saveEmergencyOverride() {
+            const venueId = document.getElementById('overrideVenueId').value;
+            const biz = document.getElementById('overrideBizName').value.trim();
+            const wa = document.getElementById('overrideWhatsapp').value.trim();
+            const gmb = document.getElementById('overrideGoogleReview').value.trim();
+            const menu = document.getElementById('overrideMenuUrl').value.trim();
+
+            localStorage.setItem(`metrix_settings_${venueId}`, JSON.stringify({
+                biz, wa, gmb, menu
+            }));
+
+            closeModal('overrideModal');
+            renderVenuesTable();
+            showToast("Emergency settings updated & live on client tables!");
+        }
+
+        function deleteVenue(venueId) {
+            if (confirm("Are you sure you want to remove this venue from Master Operations?")) {
+                let venues = getRegisteredVenues();
+                venues = venues.filter(v => v.id !== venueId);
+                localStorage.setItem('metrix_registered_venues', JSON.stringify(venues));
+                localStorage.removeItem(`metrix_settings_${venueId}`);
+                renderVenuesTable();
+                showToast("Venue removed from Master Console.");
+            }
+        }
+
+        function openNewVenueModal() {
+            document.getElementById('newVenueModal').classList.add('active');
+        }
+
+        function submitDirectVenue() {
+            const venueName = document.getElementById('nvName').value.trim();
+            const email = document.getElementById('nvEmail').value.trim().toLowerCase();
+            const phone = document.getElementById('nvPhone').value.trim();
+            const password = document.getElementById('nvPass').value.trim();
+
+            let venues = getRegisteredVenues();
+            if (venues.some(v => v.email === email)) {
+                alert("A venue with this email already exists.");
+                return;
+            }
+
+            const newVenue = {
+                id: `venue_${Date.now()}`,
+                venueName,
+                email,
+                phone,
+                password,
+                created_at: new Date().toISOString()
+            };
+
+            venues.unshift(newVenue);
+            localStorage.setItem('metrix_registered_venues', JSON.stringify(venues));
+
+            closeModal('newVenueModal');
+            renderVenuesTable();
+            showToast(`Venue "${venueName}" provisioned successfully!`);
+        }
+
+        // ==========================================
+        // PARTNER PORTFOLIOS SUPPORT LOGIC
+        // ==========================================
+        function getRegisteredPartners() {
+            return JSON.parse(localStorage.getItem('metrix_registered_partners')) || [];
+        }
+
+        function renderPartnersTable() {
+            const partners = getRegisteredPartners();
+            const tbody = document.getElementById('partnerTableBody');
+            const empty = document.getElementById('partnerEmptyState');
+            tbody.innerHTML = '';
+
+            document.getElementById('metricPartnersCount').textContent = partners.length;
+
+            if (partners.length === 0) {
+                empty.style.display = 'block';
+                return;
+            }
+            empty.style.display = 'none';
+
+            partners.forEach(p => {
+                const partnerVenues = JSON.parse(localStorage.getItem(`metrix_venues_for_${p.id}`)) || [];
+                const row = document.createElement('tr');
+                row.className = 'partner-row';
+                row.innerHTML = `
+                    <td>
+                        <strong style="color: #fff; font-size: 0.95rem;">${p.partnerName}</strong>
+                        <div style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono);">${p.id}</div>
+                    </td>
+                    <td>
+                        <span style="color: var(--text-muted);">${p.email}</span>
+                    </td>
+                    <td>
+                        <a href="https://wa.me/${(p.phone || '').replace(/[^0-9]/g, '')}" target="_blank" style="color: #38bdf8; text-decoration: none; font-family: var(--font-mono); font-size: 0.85rem;">
+                            <i class="fa-brands fa-whatsapp" style="color: #25d366; margin-right: 4px;"></i>${p.phone || '-'}
+                        </a>
+                    </td>
+                    <td>
+                        <span class="god-badge">${partnerVenues.length} Venues Active</span>
+                    </td>
+                    <td>
+                        <div class="action-group">
+                            <a href="/partner.html?impersonate_partner=${encodeURIComponent(p.partnerName)}" target="_blank" class="btn-impersonate" title="Log in as Partner">
+                                <i class="fa-solid fa-eye"></i> Launch Workspace
+                            </a>
+                            <button class="btn-action-icon" onclick="copyPartnerClientLink('${p.partnerName}')" title="Copy Client Link">
+                                <i class="fa-solid fa-link" style="color: #38bdf8;"></i>
+                            </button>
+                            <button class="btn-action-icon" onclick="deletePartner('${p.id}')" title="Revoke Partner" style="color: #ef4444;">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function filterPartnerTable() {
+            const query = document.getElementById('partnerSearch').value.toLowerCase();
+            document.querySelectorAll('.partner-row').forEach(row => {
+                row.style.display = row.textContent.toLowerCase().includes(query) ? '' : 'none';
+            });
+        }
+
+        function copyPartnerClientLink(partnerName) {
+            const link = `${window.location.origin}/dashboard.html?partner=${encodeURIComponent(partnerName)}`;
+            navigator.clipboard.writeText(link).then(() => {
+                showToast(`Copied Client Onboarding Link for ${partnerName}!`);
+            });
+        }
+
+        function deletePartner(partnerId) {
+            if (confirm("Are you sure you want to revoke this partner account?")) {
+                let partners = getRegisteredPartners();
+                partners = partners.filter(p => p.id !== partnerId);
+                localStorage.setItem('metrix_registered_partners', JSON.stringify(partners));
+                localStorage.removeItem(`metrix_venues_for_${partnerId}`);
+                renderPartnersTable();
+                showToast("Partner account revoked.");
+            }
+        }
+
+        function openNewPartnerModal() {
+            document.getElementById('newPartnerModal').classList.add('active');
+        }
+
+        function submitDirectPartner() {
+            const partnerName = document.getElementById('npName').value.trim();
+            const email = document.getElementById('npEmail').value.trim().toLowerCase();
+            const phone = document.getElementById('npPhone').value.trim();
+            const password = document.getElementById('npPass').value.trim();
+
+            let partners = getRegisteredPartners();
+            if (partners.some(p => p.email === email)) {
+                alert("A partner with this email already exists.");
+                return;
+            }
+
+            const newPartner = {
+                id: `partner_${Date.now()}`,
+                partnerName,
+                email,
+                phone,
+                password,
+                created_at: new Date().toISOString()
+            };
+
+            partners.unshift(newPartner);
+            localStorage.setItem('metrix_registered_partners', JSON.stringify(partners));
+
+            closeModal('newPartnerModal');
+            renderPartnersTable();
+            showToast(`Partner "${partnerName}" authorized successfully!`);
+        }
+
+        // ==========================================
+        // GLOBAL DINER TELEMETRY (SUPABASE)
+        // ==========================================
+        async function fetchGlobalTelemetry() {
+            const tbody = document.getElementById('telemetryTableBody');
+            const empty = document.getElementById('telemetryEmptyState');
+            tbody.innerHTML = '';
+
+            const SUPABASE_URL = (typeof window !== 'undefined' && window.SUPABASE_URL) || "";
+            const SUPABASE_KEY = (typeof window !== 'undefined' && window.SUPABASE_ANON_KEY) || "";
+
+            if (!SUPABASE_URL || !SUPABASE_KEY) {
+                empty.style.display = 'block';
+                return;
+            }
+
+            try {
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/feedback?order=created_at.desc&limit=100`, {
+                    headers: {
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${SUPABASE_KEY}`
                     }
-
-                    table.innerHTML += `
-                        <tr>
-                            <td><strong>${camp.businessName || 'Unknown'}</strong><br><span style="font-size: 0.8rem; color: var(--text-muted);">Ref: ${camp.id.substring(0,6)}</span></td>
-                            <td>Agent</td>
-                            <td>3</td>
-                            <td>Standard</td>
-                            <td>${badge}</td>
-                            <td>${action}</td>
-                        </tr>
-                    `;
                 });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    masterTelemetryList = data || [];
+                    document.getElementById('metricDinersCount').textContent = masterTelemetryList.length;
+
+                    if (masterTelemetryList.length === 0) {
+                        empty.style.display = 'block';
+                        return;
+                    }
+                    empty.style.display = 'none';
+
+                    masterTelemetryList.forEach(item => {
+                        const guestName = item.client_name || item.customer_name || 'Guest';
+                        const phone = item.client_phone || item.customer_phone || '-';
+                        const dob = item.client_dob || item.dob || 'Not provided';
+                        const venue = item.business_name || 'Unknown Venue';
+                        const rating = item.rating || 5;
+                        const date = item.submitted_at ? new Date(item.submitted_at).toLocaleString() : 'Recent';
+                        const status = rating >= 4 ? 'VIP Club 🥂' : 'Floor Feedback 📋';
+
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td><strong style="color: #fff;"><i class="fa-solid fa-user-circle" style="color: var(--gold-primary); margin-right: 6px;"></i>${guestName}</strong></td>
+                            <td>
+                                <a href="https://wa.me/${phone.replace(/[^0-9]/g, '')}" target="_blank" style="color: #38bdf8; text-decoration: none; font-family: var(--font-mono); font-size: 0.85rem;">
+                                    <i class="fa-brands fa-whatsapp" style="color: #25d366; margin-right: 4px;"></i>${phone}
+                                </a>
+                            </td>
+                            <td><span style="font-family: var(--font-mono); font-size: 0.85rem;">${dob}</span></td>
+                            <td><span class="god-badge">${venue}</span></td>
+                            <td><span style="color: #f59e0b; font-weight: 700;">★ ${rating}.0</span></td>
+                            <td><span style="color: #10b981; font-weight: 700;">${status}</span></td>
+                            <td><span style="font-size: 0.78rem; color: var(--text-muted);">${date}</span></td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+                } else {
+                    empty.style.display = 'block';
+                }
+            } catch(e) {
+                console.warn("Telemetry fetch error:", e);
+                empty.style.display = 'block';
             }
         }
 
-        window.updateFulfillment = function(id, newStatus) {
-            let campaigns = JSON.parse(localStorage.getItem('repushield_campaigns')) || [];
-            const idx = campaigns.findIndex(c => c.id === id);
-            if (idx > -1) {
-                campaigns[idx].fulfillmentStatus = newStatus;
-                localStorage.setItem('repushield_campaigns', JSON.stringify(campaigns));
-                loadFulfillment(); // refresh table
+        function exportMasterCSV() {
+            if (!masterTelemetryList || masterTelemetryList.length === 0) {
+                showToast("No telemetry diner records available to export.");
+                return;
             }
-        };
 
-        function loadRevenue() {
-            const table = document.getElementById('revenue-table-body');
-            if (!table) return;
+            let csv = "Guest Name,WhatsApp Phone,Date of Birth,Venue Name,Rating,Privilege Status,Timestamp\n";
+            masterTelemetryList.forEach(d => {
+                const name = d.client_name || d.customer_name || 'Guest';
+                const phone = d.client_phone || d.customer_phone || '-';
+                const dob = d.client_dob || d.dob || 'Not provided';
+                const venue = d.business_name || 'Unknown';
+                const rating = d.rating || 5;
+                const status = rating >= 4 ? 'VIP Club' : 'Floor Feedback';
+                const date = d.submitted_at || '';
+                csv += `"${name}","${phone}","${dob}","${venue}","${rating}","${status}","${date}"\n`;
+            });
 
-            let campaigns = [];
-            try { campaigns = JSON.parse(localStorage.getItem('repushield_campaigns')) || []; } catch(e) {}
-            if (!Array.isArray(campaigns)) campaigns = [];
-
-            table.innerHTML = '';
-            if (campaigns.length === 0) {
-                table.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #94a3b8;">No active subscriptions.</td></tr>';
-            } else {
-                campaigns.forEach(camp => {
-                    const price = getCampaignPrice(camp.campaignType);
-                    let chargeDate = new Date(camp.createdAt || Date.now());
-                    chargeDate.setDate(chargeDate.getDate() + 30);
-                    
-                    table.innerHTML += `
-                        <tr>
-                            <td><strong>${camp.businessName || 'Unknown'}</strong></td>
-                            <td>${camp.campaignType || 'Standard'}</td>
-                            <td>₹${price.toLocaleString('en-IN')}</td>
-                            <td>Monthly</td>
-                            <td>${chargeDate.toLocaleDateString('en-IN')}</td>
-                            <td><span class="status-badge status-active">Active</span></td>
-                        </tr>
-                    `;
-                });
-            }
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            const url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", `METRIX_Master_Network_Diners_${new Date().toISOString().split('T')[0]}.csv`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            showToast("Master network database exported to CSV!");
         }
 
-        // Initialize all tabs
-        loadAnalytics();
-        loadFulfillment();
-        loadRevenue();
+        // ==========================================
+        // UI HELPERS
+        // ==========================================
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            if (modal) modal.classList.remove('active');
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('opsToast');
+            const toastMsg = document.getElementById('toastMsg');
+            if (toast && toastMsg) {
+                toastMsg.textContent = msg;
+                toast.style.display = 'inline-flex';
+                setTimeout(() => { toast.style.display = 'none'; }, 3500);
+            }
+        }
     </script>
 </body>
 </html>

@@ -863,6 +863,29 @@
                 });
             }
 
+            // Support Impersonation via Master Admin Console
+            const urlParams = new URLSearchParams(window.location.search);
+            const impPartner = urlParams.get('impersonate_partner');
+            if (impPartner) {
+                const accounts = JSON.parse(localStorage.getItem('metrix_registered_partners')) || [];
+                const matched = accounts.find(a => a.partnerName.toLowerCase() === impPartner.toLowerCase() || a.id === impPartner);
+                if (matched) {
+                    saveAndStartPartnerSession(matched);
+                    setTimeout(() => showToast(`Support God-Mode: Impersonating ${matched.partnerName}`), 500);
+                    return;
+                } else {
+                    const tempPartner = {
+                        id: `partner_${impPartner.replace(/\s+/g,'_').toLowerCase()}`,
+                        partnerName: impPartner,
+                        email: `support+${impPartner.replace(/\s+/g,'').toLowerCase()}@metrixmedia.agency`,
+                        phone: ""
+                    };
+                    saveAndStartPartnerSession(tempPartner);
+                    setTimeout(() => showToast(`Support God-Mode: Impersonating ${impPartner}`), 500);
+                    return;
+                }
+            }
+
             const storedSession = localStorage.getItem('metrix_partner_auth_session');
             if (storedSession) {
                 try {
