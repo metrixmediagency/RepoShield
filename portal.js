@@ -218,6 +218,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const name = document.getElementById('vip-name').value.trim();
             const phone = document.getElementById('vip-phone').value.trim();
             const dob = document.getElementById('vip-dob') ? document.getElementById('vip-dob').value.trim() : '';
+            const sourceEl = document.getElementById('vip-source');
+            const sourceVal = sourceEl ? sourceEl.value : '';
+
+            const tableTag = tableParam ? ` (${tableParam})` : '';
+            const sourceTag = sourceVal ? ` [Source: ${sourceVal}]` : '';
 
             dispatchData({
                 id: Date.now().toString(),
@@ -227,7 +232,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 clientName: name,
                 clientPhone: phone,
                 clientDOB: dob,
-                clientMessage: tableParam ? `VIP Guest Loyalty Club Opt-In (${tableParam})` : "VIP Guest Loyalty Club Opt-In",
+                clientSource: sourceVal,
+                clientMessage: `VIP Guest Loyalty Club Opt-In${tableTag}${sourceTag}`,
                 submittedAt: new Date().toLocaleString()
             });
 

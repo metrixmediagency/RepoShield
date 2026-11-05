@@ -778,3 +778,49 @@ body {
     margin: 6px auto 12px auto;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
+
+/* Discovery Source Dropdown */
+.form-group select, .custom-select {
+    width: 100%;
+    background: rgba(7, 9, 19, 0.65);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 0.8rem 1rem;
+    color: white;
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    outline: none;
+    transition: var(--transition-smooth);
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+}
+
+.form-group select option {
+    background: #090b16;
+    color: #f8fafc;
+    padding: 10px;
+}
+
+.form-group select:focus, .custom-select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-glow);
+}
+
+.select-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.select-wrapper::after {
+    content: '\f107';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    pointer-events: none;
+    font-size: 0.85rem;
+}
