@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>METRIX // Agency Multi-Category Demo Studio</title>
+    <link rel="icon" type="image/jpeg" href="metrix_logo.jpg">
+    <!-- Google Fonts & FontAwesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-void: #070a0f;
+            --bg-card: #0d131f;
+            --bg-surface: #111a2c;
+            --border-gold: rgba(212, 175, 55, 0.28);
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --gold-primary: #d4af37;
+            --gold-gradient: linear-gradient(135deg, #fce588 0%, #d4af37 50%, #997300 100%);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --green: #10b981;
+            --blue: #38bdf8;
+            --amber: #f59e0b;
+            --rose: #f43f5e;
+            --font-head: 'Outfit', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-void);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Ambient Glow Blobs */
+        .ambient-blob {
+            position: fixed;
+            width: 450px;
+            height: 450px;
+            border-radius: 50%;
+            pointer-events: none;
+            filter: blur(120px);
+            opacity: 0.12;
+            z-index: 0;
+        }
+        .blob-gold { top: -100px; left: 10%; background: #d4af37; }
+        .blob-blue { bottom: -100px; right: 10%; background: #38bdf8; }
+
+        /* Top Navigation Header */
+        .studio-nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(7, 10, 15, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 14px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-logo-badge {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            color: var(--gold-primary);
+        }
+
+        .nav-title {
+            font-family: var(--font-head);
+            font-size: 17px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+        }
+
+        .nav-subtitle {
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .badge-partner {
+            background: rgba(212, 175, 55, 0.12);
+            border: 1px solid var(--border-gold);
+            color: var(--gold-primary);
+            font-size: 11.5px;
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Main Studio Layout Grid */
+        .studio-container {
+            position: relative;
+            z-index: 1;
+            flex: 1;
+            max-width: 1440px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 24px;
+            display: grid;
+            grid-template-columns: 460px 1fr;
+            gap: 28px;
+            align-items: start;
+        }
+
+        @media (max-width: 1024px) {
+            .studio-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Left Configurator Panel */
+        .config-panel {
+            background: rgba(13, 19, 31, 0.75);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-subtle);
+            border-radius: 18px;
+            padding: 24px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .panel-header {
+            border-bottom: 1px solid var(--border-subtle);
+            padding-bottom: 14px;
+        }
+
+        .panel-header h2 {
+            font-family: var(--font-head);
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .panel-header p {
+            font-size: 12.5px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* 1-Click Agency Presets Row */
+        .presets-section {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .presets-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: var(--gold-primary);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .presets-scroll {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+            scrollbar-width: thin;
+        }
+
+        .preset-chip {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-subtle);
+            color: #cbd5e1;
+            padding: 7px 12px;
+            border-radius: 8px;
+            font-size: 11.5px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .preset-chip:hover {
+            background: rgba(212, 175, 55, 0.15);
+            border-color: var(--gold-primary);
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        /* Form Inputs */
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .form-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .form-label small {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .input-box, select.input-box {
+            background: rgba(7, 10, 15, 0.65);
+            border: 1px solid var(--border-subtle);
+            border-radius: 10px;
+            color: #ffffff;
+            font-family: var(--font-body);
+            font-size: 13.5px;
+            padding: 10px 14px;
+            outline: none;
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        .input-box:focus, select.input-box:focus {
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+            background: rgba(7, 10, 15, 0.95);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        /* Sector Pills Grid */
+        .sector-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .sector-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
+            border-radius: 10px;
+            padding: 10px 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .sector-card i {
+            font-size: 18px;
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+
+        .sector-card span {
+            font-size: 11.5px;
+            font-weight: 600;
+            color: #cbd5e1;
+        }
+
+        .sector-card:hover {
+            border-color: rgba(212, 175, 55, 0.4);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .sector-card.active {
+            border-color: var(--gold-primary);
+            background: rgba(212, 175, 55, 0.12);
+        }
+
+        .sector-card.active i {
+            color: var(--gold-primary);
+            transform: scale(1.1);
+        }
+
+        .sector-card.active span {
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        /* Color Preset Bar */
+        .palette-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .color-dot {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: var(--transition);
+        }
+
+        .color-dot.active {
+            border-color: #ffffff;
+            transform: scale(1.15);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .custom-color-picker {
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        /* Right Preview & Action Dock */
+        .preview-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .action-dock {
+            background: rgba(13, 19, 31, 0.75);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-gold);
+            border-radius: 18px;
+            padding: 20px 24px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .dock-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .dock-title {
+            font-family: var(--font-head);
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dock-title i {
+            color: var(--gold-primary);
+        }
+
+        .dock-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 10px;
+        }
+
+        .btn-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 11px 16px;
+            border-radius: 10px;
+            font-family: var(--font-body);
+            font-size: 12.5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            border: none;
+        }
+
+        .btn-gold {
+            background: var(--gold-gradient);
+            color: #000000;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-surface {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-subtle);
+            color: #f8fafc;
+        }
+
+        .btn-surface:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+        }
+
+        .btn-blue {
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            color: #38bdf8;
+        }
+
+        .btn-blue:hover {
+            background: rgba(56, 189, 248, 0.25);
+            color: #ffffff;
+        }
+
+        /* WhatsApp Pitch Copy Box */
+        .pitch-box {
+            background: rgba(7, 10, 15, 0.6);
+            border: 1px dashed rgba(212, 175, 55, 0.35);
+            border-radius: 10px;
+            padding: 12px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .pitch-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--gold-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .pitch-text {
+            font-size: 12.5px;
+            line-height: 1.5;
+            color: #cbd5e1;
+            font-family: var(--font-body);
+            white-space: pre-wrap;
+        }
+
+        /* Mockup Frame Container */
+        .device-stage {
+            background: rgba(13, 19, 31, 0.5);
+            border: 1px solid var(--border-subtle);
+            border-radius: 24px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 700px;
+            position: relative;
+        }
+
+        .device-toggle-bar {
+            position: absolute;
+            top: 14px;
+            right: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(7, 10, 15, 0.7);
+            border: 1px solid var(--border-subtle);
+            padding: 4px;
+            border-radius: 20px;
+        }
+
+        .toggle-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 5px 12px;
+            border-radius: 14px;
+            font-size: 11.5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .toggle-btn.active {
+            background: rgba(255, 255, 255, 0.12);
+            color: #ffffff;
+        }
+
+        /* Realistic Phone Shell */
+        .phone-wrapper {
+            width: 380px;
+            height: 740px;
+            background: #090d16;
+            border-radius: 44px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 0 8px #1f293d, 0 0 0 10px #0b0f19;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+        }
+
+        .phone-notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 140px;
+            height: 22px;
+            background: #1f293d;
+            border-bottom-left-radius: 16px;
+            border-bottom-right-radius: 16px;
+            z-index: 10;
+        }
+
+        .phone-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #090d16;
+        }
+
+        /* Desktop Mode for Phone Shell */
+        .device-stage.desktop-mode .phone-wrapper {
+            width: 100%;
+            max-width: 800px;
+            height: 680px;
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 0 2px var(--border-subtle);
+        }
+
+        .device-stage.desktop-mode .phone-notch {
+            display: none;
+        }
+
+        /* Toast Alert */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #0f172a;
+            border: 1px solid var(--gold-primary);
+            color: #ffffff;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 99999;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Footer */
+        .studio-footer {
+            border-top: 1px solid var(--border-subtle);
+            padding: 18px 24px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+            background: var(--bg-void);
+        }
+
+        .studio-footer a {
+            color: var(--gold-primary);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-blob blob-gold"></div>
+    <div class="ambient-blob blob-blue"></div>
+
+    <!-- Top Navigation Header -->
+    <header class="studio-nav">
+        <div class="nav-brand">
+            <div class="nav-logo-badge">
+                <i class="fa-solid fa-layer-group"></i>
+            </div>
+            <div>
+                <h1 class="nav-title">METRIX Studio</h1>
+                <p class="nav-subtitle">Agency Client Demo Generator</p>
+            </div>
+        </div>
+        <div class="nav-actions">
+            <div class="badge-partner">
+                <i class="fa-solid fa-shield-halved"></i> Partner Edition
+            </div>
+            <a href="client_brief.html" class="btn-action btn-surface" style="padding: 6px 12px; font-size: 11.5px;" target="_blank">
+                <i class="fa-solid fa-file-invoice"></i> Client Brief
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Workspace Container -->
+    <main class="studio-container">
+        <!-- Left: Configuration Form -->
+        <section class="config-panel">
+            <div class="panel-header">
+                <h2><i class="fa-solid fa-sliders" style="color: var(--gold-primary); font-size: 18px;"></i> Demo Generator</h2>
+                <p>Configure a personalized in-store tabletop companion for any client category in 15 seconds.</p>
+            </div>
+
+            <!-- Quick Sector Presets -->
+            <div class="presets-section">
+                <div class="presets-label">
+                    <span>⚡ 1-Click Agency Presets</span>
+                    <small style="color: var(--text-muted); text-transform: none; font-weight: 400;">Tap to load</small>
+                </div>
+                <div class="presets-scroll">
+                    <button type="button" class="preset-chip" id="preset-cabo">
+                        <i class="fa-solid fa-bed" style="color: #d4af37;"></i> Cabo Serai (Hotel)
+                    </button>
+                    <button type="button" class="preset-chip" id="preset-cruise">
+                        <i class="fa-solid fa-ship" style="color: #38bdf8;"></i> Komorebi (Cruise)
+                    </button>
+                    <button type="button" class="preset-chip" id="preset-bare">
+                        <i class="fa-solid fa-droplet" style="color: #10b981;"></i> Bare Necessities (Skincare)
+                    </button>
+                    <button type="button" class="preset-chip" id="preset-warren">
+                        <i class="fa-solid fa-scissors" style="color: #f43f5e;"></i> Warren Tricomi (Salon)
+                    </button>
+                    <button type="button" class="preset-chip" id="preset-noir">
+                        <i class="fa-solid fa-utensils" style="color: #d4af37;"></i> Cafe Noir (Dining)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Sector Selection Grid -->
+            <div class="form-group">
+                <label class="form-label">Client Category</label>
+                <div class="sector-grid">
+                    <div class="sector-card active" data-category="hotel">
+                        <i class="fa-solid fa-bed"></i>
+                        <span>Hotel &amp; Resort</span>
+                    </div>
+                    <div class="sector-card" data-category="cruise">
+                        <i class="fa-solid fa-ship"></i>
+                        <span>River Cruise</span>
+                    </div>
+                    <div class="sector-card" data-category="retail">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <span>Skincare &amp; Retail</span>
+                    </div>
+                    <div class="sector-card" data-category="salon">
+                        <i class="fa-solid fa-scissors"></i>
+                        <span>Salon &amp; Spa</span>
+                    </div>
+                    <div class="sector-card" data-category="dining">
+                        <i class="fa-solid fa-utensils"></i>
+                        <span>Dining &amp; Bar</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Business Name & Table / Room -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label" for="input-biz-name">Client Business Name</label>
+                    <input type="text" id="input-biz-name" class="input-box" value="Cabo Serai" placeholder="e.g. Cabo Serai">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="input-table-id" id="label-table-id">Room / Location</label>
+                    <input type="text" id="input-table-id" class="input-box" value="Suite 04" placeholder="e.g. Suite 04">
+                </div>
+            </div>
+
+            <!-- Brand Color Customizer -->
+            <div class="form-group">
+                <label class="form-label">
+                    <span>Brand Accent Color</span>
+                    <small id="color-hex-label">#d4af37</small>
+                </label>
+                <div class="palette-row">
+                    <div class="color-dot active" data-color="#d4af37" style="background: #d4af37;"></div>
+                    <div class="color-dot" data-color="#38bdf8" style="background: #38bdf8;"></div>
+                    <div class="color-dot" data-color="#10b981" style="background: #10b981;"></div>
+                    <div class="color-dot" data-color="#f43f5e" style="background: #f43f5e;"></div>
+                    <div class="color-dot" data-color="#f59e0b" style="background: #f59e0b;"></div>
+                    <input type="color" id="custom-color-picker" class="custom-color-picker" value="#d4af37" title="Custom Hex Color">
+                </div>
+            </div>
+
+            <!-- Google Review & Menu URL -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label" for="input-gmb-url">Google / TripAdvisor Link</label>
+                    <input type="url" id="input-gmb-url" class="input-box" value="https://maps.google.com" placeholder="https://maps.google.com/...">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="input-menu-url" id="label-menu-url">Experiences / Menu Link</label>
+                    <input type="url" id="input-menu-url" class="input-box" value="" placeholder="https://drive.google.com/...">
+                </div>
+            </div>
+
+            <!-- Floor WhatsApp / Notification Webhook (Optional) -->
+            <div class="form-group">
+                <label class="form-label" for="input-webhook">
+                    <span>Staff WhatsApp Webhook</span>
+                    <small>Optional live floor alerts</small>
+                </label>
+                <input type="url" id="input-webhook" class="input-box" value="" placeholder="https://api.whatsapp.com/... or Google Sheet Webhook">
+            </div>
+        </section>
+
+        <!-- Right: Action Dock & Live Phone Simulator -->
+        <section class="preview-panel">
+            <!-- Action Dock -->
+            <div class="action-dock">
+                <div class="dock-header">
+                    <div class="dock-title">
+                        <i class="fa-solid fa-paper-plane"></i> Agency Pitch &amp; Client Distribution Dock
+                    </div>
+                </div>
+
+                <div class="dock-buttons">
+                    <button type="button" class="btn-action btn-gold" id="btn-copy-pitch">
+                        <i class="fa-brands fa-whatsapp"></i> Copy WhatsApp Pitch
+                    </button>
+                    <button type="button" class="btn-action btn-surface" id="btn-copy-link">
+                        <i class="fa-solid fa-link"></i> Copy Demo Link
+                    </button>
+                    <a href="#" class="btn-action btn-blue" id="btn-open-demo" target="_blank">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Live Preview
+                    </a>
+                    <a href="#" class="btn-action btn-surface" id="btn-open-standee" target="_blank">
+                        <i class="fa-solid fa-print"></i> Generate Standee
+                    </a>
+                </div>
+
+                <!-- Live Generated Pitch Preview -->
+                <div class="pitch-box">
+                    <div class="pitch-label">
+                        <span>💬 Ready-to-Send Client WhatsApp Message</span>
+                        <small style="color: var(--text-muted); font-weight: 400;">1-tap copy above</small>
+                    </div>
+                    <div class="pitch-text" id="pitch-text-preview">
+Hey Cabo Serai team! Configured a private in-room companion for your suites — tap this to test how guests can book airport cabs, schedule spa treatments, and join your 20% direct-booking circle in 3s:
+https://metrixmedia.agency/portal.html?name=Cabo+Serai&category=hotel&table=Suite+04
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Simulation Viewport -->
+            <div class="device-stage" id="device-stage">
+                <div class="device-toggle-bar">
+                    <button type="button" class="toggle-btn active" id="toggle-mobile"><i class="fa-solid fa-mobile-screen"></i> Mobile</button>
+                    <button type="button" class="toggle-btn" id="toggle-desktop"><i class="fa-solid fa-laptop"></i> Desktop</button>
+                    <button type="button" class="toggle-btn" id="btn-refresh-preview" title="Refresh Live Simulator"><i class="fa-solid fa-rotate-right"></i></button>
+                </div>
+
+                <div class="phone-wrapper" id="phone-wrapper">
+                    <div class="phone-notch"></div>
+                    <iframe id="preview-iframe" class="phone-iframe" src="portal.html?name=Cabo+Serai&category=hotel&table=Suite+04&color=%23d4af37"></iframe>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Success Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fa-solid fa-circle-check" style="color: var(--green); font-size: 16px;"></i>
+        <span id="toast-message">Copied to clipboard!</span>
+    </div>
+
+    <!-- Sovereign Footer -->
+    <footer class="studio-footer">
+        © 2026 METRIX Technologies (A ONEGRV Enterprise). All rights reserved. · Authorized Agency Demo Studio.
+    </footer>
+
+    <!-- Interactive Generator Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // State
+            const state = {
+                category: 'hotel',
+                name: 'Cabo Serai',
+                table: 'Suite 04',
+                color: '#d4af37',
+                gmbUrl: 'https://maps.google.com',
+                menuUrl: '',
+                webhook: ''
+            };
+
+            // Sector Config Mapping for Placeholders & Pitch Copy
+            const sectorMeta = {
+                hotel: {
+                    tableLabel: 'Room / Suite / Villa',
+                    tableDefault: 'Suite 04',
+                    tablePlaceholder: 'e.g. Suite 04 or Villa 2',
+                    menuLabel: 'Experiences / Dining Link',
+                    pitchIntro: (name) => `Hey ${name} team! Configured a private in-room companion for your suites — tap this to test how guests can book airport cabs, schedule spa treatments, and join your 20% direct-booking circle in 3s:`,
+                    flyerHeadline: 'Welcome to Your In-Room Concierge',
+                    flyerSub: 'Scan to book airport cabs, spa treatments, or request room dining.',
+                    flyerFooter: 'Thank you for staying with us.'
+                },
+                cruise: {
+                    tableLabel: 'Deck / Table Location',
+                    tableDefault: 'Deck 1 / Table 04',
+                    tablePlaceholder: 'e.g. Deck 1 / Table 04',
+                    menuLabel: 'Bar Menu & Route Map',
+                    pitchIntro: (name) => `Hey ${name} team! Configured an interactive deck companion for your cruise — tap this to test how passengers request songs to the DJ, get free sunset photos on WhatsApp, and order drinks:`,
+                    flyerHeadline: 'Welcome Aboard!',
+                    flyerSub: 'Scan to request DJ songs, get sunset photos on WhatsApp, or order drinks.',
+                    flyerFooter: 'Thank you for sailing with us.'
+                },
+                retail: {
+                    tableLabel: 'Counter / Station',
+                    tableDefault: 'Boutique Counter 01',
+                    tablePlaceholder: 'e.g. Boutique Counter 01',
+                    menuLabel: 'Online Catalog / D2C Shop',
+                    pitchIntro: (name) => `Hey ${name} team! Configured a digital boutique companion for your store — tap this to test how visiting tourists join your 10% refill club to order D2C online all year:`,
+                    flyerHeadline: 'Unlock 10% Off Online Refills',
+                    flyerSub: 'Scan to join our Insiders Club for 10% off online orders & skincare guidance.',
+                    flyerFooter: 'Thank you for shopping with us.'
+                },
+                salon: {
+                    tableLabel: 'Styling Chair / Spa Suite',
+                    tableDefault: 'Chair 02',
+                    tablePlaceholder: 'e.g. Chair 02 or Spa Suite 1',
+                    menuLabel: 'Treatment & Styling Menu',
+                    pitchIntro: (name) => `Hey ${name} team! Configured an in-chair companion for your salon — tap this to test how clients request herbal tea, discover products used on them today, and rebook in 4 weeks:`,
+                    flyerHeadline: 'Relax & Unwind with Us',
+                    flyerSub: 'Scan for in-chair refreshments, treatment products, or VIP rewards.',
+                    flyerFooter: 'Thank you for visiting us.'
+                },
+                dining: {
+                    tableLabel: 'Table Number',
+                    tableDefault: 'Table 12',
+                    tablePlaceholder: 'e.g. Table 12',
+                    menuLabel: 'Digital Food & Bar Menu',
+                    pitchIntro: (name) => `Hey ${name} team! Configured a private tabletop companion for your dining tables — tap this to test how diners call water/bill in 3s and join your VIP birthday club:`,
+                    flyerHeadline: 'How was your experience today?',
+                    flyerSub: 'Scan to join our VIP Dining Club, call table service, or browse the menu.',
+                    flyerFooter: 'Thank you for dining with us.'
+                }
+            };
+
+            // DOM References
+            const bizNameInput = document.getElementById('input-biz-name');
+            const tableIdInput = document.getElementById('input-table-id');
+            const labelTableId = document.getElementById('label-table-id');
+            const gmbUrlInput = document.getElementById('input-gmb-url');
+            const menuUrlInput = document.getElementById('input-menu-url');
+            const labelMenuUrl = document.getElementById('label-menu-url');
+            const webhookInput = document.getElementById('input-webhook');
+            const colorPicker = document.getElementById('custom-color-picker');
+            const colorHexLabel = document.getElementById('color-hex-label');
+            const colorDots = document.querySelectorAll('.color-dot');
+            const sectorCards = document.querySelectorAll('.sector-card');
+            
+            const previewIframe = document.getElementById('preview-iframe');
+            const pitchPreview = document.getElementById('pitch-text-preview');
+            const btnCopyPitch = document.getElementById('btn-copy-pitch');
+            const btnCopyLink = document.getElementById('btn-copy-link');
+            const btnOpenDemo = document.getElementById('btn-open-demo');
+            const btnOpenStandee = document.getElementById('btn-open-standee');
+            const btnRefreshPreview = document.getElementById('btn-refresh-preview');
+
+            const deviceStage = document.getElementById('device-stage');
+            const toggleMobile = document.getElementById('toggle-mobile');
+            const toggleDesktop = document.getElementById('toggle-desktop');
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+
+            function showToast(text) {
+                toastMsg.textContent = text;
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 2600);
+            }
+
+            // Build Target URL
+            function buildPortalUrl() {
+                const params = new URLSearchParams();
+                params.set('name', state.name);
+                params.set('category', state.category);
+                if (state.table) params.set('table', state.table);
+                if (state.color) params.set('color', state.color);
+                if (state.gmbUrl && state.gmbUrl !== 'https://maps.google.com') params.set('url', state.gmbUrl);
+                if (state.menuUrl) params.set('menuUrl', state.menuUrl);
+                if (state.webhook) params.set('webhook', state.webhook);
+                return `portal.html?${params.toString()}`;
+            }
+
+            function buildStandeeUrl() {
+                const meta = sectorMeta[state.category] || sectorMeta.dining;
+                const params = new URLSearchParams();
+                params.set('name', state.name);
+                params.set('category', state.category);
+                params.set('theme', 'onyx');
+                params.set('flyerHeadline', meta.flyerHeadline);
+                params.set('flyerSub', meta.flyerSub);
+                params.set('flyerFooter', meta.flyerFooter);
+                params.set('flyerAccent', state.color);
+                params.set('flyerBg', '#0a0a0a');
+                params.set('flyerText', '#ffffff');
+                if (state.table) params.set('table', state.table);
+                
+                const fullPortalUrl = `https://metrixmedia.agency/${buildPortalUrl()}`;
+                params.set('portalUrl', fullPortalUrl);
+                return `flyer.html?${params.toString()}`;
+            }
+
+            function buildPitchMessage() {
+                const meta = sectorMeta[state.category] || sectorMeta.dining;
+                const portalFullUrl = `https://metrixmedia.agency/${buildPortalUrl()}`;
+                return `${meta.pitchIntro(state.name)}\n${portalFullUrl}`;
+            }
+
+            // Debounced Iframe Refresh to avoid flicker
+            let debounceTimer = null;
+            function updateAll(refreshIframe = true) {
+                const relativeUrl = buildPortalUrl();
+                const pitch = buildPitchMessage();
+                const standeeUrl = buildStandeeUrl();
+
+                pitchPreview.textContent = pitch;
+                btnOpenDemo.href = relativeUrl;
+                btnOpenStandee.href = standeeUrl;
+
+                if (refreshIframe) {
+                    clearTimeout(debounceTimer);
+                    debounceTimer = setTimeout(() => {
+                        previewIframe.src = relativeUrl;
+                    }, 250);
+                }
+            }
+
+            // Sector Selection
+            function setCategory(cat, autoTable = true) {
+                state.category = cat;
+                const meta = sectorMeta[cat] || sectorMeta.dining;
+
+                sectorCards.forEach(c => {
+                    c.classList.toggle('active', c.dataset.category === cat);
+                });
+
+                labelTableId.textContent = meta.tableLabel;
+                tableIdInput.placeholder = meta.tablePlaceholder;
+                if (autoTable) {
+                    state.table = meta.tableDefault;
+                    tableIdInput.value = meta.tableDefault;
+                }
+
+                labelMenuUrl.textContent = meta.menuLabel;
+                updateAll(true);
+            }
+
+            sectorCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    setCategory(card.dataset.category, true);
+                });
+            });
+
+            // Color Picker & Dots
+            function setColor(hex) {
+                state.color = hex;
+                colorHexLabel.textContent = hex;
+                colorPicker.value = hex;
+                colorDots.forEach(dot => {
+                    dot.classList.toggle('active', dot.dataset.color.toLowerCase() === hex.toLowerCase());
+                });
+                updateAll(true);
+            }
+
+            colorDots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    setColor(dot.dataset.color);
+                });
+            });
+
+            colorPicker.addEventListener('input', (e) => {
+                setColor(e.target.value);
+            });
+
+            // Input Event Listeners
+            bizNameInput.addEventListener('input', (e) => {
+                state.name = e.target.value.trim() || 'Our Client';
+                updateAll(true);
+            });
+
+            tableIdInput.addEventListener('input', (e) => {
+                state.table = e.target.value.trim();
+                updateAll(true);
+            });
+
+            gmbUrlInput.addEventListener('input', (e) => {
+                state.gmbUrl = e.target.value.trim();
+                updateAll(true);
+            });
+
+            menuUrlInput.addEventListener('input', (e) => {
+                state.menuUrl = e.target.value.trim();
+                updateAll(true);
+            });
+
+            webhookInput.addEventListener('input', (e) => {
+                state.webhook = e.target.value.trim();
+                updateAll(false);
+            });
+
+            // Device Viewport Toggles
+            toggleMobile.addEventListener('click', () => {
+                toggleMobile.classList.add('active');
+                toggleDesktop.classList.remove('active');
+                deviceStage.classList.remove('desktop-mode');
+            });
+
+            toggleDesktop.addEventListener('click', () => {
+                toggleDesktop.classList.add('active');
+                toggleMobile.classList.remove('active');
+                deviceStage.classList.add('desktop-mode');
+            });
+
+            btnRefreshPreview.addEventListener('click', () => {
+                previewIframe.src = buildPortalUrl();
+                showToast('Refreshed simulator preview');
+            });
+
+            // Copy Actions
+            btnCopyPitch.addEventListener('click', () => {
+                const pitch = buildPitchMessage();
+                navigator.clipboard.writeText(pitch).then(() => {
+                    showToast('WhatsApp pitch message copied!');
+                }).catch(() => {
+                    showToast('Failed to copy. Please manually select text.');
+                });
+            });
+
+            btnCopyLink.addEventListener('click', () => {
+                const link = `https://metrixmedia.agency/${buildPortalUrl()}`;
+                navigator.clipboard.writeText(link).then(() => {
+                    showToast('Live demo link copied!');
+                }).catch(() => {
+                    showToast('Failed to copy. Please manually select link.');
+                });
+            });
+
+            // 1-Click Preset Loaders
+            document.getElementById('preset-cabo').addEventListener('click', () => {
+                state.name = 'Cabo Serai';
+                bizNameInput.value = 'Cabo Serai';
+                setCategory('hotel', false);
+                state.table = 'Suite 04';
+                tableIdInput.value = 'Suite 04';
+                setColor('#d4af37');
+                state.gmbUrl = 'https://maps.google.com/?q=Cabo+Serai+Goa';
+                gmbUrlInput.value = state.gmbUrl;
+                updateAll(true);
+                showToast('Loaded Cabo Serai (Hotel) Preset');
+            });
+
+            document.getElementById('preset-cruise').addEventListener('click', () => {
+                state.name = 'Komorebi Luxury Cruise';
+                bizNameInput.value = 'Komorebi Luxury Cruise';
+                setCategory('cruise', false);
+                state.table = 'Deck 1 / Table 04';
+                tableIdInput.value = 'Deck 1 / Table 04';
+                setColor('#38bdf8');
+                state.gmbUrl = 'https://maps.google.com/?q=Mandovi+River+Cruise+Panjim';
+                gmbUrlInput.value = state.gmbUrl;
+                updateAll(true);
+                showToast('Loaded Komorebi (Cruise) Preset');
+            });
+
+            document.getElementById('preset-bare').addEventListener('click', () => {
+                state.name = 'Bare Necessities Skincare';
+                bizNameInput.value = 'Bare Necessities Skincare';
+                setCategory('retail', false);
+                state.table = 'Boutique Counter 01';
+                tableIdInput.value = 'Boutique Counter 01';
+                setColor('#10b981');
+                state.gmbUrl = 'https://maps.google.com/?q=Bare+Necessities+Goa';
+                gmbUrlInput.value = state.gmbUrl;
+                updateAll(true);
+                showToast('Loaded Bare Necessities (Skincare) Preset');
+            });
+
+            document.getElementById('preset-warren').addEventListener('click', () => {
+                state.name = 'Warren Tricomi Salon';
+                bizNameInput.value = 'Warren Tricomi Salon';
+                setCategory('salon', false);
+                state.table = 'Styling Chair 02';
+                tableIdInput.value = 'Styling Chair 02';
+                setColor('#f43f5e');
+                state.gmbUrl = 'https://maps.google.com/?q=Warren+Tricomi+Assagao+Goa';
+                gmbUrlInput.value = state.gmbUrl;
+                updateAll(true);
+                showToast('Loaded Warren Tricomi (Salon) Preset');
+            });
+
+            document.getElementById('preset-noir').addEventListener('click', () => {
+                state.name = 'Cafe Noir';
+                bizNameInput.value = 'Cafe Noir';
+                setCategory('dining', false);
+                state.table = 'Table 12';
+                tableIdInput.value = 'Table 12';
+                setColor('#d4af37');
+                state.gmbUrl = 'https://maps.google.com/?q=Cafe+Noir';
+                gmbUrlInput.value = state.gmbUrl;
+                updateAll(true);
+                showToast('Loaded Cafe Noir (Dining) Preset');
+            });
+
+            // Initial Execution
+            updateAll(true);
+        });
+    </script>
+</body>
+</html>

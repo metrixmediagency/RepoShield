@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="portal.css?v=3.7">
+    <link rel="stylesheet" href="portal.css?v=3.8">
 </head>
 <body>
     <div class="blob-1" id="accent-blob-1"></div>
@@ -26,33 +26,33 @@
                 </div>
                 <h2 id="business-name">Business Name</h2>
                 <div id="table-badge" class="table-badge" style="display: none;">
-                    <i class="fa-solid fa-chair"></i> <span id="table-badge-text">Table 01</span>
+                    <i class="fa-solid fa-chair" id="table-badge-icon"></i> <span id="table-badge-text">Table 01</span>
                 </div>
-                <p class="tagline">Welcome! Tap below to join our VIP Dining Club, request table service, or browse our menu.</p>
+                <p class="tagline" id="portal-tagline">Welcome! Tap below to join our VIP Dining Club, request table service, or browse our menu.</p>
             </div>
 
             <!-- Main Navigation Hub Screen -->
             <div class="hub-screen" id="hub-screen">
                 <!-- 1. VIP Club Option -->
                 <button type="button" class="hub-action-card" id="btn-open-vip">
-                    <div class="hub-action-icon" style="background: rgba(212, 175, 55, 0.15); color: #d4af37; border-color: rgba(212, 175, 55, 0.4);">
-                        <i class="fa-solid fa-crown"></i>
+                    <div class="hub-action-icon" id="vip-action-icon-wrapper" style="background: rgba(212, 175, 55, 0.15); color: #d4af37; border-color: rgba(212, 175, 55, 0.4);">
+                        <i class="fa-solid fa-crown" id="vip-action-icon"></i>
                     </div>
                     <div class="hub-action-text">
-                        <h4>Join VIP Dining Club 🥂</h4>
-                        <p>Unlock complimentary perks &amp; birthday gifts</p>
+                        <h4 id="vip-action-title">Join VIP Dining Club 🥂</h4>
+                        <p id="vip-action-sub">Unlock complimentary perks &amp; birthday gifts</p>
                     </div>
                     <i class="fa-solid fa-chevron-right hub-action-arrow"></i>
                 </button>
 
                 <!-- 2. Table Service Calling Option -->
                 <button type="button" class="hub-action-card" id="btn-open-service">
-                    <div class="hub-action-icon" style="background: rgba(59, 130, 246, 0.15); color: #60a5fa; border-color: rgba(59, 130, 246, 0.4);">
-                        <i class="fa-solid fa-bell-concierge"></i>
+                    <div class="hub-action-icon" id="service-action-icon-wrapper" style="background: rgba(59, 130, 246, 0.15); color: #60a5fa; border-color: rgba(59, 130, 246, 0.4);">
+                        <i class="fa-solid fa-bell-concierge" id="service-action-icon"></i>
                     </div>
                     <div class="hub-action-text">
-                        <h4>Call Table Service 🛎️</h4>
-                        <p>Request water, waiter, or bill in &lt; 3 seconds</p>
+                        <h4 id="service-action-title">Call Table Service 🛎️</h4>
+                        <p id="service-action-sub">Request water, waiter, or bill in &lt; 3 seconds</p>
                     </div>
                     <i class="fa-solid fa-chevron-right hub-action-arrow"></i>
                 </button>
@@ -60,12 +60,12 @@
                 <!-- 3. Direct Menu & Open Reviews -->
                 <div class="hub-quick-links">
                     <a href="#" id="hub-gmb-link" class="hub-link-btn" target="_blank" rel="noopener noreferrer">
-                        <i class="fa-brands fa-google" style="color: #ea4335;"></i>
-                        <span>Review on Google</span>
+                        <i class="fa-brands fa-google" id="hub-gmb-icon" style="color: #ea4335;"></i>
+                        <span id="hub-gmb-text">Review on Google</span>
                     </a>
                     <a href="#" id="hub-menu-link" class="hub-link-btn" target="_blank" rel="noopener noreferrer">
-                        <i class="fa-solid fa-utensils" style="color: #d4af37;"></i>
-                        <span>Browse Menu</span>
+                        <i class="fa-solid fa-utensils" id="hub-menu-icon" style="color: #d4af37;"></i>
+                        <span id="hub-menu-text">Browse Menu</span>
                     </a>
                 </div>
             </div>
@@ -74,9 +74,9 @@
             <div class="vip-screen" id="vip-screen" style="display: none;">
                 <div class="screen-header">
                     <button class="back-btn" id="vip-back-to-hub" aria-label="Go back"><i class="fa-solid fa-arrow-left"></i></button>
-                    <h3>Unlock VIP Privileges 🥂</h3>
+                    <h3 id="vip-screen-title">Unlock VIP Privileges 🥂</h3>
                 </div>
-                <p class="feedback-subtitle">Join our guest list to receive exclusive dining privileges, chef welcome treats, and birthday celebration perks.</p>
+                <p class="feedback-subtitle" id="vip-screen-sub">Join our guest list to receive exclusive dining privileges, chef welcome treats, and birthday celebration perks.</p>
                 
                 <form id="vip-form" class="feedback-form">
                     <div class="input-row">
@@ -90,7 +90,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="vip-dob">Date of Birth (For Birthday Treats)</label>
+                        <label for="vip-dob" id="vip-dob-label">Date of Birth (For Birthday Treats)</label>
                         <input type="text" id="vip-dob" placeholder="DD/MM/YYYY" pattern="\d{2}/\d{2}/\d{4}" title="Please enter in DD/MM/YYYY format" required>
                     </div>
                     <div class="form-group">
@@ -102,7 +102,7 @@
                                 <option value="Google Search / Maps">📍 Google Search / Maps</option>
                                 <option value="Friend / Word of Mouth">👥 Friend / Word of Mouth</option>
                                 <option value="Walk-In / Road Signage">🚶 Walk-In / Road Signage</option>
-                                <option value="Article / Press / Blog">📰 Article / Press / Food Guide</option>
+                                <option value="Article / Press / Blog">📰 Article / Press / Travel Guide</option>
                                 <option value="Online Ad">🎯 Online Advertisement</option>
                                 <option value="Other">✨ Other</option>
                             </select>
@@ -110,7 +110,7 @@
                     </div>
                     
                     <button type="submit" class="submit-btn" id="btn-submit-vip">
-                        Claim VIP Privileges <i class="fa-solid fa-gift"></i>
+                        <span id="vip-submit-text">Claim VIP Privileges</span> <i class="fa-solid fa-gift" id="vip-submit-icon"></i>
                     </button>
                 </form>
             </div>
@@ -119,24 +119,24 @@
             <div class="service-screen" id="service-screen" style="display: none;">
                 <div class="screen-header">
                     <button class="back-btn" id="service-back-to-hub" aria-label="Go back"><i class="fa-solid fa-arrow-left"></i></button>
-                    <h3>Call Table Service 🛎️</h3>
+                    <h3 id="service-screen-title">Call Table Service 🛎️</h3>
                 </div>
-                <p class="feedback-subtitle">Tap a service option below to alert our floor staff immediately:</p>
+                <p class="feedback-subtitle" id="service-screen-sub">Tap a service option below to alert our floor staff immediately:</p>
                 
-                <div class="service-grid">
-                    <button type="button" class="service-tile" id="service-btn-water">
+                <div class="service-grid" id="service-grid">
+                    <button type="button" class="service-tile" id="service-btn-1">
                         <i class="fa-solid fa-bottle-water"></i>
                         <span>Water Refill</span>
                     </button>
-                    <button type="button" class="service-tile" id="service-btn-waiter">
+                    <button type="button" class="service-tile" id="service-btn-2">
                         <i class="fa-solid fa-hand"></i>
                         <span>Call Waiter</span>
                     </button>
-                    <button type="button" class="service-tile" id="service-btn-bill">
+                    <button type="button" class="service-tile" id="service-btn-3">
                         <i class="fa-solid fa-receipt"></i>
                         <span>Request Bill</span>
                     </button>
-                    <button type="button" class="service-tile" id="service-btn-custom">
+                    <button type="button" class="service-tile" id="service-btn-4">
                         <i class="fa-solid fa-message"></i>
                         <span>Special Note</span>
                     </button>
@@ -144,15 +144,15 @@
 
                 <form id="custom-service-form" class="feedback-form" style="display: none; margin-top: 10px;">
                     <div class="form-group">
-                        <label for="service-table">Table Number (Optional)</label>
+                        <label for="service-table" id="service-table-label">Table Number (Optional)</label>
                         <input type="text" id="service-table" placeholder="e.g. Table 4">
                     </div>
                     <div class="form-group">
-                        <label for="service-message">How can our team help you?</label>
+                        <label for="service-message" id="service-msg-label">How can our team help you?</label>
                         <textarea id="service-message" rows="3" placeholder="e.g. Extra napkins, sauce, etc." required></textarea>
                     </div>
                     <button type="submit" class="submit-btn" id="btn-submit-service">
-                        Send Request to Floor Staff <i class="fa-solid fa-paper-plane"></i>
+                        <span id="service-submit-text">Send Request to Floor Staff</span> <i class="fa-solid fa-paper-plane"></i>
                     </button>
                 </form>
             </div>
@@ -180,6 +180,6 @@
     </div>
 
     <script src="supabase_config.js"></script>
-    <script src="portal.js?v=3.7"></script>
+    <script src="portal.js?v=3.8"></script>
 </body>
 </html>
