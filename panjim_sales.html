@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>METRIX // Panjim Field Sales OS & Territory Pipeline</title>
+  <link rel="icon" type="image/jpeg" href="metrix_logo.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --bg-void: #070a0f;
+      --bg-card: #0d131f;
+      --bg-surface: #111a2c;
+      --border-gold: rgba(212, 175, 55, 0.28);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --gold-primary: #d4af37;
+      --gold-gradient: linear-gradient(135deg, #fce588 0%, #d4af37 50%, #997300 100%);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --green: #10b981;
+      --blue: #38bdf8;
+      --amber: #f59e0b;
+      --rose: #f43f5e;
+      --purple: #a855f7;
+      --font-head: 'Outfit', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg-void);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Nav */
+    header {
+      background: rgba(13, 19, 31, 0.95);
+      border-bottom: 1px solid var(--border-gold);
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-badge {
+      width: 32px;
+      height: 32px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-gold);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold-primary);
+      font-size: 14px;
+    }
+
+    .brand-title {
+      font-family: var(--font-head);
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #fff;
+    }
+
+    .brand-title span {
+      color: var(--gold-primary);
+      font-size: 0.8rem;
+      font-family: var(--font-mono);
+      font-weight: 500;
+      margin-left: 6px;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn {
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+      text-decoration: none;
+      border: none;
+    }
+
+    .btn-gold {
+      background: var(--gold-gradient);
+      color: #000;
+      font-weight: 700;
+    }
+    .btn-gold:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+    }
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* KPI Bar */
+    .kpi-container {
+      max-width: 1440px;
+      width: 100%;
+      margin: 20px auto 0;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 14px;
+    }
+
+    .kpi-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .kpi-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .kpi-val {
+      font-family: var(--font-head);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .kpi-sub {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    /* Main Container */
+    .main-content {
+      max-width: 1440px;
+      width: 100%;
+      margin: 18px auto 40px;
+      padding: 0 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    /* Filter & Controls Bar */
+    .controls-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+
+    .tab-chip {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      padding: 7px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: var(--transition);
+    }
+
+    .tab-chip:hover {
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .tab-chip.active {
+      background: rgba(212, 175, 55, 0.15);
+      border-color: var(--gold-primary);
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .search-input {
+      background: rgba(7, 10, 15, 0.8);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      color: #fff;
+      padding: 8px 14px;
+      font-size: 0.85rem;
+      outline: none;
+      width: 240px;
+    }
+    .search-input:focus { border-color: var(--gold-primary); }
+
+    /* Account Table */
+    .table-wrapper {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      overflow-x: auto;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.85rem;
+    }
+
+    th {
+      background: rgba(17, 26, 44, 0.8);
+      padding: 13px 16px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border-subtle);
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      vertical-align: middle;
+    }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .venue-name {
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .venue-area {
+      font-size: 0.73rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Badges */
+    .tier-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 0.68rem;
+      font-family: var(--font-mono);
+      font-weight: 700;
+    }
+    .tier-1 { background: rgba(212, 175, 55, 0.15); color: var(--gold-primary); border: 1px solid rgba(212, 175, 55, 0.3); }
+    .tier-2 { background: rgba(56, 189, 248, 0.15); color: var(--blue); border: 1px solid rgba(56, 189, 248, 0.3); }
+    .tier-3 { background: rgba(148, 163, 184, 0.15); color: #cbd5e1; border: 1px solid rgba(148, 163, 184, 0.3); }
+
+    .status-select {
+      background: rgba(7, 10, 15, 0.9);
+      border: 1px solid var(--border-subtle);
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      outline: none;
+      cursor: pointer;
+    }
+    .status-select:focus { border-color: var(--gold-primary); }
+
+    /* Action Buttons in Table */
+    .action-group {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .btn-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      font-size: 13px;
+    }
+    .btn-icon:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-1px);
+    }
+    .btn-icon.gold { color: var(--gold-primary); border-color: var(--border-gold); }
+    .btn-icon.gold:hover { background: rgba(212, 175, 55, 0.2); }
+    .btn-icon.green { color: var(--green); }
+    .btn-icon.green:hover { background: rgba(16, 185, 129, 0.2); }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(7, 10, 15, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-backdrop.active { display: flex; }
+
+    .modal-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-gold);
+      border-radius: 16px;
+      max-width: 540px;
+      width: 100%;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 12px;
+    }
+    .modal-header h3 { font-family: var(--font-head); font-size: 1.15rem; color: #fff; }
+    .close-btn { background: none; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer; }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group.full { grid-column: span 2; }
+    .form-label { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
+    .form-input {
+      background: rgba(7, 10, 15, 0.8);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 9px 12px;
+      color: #fff;
+      font-size: 0.85rem;
+      outline: none;
+    }
+    .form-input:focus { border-color: var(--gold-primary); }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #0f172a;
+      border: 1px solid var(--gold-primary);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      display: none;
+      align-items: center;
+      gap: 8px;
+      z-index: 9999;
+    }
+    .toast.show { display: flex; }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header Navigation -->
+  <header>
+    <div class="brand-section">
+      <div class="brand-badge"><i class="fa-solid fa-map-location-dot"></i></div>
+      <div class="brand-title">METRIX <span>// Panjim Territory Sales OS</span></div>
+    </div>
+    <div class="nav-actions">
+      <button class="btn btn-gold" onclick="openModal()"><i class="fa-solid fa-plus"></i> Add Account</button>
+      <button class="btn btn-outline" onclick="exportCSV()"><i class="fa-solid fa-file-csv"></i> Export CSV</button>
+      <a href="studio.html" target="_blank" class="btn btn-outline"><i class="fa-solid fa-layer-group"></i> Demo Studio</a>
+    </div>
+  </header>
+
+  <!-- High-Level KPI Pipeline Metrics -->
+  <section class="kpi-container">
+    <div class="kpi-card">
+      <div class="kpi-label">Panjim Accounts <i class="fa-solid fa-store" style="color: var(--blue);"></i></div>
+      <div class="kpi-val" id="kpi-total-accounts">0</div>
+      <div class="kpi-sub">Assigned territory targets</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Demos Presented <i class="fa-solid fa-mobile-screen" style="color: var(--purple);"></i></div>
+      <div class="kpi-val" id="kpi-demos-delivered">0</div>
+      <div class="kpi-sub">In-store live scans executed</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Active 7-Day Pilots <i class="fa-solid fa-clock" style="color: var(--amber);"></i></div>
+      <div class="kpi-val" id="kpi-active-pilots" style="color: var(--amber);">0</div>
+      <div class="kpi-sub">Testing weekend service</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Closed Won (Active MRR) <i class="fa-solid fa-circle-check" style="color: var(--green);"></i></div>
+      <div class="kpi-val" id="kpi-active-mrr" style="color: var(--green);">₹0</div>
+      <div class="kpi-sub" id="kpi-closed-count">0 paying accounts (₹11,500/mo)</div>
+    </div>
+  </section>
+
+  <!-- Main Territory Content -->
+  <main class="main-content">
+    
+    <!-- Filter Controls -->
+    <div class="controls-bar">
+      <div class="filter-tabs">
+        <button class="tab-chip active" data-filter="all">All Targets (<span id="count-all">0</span>)</button>
+        <button class="tab-chip" data-filter="Rua 31 de Janeiro">Rua 31 de Janeiro (<span id="count-rua">0</span>)</button>
+        <button class="tab-chip" data-filter="Caranzalem / Miramar">Caranzalem / Miramar (<span id="count-miramar">0</span>)</button>
+        <button class="tab-chip" data-filter="Campal">Campal (<span id="count-campal">0</span>)</button>
+        <button class="tab-chip" data-filter="Fontainhas / Mala">Fontainhas / Mala (<span id="count-fontainhas">0</span>)</button>
+        <button class="tab-chip" data-filter="pilot">Active Pilots (<span id="count-pilot">0</span>)</button>
+      </div>
+      <input type="text" id="searchInput" class="search-input" placeholder="Search venue, contact, street...">
+    </div>
+
+    <!-- Accounts Pipeline Table -->
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Venue &amp; Area</th>
+            <th>Tier &amp; Covers</th>
+            <th>Decision Maker</th>
+            <th>Core Vulnerability / Pain</th>
+            <th>Pipeline Status</th>
+            <th>Next Action Date</th>
+            <th style="text-align: right;">Field Actions</th>
+          </tr>
+        </thead>
+        <tbody id="accountsTableBody">
+          <!-- Populated by JS -->
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- Add/Edit Account Modal -->
+  <div class="modal-backdrop" id="accountModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modalHeading">Add New Panjim Account</h3>
+        <button class="close-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="accountForm">
+        <input type="hidden" id="editAccountId">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Venue Name</label>
+            <input type="text" id="inVenue" class="form-input" required placeholder="e.g. Praça Prazeres">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Corridor / Area</label>
+            <select id="inArea" class="form-input">
+              <option value="Rua 31 de Janeiro">Rua 31 de Janeiro</option>
+              <option value="Caranzalem / Miramar">Caranzalem / Miramar</option>
+              <option value="Campal">Campal</option>
+              <option value="Fontainhas / Mala">Fontainhas / Mala</option>
+              <option value="Central Panjim">Central Panjim</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Account Tier</label>
+            <select id="inTier" class="form-input">
+              <option value="Tier 1">Tier 1 (Whale / 30+ tables)</option>
+              <option value="Tier 2" selected>Tier 2 (High-AOV Boutique)</option>
+              <option value="Tier 3">Tier 3 (High Turnover / Fast Casual)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Est. Tables / AOV</label>
+            <input type="text" id="inTables" class="form-input" placeholder="e.g. 22 Tables · ₹2,500 AOV">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Decision Maker Name</label>
+            <input type="text" id="inContact" class="form-input" placeholder="e.g. Chef Ralph / Stacy">
+          </div>
+          <div class="form-group">
+            <label class="form-label">WhatsApp Number</label>
+            <input type="tel" id="inPhone" class="form-input" placeholder="e.g. 9823456789">
+          </div>
+          <div class="form-group full">
+            <label class="form-label">Primary Operational Pain Point</label>
+            <input type="text" id="inPain" class="form-input" placeholder="e.g. Bill wait times during weekend rush; 1-star review shield">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Pipeline Stage</label>
+            <select id="inStatus" class="form-input">
+              <option value="1. Target Identified">1. Target Identified</option>
+              <option value="2. In-Person Met (Demo Given)">2. In-Person Met (Demo Given)</option>
+              <option value="3. 7-Day Pilot Active">3. 7-Day Pilot Active</option>
+              <option value="4. Closed Won (Paid)">4. Closed Won (Paid)</option>
+              <option value="5. Follow-Up Later">5. Follow-Up Later</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Next Action Date</label>
+            <input type="date" id="inNextDate" class="form-input">
+          </div>
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 14px;">
+          <button type="button" class="btn btn-outline" onclick="closeModal()">Cancel</button>
+          <button type="submit" class="btn btn-gold">Save Account</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">
+    <i class="fa-solid fa-circle-check" style="color: var(--green);"></i>
+    <span id="toastMsg">Action completed!</span>
+  </div>
+
+  <!-- Operational Core Script -->
+  <script>
+    // Initial Seed Dataset for Panjim Territory (Pre-populated for Sunny)
+    const DEFAULT_PANJIM_ACCOUNTS = [
+      {
+        id: "pjm-01",
+        venue: "Praça Prazeres",
+        area: "Caranzalem / Miramar",
+        tier: "Tier 1",
+        tables: "22 Tables · ₹2,500 AOV",
+        contact: "Chef Ralph / Stacy",
+        phone: "+91 93223 97615",
+        pain: "High bill size; VIP guest return frequency & reservation retention",
+        status: "1. Target Identified",
+        nextDate: "2026-11-10"
+      },
+      {
+        id: "pjm-02",
+        venue: "The Black Market",
+        area: "Campal",
+        tier: "Tier 1",
+        tables: "28 Tables · ₹2,800 AOV",
+        contact: "Operations Director",
+        phone: "+91 832 242 0405",
+        pain: "1-Star review shield; catch service slips before tourist leaves",
+        status: "1. Target Identified",
+        nextDate: "2026-11-10"
+      },
+      {
+        id: "pjm-03",
+        venue: "The Caravela Cafe and Bistro",
+        area: "Rua 31 de Janeiro",
+        tier: "Tier 2",
+        tables: "14 Tables · ₹1,100 AOV",
+        contact: "Carlos / Partner",
+        phone: "+91 832 243 7806",
+        pain: "Fast table service calling; repeat nomad & tourist database",
+        status: "1. Target Identified",
+        nextDate: "2026-11-11"
+      },
+      {
+        id: "pjm-04",
+        venue: "Miski Bar & Kitchen",
+        area: "Rua 31 de Janeiro",
+        tier: "Tier 2",
+        tables: "18 Tables · ₹1,800 AOV",
+        contact: "Floor Partner",
+        phone: "+91 91754 82455",
+        pain: "Packed cocktail hours; instant bill and server alert calling",
+        status: "1. Target Identified",
+        nextDate: "2026-11-11"
+      },
+      {
+        id: "pjm-05",
+        venue: "Bombil",
+        area: "Rua 31 de Janeiro",
+        tier: "Tier 3",
+        tables: "15 Tables · ₹1,400 AOV",
+        contact: "Owner / Operations",
+        phone: "+91 832 242 7954",
+        pain: "Fast lunch turnover; prevent negative reviews during peak rush",
+        status: "1. Target Identified",
+        nextDate: "2026-11-11"
+      },
+      {
+        id: "pjm-06",
+        venue: "Miguel’s",
+        area: "Fontainhas / Mala",
+        tier: "Tier 2",
+        tables: "16 Tables · ₹2,200 AOV",
+        contact: "Operations Partner",
+        phone: "+91 91754 82455",
+        pain: "Elite cocktail clientele; VIP dining club for private tasting nights",
+        status: "1. Target Identified",
+        nextDate: "2026-11-12"
+      },
+      {
+        id: "pjm-07",
+        venue: "For The Record (FTR) Vinyl Bar",
+        area: "Fontainhas / Mala",
+        tier: "Tier 2",
+        tables: "10 Tables · ₹2,000 AOV",
+        contact: "Buland Shukla",
+        phone: "+91 98234 11200",
+        pain: "Long 2-hour dwell time; capture VIP audiophile WhatsApp database",
+        status: "1. Target Identified",
+        nextDate: "2026-11-12"
+      },
+      {
+        id: "pjm-08",
+        venue: "Padaria Prazeres",
+        area: "Caranzalem / Miramar",
+        tier: "Tier 2",
+        tables: "12 Tables · ₹1,200 AOV",
+        contact: "Stacy / Management",
+        phone: "+91 93223 97615",
+        pain: "Long morning queues; direct takeaway ordering & product showcase",
+        status: "1. Target Identified",
+        nextDate: "2026-11-13"
+      },
+      {
+        id: "pjm-09",
+        venue: "Kefi Cafe & Bistro",
+        area: "Caranzalem / Miramar",
+        tier: "Tier 2",
+        tables: "16 Tables · ₹1,600 AOV",
+        contact: "Management",
+        phone: "+91 93707 98664",
+        pain: "High tourist dwell time; 5-star Google review capture",
+        status: "1. Target Identified",
+        nextDate: "2026-11-13"
+      },
+      {
+        id: "pjm-10",
+        venue: "Copperleaf Panjim",
+        area: "Central Panjim",
+        tier: "Tier 1",
+        tables: "45 Tables · ₹2,400 AOV",
+        contact: "General Manager",
+        phone: "+91 832 240 0000",
+        pain: "Massive 2-floor coverage; real-time staff response time optimization",
+        status: "1. Target Identified",
+        nextDate: "2026-11-14"
+      },
+      {
+        id: "pjm-11",
+        venue: "The Fisherman’s Wharf",
+        area: "Campal",
+        tier: "Tier 1",
+        tables: "40 Tables · ₹2,600 AOV",
+        contact: "Floor General Manager",
+        phone: "+91 832 246 1111",
+        pain: "Sprawling riverside floor; table calling speeds up bill turnaround",
+        status: "1. Target Identified",
+        nextDate: "2026-11-14"
+      },
+      {
+        id: "pjm-12",
+        venue: "Viva Panjim",
+        area: "Fontainhas / Mala",
+        tier: "Tier 3",
+        tables: "14 Tables · ₹1,200 AOV",
+        contact: "Linda / Owner",
+        phone: "+91 832 242 2405",
+        pain: "Heritage tourist footfall; private negative feedback gate",
+        status: "1. Target Identified",
+        nextDate: "2026-11-15"
+      }
+    ];
+
+    // Local Storage Management
+    function getAccounts() {
+      const stored = localStorage.getItem('metrix_panjim_pipeline');
+      if (stored) {
+        try { return JSON.parse(stored); } catch(e) {}
+      }
+      localStorage.setItem('metrix_panjim_pipeline', JSON.stringify(DEFAULT_PANJIM_ACCOUNTS));
+      return DEFAULT_PANJIM_ACCOUNTS;
+    }
+
+    function saveAccounts(list) {
+      localStorage.setItem('metrix_panjim_pipeline', JSON.stringify(list));
+      render();
+    }
+
+    let activeFilter = 'all';
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMsg').textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2800);
+    }
+
+    function render() {
+      const accounts = getAccounts();
+      const tbody = document.getElementById('accountsTableBody');
+      const search = (document.getElementById('searchInput').value || '').toLowerCase().trim();
+
+      // Counts
+      let cAll = accounts.length;
+      let cRua = accounts.filter(a => a.area.includes('Rua 31')).length;
+      let cMiramar = accounts.filter(a => a.area.includes('Caranzalem') || a.area.includes('Miramar')).length;
+      let cCampal = accounts.filter(a => a.area.includes('Campal')).length;
+      let cFontainhas = accounts.filter(a => a.area.includes('Fontainhas') || a.area.includes('Mala')).length;
+      let cPilot = accounts.filter(a => a.status.includes('Pilot')).length;
+      let cWon = accounts.filter(a => a.status.includes('Closed Won')).length;
+      let cDemos = accounts.filter(a => a.status.includes('Demo') || a.status.includes('Pilot') || a.status.includes('Closed Won')).length;
+
+      document.getElementById('count-all').textContent = cAll;
+      document.getElementById('count-rua').textContent = cRua;
+      document.getElementById('count-miramar').textContent = cMiramar;
+      document.getElementById('count-campal').textContent = cCampal;
+      document.getElementById('count-fontainhas').textContent = cFontainhas;
+      document.getElementById('count-pilot').textContent = cPilot;
+
+      // KPIs
+      document.getElementById('kpi-total-accounts').textContent = `${cAll} Venues`;
+      document.getElementById('kpi-demos-delivered').textContent = cDemos;
+      document.getElementById('kpi-active-pilots').textContent = `${cPilot} Venues`;
+      document.getElementById('kpi-active-mrr').textContent = `₹${(cWon * 11500).toLocaleString('en-IN')}`;
+      document.getElementById('kpi-closed-count').textContent = `${cWon} paying accounts (₹11,500/mo)`;
+
+      // Filter & Search
+      let filtered = accounts.filter(item => {
+        let matchesFilter = true;
+        if (activeFilter === 'pilot') matchesFilter = item.status.includes('Pilot');
+        else if (activeFilter !== 'all') matchesFilter = item.area.toLowerCase().includes(activeFilter.toLowerCase());
+
+        let matchesSearch = true;
+        if (search) {
+          matchesSearch = item.venue.toLowerCase().includes(search) || 
+                          item.contact.toLowerCase().includes(search) || 
+                          item.area.toLowerCase().includes(search) || 
+                          item.pain.toLowerCase().includes(search);
+        }
+        return matchesFilter && matchesSearch;
+      });
+
+      tbody.innerHTML = '';
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding: 40px; color: var(--text-muted);">No accounts found matching filter.</td></tr>`;
+        return;
+      }
+
+      filtered.forEach(acc => {
+        const tr = document.createElement('tr');
+        const tierClass = acc.tier === 'Tier 1' ? 'tier-1' : (acc.tier === 'Tier 2' ? 'tier-2' : 'tier-3');
+        const demoLink = `https://metrixmedia.agency/portal.html?name=${encodeURIComponent(acc.venue)}&category=dining&table=Table+04`;
+        const flyerLink = `https://metrixmedia.agency/flyer.html?name=${encodeURIComponent(acc.venue)}&category=dining&flyerAccent=%23d4af37`;
+
+        tr.innerHTML = `
+          <td>
+            <div class="venue-name">${acc.venue}</div>
+            <div class="venue-area"><i class="fa-solid fa-location-dot" style="color: var(--gold-primary);"></i> ${acc.area}</div>
+          </td>
+          <td>
+            <span class="tier-badge ${tierClass}">${acc.tier}</span>
+            <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 3px;">${acc.tables}</div>
+          </td>
+          <td>
+            <div style="font-weight: 600; color: #fff;">${acc.contact}</div>
+            <div style="font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono);">${acc.phone}</div>
+          </td>
+          <td style="max-width: 280px; font-size: 0.78rem; color: #cbd5e1; line-height: 1.4;">
+            ${acc.pain}
+          </td>
+          <td>
+            <select class="status-select" onchange="updateStatus('${acc.id}', this.value)">
+              <option value="1. Target Identified" ${acc.status === '1. Target Identified' ? 'selected' : ''}>1. Target Identified</option>
+              <option value="2. In-Person Met (Demo Given)" ${acc.status === '2. In-Person Met (Demo Given)' ? 'selected' : ''}>2. In-Person Met (Demo Given)</option>
+              <option value="3. 7-Day Pilot Active" ${acc.status === '3. 7-Day Pilot Active' ? 'selected' : ''}>3. 7-Day Pilot Active</option>
+              <option value="4. Closed Won (Paid)" ${acc.status === '4. Closed Won (Paid)' ? 'selected' : ''}>4. Closed Won (Paid)</option>
+              <option value="5. Follow-Up Later" ${acc.status === '5. Follow-Up Later' ? 'selected' : ''}>5. Follow-Up Later</option>
+            </select>
+          </td>
+          <td>
+            <input type="date" value="${acc.nextDate || ''}" onchange="updateDate('${acc.id}', this.value)" style="background: transparent; border: 1px solid var(--border-subtle); color: #fff; padding: 4px 6px; border-radius: 4px; font-size: 0.75rem;">
+          </td>
+          <td style="text-align: right;">
+            <div class="action-group" style="justify-content: flex-end;">
+              <a href="${demoLink}" target="_blank" class="btn-icon gold" title="Open Live Tabletop Simulator">
+                <i class="fa-solid fa-mobile-screen"></i>
+              </a>
+              <a href="${flyerLink}" target="_blank" class="btn-icon" title="Print Custom Standee Insert">
+                <i class="fa-solid fa-print"></i>
+              </a>
+              <button type="button" class="btn-icon green" onclick="copyFollowUp('${acc.venue.replace(/'/g, "\\'")}', '${acc.contact.replace(/'/g, "\\'")}', '${demoLink}')" title="Copy 2-Hour Post-Visit WhatsApp">
+                <i class="fa-brands fa-whatsapp"></i>
+              </button>
+              <button type="button" class="btn-icon" onclick="editAccount('${acc.id}')" title="Edit Account">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+              <button type="button" class="btn-icon" onclick="deleteAccount('${acc.id}')" title="Delete Account" style="color: #ef4444;">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Filter Buttons
+    document.querySelectorAll('.tab-chip').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab-chip').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        activeFilter = tab.dataset.filter;
+        render();
+      });
+    });
+
+    document.getElementById('searchInput').addEventListener('input', render);
+
+    // Status & Date Inline Updates
+    window.updateStatus = function(id, newStatus) {
+      let accounts = getAccounts();
+      const idx = accounts.findIndex(a => a.id === id);
+      if (idx !== -1) {
+        accounts[idx].status = newStatus;
+        saveAccounts(accounts);
+        showToast(`Updated status to: ${newStatus}`);
+      }
+    };
+
+    window.updateDate = function(id, newDate) {
+      let accounts = getAccounts();
+      const idx = accounts.findIndex(a => a.id === id);
+      if (idx !== -1) {
+        accounts[idx].nextDate = newDate;
+        saveAccounts(accounts);
+        showToast(`Next action set to: ${newDate}`);
+      }
+    };
+
+    // Copy 2-Hour WhatsApp Follow-Up
+    window.copyFollowUp = function(venue, contact, demoUrl) {
+      const msg = `Hey ${contact}! Sunny here from METRIX. Great meeting you at ${venue} today.\n\nHere is the direct link to the live table companion I showed you on Table 4: ${demoUrl}\n\nI’ve got 15 tabletop units queued for ${venue} for our 7-day weekend trial. Let me know if you’d like me to drop off the physical units on Thursday before the evening rush!`;
+      navigator.clipboard.writeText(msg).then(() => {
+        showToast(`WhatsApp pitch copied for ${venue}!`);
+      });
+    };
+
+    // Modal Operations
+    const modal = document.getElementById('accountModal');
+    window.openModal = function() {
+      document.getElementById('editAccountId').value = '';
+      document.getElementById('modalHeading').textContent = 'Add New Panjim Account';
+      document.getElementById('accountForm').reset();
+      modal.classList.add('active');
+    };
+
+    window.closeModal = function() {
+      modal.classList.remove('active');
+    };
+
+    window.editAccount = function(id) {
+      const accounts = getAccounts();
+      const acc = accounts.find(a => a.id === id);
+      if (!acc) return;
+
+      document.getElementById('editAccountId').value = acc.id;
+      document.getElementById('modalHeading').textContent = `Edit Account: ${acc.venue}`;
+      document.getElementById('inVenue').value = acc.venue;
+      document.getElementById('inArea').value = acc.area;
+      document.getElementById('inTier').value = acc.tier;
+      document.getElementById('inTables').value = acc.tables;
+      document.getElementById('inContact').value = acc.contact;
+      document.getElementById('inPhone').value = acc.phone;
+      document.getElementById('inPain').value = acc.pain;
+      document.getElementById('inStatus').value = acc.status;
+      document.getElementById('inNextDate').value = acc.nextDate || '';
+
+      modal.classList.add('active');
+    };
+
+    window.deleteAccount = function(id) {
+      if (!confirm('Are you sure you want to remove this account?')) return;
+      let accounts = getAccounts().filter(a => a.id !== id);
+      saveAccounts(accounts);
+      showToast('Account deleted');
+    };
+
+    // Form Submit
+    document.getElementById('accountForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const id = document.getElementById('editAccountId').value;
+      let accounts = getAccounts();
+
+      const accountData = {
+        id: id || `pjm-${Date.now()}`,
+        venue: document.getElementById('inVenue').value.trim(),
+        area: document.getElementById('inArea').value,
+        tier: document.getElementById('inTier').value,
+        tables: document.getElementById('inTables').value.trim(),
+        contact: document.getElementById('inContact').value.trim(),
+        phone: document.getElementById('inPhone').value.trim(),
+        pain: document.getElementById('inPain').value.trim(),
+        status: document.getElementById('inStatus').value,
+        nextDate: document.getElementById('inNextDate').value
+      };
+
+      if (id) {
+        const idx = accounts.findIndex(a => a.id === id);
+        if (idx !== -1) accounts[idx] = accountData;
+      } else {
+        accounts.unshift(accountData);
+      }
+
+      saveAccounts(accounts);
+      closeModal();
+      showToast('Account saved successfully!');
+    });
+
+    // CSV Export
+    window.exportCSV = function() {
+      const accounts = getAccounts();
+      let csv = "ID,Venue,Area,Tier,Tables_AOV,Contact,Phone,Pain_Point,Status,Next_Action_Date\n";
+      accounts.forEach(a => {
+        csv += `"${a.id}","${a.venue.replace(/"/g, '""')}","${a.area}","${a.tier}","${a.tables}","${a.contact}","${a.phone}","${a.pain.replace(/"/g, '""')}","${a.status}","${a.nextDate}"\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `METRIX_Panjim_Territory_Pipeline_${new Date().toISOString().split('T')[0]}.csv`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    };
+
+    // Initialize
+    render();
+  </script>
+</body>
+</html>
