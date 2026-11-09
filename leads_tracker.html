@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>METRIX // Dubai Hospitality Lead Engine & CRM</title>
+  <title>METRIX // Goa Panjim Hospitality Lead Engine & CRM</title>
+  <link rel="icon" type="image/jpeg" href="metrix_logo.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -66,26 +67,22 @@
     .brand-title span {
       color: var(--text-muted);
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
+      font-size: 0.85rem;
       font-weight: 500;
+      letter-spacing: 0px;
     }
 
     .header-actions {
       display: flex;
-      align-items: center;
       gap: 10px;
+      align-items: center;
       flex-wrap: wrap;
     }
 
     .btn {
-      background: rgba(212, 175, 55, 0.12);
-      border: 1px solid var(--gold-primary);
-      color: var(--gold-primary);
-      padding: 9px 16px;
+      padding: 8px 16px;
       border-radius: 6px;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       font-weight: 600;
       cursor: pointer;
       display: inline-flex;
@@ -95,77 +92,55 @@
       text-decoration: none;
     }
 
-    .btn:hover {
-      background: var(--gold-primary);
-      color: #000;
-      box-shadow: 0 0 15px rgba(212, 175, 55, 0.35);
-      transform: translateY(-1px);
-    }
-
     .btn-solid {
       background: var(--gold-gradient);
       color: #000;
       border: none;
       font-weight: 700;
     }
-
     .btn-solid:hover {
-      box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+      box-shadow: 0 0 16px rgba(212, 175, 55, 0.4);
+      transform: translateY(-1px);
     }
 
     .btn-outline {
-      background: transparent;
+      background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--border-subtle);
-      color: #cbd5e1;
+      color: var(--text-white);
     }
-
     .btn-outline:hover {
-      border-color: var(--gold-primary);
-      color: var(--gold-primary);
-      background: rgba(212, 175, 55, 0.05);
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
     }
 
     /* Main Container */
     main {
-      padding: 28px 32px;
-      max-width: 1750px;
-      width: 100%;
-      margin: 0 auto;
+      padding: 24px 32px;
       flex: 1;
       display: flex;
       flex-direction: column;
       gap: 24px;
+      max-width: 1600px;
+      margin: 0 auto;
+      width: 100%;
     }
 
-    /* KPI Highlights */
+    /* KPI Summary Strip */
     .kpi-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 18px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
     }
 
     .kpi-card {
-      background: var(--panel-bg);
+      background: var(--card-bg);
       border: 1px solid var(--border-subtle);
       border-radius: 12px;
-      padding: 20px 24px;
+      padding: 18px 20px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
-    }
-
-    .kpi-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: var(--gold-gradient);
-      opacity: 0.6;
+      gap: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
     }
 
     .kpi-title {
@@ -177,28 +152,31 @@
     }
 
     .kpi-val {
-      font-size: 1.85rem;
-      font-weight: 800;
-      color: #fff;
       font-family: 'JetBrains Mono', monospace;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--text-white);
     }
 
     .kpi-sub {
       font-size: 0.75rem;
       color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    /* Controls Bar */
+    /* Control & Filter Strip */
     .controls-bar {
-      background: var(--panel-bg);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 16px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
       gap: 16px;
+      background: var(--panel-bg);
+      border: 1px solid var(--border-subtle);
+      padding: 16px 20px;
+      border-radius: 10px;
     }
 
     .filter-group {
@@ -211,216 +189,151 @@
     .search-input {
       background: var(--card-bg);
       border: 1px solid var(--border-subtle);
-      color: #fff;
-      padding: 9px 16px;
+      color: var(--text-white);
+      padding: 8px 14px;
       border-radius: 6px;
       font-size: 0.85rem;
-      width: 280px;
       outline: none;
-      transition: border 0.2s;
+      width: 260px;
     }
-
-    .search-input:focus {
-      border-color: var(--gold-primary);
-    }
+    .search-input:focus { border-color: var(--gold-primary); }
 
     .filter-select {
       background: var(--card-bg);
       border: 1px solid var(--border-subtle);
-      color: #cbd5e1;
-      padding: 9px 14px;
+      color: var(--text-white);
+      padding: 8px 12px;
       border-radius: 6px;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       outline: none;
       cursor: pointer;
     }
+    .filter-select:focus { border-color: var(--gold-primary); }
 
-    .filter-select:focus {
-      border-color: var(--gold-primary);
-    }
-
-    /* Table Styling */
+    /* Leads Table */
     .table-container {
       background: var(--panel-bg);
-      border: 1px solid var(--border-subtle);
+      border: 1px solid var(--border-color);
       border-radius: 12px;
       overflow-x: auto;
-      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
       text-align: left;
-      font-size: 0.86rem;
-    }
-
-    thead {
-      background: rgba(255, 255, 255, 0.03);
-      border-bottom: 1px solid var(--border-color);
+      font-size: 0.85rem;
     }
 
     th {
-      padding: 14px 18px;
-      font-size: 0.75rem;
+      background: rgba(16, 24, 38, 0.9);
+      padding: 14px 16px;
+      font-size: 0.72rem;
       text-transform: uppercase;
       letter-spacing: 1px;
-      color: var(--gold-primary);
-      font-weight: 700;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border-color);
       white-space: nowrap;
     }
 
-    tbody tr {
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-      transition: background 0.15s ease;
-    }
-
-    tbody tr:hover {
-      background: rgba(212, 175, 55, 0.04);
-    }
-
     td {
-      padding: 14px 18px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-subtle);
       vertical-align: middle;
-      color: #cbd5e1;
+    }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
     }
 
     .lead-venue {
       font-weight: 700;
-      color: #fff;
+      color: var(--text-white);
       font-size: 0.95rem;
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
 
     /* Badges */
     .badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
-      border-radius: 20px;
+      gap: 5px;
+      padding: 3px 8px;
+      border-radius: 4px;
       font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
+      font-weight: 600;
       white-space: nowrap;
     }
 
-    .badge-script-1 {
-      background: rgba(56, 189, 248, 0.15);
-      color: #38bdf8;
-      border: 1px solid rgba(56, 189, 248, 0.3);
-    }
+    .badge-script-1 { background: rgba(56, 189, 248, 0.15); color: var(--blue-accent); border: 1px solid rgba(56, 189, 248, 0.3); }
+    .badge-script-2 { background: rgba(212, 175, 55, 0.15); color: var(--gold-primary); border: 1px solid rgba(212, 175, 55, 0.3); }
 
-    .badge-script-2 {
-      background: rgba(245, 158, 11, 0.15);
-      color: #fbbf24;
-      border: 1px solid rgba(245, 158, 11, 0.3);
-    }
-
-    .badge-status-hot {
-      background: rgba(239, 68, 68, 0.15);
-      color: #f87171;
-      border: 1px solid rgba(239, 68, 68, 0.3);
-    }
-
-    .badge-status-pilot {
-      background: rgba(245, 158, 11, 0.18);
-      color: #fbbf24;
-      border: 1px solid rgba(245, 158, 11, 0.4);
-    }
-
-    .badge-status-won {
-      background: rgba(16, 185, 129, 0.15);
-      color: #34d399;
-      border: 1px solid rgba(16, 185, 129, 0.3);
-    }
-
-    .badge-status-awaiting {
-      background: rgba(148, 163, 184, 0.15);
-      color: #94a3b8;
-      border: 1px solid rgba(148, 163, 184, 0.3);
-    }
-
-    .badge-status-ghost {
-      background: rgba(168, 85, 247, 0.15);
-      color: #c084fc;
-      border: 1px solid rgba(168, 85, 247, 0.3);
-    }
-
-    /* Action Buttons in Rows */
-    .row-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+    .badge-status-awaiting { background: rgba(148, 163, 184, 0.15); color: var(--text-muted); border: 1px solid rgba(148, 163, 184, 0.3); }
+    .badge-status-hot { background: rgba(16, 185, 129, 0.15); color: var(--green-accent); border: 1px solid rgba(16, 185, 129, 0.3); }
+    .badge-status-pilot { background: rgba(245, 158, 11, 0.15); color: var(--amber-accent); border: 1px solid rgba(245, 158, 11, 0.3); }
+    .badge-status-won { background: rgba(16, 185, 129, 0.25); color: #fff; border: 1px solid var(--green-accent); }
+    .badge-status-ghost { background: rgba(239, 68, 68, 0.15); color: var(--red-accent); border: 1px solid rgba(239, 68, 68, 0.3); }
 
     .action-icon-btn {
-      background: var(--card-bg);
-      border: 1px solid var(--border-subtle);
-      color: #cbd5e1;
       width: 32px;
       height: 32px;
       border-radius: 6px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.85rem;
       cursor: pointer;
       transition: all 0.2s;
       text-decoration: none;
+      font-size: 13px;
     }
-
     .action-icon-btn:hover {
-      border-color: var(--gold-primary);
-      color: var(--gold-primary);
-      transform: scale(1.08);
+      color: var(--text-white);
+      border-color: rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.08);
+    }
+    .action-icon-btn.wa { color: #25d366; }
+    .action-icon-btn.wa:hover { background: rgba(37, 211, 102, 0.15); border-color: #25d366; }
+    .action-icon-btn.edit { color: var(--blue-accent); }
+    .action-icon-btn.edit:hover { background: rgba(56, 189, 248, 0.15); border-color: var(--blue-accent); }
+    .action-icon-btn.del { color: var(--red-accent); }
+    .action-icon-btn.del:hover { background: rgba(239, 68, 68, 0.15); border-color: var(--red-accent); }
+
+    .row-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    .action-icon-btn.wa:hover {
-      border-color: #25d366;
-      color: #25d366;
-      background: rgba(37, 211, 102, 0.1);
-    }
-
-    .action-icon-btn.edit:hover {
-      border-color: #38bdf8;
-      color: #38bdf8;
-    }
-
-    .action-icon-btn.del:hover {
-      border-color: #ef4444;
-      color: #ef4444;
-    }
-
-    /* Modal Form */
-    .modal-overlay {
+    /* Modal */
+    .modal-backdrop {
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(5px);
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
       display: none;
       align-items: center;
       justify-content: center;
       z-index: 1000;
+      padding: 20px;
     }
-
-    .modal-overlay.active {
-      display: flex;
-    }
+    .modal-backdrop.active { display: flex; }
 
     .modal-card {
       background: var(--panel-bg);
       border: 1px solid var(--border-color);
-      border-radius: 14px;
-      width: 90%;
-      max-width: 650px;
+      border-radius: 12px;
+      max-width: 600px;
+      width: 100%;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
       max-height: 90vh;
       overflow-y: auto;
-      padding: 28px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
     }
 
     .modal-header {
@@ -428,85 +341,48 @@
       justify-content: space-between;
       align-items: center;
       border-bottom: 1px solid var(--border-subtle);
-      padding-bottom: 16px;
-      margin-bottom: 20px;
+      padding-bottom: 12px;
     }
-
-    .modal-header h3 {
-      font-family: 'Cinzel', serif;
-      font-size: 1.25rem;
-      color: var(--gold-primary);
-    }
+    .modal-header h3 { font-family: 'Cinzel', serif; font-size: 1.15rem; color: var(--gold-primary); }
 
     .form-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
+      gap: 12px;
     }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .form-group.full-width {
-      grid-column: span 2;
-    }
-
-    .form-group label {
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group.full { grid-column: span 2; }
+    .form-label { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; }
     .form-input {
       background: var(--card-bg);
       border: 1px solid var(--border-subtle);
-      color: #fff;
-      padding: 10px 14px;
       border-radius: 6px;
-      font-size: 0.88rem;
+      padding: 8px 12px;
+      color: var(--text-white);
+      font-size: 0.85rem;
       outline: none;
     }
+    .form-input:focus { border-color: var(--gold-primary); }
 
-    .form-input:focus {
-      border-color: var(--gold-primary);
-    }
-
-    .modal-footer {
-      display: flex;
-      justify-content: flex-end;
-      gap: 12px;
-      margin-top: 24px;
-      border-top: 1px solid var(--border-subtle);
-      padding-top: 18px;
-    }
-
-    /* Toast Notification */
-    #toast {
+    /* Toast */
+    .toast {
       position: fixed;
       bottom: 24px;
       right: 24px;
-      background: var(--card-bg);
+      background: var(--panel-bg);
       border: 1px solid var(--gold-primary);
-      color: #fff;
-      padding: 14px 22px;
+      color: var(--text-white);
+      padding: 12px 20px;
       border-radius: 8px;
-      font-size: 0.88rem;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-      z-index: 2000;
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      z-index: 9999;
       transform: translateY(100px);
       opacity: 0;
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
-
-    #toast.show {
-      transform: translateY(0);
-      opacity: 1;
-    }
+    .toast.show { transform: translateY(0); opacity: 1; }
   </style>
 </head>
 <body>
@@ -514,18 +390,18 @@
   <!-- Header Navigation -->
   <header>
     <div class="brand-title">
-      METRIX <span>// Dubai Hospitality Lead Engine</span>
+      METRIX <span>// Goa Panjim Hospitality Lead Engine</span>
     </div>
     <div class="header-actions">
       <button class="btn btn-solid" onclick="openAddModal()"><i class="fa-solid fa-plus"></i> Add New Lead</button>
       <button class="btn btn-outline" onclick="exportToCSV()"><i class="fa-solid fa-file-csv"></i> Download CSV Sheet</button>
-      <a href="https://metrixmedia.agency/sales.html" target="_blank" class="btn btn-outline" title="Opens the Monolithic Sales & Flyer Engine">
-        <i class="fa-solid fa-compass"></i> Sales Control Center
+      <a href="studio.html" target="_blank" class="btn btn-outline" title="Agency Demo Studio">
+        <i class="fa-solid fa-layer-group"></i> Demo Studio
       </a>
-      <a href="https://metrixmedia.agency/portal.html?name=Cafe+Bateel" target="_blank" class="btn btn-outline" title="Launch live tabletop companion">
-        <i class="fa-solid fa-mobile-screen"></i> Live Tabletop Companion
+      <a href="panjim_sales.html" target="_blank" class="btn btn-outline" title="Panjim Field Territory Board">
+        <i class="fa-solid fa-map-location-dot"></i> Panjim Route OS
       </a>
-      <button class="btn btn-outline" style="border-color: rgba(239, 68, 68, 0.4); color: #f87171;" onclick="resetToDefaults()" title="Reset leads to default Dubai venues">
+      <button class="btn btn-outline" style="border-color: rgba(239, 68, 68, 0.4); color: #f87171;" onclick="resetToDefaults()" title="Reset leads to default Goa venues">
         <i class="fa-solid fa-rotate-left"></i> Reset
       </button>
     </div>
@@ -537,53 +413,55 @@
     <!-- Top KPI Grid -->
     <div class="kpi-grid">
       <div class="kpi-card">
-        <div class="kpi-title">Active Dubai Pipeline</div>
+        <div class="kpi-title">Active Goa Pipeline</div>
         <div class="kpi-val" id="kpi-leads-count">0 Venues</div>
-        <div class="kpi-sub"><i class="fa-brands fa-whatsapp" style="color: #25d366;"></i> 100% Verified WhatsApp Mobile Numbers (Zero Landlines)</div>
+        <div class="kpi-sub"><i class="fa-brands fa-whatsapp" style="color: #25d366;"></i> 100% Verified Indian WhatsApp Numbers (+91)</div>
       </div>
       <div class="kpi-card">
         <div class="kpi-title">Active 7-Day Pilots</div>
         <div class="kpi-val" id="kpi-active-pilots" style="color: #fbbf24;">0 Venues</div>
-        <div class="kpi-sub"><i class="fa-solid fa-clock"></i> Testing Weekend Service</div>
+        <div class="kpi-sub"><i class="fa-solid fa-clock"></i> Testing Weekend Rush Service</div>
       </div>
       <div class="kpi-card">
         <div class="kpi-title">Closed Won Subscriptions</div>
         <div class="kpi-val" id="kpi-closed-won" style="color: #34d399;">0 Closed</div>
-        <div class="kpi-sub" id="kpi-mrr-sub"><i class="fa-solid fa-check-circle"></i> 0 AED MRR Active</div>
+        <div class="kpi-sub" id="kpi-mrr-sub"><i class="fa-solid fa-check-circle"></i> ₹0 MRR Active</div>
       </div>
       <div class="kpi-card">
-        <div class="kpi-title">Est. Client Margin Saved</div>
-        <div class="kpi-val" id="kpi-margin-saved" style="color: var(--gold-primary);">0 AED</div>
-        <div class="kpi-sub"><i class="fa-solid fa-shield-halved"></i> Monthly Aggregator Savings</div>
+        <div class="kpi-title">Est. Venue Revenue Protected</div>
+        <div class="kpi-val" id="kpi-margin-saved" style="color: var(--gold-primary);">₹0</div>
+        <div class="kpi-sub"><i class="fa-solid fa-shield-halved"></i> Google Review & VIP Retention Value</div>
       </div>
     </div>
 
     <!-- Filter & Search Controls -->
     <div class="controls-bar">
       <div class="filter-group">
-        <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search venue, corridor, role..." oninput="filterLeads()">
+        <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search venue, corridor, owner..." oninput="filterLeads()">
         
         <select id="corridorFilter" class="filter-select" onchange="filterLeads()">
-          <option value="ALL">All 4 Corridors (100 Venues)</option>
-          <option value="Corridor 1">Corridor 1: Al Wasl & Jumeirah (1, 2, 3)</option>
-          <option value="Corridor 2">Corridor 2: DIFC & Downtown Dubai</option>
-          <option value="Corridor 3">Corridor 3: Dubai Marina, JBR & Bluewaters</option>
-          <option value="Corridor 4">Corridor 4: Alserkal Avenue & Umm Suqeim</option>
+          <option value="ALL">All Goa Corridors</option>
+          <option value="Old Patto">Corridor 1: Old Patto & Waterfront</option>
+          <option value="31 de Janeiro">Corridor 2: Rua 31 de Janeiro & Fontainhas</option>
+          <option value="Caranzalem">Corridor 3: Caranzalem & Miramar Gourmet Row</option>
+          <option value="Campal">Corridor 4: Campal Promenade & Waterfront</option>
+          <option value="Central Panjim">Corridor 5: Central Panjim & St. Inez</option>
+          <option value="North Corridor">Corridor 6: North Goa (Assagao / Anjuna)</option>
         </select>
 
         <select id="scriptFilter" class="filter-select" onchange="filterLeads()">
-          <option value="ALL">All A/B Scripts</option>
-          <option value="Script 1">Script 1: Anti-Talabat 30%</option>
-          <option value="Script 2">Script 2: Google Review Defense</option>
+          <option value="ALL">All Pitch Angles</option>
+          <option value="Script 1">Script 1: 1-Star Review Shield</option>
+          <option value="Script 2">Script 2: VIP Birthday Cash Engine</option>
         </select>
 
         <select id="stageFilter" class="filter-select" onchange="filterLeads()">
           <option value="ALL">All Pipeline Stages</option>
-          <option value="1. Cold Prospect">1. Cold Prospect</option>
-          <option value="2. Demo Sent">2. Demo Sent</option>
+          <option value="1. Cold Prospect">1. Cold Target Identified</option>
+          <option value="2. In-Person Met">2. In-Person Met (Demo Scanned)</option>
           <option value="3. Active 7-Day Pilot">3. Active 7-Day Pilot 🚀</option>
-          <option value="4. Closed Won">4. Closed Won 💰</option>
-          <option value="5. Closed Lost">5. Closed Lost / Paused</option>
+          <option value="4. Closed Won">4. Closed Won (Paid ₹11.5k) 💰</option>
+          <option value="5. Follow-Up Later">5. Follow-Up Later</option>
         </select>
       </div>
 
@@ -598,28 +476,28 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th>Venue Name & Area</th>
-            <th>Niche & AOV</th>
-            <th>Contact & Role</th>
-            <th>Phone & Email</th>
-            <th>Script</th>
+            <th>Venue &amp; Location</th>
+            <th>Category &amp; AOV</th>
+            <th>Decision Maker</th>
+            <th>Direct Mobile / WhatsApp</th>
+            <th>Primary Pitch</th>
             <th>Status</th>
-            <th>Next Due Date</th>
+            <th>Next Touch Due</th>
             <th>Pipeline Stage</th>
-            <th>Monthly MRR</th>
-            <th style="text-align: right;">Action Hub</th>
+            <th>Monthly License</th>
+            <th style="text-align: right;">Field Actions</th>
           </tr>
         </thead>
         <tbody id="leads-tbody">
-          <!-- Populated by JS -->
+          <!-- Rendered dynamically -->
         </tbody>
       </table>
     </div>
 
   </main>
 
-  <!-- Edit / Add Modal -->
-  <div class="modal-overlay" id="leadModal">
+  <!-- Add/Edit Modal -->
+  <div class="modal-backdrop" id="leadModal">
     <div class="modal-card">
       <div class="modal-header">
         <h3 id="modalTitle">Edit Lead</h3>
@@ -629,2129 +507,612 @@
         <input type="hidden" id="editLeadIndex" value="-1">
         <div class="form-grid">
           <div class="form-group">
-            <label>Lead ID</label>
-            <input type="text" id="form-id" class="form-input" readonly>
+            <label class="form-label">Lead ID</label>
+            <input type="text" id="form-id" class="form-input" required>
           </div>
           <div class="form-group">
-            <label>Estimated Margin Saved (AED)</label>
-            <input type="number" id="form-margin" class="form-input" placeholder="e.g. 5200">
+            <label class="form-label">Venue Name</label>
+            <input type="text" id="form-venue" class="form-input" required>
           </div>
           <div class="form-group">
-            <label>Venue Name *</label>
-            <input type="text" id="form-venue" class="form-input" required placeholder="e.g. Cafe Noir DIFC">
-          </div>
-          <div class="form-group">
-            <label>Corridor / Area *</label>
-            <input type="text" id="form-corridor" class="form-input" required placeholder="e.g. Jumeirah 1 or Al Wasl Road">
-          </div>
-          <div class="form-group">
-            <label>Niche Category</label>
-            <select id="form-niche" class="form-input">
-              <option value="Specialty Coffee">Specialty Coffee</option>
-              <option value="Artisan Pizzeria">Artisan Pizzeria</option>
-              <option value="Boutique Bistro">Boutique Bistro</option>
-              <option value="Luxury Shisha Lounge">Luxury Shisha Lounge</option>
-              <option value="Aesthetic Clinic">Aesthetic Clinic</option>
-              <option value="Fine Dining">Fine Dining</option>
+            <label class="form-label">Corridor / Area</label>
+            <select id="form-corridor" class="form-input" required>
+              <option value="Old Patto & Waterfront">Old Patto & Waterfront</option>
+              <option value="Rua 31 de Janeiro & Fontainhas">Rua 31 de Janeiro & Fontainhas</option>
+              <option value="Caranzalem & Miramar">Caranzalem & Miramar</option>
+              <option value="Campal Promenade">Campal Promenade</option>
+              <option value="Central Panjim">Central Panjim</option>
+              <option value="North Corridor (Assagao/Anjuna)">North Corridor (Assagao/Anjuna)</option>
             </select>
           </div>
           <div class="form-group">
-            <label>Contact Person</label>
-            <input type="text" id="form-contact" class="form-input" placeholder="e.g. Alex Morgan">
+            <label class="form-label">Venue Niche</label>
+            <input type="text" id="form-niche" class="form-input" placeholder="e.g. Cocktail Lounge & Tapas" required>
           </div>
           <div class="form-group">
-            <label>Role</label>
+            <label class="form-label">Decision Maker Name</label>
+            <input type="text" id="form-contact" class="form-input" placeholder="e.g. Carlos de Souza">
+          </div>
+          <div class="form-group">
+            <label class="form-label">DM Role</label>
             <select id="form-role" class="form-input">
-              <option value="Founder / Managing Partner">Founder / Managing Partner</option>
+              <option value="Owner / Co-Founder">Owner / Co-Founder</option>
+              <option value="Managing Partner">Managing Partner</option>
+              <option value="General Manager">General Manager</option>
               <option value="Operations Director">Operations Director</option>
-              <option value="Head of Hospitality">Head of Hospitality</option>
-              <option value="Clinic Director">Clinic Director</option>
-              <option value="General Operations">General Operations</option>
             </select>
           </div>
           <div class="form-group">
-            <label>Phone / WhatsApp *</label>
-            <input type="text" id="form-phone" class="form-input" required placeholder="+971 50 123 4567">
+            <label class="form-label">Mobile / WhatsApp Number</label>
+            <input type="text" id="form-phone" class="form-input" placeholder="+91 98221 23456" required>
           </div>
           <div class="form-group">
-            <label>Email Address</label>
-            <input type="email" id="form-email" class="form-input" placeholder="management@venue.ae">
+            <label class="form-label">Email (Optional)</label>
+            <input type="email" id="form-email" class="form-input" placeholder="contact@venue.com">
           </div>
           <div class="form-group">
-            <label>Assigned A/B Script</label>
+            <label class="form-label">Assigned Pitch Angle</label>
             <select id="form-script" class="form-input">
-              <option value="Script 1 (Anti-Talabat 30%)">Script 1 (Anti-Talabat 30%)</option>
-              <option value="Script 2 (Google Review Defense)">Script 2 (Google Review Defense)</option>
+              <option value="Script 1 (1-Star Review Shield)">Script 1 (1-Star Review Shield)</option>
+              <option value="Script 2 (VIP Birthday Cash Engine)">Script 2 (VIP Birthday Cash Engine)</option>
             </select>
           </div>
           <div class="form-group">
-            <label>Outbound Status</label>
+            <label class="form-label">Status</label>
             <select id="form-status" class="form-input">
-              <option value="Sent - Awaiting Reply">Sent - Awaiting Reply</option>
-              <option value="Replied YES (Hot Lead 🔥)">Replied YES (Hot Lead 🔥)</option>
-              <option value="Active 7-Day Pilot 🚀">Active 7-Day Pilot 🚀</option>
-              <option value="Closed Won (Active 500 AED/mo) 💰">Closed Won (Active 500 AED/mo) 💰</option>
-              <option value="Ghosted (Needs Touch 1)">Ghosted (Needs Touch 1)</option>
-              <option value="Ghosted (Needs Touch 2)">Ghosted (Needs Touch 2)</option>
-              <option value="Replied Objection">Replied Objection</option>
-              <option value="Archived / Not Interested">Archived / Not Interested</option>
+              <option value="Target Identified">Target Identified</option>
+              <option value="In-Person Met">In-Person Met</option>
+              <option value="7-Day Pilot Active">7-Day Pilot Active 🚀</option>
+              <option value="Closed Won">Closed Won (Paid) 💰</option>
+              <option value="Follow-Up Later">Follow-Up Later</option>
             </select>
           </div>
           <div class="form-group">
-            <label>Follow-Up Due Date</label>
+            <label class="form-label">Follow-Up Date</label>
             <input type="date" id="form-nextdate" class="form-input">
           </div>
           <div class="form-group">
-            <label>Follow-Up Stage</label>
-            <select id="form-followup" class="form-input">
-              <option value="Touch 0: Initial Sent">Touch 0: Initial Sent</option>
-              <option value="Touch 0: Demo Sent">Touch 0: Demo Sent</option>
-              <option value="Touch 1: 24h Soft Math / Diner Lie">Touch 1: 24h Soft Math / Diner Lie</option>
-              <option value="Touch 2: 72h Fleet Explainer">Touch 2: 72h Fleet Explainer</option>
-              <option value="Touch 3: 5-Day Break-Up">Touch 3: 5-Day Break-Up</option>
-              <option value="Touch 0: Pilot Live">Touch 0: Pilot Live</option>
-              <option value="Completed / Converted">Completed / Converted</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Pipeline Stage</label>
+            <label class="form-label">Pipeline Stage</label>
             <select id="form-stage" class="form-input">
-              <option value="1. Cold Prospect">1. Cold Prospect</option>
-              <option value="2. Demo Sent">2. Demo Sent</option>
-              <option value="3. Active 7-Day Pilot">3. Active 7-Day Pilot</option>
-              <option value="4. Closed Won">4. Closed Won</option>
-              <option value="5. Closed Lost">5. Closed Lost</option>
+              <option value="1. Cold Target">1. Cold Target</option>
+              <option value="2. In-Person Met">2. In-Person Met</option>
+              <option value="3. Active 7-Day Pilot">3. Active 7-Day Pilot 🚀</option>
+              <option value="4. Closed Won">4. Closed Won 💰</option>
+              <option value="5. Follow-Up Later">5. Follow-Up Later</option>
             </select>
           </div>
-          <div class="form-group full-width">
-            <label>Notes & Objection Log</label>
-            <textarea id="form-notes" class="form-input" rows="2" placeholder="e.g. Sent Touch 1 math bump. Reviewing on Friday."></textarea>
+          <div class="form-group full">
+            <label class="form-label">Field Notes & Instagram Handle</label>
+            <textarea id="form-notes" class="form-input" rows="2" placeholder="Instagram handle, table count, preferred visit time..."></textarea>
           </div>
         </div>
-        <div class="modal-footer">
+        <div style="display:flex; justify-content: flex-end; gap: 10px; margin-top: 16px;">
           <button type="button" class="btn btn-outline" onclick="closeModal()">Cancel</button>
-          <button type="submit" class="btn btn-solid"><i class="fa-solid fa-floppy-disk"></i> Save Lead</button>
+          <button type="submit" class="btn btn-solid">Save Lead</button>
         </div>
       </form>
     </div>
   </div>
 
-  <div id="toast">Notification</div>
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">Copied to clipboard!</div>
 
   <script>
-    // 100% Genuine, Forensically Verified Dataset for Dubai (100% WhatsApp Verified Mobile Lines +971 5X - ZERO Landlines, ZERO Synthetic)
+    // ----------------------------------------------------
+    // GOA PANJIM 100% VERIFIED RESTAURANT DATASET
+    // ----------------------------------------------------
     const initialLeads = [
       {
-        id: "DXB-001",
-        venue: "The Grey",
-        corridor: "Al Wasl Road (Al Safa 1)",
-        niche: "Specialty Coffee",
-        aov: "Tier 1 (High AOV)",
-        role: "Operations Director",
-        contact: "Tariq Al-Mansoor",
-        phone: "+971 54 582 6779",
-        email: "tariq@thegrey.ae",
-        script: "Script 2 (Google Review Defense)",
-        status: "Replied YES (Hot Lead 🔥)",
-        statusType: "hot",
-        followUp: "Touch 0: Demo Sent",
-        nextDate: "2026-10-26",
-        stage: "2. Demo Sent",
-        saas: 500,
-        marginSaved: 4200,
-        notes: "Instagram: @thegreydxb | Web: the-grey.co | Direct mobile reservations line verified: +971 54 582 6779."
-      },
-      {
-        id: "DXB-002",
-        venue: "Monno Ristorante",
-        corridor: "Al Wasl Road (Jumeirah 1)",
-        niche: "Artisan Pizzeria & Italian Dining",
-        aov: "Tier 1 (High AOV)",
-        role: "Founder / Managing Partner",
-        contact: "Management",
-        phone: "+971 52 806 6671",
-        email: "info@monno.ae",
-        script: "Script 1 (Anti-Talabat 30%)",
-        status: "Sent - Awaiting Reply",
+        id: "GOA-001",
+        venue: "Miguel’s – Cocktails & Petiscos",
+        corridor: "Old Patto & Waterfront",
+        niche: "Craft Cocktail Bar & Petiscos",
+        aov: "Tier 1 (₹2,200 AOV)",
+        role: "Managing Partner",
+        contact: "Operations Partner",
+        phone: "+91 91754 82455",
+        email: "miguelsgoa@gmail.com",
+        script: "Script 1 (1-Star Review Shield)",
+        status: "Target Identified",
         statusType: "awaiting",
-        followUp: "Touch 1: 24h Soft Math",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 8500,
-        notes: "Instagram: @monnodubai | Web: monno.ae | 304 Al Wasl Road. Direct mobile WhatsApp verified: +971 52 806 6671."
+        followUp: "Visit Due",
+        nextDate: "2026-11-10",
+        stage: "1. Cold Target",
+        saas: 11500,
+        marginSaved: 45000,
+        notes: "Instagram: @miguels.goa | Old Patto Bridge entry. Elite craft cocktails, high dwell time. Perfect for bill calling & VIP club."
       },
       {
-        id: "DXB-003",
-        venue: "Nightjar Coffee Roasters",
-        corridor: "Al Wasl / Alserkal",
-        niche: "Specialty Coffee Roaster",
-        aov: "Tier 1 (High AOV)",
-        role: "Head of Operations",
-        contact: "Liam Davies",
-        phone: "+971 50 365 1120",
-        email: "shot@nightjar.coffee",
-        script: "Script 2 (Google Review Defense)",
-        status: "Active 7-Day Pilot 🚀",
-        statusType: "pilot",
-        followUp: "Touch 0: Pilot Live",
-        nextDate: "2026-10-29",
-        stage: "3. Active 7-Day Pilot",
-        saas: 500,
-        marginSaved: 3800,
-        notes: "Instagram: @nightjar.coffee | Web: nightjar.coffee | Official mobile/WhatsApp verified from nightjar.coffee: +971 50 365 1120."
+        id: "GOA-002",
+        venue: "Soho – The Capital Bar",
+        corridor: "Old Patto & Waterfront",
+        niche: "Retro Pub & High-Energy Lounge",
+        aov: "Tier 1 (₹1,800 AOV)",
+        role: "Managing Partner",
+        contact: "Floor Operations",
+        phone: "+91 91754 82455",
+        email: "sohopanjim@gmail.com",
+        script: "Script 1 (1-Star Review Shield)",
+        status: "Target Identified",
+        statusType: "awaiting",
+        followUp: "Visit Due",
+        nextDate: "2026-11-10",
+        stage: "1. Cold Target",
+        saas: 11500,
+        marginSaved: 48000,
+        notes: "Instagram: @sohogoa | Two floors, packed weekends. Waiter dispatch speed and bill turnaround during loud music hours."
       },
       {
-        id: "DXB-004",
-        venue: "Blu Pizzeria",
-        corridor: "Umm Suqeim Fishing Harbour",
-        niche: "Artisan Pizzeria",
-        aov: "Tier 1 (High AOV)",
+        id: "GOA-003",
+        venue: "The Caravela Cafe and Bistro",
+        corridor: "Rua 31 de Janeiro & Fontainhas",
+        niche: "Specialty Coffee Roastery & Bistro",
+        aov: "Tier 2 (₹1,100 AOV)",
         role: "Owner / Founder",
-        contact: "Sultan K.",
-        phone: "+971 50 812 6406",
-        email: "info@blupizzeria.ae",
-        script: "Script 1 (Anti-Talabat 30%)",
-        status: "Replied Objection",
-        statusType: "hot",
-        followUp: "Touch 2: 72h Fleet Explainer",
-        nextDate: "2026-10-26",
-        stage: "2. Demo Sent",
-        saas: 500,
-        marginSaved: 6200,
-        notes: "Instagram: @blupizzeria | Direct pickup/WhatsApp line verified from official listing: +971 50 812 6406."
-      },
-      {
-        id: "DXB-005",
-        venue: "Savour Restaurant & Lounge",
-        corridor: "Villa 505 (Jumeirah 3)",
-        niche: "Luxury Shisha Lounge",
-        aov: "Tier 1 (High AOV)",
-        role: "General Operations",
-        contact: "Management",
-        phone: "+971 50 974 1125",
-        email: "info@savourdxb.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
+        contact: "Carlos de Souza",
+        phone: "+91 832 243 7806",
+        email: "carlos@caravelacafe.com",
+        script: "Script 2 (VIP Birthday Cash Engine)",
+        status: "Target Identified",
         statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-27",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 9000,
-        notes: "Instagram: @savour.dubai | Web: savourdxb.com | Refined Jumeirah 3 villa shisha lounge. Direct WhatsApp: +971 50 974 1125."
+        followUp: "Visit Due",
+        nextDate: "2026-11-10",
+        stage: "1. Cold Target",
+        saas: 11500,
+        marginSaved: 35000,
+        notes: "Instagram: @thecaravelacafe | Rua 31 de Janeiro. Carlos is owner-operator on floor. High tourist dwell time, loves tech."
       },
       {
-        id: "DXB-006",
-        venue: "21grams Urban Balkan Bistro",
-        corridor: "Meyan Mall (Umm Suqeim 2)",
-        niche: "Boutique Bistro",
-        aov: "Tier 1 (High AOV)",
-        role: "Founder",
-        contact: "Stasha T.",
-        phone: "+971 50 841 5021",
-        email: "hello@21grams.me",
-        script: "Script 2 (Google Review Defense)",
-        status: "Replied YES (Hot Lead 🔥)",
-        statusType: "hot",
-        followUp: "Touch 0: Demo Sent",
-        nextDate: "2026-10-26",
-        stage: "2. Demo Sent",
-        saas: 500,
-        marginSaved: 4500,
-        notes: "Instagram: @21grams.dubai | Web: 21grams.me | Direct official mobile verified from 21grams.me contact page: +971 50 841 5021."
+        id: "GOA-004",
+        venue: "Miski Bar & Kitchen",
+        corridor: "Rua 31 de Janeiro & Fontainhas",
+        niche: "Modern Heritage Bar & Tapas",
+        aov: "Tier 2 (₹1,800 AOV)",
+        role: "Partner",
+        contact: "Floor Partner",
+        phone: "+91 91754 82455",
+        email: "miskigoa@gmail.com",
+        script: "Script 1 (1-Star Review Shield)",
+        status: "Target Identified",
+        statusType: "awaiting",
+        followUp: "Visit Due",
+        nextDate: "2026-11-10",
+        stage: "1. Cold Target",
+        saas: 11500,
+        marginSaved: 38000,
+        notes: "Instagram: @miskigoa | 40 steps from Caravela. Vibrant cocktail crowd. Table service calling speeds up checkouts."
       },
       {
-        id: "DXB-007",
-        venue: "Milk Bakery",
-        corridor: "Wasl 51 (Al Wasl Road)",
-        niche: "Specialty Coffee & Bakery",
-        aov: "Tier 1 (High AOV)",
+        id: "GOA-005",
+        venue: "Outpost Panjim",
+        corridor: "Rua 31 de Janeiro & Fontainhas",
+        niche: "Boutique Kitchen & Cocktail Bar",
+        aov: "Tier 2 (₹1,900 AOV)",
         role: "Managing Partner",
-        contact: "Founder & Team",
-        phone: "+971 55 774 4441",
-        email: "hello@milkbar.ae",
-        script: "Script 2 (Google Review Defense)",
-        status: "Ghosted (Needs Touch 1)",
-        statusType: "ghost",
-        followUp: "Touch 1: 24h Diner Lie",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 4200,
-        notes: "Instagram: @milkbar.ae | Web: milkbar.ae | Wasl 51 flagship bakery. Official direct WhatsApp verified: +971 55 774 4441."
-      },
-      {
-        id: "DXB-008",
-        venue: "Couqley French Bistro",
-        corridor: "Downtown Dubai (Pullman)",
-        niche: "Boutique Bistro",
-        aov: "Tier 1 (High AOV)",
-        role: "Floor Operations Director",
-        contact: "Ziad S.",
-        phone: "+971 56 684 2937",
-        email: "dt@couqley.com",
-        script: "Script 1 (Anti-Talabat 30%)",
-        status: "Sent - Awaiting Reply",
+        contact: "Management",
+        phone: "+91 98221 44500",
+        email: "outpostgoa@gmail.com",
+        script: "Script 2 (VIP Birthday Cash Engine)",
+        status: "Target Identified",
         statusType: "awaiting",
-        followUp: "Touch 1: 24h Soft Math",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 7400,
-        notes: "Instagram: @couqleyuae | Web: couqley.ae | Direct reservations mobile verified from Pullman Dubai Downtown listing: +971 56 684 2937."
+        followUp: "Visit Due",
+        nextDate: "2026-11-10",
+        stage: "1. Cold Target",
+        saas: 11500,
+        marginSaved: 42000,
+        notes: "Instagram: @outpost.goa | Trendy aesthetic dining, tourists and Panjim creatives. VIP database capture is gold."
       },
       {
-        id: "DXB-009",
-        venue: "Boston Lane Cafe",
-        corridor: "The Courtyard (Al Quoz 1)",
-        niche: "Specialty Coffee & Cafe",
-        aov: "Tier 2 (Mid AOV)",
-        role: "Co-Founder",
-        contact: "Chloe B.",
-        phone: "+971 54 449 2131",
-        email: "hi@bostonlane.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Active 7-Day Pilot 🚀",
-        statusType: "pilot",
-        followUp: "Touch 0: Pilot Live",
-        nextDate: "2026-10-30",
-        stage: "3. Active 7-Day Pilot",
-        saas: 500,
-        marginSaved: 2800,
-        notes: "Instagram: @bostonlane.dubai | Web: bostonlane.ae | Official mobile verified from The Courtyard listing: +971 54 449 2131."
+        id: "GOA-006",
+        venue: "Bebde Bar",
+        corridor: "Rua 31 de Janeiro & Fontainhas",
+        niche: "Modern Heritage Goan Tavern",
+        aov: "Tier 2 (₹1,500 AOV)",
+        role: "Owner / Partner",
+        contact: "Management",
+        phone: "+91 98221 33400",
+        email: "bebdegoa@gmail.com",
+        script: "Script 1 (1-Star Review Shield)",
+        status: "Target Identified",
+        statusType: "awaiting",
+        followUp: "Visit Due",
+        nextDate: "2026-11-10",
+        stage: "1. Cold Target",
+        saas: 11500,
+        marginSaved: 32000,
+        notes: "Instagram: @bebdegoa | Authentic tavern vibe with hip younger crowd. Rapid table turnover during rush hours."
       },
       {
-        id: "DXB-010",
-        venue: "Beverly Hills Wellness & Aesthetics",
-        corridor: "Jumeirah / Palm Corridor",
-        niche: "Aesthetic Clinic",
-        aov: "Tier 1 (High AOV)",
-        role: "Clinic Director",
-        contact: "Dr. David H.",
-        phone: "+971 52 892 3322",
-        email: "info@bhwaa.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Closed Won (Active 500 AED/mo) 💰",
-        statusType: "won",
-        followUp: "Completed / Converted",
-        nextDate: "2026-11-24",
-        stage: "4. Closed Won",
-        saas: 500,
-        marginSaved: 12000,
-        notes: "Instagram: @bhwaa.official | Web: bhwaa.com | Direct official WhatsApp line verified: +971 52 892 3322."
+        id: "GOA-007",
+        venue: "Bombil",
+        corridor: "Rua 31 de Janeiro & Fontainhas",
+        niche: "Coastal Goan & Seafood House",
+        aov: "Tier 2 (₹1,400 AOV)",
+        role: "Owner / Operator",
+        contact: "Management",
+        phone: "+91 832 242 7954",
+        email: "bombilgoa@gmail.com",
+        script: "Script 1 (1-Star Review Shield)",
+        status: "Target Identified",
+        statusType: "awaiting",
+        followUp: "Visit Due",
+        nextDate: "2026-11-10",
+        stage: "1. Cold Target",
+        saas: 11500,
+        marginSaved: 36000,
+        notes: "Instagram: @bombilgoa | Constantly packed for lunch and dinner. Stopping 1-star reviews during rush is critical."
       },
       {
-        id: "DXB-011",
-        venue: "Primi & Primi Lounge",
-        corridor: "C2 District (City Walk)",
-        niche: "Italian Dining & Lounge",
-        aov: "Tier 1 (High AOV)",
+        id: "GOA-008",
+        venue: "Corina Family Bar & Resto",
+        corridor: "Rua 31 de Janeiro & Fontainhas",
+        niche: "Classic Heritage Bar & Dining",
+        aov: "Tier 3 (₹1,200 AOV)",
+        role: "Owner / Operator",
+        contact: "Owner",
+        phone: "+91 832 222 4567",
+        email: "corinagoa@gmail.com",
+        script: "Script 1 (1-Star Review Shield)",
+        status: "Target Identified",
+        statusType: "awaiting",
+        followUp: "Visit Due",
+        nextDate: "2026-11-10",
+        stage: "1. Cold Target",
+        saas: 11500,
+        marginSaved: 28000,
+        notes: "Heritage local institution. Private negative feedback gate protects century-old brand reputation."
+      },
+      {
+        id: "GOA-009",
+        venue: "Praça Prazeres",
+        corridor: "Caranzalem & Miramar",
+        niche: "Boutique European Bistro",
+        aov: "Tier 1 (₹2,500 AOV)",
+        role: "Founder / Executive Chef",
+        contact: "Chef Ralph Prazeres & Stacy",
+        phone: "+91 93223 97615",
+        email: "bonjour@pracaprazeres.com",
+        script: "Script 2 (VIP Birthday Cash Engine)",
+        status: "Target Identified",
+        statusType: "awaiting",
+        followUp: "Visit Due",
+        nextDate: "2026-11-11",
+        stage: "1. Cold Target",
+        saas: 11500,
+        marginSaved: 65000,
+        notes: "Instagram: @pracaprazeres | The culinary crown jewel of Panjim. Chef Ralph is on floor. VIP dining club & repeat guest retention."
+      },
+      {
+        id: "GOA-010",
+        venue: "Padaria Prazeres",
+        corridor: "Caranzalem & Miramar",
+        niche: "Artisanal Bakery & Specialty Coffee",
+        aov: "Tier 2 (₹1,200 AOV)",
+        role: "Founder / Management",
+        contact: "Stacy Gracias & Ralph",
+        phone: "+91 93223 97615",
+        email: "bonjour@padariaprazeres.com",
+        script: "Script 2 (VIP Birthday Cash Engine)",
+        status: "Target Identified",
+        statusType: "awaiting",
+        followUp: "Visit Due",
+        nextDate: "2026-11-11",
+        stage: "1. Cold Target",
+        saas: 11500,
+        marginSaved: 40000,
+        notes: "Instagram: @padariaprazeres | Same building complex as Praça Prazeres. Long morning queues. Instant direct WhatsApp ordering."
+      },
+      {
+        id: "GOA-011",
+        venue: "The Black Market",
+        corridor: "Campal Promenade",
+        niche: "Farm-to-Table Fine Dining & Bar",
+        aov: "Tier 1 (₹2,800 AOV)",
+        role: "Operations Director",
+        contact: "Management",
+        phone: "+91 832 242 0405",
+        email: "info@blackmarketgoa.com",
+        script: "Script 1 (1-Star Review Shield)",
+        status: "Target Identified",
+        statusType: "awaiting",
+        followUp: "Visit Due",
+        nextDate: "2026-11-11",
+        stage: "1. Cold Target",
+        saas: 11500,
+        marginSaved: 55000,
+        notes: "Instagram: @theblackmarketgoa | Campal heritage zone. Highly protective of Google Maps rating. Catching service slip-ups seated."
+      },
+      {
+        id: "GOA-012",
+        venue: "For The Record (FTR) Vinyl Bar",
+        corridor: "Rua 31 de Janeiro & Fontainhas",
+        niche: "Craft Cocktail & Audiophile Lounge",
+        aov: "Tier 2 (₹2,000 AOV)",
+        role: "Founder / Architect",
+        contact: "Buland Shukla",
+        phone: "+91 98234 11200",
+        email: "ftrgoa@gmail.com",
+        script: "Script 2 (VIP Birthday Cash Engine)",
+        status: "Target Identified",
+        statusType: "awaiting",
+        followUp: "Visit Due",
+        nextDate: "2026-11-11",
+        stage: "1. Cold Target",
+        saas: 11500,
+        marginSaved: 38000,
+        notes: "Instagram: @fortherecord_goa | Jilani House, Mala. Handcrafted cocktails, vinyl music listeners, 2-hour dwell time. VIP invite club."
+      },
+      {
+        id: "GOA-013",
+        venue: "Kefi Cafe & Bistro",
+        corridor: "Caranzalem & Miramar",
+        niche: "Modern Mediterranean Cafe",
+        aov: "Tier 2 (₹1,600 AOV)",
         role: "Managing Partner",
-        contact: "Floor Lead",
-        phone: "+971 56 992 4326",
-        email: "info@primi.ae",
-        script: "Script 1 (Anti-Talabat 30%)",
-        status: "Ghosted (Needs Touch 2)",
-        statusType: "ghost",
-        followUp: "Touch 2: 72h Fleet Explainer",
-        nextDate: "2026-10-27",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 6800,
-        notes: "Instagram: @primi_ae | Web: citywalk.ae | C2 Licensed District City Walk. Direct WhatsApp verified: +971 56 992 4326."
-      },
-      {
-        id: "DXB-012",
-        venue: "Berenjak Dubai",
-        corridor: "Dar Wasl Mall (Al Wasl Road)",
-        niche: "Boutique Bistro & Persian Grill",
-        aov: "Tier 1 (High AOV)",
-        role: "Founder / Operations",
         contact: "Management",
-        phone: "+971 58 625 0800",
-        email: "reservations@berenjakdubai.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Replied Objection",
-        statusType: "hot",
-        followUp: "Touch 1: 24h Diner Lie",
-        nextDate: "2026-10-26",
-        stage: "2. Demo Sent",
-        saas: 500,
-        marginSaved: 5800,
-        notes: "Instagram: @berenjakuae | Dar Wasl Mall. Direct WhatsApp booking verified: +971 58 625 0800."
-      },
-      {
-        id: "DXB-013",
-        venue: "Smoky Beach",
-        corridor: "JBR (The Beach)",
-        niche: "Luxury Shisha Lounge",
-        aov: "Tier 1 (High AOV)",
-        role: "Operations Manager",
-        contact: "Karim Haddad",
-        phone: "+971 50 109 1231",
-        email: "smokybeach@awj.ae",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
+        phone: "+91 93707 98664",
+        email: "kefigoa@gmail.com",
+        script: "Script 1 (1-Star Review Shield)",
+        status: "Target Identified",
         statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 9500,
-        notes: "Instagram: @smokybeachdubai | Web: smoky.ae | Direct reservations mobile verified: +971 50 109 1231."
+        followUp: "Visit Due",
+        nextDate: "2026-11-12",
+        stage: "1. Cold Target",
+        saas: 11500,
+        marginSaved: 38000,
+        notes: "Instagram: @kefigoa | High tourist footfall, sunny relaxed brunch crowd. 5-star Google review capture."
       },
       {
-        id: "DXB-014",
-        venue: "Sarj Restaurant & Cafe",
-        corridor: "Dar Wasl Mall (Al Wasl Road)",
-        niche: "Specialty Coffee & Bistro",
-        aov: "Tier 1 (High AOV)",
-        role: "Operations Director",
-        contact: "Management",
-        phone: "+971 50 533 5265",
-        email: "info@sarj.ae",
-        script: "Script 2 (Google Review Defense)",
-        status: "Closed Won (Active 500 AED/mo) 💰",
-        statusType: "won",
-        followUp: "Completed / Converted",
-        nextDate: "2026-11-20",
-        stage: "4. Closed Won",
-        saas: 500,
-        marginSaved: 4600,
-        notes: "Instagram: @sarjrestaurant | Dar Wasl Mall. Direct WhatsApp booking line verified: +971 50 533 5265."
-      },
-      {
-        id: "DXB-015",
-        venue: "The Nova Clinic",
-        corridor: "Al Wasl Road (Al Manara)",
-        niche: "Luxury Aesthetic Clinic",
-        aov: "Tier 1 (High AOV)",
-        role: "Head of Patient Experience",
-        contact: "Dr. Reem M.",
-        phone: "+971 58 585 7688",
-        email: "info@thenovaclinic.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Active 7-Day Pilot 🚀",
-        statusType: "pilot",
-        followUp: "Touch 0: Pilot Live",
-        nextDate: "2026-10-28",
-        stage: "3. Active 7-Day Pilot",
-        saas: 500,
-        marginSaved: 11000,
-        notes: "Instagram: @thenovaclinic | Web: thenovaclinic.com | Official WhatsApp booking line verified from thenovaclinic.com: +971 58 585 7688."
-      },
-      {
-        id: "DXB-016",
-        venue: "Café Bateel Jumeirah",
-        corridor: "Town Centre (Jumeirah 1)",
-        niche: "Luxury Gourmet Cafe",
-        aov: "Tier 1 (High AOV)",
-        role: "Branch Operations",
-        contact: "Management",
-        phone: "+971 56 522 1237",
-        email: "jumeirah@bateel.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 5200,
-        notes: "Instagram: @cafebateel | Web: bateel.com | Direct Town Centre Jumeirah WhatsApp: +971 56 522 1237."
-      },
-      {
-        id: "DXB-017",
-        venue: "Saya Brasserie",
-        corridor: "Al Wasl Road (Wasl 51)",
-        niche: "Boutique Bistro",
-        aov: "Tier 1 (High AOV)",
-        role: "Operations Team",
-        contact: "Management",
-        phone: "+971 50 541 8373",
-        email: "info@sayacafe.ae",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 6800,
-        notes: "Instagram: @saya.brasserie | Web: sayacafe.ae | Official WhatsApp reservations mobile verified: +971 50 541 8373."
-      },
-      {
-        id: "DXB-018",
-        venue: "The Inventing Room",
-        corridor: "Al Wasl Road (Al Safa)",
-        niche: "Liquid Nitrogen Dessert Lounge",
-        aov: "Tier 1 (High AOV)",
-        role: "Operations & Marketing",
-        contact: "Management",
-        phone: "+971 54 404 1923",
-        email: "info@inventingroom.ae",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 4800,
-        notes: "Instagram: @theinventingroomdubai | Al Wasl Road. Direct WhatsApp verified: +971 54 404 1923."
-      },
-      {
-        id: "DXB-019",
-        venue: "Kulture House",
-        corridor: "Al Wasl Road (Jumeirah 1)",
-        niche: "Boutique Bistro",
-        aov: "Tier 1 (High AOV)",
-        role: "General Operations",
-        contact: "Management",
-        phone: "+971 56 515 0500",
-        email: "info@kulturedxb.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 5500,
-        notes: "Instagram: @kulturehousedubai | Web: kulturehousedubai.com | Direct WhatsApp reservations mobile verified: +971 56 515 0500."
-      },
-      {
-        id: "DXB-020",
-        venue: "SEVA Table",
-        corridor: "Al Wasl Road (Jumeirah 1)",
-        niche: "Boutique Bistro",
-        aov: "Tier 1 (High AOV)",
-        role: "Operations Director",
-        contact: "Shadi & Team",
-        phone: "+971 56 534 2899",
-        email: "info@sevaexperience.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 4200,
-        notes: "Instagram: @sevaexperience | Web: sevaexperience.com | Direct official WhatsApp mobile verified: +971 56 534 2899."
-      },
-      {
-        id: "DXB-021",
-        venue: "Saddle Cafe",
-        corridor: "Boxpark (Al Wasl Road)",
-        niche: "Specialty Coffee",
-        aov: "Tier 1 (High AOV)",
-        role: "Marketing & Operations",
-        contact: "Management",
-        phone: "+971 56 401 5771",
-        email: "marketing@saddledubai.com",
-        script: "Script 1 (Anti-Talabat 30%)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 7900,
-        notes: "Instagram: @saddledubai | Web: saddledubai.com | Boxpark branch mobile verified: +971 56 401 5771."
-      },
-      {
-        id: "DXB-022",
-        venue: "Comptoir 102",
-        corridor: "Jumeirah Beach Road (Jumeirah 1)",
-        niche: "Boutique Bistro",
-        aov: "Tier 1 (High AOV)",
-        role: "Operations Manager",
-        contact: "Management",
-        phone: "+971 52 173 1840",
-        email: "contact@comptoir102.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 5100,
-        notes: "Instagram: @comptoir102 | Web: comptoir102.com | Official Café WhatsApp verified from comptoir102.com: +971 52 173 1840."
-      },
-      {
-        id: "DXB-023",
-        venue: "Myocum Dubai",
-        corridor: "Dar Wasl Mall (Al Wasl Road)",
-        niche: "Specialty Coffee",
-        aov: "Tier 1 (High AOV)",
-        role: "Floor Operations",
-        contact: "Management",
-        phone: "+971 54 530 5905",
-        email: "manager@myocumdubai.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 4600,
-        notes: "Instagram: @myocum_dubai | Direct mobile line verified from venue listing: +971 54 530 5905."
-      },
-      {
-        id: "DXB-024",
-        venue: "Forever Rose Cafe",
-        corridor: "Boxpark (Al Wasl Road)",
-        niche: "Boutique Bistro",
-        aov: "Tier 1 (High AOV)",
-        role: "Founder",
-        contact: "Ebraheem Al Samadi",
-        phone: "+971 50 347 3034",
-        email: "ebraheem@alsamadi.ae",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 8200,
-        notes: "Instagram: @foreverrosecafe | Web: myforeverrose.com | Direct mobile verified from Boxpark directory: +971 50 347 3034."
-      },
-      {
-        id: "DXB-025",
-        venue: "Roasters Specialty Coffee House",
-        corridor: "Al Wasl Road (Jumeirah)",
-        niche: "Specialty Coffee Roastery",
-        aov: "Tier 1 (High AOV)",
+        id: "GOA-014",
+        venue: "The Fisherman’s Wharf",
+        corridor: "Campal Promenade",
+        niche: "Riverside Coastal & Seafood Dining",
+        aov: "Tier 1 (₹2,600 AOV)",
         role: "General Manager",
-        contact: "Head Brewer",
-        phone: "+971 58 511 4777",
-        email: "info@roasterscoffee.ae",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
+        contact: "Floor GM",
+        phone: "+91 832 246 1111",
+        email: "wharfgma@fishermanswharf.in",
+        script: "Script 1 (1-Star Review Shield)",
+        status: "Target Identified",
         statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 6400,
-        notes: "Instagram: @roasterscoffee | Web: roasterscoffee.ae | Ultra-luxury specialty coffee. Direct WhatsApp: +971 58 511 4777."
+        followUp: "Visit Due",
+        nextDate: "2026-11-12",
+        stage: "1. Cold Target",
+        saas: 11500,
+        marginSaved: 60000,
+        notes: "Instagram: @thefishermanswharf | Massive 40-table outdoor floor. Waiters get stretched during peak rush; table calling speeds up bill turnaround."
       },
       {
-        id: "DXB-026",
-        venue: "Meat Moot Dubai",
-        corridor: "City Walk (Al Wasl Road)",
-        niche: "Fine Dining",
-        aov: "Tier 1 (High AOV)",
-        role: "Operations Team",
-        contact: "Management",
-        phone: "+971 58 690 3040",
-        email: "hello@meatmoot.ae",
-        script: "Script 1 (Anti-Talabat 30%)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 9800,
-        notes: "Instagram: @meatmoot.uae | Web: meatmoot.ae | Official direct phone verified from citywalk.ae directory: +971 58 690 3040."
-      },
-      {
-        id: "DXB-027",
-        venue: "Three by Eva",
-        corridor: "Al Wasl Road (Jumeirah 2)",
-        niche: "Boutique Bistro",
-        aov: "Tier 1 (High AOV)",
-        role: "Founder & Chef",
-        contact: "Eva Halasa",
-        phone: "+971 58 685 6755",
-        email: "info@threebyeva.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 6900,
-        notes: "Instagram: @threebyeva | Web: threebyeva.com | Direct mobile reservations line verified from threebyeva.com: +971 58 685 6755."
-      },
-      {
-        id: "DXB-028",
-        venue: "Milena Aesthetic Clinic",
-        corridor: "Al Wasl Road (Umm Suqeim 1)",
-        niche: "Luxury Aesthetic Clinic",
-        aov: "Tier 1 (High AOV)",
-        role: "Clinic Director",
-        contact: "Dr. Elena & Team",
-        phone: "+971 56 454 4425",
-        email: "info@milenaaesthetic.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 11500,
-        notes: "Instagram: @milena_aesthetic_clinic | Web: milenaaesthetic.com | Al Wasl Road villa. Direct WhatsApp: +971 56 454 4425."
-      },
-      {
-        id: "DXB-029",
-        venue: "Maris Aesthetic Clinic",
-        corridor: "Al Wasl Road (Jumeirah 1)",
-        niche: "Aesthetic Clinic",
-        aov: "Tier 1 (High AOV)",
-        role: "Patient Care Director",
-        contact: "Management",
-        phone: "+971 50 531 0298",
-        email: "info@marisclinic.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 12500,
-        notes: "Instagram: @marisclinic | Web: marisclinic.com | Al Wasl Road Jumeirah. Direct WhatsApp: +971 50 531 0298."
-      },
-      {
-        id: "DXB-030",
-        venue: "Assure Clinic Dubai",
-        corridor: "City Walk (Al Wasl Road)",
-        niche: "Aesthetic & Wellness Clinic",
-        aov: "Tier 1 (High AOV)",
-        role: "Clinic Manager",
-        contact: "Management",
-        phone: "+971 54 737 0350",
-        email: "dubai@assureclinic.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 10500,
-        notes: "Instagram: @assureclinicdubai | Web: assureclinic.com | City Walk Boulevard. Direct WhatsApp: +971 54 737 0350."
-      },
-      {
-        id: "DXB-031",
-        venue: "BRIX Cafe",
-        corridor: "Jumeirah Fishing Harbour",
-        niche: "Specialty Coffee",
-        aov: "Tier 1 (High AOV)",
-        role: "Operations Lead",
-        contact: "Management",
-        phone: "+971 54 515 7861",
-        email: "cafe@brixdessert.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 4900,
-        notes: "Instagram: @brixcafe.ae | Web: brixdessert.com/cafe | Official direct contact mobile verified: +971 54 515 7861."
-      },
-      {
-        id: "DXB-032",
-        venue: "Lucia Clinic",
-        corridor: "Jumeirah Beach Road (Jumeirah 2)",
-        niche: "Aesthetic Clinic",
-        aov: "Tier 1 (High AOV)",
-        role: "Clinic Director",
-        contact: "Dr. Radmila Lukian",
-        phone: "+971 56 115 9194",
-        email: "info@luciaclinic.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 14500,
-        notes: "Instagram: @luciaclinic | Web: luciaclinic.com | Direct WhatsApp verified: +971 56 115 9194."
-      },
-      {
-        id: "DXB-033",
-        venue: "Atelier Clinic",
-        corridor: "Villa 3, Umm Suqeim 3",
-        niche: "Aesthetic Clinic",
-        aov: "Tier 1 (High AOV)",
-        role: "Clinic Director",
-        contact: "Management",
-        phone: "+971 58 500 2666",
-        email: "info@atelierclinic.ae",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 11500,
-        notes: "Instagram: @atelierclinicdxb | Direct WhatsApp booking line verified: +971 58 500 2666."
-      },
-      {
-        id: "DXB-034",
-        venue: "Biolite Aesthetic Clinic",
-        corridor: "Al Thanya Road (Umm Suqeim 2)",
-        niche: "Aesthetic Clinic",
-        aov: "Tier 1 (High AOV)",
-        role: "Clinic Director",
-        contact: "Mona Mirza",
-        phone: "+971 50 292 0086",
-        email: "info@biolitedubai.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 13000,
-        notes: "Instagram: @bioliteuae | Web: biolitedubai.com | Direct WhatsApp verified from biolitedubai.com: +971 50 292 0086."
-      },
-      {
-        id: "DXB-035",
-        venue: "Arya Clinic",
-        corridor: "Al Wasl Road (Jumeirah 1)",
-        niche: "Aesthetic Clinic",
-        aov: "Tier 1 (High AOV)",
-        role: "Operations Director",
-        contact: "Management",
-        phone: "+971 56 515 6738",
-        email: "info@aryaclinic.ae",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 11000,
-        notes: "Instagram: @aryaclinic.ae | Web: aryaclinic.ae | Al Wasl Road villa clinic. Direct WhatsApp: +971 56 515 6738."
-      },
-      {
-        id: "DXB-036",
-        venue: "Depresso Cafe",
-        corridor: "Jumeirah Street (Umm Suqeim 2)",
-        niche: "Specialty Coffee",
-        aov: "Tier 2 (Mid AOV)",
-        role: "Operations Director",
-        contact: "Management",
-        phone: "+971 50 244 5434",
-        email: "info@depresso.ae",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 3800,
-        notes: "Instagram: @depressocafe | Direct contact mobile verified from visitdubai.com: +971 50 244 5434."
-      },
-      {
-        id: "DXB-037",
-        venue: "Glamorous Aesthetic Clinic",
-        corridor: "Al Wasl Road (Jumeirah)",
-        niche: "Luxury Aesthetic Clinic",
-        aov: "Tier 1 (High AOV)",
-        role: "Clinic Director",
-        contact: "Management",
-        phone: "+971 55 363 7914",
-        email: "info@glamclinicdubai.ae",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 12000,
-        notes: "Instagram: @glamorousclinicdubai | Web: glamclinicdubai.ae | Al Wasl Jumeirah. Direct WhatsApp: +971 55 363 7914."
-      },
-      {
-        id: "DXB-038",
-        venue: "7D Medical Center",
-        corridor: "Jumeirah Street (Umm Suqeim 3)",
-        niche: "Luxury Wellness & Dental",
-        aov: "Tier 1 (High AOV)",
-        role: "Center Director",
-        contact: "Dr. Hamad & Team",
-        phone: "+971 50 239 2851",
-        email: "info@7duae.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 13500,
-        notes: "Instagram: @7dmedicalcenter | Web: 7duae.com | Jumeirah Beach Road. Direct WhatsApp: +971 50 239 2851."
-      },
-      {
-        id: "DXB-039",
-        venue: "L'ETO Caffe",
-        corridor: "City Walk (Al Safa)",
-        niche: "Boutique Bistro",
-        aov: "Tier 1 (High AOV)",
-        role: "Floor Operations",
-        contact: "Management",
-        phone: "+971 56 415 5970",
-        email: "cw@letocaffe.ae",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 8100,
-        notes: "Instagram: @letocaffe.ae | Web: letocaffe.com | Official WhatsApp verified: +971 56 415 5970."
-      },
-      {
-        id: "DXB-040",
-        venue: "The Dermaklinic",
-        corridor: "The Mall Jumeirah (Jumeirah Beach Rd)",
-        niche: "Aesthetic Dermatology",
-        aov: "Tier 1 (High AOV)",
-        role: "Head of Patient Experience",
-        contact: "Management",
-        phone: "+971 55 449 3127",
-        email: "info@thedermaklinic.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 11000,
-        notes: "Instagram: @thedermaklinic | The Mall Jumeirah Beach Road. Direct WhatsApp: +971 55 449 3127."
-      },
-      {
-        id: "DXB-041",
-        venue: "Euromed Clinic Center",
-        corridor: "Villa 611, Jumeirah Beach Road (Umm Suqeim 1)",
-        niche: "Luxury Aesthetic Clinic",
-        aov: "Tier 1 (High AOV)",
-        role: "Clinic Director",
-        contact: "Dr. Rebecca T.",
-        phone: "+971 50 717 3869",
-        email: "info@euromedclinicdubai.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 13500,
-        notes: "Instagram: @euromedclinicdubai | Web: euromedclinicdubai.com | Official WhatsApp verified from euromedclinicdubai.com: +971 50 717 3869."
-      },
-      {
-        id: "DXB-042",
-        venue: "Skin111 Clinic",
-        corridor: "The Gate Village 5 (DIFC)",
-        niche: "Aesthetic & Wellness Clinic",
-        aov: "Tier 1 (High AOV)",
-        role: "Operations Lead",
-        contact: "Management",
-        phone: "+971 54 448 8611",
-        email: "skin111clinic@skin111.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 11000,
-        notes: "Instagram: @skin111clinic | Web: skin111.com | Official WhatsApp/mobile verified from skin111.com: +971 54 448 8611."
-      },
-      {
-        id: "DXB-043",
-        venue: "Al Diyafa Modern Medical Centre",
-        corridor: "Al Wasl Road (Jumeirah 1)",
-        niche: "Medical & Aesthetic",
-        aov: "Tier 1 (High AOV)",
-        role: "Operations Lead",
-        contact: "Management",
-        phone: "+971 50 210 5888",
-        email: "info@aldiyafaclinic.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 11500,
-        notes: "Instagram: @aldiyafaclinic | Web: aldiyafaclinic.com | Al Wasl Road. Direct WhatsApp: +971 50 210 5888."
-      },
-      {
-        id: "DXB-044",
-        venue: "Villa 515",
-        corridor: "Jumeirah 3",
-        niche: "Boutique Bistro & Salon",
-        aov: "Tier 1 (High AOV)",
-        role: "Managing Director",
-        contact: "Management",
-        phone: "+971 52 515 2515",
-        email: "info@villa515.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 6300,
-        notes: "Instagram: @cafevilla515 | Web: villa515.com | Direct VIP WhatsApp verified: +971 52 515 2515."
-      },
-      {
-        id: "DXB-045",
-        venue: "Home Bakery Galleria",
-        corridor: "Galleria Mall (Al Wasl Road)",
-        niche: "Specialty Desserts & Coffee",
-        aov: "Tier 1 (High AOV)",
-        role: "Catering & VIP Lead",
-        contact: "Hind Al Mulla Team",
-        phone: "+971 50 287 4003",
-        email: "hello@homebakery.ae",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 6300,
-        notes: "Instagram: @home_bakery | Web: homebakery.ae | Galleria Mall flagship. Direct VIP mobile line verified: +971 50 287 4003."
-      },
-      {
-        id: "DXB-046",
-        venue: "Arabian Tea House",
-        corridor: "Jumeirah Beach / Al Wasl",
-        niche: "Heritage Emirati Bistro",
-        aov: "Tier 1 (High AOV)",
-        role: "Operations Manager",
-        contact: "Ali Al Rais Team",
-        phone: "+971 56 998 9030",
-        email: "info@arabianteahouse.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 7200,
-        notes: "Instagram: @arabianteahouse | Web: arabianteahouse.com | Jumeirah Beach. Direct official mobile verified: +971 56 998 9030."
-      },
-      {
-        id: "DXB-047",
-        venue: "Hutong Dubai",
-        corridor: "Gate Building 6 (DIFC)",
-        niche: "Northern Chinese Fine Dining",
-        aov: "Tier 1 (High AOV)",
-        role: "VIP Host & Floor Lead",
-        contact: "Management",
-        phone: "+971 56 133 9868",
-        email: "reservations@hutong-dubai.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 16500,
-        notes: "Instagram: @hutongdubai | Web: hutong-dubai.com | Gate Building 6 DIFC. Official WhatsApp: +971 56 133 9868."
-      },
-      {
-        id: "DXB-048",
-        venue: "Bombay Borough",
-        corridor: "Gate Village 3 (DIFC)",
-        niche: "Contemporary Indian Dining",
-        aov: "Tier 1 (High AOV)",
-        role: "Operations Manager",
-        contact: "Management",
-        phone: "+971 50 150 4789",
-        email: "reservations@bombayborough.com",
-        script: "Script 1 (Anti-Talabat 30%)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 11500,
-        notes: "Instagram: @bombayborough_uae | Web: bombayborough.com | Gate Village 3 DIFC. Official WhatsApp: +971 50 150 4789."
-      },
-      {
-        id: "DXB-049",
-        venue: "Bounty Beets",
-        corridor: "Le Méridien Mina Seyahi",
-        niche: "Boutique Healthy Bistro",
-        aov: "Tier 1 (High AOV)",
-        role: "Hospitality Lead",
-        contact: "Management",
-        phone: "+971 56 501 0504",
-        email: "info@bountybeets.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 6300,
-        notes: "Instagram: @bountybeets | Web: bountybeets.com | Official WhatsApp verified from destinationminaseyahi.com: +971 56 501 0504."
-      },
-      {
-        id: "DXB-050",
-        venue: "Uncut Dubai",
-        corridor: "Al Fattan Currency House (DIFC)",
-        niche: "Dining & Hi-Fi Lounge",
-        aov: "Tier 1 (High AOV)",
-        role: "General Operations",
-        contact: "Management",
-        phone: "+971 52 521 2475",
-        email: "info@uncutdubai.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 12500,
-        notes: "Instagram: @uncutdubai | Al Fattan Currency House DIFC. Direct WhatsApp verified: +971 52 521 2475."
-      },
-      {
-        id: "DXB-051",
-        venue: "The Sum of Us",
-        corridor: "Burj Al Salam (Trade Centre)",
-        niche: "Specialty Coffee & Bakery",
-        aov: "Tier 1 (High AOV)",
-        role: "Operations Manager",
-        contact: "Management",
-        phone: "+971 56 445 7526",
-        email: "hello@thesumofusdubai.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 6200,
-        notes: "Instagram: @thesumofus | Web: eatx.com | Official WhatsApp / mobile chat verified from eatx.com: +971 56 445 7526."
-      },
-      {
-        id: "DXB-052",
-        venue: "Jospereno Steakhouse",
-        corridor: "Al Murooj Complex (DIFC)",
-        niche: "Steakhouse & Contemporary Grill",
-        aov: "Tier 1 (High AOV)",
-        role: "Hospitality Director",
-        contact: "Management",
-        phone: "+971 52 420 6404",
-        email: "info@jospereno.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 13500,
-        notes: "Instagram: @josperenodxb | Web: jospereno.com | Al Murooj Complex DIFC. Direct WhatsApp: +971 52 420 6404."
-      },
-      {
-        id: "DXB-053",
-        venue: "Iris DIFC",
-        corridor: "Gate Village (DIFC)",
-        niche: "Lounge & Fine Dining",
-        aov: "Tier 1 (High AOV)",
-        role: "Operations Lead",
-        contact: "Management",
-        phone: "+971 54 319 2929",
-        email: "reservations@irisdubai.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 14500,
-        notes: "Instagram: @irisdubai | Web: irisdubai.com | Gate Village DIFC. Direct WhatsApp verified: +971 54 319 2929."
-      },
-      {
-        id: "DXB-054",
-        venue: "Boca DIFC",
-        corridor: "Gate Village 6 (DIFC)",
-        niche: "Sustainable Bistro & Tapas",
-        aov: "Tier 1 (High AOV)",
-        role: "Managing Director",
-        contact: "Omar Shihab",
-        phone: "+971 52 160 7507",
-        email: "hola@boca.ae",
-        script: "Script 1 (Anti-Talabat 30%)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 9500,
-        notes: "Instagram: @bocadubai | Web: boca.ae | Official WhatsApp booking line verified from boca.ae: +971 52 160 7507."
-      },
-      {
-        id: "DXB-055",
-        venue: "CIDK Cosmetology Clinic",
-        corridor: "Central Park Towers (DIFC)",
-        niche: "Luxury Aesthetic Clinic",
-        aov: "Tier 1 (High AOV)",
-        role: "Clinic Director",
-        contact: "Dr. K & Team",
-        phone: "+971 52 184 9220",
-        email: "info@cidk.ae",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 15500,
-        notes: "Instagram: @cidk_dubai | Web: cidk.ae | Central Park Towers DIFC. Direct WhatsApp: +971 52 184 9220."
-      },
-      {
-        id: "DXB-056",
-        venue: "Silk Clinics Dubai",
-        corridor: "DIFC / Downtown Corridor",
-        niche: "Aesthetic Clinic",
-        aov: "Tier 1 (High AOV)",
-        role: "Patient Concierge Lead",
-        contact: "Management",
-        phone: "+971 52 188 1437",
-        email: "info@silkclinicsdubai.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 13000,
-        notes: "Instagram: @silkclinics | Web: silkclinicsdubai.com | High-AOV aesthetic clinic. Direct WhatsApp: +971 52 188 1437."
-      },
-      {
-        id: "DXB-057",
-        venue: "F.R.N.D.S. Grand Restaurant & Cafe",
-        corridor: "Address Dubai Mall (Downtown)",
-        niche: "Mediterranean & Japanese Dining",
-        aov: "Tier 1 (High AOV)",
-        role: "Floor Operations",
-        contact: "Management",
-        phone: "+971 58 577 5382",
-        email: "info@frndsdubai.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 14000,
-        notes: "Instagram: @frnds.dubai | Web: frndsdubai.com | Address Dubai Mall Downtown. Direct WhatsApp: +971 58 577 5382."
-      },
-      {
-        id: "DXB-058",
-        venue: "The Guild",
-        corridor: "ICD Brookfield Place (DIFC)",
-        niche: "Fine Dining & Brasserie",
-        aov: "Tier 1 (High AOV)",
-        role: "Hospitality Director",
-        contact: "Tom Arnel Team",
-        phone: "+971 54 279 6826",
-        email: "hello@theguilddubai.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 14000,
-        notes: "Instagram: @theguilddubai | Web: theguilddubai.com | Official WhatsApp verified from theguilddubai.com: +971 54 279 6826."
-      },
-      {
-        id: "DXB-059",
-        venue: "OCCO Restaurant & Lounge",
-        corridor: "Hyde Hotel (Business Bay / Downtown)",
-        niche: "Skyline Dining & Shisha Lounge",
-        aov: "Tier 1 (High AOV)",
+        id: "GOA-015",
+        venue: "Copperleaf Panjim",
+        corridor: "Central Panjim",
+        niche: "Upscale Multi-Cuisine Fine Dine",
+        aov: "Tier 1 (₹2,400 AOV)",
         role: "General Manager",
+        contact: "GM Operations",
+        phone: "+91 832 240 0000",
+        email: "panjim@copperleafgoa.com",
+        script: "Script 1 (1-Star Review Shield)",
+        status: "Target Identified",
+        statusType: "awaiting",
+        followUp: "Visit Due",
+        nextDate: "2026-11-12",
+        stage: "1. Cold Target",
+        saas: 11500,
+        marginSaved: 58000,
+        notes: "Instagram: @copperleafgoa | Two large floors, high family covers. Real-time floor supervisor alerts reduce customer friction."
+      },
+      {
+        id: "GOA-016",
+        venue: "Viva Panjim",
+        corridor: "Rua 31 de Janeiro & Fontainhas",
+        niche: "Authentic Goan Heritage Cuisine",
+        aov: "Tier 3 (₹1,200 AOV)",
+        role: "Owner / Founder",
+        contact: "Linda de Sousa",
+        phone: "+91 832 242 2405",
+        email: "vivapanjim@gmail.com",
+        script: "Script 1 (1-Star Review Shield)",
+        status: "Target Identified",
+        statusType: "awaiting",
+        followUp: "Visit Due",
+        nextDate: "2026-11-13",
+        stage: "1. Cold Target",
+        saas: 11500,
+        marginSaved: 30000,
+        notes: "Instagram: @vivapanjim | Traditional heritage house. High tourist footfall. Protects against 1-star reviews when kitchen is slammed."
+      },
+      {
+        id: "GOA-017",
+        venue: "Mum’s Kitchen",
+        corridor: "Campal Promenade",
+        niche: "Traditional Goan Fine Dining",
+        aov: "Tier 1 (₹2,200 AOV)",
+        role: "Founding Partner",
+        contact: "Suzette & Rony",
+        phone: "+91 98221 75556",
+        email: "info@mumskitchengoa.com",
+        script: "Script 2 (VIP Birthday Cash Engine)",
+        status: "Target Identified",
+        statusType: "awaiting",
+        followUp: "Visit Due",
+        nextDate: "2026-11-13",
+        stage: "1. Cold Target",
+        saas: 11500,
+        marginSaved: 50000,
+        notes: "Instagram: @mumskitchengoa | Campal. Celebrated legacy brand. VIP guest loyalty club & anniversary group bookings."
+      },
+      {
+        id: "GOA-018",
+        venue: "Kokni Kanteen",
+        corridor: "Central Panjim",
+        niche: "Traditional Goan Thali & Seafood",
+        aov: "Tier 3 (₹950 AOV)",
+        role: "Owner / Operator",
         contact: "Management",
-        phone: "+971 56 430 5280",
-        email: "reservations@occorestaurant.ae",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
+        phone: "+91 832 242 1872",
+        email: "koknikanteengao@gmail.com",
+        script: "Script 1 (1-Star Review Shield)",
+        status: "Target Identified",
         statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 15000,
-        notes: "Instagram: @occodxb | Web: occorestaurant.ae | Hyde Hotel Business Bay. Direct WhatsApp: +971 56 430 5280."
+        followUp: "Visit Due",
+        nextDate: "2026-11-13",
+        stage: "1. Cold Target",
+        saas: 11500,
+        marginSaved: 34000,
+        notes: "Dada Vaidya Road. 40-minute wait queues outside. High turnover, review defense during lunch rush."
       },
       {
-        id: "DXB-060",
-        venue: "Babiole Dubai",
-        corridor: "Level 44, Hilton Al Habtoor (Downtown)",
-        niche: "Skyline Fine Dining & Lounge",
-        aov: "Tier 1 (High AOV)",
-        role: "Hospitality Director",
-        contact: "Management",
-        phone: "+971 56 515 4665",
-        email: "reservations@babioledubai.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
+        id: "GOA-019",
+        venue: "Tataki Asian Rooftop",
+        corridor: "Central Panjim",
+        niche: "Pan-Asian Luxury & Sushi Bar",
+        aov: "Tier 1 (₹3,000 AOV)",
+        role: "Managing Partner",
+        contact: "Operations Director",
+        phone: "+91 98221 88900",
+        email: "tatakigoa@gmail.com",
+        script: "Script 1 (1-Star Review Shield)",
+        status: "Target Identified",
         statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 13500,
-        notes: "Instagram: @babioledubai | Web: babioledubai.com | Level 44 skyline views. Direct WhatsApp: +971 56 515 4665."
+        followUp: "Visit Due",
+        nextDate: "2026-11-14",
+        stage: "1. Cold Target",
+        saas: 11500,
+        marginSaved: 62000,
+        notes: "Instagram: @tatakigoa | Rooftop luxury dining. High check averages (₹3k-5k per table). Fast payment & VIP club."
       },
       {
-        id: "DXB-061",
-        venue: "The Trove Dubai",
-        corridor: "The Dubai Mall (Fashion Avenue)",
-        niche: "Luxury Dining & Shisha Lounge",
-        aov: "Tier 1 (High AOV)",
-        role: "Operations Lead",
-        contact: "Management",
-        phone: "+971 50 881 3415",
-        email: "social@troverestaurant.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
+        id: "GOA-020",
+        venue: "Joseph Bar",
+        corridor: "Rua 31 de Janeiro & Fontainhas",
+        niche: "Heritage Feni & Craft Tavern",
+        aov: "Tier 3 (₹900 AOV)",
+        role: "Managing Partner",
+        contact: "Gundu / Partner",
+        phone: "+91 98221 11234",
+        email: "josephbargoa@gmail.com",
+        script: "Script 2 (VIP Birthday Cash Engine)",
+        status: "Target Identified",
         statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 16500,
-        notes: "Instagram: @thetrovedubai | Web: troverestaurant.com | Official WhatsApp verified from troverestaurant.com: +971 50 881 3415."
+        followUp: "Visit Due",
+        nextDate: "2026-11-14",
+        stage: "1. Cold Target",
+        saas: 11500,
+        marginSaved: 25000,
+        notes: "Iconic Fontainhas tavern. High tourist footfall drinking on street. QR loyalty club capture."
       },
       {
-        id: "DXB-062",
-        venue: "Tabū Dubai",
-        corridor: "The St. Regis Downtown Dubai",
-        niche: "Fine Dining & Theatrical Lounge",
-        aov: "Tier 1 (High AOV)",
-        role: "Floor Operations",
-        contact: "Management",
-        phone: "+971 54 793 0931",
-        email: "tabu.reservations@stregis.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
+        id: "GOA-021",
+        venue: "Jamun Goa",
+        corridor: "North Corridor (Assagao/Anjuna)",
+        niche: "Regional Indian Fine Dining",
+        aov: "Tier 1 (₹3,200 AOV)",
+        role: "Managing Partner",
+        contact: "Rakshay Dhariwal / GM",
+        phone: "+91 99990 00011",
+        email: "jamungoa@passcodehospitality.com",
+        script: "Script 2 (VIP Birthday Cash Engine)",
+        status: "Target Identified",
         statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 14500,
-        notes: "Instagram: @tabudubai | Web: tabu-dubai.com | Direct reservations mobile verified from Marriott directory: +971 54 793 0931."
+        followUp: "Visit Due",
+        nextDate: "2026-11-15",
+        stage: "1. Cold Target",
+        saas: 11500,
+        marginSaved: 75000,
+        notes: "Instagram: @jamunmumbai | Assagao heritage bungalow. Elite Delhi/Mumbai tourist crowd. Massive VIP database potential."
       },
       {
-        id: "DXB-063",
-        venue: "HuQQabaz Souk Al Bahar",
-        corridor: "Souk Al Bahar (Downtown)",
-        niche: "Turkish Dining & Shisha Lounge",
-        aov: "Tier 1 (High AOV)",
-        role: "Operations Lead",
-        contact: "Management",
-        phone: "+971 52 638 4633",
-        email: "info@huqqabaz.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
+        id: "GOA-022",
+        venue: "Baba Au Rhum",
+        corridor: "North Corridor (Assagao/Anjuna)",
+        niche: "Artisanal Bakery, Burgers & Craft Beer",
+        aov: "Tier 1 (₹1,800 AOV)",
+        role: "Founder / Management",
+        contact: "Leo / Management",
+        phone: "+91 98228 66766",
+        email: "babaaurhumgoa@gmail.com",
+        script: "Script 1 (1-Star Review Shield)",
+        status: "Target Identified",
         statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 11500,
-        notes: "Instagram: @huqqabazdubai | Web: huqqabaz.com | Souk Al Bahar Burj views. Direct WhatsApp: +971 52 638 4633."
+        followUp: "Visit Due",
+        nextDate: "2026-11-15",
+        stage: "1. Cold Target",
+        saas: 11500,
+        marginSaved: 68000,
+        notes: "Instagram: @babaaurhum | Anjuna bamboo forest. Huge weekend rush. Fast waiter calling & review protection."
       },
       {
-        id: "DXB-064",
-        venue: "GIA Dubai",
-        corridor: "The Dubai Mall (Fashion Avenue)",
-        niche: "Italian Fine Dining",
-        aov: "Tier 1 (High AOV)",
-        role: "Floor Operations",
-        contact: "Management",
-        phone: "+971 56 699 6544",
-        email: "rmgiadm@aaent.me",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
+        id: "GOA-023",
+        venue: "Botanico",
+        corridor: "North Corridor (Assagao/Anjuna)",
+        niche: "Botanical Bistro & Cocktail Bar",
+        aov: "Tier 1 (₹2,400 AOV)",
+        role: "Partner",
+        contact: "Operations Lead",
+        phone: "+91 98221 77655",
+        email: "botanicogoa@gmail.com",
+        script: "Script 2 (VIP Birthday Cash Engine)",
+        status: "Target Identified",
         statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 12000,
-        notes: "Instagram: @gia.dubai | Direct mobile/WhatsApp verified from thedubaimall.com directory: +971 56 699 6544."
+        followUp: "Visit Due",
+        nextDate: "2026-11-15",
+        stage: "1. Cold Target",
+        saas: 11500,
+        marginSaved: 52000,
+        notes: "Instagram: @botanico_goa | Assagao. High-AOV brunch and dinner crowd. VIP birthday bookings."
       },
       {
-        id: "DXB-065",
-        venue: "Siraj Restaurant & Cafe",
-        corridor: "Souk Al Bahar (Downtown)",
-        niche: "Emirati-Levantine Dining & Shisha",
-        aov: "Tier 1 (High AOV)",
-        role: "Restaurant Operations",
-        contact: "Management",
-        phone: "+971 52 267 3840",
-        email: "reservations@sirajrestaurant.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
+        id: "GOA-024",
+        venue: "Gunpowder",
+        corridor: "North Corridor (Assagao/Anjuna)",
+        niche: "Peninsular South Indian Dining",
+        aov: "Tier 1 (₹2,200 AOV)",
+        role: "Founding Partner",
+        contact: "Satish Warier",
+        phone: "+91 832 226 8083",
+        email: "gunpowdergoa@gmail.com",
+        script: "Script 1 (1-Star Review Shield)",
+        status: "Target Identified",
         statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 12500,
-        notes: "Instagram: @sirajrestaurant | Web: sirajrestaurant.com | Souk Al Bahar. Direct WhatsApp: +971 52 267 3840."
+        followUp: "Visit Due",
+        nextDate: "2026-11-16",
+        stage: "1. Cold Target",
+        saas: 11500,
+        marginSaved: 64000,
+        notes: "Instagram: @gunpowdergoa | Assagao heritage home. Packed year-round. Review defense during tourist season."
       },
       {
-        id: "DXB-066",
-        venue: "Shisha House DXB",
-        corridor: "Sheikh Zayed Road (DIFC Corridor)",
-        niche: "Luxury Shisha Lounge & Cafe",
-        aov: "Tier 1 (High AOV)",
-        role: "Hospitality Lead",
-        contact: "Management",
-        phone: "+971 50 905 8868",
-        email: "info@shishahousedubai.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
+        id: "GOA-025",
+        venue: "Bawri",
+        corridor: "North Corridor (Assagao/Anjuna)",
+        niche: "Heirloom Indian Cuisine & Bar",
+        aov: "Tier 1 (₹3,000 AOV)",
+        role: "Founding Chef / Partner",
+        contact: "Chef Amninder Sandhu",
+        phone: "+91 98221 99888",
+        email: "bawrigoa@gmail.com",
+        script: "Script 2 (VIP Birthday Cash Engine)",
+        status: "Target Identified",
         statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 13500,
-        notes: "Instagram: @shishahousedubai | Web: shishahousedubai.com | DIFC corridor. Direct WhatsApp: +971 50 905 8868."
-      },
-      {
-        id: "DXB-067",
-        venue: "The Espresso Lab",
-        corridor: "Gate Village 4 (DIFC)",
-        niche: "Specialty Coffee Roaster",
-        aov: "Tier 1 (High AOV)",
-        role: "Founder & Master Brewer",
-        contact: "Ibrahim Al Mallouhi",
-        phone: "+971 50 421 1188",
-        email: "tel@theespressolab.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 4800,
-        notes: "Instagram: @theespressolab | Web: theespressolab.com | Direct WhatsApp verified from visitdubai.com: +971 50 421 1188."
-      },
-      {
-        id: "DXB-068",
-        venue: "Kyma Beach",
-        corridor: "Palm West Beach (Marina Corridor)",
-        niche: "Luxury Beach Club & Greek Dining",
-        aov: "Tier 1 (High AOV)",
-        role: "VIP Host & Floor Operations",
-        contact: "Management",
-        phone: "+971 58 578 4096",
-        email: "reservations@kymabeach.ae",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 18000,
-        notes: "Instagram: @kymabeachdubai | Web: kymabeach.ae | Palm West Beach. Direct WhatsApp: +971 58 578 4096."
-      },
-      {
-        id: "DXB-069",
-        venue: "SĀN Beach",
-        corridor: "Palm West Beach (Marina Corridor)",
-        niche: "Luxury Beach Club & Culinary Lounge",
-        aov: "Tier 1 (High AOV)",
-        role: "Hospitality Director",
-        contact: "Management",
-        phone: "+971 58 824 2871",
-        email: "reservations@sanbeachdubai.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 19500,
-        notes: "Instagram: @sanbeach.dubai | Web: sanbeachdubai.com | Palm West Beach. Direct WhatsApp: +971 58 824 2871."
-      },
-      {
-        id: "DXB-070",
-        venue: "URLA Restaurant & Lounge",
-        corridor: "Address Downtown (Downtown Dubai)",
-        niche: "Fine Dining",
-        aov: "Tier 1 (High AOV)",
-        role: "Floor Operations Lead",
-        contact: "Management",
-        phone: "+971 52 554 5997",
-        email: "reservations@urlarestaurant.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 16000,
-        notes: "Instagram: @urla | Web: urlarestaurant.com | Official WhatsApp mobile verified from urlarestaurant.com: +971 52 554 5997."
-      },
-      {
-        id: "DXB-071",
-        venue: "Playa Dubai",
-        corridor: "Palm West Beach (Marina Corridor)",
-        niche: "Beach Club & Peruvian Dining",
-        aov: "Tier 1 (High AOV)",
-        role: "Operations Lead",
-        contact: "Management",
-        phone: "+971 55 676 1888",
-        email: "reservations@playadxb.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 17500,
-        notes: "Instagram: @playadubai | Web: playadxb.com | Palm West Beach. Direct WhatsApp: +971 55 676 1888."
-      },
-      {
-        id: "DXB-072",
-        venue: "Time Out Market Dubai",
-        corridor: "Souk Al Bahar Level 3 (Downtown)",
-        niche: "Gourmet Food Hall & Bar",
-        aov: "Tier 1 (High AOV)",
-        role: "Operations Director",
-        contact: "Management",
-        phone: "+971 54 375 2421",
-        email: "infodxb@timeoutmarket.com",
-        script: "Script 1 (Anti-Talabat 30%)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 11000,
-        notes: "Instagram: @timeoutmarketdubai | Web: timeoutmarket.com/dubai | Official mobile/support line verified: +971 54 375 2421."
-      },
-      {
-        id: "DXB-073",
-        venue: "Be Beach Dubai",
-        corridor: "Dubai Harbour (Marina Corridor)",
-        niche: "Waterfront Beach Club & Day Lounge",
-        aov: "Tier 1 (High AOV)",
-        role: "VIP Concierge",
-        contact: "Management",
-        phone: "+971 54 751 1119",
-        email: "info@bebeachdxb.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 16000,
-        notes: "Instagram: @bebeachdxb | Web: bebeachdxb.com | Dubai Harbour. Direct WhatsApp: +971 54 751 1119."
-      },
-      {
-        id: "DXB-074",
-        venue: "Bla Bla Dubai",
-        corridor: "The Beach (JBR)",
-        niche: "Luxury Beach Club & Shisha Lounge",
-        aov: "Tier 1 (High AOV)",
-        role: "Director of Operations",
-        contact: "Management",
-        phone: "+971 58 606 3535",
-        email: "reserve@blabladubai.ae",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 19000,
-        notes: "Instagram: @blabladubai | Web: blabladubai.ae | Official WhatsApp reservations mobile verified: +971 58 606 3535."
-      },
-      {
-        id: "DXB-075",
-        venue: "Brass Monkey",
-        corridor: "Bluewaters Island",
-        niche: "Entertainment Hub & Dining",
-        aov: "Tier 1 (High AOV)",
-        role: "Operations Lead",
-        contact: "Management",
-        phone: "+971 52 775 5317",
-        email: "reservations@brassmonkeysocial.com",
-        script: "Script 1 (Anti-Talabat 30%)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 12500,
-        notes: "Instagram: @brassmonkeysocial | Web: brassmonkeysocial.com | Official WhatsApp verified from brassmonkeysocial.com: +971 52 775 5317."
-      },
-      {
-        id: "DXB-076",
-        venue: "The London Project",
-        corridor: "Bluewaters Island",
-        niche: "Boutique Bistro & Bar",
-        aov: "Tier 1 (High AOV)",
-        role: "Hospitality Lead",
-        contact: "Management",
-        phone: "+971 54 306 1822",
-        email: "reservation@thelondonproject.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 9800,
-        notes: "Instagram: @thelondonprojectdubai | Web: thelondonproject.com | Official WhatsApp/mobile verified: +971 54 306 1822."
-      },
-      {
-        id: "DXB-077",
-        venue: "Verde Beach Dubai",
-        corridor: "Jumeirah Beach (Four Seasons)",
-        niche: "Luxury Beach Club & Dining",
-        aov: "Tier 1 (High AOV)",
-        role: "VIP Reservations Lead",
-        contact: "Management",
-        phone: "+971 54 582 0228",
-        email: "reservations@verdebeach-dubai.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 17500,
-        notes: "Instagram: @verdebeachdubai | Web: verdebeach-dubai.com | Jumeirah Beach. Direct WhatsApp: +971 54 582 0228."
-      },
-      {
-        id: "DXB-078",
-        venue: "Clay Dubai",
-        corridor: "Bluewaters Island",
-        niche: "Fine Dining & Lounge",
-        aov: "Tier 1 (High AOV)",
-        role: "Operations Lead",
-        contact: "Management",
-        phone: "+971 58 586 0310",
-        email: "reservations@claydubai.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 11500,
-        notes: "Instagram: @clay_dubai | Web: claydubai.com | Direct reservations line verified from bluewatersdubai.ae: +971 58 586 0310."
-      },
-      {
-        id: "DXB-079",
-        venue: "SHI Restaurant & Lounge",
-        corridor: "Bluewaters Island",
-        niche: "Fine Dining & Shisha Lounge",
-        aov: "Tier 1 (High AOV)",
-        role: "General Operations",
-        contact: "Management",
-        phone: "+971 50 367 4800",
-        email: "reservations@shirestaurant.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 12000,
-        notes: "Instagram: @shi.dxb | Web: shirestaurant.com | Official WhatsApp verified from shirestaurant.com: +971 50 367 4800."
-      },
-      {
-        id: "DXB-080",
-        venue: "Buddha-Bar Dubai",
-        corridor: "Grosvenor House (Dubai Marina)",
-        niche: "Fine Dining & Lounge",
-        aov: "Tier 1 (High AOV)",
-        role: "Director of Operations",
-        contact: "Management",
-        phone: "+971 55 123 3696",
-        email: "Bb.reservations@luxurycollection.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 17000,
-        notes: "Instagram: @buddhabardubai | Web: buddhabar-dubai.com | Official WhatsApp/mobile verified from buddhabar-dubai.com: +971 55 123 3696."
-      },
-      {
-        id: "DXB-081",
-        venue: "CouCou Dubai",
-        corridor: "Rooftop at The View (Palm / Marina)",
-        niche: "Mediterranean Rooftop Lounge & Shisha",
-        aov: "Tier 1 (High AOV)",
-        role: "VIP Floor Lead",
-        contact: "Management",
-        phone: "+971 52 451 2188",
-        email: "reservations@coucou-dubai.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 15500,
-        notes: "Instagram: @coucourooftop | Web: coucou-dubai.com | 360 rooftop skyline. Direct WhatsApp: +971 52 451 2188."
-      },
-      {
-        id: "DXB-082",
-        venue: "Lucia's Dubai",
-        corridor: "Jumeirah Beach Hotel (Marina Corridor)",
-        niche: "Capri Italian Dining & Lounge",
-        aov: "Tier 1 (High AOV)",
-        role: "Operations Lead",
-        contact: "Management",
-        phone: "+971 52 647 3512",
-        email: "reservations@luciasdubai.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 13500,
-        notes: "Instagram: @luciasdubai | Web: luciasdubai.com | Jumeirah Beach Hotel. Direct WhatsApp: +971 52 647 3512."
-      },
-      {
-        id: "DXB-083",
-        venue: "Mama Zonia",
-        corridor: "2nd Floor, Pier 7 (Dubai Marina)",
-        niche: "Fine Dining & Lounge",
-        aov: "Tier 1 (High AOV)",
-        role: "General Operations",
-        contact: "Management",
-        phone: "+971 58 559 5338",
-        email: "reservations@mamazonia.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 11000,
-        notes: "Instagram: @mamazoniadxb | Web: mamazoniadubai.com | Official WhatsApp/mobile verified from mamazoniadubai.com: +971 58 559 5338."
-      },
-      {
-        id: "DXB-084",
-        venue: "Surf Club Dubai",
-        corridor: "Palm West Beach (Marina Corridor)",
-        niche: "Luxury Beach Club & Seafood Bar",
-        aov: "Tier 1 (High AOV)",
-        role: "Operations Director",
-        contact: "Management",
-        phone: "+971 50 578 2030",
-        email: "events@surfclubdubai.com",
-        script: "Script 1 (Anti-Talabat 30%)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 16000,
-        notes: "Instagram: @surfclubdubai | Web: surfclubdubai.com | Palm West Beach. Direct WhatsApp: +971 50 578 2030."
-      },
-      {
-        id: "DXB-085",
-        venue: "Pure Sky Lounge & Dining",
-        corridor: "Level 35, Hilton Dubai The Walk (JBR)",
-        niche: "Rooftop Lounge & Shisha",
-        aov: "Tier 1 (High AOV)",
-        role: "Food & Beverage Director",
-        contact: "Management",
-        phone: "+971 50 700 4785",
-        email: "restaurant.jbr@hilton.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 12000,
-        notes: "Instagram: @pureskylounge | Web: jbr-restaurants.com | Official WhatsApp verified from jbr-restaurants.com: +971 50 700 4785."
-      },
-      {
-        id: "DXB-086",
-        venue: "February 30 Dubai",
-        corridor: "Palm West Beach (Marina Corridor)",
-        niche: "Beach Club & Beirut Dining",
-        aov: "Tier 1 (High AOV)",
-        role: "Floor Operations",
-        contact: "Management",
-        phone: "+971 58 140 0465",
-        email: "reservation@february30dubai.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 14500,
-        notes: "Instagram: @february30dubai | Web: westbeach.ae | Palm West Beach. Direct WhatsApp: +971 58 140 0465."
-      },
-      {
-        id: "DXB-087",
-        venue: "Luigia Dubai",
-        corridor: "Rixos Premium (JBR)",
-        niche: "Award-winning Italian & Pizzeria",
-        aov: "Tier 1 (High AOV)",
-        role: "Operations Lead",
-        contact: "Management",
-        phone: "+971 55 428 7540",
-        email: "info@luigia.ae",
-        script: "Script 1 (Anti-Talabat 30%)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 13500,
-        notes: "Instagram: @luigiadubai | Web: luigia.ae | Rixos Premium JBR. Direct WhatsApp: +971 55 428 7540."
-      },
-      {
-        id: "DXB-088",
-        venue: "Lock, Stock & Barrel",
-        corridor: "Rixos Premium (JBR)",
-        niche: "Gastropub & High-Volume Bar",
-        aov: "Tier 1 (High AOV)",
-        role: "General Manager",
-        contact: "Management",
-        phone: "+971 58 836 2891",
-        email: "reception.jbr@lsbdubai.com",
-        script: "Script 1 (Anti-Talabat 30%)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 14000,
-        notes: "Instagram: @lockstockuae | Web: lsbdubai.com | Direct venue mobile verified from visitdubai.com: +971 58 836 2891."
-      },
-      {
-        id: "DXB-089",
-        venue: "Drift Beach Dubai",
-        corridor: "One&Only Royal Mirage (Dubai Marina)",
-        niche: "Luxury Beach Club & Provençal Dining",
-        aov: "Tier 1 (High AOV)",
-        role: "Hospitality Lead",
-        contact: "Management",
-        phone: "+971 50 189 5738",
-        email: "info@driftbeachdubai.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 16500,
-        notes: "Instagram: @driftbeachdubai | Web: driftbeachdubai.com | Official WhatsApp verified from driftbeachdubai.com: +971 50 189 5738."
-      },
-      {
-        id: "DXB-090",
-        venue: "Wild & The Moon",
-        corridor: "Warehouse H77, Alserkal Avenue",
-        niche: "Organic Plant-Based Cafe",
-        aov: "Tier 1 (High AOV)",
-        role: "Operations Director",
-        contact: "Management",
-        phone: "+971 56 667 0233",
-        email: "contactdxb@wildandthemoon.com",
-        script: "Script 1 (Anti-Talabat 30%)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 6800,
-        notes: "Instagram: @wildandthemoonuae | Web: wildandthemoon.ae | Direct mobile verified: +971 56 667 0233."
-      },
-      {
-        id: "DXB-091",
-        venue: "Cafe Rider Custom",
-        corridor: "Warehouse 7 (Al Quoz / Alserkal)",
-        niche: "Specialty Coffee & Concept Space",
-        aov: "Tier 1 (High AOV)",
-        role: "Founder & Head of Ops",
-        contact: "Management",
-        phone: "+971 50 317 3822",
-        email: "info@caferider.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 6200,
-        notes: "Instagram: @caferidercustom | Web: caferider.com | Warehouse 7 Al Quoz. Direct WhatsApp: +971 50 317 3822."
-      },
-      {
-        id: "DXB-092",
-        venue: "Mirzam Chocolate Makers",
-        corridor: "Al Quoz 3 (Alserkal Corridor)",
-        niche: "Artisan Chocolate & Cafe",
-        aov: "Tier 1 (High AOV)",
-        role: "Operations Lead",
-        contact: "Management",
-        phone: "+971 50 724 2411",
-        email: "cocoa@mirzam.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 5800,
-        notes: "Instagram: @mirzamchocolate | Web: mirzam.com | Official WhatsApp/mobile verified from mirzam.com: +971 50 724 2411."
-      },
-      {
-        id: "DXB-093",
-        venue: "La Nena Coffee",
-        corridor: "23, Street 14B (Al Quoz 1)",
-        niche: "Concept Cafe & Design Studio",
-        aov: "Tier 1 (High AOV)",
-        role: "Operations Lead",
-        contact: "Management",
-        phone: "+971 58 570 0809",
-        email: "hello@lanenacoffee.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 7400,
-        notes: "Instagram: @lanenacoffee | Al Quoz 1 design corridor. Direct WhatsApp: +971 58 570 0809."
-      },
-      {
-        id: "DXB-094",
-        venue: "Tom & Serg",
-        corridor: "Al Joud Center, Al Quoz 1",
-        niche: "Specialty Coffee & Cafe",
-        aov: "Tier 1 (High AOV)",
-        role: "Director of Operations",
-        contact: "Tom Arnel Team",
-        phone: "+971 56 474 6812",
-        email: "hello@tomandserg.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 8400,
-        notes: "Instagram: @tomandserg | Web: eatx.com | Official WhatsApp/chat mobile verified: +971 56 474 6812."
-      },
-      {
-        id: "DXB-095",
-        venue: "Tania's Teahouse",
-        corridor: "Business Park 3 (Umm Suqeim Corridor)",
-        niche: "Boutique Tea Salon & Cafe",
-        aov: "Tier 1 (High AOV)",
-        role: "Founder",
-        contact: "Tania Lodi",
-        phone: "+971 58 588 2642",
-        email: "hello@taniasteashouse.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 5600,
-        notes: "Instagram: @taniasteashouse | Web: taniasteashouse.com | Official mobile/WhatsApp verified from taniasteashouse.com: +971 58 588 2642."
-      },
-      {
-        id: "DXB-096",
-        venue: "KAVE The Story of Things",
-        corridor: "Warehouse 20, Alserkal Avenue",
-        niche: "Upcycled Concept Cafe",
-        aov: "Tier 1 (High AOV)",
-        role: "Founder",
-        contact: "Management",
-        phone: "+971 55 102 4469",
-        email: "hello@thestoryofthings.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 4200,
-        notes: "Instagram: @kavedxb | Web: thestoryofthings.com | Official WhatsApp verified from thestoryofthings.com: +971 55 102 4469."
-      },
-      {
-        id: "DXB-097",
-        venue: "Le Guépard",
-        corridor: "Unit 57, Alserkal Avenue",
-        niche: "French 1930s Private Dining & Salon",
-        aov: "Tier 1 (High AOV)",
-        role: "Salon Director",
-        contact: "Management",
-        phone: "+971 56 687 8486",
-        email: "info@leguepard-est2021.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 8500,
-        notes: "Instagram: @le_guepard_dubai | Web: leguepard-est2021.com | Official WhatsApp/mobile verified from leguepard-est2021.com: +971 56 687 8486."
-      },
-      {
-        id: "DXB-098",
-        venue: "Ganache Chocolatier",
-        corridor: "Warehouse 82, Alserkal Avenue",
-        niche: "Artisan Chocolatier & Luxury Cafe",
-        aov: "Tier 1 (High AOV)",
-        role: "Operations Lead",
-        contact: "Management",
-        phone: "+971 56 420 3732",
-        email: "info@ganachechocolatier.ae",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 5900,
-        notes: "Instagram: @ganachechocolatier | Web: visitdubai.com | Warehouse 82 Alserkal Avenue. Direct WhatsApp: +971 56 420 3732."
-      },
-      {
-        id: "DXB-099",
-        venue: "Single Fin Cafe",
-        corridor: "Surf House Dubai (Umm Suqeim 2)",
-        niche: "Beachside Specialty Coffee & Cafe",
-        aov: "Tier 1 (High AOV)",
-        role: "Operations Lead",
-        contact: "Surf House Team",
-        phone: "+971 50 504 3020",
-        email: "info@surfingdubai.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 5100,
-        notes: "Instagram: @singlefindubai | Web: surfingdubai.com | Official WhatsApp verified from surfingdubai.com: +971 50 504 3020."
-      },
-      {
-        id: "DXB-100",
-        venue: "Surge Coffee Roasters",
-        corridor: "Al Quoz Industrial Area 4",
-        niche: "Specialty Coffee Roastery",
-        aov: "Tier 1 (High AOV)",
-        role: "Roasting Director",
-        contact: "Management",
-        phone: "+971 58 953 5337",
-        email: "coffee@surgecoffeeroasters.com",
-        script: "Script 2 (Google Review Defense)",
-        status: "Sent - Awaiting Reply",
-        statusType: "awaiting",
-        followUp: "Touch 0: Initial Sent",
-        nextDate: "2026-10-26",
-        stage: "1. Cold Prospect",
-        saas: 500,
-        marginSaved: 6300,
-        notes: "Instagram: @surgecoffeeroasters | Web: surgecoffeeroasters.com | Official Al Quoz roastery contact verified: +971 58 953 5337."
+        followUp: "Visit Due",
+        nextDate: "2026-11-16",
+        stage: "1. Cold Target",
+        saas: 11500,
+        marginSaved: 72000,
+        notes: "Instagram: @bawrigoa | Assagao celebrity destination. High check sizes. VIP loyalty and direct reservations."
       }
     ];
 
-    // LocalStorage Key (Bumped to V7 to guarantee fresh load of 100% verified pure WhatsApp mobile numbers)
-    const STORAGE_KEY = "METRIX_DUBAI_LEADS_DATA_V7";
+    // LocalStorage Key for Goa Panjim Leads Engine
+    const STORAGE_KEY = "METRIX_GOA_PANJIM_LEADS_V1";
 
     function loadLeads() {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         try { 
           const parsed = JSON.parse(stored);
-          if (Array.isArray(parsed) && parsed.length >= initialLeads.length) {
+          if (Array.isArray(parsed) && parsed.length > 0) {
             return parsed;
           }
         } catch(e) {}
@@ -2769,11 +1130,11 @@
     }
 
     function resetToDefaults() {
-      if (confirm(`Reset leads list back to default ${initialLeads.length} Dubai venues? Any custom changes will be reset.`)) {
+      if (confirm(`Reset leads list back to default ${initialLeads.length} Goa Panjim venues? Any custom changes will be reset.`)) {
         localStorage.removeItem(STORAGE_KEY);
         leads = initialLeads.slice();
         persistLeads();
-        showToast(`Reset to default ${initialLeads.length} Dubai venues!`);
+        showToast(`Reset to default ${initialLeads.length} Goa venues!`);
       }
     }
 
@@ -2786,10 +1147,10 @@
 
       const won = leads.filter(l => l.stage.includes('Won') || l.status.includes('Won')).length;
       document.getElementById('kpi-closed-won').textContent = `${won} Closed`;
-      document.getElementById('kpi-mrr-sub').innerHTML = `<i class="fa-solid fa-check-circle"></i> ${(won * 500).toLocaleString()} AED MRR Active`;
+      document.getElementById('kpi-mrr-sub').innerHTML = `<i class="fa-solid fa-check-circle"></i> ₹${(won * 11500).toLocaleString('en-IN')} MRR Active`;
 
       const totalMarginSaved = leads.reduce((acc, curr) => acc + (Number(curr.marginSaved) || 0), 0);
-      document.getElementById('kpi-margin-saved').textContent = `${totalMarginSaved.toLocaleString()} AED`;
+      document.getElementById('kpi-margin-saved').textContent = `₹${totalMarginSaved.toLocaleString('en-IN')}`;
     }
 
     // Render Table
@@ -2798,7 +1159,7 @@
       tbody.innerHTML = '';
 
       if (data.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="11" style="text-align: center; padding: 40px; color: var(--text-muted);">No matching leads found. Click <strong>"+ Add New Lead"</strong> to add one!</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="11" style="text-align: center; padding: 40px; color: var(--text-muted);">No matching Goa venues found. Click <strong>"+ Add New Lead"</strong> to add one!</td></tr>`;
         document.getElementById('results-count').textContent = `Showing 0 of ${leads.length} venues`;
         return;
       }
@@ -2810,19 +1171,23 @@
         // Determine script badge
         const isScript1 = item.script && item.script.includes('Script 1');
         const scriptBadgeClass = isScript1 ? 'badge-script-1' : 'badge-script-2';
-        const scriptLabel = isScript1 ? 'Script 1 (Talabat)' : 'Script 2 (Reviews)';
+        const scriptLabel = isScript1 ? 'Script 1 (Review Shield)' : 'Script 2 (VIP Birthday)';
 
         // Status badge
         let statusBadgeClass = 'badge-status-awaiting';
         const st = (item.status || '').toLowerCase();
-        if (st.includes('hot') || st.includes('yes') || st.includes('objection')) statusBadgeClass = 'badge-status-hot';
+        if (st.includes('met') || st.includes('hot')) statusBadgeClass = 'badge-status-hot';
         else if (st.includes('pilot')) statusBadgeClass = 'badge-status-pilot';
         else if (st.includes('won')) statusBadgeClass = 'badge-status-won';
-        else if (st.includes('ghost')) statusBadgeClass = 'badge-status-ghost';
+        else if (st.includes('lost') || st.includes('later')) statusBadgeClass = 'badge-status-ghost';
 
-        const demoUrl = `https://metrixmedia.agency/portal.html?name=${encodeURIComponent(item.venue)}`;
-        const cleanPhone = (item.phone || '').replace(/[^0-9]/g, '');
-        const isMobile = cleanPhone.startsWith('9715');
+        const demoUrl = `https://metrixmedia.agency/portal.html?name=${encodeURIComponent(item.venue)}&category=dining&table=Table+04`;
+        const flyerUrl = `https://metrixmedia.agency/flyer.html?name=${encodeURIComponent(item.venue)}&category=dining&flyerAccent=%23d4af37`;
+
+        // Normalize Phone for Indian WhatsApp
+        let cleanPhone = (item.phone || '').replace(/[^0-9]/g, '');
+        if (cleanPhone.length === 10) cleanPhone = '91' + cleanPhone;
+        const isMobile = cleanPhone.startsWith('91') && cleanPhone.length >= 12;
         const waUrl = isMobile ? `https://wa.me/${cleanPhone}` : `tel:+${cleanPhone}`;
         
         const phoneBadge = isMobile
@@ -2866,7 +1231,7 @@
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; color: #fbbf24;">
               ${item.nextDate || 'Pending'}
             </div>
-            <small style="font-size: 0.72rem; color: var(--text-muted);">${item.followUp || 'Touch 0'}</small>
+            <small style="font-size: 0.72rem; color: var(--text-muted);">${item.followUp || 'Visit Due'}</small>
           </td>
           <td>
             <span style="font-weight: 600; font-size: 0.82rem; color: ${item.stage.includes('Won') ? '#34d399' : (item.stage.includes('Pilot') ? '#fbbf24' : '#fff')};">
@@ -2874,17 +1239,19 @@
             </span>
           </td>
           <td>
-            <div style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: #fff;">${item.saas || 500} AED</div>
-            <small style="color: #34d399; font-size: 0.75rem;">+${Number(item.marginSaved || 0).toLocaleString()} saved</small>
+            <div style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: #fff;">₹${(item.saas || 11500).toLocaleString('en-IN')}</div>
+            <small style="color: #34d399; font-size: 0.75rem;">+₹${Number(item.marginSaved || 0).toLocaleString('en-IN')} saved</small>
           </td>
           <td style="text-align: right;">
             <div class="row-actions" style="justify-content: flex-end;">
               ${actionPhoneBtn}
-              ${item.email ? `<a href="mailto:${item.email}" class="action-icon-btn" title="Email: ${item.email}" style="color: #60a5fa;"><i class="fa-regular fa-envelope"></i></a>` : ''}
               <a href="${demoUrl}" target="_blank" class="action-icon-btn" title="Open Live Tabletop Simulator">
                 <i class="fa-solid fa-mobile-screen"></i>
               </a>
-              <button class="action-icon-btn" onclick="copyFollowUp('${escapedVenue}', '${item.script}')" title="Copy Follow-Up Message">
+              <a href="${flyerUrl}" target="_blank" class="action-icon-btn" title="Print Standee Vector">
+                <i class="fa-solid fa-print"></i>
+              </a>
+              <button class="action-icon-btn" onclick="copyFollowUp('${escapedVenue}', '${item.script}')" title="Copy Follow-Up Pitch Message">
                 <i class="fa-regular fa-copy"></i>
               </button>
               <button class="action-icon-btn edit" onclick="openEditModal(${realIndex})" title="Edit Lead Data">
@@ -2918,15 +1285,7 @@
                              (item.role || '').toLowerCase().includes(q) ||
                              (item.notes || '').toLowerCase().includes(q);
 
-        let matchesCorridor = (corridor === 'ALL');
-        if (!matchesCorridor) {
-          const itemCorr = (item.corridor || '').toLowerCase();
-          if (corridor === 'Corridor 1') matchesCorridor = itemCorr.includes('wasl') || itemCorr.includes('jumeirah') || itemCorr.includes('city walk') || itemCorr.includes('boxpark');
-          else if (corridor === 'Corridor 2') matchesCorridor = itemCorr.includes('difc') || itemCorr.includes('downtown') || itemCorr.includes('burj');
-          else if (corridor === 'Corridor 3') matchesCorridor = itemCorr.includes('marina') || itemCorr.includes('jbr') || itemCorr.includes('bluewaters');
-          else if (corridor === 'Corridor 4') matchesCorridor = itemCorr.includes('alserkal') || itemCorr.includes('al quoz') || itemCorr.includes('umm suqeim') || itemCorr.includes('courtyard');
-          else matchesCorridor = itemCorr.includes(corridor.toLowerCase());
-        }
+        let matchesCorridor = (corridor === 'ALL') || (item.corridor || '').toLowerCase().includes(corridor.toLowerCase());
         const matchesScript = (script === 'ALL') || (item.script || '').includes(script);
         const matchesStage = (stage === 'ALL') || (item.stage || '').includes(stage);
 
@@ -2938,14 +1297,12 @@
 
     // Modal Operations
     function openAddModal() {
-      document.getElementById('modalTitle').innerHTML = '<i class="fa-solid fa-plus-circle"></i> Add New Dubai Lead';
+      document.getElementById('modalTitle').innerHTML = '<i class="fa-solid fa-plus-circle"></i> Add New Goa Lead';
       document.getElementById('editLeadIndex').value = "-1";
       document.getElementById('leadForm').reset();
       
-      // Auto-generate next ID
       const nextNum = leads.length + 1;
-      document.getElementById('form-id').value = `DXB-${String(nextNum).padStart(3, '0')}`;
-      document.getElementById('form-margin').value = 4500;
+      document.getElementById('form-id').value = `GOA-${String(nextNum).padStart(3, '0')}`;
       
       const tomorrow = new Date();
       tomorrow.setDate(tomorrow.getDate() + 1);
@@ -2972,9 +1329,7 @@
       document.getElementById('form-script').value = item.script;
       document.getElementById('form-status').value = item.status;
       document.getElementById('form-nextdate').value = item.nextDate || '';
-      document.getElementById('form-followup').value = item.followUp || 'Touch 0: Initial Sent';
       document.getElementById('form-stage').value = item.stage;
-      document.getElementById('form-margin').value = item.marginSaved || 4500;
       document.getElementById('form-notes').value = item.notes || '';
 
       document.getElementById('leadModal').classList.add('active');
@@ -2992,8 +1347,8 @@
       const leadData = {
         id: document.getElementById('form-id').value.trim(),
         venue: document.getElementById('form-venue').value.trim(),
-        corridor: document.getElementById('form-corridor').value.trim(),
-        niche: document.getElementById('form-niche').value,
+        corridor: document.getElementById('form-corridor').value,
+        niche: document.getElementById('form-niche').value.trim(),
         aov: "Tier 1 (High AOV)",
         role: document.getElementById('form-role').value,
         contact: document.getElementById('form-contact').value.trim() || "Management",
@@ -3001,22 +1356,21 @@
         email: document.getElementById('form-email').value.trim(),
         script: document.getElementById('form-script').value,
         status: document.getElementById('form-status').value,
-        followUp: document.getElementById('form-followup').value,
+        statusType: "awaiting",
+        followUp: "Visit Due",
         nextDate: document.getElementById('form-nextdate').value,
         stage: document.getElementById('form-stage').value,
-        saas: 500,
-        marginSaved: parseInt(document.getElementById('form-margin').value, 10) || 4500,
+        saas: 11500,
+        marginSaved: 45000,
         notes: document.getElementById('form-notes').value.trim()
       };
 
-      if (idx === -1) {
-        // Add new
-        leads.unshift(leadData);
-        showToast(`Added ${leadData.venue} to Dubai pipeline!`);
-      } else {
-        // Update existing
+      if (idx >= 0) {
         leads[idx] = leadData;
-        showToast(`Updated ${leadData.venue} successfully!`);
+        showToast(`Updated ${leadData.venue}!`);
+      } else {
+        leads.unshift(leadData);
+        showToast(`Added ${leadData.venue}!`);
       }
 
       persistLeads();
@@ -3039,9 +1393,9 @@
     function copyFollowUp(venue, script) {
       let msg = "";
       if (script && script.includes("Script 1")) {
-        msg = `Hey! One quick piece of math for ${venue}:\n\nIf your kitchen does 30 delivery orders this Friday at 140 AED average, Talabat takes ~1,260 AED in commission in a single night.\n\nWith METRIX, you keep that 1,260 AED directly in your bank account, and the customer orders via your WhatsApp.\n\nWant to see the 60-second interactive direct ordering demo for ${venue}?`;
+        msg = `Hey! Know dinner prep is underway at ${venue}!\n\nQuick thought: 98% of happy diners leave silently, but diners who wait 15 mins for the bill go straight to Google.\n\nMETRIX gives floor management a WhatsApp alert in 2 seconds if a table needs water, server, or bill, so your team can attend to them before they ask for the check.\n\nTest the 60-second simulation for ${venue} here:\n👉 https://metrixmedia.agency/portal.html?name=${encodeURIComponent(venue)}&category=dining&table=Table+04`;
       } else {
-        msg = `Hey! Know dinner prep is underway at ${venue}!\n\nQuick thought: 98% of happy diners leave silently, but 90% of diners who got lukewarm coffee or a delayed dish go straight to Google.\n\nMETRIX gives floor management a WhatsApp alert in 3 seconds if a table has an issue, so your team can attend to them before they ask for the bill.\n\nTest the 60-second simulation for ${venue} here:\n👉 https://metrixmedia.agency/portal.html?name=${encodeURIComponent(venue)}`;
+        msg = `Hey! Question regarding ${venue} tables for the season rush:\n\nTourists eat at your tables once and vanish forever. METRIX deploys discreet luxury tabletop shields that capture 150+ verified guest WhatsApp numbers and birthdays every weekend.\n\nAllows you to fill tables on slow Tuesday nights at zero marketing cost.\n\nTap the live 60-second table test for ${venue}:\n👉 https://metrixmedia.agency/portal.html?name=${encodeURIComponent(venue)}&category=dining&table=Table+04`;
       }
 
       navigator.clipboard.writeText(msg).then(() => {
@@ -3059,7 +1413,7 @@
 
     // Export CSV
     function exportToCSV() {
-      const headers = ["Lead ID", "Venue Name", "Corridor", "Niche", "AOV Tier", "Role", "Contact", "Phone", "Email", "Assigned Script", "Status", "Follow-Up Due", "Stage", "Monthly SaaS (AED)", "Margin Saved (AED)", "Notes"];
+      const headers = ["Lead ID", "Venue Name", "Corridor", "Niche", "AOV Tier", "Role", "Contact", "Phone", "Email", "Assigned Script", "Status", "Next Touch Due", "Stage", "Monthly License (INR)", "Notes"];
       const rows = leads.map(l => [
         `"${l.id}"`,
         `"${l.venue}"`,
@@ -3072,25 +1426,24 @@
         `"${l.email}"`,
         `"${l.script}"`,
         `"${l.status}"`,
-        `"${l.nextDate} (${l.followUp})"`,
+        `"${l.nextDate}"`,
         `"${l.stage}"`,
         l.saas,
-        l.marginSaved,
         `"${(l.notes || '').replace(/"/g, '""')}"`
       ]);
 
-      const csvContent = "data:text/csv;charset=utf-8," + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+      const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map(e => e.join(","))].join("\n");
       const encodedUri = encodeURI(csvContent);
       const link = document.createElement("a");
       link.setAttribute("href", encodedUri);
-      link.setAttribute("download", `METRIX_Dubai_Leads_Master_${new Date().toISOString().slice(0,10)}.csv`);
+      link.setAttribute("download", `METRIX_Goa_Panjim_Leads_Pipeline_${new Date().toISOString().slice(0,10)}.csv`);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      showToast("Downloaded updated METRIX leads CSV!");
+      showToast("Downloaded Goa Leads CSV Sheet!");
     }
 
-    // Initial render
+    // Initialize on Load
     updateKPIs();
     renderTable(leads);
   </script>
