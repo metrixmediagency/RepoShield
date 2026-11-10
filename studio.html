@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>METRIX // Agency Multi-Category Demo Studio</title>
+    <title>METRIX // F&B & Dining Tabletop Demo Studio</title>
     <link rel="icon" type="image/jpeg" href="metrix_logo.jpg">
     <!-- Google Fonts & FontAwesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -83,15 +83,15 @@
         }
 
         .nav-logo-badge {
-            width: 34px;
-            height: 34px;
-            border-radius: 8px;
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
             background: var(--bg-surface);
             border: 1px solid var(--border-gold);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 15px;
+            font-size: 16px;
             color: var(--gold-primary);
         }
 
@@ -113,7 +113,7 @@
         .nav-actions {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .badge-partner {
@@ -185,7 +185,7 @@
             margin-top: 4px;
         }
 
-        /* 1-Click Agency Presets Row */
+        /* 1-Click F&B Presets Row */
         .presets-section {
             display: flex;
             flex-direction: column;
@@ -281,10 +281,10 @@
             gap: 12px;
         }
 
-        /* Sector Pills Grid */
+        /* F&B Concepts Grid */
         .sector-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
             gap: 8px;
         }
 
@@ -292,7 +292,7 @@
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border-subtle);
             border-radius: 10px;
-            padding: 10px 8px;
+            padding: 11px 8px;
             text-align: center;
             cursor: pointer;
             transition: var(--transition);
@@ -636,19 +636,22 @@
     <header class="studio-nav">
         <div class="nav-brand">
             <div class="nav-logo-badge">
-                <i class="fa-solid fa-layer-group"></i>
+                <i class="fa-solid fa-utensils"></i>
             </div>
             <div>
                 <h1 class="nav-title">METRIX Studio</h1>
-                <p class="nav-subtitle">Agency Client Demo Generator</p>
+                <p class="nav-subtitle">F&amp;B &amp; Dining Tabletop Demo Generator</p>
             </div>
         </div>
         <div class="nav-actions">
             <div class="badge-partner">
-                <i class="fa-solid fa-shield-halved"></i> Partner Edition
+                <i class="fa-solid fa-martini-glass-citrus"></i> F&amp;B Growth Studio
             </div>
-            <a href="client_brief.html" class="btn-action btn-surface" style="padding: 6px 12px; font-size: 11.5px;" target="_blank">
-                <i class="fa-solid fa-file-invoice"></i> Client Brief
+            <a href="panjim_sales.html" class="btn-action btn-surface" style="padding: 6px 12px; font-size: 11.5px;" target="_blank">
+                <i class="fa-solid fa-map-location-dot"></i> Panjim Territory
+            </a>
+            <a href="leads_tracker.html" class="btn-action btn-surface" style="padding: 6px 12px; font-size: 11.5px;" target="_blank">
+                <i class="fa-solid fa-crosshairs"></i> Lead Tracker
             </a>
         </div>
     </header>
@@ -658,71 +661,71 @@
         <!-- Left: Configuration Form -->
         <section class="config-panel">
             <div class="panel-header">
-                <h2><i class="fa-solid fa-sliders" style="color: var(--gold-primary); font-size: 18px;"></i> Demo Generator</h2>
-                <p>Configure a personalized in-store tabletop companion for any client category in 15 seconds.</p>
+                <h2><i class="fa-solid fa-sliders" style="color: var(--gold-primary); font-size: 18px;"></i> F&amp;B Demo Generator</h2>
+                <p>Configure a personalized tabletop companion for any restaurant, cafe, or bar in 15 seconds.</p>
             </div>
 
-            <!-- Quick Sector Presets -->
+            <!-- 1-Click Panjim F&B Presets -->
             <div class="presets-section">
                 <div class="presets-label">
-                    <span>⚡ 1-Click Agency Presets</span>
+                    <span>⚡ 1-Click Panjim F&amp;B Presets</span>
                     <small style="color: var(--text-muted); text-transform: none; font-weight: 400;">Tap to load</small>
                 </div>
                 <div class="presets-scroll">
-                    <button type="button" class="preset-chip" id="preset-cabo">
-                        <i class="fa-solid fa-bed" style="color: #d4af37;"></i> Cabo Serai (Hotel)
+                    <button type="button" class="preset-chip" id="preset-miguels">
+                        <i class="fa-solid fa-martini-glass-citrus" style="color: #d4af37;"></i> Miguel’s (Cocktails &amp; Tapas)
                     </button>
-                    <button type="button" class="preset-chip" id="preset-cruise">
-                        <i class="fa-solid fa-ship" style="color: #38bdf8;"></i> Komorebi (Cruise)
+                    <button type="button" class="preset-chip" id="preset-soho">
+                        <i class="fa-solid fa-beer-mug-empty" style="color: #f59e0b;"></i> Soho (Capital Bar)
                     </button>
-                    <button type="button" class="preset-chip" id="preset-bare">
-                        <i class="fa-solid fa-droplet" style="color: #10b981;"></i> Bare Necessities (Skincare)
+                    <button type="button" class="preset-chip" id="preset-prazeres">
+                        <i class="fa-solid fa-wine-glass" style="color: #38bdf8;"></i> Praça Prazeres (Bistro)
                     </button>
-                    <button type="button" class="preset-chip" id="preset-warren">
-                        <i class="fa-solid fa-scissors" style="color: #f43f5e;"></i> Warren Tricomi (Salon)
+                    <button type="button" class="preset-chip" id="preset-caravela">
+                        <i class="fa-solid fa-mug-saucer" style="color: #eab308;"></i> The Caravela Cafe (Roastery)
                     </button>
-                    <button type="button" class="preset-chip" id="preset-noir">
-                        <i class="fa-solid fa-utensils" style="color: #d4af37;"></i> Cafe Noir (Dining)
+                    <button type="button" class="preset-chip" id="preset-miski">
+                        <i class="fa-solid fa-pepper-hot" style="color: #10b981;"></i> Miski Bar &amp; Kitchen
                     </button>
                 </div>
             </div>
 
-            <!-- Sector Selection Grid -->
+            <!-- F&B Concept / Niche Selection Grid -->
             <div class="form-group">
-                <label class="form-label">Client Category</label>
+                <label class="form-label">Dining &amp; F&amp;B Concept</label>
                 <div class="sector-grid">
-                    <div class="sector-card active" data-category="hotel">
-                        <i class="fa-solid fa-bed"></i>
-                        <span>Hotel &amp; Resort</span>
+                    <div class="sector-card active" data-niche="cocktail">
+                        <i class="fa-solid fa-martini-glass-citrus"></i>
+                        <span>Cocktail &amp; Tapas</span>
                     </div>
-                    <div class="sector-card" data-category="cruise">
-                        <i class="fa-solid fa-ship"></i>
-                        <span>River Cruise</span>
-                    </div>
-                    <div class="sector-card" data-category="retail">
-                        <i class="fa-solid fa-bag-shopping"></i>
-                        <span>Skincare &amp; Retail</span>
-                    </div>
-                    <div class="sector-card" data-category="salon">
-                        <i class="fa-solid fa-scissors"></i>
-                        <span>Salon &amp; Spa</span>
-                    </div>
-                    <div class="sector-card" data-category="dining">
+                    <div class="sector-card" data-niche="bistro">
                         <i class="fa-solid fa-utensils"></i>
-                        <span>Dining &amp; Bar</span>
+                        <span>Bistro &amp; Fine Dining</span>
+                    </div>
+                    <div class="sector-card" data-niche="cafe">
+                        <i class="fa-solid fa-mug-saucer"></i>
+                        <span>Specialty Cafe</span>
+                    </div>
+                    <div class="sector-card" data-niche="pub">
+                        <i class="fa-solid fa-beer-mug-empty"></i>
+                        <span>Pub &amp; Lounge</span>
+                    </div>
+                    <div class="sector-card" data-niche="heritage">
+                        <i class="fa-solid fa-pepper-hot"></i>
+                        <span>Heritage Dining</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Business Name & Table / Room -->
+            <!-- Business Name & Table / Station -->
             <div class="form-row">
                 <div class="form-group">
-                    <label class="form-label" for="input-biz-name">Client Business Name</label>
-                    <input type="text" id="input-biz-name" class="input-box" value="Cabo Serai" placeholder="e.g. Cabo Serai">
+                    <label class="form-label" for="input-biz-name">Venue / Business Name</label>
+                    <input type="text" id="input-biz-name" class="input-box" value="Miguel's – Cocktails &amp; Petiscos" placeholder="e.g. Miguel's or Soho">
                 </div>
                 <div class="form-group">
-                    <label class="form-label" for="input-table-id" id="label-table-id">Room / Location</label>
-                    <input type="text" id="input-table-id" class="input-box" value="Suite 04" placeholder="e.g. Suite 04">
+                    <label class="form-label" for="input-table-id" id="label-table-id">Table / Station Number</label>
+                    <input type="text" id="input-table-id" class="input-box" value="Table 04" placeholder="e.g. Table 04 or Bar Seat 02">
                 </div>
             </div>
 
@@ -734,10 +737,10 @@
                 </label>
                 <div class="palette-row">
                     <div class="color-dot active" data-color="#d4af37" style="background: #d4af37;"></div>
+                    <div class="color-dot" data-color="#f59e0b" style="background: #f59e0b;"></div>
                     <div class="color-dot" data-color="#38bdf8" style="background: #38bdf8;"></div>
                     <div class="color-dot" data-color="#10b981" style="background: #10b981;"></div>
                     <div class="color-dot" data-color="#f43f5e" style="background: #f43f5e;"></div>
-                    <div class="color-dot" data-color="#f59e0b" style="background: #f59e0b;"></div>
                     <input type="color" id="custom-color-picker" class="custom-color-picker" value="#d4af37" title="Custom Hex Color">
                 </div>
             </div>
@@ -745,20 +748,20 @@
             <!-- Google Review & Menu URL -->
             <div class="form-row">
                 <div class="form-group">
-                    <label class="form-label" for="input-gmb-url">Google / TripAdvisor Link</label>
-                    <input type="url" id="input-gmb-url" class="input-box" value="https://maps.google.com" placeholder="https://maps.google.com/...">
+                    <label class="form-label" for="input-gmb-url">Google Maps Review Link</label>
+                    <input type="url" id="input-gmb-url" class="input-box" value="https://maps.google.com/?q=Miguel's+Cocktails+Petiscos+Panaji+Goa" placeholder="https://maps.google.com/...">
                 </div>
                 <div class="form-group">
-                    <label class="form-label" for="input-menu-url" id="label-menu-url">Experiences / Menu Link</label>
-                    <input type="url" id="input-menu-url" class="input-box" value="" placeholder="https://drive.google.com/...">
+                    <label class="form-label" for="input-menu-url" id="label-menu-url">Digital Menu / Drinks Link</label>
+                    <input type="url" id="input-menu-url" class="input-box" value="" placeholder="https://drive.google.com/... or Menu URL">
                 </div>
             </div>
 
             <!-- Floor WhatsApp / Notification Webhook (Optional) -->
             <div class="form-group">
                 <label class="form-label" for="input-webhook">
-                    <span>Staff WhatsApp Webhook</span>
-                    <small>Optional live floor alerts</small>
+                    <span>Floor Staff WhatsApp Alert Webhook</span>
+                    <small>Optional live table calling webhook</small>
                 </label>
                 <input type="url" id="input-webhook" class="input-box" value="" placeholder="https://api.whatsapp.com/... or Google Sheet Webhook">
             </div>
@@ -770,7 +773,7 @@
             <div class="action-dock">
                 <div class="dock-header">
                     <div class="dock-title">
-                        <i class="fa-solid fa-paper-plane"></i> Agency Pitch &amp; Client Distribution Dock
+                        <i class="fa-solid fa-paper-plane"></i> F&amp;B Pitch &amp; Client Distribution Dock
                     </div>
                 </div>
 
@@ -796,8 +799,8 @@
                         <small style="color: var(--text-muted); font-weight: 400;">1-tap copy above</small>
                     </div>
                     <div class="pitch-text" id="pitch-text-preview">
-Hey Cabo Serai team! Configured a private in-room companion for your suites — tap this to test how guests can book airport cabs, schedule spa treatments, and join your 20% direct-booking circle in 3s:
-https://metrixmedia.agency/portal.html?name=Cabo+Serai&category=hotel&table=Suite+04
+Hey Miguel's team! Built a 60-second in-store prototype for your tables — test how guests call extra drinks/water in 3s and join your VIP club for weekend events:
+https://metrixmedia.agency/portal.html?name=Miguel%27s+%E2%80%93+Cocktails+%26+Petiscos&category=dining&table=Table+04
                     </div>
                 </div>
             </div>
@@ -812,7 +815,7 @@ https://metrixmedia.agency/portal.html?name=Cabo+Serai&category=hotel&table=Suit
 
                 <div class="phone-wrapper" id="phone-wrapper">
                     <div class="phone-notch"></div>
-                    <iframe id="preview-iframe" class="phone-iframe" src="portal.html?name=Cabo+Serai&category=hotel&table=Suite+04&color=%23d4af37"></iframe>
+                    <iframe id="preview-iframe" class="phone-iframe" src="portal.html?name=Miguel%27s+%E2%80%93+Cocktails+%26+Petiscos&category=dining&table=Table+04&color=%23d4af37"></iframe>
                 </div>
             </div>
         </section>
@@ -826,73 +829,79 @@ https://metrixmedia.agency/portal.html?name=Cabo+Serai&category=hotel&table=Suit
 
     <!-- Sovereign Footer -->
     <footer class="studio-footer">
-        © 2026 METRIX Technologies (A ONEGRV Enterprise). All rights reserved. · Authorized Agency Demo Studio.
+        © 2026 METRIX Technologies (A ONEGRV Enterprise). All rights reserved. · Authorized F&amp;B Demo Studio.
     </footer>
 
     <!-- Interactive Generator Logic -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // State
+            // State (Strictly 100% Dining & F&B)
             const state = {
-                category: 'hotel',
-                name: 'Cabo Serai',
-                table: 'Suite 04',
+                category: 'dining',
+                niche: 'cocktail',
+                name: "Miguel's – Cocktails & Petiscos",
+                table: 'Table 04',
                 color: '#d4af37',
-                gmbUrl: 'https://maps.google.com',
+                gmbUrl: "https://maps.google.com/?q=Miguel's+Cocktails+Petiscos+Panaji+Goa",
                 menuUrl: '',
                 webhook: ''
             };
 
-            // Sector Config Mapping for Placeholders & Pitch Copy
-            const sectorMeta = {
-                hotel: {
-                    tableLabel: 'Room / Suite / Villa',
-                    tableDefault: 'Suite 04',
-                    tablePlaceholder: 'e.g. Suite 04 or Villa 2',
-                    menuLabel: 'Experiences / Dining Link',
-                    pitchIntro: (name) => `Hey ${name} team! Configured a private in-room companion for your suites — tap this to test how guests can book airport cabs, schedule spa treatments, and join your 20% direct-booking circle in 3s:`,
-                    flyerHeadline: 'Welcome to Your In-Room Concierge',
-                    flyerSub: 'Scan to book airport cabs, spa treatments, or request room dining.',
-                    flyerFooter: 'Thank you for staying with us.'
+            // F&B Niche Config Mapping for Table Labels, Placeholders & Pitch Copy
+            const fnbMeta = {
+                cocktail: {
+                    name: 'Cocktail & Tapas Bar',
+                    tableLabel: 'Table / Booth Number',
+                    tableDefault: 'Table 04',
+                    tablePlaceholder: 'e.g. Table 04 or Bar Seat 02',
+                    menuLabel: 'Cocktail & Food Menu Link',
+                    pitchIntro: (name) => `Hey ${name} team! Built a 60-second in-store prototype for your tables — test how guests call extra drinks/water in 3s and join your VIP club for weekend events:`,
+                    flyerHeadline: 'Craft Cocktails & VIP Perks 🥂',
+                    flyerSub: 'Scan to call table service in 3s, join our VIP Club, or browse our menu.',
+                    flyerFooter: 'Thank you for drinking & dining with us.'
                 },
-                cruise: {
-                    tableLabel: 'Deck / Table Location',
-                    tableDefault: 'Deck 1 / Table 04',
-                    tablePlaceholder: 'e.g. Deck 1 / Table 04',
-                    menuLabel: 'Bar Menu & Route Map',
-                    pitchIntro: (name) => `Hey ${name} team! Configured an interactive deck companion for your cruise — tap this to test how passengers request songs to the DJ, get free sunset photos on WhatsApp, and order drinks:`,
-                    flyerHeadline: 'Welcome Aboard!',
-                    flyerSub: 'Scan to request DJ songs, get sunset photos on WhatsApp, or order drinks.',
-                    flyerFooter: 'Thank you for sailing with us.'
+                bistro: {
+                    name: 'Bistro & Fine Dining',
+                    tableLabel: 'Table / Dining Room Number',
+                    tableDefault: 'Table 07',
+                    tablePlaceholder: 'e.g. Table 07',
+                    menuLabel: 'A La Carte & Wine Menu Link',
+                    pitchIntro: (name) => `Hey ${name} team! Built a 60-second in-store prototype for your tables — test how diners call water/waiter in 3s and register for private chef tastings:`,
+                    flyerHeadline: 'Welcome to Your Dining Experience',
+                    flyerSub: 'Scan to call table service, join our Chef\'s Table VIP list, or browse our wine selection.',
+                    flyerFooter: 'Thank you for dining with us.'
                 },
-                retail: {
-                    tableLabel: 'Counter / Station',
-                    tableDefault: 'Boutique Counter 01',
-                    tablePlaceholder: 'e.g. Boutique Counter 01',
-                    menuLabel: 'Online Catalog / D2C Shop',
-                    pitchIntro: (name) => `Hey ${name} team! Configured a digital boutique companion for your store — tap this to test how visiting tourists join your 10% refill club to order D2C online all year:`,
-                    flyerHeadline: 'Unlock 10% Off Online Refills',
-                    flyerSub: 'Scan to join our Insiders Club for 10% off online orders & skincare guidance.',
-                    flyerFooter: 'Thank you for shopping with us.'
+                cafe: {
+                    name: 'Specialty Cafe & Roastery',
+                    tableLabel: 'Table / Counter Seat',
+                    tableDefault: 'Table 03',
+                    tablePlaceholder: 'e.g. Table 03 or Balcony Table 1',
+                    menuLabel: 'Brew Guide & Bakery Menu Link',
+                    pitchIntro: (name) => `Hey ${name} team! Built a 60-second in-store prototype for your tables — test how guests call water/bill in 3s and join your Coffee Club for fresh roast notifications:`,
+                    flyerHeadline: 'Specialty Coffee & Fresh Roasts ☕',
+                    flyerSub: 'Scan to call table service, join our Coffee Club for fresh roast alerts, or view our brew menu.',
+                    flyerFooter: 'Handcrafted coffee & good moments.'
                 },
-                salon: {
-                    tableLabel: 'Styling Chair / Spa Suite',
-                    tableDefault: 'Chair 02',
-                    tablePlaceholder: 'e.g. Chair 02 or Spa Suite 1',
-                    menuLabel: 'Treatment & Styling Menu',
-                    pitchIntro: (name) => `Hey ${name} team! Configured an in-chair companion for your salon — tap this to test how clients request herbal tea, discover products used on them today, and rebook in 4 weeks:`,
-                    flyerHeadline: 'Relax & Unwind with Us',
-                    flyerSub: 'Scan for in-chair refreshments, treatment products, or VIP rewards.',
-                    flyerFooter: 'Thank you for visiting us.'
+                pub: {
+                    name: 'High-Energy Pub & Lounge',
+                    tableLabel: 'Table / High-Top Station',
+                    tableDefault: 'High Table 02',
+                    tablePlaceholder: 'e.g. High Table 02 or Booth 5',
+                    menuLabel: 'Draft Beer & Bar Bites Menu',
+                    pitchIntro: (name) => `Hey ${name} team! Built a 60-second in-store prototype for your high-tables — test how guests call beer refills/bill in 3s without waving at busy staff:`,
+                    flyerHeadline: 'Cold Pours & Fast Service 🍻',
+                    flyerSub: 'Scan to call water/waiter/bill in 3s without waving, or join our weekend guestlist.',
+                    flyerFooter: 'Great times with good friends.'
                 },
-                dining: {
-                    tableLabel: 'Table Number',
-                    tableDefault: 'Table 12',
-                    tablePlaceholder: 'e.g. Table 12',
-                    menuLabel: 'Digital Food & Bar Menu',
-                    pitchIntro: (name) => `Hey ${name} team! Configured a private tabletop companion for your dining tables — tap this to test how diners call water/bill in 3s and join your VIP birthday club:`,
-                    flyerHeadline: 'How was your experience today?',
-                    flyerSub: 'Scan to join our VIP Dining Club, call table service, or browse the menu.',
+                heritage: {
+                    name: 'Heritage & Coastal Kitchen',
+                    tableLabel: 'Table / Veranda Station',
+                    tableDefault: 'Table 05',
+                    tablePlaceholder: 'e.g. Table 05 or Veranda 02',
+                    menuLabel: 'Daily Specials & Coastal Menu',
+                    pitchIntro: (name) => `Hey ${name} team! Built a 60-second in-store prototype for your tables — test how diners call table service in 3s and join your VIP club for seasonal dining invites:`,
+                    flyerHeadline: 'Authentic Hospitality & Flavours',
+                    flyerSub: 'Scan to call table service, join our VIP Dining Club, or view our daily catch specials.',
                     flyerFooter: 'Thank you for dining with us.'
                 }
             };
@@ -934,7 +943,7 @@ https://metrixmedia.agency/portal.html?name=Cabo+Serai&category=hotel&table=Suit
             function buildPortalUrl() {
                 const params = new URLSearchParams();
                 params.set('name', state.name);
-                params.set('category', state.category);
+                params.set('category', 'dining'); // Always strictly dining
                 if (state.table) params.set('table', state.table);
                 if (state.color) params.set('color', state.color);
                 if (state.gmbUrl && state.gmbUrl !== 'https://maps.google.com') params.set('url', state.gmbUrl);
@@ -944,10 +953,10 @@ https://metrixmedia.agency/portal.html?name=Cabo+Serai&category=hotel&table=Suit
             }
 
             function buildStandeeUrl() {
-                const meta = sectorMeta[state.category] || sectorMeta.dining;
+                const meta = fnbMeta[state.niche] || fnbMeta.cocktail;
                 const params = new URLSearchParams();
                 params.set('name', state.name);
-                params.set('category', state.category);
+                params.set('category', 'dining');
                 params.set('theme', 'onyx');
                 params.set('flyerHeadline', meta.flyerHeadline);
                 params.set('flyerSub', meta.flyerSub);
@@ -963,7 +972,7 @@ https://metrixmedia.agency/portal.html?name=Cabo+Serai&category=hotel&table=Suit
             }
 
             function buildPitchMessage() {
-                const meta = sectorMeta[state.category] || sectorMeta.dining;
+                const meta = fnbMeta[state.niche] || fnbMeta.cocktail;
                 const portalFullUrl = `https://metrixmedia.agency/${buildPortalUrl()}`;
                 return `${meta.pitchIntro(state.name)}\n${portalFullUrl}`;
             }
@@ -987,13 +996,13 @@ https://metrixmedia.agency/portal.html?name=Cabo+Serai&category=hotel&table=Suit
                 }
             }
 
-            // Sector Selection
-            function setCategory(cat, autoTable = true) {
-                state.category = cat;
-                const meta = sectorMeta[cat] || sectorMeta.dining;
+            // F&B Niche Selection
+            function setNiche(nicheKey, autoTable = true) {
+                state.niche = nicheKey;
+                const meta = fnbMeta[nicheKey] || fnbMeta.cocktail;
 
                 sectorCards.forEach(c => {
-                    c.classList.toggle('active', c.dataset.category === cat);
+                    c.classList.toggle('active', c.dataset.niche === nicheKey);
                 });
 
                 labelTableId.textContent = meta.tableLabel;
@@ -1009,7 +1018,7 @@ https://metrixmedia.agency/portal.html?name=Cabo+Serai&category=hotel&table=Suit
 
             sectorCards.forEach(card => {
                 card.addEventListener('click', () => {
-                    setCategory(card.dataset.category, true);
+                    setNiche(card.dataset.niche, true);
                 });
             });
 
@@ -1036,7 +1045,7 @@ https://metrixmedia.agency/portal.html?name=Cabo+Serai&category=hotel&table=Suit
 
             // Input Event Listeners
             bizNameInput.addEventListener('input', (e) => {
-                state.name = e.target.value.trim() || 'Our Client';
+                state.name = e.target.value.trim() || 'Our Restaurant';
                 updateAll(true);
             });
 
@@ -1097,70 +1106,70 @@ https://metrixmedia.agency/portal.html?name=Cabo+Serai&category=hotel&table=Suit
                 });
             });
 
-            // 1-Click Preset Loaders
-            document.getElementById('preset-cabo').addEventListener('click', () => {
-                state.name = 'Cabo Serai';
-                bizNameInput.value = 'Cabo Serai';
-                setCategory('hotel', false);
-                state.table = 'Suite 04';
-                tableIdInput.value = 'Suite 04';
+            // 1-Click Panjim F&B Preset Loaders
+            document.getElementById('preset-miguels').addEventListener('click', () => {
+                state.name = "Miguel's – Cocktails & Petiscos";
+                bizNameInput.value = state.name;
+                setNiche('cocktail', false);
+                state.table = 'Table 04';
+                tableIdInput.value = state.table;
                 setColor('#d4af37');
-                state.gmbUrl = 'https://maps.google.com/?q=Cabo+Serai+Goa';
+                state.gmbUrl = "https://maps.google.com/?q=Miguel's+Cocktails+Petiscos+Panaji+Goa";
                 gmbUrlInput.value = state.gmbUrl;
                 updateAll(true);
-                showToast('Loaded Cabo Serai (Hotel) Preset');
+                showToast("Loaded Miguel's (Cocktails & Tapas)");
             });
 
-            document.getElementById('preset-cruise').addEventListener('click', () => {
-                state.name = 'Komorebi Luxury Cruise';
-                bizNameInput.value = 'Komorebi Luxury Cruise';
-                setCategory('cruise', false);
-                state.table = 'Deck 1 / Table 04';
-                tableIdInput.value = 'Deck 1 / Table 04';
+            document.getElementById('preset-soho').addEventListener('click', () => {
+                state.name = "Soho – The Capital Bar";
+                bizNameInput.value = state.name;
+                setNiche('pub', false);
+                state.table = 'High Table 02';
+                tableIdInput.value = state.table;
+                setColor('#f59e0b');
+                state.gmbUrl = "https://maps.google.com/?q=Soho+The+Capital+Bar+Panaji";
+                gmbUrlInput.value = state.gmbUrl;
+                updateAll(true);
+                showToast("Loaded Soho (Capital Bar)");
+            });
+
+            document.getElementById('preset-prazeres').addEventListener('click', () => {
+                state.name = "Praça Prazeres";
+                bizNameInput.value = state.name;
+                setNiche('bistro', false);
+                state.table = 'Table 07';
+                tableIdInput.value = state.table;
                 setColor('#38bdf8');
-                state.gmbUrl = 'https://maps.google.com/?q=Mandovi+River+Cruise+Panjim';
+                state.gmbUrl = "https://maps.google.com/?q=Praca+Prazeres+Panaji+Goa";
                 gmbUrlInput.value = state.gmbUrl;
                 updateAll(true);
-                showToast('Loaded Komorebi (Cruise) Preset');
+                showToast("Loaded Praça Prazeres (Bistro)");
             });
 
-            document.getElementById('preset-bare').addEventListener('click', () => {
-                state.name = 'Bare Necessities Skincare';
-                bizNameInput.value = 'Bare Necessities Skincare';
-                setCategory('retail', false);
-                state.table = 'Boutique Counter 01';
-                tableIdInput.value = 'Boutique Counter 01';
-                setColor('#10b981');
-                state.gmbUrl = 'https://maps.google.com/?q=Bare+Necessities+Goa';
-                gmbUrlInput.value = state.gmbUrl;
-                updateAll(true);
-                showToast('Loaded Bare Necessities (Skincare) Preset');
-            });
-
-            document.getElementById('preset-warren').addEventListener('click', () => {
-                state.name = 'Warren Tricomi Salon';
-                bizNameInput.value = 'Warren Tricomi Salon';
-                setCategory('salon', false);
-                state.table = 'Styling Chair 02';
-                tableIdInput.value = 'Styling Chair 02';
-                setColor('#f43f5e');
-                state.gmbUrl = 'https://maps.google.com/?q=Warren+Tricomi+Assagao+Goa';
-                gmbUrlInput.value = state.gmbUrl;
-                updateAll(true);
-                showToast('Loaded Warren Tricomi (Salon) Preset');
-            });
-
-            document.getElementById('preset-noir').addEventListener('click', () => {
-                state.name = 'Cafe Noir';
-                bizNameInput.value = 'Cafe Noir';
-                setCategory('dining', false);
-                state.table = 'Table 12';
-                tableIdInput.value = 'Table 12';
+            document.getElementById('preset-caravela').addEventListener('click', () => {
+                state.name = "The Caravela Cafe & Bistro";
+                bizNameInput.value = state.name;
+                setNiche('cafe', false);
+                state.table = 'Table 03';
+                tableIdInput.value = state.table;
                 setColor('#d4af37');
-                state.gmbUrl = 'https://maps.google.com/?q=Cafe+Noir';
+                state.gmbUrl = "https://maps.google.com/?q=The+Caravela+Cafe+and+Bistro+Panaji";
                 gmbUrlInput.value = state.gmbUrl;
                 updateAll(true);
-                showToast('Loaded Cafe Noir (Dining) Preset');
+                showToast("Loaded The Caravela Cafe (Roastery)");
+            });
+
+            document.getElementById('preset-miski').addEventListener('click', () => {
+                state.name = "Miski Bar & Kitchen";
+                bizNameInput.value = state.name;
+                setNiche('heritage', false);
+                state.table = 'Table 05';
+                tableIdInput.value = state.table;
+                setColor('#10b981');
+                state.gmbUrl = "https://maps.google.com/?q=Miski+Bar+and+Kitchen+Panaji";
+                gmbUrlInput.value = state.gmbUrl;
+                updateAll(true);
+                showToast("Loaded Miski Bar & Kitchen");
             });
 
             // Initial Execution
