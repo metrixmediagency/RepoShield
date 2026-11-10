@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const gmbUrl = urlParams.get('url') || 'https://maps.google.com';
     const menuUrl = urlParams.get('menuUrl') || urlParams.get('menu') || gmbUrl;
     const accentColor = urlParams.get('color') || urlParams.get('flyerAccent') || '#d4af37';
+    const flyerBg = urlParams.get('flyerBg') || '';
+    const flyerAccent = urlParams.get('flyerAccent') || accentColor || '#d4af37';
+    const flyerText = urlParams.get('flyerText') || '';
     const bizEmail = urlParams.get('email') || 'owner@business.com';
     const rawCategory = urlParams.get('category') || 'dining';
     const logoUrl = urlParams.get('logo') || '';
@@ -266,10 +269,86 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentProfile = categoryProfiles[sector] || categoryProfiles.dining;
 
     // ----------------------------------------------------
-    // 3. Styling & Typography Injection
+    // 3. Styling & Typography Injection (Two-Tone Metallic Engine)
     // ----------------------------------------------------
-    document.documentElement.style.setProperty('--primary', accentColor);
-    document.documentElement.style.setProperty('--primary-glow', `${accentColor}40`);
+    const effectiveAccent = flyerAccent || accentColor || '#d4af37';
+    document.documentElement.style.setProperty('--primary', effectiveAccent);
+    document.documentElement.style.setProperty('--primary-glow', `${effectiveAccent}40`);
+
+    // Dynamic 3-stage two-tone metallic gradient
+    let metallicGradient = `linear-gradient(135deg, ${effectiveAccent} 0%, rgba(255,255,255,0.7) 45%, ${effectiveAccent} 100%)`;
+    const accLow = effectiveAccent.toLowerCase();
+    if (accLow === '#d4af37') {
+        metallicGradient = 'linear-gradient(135deg, #d4af37 0%, #fef08a 45%, #997300 100%)';
+    } else if (accLow === '#f59e0b') {
+        metallicGradient = 'linear-gradient(135deg, #f59e0b 0%, #fef3c7 45%, #b45309 100%)';
+    } else if (accLow === '#38bdf8') {
+        metallicGradient = 'linear-gradient(135deg, #38bdf8 0%, #e0f2fe 45%, #0284c7 100%)';
+    } else if (accLow === '#10b981') {
+        metallicGradient = 'linear-gradient(135deg, #10b981 0%, #d1fae5 45%, #047857 100%)';
+    } else if (accLow === '#f43f5e') {
+        metallicGradient = 'linear-gradient(135deg, #f43f5e 0%, #ffe4e6 45%, #be123c 100%)';
+    }
+
+    const twoToneStyle = document.createElement('style');
+    twoToneStyle.id = 'dynamic-two-tone-style';
+    twoToneStyle.innerHTML = `
+        :root {
+            --primary: ${effectiveAccent} !important;
+            --primary-glow: ${effectiveAccent}44 !important;
+        }
+        #business-name {
+            background: ${metallicGradient} !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            text-shadow: 0 0 25px ${effectiveAccent}33;
+            font-weight: 800 !important;
+            letter-spacing: -0.5px;
+        }
+        .portal-card::before {
+            background: ${metallicGradient} !important;
+            height: 6px !important;
+        }
+        .portal-card {
+            border-color: ${effectiveAccent}33 !important;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 35px ${effectiveAccent}18 !important;
+            ${flyerBg ? `background: ${flyerBg} !important;` : ''}
+        }
+        .logo-wrapper {
+            border-color: ${effectiveAccent}44 !important;
+            background: ${effectiveAccent}14 !important;
+            box-shadow: 0 8px 25px ${effectiveAccent}25 !important;
+        }
+        .logo-wrapper i {
+            color: ${effectiveAccent} !important;
+        }
+        #table-badge {
+            border-color: ${effectiveAccent}60 !important;
+            background: ${effectiveAccent}18 !important;
+            color: ${effectiveAccent} !important;
+        }
+        #table-badge i {
+            color: ${effectiveAccent} !important;
+        }
+        #vip-action-icon-wrapper {
+            background: ${effectiveAccent}1a !important;
+            color: ${effectiveAccent} !important;
+            border-color: ${effectiveAccent}55 !important;
+        }
+        #hub-menu-icon {
+            color: ${effectiveAccent} !important;
+        }
+        .blob-1, .blob-2 {
+            background: radial-gradient(circle, ${effectiveAccent}35 0%, rgba(9, 11, 22, 0) 70%) !important;
+        }
+        ${flyerText ? `
+        .tagline, .feedback-subtitle { color: ${flyerText}cc !important; }
+        ` : ''}
+        ${flyerBg ? `
+        body { background-color: ${flyerBg} !important; }
+        ` : ''}
+    `;
+    document.head.appendChild(twoToneStyle);
 
     try {
         const fontNameForUrl = font.replace(/ /g, '+');

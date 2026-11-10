@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>METRIX // F&B & Dining Tabletop Demo Studio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>METRIX // F&B Tabletop Demo & Standee Studio</title>
     <link rel="icon" type="image/jpeg" href="metrix_logo.jpg">
     <!-- Google Fonts & FontAwesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,6 +36,12 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
         }
 
         body {
@@ -45,41 +51,43 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            overflow-x: hidden;
         }
 
         /* Ambient Glow Blobs */
         .ambient-blob {
             position: fixed;
-            width: 450px;
-            height: 450px;
+            width: 380px;
+            height: 380px;
             border-radius: 50%;
             pointer-events: none;
             filter: blur(120px);
             opacity: 0.12;
             z-index: 0;
         }
-        .blob-gold { top: -100px; left: 10%; background: #d4af37; }
-        .blob-blue { bottom: -100px; right: 10%; background: #38bdf8; }
+        .blob-gold { top: -100px; left: 5%; background: #d4af37; }
+        .blob-blue { bottom: -100px; right: 5%; background: #38bdf8; }
 
         /* Top Navigation Header */
         .studio-nav {
             position: sticky;
             top: 0;
             z-index: 100;
-            background: rgba(7, 10, 15, 0.85);
+            background: rgba(7, 10, 15, 0.92);
             backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border-subtle);
-            padding: 14px 28px;
+            padding: 12px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 12px;
         }
 
         .nav-brand {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
+            min-width: 0;
         }
 
         .nav-logo-badge {
@@ -93,41 +101,106 @@
             justify-content: center;
             font-size: 16px;
             color: var(--gold-primary);
+            flex-shrink: 0;
+        }
+
+        .nav-title-group {
+            min-width: 0;
         }
 
         .nav-title {
             font-family: var(--font-head);
-            font-size: 17px;
+            font-size: 16px;
             font-weight: 700;
             letter-spacing: 0.5px;
             color: #ffffff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .nav-subtitle {
-            font-size: 11px;
+            font-size: 10.5px;
             color: var(--text-muted);
-            letter-spacing: 1px;
+            letter-spacing: 0.8px;
             text-transform: uppercase;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .nav-actions {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
+            flex-shrink: 0;
         }
 
         .badge-partner {
             background: rgba(212, 175, 55, 0.12);
             border: 1px solid var(--border-gold);
             color: var(--gold-primary);
-            font-size: 11.5px;
+            font-size: 11px;
             font-weight: 600;
-            padding: 5px 12px;
+            padding: 4px 10px;
             border-radius: 20px;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.4px;
             display: flex;
             align-items: center;
+            gap: 5px;
+        }
+
+        /* Mobile Segmented View Switcher (Visible <= 992px) */
+        .mobile-view-tabs {
+            display: none;
+            background: rgba(13, 19, 31, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 8px 12px;
+            position: sticky;
+            top: 61px;
+            z-index: 90;
+            width: 100%;
+        }
+
+        .tabs-segmented {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 6px;
+            background: rgba(7, 10, 15, 0.8);
+            padding: 4px;
+            border-radius: 10px;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 8px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            font-family: var(--font-body);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+        }
+
+        .tab-btn.active {
+            background: var(--gold-gradient);
+            color: #000000;
+            font-weight: 700;
+            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.25);
+        }
+
+        @media (max-width: 992px) {
+            .mobile-view-tabs {
+                display: block;
+            }
         }
 
         /* Main Studio Layout Grid */
@@ -138,54 +211,73 @@
             max-width: 1440px;
             margin: 0 auto;
             width: 100%;
-            padding: 24px;
+            padding: 20px;
             display: grid;
             grid-template-columns: 460px 1fr;
-            gap: 28px;
+            gap: 24px;
             align-items: start;
         }
 
-        @media (max-width: 1024px) {
+        @media (max-width: 992px) {
             .studio-container {
                 grid-template-columns: 1fr;
+                padding: 12px 12px 90px 12px;
+                gap: 16px;
+            }
+
+            .config-panel {
+                display: none;
+            }
+            .config-panel.panel-active {
+                display: flex;
+            }
+
+            .preview-panel {
+                display: none;
+            }
+            .preview-panel.panel-active {
+                display: flex;
             }
         }
 
         /* Left Configurator Panel */
         .config-panel {
-            background: rgba(13, 19, 31, 0.75);
+            background: rgba(13, 19, 31, 0.8);
             backdrop-filter: blur(20px);
             border: 1px solid var(--border-subtle);
             border-radius: 18px;
-            padding: 24px;
+            padding: 20px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 18px;
+            width: 100%;
+            overflow: hidden;
         }
 
         .panel-header {
             border-bottom: 1px solid var(--border-subtle);
-            padding-bottom: 14px;
+            padding-bottom: 12px;
         }
 
         .panel-header h2 {
             font-family: var(--font-head);
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 700;
             color: #ffffff;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .panel-header p {
-            font-size: 12.5px;
+            font-size: 12px;
             color: var(--text-muted);
-            margin-top: 4px;
+            margin-top: 3px;
+            line-height: 1.4;
         }
 
-        /* 1-Click F&B Presets Row */
+        /* 1-Click Panjim Presets Row */
         .presets-section {
             display: flex;
             flex-direction: column;
@@ -195,7 +287,7 @@
         .presets-label {
             font-size: 11px;
             font-weight: 700;
-            letter-spacing: 1.2px;
+            letter-spacing: 1px;
             text-transform: uppercase;
             color: var(--gold-primary);
             display: flex;
@@ -208,7 +300,11 @@
             gap: 8px;
             overflow-x: auto;
             padding-bottom: 4px;
-            scrollbar-width: thin;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+        }
+        .presets-scroll::-webkit-scrollbar {
+            display: none;
         }
 
         .preset-chip {
@@ -225,9 +321,10 @@
             display: flex;
             align-items: center;
             gap: 6px;
+            flex-shrink: 0;
         }
 
-        .preset-chip:hover {
+        .preset-chip:hover, .preset-chip:active {
             background: rgba(212, 175, 55, 0.15);
             border-color: var(--gold-primary);
             color: #ffffff;
@@ -238,7 +335,7 @@
         .form-group {
             display: flex;
             flex-direction: column;
-            gap: 7px;
+            gap: 6px;
         }
 
         .form-label {
@@ -256,20 +353,20 @@
             font-weight: 400;
         }
 
-        .input-box, select.input-box {
-            background: rgba(7, 10, 15, 0.65);
+        .input-box {
+            background: rgba(7, 10, 15, 0.7);
             border: 1px solid var(--border-subtle);
             border-radius: 10px;
             color: #ffffff;
             font-family: var(--font-body);
             font-size: 13.5px;
-            padding: 10px 14px;
+            padding: 10px 12px;
             outline: none;
             transition: var(--transition);
             width: 100%;
         }
 
-        .input-box:focus, select.input-box:focus {
+        .input-box:focus {
             border-color: var(--gold-primary);
             box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
             background: rgba(7, 10, 15, 0.95);
@@ -278,111 +375,189 @@
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ========================================================
+           TWO-TONE COLOR ENGINE (Matching sales.html generator)
+           ======================================================== */
+        .color-engine-card {
+            background: rgba(7, 10, 15, 0.5);
+            border: 1px solid var(--border-gold);
+            border-radius: 12px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
             gap: 12px;
         }
 
-        /* F&B Concepts Grid */
-        .sector-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            gap: 8px;
+        .color-engine-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
-        .sector-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-subtle);
-            border-radius: 10px;
-            padding: 11px 8px;
-            text-align: center;
-            cursor: pointer;
-            transition: var(--transition);
+        .color-engine-title {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--gold-primary);
             display: flex;
-            flex-direction: column;
             align-items: center;
             gap: 6px;
         }
 
-        .sector-card i {
-            font-size: 18px;
-            color: var(--text-muted);
-            transition: var(--transition);
+        /* Quick Two-Tone Theme Chips */
+        .theme-chips-row {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 2px;
+        }
+        .theme-chips-row::-webkit-scrollbar {
+            display: none;
         }
 
-        .sector-card span {
-            font-size: 11.5px;
+        .theme-chip {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            padding: 4px 10px;
+            font-size: 11px;
             font-weight: 600;
             color: #cbd5e1;
-        }
-
-        .sector-card:hover {
-            border-color: rgba(212, 175, 55, 0.4);
-            background: rgba(255, 255, 255, 0.06);
-        }
-
-        .sector-card.active {
-            border-color: var(--gold-primary);
-            background: rgba(212, 175, 55, 0.12);
-        }
-
-        .sector-card.active i {
-            color: var(--gold-primary);
-            transform: scale(1.1);
-        }
-
-        .sector-card.active span {
-            color: #ffffff;
-            font-weight: 700;
-        }
-
-        /* Color Preset Bar */
-        .palette-row {
+            cursor: pointer;
+            white-space: nowrap;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 6px;
+            transition: var(--transition);
+            flex-shrink: 0;
         }
 
-        .color-dot {
-            width: 26px;
-            height: 26px;
+        .theme-chip .color-swatch-duo {
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
-            cursor: pointer;
-            border: 2px solid transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            flex-shrink: 0;
+        }
+
+        .theme-chip:hover, .theme-chip.active {
+            border-color: var(--gold-primary);
+            background: rgba(212, 175, 55, 0.15);
+            color: #ffffff;
+        }
+
+        /* 3-Color Pickers Grid (Sales.html Exact Structure) */
+        .color-pickers-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        @media (max-width: 500px) {
+            .color-pickers-grid {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+        }
+
+        .color-picker-box {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .color-picker-box label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #94a3b8;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .color-picker-input-wrap {
+            display: flex;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 3px 6px;
+            gap: 6px;
             transition: var(--transition);
         }
 
-        .color-dot.active {
-            border-color: #ffffff;
-            transform: scale(1.15);
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        .color-picker-input-wrap:focus-within {
+            border-color: var(--gold-primary);
         }
 
-        .custom-color-picker {
-            width: 32px;
-            height: 32px;
-            padding: 0;
-            border: 1px solid var(--border-subtle);
-            border-radius: 8px;
-            background: transparent;
+        .color-picker-input-wrap input[type="color"] {
+            width: 24px;
+            height: 24px;
+            border-radius: 5px;
             cursor: pointer;
+            border: none;
+            background: transparent;
+            padding: 0;
+            flex-shrink: 0;
+        }
+
+        .color-picker-input-wrap input[type="text"] {
+            border: none;
+            background: transparent;
+            color: #ffffff;
+            font-family: var(--font-mono);
+            font-size: 11.5px;
+            width: 100%;
+            outline: none;
+        }
+
+        /* Live Gradient Preview Strip */
+        .metallic-preview-strip {
+            height: 24px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.3);
+            transition: var(--transition);
         }
 
         /* Right Preview & Action Dock */
         .preview-panel {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 16px;
+            width: 100%;
+            overflow: hidden;
         }
 
         .action-dock {
-            background: rgba(13, 19, 31, 0.75);
+            background: rgba(13, 19, 31, 0.8);
             backdrop-filter: blur(20px);
             border: 1px solid var(--border-gold);
             border-radius: 18px;
-            padding: 20px 24px;
+            padding: 16px 18px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 14px;
         }
 
         .dock-header {
@@ -390,17 +565,17 @@
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px;
         }
 
         .dock-title {
             font-family: var(--font-head);
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
             color: #ffffff;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 7px;
         }
 
         .dock-title i {
@@ -409,24 +584,31 @@
 
         .dock-buttons {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 10px;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 8px;
+        }
+
+        @media (max-width: 480px) {
+            .dock-buttons {
+                grid-template-columns: 1fr;
+            }
         }
 
         .btn-action {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            padding: 11px 16px;
+            gap: 7px;
+            padding: 10px 14px;
             border-radius: 10px;
             font-family: var(--font-body);
-            font-size: 12.5px;
+            font-size: 12px;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
             text-decoration: none;
             border: none;
+            min-height: 42px;
         }
 
         .btn-gold {
@@ -436,8 +618,8 @@
             box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
         }
 
-        .btn-gold:hover {
-            transform: translateY(-2px);
+        .btn-gold:hover, .btn-gold:active {
+            transform: translateY(-1px);
             box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
         }
 
@@ -447,9 +629,8 @@
             color: #f8fafc;
         }
 
-        .btn-surface:hover {
+        .btn-surface:hover, .btn-surface:active {
             background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.2);
             color: #ffffff;
         }
 
@@ -459,7 +640,7 @@
             color: #38bdf8;
         }
 
-        .btn-blue:hover {
+        .btn-blue:hover, .btn-blue:active {
             background: rgba(56, 189, 248, 0.25);
             color: #ffffff;
         }
@@ -472,11 +653,11 @@
             padding: 12px 14px;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
         }
 
         .pitch-label {
-            font-size: 11px;
+            font-size: 10.5px;
             font-weight: 700;
             color: var(--gold-primary);
             text-transform: uppercase;
@@ -487,64 +668,109 @@
         }
 
         .pitch-text {
-            font-size: 12.5px;
+            font-size: 12px;
             line-height: 1.5;
             color: #cbd5e1;
             font-family: var(--font-body);
             white-space: pre-wrap;
+            word-break: break-all;
         }
 
         /* Mockup Frame Container */
         .device-stage {
-            background: rgba(13, 19, 31, 0.5);
+            background: rgba(13, 19, 31, 0.6);
             border: 1px solid var(--border-subtle);
-            border-radius: 24px;
-            padding: 30px;
+            border-radius: 20px;
+            padding: 20px 16px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 700px;
+            min-height: 600px;
             position: relative;
+            width: 100%;
+            overflow: hidden;
         }
 
-        .device-toggle-bar {
-            position: absolute;
-            top: 14px;
-            right: 18px;
+        @media (max-width: 600px) {
+            .device-stage {
+                padding: 12px 6px;
+                min-height: auto;
+            }
+        }
+
+        /* View Mode Switcher: Phone Simulator vs Tabletop Standee */
+        .simulator-nav-bar {
+            width: 100%;
+            max-width: 380px;
             display: flex;
             align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
             gap: 8px;
-            background: rgba(7, 10, 15, 0.7);
-            border: 1px solid var(--border-subtle);
-            padding: 4px;
-            border-radius: 20px;
         }
 
-        .toggle-btn {
+        .sim-mode-toggle {
+            display: flex;
+            background: rgba(7, 10, 15, 0.8);
+            border: 1px solid var(--border-subtle);
+            padding: 3px;
+            border-radius: 20px;
+            flex: 1;
+        }
+
+        .sim-mode-btn {
+            flex: 1;
             background: transparent;
             border: none;
             color: var(--text-muted);
-            padding: 5px 12px;
-            border-radius: 14px;
+            padding: 6px 10px;
+            border-radius: 16px;
             font-size: 11.5px;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            white-space: nowrap;
         }
 
-        .toggle-btn.active {
+        .sim-mode-btn.active {
             background: rgba(255, 255, 255, 0.12);
             color: #ffffff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        }
+
+        .btn-reload-frame {
+            background: rgba(7, 10, 15, 0.8);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-muted);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+
+        .btn-reload-frame:hover {
+            color: #ffffff;
+            border-color: var(--gold-primary);
         }
 
         /* Realistic Phone Shell */
         .phone-wrapper {
-            width: 380px;
-            height: 740px;
+            width: 100%;
+            max-width: 375px;
+            height: 680px;
             background: #090d16;
-            border-radius: 44px;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 0 8px #1f293d, 0 0 0 10px #0b0f19;
+            border-radius: 40px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 0 7px #1f293d, 0 0 0 9px #0b0f19;
             overflow: hidden;
             position: relative;
             display: flex;
@@ -552,16 +778,25 @@
             transition: var(--transition);
         }
 
+        @media (max-width: 480px) {
+            .phone-wrapper {
+                max-width: 100%;
+                height: 580px;
+                border-radius: 26px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 0 4px #1f293d;
+            }
+        }
+
         .phone-notch {
             position: absolute;
             top: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 140px;
-            height: 22px;
+            width: 130px;
+            height: 20px;
             background: #1f293d;
-            border-bottom-left-radius: 16px;
-            border-bottom-right-radius: 16px;
+            border-bottom-left-radius: 14px;
+            border-bottom-right-radius: 14px;
             z-index: 10;
         }
 
@@ -572,17 +807,48 @@
             background: #090d16;
         }
 
-        /* Desktop Mode for Phone Shell */
-        .device-stage.desktop-mode .phone-wrapper {
+        /* Standee Mockup Shell (When Standee Mode Selected) */
+        .standee-wrapper {
             width: 100%;
-            max-width: 800px;
-            height: 680px;
-            border-radius: 16px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 0 2px var(--border-subtle);
+            max-width: 340px;
+            height: 560px;
+            border-radius: 14px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 0 2px var(--border-gold);
+            overflow: hidden;
+            display: none;
+            background: #0a0a0a;
         }
 
-        .device-stage.desktop-mode .phone-notch {
+        .device-stage.standee-active .phone-wrapper {
             display: none;
+        }
+        .device-stage.standee-active .standee-wrapper {
+            display: flex;
+        }
+
+        /* Mobile Sticky Quick-Action Bar (Visible <= 992px) */
+        .mobile-quick-bar {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(7, 10, 15, 0.95);
+            backdrop-filter: blur(16px);
+            border-top: 1px solid var(--border-subtle);
+            padding: 10px 16px;
+            z-index: 100;
+            gap: 10px;
+        }
+
+        @media (max-width: 992px) {
+            .mobile-quick-bar {
+                display: flex;
+            }
+        }
+
+        .mobile-quick-bar .btn-action {
+            flex: 1;
         }
 
         /* Toast Alert */
@@ -593,11 +859,11 @@
             background: #0f172a;
             border: 1px solid var(--gold-primary);
             color: #ffffff;
-            padding: 12px 20px;
+            padding: 12px 18px;
             border-radius: 10px;
             font-size: 13px;
             font-weight: 600;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
             display: flex;
             align-items: center;
             gap: 10px;
@@ -615,11 +881,12 @@
         /* Footer */
         .studio-footer {
             border-top: 1px solid var(--border-subtle);
-            padding: 18px 24px;
+            padding: 16px 20px;
             text-align: center;
-            font-size: 12px;
+            font-size: 11.5px;
             color: var(--text-muted);
             background: var(--bg-void);
+            margin-top: auto;
         }
 
         .studio-footer a {
@@ -638,121 +905,155 @@
             <div class="nav-logo-badge">
                 <i class="fa-solid fa-utensils"></i>
             </div>
-            <div>
+            <div class="nav-title-group">
                 <h1 class="nav-title">METRIX Studio</h1>
-                <p class="nav-subtitle">F&amp;B &amp; Dining Tabletop Demo Generator</p>
+                <p class="nav-subtitle">F&amp;B Tabletop Generator</p>
             </div>
         </div>
         <div class="nav-actions">
             <div class="badge-partner">
-                <i class="fa-solid fa-martini-glass-citrus"></i> F&amp;B Growth Studio
+                <i class="fa-solid fa-gem"></i> Two-Tone
             </div>
-            <a href="panjim_sales.html" class="btn-action btn-surface" style="padding: 6px 12px; font-size: 11.5px;" target="_blank">
-                <i class="fa-solid fa-map-location-dot"></i> Panjim Territory
+            <a href="panjim_sales.html" class="btn-action btn-surface" style="padding: 6px 10px; font-size: 11px; min-height: auto;" title="Panjim Territory Tracker">
+                <i class="fa-solid fa-map-location-dot"></i> <span class="d-none-sm">Territory</span>
             </a>
-            <a href="leads_tracker.html" class="btn-action btn-surface" style="padding: 6px 12px; font-size: 11.5px;" target="_blank">
-                <i class="fa-solid fa-crosshairs"></i> Lead Tracker
+            <a href="leads_tracker.html" class="btn-action btn-surface" style="padding: 6px 10px; font-size: 11px; min-height: auto;" title="Goa Lead Engine">
+                <i class="fa-solid fa-crosshairs"></i> <span class="d-none-sm">CRM</span>
             </a>
         </div>
     </header>
 
+    <!-- Mobile View Tabs Switcher (Visible on mobile screens) -->
+    <div class="mobile-view-tabs">
+        <div class="tabs-segmented">
+            <button type="button" class="tab-btn active" id="tab-btn-config">
+                <i class="fa-solid fa-sliders"></i> Customize Venue
+            </button>
+            <button type="button" class="tab-btn" id="tab-btn-preview">
+                <i class="fa-solid fa-mobile-screen"></i> Live Simulator
+            </button>
+        </div>
+    </div>
+
     <!-- Main Workspace Container -->
     <main class="studio-container">
         <!-- Left: Configuration Form -->
-        <section class="config-panel">
+        <section class="config-panel panel-active" id="panel-config">
             <div class="panel-header">
-                <h2><i class="fa-solid fa-sliders" style="color: var(--gold-primary); font-size: 18px;"></i> F&amp;B Demo Generator</h2>
-                <p>Configure a personalized tabletop companion for any restaurant, cafe, or bar in 15 seconds.</p>
+                <h2><i class="fa-solid fa-sliders" style="color: var(--gold-primary); font-size: 17px;"></i> Venue Customizer</h2>
+                <p>Configure a luxury tabletop companion with two-tone metallic branding in 15 seconds.</p>
             </div>
 
-            <!-- 1-Click Panjim F&B Presets -->
+            <!-- 1-Click Panjim Presets -->
             <div class="presets-section">
                 <div class="presets-label">
-                    <span>⚡ 1-Click Panjim F&amp;B Presets</span>
+                    <span>⚡ 1-Click Panjim Presets</span>
                     <small style="color: var(--text-muted); text-transform: none; font-weight: 400;">Tap to load</small>
                 </div>
                 <div class="presets-scroll">
                     <button type="button" class="preset-chip" id="preset-miguels">
-                        <i class="fa-solid fa-martini-glass-citrus" style="color: #d4af37;"></i> Miguel’s (Cocktails &amp; Tapas)
+                        <i class="fa-solid fa-martini-glass-citrus" style="color: #d4af37;"></i> Miguel’s
                     </button>
                     <button type="button" class="preset-chip" id="preset-soho">
-                        <i class="fa-solid fa-beer-mug-empty" style="color: #f59e0b;"></i> Soho (Capital Bar)
+                        <i class="fa-solid fa-beer-mug-empty" style="color: #f59e0b;"></i> Soho
                     </button>
                     <button type="button" class="preset-chip" id="preset-prazeres">
-                        <i class="fa-solid fa-wine-glass" style="color: #38bdf8;"></i> Praça Prazeres (Bistro)
+                        <i class="fa-solid fa-wine-glass" style="color: #38bdf8;"></i> Praça Prazeres
                     </button>
                     <button type="button" class="preset-chip" id="preset-caravela">
-                        <i class="fa-solid fa-mug-saucer" style="color: #eab308;"></i> The Caravela Cafe (Roastery)
+                        <i class="fa-solid fa-mug-saucer" style="color: #d4af37;"></i> Caravela Cafe
                     </button>
                     <button type="button" class="preset-chip" id="preset-miski">
-                        <i class="fa-solid fa-pepper-hot" style="color: #10b981;"></i> Miski Bar &amp; Kitchen
+                        <i class="fa-solid fa-pepper-hot" style="color: #10b981;"></i> Miski Bar
                     </button>
-                </div>
-            </div>
-
-            <!-- F&B Concept / Niche Selection Grid -->
-            <div class="form-group">
-                <label class="form-label">Dining &amp; F&amp;B Concept</label>
-                <div class="sector-grid">
-                    <div class="sector-card active" data-niche="cocktail">
-                        <i class="fa-solid fa-martini-glass-citrus"></i>
-                        <span>Cocktail &amp; Tapas</span>
-                    </div>
-                    <div class="sector-card" data-niche="bistro">
-                        <i class="fa-solid fa-utensils"></i>
-                        <span>Bistro &amp; Fine Dining</span>
-                    </div>
-                    <div class="sector-card" data-niche="cafe">
-                        <i class="fa-solid fa-mug-saucer"></i>
-                        <span>Specialty Cafe</span>
-                    </div>
-                    <div class="sector-card" data-niche="pub">
-                        <i class="fa-solid fa-beer-mug-empty"></i>
-                        <span>Pub &amp; Lounge</span>
-                    </div>
-                    <div class="sector-card" data-niche="heritage">
-                        <i class="fa-solid fa-pepper-hot"></i>
-                        <span>Heritage Dining</span>
-                    </div>
                 </div>
             </div>
 
             <!-- Business Name & Table / Station -->
             <div class="form-row">
                 <div class="form-group">
-                    <label class="form-label" for="input-biz-name">Venue / Business Name</label>
+                    <label class="form-label" for="input-biz-name">Venue / Restaurant Name</label>
                     <input type="text" id="input-biz-name" class="input-box" value="Miguel's – Cocktails &amp; Petiscos" placeholder="e.g. Miguel's or Soho">
                 </div>
                 <div class="form-group">
-                    <label class="form-label" for="input-table-id" id="label-table-id">Table / Station Number</label>
-                    <input type="text" id="input-table-id" class="input-box" value="Table 04" placeholder="e.g. Table 04 or Bar Seat 02">
+                    <label class="form-label" for="input-table-id">Table / Station Number</label>
+                    <input type="text" id="input-table-id" class="input-box" value="Table 04" placeholder="e.g. Table 04 or Bar 02">
                 </div>
             </div>
 
-            <!-- Brand Color Customizer -->
-            <div class="form-group">
-                <label class="form-label">
-                    <span>Brand Accent Color</span>
-                    <small id="color-hex-label">#d4af37</small>
-                </label>
-                <div class="palette-row">
-                    <div class="color-dot active" data-color="#d4af37" style="background: #d4af37;"></div>
-                    <div class="color-dot" data-color="#f59e0b" style="background: #f59e0b;"></div>
-                    <div class="color-dot" data-color="#38bdf8" style="background: #38bdf8;"></div>
-                    <div class="color-dot" data-color="#10b981" style="background: #10b981;"></div>
-                    <div class="color-dot" data-color="#f43f5e" style="background: #f43f5e;"></div>
-                    <input type="color" id="custom-color-picker" class="custom-color-picker" value="#d4af37" title="Custom Hex Color">
+            <!-- TWO-TONE CUSTOMIZATION ENGINE (Sales.html Exact 3-Color Structure) -->
+            <div class="color-engine-card">
+                <div class="color-engine-header">
+                    <span class="color-engine-title"><i class="fa-solid fa-palette"></i> Two-Tone Metallic Branding</span>
+                    <span style="font-size: 11px; color: var(--gold-primary); font-weight: 600;" id="current-palette-name">Matte Onyx &amp; Gold</span>
+                </div>
+
+                <!-- 1-Click Two-Tone Theme Chips -->
+                <div class="theme-chips-row">
+                    <button type="button" class="theme-chip active" id="theme-onyx-gold">
+                        <span class="color-swatch-duo" style="background: linear-gradient(135deg, #0a0a0a 50%, #d4af37 50%);"></span>
+                        Onyx Gold
+                    </button>
+                    <button type="button" class="theme-chip" id="theme-amber-noir">
+                        <span class="color-swatch-duo" style="background: linear-gradient(135deg, #0f0c07 50%, #f59e0b 50%);"></span>
+                        Amber Glow
+                    </button>
+                    <button type="button" class="theme-chip" id="theme-sapphire-plat">
+                        <span class="color-swatch-duo" style="background: linear-gradient(135deg, #070d18 50%, #38bdf8 50%);"></span>
+                        Platinum Blue
+                    </button>
+                    <button type="button" class="theme-chip" id="theme-emerald-velvet">
+                        <span class="color-swatch-duo" style="background: linear-gradient(135deg, #05120d 50%, #10b981 50%);"></span>
+                        Emerald Mint
+                    </button>
+                    <button type="button" class="theme-chip" id="theme-ruby-noir">
+                        <span class="color-swatch-duo" style="background: linear-gradient(135deg, #13060a 50%, #f43f5e 50%);"></span>
+                        Ruby Rose
+                    </button>
+                </div>
+
+                <!-- 3 Exact Color Pickers from sales.html -->
+                <div class="color-pickers-grid">
+                    <!-- Background Color -->
+                    <div class="color-picker-box">
+                        <label for="flyer-bg-color">Background</label>
+                        <div class="color-picker-input-wrap">
+                            <input type="color" id="flyer-bg-color" value="#0a0a0a">
+                            <input type="text" id="flyer-bg-hex" value="#0a0a0a" maxlength="7">
+                        </div>
+                    </div>
+                    <!-- Primary Accent (Metallic Headline & QR) -->
+                    <div class="color-picker-box">
+                        <label for="flyer-accent-color">Metallic Accent</label>
+                        <div class="color-picker-input-wrap">
+                            <input type="color" id="flyer-accent-color" value="#d4af37">
+                            <input type="text" id="flyer-accent-hex" value="#d4af37" maxlength="7">
+                        </div>
+                    </div>
+                    <!-- Secondary Text Color -->
+                    <div class="color-picker-box">
+                        <label for="flyer-text-color">Secondary Text</label>
+                        <div class="color-picker-input-wrap">
+                            <input type="color" id="flyer-text-color" value="#ffffff">
+                            <input type="text" id="flyer-text-hex" value="#ffffff" maxlength="7">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Generated Metallic Gradient Strip -->
+                <div class="metallic-preview-strip" id="metallic-strip-preview" style="background: linear-gradient(135deg, #d4af37, #fef08a, #aa8327); color: #000000;">
+                    Two-Tone Metallic Gradient Active
                 </div>
             </div>
 
-            <!-- Google Review & Menu URL -->
+            <!-- Google Maps Review Link & Digital Menu URL -->
             <div class="form-row">
                 <div class="form-group">
                     <label class="form-label" for="input-gmb-url">Google Maps Review Link</label>
                     <input type="url" id="input-gmb-url" class="input-box" value="https://maps.google.com/?q=Miguel's+Cocktails+Petiscos+Panaji+Goa" placeholder="https://maps.google.com/...">
                 </div>
                 <div class="form-group">
-                    <label class="form-label" for="input-menu-url" id="label-menu-url">Digital Menu / Drinks Link</label>
+                    <label class="form-label" for="input-menu-url">Digital Menu / Bar Link</label>
                     <input type="url" id="input-menu-url" class="input-box" value="" placeholder="https://drive.google.com/... or Menu URL">
                 </div>
             </div>
@@ -760,20 +1061,25 @@
             <!-- Floor WhatsApp / Notification Webhook (Optional) -->
             <div class="form-group">
                 <label class="form-label" for="input-webhook">
-                    <span>Floor Staff WhatsApp Alert Webhook</span>
-                    <small>Optional live table calling webhook</small>
+                    <span>Floor WhatsApp Calling Webhook</span>
+                    <small>Optional instant table alerts</small>
                 </label>
                 <input type="url" id="input-webhook" class="input-box" value="" placeholder="https://api.whatsapp.com/... or Google Sheet Webhook">
             </div>
+
+            <!-- Mobile Action Button to jump to Simulator -->
+            <button type="button" class="btn-action btn-gold" id="btn-jump-preview" style="display: none; margin-top: 6px;">
+                <i class="fa-solid fa-eye"></i> View Live Interactive Simulator
+            </button>
         </section>
 
-        <!-- Right: Action Dock & Live Phone Simulator -->
-        <section class="preview-panel">
+        <!-- Right: Action Dock & Live Phone / Standee Simulator -->
+        <section class="preview-panel" id="panel-preview">
             <!-- Action Dock -->
             <div class="action-dock">
                 <div class="dock-header">
                     <div class="dock-title">
-                        <i class="fa-solid fa-paper-plane"></i> F&amp;B Pitch &amp; Client Distribution Dock
+                        <i class="fa-solid fa-paper-plane"></i> Quick Distribution &amp; Pitch Dock
                     </div>
                 </div>
 
@@ -785,41 +1091,63 @@
                         <i class="fa-solid fa-link"></i> Copy Demo Link
                     </button>
                     <a href="#" class="btn-action btn-blue" id="btn-open-demo" target="_blank">
-                        <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Live Preview
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Portal
                     </a>
                     <a href="#" class="btn-action btn-surface" id="btn-open-standee" target="_blank">
-                        <i class="fa-solid fa-print"></i> Generate Standee
+                        <i class="fa-solid fa-print"></i> Print Standee
                     </a>
                 </div>
 
                 <!-- Live Generated Pitch Preview -->
                 <div class="pitch-box">
                     <div class="pitch-label">
-                        <span>💬 Ready-to-Send Client WhatsApp Message</span>
+                        <span>💬 Ready-to-Send WhatsApp Message</span>
                         <small style="color: var(--text-muted); font-weight: 400;">1-tap copy above</small>
                     </div>
-                    <div class="pitch-text" id="pitch-text-preview">
-Hey Miguel's team! Built a 60-second in-store prototype for your tables — test how guests call extra drinks/water in 3s and join your VIP club for weekend events:
-https://metrixmedia.agency/portal.html?name=Miguel%27s+%E2%80%93+Cocktails+%26+Petiscos&category=dining&table=Table+04
-                    </div>
+                    <div class="pitch-text" id="pitch-text-preview"></div>
                 </div>
             </div>
 
             <!-- Mobile Simulation Viewport -->
             <div class="device-stage" id="device-stage">
-                <div class="device-toggle-bar">
-                    <button type="button" class="toggle-btn active" id="toggle-mobile"><i class="fa-solid fa-mobile-screen"></i> Mobile</button>
-                    <button type="button" class="toggle-btn" id="toggle-desktop"><i class="fa-solid fa-laptop"></i> Desktop</button>
-                    <button type="button" class="toggle-btn" id="btn-refresh-preview" title="Refresh Live Simulator"><i class="fa-solid fa-rotate-right"></i></button>
+                <!-- Simulator Mode Switcher Bar -->
+                <div class="simulator-nav-bar">
+                    <div class="sim-mode-toggle">
+                        <button type="button" class="sim-mode-btn active" id="sim-btn-phone">
+                            <i class="fa-solid fa-mobile-screen"></i> Diner Phone
+                        </button>
+                        <button type="button" class="sim-mode-btn" id="sim-btn-standee">
+                            <i class="fa-solid fa-print"></i> 100x155mm Standee
+                        </button>
+                    </div>
+                    <button type="button" class="btn-reload-frame" id="btn-reload-frame" title="Reload simulator frame">
+                        <i class="fa-solid fa-rotate-right"></i>
+                    </button>
                 </div>
 
+                <!-- Phone Shell Mockup -->
                 <div class="phone-wrapper" id="phone-wrapper">
                     <div class="phone-notch"></div>
-                    <iframe id="preview-iframe" class="phone-iframe" src="portal.html?name=Miguel%27s+%E2%80%93+Cocktails+%26+Petiscos&category=dining&table=Table+04&color=%23d4af37"></iframe>
+                    <iframe id="preview-iframe-phone" class="phone-iframe" src="about:blank"></iframe>
+                </div>
+
+                <!-- Standee Acrylic Shell Mockup -->
+                <div class="standee-wrapper" id="standee-wrapper">
+                    <iframe id="preview-iframe-standee" class="phone-iframe" src="about:blank"></iframe>
                 </div>
             </div>
         </section>
     </main>
+
+    <!-- Mobile Sticky Quick-Action Bar (Fixed to bottom <= 992px) -->
+    <div class="mobile-quick-bar" id="mobile-quick-bar">
+        <button type="button" class="btn-action btn-gold" id="mbar-btn-pitch">
+            <i class="fa-brands fa-whatsapp"></i> Copy Pitch
+        </button>
+        <button type="button" class="btn-action btn-surface" id="mbar-btn-toggle">
+            <i class="fa-solid fa-mobile-screen"></i> <span id="mbar-toggle-label">View Simulator</span>
+        </button>
+    </div>
 
     <!-- Success Toast Notification -->
     <div class="toast" id="toast">
@@ -829,107 +1157,67 @@ https://metrixmedia.agency/portal.html?name=Miguel%27s+%E2%80%93+Cocktails+%26+P
 
     <!-- Sovereign Footer -->
     <footer class="studio-footer">
-        © 2026 METRIX Technologies (A ONEGRV Enterprise). All rights reserved. · Authorized F&amp;B Demo Studio.
+        © 2026 METRIX Technologies (A ONEGRV Enterprise). All rights reserved. · F&amp;B Tabletop Demo &amp; Standee Studio.
     </footer>
 
-    <!-- Interactive Generator Logic -->
+    <!-- Interactive Logic & State Engine -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // State (Strictly 100% Dining & F&B)
+            // State
             const state = {
-                category: 'dining',
-                niche: 'cocktail',
                 name: "Miguel's – Cocktails & Petiscos",
-                table: 'Table 04',
-                color: '#d4af37',
+                table: "Table 04",
+                category: "dining",
+                flyerBg: "#0a0a0a",
+                flyerAccent: "#d4af37",
+                flyerText: "#ffffff",
                 gmbUrl: "https://maps.google.com/?q=Miguel's+Cocktails+Petiscos+Panaji+Goa",
-                menuUrl: '',
-                webhook: ''
-            };
-
-            // F&B Niche Config Mapping for Table Labels, Placeholders & Pitch Copy
-            const fnbMeta = {
-                cocktail: {
-                    name: 'Cocktail & Tapas Bar',
-                    tableLabel: 'Table / Booth Number',
-                    tableDefault: 'Table 04',
-                    tablePlaceholder: 'e.g. Table 04 or Bar Seat 02',
-                    menuLabel: 'Cocktail & Food Menu Link',
-                    pitchIntro: (name) => `Hey ${name} team! Built a 60-second in-store prototype for your tables — test how guests call extra drinks/water in 3s and join your VIP club for weekend events:`,
-                    flyerHeadline: 'Craft Cocktails & VIP Perks 🥂',
-                    flyerSub: 'Scan to call table service in 3s, join our VIP Club, or browse our menu.',
-                    flyerFooter: 'Thank you for drinking & dining with us.'
-                },
-                bistro: {
-                    name: 'Bistro & Fine Dining',
-                    tableLabel: 'Table / Dining Room Number',
-                    tableDefault: 'Table 07',
-                    tablePlaceholder: 'e.g. Table 07',
-                    menuLabel: 'A La Carte & Wine Menu Link',
-                    pitchIntro: (name) => `Hey ${name} team! Built a 60-second in-store prototype for your tables — test how diners call water/waiter in 3s and register for private chef tastings:`,
-                    flyerHeadline: 'Welcome to Your Dining Experience',
-                    flyerSub: 'Scan to call table service, join our Chef\'s Table VIP list, or browse our wine selection.',
-                    flyerFooter: 'Thank you for dining with us.'
-                },
-                cafe: {
-                    name: 'Specialty Cafe & Roastery',
-                    tableLabel: 'Table / Counter Seat',
-                    tableDefault: 'Table 03',
-                    tablePlaceholder: 'e.g. Table 03 or Balcony Table 1',
-                    menuLabel: 'Brew Guide & Bakery Menu Link',
-                    pitchIntro: (name) => `Hey ${name} team! Built a 60-second in-store prototype for your tables — test how guests call water/bill in 3s and join your Coffee Club for fresh roast notifications:`,
-                    flyerHeadline: 'Specialty Coffee & Fresh Roasts ☕',
-                    flyerSub: 'Scan to call table service, join our Coffee Club for fresh roast alerts, or view our brew menu.',
-                    flyerFooter: 'Handcrafted coffee & good moments.'
-                },
-                pub: {
-                    name: 'High-Energy Pub & Lounge',
-                    tableLabel: 'Table / High-Top Station',
-                    tableDefault: 'High Table 02',
-                    tablePlaceholder: 'e.g. High Table 02 or Booth 5',
-                    menuLabel: 'Draft Beer & Bar Bites Menu',
-                    pitchIntro: (name) => `Hey ${name} team! Built a 60-second in-store prototype for your high-tables — test how guests call beer refills/bill in 3s without waving at busy staff:`,
-                    flyerHeadline: 'Cold Pours & Fast Service 🍻',
-                    flyerSub: 'Scan to call water/waiter/bill in 3s without waving, or join our weekend guestlist.',
-                    flyerFooter: 'Great times with good friends.'
-                },
-                heritage: {
-                    name: 'Heritage & Coastal Kitchen',
-                    tableLabel: 'Table / Veranda Station',
-                    tableDefault: 'Table 05',
-                    tablePlaceholder: 'e.g. Table 05 or Veranda 02',
-                    menuLabel: 'Daily Specials & Coastal Menu',
-                    pitchIntro: (name) => `Hey ${name} team! Built a 60-second in-store prototype for your tables — test how diners call table service in 3s and join your VIP club for seasonal dining invites:`,
-                    flyerHeadline: 'Authentic Hospitality & Flavours',
-                    flyerSub: 'Scan to call table service, join our VIP Dining Club, or view our daily catch specials.',
-                    flyerFooter: 'Thank you for dining with us.'
-                }
+                menuUrl: "",
+                webhook: "",
+                viewMode: "phone" // "phone" | "standee"
             };
 
             // DOM References
             const bizNameInput = document.getElementById('input-biz-name');
             const tableIdInput = document.getElementById('input-table-id');
-            const labelTableId = document.getElementById('label-table-id');
             const gmbUrlInput = document.getElementById('input-gmb-url');
             const menuUrlInput = document.getElementById('input-menu-url');
-            const labelMenuUrl = document.getElementById('label-menu-url');
             const webhookInput = document.getElementById('input-webhook');
-            const colorPicker = document.getElementById('custom-color-picker');
-            const colorHexLabel = document.getElementById('color-hex-label');
-            const colorDots = document.querySelectorAll('.color-dot');
-            const sectorCards = document.querySelectorAll('.sector-card');
-            
-            const previewIframe = document.getElementById('preview-iframe');
+
+            // Two-tone Color Inputs
+            const flyerBgColor = document.getElementById('flyer-bg-color');
+            const flyerBgHex = document.getElementById('flyer-bg-hex');
+            const flyerAccentColor = document.getElementById('flyer-accent-color');
+            const flyerAccentHex = document.getElementById('flyer-accent-hex');
+            const flyerTextColor = document.getElementById('flyer-text-color');
+            const flyerTextHex = document.getElementById('flyer-text-hex');
+            const metallicStrip = document.getElementById('metallic-strip-preview');
+            const currentPaletteLabel = document.getElementById('current-palette-name');
+
+            // Iframes & Views
+            const previewIframePhone = document.getElementById('preview-iframe-phone');
+            const previewIframeStandee = document.getElementById('preview-iframe-standee');
+            const deviceStage = document.getElementById('device-stage');
+            const simBtnPhone = document.getElementById('sim-btn-phone');
+            const simBtnStandee = document.getElementById('sim-btn-standee');
+            const btnReloadFrame = document.getElementById('btn-reload-frame');
+
+            // Mobile Tabs
+            const tabBtnConfig = document.getElementById('tab-btn-config');
+            const tabBtnPreview = document.getElementById('tab-btn-preview');
+            const panelConfig = document.getElementById('panel-config');
+            const panelPreview = document.getElementById('panel-preview');
+            const btnJumpPreview = document.getElementById('btn-jump-preview');
+            const mbarBtnPitch = document.getElementById('mbar-btn-pitch');
+            const mbarBtnToggle = document.getElementById('mbar-btn-toggle');
+            const mbarToggleLabel = document.getElementById('mbar-toggle-label');
+
+            // Pitch & Action Links
             const pitchPreview = document.getElementById('pitch-text-preview');
             const btnCopyPitch = document.getElementById('btn-copy-pitch');
             const btnCopyLink = document.getElementById('btn-copy-link');
             const btnOpenDemo = document.getElementById('btn-open-demo');
             const btnOpenStandee = document.getElementById('btn-open-standee');
-            const btnRefreshPreview = document.getElementById('btn-refresh-preview');
-
-            const deviceStage = document.getElementById('device-stage');
-            const toggleMobile = document.getElementById('toggle-mobile');
-            const toggleDesktop = document.getElementById('toggle-desktop');
             const toast = document.getElementById('toast');
             const toastMsg = document.getElementById('toast-message');
 
@@ -939,13 +1227,34 @@ https://metrixmedia.agency/portal.html?name=Miguel%27s+%E2%80%93+Cocktails+%26+P
                 setTimeout(() => toast.classList.remove('show'), 2600);
             }
 
-            // Build Target URL
+            // Two-Tone Metallic Gradient Engine (Sales.html Exact Formula)
+            function getMetallicGradient(acc) {
+                const a = (acc || '#d4af37').toLowerCase();
+                if (a === '#d4af37') return 'linear-gradient(135deg, #d4af37 0%, #fef08a 45%, #997300 100%)';
+                if (a === '#f59e0b') return 'linear-gradient(135deg, #f59e0b 0%, #fef3c7 45%, #b45309 100%)';
+                if (a === '#38bdf8') return 'linear-gradient(135deg, #38bdf8 0%, #e0f2fe 45%, #0284c7 100%)';
+                if (a === '#10b981') return 'linear-gradient(135deg, #10b981 0%, #d1fae5 45%, #047857 100%)';
+                if (a === '#f43f5e') return 'linear-gradient(135deg, #f43f5e 0%, #ffe4e6 45%, #be123c 100%)';
+                return `linear-gradient(135deg, ${acc} 0%, rgba(255,255,255,0.8) 45%, ${acc} 100%)`;
+            }
+
+            function updateMetallicStrip() {
+                const grad = getMetallicGradient(state.flyerAccent);
+                metallicStrip.style.background = grad;
+                // If accent is light or gold, text dark
+                metallicStrip.style.color = '#000000';
+            }
+
+            // Build Target URLs
             function buildPortalUrl() {
                 const params = new URLSearchParams();
                 params.set('name', state.name);
-                params.set('category', 'dining'); // Always strictly dining
+                params.set('category', 'dining');
+                params.set('color', state.flyerAccent);
+                params.set('flyerBg', state.flyerBg);
+                params.set('flyerAccent', state.flyerAccent);
+                params.set('flyerText', state.flyerText);
                 if (state.table) params.set('table', state.table);
-                if (state.color) params.set('color', state.color);
                 if (state.gmbUrl && state.gmbUrl !== 'https://maps.google.com') params.set('url', state.gmbUrl);
                 if (state.menuUrl) params.set('menuUrl', state.menuUrl);
                 if (state.webhook) params.set('webhook', state.webhook);
@@ -953,17 +1262,16 @@ https://metrixmedia.agency/portal.html?name=Miguel%27s+%E2%80%93+Cocktails+%26+P
             }
 
             function buildStandeeUrl() {
-                const meta = fnbMeta[state.niche] || fnbMeta.cocktail;
                 const params = new URLSearchParams();
                 params.set('name', state.name);
                 params.set('category', 'dining');
                 params.set('theme', 'onyx');
-                params.set('flyerHeadline', meta.flyerHeadline);
-                params.set('flyerSub', meta.flyerSub);
-                params.set('flyerFooter', meta.flyerFooter);
-                params.set('flyerAccent', state.color);
-                params.set('flyerBg', '#0a0a0a');
-                params.set('flyerText', '#ffffff');
+                params.set('flyerHeadline', 'Craft Cocktails & VIP Perks 🥂');
+                params.set('flyerSub', 'Scan to call table service in 3s, join our VIP Club, or browse our menu.');
+                params.set('flyerFooter', 'Thank you for dining with us.');
+                params.set('flyerAccent', state.flyerAccent);
+                params.set('flyerBg', state.flyerBg);
+                params.set('flyerText', state.flyerText);
                 if (state.table) params.set('table', state.table);
                 
                 const fullPortalUrl = `https://metrixmedia.agency/${buildPortalUrl()}`;
@@ -972,208 +1280,296 @@ https://metrixmedia.agency/portal.html?name=Miguel%27s+%E2%80%93+Cocktails+%26+P
             }
 
             function buildPitchMessage() {
-                const meta = fnbMeta[state.niche] || fnbMeta.cocktail;
                 const portalFullUrl = `https://metrixmedia.agency/${buildPortalUrl()}`;
-                return `${meta.pitchIntro(state.name)}\n${portalFullUrl}`;
+                return `Hey ${state.name} team! Built a 60-second in-store tabletop prototype for your tables — test how guests call table service/bill in 3s and join your VIP club:\n${portalFullUrl}`;
             }
 
-            // Debounced Iframe Refresh to avoid flicker
+            // Debounced Simulator Refresh to avoid flicker
             let debounceTimer = null;
-            function updateAll(refreshIframe = true) {
-                const relativeUrl = buildPortalUrl();
-                const pitch = buildPitchMessage();
+            function updateAll(refreshIframes = true) {
+                const portalUrl = buildPortalUrl();
                 const standeeUrl = buildStandeeUrl();
+                const pitch = buildPitchMessage();
 
                 pitchPreview.textContent = pitch;
-                btnOpenDemo.href = relativeUrl;
+                btnOpenDemo.href = portalUrl;
                 btnOpenStandee.href = standeeUrl;
+                updateMetallicStrip();
 
-                if (refreshIframe) {
+                if (refreshIframes) {
                     clearTimeout(debounceTimer);
                     debounceTimer = setTimeout(() => {
-                        previewIframe.src = relativeUrl;
+                        if (state.viewMode === 'phone') {
+                            if (previewIframePhone.src.indexOf(portalUrl) === -1) {
+                                previewIframePhone.src = portalUrl;
+                            }
+                        } else {
+                            if (previewIframeStandee.src.indexOf(standeeUrl) === -1) {
+                                previewIframeStandee.src = standeeUrl;
+                            }
+                        }
                     }, 250);
                 }
             }
 
-            // F&B Niche Selection
-            function setNiche(nicheKey, autoTable = true) {
-                state.niche = nicheKey;
-                const meta = fnbMeta[nicheKey] || fnbMeta.cocktail;
+            // Sync Color Pickers with Hex inputs
+            function setTwoToneColors(bg, accent, text, paletteName = 'Custom') {
+                state.flyerBg = bg;
+                state.flyerAccent = accent;
+                state.flyerText = text;
 
-                sectorCards.forEach(c => {
-                    c.classList.toggle('active', c.dataset.niche === nicheKey);
-                });
+                flyerBgColor.value = bg;
+                flyerBgHex.value = bg;
+                flyerAccentColor.value = accent;
+                flyerAccentHex.value = accent;
+                flyerTextColor.value = text;
+                flyerTextHex.value = text;
 
-                labelTableId.textContent = meta.tableLabel;
-                tableIdInput.placeholder = meta.tablePlaceholder;
-                if (autoTable) {
-                    state.table = meta.tableDefault;
-                    tableIdInput.value = meta.tableDefault;
+                currentPaletteLabel.textContent = paletteName;
+                updateAll(true);
+            }
+
+            // Input Event Listeners for Two-Tone Colors
+            flyerBgColor.addEventListener('input', (e) => {
+                flyerBgHex.value = e.target.value;
+                state.flyerBg = e.target.value;
+                currentPaletteLabel.textContent = 'Custom';
+                updateAll(true);
+            });
+            flyerBgHex.addEventListener('input', (e) => {
+                if (/^#[0-9A-F]{6}$/i.test(e.target.value)) {
+                    flyerBgColor.value = e.target.value;
+                    state.flyerBg = e.target.value;
+                    currentPaletteLabel.textContent = 'Custom';
+                    updateAll(true);
                 }
+            });
 
-                labelMenuUrl.textContent = meta.menuLabel;
+            flyerAccentColor.addEventListener('input', (e) => {
+                flyerAccentHex.value = e.target.value;
+                state.flyerAccent = e.target.value;
+                currentPaletteLabel.textContent = 'Custom';
                 updateAll(true);
+            });
+            flyerAccentHex.addEventListener('input', (e) => {
+                if (/^#[0-9A-F]{6}$/i.test(e.target.value)) {
+                    flyerAccentColor.value = e.target.value;
+                    state.flyerAccent = e.target.value;
+                    currentPaletteLabel.textContent = 'Custom';
+                    updateAll(true);
+                }
+            });
+
+            flyerTextColor.addEventListener('input', (e) => {
+                flyerTextHex.value = e.target.value;
+                state.flyerText = e.target.value;
+                currentPaletteLabel.textContent = 'Custom';
+                updateAll(true);
+            });
+            flyerTextHex.addEventListener('input', (e) => {
+                if (/^#[0-9A-F]{6}$/i.test(e.target.value)) {
+                    flyerTextColor.value = e.target.value;
+                    state.flyerText = e.target.value;
+                    currentPaletteLabel.textContent = 'Custom';
+                    updateAll(true);
+                }
+            });
+
+            // 1-Click Two-Tone Theme Chips
+            function setActiveThemeChip(id) {
+                document.querySelectorAll('.theme-chip').forEach(c => c.classList.remove('active'));
+                const el = document.getElementById(id);
+                if (el) el.classList.add('active');
             }
 
-            sectorCards.forEach(card => {
-                card.addEventListener('click', () => {
-                    setNiche(card.dataset.niche, true);
-                });
+            document.getElementById('theme-onyx-gold').addEventListener('click', () => {
+                setActiveThemeChip('theme-onyx-gold');
+                setTwoToneColors('#0a0a0a', '#d4af37', '#ffffff', 'Matte Onyx & Gold');
+            });
+            document.getElementById('theme-amber-noir').addEventListener('click', () => {
+                setActiveThemeChip('theme-amber-noir');
+                setTwoToneColors('#0f0c07', '#f59e0b', '#ffffff', 'Amber Glow');
+            });
+            document.getElementById('theme-sapphire-plat').addEventListener('click', () => {
+                setActiveThemeChip('theme-sapphire-plat');
+                setTwoToneColors('#070d18', '#38bdf8', '#ffffff', 'Platinum Blue');
+            });
+            document.getElementById('theme-emerald-velvet').addEventListener('click', () => {
+                setActiveThemeChip('theme-emerald-velvet');
+                setTwoToneColors('#05120d', '#10b981', '#ffffff', 'Emerald Mint');
+            });
+            document.getElementById('theme-ruby-noir').addEventListener('click', () => {
+                setActiveThemeChip('theme-ruby-noir');
+                setTwoToneColors('#13060a', '#f43f5e', '#ffffff', 'Ruby Rose');
             });
 
-            // Color Picker & Dots
-            function setColor(hex) {
-                state.color = hex;
-                colorHexLabel.textContent = hex;
-                colorPicker.value = hex;
-                colorDots.forEach(dot => {
-                    dot.classList.toggle('active', dot.dataset.color.toLowerCase() === hex.toLowerCase());
-                });
-                updateAll(true);
-            }
-
-            colorDots.forEach(dot => {
-                dot.addEventListener('click', () => {
-                    setColor(dot.dataset.color);
-                });
-            });
-
-            colorPicker.addEventListener('input', (e) => {
-                setColor(e.target.value);
-            });
-
-            // Input Event Listeners
+            // Input Event Listeners for Venue details
             bizNameInput.addEventListener('input', (e) => {
                 state.name = e.target.value.trim() || 'Our Restaurant';
                 updateAll(true);
             });
-
             tableIdInput.addEventListener('input', (e) => {
                 state.table = e.target.value.trim();
                 updateAll(true);
             });
-
             gmbUrlInput.addEventListener('input', (e) => {
                 state.gmbUrl = e.target.value.trim();
                 updateAll(true);
             });
-
             menuUrlInput.addEventListener('input', (e) => {
                 state.menuUrl = e.target.value.trim();
                 updateAll(true);
             });
-
             webhookInput.addEventListener('input', (e) => {
                 state.webhook = e.target.value.trim();
                 updateAll(false);
             });
 
-            // Device Viewport Toggles
-            toggleMobile.addEventListener('click', () => {
-                toggleMobile.classList.add('active');
-                toggleDesktop.classList.remove('active');
-                deviceStage.classList.remove('desktop-mode');
+            // Simulator View Mode Toggle (Phone vs Standee)
+            simBtnPhone.addEventListener('click', () => {
+                state.viewMode = 'phone';
+                simBtnPhone.classList.add('active');
+                simBtnStandee.classList.remove('active');
+                deviceStage.classList.remove('standee-active');
+                previewIframePhone.src = buildPortalUrl();
             });
 
-            toggleDesktop.addEventListener('click', () => {
-                toggleDesktop.classList.add('active');
-                toggleMobile.classList.remove('active');
-                deviceStage.classList.add('desktop-mode');
+            simBtnStandee.addEventListener('click', () => {
+                state.viewMode = 'standee';
+                simBtnStandee.classList.add('active');
+                simBtnPhone.classList.remove('active');
+                deviceStage.classList.add('standee-active');
+                previewIframeStandee.src = buildStandeeUrl();
             });
 
-            btnRefreshPreview.addEventListener('click', () => {
-                previewIframe.src = buildPortalUrl();
-                showToast('Refreshed simulator preview');
+            btnReloadFrame.addEventListener('click', () => {
+                if (state.viewMode === 'phone') {
+                    previewIframePhone.src = buildPortalUrl();
+                } else {
+                    previewIframeStandee.src = buildStandeeUrl();
+                }
+                showToast('Refreshed simulator frame');
+            });
+
+            // Mobile Tabs Navigation (Config vs Preview)
+            function switchMobileTab(tab) {
+                if (tab === 'config') {
+                    tabBtnConfig.classList.add('active');
+                    tabBtnPreview.classList.remove('active');
+                    panelConfig.classList.add('panel-active');
+                    panelPreview.classList.remove('panel-active');
+                    mbarToggleLabel.textContent = 'View Simulator';
+                } else {
+                    tabBtnPreview.classList.add('active');
+                    tabBtnConfig.classList.remove('active');
+                    panelPreview.classList.add('panel-active');
+                    panelConfig.classList.remove('panel-active');
+                    mbarToggleLabel.textContent = 'Edit Venue';
+                    // Force refresh iframe if needed
+                    if (state.viewMode === 'phone' && (!previewIframePhone.src || previewIframePhone.src === 'about:blank')) {
+                        previewIframePhone.src = buildPortalUrl();
+                    }
+                }
+            }
+
+            tabBtnConfig.addEventListener('click', () => switchMobileTab('config'));
+            tabBtnPreview.addEventListener('click', () => switchMobileTab('preview'));
+            if (btnJumpPreview) btnJumpPreview.addEventListener('click', () => switchMobileTab('preview'));
+
+            mbarBtnToggle.addEventListener('click', () => {
+                if (panelConfig.classList.contains('panel-active')) {
+                    switchMobileTab('preview');
+                } else {
+                    switchMobileTab('config');
+                }
             });
 
             // Copy Actions
-            btnCopyPitch.addEventListener('click', () => {
+            function copyPitchAction() {
                 const pitch = buildPitchMessage();
                 navigator.clipboard.writeText(pitch).then(() => {
                     showToast('WhatsApp pitch message copied!');
                 }).catch(() => {
-                    showToast('Failed to copy. Please manually select text.');
+                    showToast('Please select and copy text manually.');
                 });
-            });
+            }
+
+            btnCopyPitch.addEventListener('click', copyPitchAction);
+            mbarBtnPitch.addEventListener('click', copyPitchAction);
 
             btnCopyLink.addEventListener('click', () => {
                 const link = `https://metrixmedia.agency/${buildPortalUrl()}`;
                 navigator.clipboard.writeText(link).then(() => {
                     showToast('Live demo link copied!');
                 }).catch(() => {
-                    showToast('Failed to copy. Please manually select link.');
+                    showToast('Please select and copy link manually.');
                 });
             });
 
-            // 1-Click Panjim F&B Preset Loaders
+            // 1-Click Panjim Presets
             document.getElementById('preset-miguels').addEventListener('click', () => {
                 state.name = "Miguel's – Cocktails & Petiscos";
                 bizNameInput.value = state.name;
-                setNiche('cocktail', false);
                 state.table = 'Table 04';
                 tableIdInput.value = state.table;
-                setColor('#d4af37');
                 state.gmbUrl = "https://maps.google.com/?q=Miguel's+Cocktails+Petiscos+Panaji+Goa";
                 gmbUrlInput.value = state.gmbUrl;
-                updateAll(true);
-                showToast("Loaded Miguel's (Cocktails & Tapas)");
+                setActiveThemeChip('theme-onyx-gold');
+                setTwoToneColors('#0a0a0a', '#d4af37', '#ffffff', 'Matte Onyx & Gold');
+                showToast("Loaded Miguel's Preset");
             });
 
             document.getElementById('preset-soho').addEventListener('click', () => {
                 state.name = "Soho – The Capital Bar";
                 bizNameInput.value = state.name;
-                setNiche('pub', false);
                 state.table = 'High Table 02';
                 tableIdInput.value = state.table;
-                setColor('#f59e0b');
                 state.gmbUrl = "https://maps.google.com/?q=Soho+The+Capital+Bar+Panaji";
                 gmbUrlInput.value = state.gmbUrl;
-                updateAll(true);
-                showToast("Loaded Soho (Capital Bar)");
+                setActiveThemeChip('theme-amber-noir');
+                setTwoToneColors('#0f0c07', '#f59e0b', '#ffffff', 'Amber Glow');
+                showToast("Loaded Soho Preset");
             });
 
             document.getElementById('preset-prazeres').addEventListener('click', () => {
                 state.name = "Praça Prazeres";
                 bizNameInput.value = state.name;
-                setNiche('bistro', false);
                 state.table = 'Table 07';
                 tableIdInput.value = state.table;
-                setColor('#38bdf8');
                 state.gmbUrl = "https://maps.google.com/?q=Praca+Prazeres+Panaji+Goa";
                 gmbUrlInput.value = state.gmbUrl;
-                updateAll(true);
-                showToast("Loaded Praça Prazeres (Bistro)");
+                setActiveThemeChip('theme-sapphire-plat');
+                setTwoToneColors('#070d18', '#38bdf8', '#ffffff', 'Platinum Blue');
+                showToast("Loaded Praça Prazeres Preset");
             });
 
             document.getElementById('preset-caravela').addEventListener('click', () => {
                 state.name = "The Caravela Cafe & Bistro";
                 bizNameInput.value = state.name;
-                setNiche('cafe', false);
                 state.table = 'Table 03';
                 tableIdInput.value = state.table;
-                setColor('#d4af37');
                 state.gmbUrl = "https://maps.google.com/?q=The+Caravela+Cafe+and+Bistro+Panaji";
                 gmbUrlInput.value = state.gmbUrl;
-                updateAll(true);
-                showToast("Loaded The Caravela Cafe (Roastery)");
+                setActiveThemeChip('theme-onyx-gold');
+                setTwoToneColors('#0a0a0a', '#d4af37', '#ffffff', 'Matte Onyx & Gold');
+                showToast("Loaded Caravela Cafe Preset");
             });
 
             document.getElementById('preset-miski').addEventListener('click', () => {
                 state.name = "Miski Bar & Kitchen";
                 bizNameInput.value = state.name;
-                setNiche('heritage', false);
                 state.table = 'Table 05';
                 tableIdInput.value = state.table;
-                setColor('#10b981');
                 state.gmbUrl = "https://maps.google.com/?q=Miski+Bar+and+Kitchen+Panaji";
                 gmbUrlInput.value = state.gmbUrl;
-                updateAll(true);
-                showToast("Loaded Miski Bar & Kitchen");
+                setActiveThemeChip('theme-emerald-velvet');
+                setTwoToneColors('#05120d', '#10b981', '#ffffff', 'Emerald Mint');
+                showToast("Loaded Miski Bar Preset");
             });
 
-            // Initial Execution
+            // Initial Launch
             updateAll(true);
+            previewIframePhone.src = buildPortalUrl();
         });
     </script>
 </body>
