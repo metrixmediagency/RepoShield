@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>METRIX — Executive Agency Briefing (Wholesale Technology Infrastructure)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap');
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
+            line-height: 1.45;
+            padding: 24px;
+        }
+
+        .sheet {
+            max-width: 840px;
+            margin: 0 auto;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 36px 44px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid #0f172a;
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+        }
+
+        .brand-title {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #0f172a;
+            text-transform: uppercase;
+        }
+
+        .brand-subtitle {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #64748b;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        .meta-badge {
+            text-align: right;
+            font-size: 11px;
+            color: #475569;
+            line-height: 1.45;
+        }
+
+        .meta-badge strong {
+            color: #0f172a;
+        }
+
+        .tag-pill {
+            display: inline-block;
+            background: #0f172a;
+            color: #f59e0b;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        h2 {
+            font-size: 12.5px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #0f172a;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        p {
+            font-size: 11.5px;
+            color: #334155;
+            margin-bottom: 14px;
+            line-height: 1.5;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .feature-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px 14px;
+            border-top: 3px solid #0f172a;
+        }
+
+        .feature-card h3 {
+            font-size: 11.5px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 4px;
+        }
+
+        .feature-card p {
+            font-size: 10.5px;
+            color: #64748b;
+            margin: 0;
+            line-height: 1.35;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+            margin-bottom: 18px;
+        }
+
+        .comparison-table th {
+            text-align: left;
+            background: #0f172a;
+            color: #ffffff;
+            padding: 8px 12px;
+            font-weight: 700;
+            font-size: 10px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .comparison-table th:first-child { border-top-left-radius: 6px; }
+        .comparison-table th:last-child { border-top-right-radius: 6px; }
+
+        .comparison-table td {
+            padding: 7px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #334155;
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: 2px solid #0f172a;
+        }
+
+        .comparison-table td.highlight {
+            font-weight: 700;
+            color: #0f172a;
+            background: #f1f5f9;
+        }
+
+        .economics-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            background: #f8fafc;
+            border-left: 4px solid #f59e0b;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 18px;
+        }
+
+        .econ-item strong {
+            display: block;
+            font-size: 11.5px;
+            color: #0f172a;
+            margin-bottom: 2px;
+        }
+
+        .econ-item span {
+            font-size: 10.5px;
+            color: #475569;
+        }
+
+        .pilot-steps {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .step {
+            flex: 1;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            padding: 10px;
+            font-size: 10.5px;
+            border-top: 2px solid #f59e0b;
+        }
+
+        .step strong {
+            display: block;
+            color: #0f172a;
+            font-size: 11px;
+            margin-bottom: 3px;
+        }
+
+        .cta-banner {
+            background: #0f172a;
+            color: #ffffff;
+            padding: 14px 18px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .cta-text strong {
+            display: block;
+            font-size: 12px;
+            color: #f59e0b;
+            margin-bottom: 2px;
+        }
+
+        .cta-text span {
+            font-size: 10.5px;
+            color: #cbd5e1;
+        }
+
+        .cta-btn {
+            background: #f59e0b;
+            color: #0f172a;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 8px 14px;
+            border-radius: 6px;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 14px;
+            font-size: 10px;
+            color: #64748b;
+        }
+
+        .footer strong {
+            color: #0f172a;
+        }
+
+        @media print {
+            body { 
+                padding: 0; 
+                background: #fff; 
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .sheet { 
+                border: none; 
+                box-shadow: none; 
+                padding: 10px; 
+                max-width: 100%;
+            }
+            .cta-banner {
+                background: #0f172a !important;
+                color: #ffffff !important;
+                -webkit-print-color-adjust: exact !important;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .sheet { padding: 20px 16px; }
+            .header { flex-direction: column; gap: 12px; }
+            .meta-badge { text-align: left; }
+            .feature-grid { grid-template-columns: 1fr; }
+            .economics-box { grid-template-columns: 1fr; }
+            .pilot-steps { flex-direction: column; }
+            .cta-banner { flex-direction: column; gap: 10px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="sheet">
+    <div class="header">
+        <div>
+            <div class="tag-pill">Executive Agency Briefing</div>
+            <div class="brand-title">METRIX</div>
+            <div class="brand-subtitle">In-Store Tabletop Guest Intelligence Platform</div>
+        </div>
+        <div class="meta-badge">
+            <strong>Target:</strong> Authorized Agency Leadership & Growth Partners<br>
+            <strong>Model:</strong> Wholesale Technology Infrastructure<br>
+            <strong>Category:</strong> O2O Hospitality Intelligence & CDP
+        </div>
+    </div>
+
+    <h2>1. The Strategic Opportunity</h2>
+    <p>While creative campaigns and social content drive initial brand discovery, hospitality clients constantly push agencies to answer one critical question: <em>"Can you prove how many paying diners actually walked through our doors because of your work?"</em> METRIX bridges the gap between digital marketing and dining tables by transforming high-dwell tabletop touchpoints into automated customer data engines and real-time floor protection.</p>
+
+    <div class="feature-grid">
+        <div class="feature-card">
+            <h3>🥂 VIP Guest Capture</h3>
+            <p>Diners unlock VIP perks in &lt;3s. Captures verified Name, WhatsApp & Birthday for automated anniversary marketing and private broadcast campaigns.</p>
+        </div>
+        <div class="feature-card">
+            <h3>🚨 3-Second Floor Shield</h3>
+            <p>Diners alert management to slow service or cold food before asking for the bill—stopping 1-star Google Maps reviews before they happen.</p>
+        </div>
+        <div class="feature-card">
+            <h3>⚡ 100% Autonomous (Zero POS)</h3>
+            <p>Operates alongside Petpooja, Posist, DotPe, or legacy billing. Zero staff app downloads, zero technical overhead for your agency team.</p>
+        </div>
+    </div>
+
+    <h2>2. Commercial Impact for Partner Agencies</h2>
+    <table class="comparison-table">
+        <thead>
+            <tr>
+                <th>Agency Metric</th>
+                <th>Traditional Creative Scope</th>
+                <th>With METRIX Wholesale Infrastructure</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Monthly Client Reporting</strong></td>
+                <td>Vanity metrics (Reel views, likes, impressions)</td>
+                <td class="highlight">Verified diner footfall, captured guest databases & direct repeat spend</td>
+            </tr>
+            <tr>
+                <td><strong>Client Retention & Moat</strong></td>
+                <td>Vulnerable to off-peak seasonal retainer cuts</td>
+                <td class="highlight">High client lock-in; agency manages the venue's active VIP loyalty database</td>
+            </tr>
+            <tr>
+                <td><strong>Agency Revenue Structure</strong></td>
+                <td>Capped monthly creative retainer</td>
+                <td class="highlight">Adds +₹2,500 to +₹5,000 / venue / month recurring software margin</td>
+            </tr>
+            <tr>
+                <td><strong>Technical Overhead</strong></td>
+                <td>None (Creative only)</td>
+                <td class="highlight">Zero; METRIX engineers 100% of cloud, database logic & server uptime</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>3. Wholesale Economics & Portfolio Math</h2>
+    <div class="economics-box">
+        <div class="econ-item">
+            <strong>Standard Retail to Venues:</strong>
+            <span>₹5,000 / month per active venue</span>
+        </div>
+        <div class="econ-item">
+            <strong>Agency Wholesale License:</strong>
+            <span><strong>₹2,500 / month</strong> (50% partner margin)</span>
+        </div>
+        <div class="econ-item">
+            <strong>Option A (Direct Margin):</strong>
+            <span>Deploy across 6 venues = <strong>₹15,000/mo pure recurring margin</strong></span>
+        </div>
+        <div class="econ-item">
+            <strong>Option B (Retainer Shield):</strong>
+            <span>Bundle into core retainers to lock in <strong>₹5L+ in annual agency contracts</strong></span>
+        </div>
+    </div>
+
+    <h2>4. The Low-Risk 7-Day Flagship Pilot Protocol</h2>
+    <div class="pilot-steps">
+        <div class="step">
+            <strong>1. Flagship Selection</strong>
+            Agency selects 1 premier dining, bistro, or cafe client from its roster.
+        </div>
+        <div class="step">
+            <strong>2. Rapid 24h Setup</strong>
+            METRIX configures custom brand styling & WhatsApp alert routing.
+        </div>
+        <div class="step">
+            <strong>3. Weekend Trial (Zero Fee)</strong>
+            Deploy across 3 to 5 high-dwell tables for 1 weekend at 100% zero cost.
+        </div>
+        <div class="step">
+            <strong>4. Monday Review</strong>
+            Joint review of captured diner contacts, customer feedback & floor metrics.
+        </div>
+    </div>
+
+    <div class="cta-banner">
+        <div class="cta-text">
+            <strong>Interactive Tabletop Demonstration Ready</strong>
+            <span>Test the live diner experience, instant service alerts, and VIP loyalty flow on your phone.</span>
+        </div>
+        <a href="https://metrixmedia.agency/studio.html" class="cta-btn" target="_blank">Launch Live Demo</a>
+    </div>
+
+    <div class="footer">
+        <div><strong>METRIX Technologies</strong> (A ONEGRV Enterprise) · Technology Infrastructure for Hospitality</div>
+        <div>sunny@metrixmedia.agency · https://metrixmedia.agency</div>
+    </div>
+</div>
+
+</body>
+</html>
