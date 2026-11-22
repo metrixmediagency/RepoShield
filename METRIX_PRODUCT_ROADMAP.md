@@ -5,6 +5,24 @@
 
 ---
 
+## 💰 PRICING TIER ARCHITECTURE (Future Upgrade — Implement After Phase 3 is Live)
+
+The 3-tier structure follows a **Capture → Retain → Monetize** progression. Venues naturally self-upgrade as their diner database grows and they see direct revenue from it.
+
+| | **Tier 1 — Starter** | **Tier 2 — Growth** | **Tier 3 — Pro** |
+| :--- | :--- | :--- | :--- |
+| **Core Job** | Capture customers | Retain & re-engage | Monetize directly |
+| **Features** | VIP Capture, Floor Shield, Google Reviews, Table Service Calls | Tier 1 + WhatsApp Broadcasts, Birthday Auto-trigger, Stamp Card Loyalty | Tier 2 + D2C WhatsApp Ordering, Table Payments, 3PL Fleet Dispatch |
+| **Price** | ₹2,500 / month | ₹4,500 / month | ₹7,500 / month + ₹20 D2C service fee per order |
+| **Who buys** | First-time venues testing METRIX | Venues with 2–3 months of diner data wanting repeat visits | Established venues ready to eliminate Zomato / Swiggy |
+| **Phase** | Live today | Phase 2 | Phase 3 |
+
+> **D2C Service Fee Note:** The ₹20 per D2C order fee is charged to the **customer** (not the restaurant) as a transparent convenience fee — shown as a separate line item at checkout. Razorpay settles ₹20 to ONEGRV and food revenue directly to the venue. Zero RBI PA licence risk.
+
+> **Sales Narrative:** *"We start you on Starter at ₹2,500/month. In 90 days, you will have 500–1,000 local diners in your private database. At that point, Growth at ₹4,500/month lets you broadcast directly to all of them and bring them back automatically on their birthdays. When you are ready to fully cut out Zomato — Pro handles your direct deliveries end-to-end."*
+
+---
+
 ## ✅ PHASE 1 — Live & Deployed (Core MVP)
 Features actively selling to restaurants and cafes today:
 
