@@ -28,7 +28,14 @@ Features actively selling to restaurants and cafes today:
 - **Dev Effort:** ~2 to 3 days.
 - **Inspiration:** Stampmate, Stamp Me, Apple Wallet passes.
 
-### 2. WhatsApp Broadcast Campaign Engine (Owner Dashboard)
+### 2. WhatsApp D2C Direct Ordering — Manual Bridge (Zero Dev Required)
+- **What:** Once METRIX captures a diner's WhatsApp number at the table, the restaurant can instantly start receiving direct orders via WhatsApp — no portal, no tech build, no aggregator commission.
+- **How it works:** Diner craves the restaurant on a Wednesday night → they already have the restaurant's WhatsApp number (shared via VIP welcome message) → they message directly → restaurant staff confirms and shares a UPI payment link → owner arranges own delivery or books Borzo/Yango on-demand.
+- **METRIX's role:** We capture the relationship. The commerce happens naturally on WhatsApp. Zero build required from engineering.
+- **Why Phase 2:** This is the fastest possible path to proving the anti-aggregator value proposition to restaurant owners. No dev time, no compliance overhead — just results.
+- **Dev Effort:** 0 days. Already enabled the moment VIP capture is live.
+
+### 3. WhatsApp Broadcast Campaign Engine (Owner Dashboard)
 - **What:** Venue owner opens dashboard, selects diner segments (e.g., "All diners who visited in October"), types a message, hits Send.
 - **Why:** Turns the captured VIP database into an active revenue channel. Owners can fill slow Tuesdays or promote seasonal specials.
 - **How:** Integrates with WhatsApp Business API (360dialog or Gupshup as middleware).
@@ -61,7 +68,7 @@ Features actively selling to restaurants and cafes today:
 - **India Market Reality:** 75% of India uses Android. PWA push notifications are the right approach, not Apple Wallet exclusively.
 - **Dev Effort:** ~2 to 3 weeks.
 
-### 3. Zero-Commission Direct Ordering Engine (Anti-Aggregator)
+### 3. Automated WhatsApp D2C with Catalog + 3PL Fleet Dispatch (Anti-Aggregator Full Build)
 - **What:** Diners order food directly from the METRIX portal (branded as the restaurant). Payment goes direct to venue. METRIX dispatches order to kitchen and triggers 3PL fleet (Yango, Borzo, Careem) for delivery.
 - **Why:** Eliminates Zomato / Swiggy 25–30% commission. Venue saves ₹30–40 per order on average.
 - **Status:** Architecture fully designed (see Section 6, Business Architecture). Pending Phase 3 execution.
