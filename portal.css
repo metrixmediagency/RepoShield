@@ -24,10 +24,18 @@
     box-sizing: border-box;
 }
 
+html {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 body {
     background-color: var(--bg-dark);
     color: var(--text-main);
     font-family: var(--font-body);
+    width: 100%;
+    max-width: 100%;
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -45,33 +53,36 @@ body {
     }
 }
 
-/* Background Accents */
+/* Background Accents (Fixed & Non-Overflowing on Mobile) */
 .blob-1 {
-    position: absolute;
-    width: 250px;
-    height: 250px;
-    top: -10%;
-    left: -10%;
+    position: fixed;
+    width: 240px;
+    height: 240px;
+    top: -60px;
+    left: -60px;
     background: radial-gradient(circle, var(--primary-glow) 0%, rgba(9, 11, 22, 0) 70%);
     z-index: -1;
     filter: blur(40px);
+    pointer-events: none;
 }
 
 .blob-2 {
-    position: absolute;
-    width: 250px;
-    height: 250px;
-    bottom: -10%;
-    right: -10%;
+    position: fixed;
+    width: 240px;
+    height: 240px;
+    bottom: -60px;
+    right: -60px;
     background: radial-gradient(circle, var(--primary-glow) 0%, rgba(9, 11, 22, 0) 70%);
     z-index: -1;
     filter: blur(40px);
+    pointer-events: none;
 }
 
 /* Layout Container */
 .portal-container {
     width: 100%;
     max-width: 420px;
+    margin: 0 auto;
     z-index: 10;
 }
 
@@ -666,6 +677,7 @@ body {
 
 .hub-action-text {
     flex: 1;
+    min-width: 0;
 }
 
 .hub-action-text h4 {
@@ -696,7 +708,8 @@ body {
 
 .hub-link-btn {
     flex: 1;
-    padding: 11px 12px;
+    min-width: 0;
+    padding: 11px 10px;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid var(--border-color);
     border-radius: 12px;
