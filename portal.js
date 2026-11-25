@@ -569,7 +569,7 @@
                 if (typeof renderServiceTiles === 'function') renderServiceTiles();
             }
             if (window.SUPABASE_URL && window.SUPABASE_ANON_KEY && bizName && bizName !== 'Our Business') {
-                fetch(`${window.SUPABASE_URL}/rest/v1/feedback?business_name=ilike.*${encodeURIComponent(bizName)}*&client_name=eq.__METRIX_MENU_GALLERY__&order=created_at.desc&limit=1`, {
+                fetch(`${window.SUPABASE_URL}/rest/v1/feedback?business_name=ilike.${encodeURIComponent(bizName)}&client_name=eq.__METRIX_MENU_GALLERY__&order=created_at.desc&limit=1`, {
                     headers: { 'apikey': window.SUPABASE_ANON_KEY, 'Authorization': `Bearer ${window.SUPABASE_ANON_KEY}` }
                 }).then(r => r.ok ? r.json() : []).then(rows => {
                     if (rows && rows.length > 0 && rows[0].client_message) {
@@ -1023,7 +1023,7 @@
         const ctrl = new AbortController();
         const timer = setTimeout(() => ctrl.abort(), 1200);
         try {
-            const res = await fetch(`${SUPABASE_URL}/rest/v1/feedback?business_name=ilike.*${encodeURIComponent(bizName)}*&client_phone=ilike.*${encodeURIComponent(matchDigits)}*&select=id,client_dob,client_message&order=created_at.desc&limit=50`, {
+            const res = await fetch(`${SUPABASE_URL}/rest/v1/feedback?business_name=ilike.${encodeURIComponent(bizName)}&client_phone=ilike.*${encodeURIComponent(matchDigits)}*&select=id,client_dob,client_message&order=created_at.desc&limit=50`, {
                 headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` },
                 signal: ctrl.signal
             });
