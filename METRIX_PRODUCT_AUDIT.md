@@ -1,82 +1,87 @@
-# METRIX — Product & Engineering Gap Audit (Tier 1, Tier 2, Tier 3)
+# METRIX — Product & Engineering Audit (Tier 1, Tier 2, Mobile App & Tier 3)
 
-> **Audit Date:** November 25, 2026  
-> **Scope:** Direct code audit of `portal.html`, `portal.js`, `dashboard.html`, `live.html`, `flyer.html`, `studio.html`, `supabase_config.js`, and `admin.html`.  
-> **Purpose:** Document every broken link, missing feature, and data sync gap before shipping production builds across Tiers 1, 2, and 3.
-
----
-
-## 🔴 TIER 1 — STARTER (Capture, Floor Shield & Table Service)
-*Target: Must work 100% reliably on two separate devices (Diner's phone at Table 4 + Restaurant Manager's phone/tablet at the floor desk).*
-
-### 1. Broken: Live Floor Radar (`dashboard.html`) Is Static / Non-Functional
-* **What happens today:** In `portal.js`, when a guest taps `Water Refill`, `Call Waiter`, `Request Bill`, or `Special Note`, `triggerServiceRequest()` writes a row to the Supabase `feedback` table with `clientName: "Resident / Seated Guest (Table X)"`.
-* **What is broken:**
-  * In `dashboard.html`, the **Live Floor Radar** tab (`#tab-radar` / `#radarEmptyState`) has **zero JavaScript**. Nothing ever renders there—it stays permanently on `"No pending service calls right now"`.
-  * `fetchRealVIPData()` reads *all* rows from `feedback` and dumps table service alerts straight into `realVIPList` (**VIP Guest Database Vault**). This pollutes the venue's VIP CRM with fake customer entries named `"Resident / Seated Guest"`.
-  * There is no live polling or Supabase Realtime subscription, no browser/mobile audio alert chime, and no **"Mark Resolved / Attended"** workflow.
-
-### 2. Broken: Venue Settings Do Not Sync to Cloud (`dashboard.html` → `portal.html`)
-* **What happens today:** `saveVenueSettings()` in `dashboard.html` only writes the Floor WhatsApp Alert Number (`cfgWhatsapp`), Google Maps Review URL (`cfgGoogleReview`), Digital Menu URL (`cfgMenuUrl`), and Venue Name (`cfgBizName`) to `localStorage` on that single browser.
-* **What is broken:**
-  * If an owner updates their Google Review link, Menu link, or Floor WhatsApp number in `dashboard.html`, **nothing updates in Supabase**.
-  * A diner scanning the table QR on their own phone does not see the updated links unless they were hardcoded into the QR URL at print time.
-  * If the manager opens `dashboard.html` on a different device (e.g., phone vs. counter laptop), all saved settings disappear.
-
-### 3. Missing: Instant Manager Alert Delivery on Mobile
-* **What happens today:** Submitting a table call in `portal.js` calls Supabase and optionally a generic `webhookUrl` if passed via URL parameter.
-* **What is broken:**
-  * If no Google Apps Script / custom webhook is manually wired into every QR link, **the floor manager gets zero notification on their phone** unless they stare at `dashboard.html` continuously.
-  * `dashboard.html` needs:
-    1. Live auto-refresh / Supabase Realtime listener with visual alert cards + optional sound chime (works on any open browser/tablet tab at the host desk).
-    2. Webhook / WhatsApp alert bridge support stored in the venue's cloud config (not hardcoded per QR URL).
-    3. An optional direct WhatsApp fallback / escalation link or ntfy/push notification channel for phone lock screens.
-
-### 4. Incomplete: `dashboard.html` "Test Tabletop VIP Scan" & Cross-App Wiring
-* **What happens today:** Clicking *"Test Tabletop VIP Scan"* (`openLiveDemo()`) in `dashboard.html` opens `/portal.html?name=...` without passing the venue's configured Google Review URL, Menu URL, or theme colors.
-* **Also missing in `portal.html`:** While `Special Note` exists inside `Call Table Service`, there is no prominent, non-gating **"Need Quick Help / Feedback for Management?"** trigger card on the main screen to explicitly serve as the **3-Second Floor Shield** while remaining 100% compliant (no star-gating).
-
-### 5. Incomplete: Multi-Table Printing & QR Provisioning (`flyer.html` / `live.html`)
-* **What happens today:** `live.html` supports `?id=...&table=...` and passes `table` to `portal.html`, which displays `#table-badge` (`Table 04`).
-* **What is missing:** In `dashboard.html` (Tab 4: Tabletop Standee Station), there is a link to `/flyer.html`, but no simple **Table Range Generator** (e.g., *"Generate printable QR set for Tables 1 to 15"*) tied directly to the venue's cloud campaign ID.
+> **Last Updated:** November 25, 2026  
+> **Scope:** Live verification across `portal.html`, `portal.js`, `portal.css`, `menu.html`, `dashboard.html`, `admin.html`, `sales.html`, `supabase_config.js`, and `api/whatsapp-alert.js`.  
+> **Purpose:** Maintain an accurate source of truth tracking every resolved Tier 1 issue, current architectural constraints, and remaining builds for Tier 2, Companion Mobile App, and Tier 3.
 
 ---
 
-## 🟡 TIER 2 — GROWTH (Retention, Birthdays & Loyalty)
-*Target: Turn Tier 1 captured diner data into automated repeat visits and higher weekday revenue.*
+## 🔴 TIER 1 — STARTER (Customer Capture, Wi-Fi Lock & Table Operations)
+**Status: ✅ RESOLVED & LOCKED IN PRODUCTION**
 
-### 1. Broken: Upcoming Birthdays Counter Is Hardcoded to `0`
-* **Where:** `dashboard.html` line 787 (`<div class="stat-card-val" id="statBirthdays">0</div>`).
-* **What is missing:** Logic to parse `client_dob` (`DD/MM/YYYY`) across all captured VIPs, filter guests whose birthday falls in the next 7 or 30 days, and surface them in a dedicated **Birthday Action Queue**.
+### What Was Fixed & Verified
+1. **Live Floor Radar Separation & Audio Alerts (`✅ Fixed`):**
+   * `dashboard.html` now cleanly separates `[TABLE_CALL]` and urgent red `[FLOOR_SHIELD]` rows from the VIP Guest Vault, polls every 6s, plays a Web Audio bell chime, and supports cross-device `Mark Attended` via `[ALERT_RESOLVED:<key>]`.
+2. **Multi-Device Cloud Config Sync (`✅ Fixed`):**
+   * `supabase_config.js` (`window.MetrixCloud`) packs/unpacks venue settings (`whatsapp`, `gmbUrl`, `menuUrl`, `ntfyTopic`, `alertWebhook`, `wifiSsid`, `wifiPass`, `vipOffer`, `vipSub`, `features`, `tier`, `status`, `ownerPassword`) in Supabase `campaigns`. Both `dashboard.html` and `admin.html` update live; `portal.html` hydrates dynamically.
+3. **Table Service & Visual Menu Cleanup (`✅ Fixed`):**
+   * Built dedicated `menu.html` gallery supporting dashboard-uploaded dish photos (`__METRIX_MENU_GALLERY__`) and sample dishes.
+   * Removed clutter (`Food Delay`, `Food Issue`, `Wrong Item`, duplicate buttons) inside `Call Table Service` (`portal.html`/`portal.js`); streamlined to 4 service tiles + `Call Manager` + `Complaint` (`Complaint Box`).
+4. **Mobile Layout & VIP-Gated Wi-Fi Security (`✅ Fixed`):**
+   * Fixed mobile horizontal overflow/sideways movement in `portal.css?v=4.0`.
+   * Added `Free Wi-Fi` alongside `Browse Menu` with **VIP-Gated Wi-Fi Lock ON by default (`wifiGate: true`)** so non-customers outside cannot view raw passwords without completing VIP check-in.
+   * Added **8 instant Feature Control toggles** in `dashboard.html` and `admin.html`.
+5. **High-Converting Safe VIP Capture Form (`✅ Fixed`):**
+   * Updated default copy to **Option 1**: *"Claim Free Birthday & VIP Perks 🎁"* / *"Get complimentary birthday treats & secret chef offers"*, plus editable `vipOffer` / `vipSub` in `dashboard.html` & `admin.html`.
+   * Added auto country code (`🇮🇳 +91` in India, `🇦🇪 +971` in Dubai, full A–Z tourist list), strict Indian (`^[6-9]\d{9}$`) & anti-junk validator, optional 2-tap **Birthday (Day + Month)**, expandable optional **`💍 + Add Anniversary Date` (Day + Month)**, and optional discovery source.
+6. **Repeat Guest Detection, Anti-Screenshot Pass & Exact Client Isolation (`✅ Fixed`):**
+   * Same-phone recognition (`Welcome Back, <Name>! ✓`), live 1.2s cloud WhatsApp repeat check (`Visit #2+`), deduplicated `VIP Guest Vault` (`🆕 NEW VIP` vs `🔁 REPEAT · X Visits` — zero bulk CSV export for venue accounts), and **Live Ticking Verification Pass** (`DD MMM · HH:MM:SS AM/PM`).
+   * Tightened all `business_name=ilike.*...*` queries to exact case-insensitive `ilike.<Name>` across `portal.js`, `dashboard.html`, and `menu.html`.
+7. **WhatsApp Cloud API Backend Route Built (`✅ Code Ready / ⏳ Pending Meta Keys`):**
+   * Created strict server-side `api/whatsapp-alert.js` (Meta Cloud API `v21.0`, server-side `venueId` lookup, up to 3 comma-separated floor numbers) + `Test WA` button in `dashboard.html`.
+   * **Action Needed Later (Ops):** Link 1 central METRIX SIM in Meta Developers and paste `WHATSAPP_PHONE_NUMBER_ID` + `WHATSAPP_ACCESS_TOKEN` into Vercel Environment Variables.
 
-### 2. Missing: 1-Click Birthday & VIP Broadcast Studio (`dashboard.html`)
-* **What is missing:**
-  * A **1-Click "Send Birthday Treat on WhatsApp"** button beside upcoming birthday guests that opens WhatsApp pre-filled with a personalized venue message (e.g., *"Hi [Name], happy birthday week from [Venue]! Show this message for a complimentary dessert..."*).
-  * A **VIP Broadcast Tab / Composer** with ready-to-use hospitality templates (*Weekend Chef Special*, *Slow Tuesday VIP Perk*, *New Menu Launch*) and audience filters.
-
-### 3. Missing: Digital Stamp Card / Visit Loyalty (`portal.html` + `dashboard.html`)
-* **What is missing:**
-  * No repeat-visit stamp tracker in `portal.html` (e.g., *"Visit 5/10 times — Unlock a free coffee/dessert"*).
-  * Needs lightweight phone-number lookup + **4-digit Staff/Venue PIN verification** so guests cannot tap and fake stamps themselves, working cleanly across 100% of Android and iOS browsers (no Apple Wallet lock-in).
+### Remaining Low-Priority Tier 1 Notes (Non-Blocking)
+* **Weak Cellular Signal Optimization:** `live.html` currently loads `@supabase/supabase-js@2` from `cdn.jsdelivr.net` with a `300ms` delay before redirecting, and `portal.html`/`menu.html` rely on external Google Fonts & FontAwesome CDNs plus ~2.5 MB sample menu images. Can be streamlined (`< 1s` featherweight first paint + compressed images) whenever prioritized.
+* **Venue Naming Rule:** Since `feedback` rows isolate clients by exact `business_name`, every outlet/branch must use a unique trade name until a future `venue_id` column migration is added.
+* **Upgrade Button Placeholder:** Replace placeholder `919999999999` on Tier 2/3 upgrade links in `dashboard.html` (`lines 1114, 1134`) with Founder's live WhatsApp number during Tier 2 build.
 
 ---
 
-## 🔵 TIER 3 — PRO (Direct Monetization, D2C Ordering & Tier Gating)
-*Target: 0%-commission direct orders, table payments, and plan enforcement.*
+## 🟡 TIER 2 — GROWTH / ENGAGE (Retention, Loyalty, Reviews & Geofencing Prep)
+**Status: ⏳ NEXT TO BUILD (Tier 2 Lock UI & Admin Tier Switching Ready; Functional Modules Remaining)**
 
-### 1. Missing: Built-In D2C Ordering Menu & Cart (`portal.html`)
-* **What is missing:** Currently `portal.html` only opens an external `menuUrl` link. There is no interactive dish menu + cart inside the portal that calculates a **transparent ₹20 METRIX Convenience Fee** line item and dispatches an itemized order directly to the venue's WhatsApp (or settles via Razorpay).
-
-### 2. Missing: Table Payment / UPI Settlement Integration
-* **What is missing:** `razorpay_config.js` exists in the repository, but is not integrated into `portal.html` for optional D2C checkout or bill settlement.
-
-### 3. Missing: Venue Subscription Tier Control (`Starter` / `Growth` / `Pro`)
-* **What is missing:** `admin.html`, `partner.html`, and `dashboard.html` do not currently store or enforce a venue's active tier (`starter`, `growth`, `pro`). Once built, Tier 1 accounts should cleanly display Tier 2/3 upgrade previews rather than broken tabs.
+### Missing Modules to Build
+1. **Digital VIP Stamp Card (`portal.html` + `dashboard.html` — Not Yet Built):**
+   * Guest module `My Loyalty Stamp Card ⭐` (unlocked for `growth` & `pro` tiers) showing live stamps (`X / Y Visits`) synced to Supabase via WhatsApp number (`[STAMP_CHECKIN]`, `[STAMP_REDEEM]`).
+   * Anti-fraud protection: **4-Digit Secret Staff PIN** + **4-Hour Cooldown Lock** + **Live Clock Verification** for reward redemption.
+   * Owner settings & **Cashier Counter Quick-Stamp** box inside `dashboard.html` Tab 5.
+2. **Birthday & Anniversary Radar (`dashboard.html` — `#statBirthdays` Still Static `0`):**
+   * Live parser reading both **Birthday** and **Anniversary** (`Day + Month`) from `client_dob`, surfacing **`Today`**, **`Next 7 Days`**, and **`Next 30 Days`** queues with pre-written WhatsApp invites & sequential `wa.me` send tracking (`₹0` Meta Marketing cost).
+3. **Post-Meal "Google Review + Check-In" Ping (`dashboard.html` — Not Yet Built):**
+   * Lists Today’s Checked-In VIPs with 1-click `Send Review Ping` (`wa.me`) bundling the venue’s `gmbUrl` alongside a private management reply invitation (100% policy-compliant).
+4. **Smart VIP Broadcast & Win-Back Studio (`dashboard.html` — Not Yet Built):**
+   * Built-in segments (**All VIPs**, **Repeat 2+ Visits**, **30-Day Inactive Win-Back**) without exposing bulk CSV download, plus optional **"Save Cafe Contact (.vcf)"** button for native WhatsApp Business Broadcast Lists and webhook/credit-pack support.
+5. **Cafe Nearby GPS & Cloud Geofence API (`dashboard.html` + `/api/nearby-venues.js` — Not Yet Built):**
+   * Owner GPS Pin (`lat`, `lng`), Radius (`200m–1km`), and Nearby Deal copy in `dashboard.html`, exposed via `/api/nearby-venues.js` for the mobile app.
 
 ---
 
-## 🗺️ Recommended Execution Sequence
+## 📱 SHARED COMPANION APP — `METRIX Rewards` (Android & iOS)
+**Status: ⏳ PLANNED RIGHT AFTER TIER 2 WEB & APIs**
 
-1. **Step 1 (Discuss & Fix Tier 1 First):** Fix Live Floor Radar separation + real-time polling/sound chime, sync Venue Settings to Supabase so `portal.html` loads them live, and verify mobile alert flow end-to-end.
-2. **Step 2 (Tier 2 Build):** Activate live Birthday Radar + 1-click WhatsApp Birthday & Broadcast Studio + PIN-protected Digital Stamp Card.
-3. **Step 3 (Tier 3 Build):** Add Tier switching (`Starter` / `Growth` / `Pro`) + D2C Direct Ordering Cart with ₹20 convenience fee + WhatsApp/UPI dispatch.
+* **Purpose:** One shared consumer app across all partner cafes (never forced at the table—table capture stays 100% browser QR).
+* **Capabilities:**
+  1. **Background GPS Geofencing ("Close-By Alerts"):** Real lock-screen notifications when a diner walks within 200–500m of any METRIX partner cafe (the only reliable method on Indian Android + iOS phones).
+  2. **₹0 Unlimited Push Notifications:** Slow-day & weekend offers at zero Meta ₹0.85/msg marketing fee.
+  3. **Unified Stamp Card Wallet** + **Live Tier 3 Order Tracking** (`Confirmed ➔ Cooking ➔ Out for Delivery`).
+* **Store Prerequisites for Publishing:** Google Play Console (`$25` one-time) + Apple Developer Account (`$99/year`), built via **React Native / Expo (EAS Cloud Build)**.
+
+---
+
+## 🔵 TIER 3 — PRO (0% Commission D2C Ordering, Payments & Bag Hijacking)
+**Status: ⏳ PLANNED (Admin Tier Switching & Locked Preview Tab Only)**
+
+### Missing Modules to Build
+1. **Built-In D2C Ordering Menu & Cart (`portal.html`):** Interactive menu catalog with dish modifiers, transparent `Subtotal + ₹20 Convenience Fee`, and direct order dispatch (`[D2C_ORDER]`) + live status updates (`dashboard.html` ➔ Companion App).
+2. **Direct UPI / Card Settlement:** Connect `razorpay_config.js` directly into direct checkout routing funds straight to venue accounts.
+3. **Delivery Bag vs. Dine-In ROI Tracking:** Separate `?table=Delivery%20Bag` stickers (`flyer.html`) inside owner analytics to measure Zomato/Swiggy/Talabat customer conversion.
+
+---
+
+## 🗺️ Updated Execution Sequence
+
+1. **Tier 1 (Capture & Floor Operations):** ✅ **DONE & LOCKED** *(Meta WhatsApp SIM tokens can be pasted in Vercel anytime)*.
+2. **Tier 2 Web + App-Ready Cloud Backend (`⏳ NEXT`):** Build unlocked Tab 5 in `dashboard.html` (Stamp Config + Cashier Stamp, Live Birthday/Anniversary Radar, Post-Meal Review Pings, Broadcast Studio, Cafe GPS Pin) + `portal.html` Stamp Card + `/api/nearby-venues.js`.
+3. **Companion Mobile App (`METRIX Rewards`):** Build Expo React Native app wired to `/api/nearby-venues.js`, Stamp Wallet, and Push Notifications (`$25` Play / `$99/yr` Apple for live store release).
+4. **Tier 3 (D2C Direct Ordering + Live Order Tracking):** Build interactive cart, Razorpay UPI link, Delivery Bag ROI tagging, and real-time order tracking in Web + App.
