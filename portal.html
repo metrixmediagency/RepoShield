@@ -97,25 +97,70 @@
                 <p class="feedback-subtitle" id="vip-screen-sub">Get complimentary birthday treats &amp; secret chef offers sent straight to your WhatsApp.</p>
                 
                 <form id="vip-form" class="feedback-form">
-                    <div class="input-row">
-                        <div class="form-group">
-                            <label for="vip-name">Your Name</label>
-                            <input type="text" id="vip-name" placeholder="e.g. Marcus Vance" minlength="3" pattern="^[a-zA-Z\s]+$" title="Name must be at least 3 characters (letters only)" required autocomplete="name">
+                    <div class="form-group">
+                        <label for="vip-name">Your Name</label>
+                        <input type="text" id="vip-name" placeholder="e.g. Aarav Sharma" minlength="2" pattern="^[a-zA-Z\s.]+$" title="Please enter your name" required autocomplete="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="vip-phone">WhatsApp Number</label>
+                        <div style="display: flex; gap: 8px; align-items: stretch; width: 100%;">
+                            <div class="select-wrapper" style="width: 112px; flex-shrink: 0;">
+                                <select id="vip-country-code" class="custom-select" aria-label="Country Code" style="padding-left: 10px; padding-right: 26px;">
+                                    <option value="+91" selected>🇮🇳 +91</option>
+                                    <option value="+971">🇦🇪 +971</option>
+                                    <option value="+44">🇬🇧 +44</option>
+                                    <option value="+1">🇺🇸 +1</option>
+                                    <option value="+61">🇦🇺 +61</option>
+                                    <option value="+65">🇸🇬 +65</option>
+                                    <option value="+49">🇩🇪 +49</option>
+                                    <option value="+33">🇫🇷 +33</option>
+                                    <option value="+7">🇷🇺 +7</option>
+                                    <option value="">🌍 Other</option>
+                                </select>
+                            </div>
+                            <input type="tel" id="vip-phone" inputmode="numeric" placeholder="10-digit WhatsApp number" minlength="7" maxlength="16" required autocomplete="tel-national" style="flex: 1; min-width: 0;">
                         </div>
-                        <div class="form-group">
-                            <label for="vip-phone">WhatsApp Number</label>
-                            <input type="tel" id="vip-phone" placeholder="e.g. 501234567" minlength="8" maxlength="15" required autocomplete="tel">
+                        <div id="vip-phone-error" style="display: none; font-size: 0.76rem; color: #fca5a5; margin-top: 4px; font-weight: 500;"></div>
+                    </div>
+                    <div class="form-group">
+                        <label id="vip-dob-label">Birthday <span style="opacity:0.65; font-weight:400;">(Optional — For Free Birthday Treats 🎂)</span></label>
+                        <div style="display: grid; grid-template-columns: 1fr 1.25fr; gap: 8px; width: 100%;">
+                            <div class="select-wrapper">
+                                <select id="vip-dob-day" class="custom-select" aria-label="Birth Day">
+                                    <option value="">Day (Optional)</option>
+                                    <option value="01">1</option><option value="02">2</option><option value="03">3</option><option value="04">4</option><option value="05">5</option>
+                                    <option value="06">6</option><option value="07">7</option><option value="08">8</option><option value="09">9</option><option value="10">10</option>
+                                    <option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option>
+                                    <option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option>
+                                    <option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option>
+                                    <option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option>
+                                    <option value="31">31</option>
+                                </select>
+                            </div>
+                            <div class="select-wrapper">
+                                <select id="vip-dob-month" class="custom-select" aria-label="Birth Month">
+                                    <option value="">Month (Optional)</option>
+                                    <option value="Jan">January</option>
+                                    <option value="Feb">February</option>
+                                    <option value="Mar">March</option>
+                                    <option value="Apr">April</option>
+                                    <option value="May">May</option>
+                                    <option value="Jun">June</option>
+                                    <option value="Jul">July</option>
+                                    <option value="Aug">August</option>
+                                    <option value="Sep">September</option>
+                                    <option value="Oct">October</option>
+                                    <option value="Nov">November</option>
+                                    <option value="Dec">December</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="vip-dob" id="vip-dob-label">Date of Birth (For Birthday Treats)</label>
-                        <input type="text" id="vip-dob" placeholder="DD/MM/YYYY" pattern="\d{2}/\d{2}/\d{4}" title="Please enter in DD/MM/YYYY format" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="vip-source">How did you hear about us?</label>
+                        <label for="vip-source">How did you hear about us? <span style="opacity:0.65; font-weight:400;">(Optional)</span></label>
                         <div class="select-wrapper">
-                            <select id="vip-source" class="custom-select" required>
-                                <option value="" disabled selected>Select an option...</option>
+                            <select id="vip-source" class="custom-select">
+                                <option value="" selected>Optional — tap to choose or skip...</option>
                                 <option value="Social Media (Instagram/FB)">📸 Social Media (Instagram / Facebook)</option>
                                 <option value="Google Search / Maps">📍 Google Search / Maps</option>
                                 <option value="Friend / Word of Mouth">👥 Friend / Word of Mouth</option>
@@ -300,6 +345,6 @@
     </div>
 
     <script src="supabase_config.js"></script>
-    <script src="portal.js?v=5.7"></script>
+    <script src="portal.js?v=5.8"></script>
 </body>
 </html>

@@ -250,7 +250,7 @@
                 icon: "fa-solid fa-crown",
                 screenTitle: "Claim Free Birthday & VIP Perks 🎁",
                 screenSub: "Get complimentary birthday treats & secret chef offers sent straight to your WhatsApp.",
-                dobLabel: "Date of Birth (For Birthday Treats)",
+                dobLabel: "Birthday (Optional — For Free Birthday Treats 🎂)",
                 submitText: "Claim VIP Privileges",
                 submitIcon: "fa-solid fa-gift",
                 successTitle: "VIP Privileges Active 🥂",
@@ -781,15 +781,91 @@
     }
 
     // ----------------------------------------------------
-    // 8. VIP Club Form Submission
+    // 8. VIP Club Form Submission & Auto Country / Anti-Junk Validation
     // ----------------------------------------------------
+    const countrySelect = document.getElementById('vip-country-code');
+    const vipPhoneInput = document.getElementById('vip-phone');
+    const vipPhoneErr = document.getElementById('vip-phone-error');
+
+    if (countrySelect) {
+        try {
+            const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+            if (tz === 'Asia/Dubai') countrySelect.value = '+971';
+            else countrySelect.value = '+91';
+        } catch (e) {
+            countrySelect.value = '+91';
+        }
+        const updatePhonePlaceholder = () => {
+            if (!vipPhoneInput) return;
+            if (countrySelect.value === '+91') vipPhoneInput.placeholder = '10-digit WhatsApp number';
+            else if (countrySelect.value === '+971') vipPhoneInput.placeholder = 'e.g. 50 123 4567';
+            else vipPhoneInput.placeholder = 'Phone number with country code';
+        };
+        updatePhonePlaceholder();
+        countrySelect.addEventListener('change', () => {
+            updatePhonePlaceholder();
+            if (vipPhoneErr) vipPhoneErr.style.display = 'none';
+        });
+    }
+    if (vipPhoneInput && vipPhoneErr) {
+        vipPhoneInput.addEventListener('input', () => {
+            vipPhoneErr.style.display = 'none';
+        });
+    }
+
+    function validateAndFormatPhone(rawInput, selectedCode) {
+        let digits = String(rawInput || '').replace(/\D/g, '');
+        if (digits.startsWith('00')) digits = digits.slice(2);
+
+        if (selectedCode === '+91') {
+            if (digits.length === 12 && digits.startsWith('91')) digits = digits.slice(2);
+            if (digits.length === 11 && digits.startsWith('0')) digits = digits.slice(1);
+            if (!/^[6-9]\d{9}$/.test(digits)) {
+                return { ok: false, error: 'Please enter a valid 10-digit Indian mobile number (starts with 6, 7, 8, or 9).' };
+            }
+        } else if (selectedCode === '+971') {
+            if (digits.length === 12 && digits.startsWith('971')) digits = digits.slice(3);
+            if (digits.length === 10 && digits.startsWith('0')) digits = digits.slice(1);
+            if (!/^5\d{8}$/.test(digits) && (digits.length < 8 || digits.length > 10)) {
+                return { ok: false, error: 'Please enter a valid UAE mobile number (e.g. 501234567).' };
+            }
+        } else {
+            if (digits.length < 7 || digits.length > 15) {
+                return { ok: false, error: 'Please enter a valid WhatsApp number (with country code).' };
+            }
+        }
+
+        const blocked = ['1234567890', '0123456789', '9876543210', '6789012345', '7890123456', '8901234567', '123456789'];
+        if (/^(\d)\1+$/.test(digits) || /(.)\1{6,}/.test(digits) || blocked.includes(digits)) {
+            return { ok: false, error: 'Please enter your real WhatsApp number so we can send your perks.' };
+        }
+
+        const formatted = selectedCode ? `${selectedCode} ${digits}` : `+${digits}`;
+        return { ok: true, formatted };
+    }
+
     const vipForm = document.getElementById('vip-form');
     if (vipForm) {
         vipForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const name = document.getElementById('vip-name').value.trim();
-            const phone = document.getElementById('vip-phone').value.trim();
-            const dob = document.getElementById('vip-dob') ? document.getElementById('vip-dob').value.trim() : '';
+            const rawPhone = document.getElementById('vip-phone').value.trim();
+            const codeVal = countrySelect ? countrySelect.value : '+91';
+
+            const phoneCheck = validateAndFormatPhone(rawPhone, codeVal);
+            if (!phoneCheck.ok) {
+                if (vipPhoneErr) {
+                    vipPhoneErr.textContent = phoneCheck.error;
+                    vipPhoneErr.style.display = 'block';
+                }
+                if (vipPhoneInput) vipPhoneInput.focus();
+                return;
+            }
+            const phone = phoneCheck.formatted;
+
+            const dobDay = (document.getElementById('vip-dob-day')?.value || '').trim();
+            const dobMonth = (document.getElementById('vip-dob-month')?.value || '').trim();
+            const dob = (dobDay && dobMonth) ? `${dobDay} ${dobMonth}` : (dobMonth || '');
             const sourceEl = document.getElementById('vip-source');
             const sourceVal = sourceEl ? sourceEl.value : '';
 
