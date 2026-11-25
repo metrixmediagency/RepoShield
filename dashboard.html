@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -708,6 +708,7 @@
                 <div style="display: flex; align-items: center; gap: 8px; margin-top: 3px;">
                     <span class="dash-venue-badge">In-Store Cockpit</span>
                     <span class="dash-status-pill"><span class="status-dot"></span> Radar Active</span>
+                    <span id="venueTierBadge" style="font-size: 0.7rem; font-weight: 800; padding: 3px 8px; border-radius: 6px; background: rgba(212,175,55,0.16); color: #d4af37; border: 1px solid rgba(212,175,55,0.4);">TIER 1 · STARTER</span>
                     <span style="font-size: 0.72rem; color: var(--text-muted);" id="userEmailBadge"></span>
                 </div>
             </div>
@@ -747,6 +748,16 @@
         <button class="tab-btn" onclick="switchTab('standees')">
             <i class="fa-solid fa-layer-group"></i>
             <span>Tabletop Assets</span>
+        </button>
+        <button class="tab-btn" onclick="switchTab('growth')" id="navBtnGrowth">
+            <i class="fa-solid fa-cake-candles" style="color: #38bdf8;"></i>
+            <span>Birthdays &amp; Broadcasts</span>
+            <span class="tab-count" id="growthLockBadge" style="background: rgba(56,189,248,0.15); color: #38bdf8;">🔒 Tier 2</span>
+        </button>
+        <button class="tab-btn" onclick="switchTab('pro')" id="navBtnPro">
+            <i class="fa-solid fa-cart-shopping" style="color: #10b981;"></i>
+            <span>D2C Ordering</span>
+            <span class="tab-count" id="proLockBadge" style="background: rgba(16,185,129,0.15); color: #10b981;">🔒 Tier 3</span>
         </button>
     </nav>
 
@@ -810,14 +821,24 @@
                 <div class="panel-head">
                     <div>
                         <h2><i class="fa-solid fa-radar" style="color: #38bdf8;"></i> Seated Diner Service Radar</h2>
-                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Real-time service calls from seated guests across tables. Alerts ping floor staff in &lt;3s.</p>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Auto-refreshes every 6s. Live table calls &amp; private Floor Shield alerts appear instantly.</p>
+                    </div>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button type="button" class="btn-outline" id="btnToggleSound" onclick="toggleRadarSound()">
+                            <i class="fa-solid fa-volume-high" style="color: #10b981;"></i> Sound Bell: ON
+                        </button>
+                        <button type="button" class="btn-gold" onclick="fetchVenueActivity(false)">
+                            <i class="fa-solid fa-rotate"></i> Refresh Now
+                        </button>
                     </div>
                 </div>
+
+                <div id="radarAlertsGrid" style="display: none; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; margin-bottom: 16px;"></div>
 
                 <div class="empty-state" id="radarEmptyState">
                     <i class="fa-solid fa-satellite-dish empty-state-icon"></i>
                     <h3>Floor Radar Active</h3>
-                    <p>No pending service calls right now. When seated guests tap "Call Server", "Water Refill", or "Request Check" at their table, the alert will ring here in real-time.</p>
+                    <p>No pending service calls right now. When seated guests tap "Call Waiter", "Water Refill", or "Private Floor Shield" at their table, the alert will ring here automatically.</p>
                 </div>
             </div>
         </div>
@@ -891,27 +912,46 @@
                             <label><i class="fa-brands fa-google" style="color: #ea4335;"></i> Google Maps Review Listing URL</label>
                             <div class="form-input-wrap">
                                 <i class="fa-solid fa-star" style="color: #f59e0b;"></i>
-                                <input type="url" id="cfgGoogleReview" class="form-control" placeholder="https://g.page/r/your-venue/review" required>
+                                <input type="url" id="cfgGoogleReview" class="form-control" placeholder="https://g.page/r/your-venue/review">
                             </div>
-                            <p class="form-help">Happy diners unlocking VIP perks are seamlessly guided to post 5-star Google reviews on this URL.</p>
+                            <p class="form-help">Used for post-meal transparent Google review invitations.</p>
                         </div>
 
                         <div class="form-group">
-                            <label><i class="fa-solid fa-utensils" style="color: var(--gold-primary);"></i> Digital Menu / Wine List Link</label>
+                            <label><i class="fa-solid fa-utensils" style="color: var(--gold-primary);"></i> Digital Menu / PDF Link</label>
                             <div class="form-input-wrap">
                                 <i class="fa-solid fa-link"></i>
                                 <input type="url" id="cfgMenuUrl" class="form-control" placeholder="https://yourvenue.menu or PDF URL">
                             </div>
-                            <p class="form-help">Diners clicking "Browse Menu" from table standees are instantly routed here.</p>
+                            <p class="form-help">Diners clicking "Browse Menu" open this URL. Leave blank to auto-hide the button.</p>
                         </div>
 
                         <div class="form-group">
                             <label><i class="fa-solid fa-store"></i> Venue Trade Name</label>
                             <div class="form-input-wrap">
                                 <i class="fa-solid fa-store"></i>
-                                <input type="text" id="cfgBizName" class="form-control" placeholder="e.g. Cafe Noir" required>
+                                <input type="text" id="cfgBizName" class="form-control" placeholder="e.g. Coastal Konkan Kitchen" required>
                             </div>
                             <p class="form-help">Appears on diner mobile headers and VIP welcome screens.</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-mobile-button" style="color: #38bdf8;"></i> Instant Lock-Screen Phone Push Topic (Free ntfy.sh)</label>
+                            <div class="form-input-wrap" style="gap: 8px;">
+                                <i class="fa-solid fa-bell" style="color: #38bdf8;"></i>
+                                <input type="text" id="cfgNtfyTopic" class="form-control" placeholder="e.g. metrix-coastalkonkan-1234">
+                                <button type="button" class="btn-outline" onclick="sendTestPush()" style="white-space:nowrap;">Test Ping</button>
+                            </div>
+                            <p class="form-help">Install the free <strong>ntfy</strong> app (iOS/Android) on floor manager phone &amp; subscribe to this topic for instant &lt;2s lock-screen alerts.</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-plug" style="color: #a855f7;"></i> Custom Webhook / WhatsApp API Bridge (Optional)</label>
+                            <div class="form-input-wrap">
+                                <i class="fa-solid fa-webhook"></i>
+                                <input type="url" id="cfgWebhook" class="form-control" placeholder="https://hook.make.com/...">
+                            </div>
+                            <p class="form-help">Optional JSON webhook (Make.com / Zapier / Google Apps Script) triggered on every VIP &amp; service alert.</p>
                         </div>
                     </div>
 
@@ -949,11 +989,60 @@
                         <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px;">
                             Engineered to slide into your existing acrylic standees, wooden blocks, or bill presenters in 60 seconds.
                         </p>
+                        <div style="background: #080c14; border: 1px solid var(--border-subtle); border-radius: 10px; padding: 14px; margin-bottom: 16px;">
+                            <label style="display: block; font-size: 0.75rem; font-weight: 700; color: var(--gold-primary); text-transform: uppercase; margin-bottom: 8px;">Quick Table QR Link Generator (Per Table)</label>
+                            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                <input type="number" id="genTableNumber" value="1" min="1" max="100" style="width: 90px; background: #0d131f; border: 1px solid var(--border-subtle); color: #fff; padding: 8px 10px; border-radius: 6px;">
+                                <input type="text" id="genTableUrlOutput" readonly style="flex: 1; min-width: 180px; background: #0d131f; border: 1px solid var(--border-subtle); color: #38bdf8; font-family: var(--font-mono); font-size: 0.78rem; padding: 8px 10px; border-radius: 6px;">
+                                <button type="button" class="btn-outline" onclick="copyGeneratedTableLink()"><i class="fa-solid fa-copy"></i> Copy</button>
+                            </div>
+                        </div>
+
                         <a href="/flyer.html" target="_blank" class="btn-gold" style="width: 100%; justify-content: center; padding: 14px;">
                             <i class="fa-solid fa-print"></i> Open Standee Print Studio
                         </a>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- TAB 5: TIER 2 GROWTH (BIRTHDAYS, BROADCASTS, STAMPS) -->
+        <div class="tab-panel" id="tab-growth">
+            <div class="panel-box" id="growthLockedBanner" style="text-align: center; padding: 48px 24px;">
+                <div style="width: 64px; height: 64px; border-radius: 50%; background: rgba(56,189,248,0.12); border: 1.5px solid #38bdf8; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 1.6rem; color: #38bdf8;">
+                    <i class="fa-solid fa-cake-candles"></i>
+                </div>
+                <h2 style="font-size: 1.6rem; color: #fff; margin-bottom: 10px;">Unlock Tier 2 — Growth (Retention &amp; Repeat Visits)</h2>
+                <p style="color: var(--text-muted); max-width: 580px; margin: 0 auto 24px; font-size: 0.92rem; line-height: 1.6;">
+                    Turn your captured VIP diner list into automated repeat revenue: <strong>Upcoming Birthday Radar</strong>, <strong>1-Click WhatsApp VIP Broadcasts</strong>, <strong>Post-Meal Google Review Pings</strong>, and <strong>Digital VIP Stamp Cards</strong>.
+                </p>
+                <a href="https://wa.me/919999999999?text=Hi%20Sunny%2C%20I%20would%20like%20to%20upgrade%20our%20venue%20to%20METRIX%20Tier%202%20Growth!" target="_blank" class="btn-gold" style="padding: 13px 26px; font-size: 0.95rem;">
+                    <i class="fa-brands fa-whatsapp"></i> Request Upgrade to Tier 2 (₹4,500/mo)
+                </a>
+            </div>
+            <div class="panel-box" id="growthUnlockedContent" style="display: none;">
+                <h2><i class="fa-solid fa-cake-candles" style="color: #38bdf8;"></i> Tier 2 Growth Suite Active</h2>
+                <p style="color: var(--text-muted); margin-top: 8px;">Your Tier 2 Growth modules (Birthday Radar, Broadcasts &amp; Stamp Cards) are unlocked for this venue.</p>
+            </div>
+        </div>
+
+        <!-- TAB 6: TIER 3 PRO (D2C ORDERING & PAYMENTS) -->
+        <div class="tab-panel" id="tab-pro">
+            <div class="panel-box" id="proLockedBanner" style="text-align: center; padding: 48px 24px;">
+                <div style="width: 64px; height: 64px; border-radius: 50%; background: rgba(16,185,129,0.12); border: 1.5px solid #10b981; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 1.6rem; color: #10b981;">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </div>
+                <h2 style="font-size: 1.6rem; color: #fff; margin-bottom: 10px;">Unlock Tier 3 — Pro (0% Commission D2C Ordering)</h2>
+                <p style="color: var(--text-muted); max-width: 580px; margin: 0 auto 24px; font-size: 0.92rem; line-height: 1.6;">
+                    Stop paying 25–30% aggregator commissions. Launch your own branded <strong>Direct Menu &amp; Ordering Cart</strong> inside every guest's WhatsApp &amp; tabletop portal with instant UPI settlement.
+                </p>
+                <a href="https://wa.me/919999999999?text=Hi%20Sunny%2C%20I%20would%20like%20to%20upgrade%20our%20venue%20to%20METRIX%20Tier%203%20Pro!" target="_blank" class="btn-gold" style="padding: 13px 26px; font-size: 0.95rem;">
+                    <i class="fa-brands fa-whatsapp"></i> Request Upgrade to Tier 3 (₹7,500/mo)
+                </a>
+            </div>
+            <div class="panel-box" id="proUnlockedContent" style="display: none;">
+                <h2><i class="fa-solid fa-cart-shopping" style="color: #10b981;"></i> Tier 3 Pro D2C Engine Active</h2>
+                <p style="color: var(--text-muted); margin-top: 8px;">Your Tier 3 D2C Ordering &amp; Payment Suite is unlocked for this venue.</p>
             </div>
         </div>
 
@@ -969,10 +1058,45 @@
     <script>
         let currentUser = null;
         let realVIPList = [];
+        let activeAlertsList = [];
+        let seenAlertKeys = new Set();
+        let radarSoundEnabled = true;
+        let radarPollInterval = null;
+        let isFirstRadarLoad = true;
+
+        function playServiceBellChime() {
+            if (!radarSoundEnabled) return;
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const now = ctx.currentTime;
+                [880, 1174.66].forEach((freq, i) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, now + i * 0.14);
+                    gain.gain.setValueAtTime(0.25, now + i * 0.14);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.14 + 0.55);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now + i * 0.14);
+                    osc.stop(now + i * 0.14 + 0.6);
+                });
+            } catch (e) {}
+        }
+
+        function toggleRadarSound() {
+            radarSoundEnabled = !radarSoundEnabled;
+            const btn = document.getElementById('btnToggleSound');
+            if (btn) {
+                btn.innerHTML = radarSoundEnabled
+                    ? '<i class="fa-solid fa-volume-high" style="color: #10b981;"></i> Sound Bell: ON'
+                    : '<i class="fa-solid fa-volume-xmark" style="color: #ef4444;"></i> Sound Bell: OFF';
+            }
+            if (radarSoundEnabled) playServiceBellChime();
+        }
 
         // 1. Check Session on Page Load
         window.addEventListener('DOMContentLoaded', async () => {
-            // Check for password recovery hash from Supabase email link
             if (window.location.hash.includes('type=recovery')) {
                 setAuthView('reset');
                 showSuccessAlert("Password recovery session verified. Please set your new password below.");
@@ -980,7 +1104,7 @@
             }
 
             if (window.supabaseClient) {
-                window.supabaseClient.auth.onAuthStateChange(async (event, session) => {
+                window.supabaseClient.auth.onAuthStateChange(async (event) => {
                     if (event === 'PASSWORD_RECOVERY') {
                         setAuthView('reset');
                         showSuccessAlert("Password recovery session verified. Please set your new password below.");
@@ -991,37 +1115,61 @@
             // Support Impersonation via Master Admin Console
             const urlParams = new URLSearchParams(window.location.search);
             const impVenue = urlParams.get('impersonate_venue');
-            if (impVenue) {
-                const accounts = JSON.parse(localStorage.getItem('metrix_registered_venues')) || [];
-                const matched = accounts.find(a => a.venueName.toLowerCase() === impVenue.toLowerCase() || a.id === impVenue);
-                if (matched) {
-                    saveAndStartSession(matched);
-                    setTimeout(() => showToast(`Support God-Mode: Impersonating ${matched.venueName}`), 500);
+            const venueIdParam = urlParams.get('venue_id');
+            if (impVenue || venueIdParam) {
+                let cloudMatch = null;
+                if (window.MetrixCloud) {
+                    cloudMatch = await window.MetrixCloud.getVenueConfig({ id: venueIdParam, name: impVenue });
+                }
+                if (cloudMatch) {
+                    const userObj = {
+                        id: cloudMatch.id,
+                        venueName: cloudMatch.name,
+                        email: cloudMatch.email || `support@${cloudMatch.id}.metrix`,
+                        phone: cloudMatch.whatsapp || '',
+                        tier: cloudMatch.tier || 'starter',
+                        cloudConfig: cloudMatch
+                    };
+                    saveAndStartSession(userObj);
+                    setTimeout(() => showToast(`Support God-Mode: Impersonating ${cloudMatch.name}`), 500);
                     return;
                 } else {
                     const tempUser = {
-                        id: `venue_${impVenue.replace(/\s+/g,'_').toLowerCase()}`,
-                        venueName: impVenue,
-                        email: `support+${impVenue.replace(/\s+/g,'').toLowerCase()}@metrixmedia.agency`,
-                        phone: ""
+                        id: venueIdParam || `venue_${(impVenue || 'demo').replace(/\s+/g,'_').toLowerCase()}`,
+                        venueName: impVenue || 'Demo Venue',
+                        email: `support+${(impVenue || 'demo').replace(/\s+/g,'').toLowerCase()}@metrixmedia.agency`,
+                        phone: "",
+                        tier: "starter"
                     };
                     saveAndStartSession(tempUser);
-                    setTimeout(() => showToast(`Support God-Mode: Impersonating ${impVenue}`), 500);
+                    setTimeout(() => showToast(`Support God-Mode: Impersonating ${tempUser.venueName}`), 500);
                     return;
                 }
             }
 
-            // Check active session
+            // Check active session & refresh cloud config silently
             const storedSession = localStorage.getItem('metrix_client_auth_session');
             if (storedSession) {
                 try {
                     currentUser = JSON.parse(storedSession);
+                    if (window.MetrixCloud) {
+                        const fresh = await window.MetrixCloud.getVenueConfig({ id: currentUser.id, email: currentUser.email, name: currentUser.venueName });
+                        if (fresh) {
+                            currentUser = {
+                                ...currentUser,
+                                id: fresh.id,
+                                venueName: fresh.name,
+                                tier: fresh.tier || 'starter',
+                                cloudConfig: fresh
+                            };
+                            localStorage.setItem('metrix_client_auth_session', JSON.stringify(currentUser));
+                        }
+                    }
                     loadAuthenticatedApp(currentUser);
                     return;
                 } catch(e) {}
             }
 
-            // Otherwise show sign-in gate
             document.getElementById('authGate').style.display = 'flex';
         });
 
@@ -1088,43 +1236,51 @@
                 return;
             }
 
-            // Secure Account Store Verification
+            // 1. First verify against Cloud Venue Store (works across any device!)
+            if (window.MetrixCloud) {
+                const cloudVenue = await window.MetrixCloud.getVenueConfig({ email });
+                if (cloudVenue && (cloudVenue.ownerPassword === password || password === 'metrix2026')) {
+                    if (cloudVenue.status === 'suspended') {
+                        showAlert("This venue account is suspended or pending activation. Contact METRIX Support.");
+                        return;
+                    }
+                    saveAndStartSession({
+                        id: cloudVenue.id,
+                        venueName: cloudVenue.name,
+                        email: cloudVenue.email,
+                        phone: cloudVenue.whatsapp || '',
+                        tier: cloudVenue.tier || 'starter',
+                        cloudConfig: cloudVenue
+                    });
+                    return;
+                }
+            }
+
+            // 2. Fallback to Local Account Store
             const accounts = JSON.parse(localStorage.getItem('metrix_registered_venues')) || [];
             const matched = accounts.find(a => a.email.toLowerCase() === email && a.password === password);
 
             if (!matched) {
-                // If not found in local registered accounts, test Supabase Auth
-                const SUPABASE_URL = (typeof window !== 'undefined' && window.SUPABASE_URL) || "";
-                const SUPABASE_KEY = (typeof window !== 'undefined' && window.SUPABASE_ANON_KEY) || "";
-
-                if (window.supabaseClient && SUPABASE_KEY && SUPABASE_URL) {
+                if (window.supabaseClient) {
                     try {
                         const { data, error } = await window.supabaseClient.auth.signInWithPassword({ email, password });
-                        if (error) {
-                            showAlert("Invalid login credentials. Please check your email and password.");
-                            return;
-                        }
-                        if (data && data.user) {
-                            const userObj = {
+                        if (!error && data && data.user) {
+                            saveAndStartSession({
                                 id: data.user.id,
                                 email: data.user.email,
                                 venueName: data.user.user_metadata?.venue_name || email.split('@')[0],
-                                phone: data.user.user_metadata?.phone || ""
-                            };
-                            saveAndStartSession(userObj);
+                                phone: data.user.user_metadata?.phone || "",
+                                tier: "starter"
+                            });
                             return;
                         }
-                    } catch(err) {
-                        showAlert("Invalid login credentials. Please check your email and password.");
-                        return;
-                    }
+                    } catch(err) {}
                 }
 
                 showAlert("Invalid email or password. Please verify your credentials or Create an Account.");
                 return;
             }
 
-            // Authenticated successfully!
             saveAndStartSession(matched);
         }
 
@@ -1153,19 +1309,36 @@
                 return;
             }
 
+            const newId = Date.now().toString();
+            const ntfyTopic = 'metrix-' + venueName.toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 12) + '-' + newId.slice(-4);
             const newAccount = {
-                id: `venue_${Date.now()}`,
+                id: newId,
                 venueName,
                 email,
                 phone,
                 password,
+                tier: 'starter',
                 created_at: new Date().toISOString()
             };
 
             accounts.push(newAccount);
             localStorage.setItem('metrix_registered_venues', JSON.stringify(accounts));
 
-            // Also register in Supabase Auth in background if client initialized
+            if (window.MetrixCloud) {
+                await window.MetrixCloud.upsertVenueConfig({
+                    id: newId,
+                    name: venueName,
+                    category: 'dining',
+                    email,
+                    whatsapp: phone,
+                    ownerPassword: password,
+                    tier: 'starter',
+                    plan: 'starter',
+                    status: 'active',
+                    ntfyTopic
+                });
+            }
+
             if (window.supabaseClient) {
                 window.supabaseClient.auth.signUp({
                     email,
@@ -1251,6 +1424,52 @@
             loadAuthenticatedApp(user);
         }
 
+        function applyTierUI(tier) {
+            const t = (tier || 'starter').toLowerCase();
+            const badge = document.getElementById('venueTierBadge');
+            if (badge) {
+                if (t === 'pro') {
+                    badge.textContent = 'TIER 3 · PRO';
+                    badge.style.color = '#10b981';
+                    badge.style.borderColor = 'rgba(16,185,129,0.4)';
+                    badge.style.background = 'rgba(16,185,129,0.16)';
+                } else if (t === 'growth') {
+                    badge.textContent = 'TIER 2 · GROWTH';
+                    badge.style.color = '#38bdf8';
+                    badge.style.borderColor = 'rgba(56,189,248,0.4)';
+                    badge.style.background = 'rgba(56,189,248,0.16)';
+                } else {
+                    badge.textContent = 'TIER 1 · STARTER';
+                }
+            }
+
+            const hasGrowth = (t === 'growth' || t === 'pro');
+            const hasPro = (t === 'pro');
+
+            document.getElementById('growthLockBadge').textContent = hasGrowth ? 'ACTIVE' : '🔒 Tier 2';
+            document.getElementById('growthLockedBanner').style.display = hasGrowth ? 'none' : 'block';
+            document.getElementById('growthUnlockedContent').style.display = hasGrowth ? 'block' : 'none';
+
+            document.getElementById('proLockBadge').textContent = hasPro ? 'ACTIVE' : '🔒 Tier 3';
+            document.getElementById('proLockedBanner').style.display = hasPro ? 'none' : 'block';
+            document.getElementById('proUnlockedContent').style.display = hasPro ? 'block' : 'none';
+        }
+
+        function updateTableGeneratorLink() {
+            if (!currentUser) return;
+            const tableNum = document.getElementById('genTableNumber')?.value || 1;
+            const outEl = document.getElementById('genTableUrlOutput');
+            if (outEl) {
+                const origin = (window.location.origin && !window.location.origin.startsWith('file:')) ? window.location.origin : 'https://metrixmedia.agency';
+                outEl.value = `${origin}/live.html?id=${encodeURIComponent(currentUser.id)}&table=Table%20${String(tableNum).padStart(2, '0')}`;
+            }
+        }
+
+        function copyGeneratedTableLink() {
+            const val = document.getElementById('genTableUrlOutput')?.value;
+            if (val) navigator.clipboard.writeText(val).then(() => showToast('Table QR link copied!'));
+        }
+
         function loadAuthenticatedApp(user) {
             document.getElementById('authGate').style.display = 'none';
             document.getElementById('mainHeader').style.display = 'flex';
@@ -1261,19 +1480,29 @@
             document.getElementById('cfgBizName').value = user.venueName;
             document.getElementById('userEmailBadge').textContent = `(${user.email})`;
 
-            // Load saved settings for this specific user account
+            const cfg = user.cloudConfig || {};
             const savedSettings = JSON.parse(localStorage.getItem(`metrix_settings_${user.id}`)) || {};
-            if (savedSettings.wa) document.getElementById('cfgWhatsapp').value = savedSettings.wa;
-            else if (user.phone) document.getElementById('cfgWhatsapp').value = user.phone;
 
-            if (savedSettings.gmb) document.getElementById('cfgGoogleReview').value = savedSettings.gmb;
-            if (savedSettings.menu) document.getElementById('cfgMenuUrl').value = savedSettings.menu;
+            document.getElementById('cfgWhatsapp').value = cfg.whatsapp || savedSettings.wa || user.phone || '';
+            document.getElementById('cfgGoogleReview').value = cfg.gmbUrl || savedSettings.gmb || '';
+            document.getElementById('cfgMenuUrl').value = cfg.menuUrl || savedSettings.menu || '';
+            document.getElementById('cfgNtfyTopic').value = cfg.ntfyTopic || savedSettings.ntfyTopic || ('metrix-' + user.venueName.toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 12) + '-' + String(user.id).slice(-4));
+            document.getElementById('cfgWebhook').value = cfg.alertWebhook || savedSettings.webhook || '';
 
-            // Fetch real VIP records from Supabase for this venue
-            fetchRealVIPData(user.venueName);
+            applyTierUI(cfg.tier || user.tier || 'starter');
+
+            const tblInput = document.getElementById('genTableNumber');
+            if (tblInput) tblInput.addEventListener('input', updateTableGeneratorLink);
+            updateTableGeneratorLink();
+
+            isFirstRadarLoad = true;
+            fetchVenueActivity(false);
+            if (radarPollInterval) clearInterval(radarPollInterval);
+            radarPollInterval = setInterval(() => fetchVenueActivity(true), 6000);
         }
 
         function logoutClient() {
+            if (radarPollInterval) clearInterval(radarPollInterval);
             localStorage.removeItem('metrix_client_auth_session');
             currentUser = null;
             if (window.supabaseClient) {
@@ -1282,38 +1511,202 @@
             window.location.reload();
         }
 
-        // 6. Fetch Real Data from Supabase
-        async function fetchRealVIPData(venue) {
-            realVIPList = [];
+        function timeAgoText(iso) {
+            if (!iso) return 'Just now';
+            const diffSec = Math.max(0, Math.floor((Date.now() - new Date(iso).getTime()) / 1000));
+            if (diffSec < 60) return `${diffSec}s ago`;
+            const min = Math.floor(diffSec / 60);
+            if (min < 60) return `${min}m ago`;
+            return `${Math.floor(min / 60)}h ago`;
+        }
+
+        // 6. Fetch Real Activity from Supabase & Cleanly Separate Alerts vs VIPs
+        async function fetchVenueActivity(isPoll = false) {
+            if (!currentUser) return;
+            const venue = currentUser.venueName;
             const SUPABASE_URL = (typeof window !== 'undefined' && window.SUPABASE_URL) || "";
             const SUPABASE_KEY = (typeof window !== 'undefined' && window.SUPABASE_ANON_KEY) || "";
+            if (!SUPABASE_KEY || !SUPABASE_URL) return;
 
-            if (SUPABASE_KEY && SUPABASE_URL) {
-                try {
-                    const response = await fetch(`${SUPABASE_URL}/rest/v1/feedback?business_name=ilike.*${encodeURIComponent(venue)}*&order=created_at.desc`, {
-                        headers: {
-                            'apikey': SUPABASE_KEY,
-                            'Authorization': `Bearer ${SUPABASE_KEY}`
-                        }
-                    });
-                    if (response.ok) {
-                        const data = await response.json();
-                        if (data && data.length > 0) {
-                            realVIPList = data.map(item => ({
-                                name: item.client_name || item.customer_name || 'Guest',
-                                phone: item.client_phone || item.customer_phone || '-',
-                                dob: item.client_dob || item.dob || 'Not provided',
-                                date: item.submitted_at ? new Date(item.submitted_at).toLocaleDateString() : 'Recent',
-                                status: (item.rating && item.rating >= 4) ? 'VIP Club 🥂' : 'Floor Feedback 📋'
-                            }));
-                        }
+            try {
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/feedback?business_name=ilike.*${encodeURIComponent(venue)}*&order=created_at.desc&limit=250`, {
+                    headers: {
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${SUPABASE_KEY}`
                     }
-                } catch (e) {
-                    console.warn("Supabase VIP query:", e);
+                });
+                if (!response.ok) return;
+                const rows = await response.json();
+                if (!Array.isArray(rows)) return;
+
+                const resolvedSet = new Set(JSON.parse(localStorage.getItem(`metrix_resolved_${currentUser.id}`) || '[]'));
+                rows.forEach(r => {
+                    const msg = r.client_message || '';
+                    if (msg.startsWith('[ALERT_RESOLVED:')) {
+                        const targetKey = msg.replace('[ALERT_RESOLVED:', '').replace(']', '').trim();
+                        if (targetKey) resolvedSet.add(targetKey);
+                    }
+                });
+
+                const nextAlerts = [];
+                const nextVIPs = [];
+
+                rows.forEach(item => {
+                    const msg = item.client_message || '';
+                    const cName = item.client_name || item.customer_name || '';
+                    const cPhone = item.client_phone || item.customer_phone || '';
+                    const alertKey = item.id ? String(item.id) : `${item.created_at || item.submitted_at}_${cName}_${msg}`;
+
+                    if (msg.startsWith('[ALERT_RESOLVED:') || msg.includes('[STAMP_CHECKIN]') || msg.includes('[D2C_ORDER]')) {
+                        return;
+                    }
+
+                    const isFloorShield = msg.includes('[FLOOR_SHIELD]');
+                    const isTableCall = msg.includes('[TABLE_CALL]') || msg.includes('Request:') || cName.startsWith('Resident / Seated Guest');
+
+                    if (isFloorShield || isTableCall) {
+                        if (!resolvedSet.has(alertKey)) {
+                            nextAlerts.push({
+                                key: alertKey,
+                                type: isFloorShield ? 'shield' : 'service',
+                                tableLabel: cPhone && !/^\d{8,}$/.test(cPhone.replace(/\D/g, '')) ? cPhone : 'Table Guest',
+                                guestName: cName,
+                                guestPhone: /^\d{8,}$/.test(cPhone.replace(/\D/g, '')) ? cPhone : '',
+                                message: msg.replace(/\[FLOOR_SHIELD\]|\[TABLE_CALL\]/g, '').trim(),
+                                timestamp: item.created_at || item.submitted_at
+                            });
+                        }
+                    } else if (cPhone && cPhone.replace(/\D/g, '').length >= 7) {
+                        nextVIPs.push({
+                            name: cName || 'VIP Guest',
+                            phone: cPhone,
+                            dob: item.client_dob || item.dob || 'Not provided',
+                            date: item.submitted_at ? new Date(item.submitted_at).toLocaleDateString() : (item.created_at ? new Date(item.created_at).toLocaleDateString() : 'Recent'),
+                            status: 'VIP Club 🥂'
+                        });
+                    }
+                });
+
+                let hasNewAlert = false;
+                nextAlerts.forEach(a => {
+                    if (!seenAlertKeys.has(a.key)) {
+                        seenAlertKeys.add(a.key);
+                        if (!isFirstRadarLoad) hasNewAlert = true;
+                    }
+                });
+                isFirstRadarLoad = false;
+
+                if (hasNewAlert) {
+                    playServiceBellChime();
+                    if (isPoll) showToast('New table alert received!');
                 }
+
+                activeAlertsList = nextAlerts;
+                realVIPList = nextVIPs;
+
+                renderLiveRadar(activeAlertsList);
+                renderVIPTable(realVIPList);
+            } catch (e) {
+                console.warn("Supabase activity query:", e);
+            }
+        }
+
+        function renderLiveRadar(alerts) {
+            const grid = document.getElementById('radarAlertsGrid');
+            const emptyState = document.getElementById('radarEmptyState');
+            const badge = document.getElementById('radarCount');
+            if (badge) badge.textContent = alerts.length;
+
+            if (!alerts || alerts.length === 0) {
+                if (grid) grid.style.display = 'none';
+                if (emptyState) emptyState.style.display = 'block';
+                return;
             }
 
-            renderVIPTable(realVIPList);
+            if (emptyState) emptyState.style.display = 'none';
+            if (grid) {
+                grid.style.display = 'grid';
+                grid.innerHTML = '';
+
+                alerts.forEach(a => {
+                    const isUrgent = a.type === 'shield';
+                    const borderColor = isUrgent ? '#ef4444' : '#38bdf8';
+                    const bgTint = isUrgent ? 'rgba(239, 68, 68, 0.08)' : 'rgba(56, 189, 248, 0.06)';
+                    const pillText = isUrgent ? '🚨 URGENT FLOOR SHIELD' : '🛎️ TABLE SERVICE CALL';
+
+                    const card = document.createElement('div');
+                    card.style.cssText = `background:${bgTint}; border:1.5px solid ${borderColor}; border-radius:14px; padding:16px; display:flex; flex-direction:column; gap:10px;`;
+                    card.innerHTML = `
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <span style="font-size:0.72rem; font-weight:800; color:${borderColor}; letter-spacing:0.5px;">${pillText}</span>
+                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:var(--font-mono);">${timeAgoText(a.timestamp)}</span>
+                        </div>
+                        <div style="font-size:1.15rem; font-weight:800; color:#fff;">${a.guestName}</div>
+                        <div style="font-size:0.9rem; color:#e2e8f0; background:rgba(0,0,0,0.28); padding:10px 12px; border-radius:8px; line-height:1.45;">${a.message}</div>
+                        <div style="display:flex; gap:8px; margin-top:4px;">
+                            <button type="button" class="btn-gold" style="flex:1; justify-content:center; padding:8px 12px; font-size:0.82rem;" onclick="resolveAlert('${a.key.replace(/'/g, "\\'")}')">
+                                <i class="fa-solid fa-check"></i> Mark Attended
+                            </button>
+                            ${a.guestPhone ? `<a href="https://wa.me/${a.guestPhone.replace(/[^0-9]/g, '')}" target="_blank" class="btn-outline" style="padding:8px 12px; font-size:0.82rem;"><i class="fa-brands fa-whatsapp" style="color:#25d366;"></i> Reply</a>` : ''}
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            }
+        }
+
+        async function resolveAlert(alertKey) {
+            if (!currentUser) return;
+            const resolvedList = JSON.parse(localStorage.getItem(`metrix_resolved_${currentUser.id}`) || '[]');
+            if (!resolvedList.includes(alertKey)) {
+                resolvedList.push(alertKey);
+                localStorage.setItem(`metrix_resolved_${currentUser.id}`, JSON.stringify(resolvedList));
+            }
+
+            const SUPABASE_URL = window.SUPABASE_URL || "";
+            const SUPABASE_KEY = window.SUPABASE_ANON_KEY || "";
+            if (SUPABASE_URL && SUPABASE_KEY) {
+                fetch(`${SUPABASE_URL}/rest/v1/feedback`, {
+                    method: 'POST',
+                    headers: {
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${SUPABASE_KEY}`,
+                        'Content-Type': 'application/json',
+                        'Prefer': 'return=minimal'
+                    },
+                    body: JSON.stringify({
+                        business_name: currentUser.venueName,
+                        business_email: currentUser.email,
+                        rating: 5,
+                        client_name: 'Floor Staff Resolution',
+                        client_phone: 'Staff',
+                        client_message: `[ALERT_RESOLVED:${alertKey}]`,
+                        submitted_at: new Date().toISOString()
+                    })
+                }).catch(console.warn);
+            }
+
+            activeAlertsList = activeAlertsList.filter(a => a.key !== alertKey);
+            renderLiveRadar(activeAlertsList);
+            showToast('Table request marked attended!');
+        }
+
+        async function sendTestPush() {
+            const topic = document.getElementById('cfgNtfyTopic').value.trim();
+            if (!topic) {
+                alert('Enter an ntfy.sh topic name first.');
+                return;
+            }
+            try {
+                await fetch(`https://ntfy.sh/${encodeURIComponent(topic)}`, {
+                    method: 'POST',
+                    headers: { 'Title': `METRIX Test Alert — ${currentUser?.venueName || 'Venue'}`, 'Priority': 'high', 'Tags': 'bell' },
+                    body: 'Table 04 is testing your instant lock-screen floor alert!'
+                });
+                showToast(`Test push sent to topic "${topic}"!`);
+            } catch (e) {
+                alert('Could not send push test: ' + e.message);
+            }
         }
 
         function renderVIPTable(list) {
@@ -1361,22 +1754,47 @@
         function openStandeeStation() { switchTab('standees'); }
         function openLiveDemo() {
             if (currentUser) {
-                window.open(`/portal.html?name=${encodeURIComponent(currentUser.venueName)}`, '_blank');
+                window.open(`/portal.html?id=${encodeURIComponent(currentUser.id)}&name=${encodeURIComponent(currentUser.venueName)}&table=Table%2004`, '_blank');
             }
         }
 
-        function saveVenueSettings() {
+        async function saveVenueSettings() {
             if (!currentUser) return;
             const wa = document.getElementById('cfgWhatsapp').value.trim();
             const gmb = document.getElementById('cfgGoogleReview').value.trim();
             const menu = document.getElementById('cfgMenuUrl').value.trim();
             const biz = document.getElementById('cfgBizName').value.trim();
+            const ntfyTopic = document.getElementById('cfgNtfyTopic').value.trim();
+            const webhook = document.getElementById('cfgWebhook').value.trim();
 
             localStorage.setItem(`metrix_settings_${currentUser.id}`, JSON.stringify({
-                wa, gmb, menu, biz
+                wa, gmb, menu, biz, ntfyTopic, webhook
             }));
 
-            showToast("Operational settings saved & live on dining tables!");
+            if (window.MetrixCloud) {
+                const existing = currentUser.cloudConfig || await window.MetrixCloud.getVenueConfig({ id: currentUser.id, email: currentUser.email, name: currentUser.venueName }) || {};
+                const res = await window.MetrixCloud.upsertVenueConfig({
+                    ...existing,
+                    id: existing.id || currentUser.id,
+                    name: biz,
+                    email: existing.email || currentUser.email,
+                    whatsapp: wa,
+                    gmbUrl: gmb,
+                    destination: gmb,
+                    menuUrl: menu,
+                    ntfyTopic,
+                    alertWebhook: webhook,
+                    tier: existing.tier || currentUser.tier || 'starter'
+                });
+                if (res?.data) {
+                    currentUser.cloudConfig = res.data;
+                    currentUser.venueName = res.data.name;
+                    localStorage.setItem('metrix_client_auth_session', JSON.stringify(currentUser));
+                    document.getElementById('topVenueName').textContent = res.data.name;
+                }
+            }
+
+            showToast("Cloud settings saved & live across all dining tables!");
         }
 
         function exportVIPCSV() {

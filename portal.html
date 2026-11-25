@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="portal.css?v=3.8">
+    <link rel="stylesheet" href="portal.css?v=3.9">
 </head>
 <body>
     <div class="blob-1" id="accent-blob-1"></div>
@@ -57,13 +57,37 @@
                     <i class="fa-solid fa-chevron-right hub-action-arrow"></i>
                 </button>
 
-                <!-- 3. Direct Menu & Open Reviews -->
-                <div class="hub-quick-links">
-                    <a href="#" id="hub-gmb-link" class="hub-link-btn" target="_blank" rel="noopener noreferrer">
+                <!-- 3. Private Floor Shield (Non-gating Instant Manager Help) -->
+                <button type="button" class="hub-action-card" id="btn-open-shield">
+                    <div class="hub-action-icon" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border-color: rgba(245, 158, 11, 0.4);">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div class="hub-action-text">
+                        <h4>Need Help? Alert Manager 🛡️</h4>
+                        <p>Food delay or table issue? Fix it privately in 3s</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right hub-action-arrow"></i>
+                </button>
+
+                <!-- 4. Table Arcade (Wait-Time Distraction Games) -->
+                <button type="button" class="hub-action-card" id="btn-open-games">
+                    <div class="hub-action-icon" style="background: rgba(168, 85, 247, 0.15); color: #c084fc; border-color: rgba(168, 85, 247, 0.4);">
+                        <i class="fa-solid fa-gamepad"></i>
+                    </div>
+                    <div class="hub-action-text">
+                        <h4>Play While You Wait 🎮</h4>
+                        <p>Couples icebreakers &amp; Friends party games</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right hub-action-arrow"></i>
+                </button>
+
+                <!-- 5. Direct Menu Link (Hidden cleanly if not set by venue) -->
+                <div class="hub-quick-links" id="hub-quick-links">
+                    <a href="#" id="hub-gmb-link" class="hub-link-btn" target="_blank" rel="noopener noreferrer" style="display: none;">
                         <i class="fa-brands fa-google" id="hub-gmb-icon" style="color: #ea4335;"></i>
                         <span id="hub-gmb-text">Review on Google</span>
                     </a>
-                    <a href="#" id="hub-menu-link" class="hub-link-btn" target="_blank" rel="noopener noreferrer">
+                    <a href="#" id="hub-menu-link" class="hub-link-btn" target="_blank" rel="noopener noreferrer" style="grid-column: 1 / -1;">
                         <i class="fa-solid fa-utensils" id="hub-menu-icon" style="color: #d4af37;"></i>
                         <span id="hub-menu-text">Browse Menu</span>
                     </a>
@@ -157,6 +181,88 @@
                 </form>
             </div>
 
+            <!-- Private Floor Shield Screen -->
+            <div class="service-screen" id="shield-screen" style="display: none;">
+                <div class="screen-header">
+                    <button class="back-btn" id="shield-back-to-hub" aria-label="Go back"><i class="fa-solid fa-arrow-left"></i></button>
+                    <h3>Private Manager Alert 🛡️</h3>
+                </div>
+                <p class="feedback-subtitle">Something not right at your table? Tap below or send a quick private note directly to floor management so we can fix it right now:</p>
+
+                <div class="service-grid" id="shield-grid" style="margin-bottom: 12px;">
+                    <button type="button" class="service-tile shield-quick-btn" data-issue="Food Delay / Waiting Long">
+                        <i class="fa-solid fa-clock" style="color: #fbbf24;"></i>
+                        <span>Food Delayed</span>
+                    </button>
+                    <button type="button" class="service-tile shield-quick-btn" data-issue="Food Temperature / Taste Issue">
+                        <i class="fa-solid fa-temperature-low" style="color: #f87171;"></i>
+                        <span>Food Issue</span>
+                    </button>
+                    <button type="button" class="service-tile shield-quick-btn" data-issue="Wrong / Missing Item">
+                        <i class="fa-solid fa-triangle-exclamation" style="color: #fbbf24;"></i>
+                        <span>Wrong Item</span>
+                    </button>
+                    <button type="button" class="service-tile shield-quick-btn" data-issue="Speak to Floor Manager Now">
+                        <i class="fa-solid fa-user-tie" style="color: #60a5fa;"></i>
+                        <span>Call Manager</span>
+                    </button>
+                </div>
+
+                <form id="shield-form" class="feedback-form">
+                    <div class="form-group">
+                        <label for="shield-message">Private Note to Management</label>
+                        <textarea id="shield-message" rows="3" placeholder="Tell us what happened so we can make it right immediately..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="shield-phone">Your WhatsApp (Optional — for instant follow-up)</label>
+                        <input type="tel" id="shield-phone" placeholder="e.g. 9876543210">
+                    </div>
+                    <button type="submit" class="submit-btn" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #090d16;">
+                        <span>Alert Floor Manager Now</span> <i class="fa-solid fa-bolt"></i>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Table Arcade Screen (Couples & Friends Pass-and-Play) -->
+            <div class="service-screen" id="games-screen" style="display: none;">
+                <div class="screen-header">
+                    <button class="back-btn" id="games-back-to-hub" aria-label="Go back"><i class="fa-solid fa-arrow-left"></i></button>
+                    <h3>Table Arcade 🎮</h3>
+                </div>
+                <p class="feedback-subtitle">Zero-wait fun while your food is prepared fresh. Pass the phone around your table!</p>
+
+                <div style="display: flex; gap: 6px; margin-bottom: 14px;">
+                    <button type="button" class="service-tile game-tab-btn active" data-game="couples" style="flex:1; padding: 10px 6px; font-size: 0.78rem;">❤️ Couples</button>
+                    <button type="button" class="service-tile game-tab-btn" data-game="friends" style="flex:1; padding: 10px 6px; font-size: 0.78rem;">🍻 Friends</button>
+                    <button type="button" class="service-tile game-tab-btn" data-game="ttt" style="flex:1; padding: 10px 6px; font-size: 0.78rem;">⚡ Tic-Tac-Toe</button>
+                </div>
+
+                <!-- Game 1 & 2 Card Display (Couples / Friends) -->
+                <div id="game-prompt-panel" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); border-radius: 14px; padding: 20px 16px; text-align: center;">
+                    <span id="game-mode-pill" style="display: inline-block; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; padding: 4px 10px; border-radius: 20px; background: rgba(244,63,94,0.15); color: #fb7185; margin-bottom: 12px;">❤️ Couples · This or That</span>
+                    <div id="game-prompt-text" style="font-size: 1.05rem; font-weight: 600; color: #f8fafc; line-height: 1.5; min-height: 68px; display: flex; align-items: center; justify-content: center;">
+                        Loading prompt...
+                    </div>
+                    <button type="button" id="btn-next-prompt" class="submit-btn" style="margin-top: 14px; padding: 11px;">
+                        <span>Next Card</span> <i class="fa-solid fa-shuffle"></i>
+                    </button>
+                </div>
+
+                <!-- Game 3 Tic-Tac-Toe -->
+                <div id="game-ttt-panel" style="display: none; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); border-radius: 14px; padding: 16px; text-align: center;">
+                    <div id="ttt-status" style="font-size: 0.9rem; font-weight: 700; color: #d4af37; margin-bottom: 12px;">Player X's Turn</div>
+                    <div id="ttt-board" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; max-width: 220px; margin: 0 auto 14px;"></div>
+                    <button type="button" id="btn-ttt-reset" class="service-tile" style="width: 100%; padding: 10px;">
+                        <i class="fa-solid fa-rotate-right"></i> <span>Play Again</span>
+                    </button>
+                </div>
+
+                <button type="button" id="btn-games-to-vip" class="hub-link-btn" style="margin-top: 14px; width: 100%; justify-content: center; border-color: rgba(212,175,55,0.4);">
+                    <i class="fa-solid fa-crown" style="color: #d4af37;"></i>
+                    <span>Unlock Birthday &amp; VIP Perks 🥂</span>
+                </button>
+            </div>
+
             <!-- Success Screen -->
             <div class="success-screen" id="success-screen" style="display: none;">
                 <div class="success-checkmark">
@@ -180,6 +286,6 @@
     </div>
 
     <script src="supabase_config.js"></script>
-    <script src="portal.js?v=4.0"></script>
+    <script src="portal.js?v=5.0"></script>
 </body>
 </html>

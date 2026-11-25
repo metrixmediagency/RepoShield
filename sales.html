@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <script>
@@ -1893,17 +1893,38 @@
                                     </div>
                                 </div>
                                 <div class="input-group" style="margin-bottom: 0;">
-                                    <label for="biz-gmb" id="destination-label">Target Review URL</label>
+                                    <label for="biz-gmb" id="destination-label">Google Maps Review URL (Optional)</label>
                                     <div class="input-wrapper">
                                         <i class="fa-brands fa-google input-icon" id="destination-icon"></i>
-                                        <input type="url" id="biz-gmb" placeholder="https://..." required autocomplete="off">
+                                        <input type="url" id="biz-gmb" placeholder="https://g.page/r/..." autocomplete="off">
                                     </div>
                                 </div>
-                                <div class="input-group">
-                                    <label for="biz-email">Client Email Address</label>
+                                <div class="input-group" style="margin-bottom: 0;">
+                                    <label for="biz-email">Owner Email (Dashboard Login)</label>
                                     <div class="input-wrapper">
                                         <i class="fa-solid fa-envelope input-icon"></i>
-                                        <input type="email" id="biz-email" placeholder="owner@business.com" required autocomplete="off">
+                                        <input type="email" id="biz-email" placeholder="owner@restaurant.com" required autocomplete="off">
+                                    </div>
+                                </div>
+                                <div class="input-group" style="margin-bottom: 0;">
+                                    <label for="biz-whatsapp">Floor Alert WhatsApp Number</label>
+                                    <div class="input-wrapper">
+                                        <i class="fa-brands fa-whatsapp input-icon" style="color: #25d366;"></i>
+                                        <input type="tel" id="biz-whatsapp" placeholder="+91 98765 43210" autocomplete="off">
+                                    </div>
+                                </div>
+                                <div class="input-group" style="margin-bottom: 0;">
+                                    <label for="biz-menu">Digital Menu Link (Optional)</label>
+                                    <div class="input-wrapper">
+                                        <i class="fa-solid fa-utensils input-icon"></i>
+                                        <input type="url" id="biz-menu" placeholder="https://..." autocomplete="off">
+                                    </div>
+                                </div>
+                                <div class="input-group" style="margin-bottom: 0;">
+                                    <label for="biz-pass">Owner Dashboard Password</label>
+                                    <div class="input-wrapper">
+                                        <i class="fa-solid fa-key input-icon"></i>
+                                        <input type="text" id="biz-pass" value="metrix123" placeholder="metrix123" autocomplete="off">
                                     </div>
                                 </div>
                             </div>
@@ -1977,12 +1998,9 @@
                                         <label for="biz-plan">Service Tier</label>
                                         <div class="input-wrapper">
                                             <select id="biz-plan" required>
-                                                <option value="gmb">Local GMB Booster</option>
-                                                <option value="delivery">Food Delivery Gater</option>
-                                                <option value="ecom_basic">D2C E-Com Basic (1 Product)</option>
-                                                <option value="ecom_starter">D2C E-Com Starter (3 Products)</option>
-                                                <option value="ecom_growth">D2C E-Com Growth (5 Products)</option>
-                                                <option value="ecom_enterprise">D2C E-Com Enterprise (15 Products)</option>
+                                                <option value="starter">Tier 1 — Starter (₹3,500/mo · VIP + Radar + Shield)</option>
+                                                <option value="growth">Tier 2 — Growth (₹4,500/mo · + Birthdays, Broadcasts & Stamps)</option>
+                                                <option value="pro">Tier 3 — Pro (₹7,500/mo · + Direct D2C Ordering & UPI)</option>
                                             </select>
                                         </div>
                                     </div>
@@ -2003,14 +2021,33 @@
 
                         <!-- STEP 3: Action Buttons -->
                         <div style="display: flex; gap: 1rem; margin-bottom: 2.5rem; flex-wrap: wrap;">
-                            <button type="button" class="btn btn-secondary" id="btn-generate-demo" style="flex: 1; justify-content: center; border-color: #8b5cf6; color: #8b5cf6; font-size: 1.1rem; padding: 1rem; background: rgba(139, 92, 246, 0.1);">
+                            <button type="button" class="btn btn-secondary" id="btn-generate-demo" style="flex: 1; min-width: 200px; justify-content: center; border-color: #8b5cf6; color: #8b5cf6; font-size: 1rem; padding: 1rem; background: rgba(139, 92, 246, 0.1);">
                                 <i class="fa-solid fa-bolt"></i> Generate Pitch & Mockups
                             </button>
-                            <button type="submit" class="btn btn-primary" id="btn-generate-payment" style="flex: 1; justify-content: center; font-size: 1.1rem; padding: 1rem;">
+                            <button type="button" class="btn btn-primary" id="btn-instant-onboard" style="flex: 1.2; min-width: 240px; justify-content: center; font-size: 1rem; padding: 1rem; background: linear-gradient(135deg, #10b981, #059669); border-color: #10b981;">
+                                <i class="fa-solid fa-cloud-arrow-up"></i> Onboard Client to Cloud (Instant)
+                            </button>
+                            <button type="submit" class="btn btn-primary" id="btn-generate-payment" style="flex: 1; min-width: 200px; justify-content: center; font-size: 1rem; padding: 1rem;">
                                 <i class="fa-solid fa-credit-card"></i> Generate Payment Link
                             </button>
                         </div>
                     </form>
+
+                    <!-- Instant Cloud Onboard Confirmation Modal -->
+                    <div id="cloud-onboard-modal" style="display:none; position:fixed; inset:0; background:rgba(7,10,15,0.92); backdrop-filter:blur(10px); z-index:9999; align-items:center; justify-content:center; padding:20px;">
+                        <div class="glass-card" style="max-width:520px; width:100%; border:1.5px solid #10b981; padding:28px;">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                                <h3 style="margin:0; color:#10b981;"><i class="fa-solid fa-circle-check"></i> Venue Provisioned in Cloud!</h3>
+                                <button type="button" onclick="document.getElementById('cloud-onboard-modal').style.display='none'" style="background:none; border:none; color:#94a3b8; font-size:1.5rem; cursor:pointer;">&times;</button>
+                            </div>
+                            <p style="color:#cbd5e1; font-size:0.9rem; margin-bottom:14px;">Share these exact login credentials with the restaurant owner. Their dashboard and table standees are live immediately.</p>
+                            <pre id="cloud-creds-text" style="background:#05080f; border:1px solid rgba(255,255,255,0.12); border-radius:10px; padding:14px; color:#f8fafc; font-size:0.85rem; white-space:pre-wrap; line-height:1.55; margin-bottom:16px;"></pre>
+                            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                                <button type="button" id="btn-copy-cloud-creds" class="btn btn-primary" style="flex:1; justify-content:center; background:#10b981; border-color:#10b981;"><i class="fa-solid fa-copy"></i> Copy for WhatsApp</button>
+                                <a href="dashboard.html" target="_blank" class="btn btn-secondary" style="flex:1; justify-content:center;"><i class="fa-solid fa-up-right-from-square"></i> Open Dashboard</a>
+                            </div>
+                        </div>
+                    </div>
 
                     <!-- STEP 4: Pitch Assets (Output) -->
                     <div id="pitch-assets-container" style="border-top: 1px dashed rgba(255,255,255,0.2); padding-top: 2rem;">
@@ -3416,37 +3453,141 @@ Happy to send over your venue's bespoke 300 DPI vector tabletop assets today so 
 
             function getPlanDetails(planId, cycle) {
                 const pricing = {
-                    'gmb': { 'monthly': 1200, 'quarterly': 3249.99, 'half-yearly': 5999.94, 'annual': 9999.96 },
-                    'delivery': { 'monthly': 1499.99, 'quarterly': 3999.99, 'half-yearly': 6999.96, 'annual': 11999 },
-                    'ecom_basic': { 'monthly': 1999.99, 'quarterly': 5249.97, 'half-yearly': 8999.94, 'annual': 14999 },
-                    'ecom_starter': { 'monthly': 4166.66, 'quarterly': 11249.97, 'half-yearly': 19999.98, 'annual': 34999 },
-                    'ecom_growth': { 'monthly': 5833.33, 'quarterly': 16749.99, 'half-yearly': 29999.94, 'annual': 49999 },
-                    'ecom_enterprise': { 'monthly': 33333.33, 'quarterly': 87499.98, 'half-yearly': 149999.94, 'annual': 249999 }
+                    'starter': { 'monthly': 3500, 'quarterly': 9500, 'half-yearly': 18000, 'annual': 36000 },
+                    'growth': { 'monthly': 4500, 'quarterly': 12500, 'half-yearly': 24000, 'annual': 45000 },
+                    'pro': { 'monthly': 7500, 'quarterly': 21000, 'half-yearly': 40000, 'annual': 75000 }
                 };
                 
                 const names = {
-                    'gmb': 'Local GMB Booster',
-                    'delivery': 'Food Delivery Gater',
-                    'ecom_basic': 'D2C E-Com Basic',
-                    'ecom_starter': 'D2C E-Com Starter',
-                    'ecom_growth': 'D2C E-Com Growth',
-                    'ecom_enterprise': 'D2C E-Com Enterprise'
+                    'starter': 'Tier 1 — Starter',
+                    'growth': 'Tier 2 — Growth',
+                    'pro': 'Tier 3 — Pro'
                 };
 
-                const setupFees = {
-                    'gmb': 1500,
-                    'delivery': 2000,
-                    'ecom_basic': 4000,
-                    'ecom_starter': 4000,
-                    'ecom_growth': 4000,
-                    'ecom_enterprise': 4000
+                const cost = pricing[planId]?.[cycle] || 3500;
+                const planName = names[planId] || 'Tier 1 — Starter';
+
+                return { name: `${planName} (${cycle})`, tier: planId, setup: 0, recurring: cost, total: cost };
+            }
+
+            // Shared helper: collect full venue + tier onboarding payload from form
+            function buildVenuePayloadFromForm(statusValue = 'active') {
+                const name = document.getElementById('biz-name').value.trim();
+                const email = document.getElementById('biz-email').value.trim().toLowerCase();
+                const gmbUrl = (document.getElementById('biz-gmb')?.value || '').trim();
+                const whatsapp = (document.getElementById('biz-whatsapp')?.value || '').trim();
+                const menuUrl = (document.getElementById('biz-menu')?.value || '').trim();
+                const ownerPassword = (document.getElementById('biz-pass')?.value || 'metrix123').trim() || 'metrix123';
+                const planValue = document.getElementById('biz-plan').value || 'starter';
+                const cycleValue = document.getElementById('billing-cycle').value || 'monthly';
+                const plan = getPlanDetails(planValue, cycleValue);
+
+                const flyerBg = document.getElementById('flyer-bg-color') ? document.getElementById('flyer-bg-color').value : '#0a0a0a';
+                const flyerAccent = document.getElementById('flyer-accent-color') ? document.getElementById('flyer-accent-color').value : '#d4af37';
+                const flyerText = document.getElementById('flyer-text-color') ? document.getElementById('flyer-text-color').value : '#ffffff';
+                const flyerHeadline = document.getElementById('flyer-headline') ? document.getElementById('flyer-headline').value : 'How was your experience today?';
+                const flyerSub = document.getElementById('flyer-sub') ? document.getElementById('flyer-sub').value : 'Scan to join VIP & call service.';
+                const flyerFooter = document.getElementById('flyer-footer') ? document.getElementById('flyer-footer').value : 'Powered by METRIX';
+                const flyerTextStyle = document.getElementById('flyer-text-style') ? document.getElementById('flyer-text-style').value : 'normal';
+                const origin = (window.location.origin && !window.location.origin.startsWith('file:')) ? window.location.origin : 'https://metrixmedia.agency';
+                const campaignId = window.currentCampaignId || Date.now().toString();
+                const ntfyTopic = 'metrix-' + name.toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 12) + '-' + campaignId.slice(-4);
+
+                return {
+                    id: campaignId,
+                    name,
+                    category: 'dining',
+                    email,
+                    color: flyerAccent,
+                    destination: gmbUrl || '',
+                    portalUrl: `${origin}/portal.html?id=${encodeURIComponent(campaignId)}&name=${encodeURIComponent(name)}`,
+                    webhook: '',
+                    plan: plan.name,
+                    tier: planValue,
+                    ownerPassword,
+                    whatsapp,
+                    gmbUrl,
+                    menuUrl,
+                    ntfyTopic,
+                    setupFee: plan.setup,
+                    recurringFee: plan.recurring,
+                    status: statusValue,
+                    referredBy: currentAgent ? currentAgent.username : 'founder',
+                    commissionStatus: 'pending',
+                    createdAt: new Date().toLocaleDateString(),
+                    theme: 'theme-onyx',
+                    font: 'Outfit',
+                    logo: '',
+                    flyerBg,
+                    flyerAccent,
+                    flyerText,
+                    qrSettings: { qrDotStyle: 'rounded', qrCornerStyle: 'extra-rounded' },
+                    flyerSettings: { flyerHeadline, flyerSub, flyerFooter, flyerTextStyle }
                 };
+            }
 
-                const cost = pricing[planId]?.[cycle] || 0;
-                const setup = setupFees[planId] || 0;
-                const planName = names[planId] || 'Unknown Plan';
+            // Action A2: Instant Cloud Onboard (Zero-Friction for Trials & Direct Cash/UPI Closes)
+            const instantOnboardBtn = document.getElementById('btn-instant-onboard');
+            if (instantOnboardBtn) {
+                instantOnboardBtn.addEventListener('click', async () => {
+                    const nameVal = document.getElementById('biz-name').value.trim();
+                    const emailVal = document.getElementById('biz-email').value.trim();
+                    if (!nameVal || !emailVal) {
+                        alert('Please enter Venue Name and Owner Email first.');
+                        return;
+                    }
 
-                return { name: `${planName} (${cycle})`, setup: setup, recurring: cost, total: cost + setup };
+                    const newVenue = buildVenuePayloadFromForm('active');
+                    instantOnboardBtn.disabled = true;
+                    instantOnboardBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Provisioning Cloud...';
+
+                    try {
+                        if (window.MetrixCloud) {
+                            await window.MetrixCloud.upsertVenueConfig(newVenue);
+                        }
+                        let campaigns = JSON.parse(localStorage.getItem('repushield_campaigns')) || [];
+                        const idx = campaigns.findIndex(c => c.id === newVenue.id);
+                        if (idx >= 0) campaigns[idx] = newVenue;
+                        else campaigns.unshift(newVenue);
+                        localStorage.setItem('repushield_campaigns', JSON.stringify(campaigns));
+
+                        const origin = (window.location.origin && !window.location.origin.startsWith('file:')) ? window.location.origin : 'https://metrixmedia.agency';
+                        const tierLabel = newVenue.tier === 'pro' ? 'Tier 3 — Pro' : (newVenue.tier === 'growth' ? 'Tier 2 — Growth' : 'Tier 1 — Starter');
+                        const credsSummary =
+`Welcome to METRIX, ${newVenue.name}!
+
+Your In-Store Tabletop Cockpit is now LIVE (${tierLabel}):
+🔹 Owner Dashboard: ${origin}/dashboard.html
+🔹 Login Email: ${newVenue.email}
+🔹 Password: ${newVenue.ownerPassword}
+
+📲 Live Standee Link: ${origin}/live.html?id=${newVenue.id}
+🔔 Instant Phone Push Topic (ntfy app): ${newVenue.ntfyTopic}`;
+
+                        document.getElementById('cloud-creds-text').textContent = credsSummary;
+                        document.getElementById('cloud-onboard-modal').style.display = 'flex';
+                        showToastNotification(`"${newVenue.name}" onboarded on ${tierLabel}!`);
+
+                        // Rotate campaign ID so next venue gets a fresh ID
+                        window.currentCampaignId = Date.now().toString();
+                        renderPipeline();
+                        renderEarnings();
+                    } catch (err) {
+                        console.error('Instant onboard error:', err);
+                        alert('Cloud provisioning error. Check internet connection.');
+                    } finally {
+                        instantOnboardBtn.disabled = false;
+                        instantOnboardBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Onboard Client to Cloud (Instant)';
+                    }
+                });
+            }
+
+            const copyCredsBtn = document.getElementById('btn-copy-cloud-creds');
+            if (copyCredsBtn) {
+                copyCredsBtn.addEventListener('click', () => {
+                    const txt = document.getElementById('cloud-creds-text').textContent;
+                    navigator.clipboard.writeText(txt).then(() => showToastNotification('Credentials copied for WhatsApp!'));
+                });
             }
 
             // Action B: Launch & Request Payment
@@ -3456,64 +3597,20 @@ Happy to send over your venue's bespoke 300 DPI vector tabletop assets today so 
             onboardForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 
-                const name = document.getElementById('biz-name').value.trim();
-                const category = 'other';
-                const email = document.getElementById('biz-email').value.trim();
-                const color = '#3b82f6';
-                const destination = document.getElementById('biz-gmb').value.trim();
                 const planValue = document.getElementById('biz-plan').value;
                 const cycleValue = document.getElementById('billing-cycle').value;
                 const plan = getPlanDetails(planValue, cycleValue);
                 
-                // Get the actual razorpay Plan ID based on user selection
-                let activePlanId = window.RAZORPAY_PLANS[planValue][cycleValue];
+                const rzpMap = { starter: 'gmb', growth: 'ecom_starter', pro: 'ecom_growth' };
+                const mappedKey = rzpMap[planValue] || planValue;
+                let activePlanId = window.RAZORPAY_PLANS?.[mappedKey]?.[cycleValue] || window.RAZORPAY_PLANS?.gmb?.monthly || '';
+
+                currentOnboardingCampaign = buildVenuePayloadFromForm('suspended');
 
                 if (!activePlanId) {
-                    alert('Configuration Error: Razorpay Plan ID not found for this combination.');
+                    alert('Use "Onboard Client to Cloud (Instant)" for direct UPI/Trial onboarding.');
                     return;
                 }
-
-                const theme = 'theme-onyx'; const flyerBg = document.getElementById('flyer-bg-color') ? document.getElementById('flyer-bg-color').value : '#0a0a0a'; const flyerAccent = document.getElementById('flyer-accent-color') ? document.getElementById('flyer-accent-color').value : '#d4af37'; const flyerText = document.getElementById('flyer-text-color') ? document.getElementById('flyer-text-color').value : '#ffffff';
-                const qrDot = 'rounded';
-                const qrCorner = 'extra-rounded';
-                const validity = '48';
-                const font = 'Outfit';
-                const logo = '';
-                const webhook = '';
-                const flyerHeadline = document.getElementById('flyer-headline') ? document.getElementById('flyer-headline').value : 'How was your experience today?';
-                const flyerSub = document.getElementById('flyer-sub') ? document.getElementById('flyer-sub').value : 'Scan to share your feedback and unlock VIP privileges.';
-                const flyerFooter = document.getElementById('flyer-footer') ? document.getElementById('flyer-footer').value : 'Help us serve you better!';
-                const flyerTextStyle = document.getElementById('flyer-text-style') ? document.getElementById('flyer-text-style').value : 'normal';
-
-                currentOnboardingCampaign = {
-                    id: window.currentCampaignId,
-                    name,
-                    category,
-                    email,
-                    color,
-                    destination,
-                    webhook,
-                    plan: plan.name,
-                    setupFee: plan.setup,
-                    recurringFee: plan.recurring,
-                    status: 'suspended', // initially suspended/pending payment
-                    referredBy: currentAgent.username,
-                    commissionStatus: 'pending',
-                    createdAt: new Date().toLocaleDateString(),
-                    theme: theme,
-                    font: font,
-                    logo: logo,
-                    qrSettings: {
-                        qrDotStyle: qrDot,
-                        qrCornerStyle: qrCorner
-                    },
-                    flyerSettings: {
-                        flyerHeadline: flyerHeadline,
-                        flyerSub: flyerSub,
-                        flyerFooter: flyerFooter,
-                        flyerTextStyle: flyerTextStyle
-                    }
-                };
 
                 showToastNotification("Generating secure subscription mandate...");
 

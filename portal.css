@@ -1,4 +1,4 @@
-/* Mobile-First Portal Theme Variables */
+﻿/* Mobile-First Portal Theme Variables */
 :root {
     --bg-dark: #090b16;
     --bg-card: rgba(18, 22, 43, 0.7);
@@ -743,6 +743,12 @@ body {
     color: #ffffff;
     cursor: pointer;
     transition: var(--transition-smooth);
+}
+
+.game-tab-btn.active {
+    background: rgba(212, 175, 55, 0.16);
+    border-color: var(--primary);
+    color: #ffffff;
 }
 
 .service-tile:hover {

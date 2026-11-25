@@ -1,21 +1,24 @@
-document.addEventListener('DOMContentLoaded', () => {
+﻿document.addEventListener('DOMContentLoaded', () => {
     // ----------------------------------------------------
     // 1. URL Parameters & Sector Normalization
     // ----------------------------------------------------
     const urlParams = new URLSearchParams(window.location.search);
     
-    const bizName = urlParams.get('name') || 'Our Business';
-    const gmbUrl = urlParams.get('url') || 'https://maps.google.com';
-    const menuUrl = urlParams.get('menuUrl') || urlParams.get('menu') || gmbUrl;
+    const venueIdParam = urlParams.get('id') || '';
+    let bizName = urlParams.get('name') || 'Our Business';
+    let gmbUrl = urlParams.get('url') || '';
+    let menuUrl = urlParams.get('menuUrl') || urlParams.get('menu') || '';
     const accentColor = urlParams.get('color') || urlParams.get('flyerAccent') || '#d4af37';
     const flyerBg = urlParams.get('flyerBg') || '';
     const flyerAccent = urlParams.get('flyerAccent') || accentColor || '#d4af37';
     const flyerText = urlParams.get('flyerText') || '';
-    const bizEmail = urlParams.get('email') || 'owner@business.com';
+    let bizEmail = urlParams.get('email') || 'owner@business.com';
     const rawCategory = urlParams.get('category') || 'dining';
     const logoUrl = urlParams.get('logo') || '';
     const font = urlParams.get('font') || 'Outfit';
-    const webhookUrl = urlParams.get('webhook') || '';
+    let webhookUrl = urlParams.get('webhook') || '';
+    let ntfyTopic = urlParams.get('ntfy') || '';
+    let activeTier = 'starter';
     const rawTable = urlParams.get('table') || '';
 
     // Sector Normalization
@@ -440,23 +443,51 @@ document.addEventListener('DOMContentLoaded', () => {
     const serviceActionIcon = document.getElementById('service-action-icon');
     if (serviceActionIcon) serviceActionIcon.className = currentProfile.service.icon;
 
-    // Quick Links (Review & Menu / Catalog)
-    const gmbLink = document.getElementById('hub-gmb-link');
-    const gmbText = document.getElementById('hub-gmb-text');
-    const gmbIcon = document.getElementById('hub-gmb-icon');
-    if (gmbLink) {
-        gmbLink.href = gmbUrl;
-        if (gmbText) gmbText.textContent = currentProfile.links.reviewText;
-        if (gmbIcon) gmbIcon.className = currentProfile.links.reviewIcon;
-    }
+    // Quick Links (Menu only on pre-meal table screen; hidden if not configured)
+    function refreshQuickLinks() {
+        const quickWrap = document.getElementById('hub-quick-links');
+        const gmbLink = document.getElementById('hub-gmb-link');
+        const menuLink = document.getElementById('hub-menu-link');
+        const menuText = document.getElementById('hub-menu-text');
+        const menuIcon = document.getElementById('hub-menu-icon');
 
-    const menuLink = document.getElementById('hub-menu-link');
-    const menuText = document.getElementById('hub-menu-text');
-    const menuIcon = document.getElementById('hub-menu-icon');
-    if (menuLink) {
-        menuLink.href = menuUrl;
-        if (menuText) menuText.textContent = currentProfile.links.menuText;
-        if (menuIcon) menuIcon.className = currentProfile.links.menuIcon;
+        if (gmbLink) {
+            gmbLink.style.display = 'none';
+            if (gmbUrl) gmbLink.href = gmbUrl;
+        }
+
+        if (menuLink) {
+            if (menuUrl && menuUrl.trim() && menuUrl !== 'https://maps.google.com') {
+                menuLink.href = menuUrl;
+                menuLink.style.display = 'flex';
+                if (quickWrap) quickWrap.style.display = 'grid';
+                if (menuText) menuText.textContent = currentProfile.links.menuText;
+                if (menuIcon) menuIcon.className = currentProfile.links.menuIcon;
+            } else {
+                menuLink.style.display = 'none';
+                if (quickWrap) quickWrap.style.display = 'none';
+            }
+        }
+    }
+    refreshQuickLinks();
+
+    // Hydrate live Cloud Settings from Supabase (so menuUrl, push topic, & tier stay synced)
+    if (window.MetrixCloud && (venueIdParam || (bizName && bizName !== 'Our Business'))) {
+        window.MetrixCloud.getVenueConfig({ id: venueIdParam || undefined, name: venueIdParam ? undefined : bizName }).then(cfg => {
+            if (!cfg) return;
+            if (cfg.name) {
+                bizName = cfg.name;
+                const el = document.getElementById('business-name');
+                if (el) el.textContent = bizName;
+            }
+            if (cfg.email) bizEmail = cfg.email;
+            if (cfg.gmbUrl) gmbUrl = cfg.gmbUrl;
+            if (cfg.menuUrl) menuUrl = cfg.menuUrl;
+            if (cfg.ntfyTopic) ntfyTopic = cfg.ntfyTopic;
+            if (cfg.alertWebhook) webhookUrl = cfg.alertWebhook;
+            if (cfg.tier) activeTier = cfg.tier;
+            refreshQuickLinks();
+        }).catch(() => {});
     }
 
     // VIP Screen Content
@@ -503,11 +534,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const hubScreen = document.getElementById('hub-screen');
     const vipScreen = document.getElementById('vip-screen');
     const serviceScreen = document.getElementById('service-screen');
+    const shieldScreen = document.getElementById('shield-screen');
+    const gamesScreen = document.getElementById('games-screen');
     const successScreen = document.getElementById('success-screen');
     const customServiceForm = document.getElementById('custom-service-form');
 
     function showScreen(screen) {
-        [hubScreen, vipScreen, serviceScreen, successScreen].forEach(s => {
+        [hubScreen, vipScreen, serviceScreen, shieldScreen, gamesScreen, successScreen].forEach(s => {
             if (s) s.style.display = 'none';
         });
         if (screen) screen.style.display = 'flex';
@@ -519,11 +552,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnOpenService = document.getElementById('btn-open-service');
     if (btnOpenService) btnOpenService.addEventListener('click', () => showScreen(serviceScreen));
 
+    const btnOpenShield = document.getElementById('btn-open-shield');
+    if (btnOpenShield) btnOpenShield.addEventListener('click', () => showScreen(shieldScreen));
+
+    const btnOpenGames = document.getElementById('btn-open-games');
+    if (btnOpenGames) btnOpenGames.addEventListener('click', () => showScreen(gamesScreen));
+
+    const btnGamesToVip = document.getElementById('btn-games-to-vip');
+    if (btnGamesToVip) btnGamesToVip.addEventListener('click', () => showScreen(vipScreen));
+
     const vipBack = document.getElementById('vip-back-to-hub');
     if (vipBack) vipBack.addEventListener('click', () => showScreen(hubScreen));
 
     const serviceBack = document.getElementById('service-back-to-hub');
     if (serviceBack) serviceBack.addEventListener('click', () => showScreen(hubScreen));
+
+    const shieldBack = document.getElementById('shield-back-to-hub');
+    if (shieldBack) shieldBack.addEventListener('click', () => showScreen(hubScreen));
+
+    const gamesBack = document.getElementById('games-back-to-hub');
+    if (gamesBack) gamesBack.addEventListener('click', () => showScreen(hubScreen));
 
     const backToHub = document.getElementById('btn-back-to-hub');
     if (backToHub) backToHub.addEventListener('click', () => showScreen(hubScreen));
@@ -590,7 +638,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }).catch(err => console.warn("Supabase sync:", err));
         }
 
-        // Webhook (Google Sheets / WhatsApp notification)
+        // Webhook (Make / Zapier / Google Sheets)
         if (webhookUrl) {
             fetch(webhookUrl, {
                 method: 'POST',
@@ -598,6 +646,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             }).catch(err => console.warn("Webhook sync:", err));
+        }
+
+        // Instant Phone Lock-Screen Push Notification (Free ntfy.sh)
+        if (ntfyTopic && payload.pushTitle) {
+            fetch(`https://ntfy.sh/${encodeURIComponent(ntfyTopic)}`, {
+                method: 'POST',
+                headers: {
+                    'Title': payload.pushTitle,
+                    'Priority': payload.pushUrgent ? 'urgent' : 'high',
+                    'Tags': payload.pushUrgent ? 'rotating_light' : 'bell'
+                },
+                body: payload.pushBody || payload.clientMessage
+            }).catch(err => console.warn("Push alert:", err));
         }
     }
 
@@ -644,17 +705,21 @@ document.addEventListener('DOMContentLoaded', () => {
     // 9. Dynamic Service Tiles & Instant Alert Calling
     // ----------------------------------------------------
     function triggerServiceRequest(requestType) {
-        const tablePrefix = tableParam ? `[${tableParam}] ` : '';
+        const tableLabel = tableParam || 'Table Guest';
+        const cleanMsg = `[TABLE_CALL] [${tableLabel}] ${requestType}`;
         dispatchData({
             id: Date.now().toString(),
             businessName: bizName,
             businessEmail: bizEmail,
             rating: 5,
-            clientName: tableParam ? `Resident / Seated Guest (${tableParam})` : "Resident / Seated Guest",
-            clientPhone: tableParam ? tableParam : "In-Venue Device",
+            clientName: tableParam ? `Seated Guest (${tableParam})` : "Seated Guest",
+            clientPhone: tableLabel,
             clientDOB: "",
-            clientMessage: `${tablePrefix}${currentProfile.name} Request: ${requestType}`,
-            submittedAt: new Date().toLocaleString()
+            clientMessage: cleanMsg,
+            submittedAt: new Date().toLocaleString(),
+            pushTitle: `${bizName} · ${tableLabel}`,
+            pushBody: `Service Call: ${requestType}`,
+            pushUrgent: false
         });
 
         const titleEl = document.getElementById('success-title');
@@ -710,4 +775,182 @@ document.addEventListener('DOMContentLoaded', () => {
             triggerServiceRequest(fullMsg);
         });
     }
+
+    // ----------------------------------------------------
+    // 10. Private Floor Shield Handlers (Non-Gating Escalation)
+    // ----------------------------------------------------
+    function triggerFloorShieldAlert(issueText, guestPhone = '') {
+        const tableLabel = tableParam || 'Table Guest';
+        dispatchData({
+            id: Date.now().toString(),
+            businessName: bizName,
+            businessEmail: bizEmail,
+            rating: 2,
+            clientName: tableParam ? `Floor Shield Alert (${tableParam})` : "Floor Shield Alert",
+            clientPhone: guestPhone || tableLabel,
+            clientDOB: "",
+            clientMessage: `[FLOOR_SHIELD] [${tableLabel}] ${issueText}`,
+            submittedAt: new Date().toLocaleString(),
+            pushTitle: `🚨 URGENT FLOOR SHIELD · ${tableLabel}`,
+            pushBody: issueText,
+            pushUrgent: true
+        });
+
+        const titleEl = document.getElementById('success-title');
+        const msgEl = document.getElementById('success-message');
+        if (titleEl) titleEl.textContent = "Manager Alerted Immediately 🛡️";
+        if (msgEl) msgEl.textContent = `Our floor manager has been notified privately about "${issueText}". Someone is coming over right now to make it right.`;
+        showScreen(successScreen);
+    }
+
+    document.querySelectorAll('.shield-quick-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const issue = btn.getAttribute('data-issue');
+            if (issue) triggerFloorShieldAlert(issue);
+        });
+    });
+
+    const shieldForm = document.getElementById('shield-form');
+    if (shieldForm) {
+        shieldForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const msg = document.getElementById('shield-message').value.trim();
+            const phone = (document.getElementById('shield-phone')?.value || '').trim();
+            if (!msg) return;
+            triggerFloorShieldAlert(msg, phone);
+            shieldForm.reset();
+        });
+    }
+
+    // ----------------------------------------------------
+    // 11. Tabletop Arcade Engine (Couples, Friends & Tic-Tac-Toe)
+    // ----------------------------------------------------
+    const couplePrompts = [
+        "This or That: Sunset beach walk or cozy late-night drive?",
+        "What dish on this menu do you think I'd steal off your plate first?",
+        "Rate our last weekend trip from 1 to 10—and what made it memorable?",
+        "This or That: Street food adventure or fine-dining candlelight?",
+        "If we could fly anywhere tomorrow morning (expenses paid), where are we landing?",
+        "What is one tiny habit of mine you secretly find cute?",
+        "This or That: Spicy seafood thali or wood-fired pizza?",
+        "What is one goal you want us to pull off together in the next 6 months?"
+    ];
+    const friendPrompts = [
+        "Most likely to order extra dessert even when everyone says they're full?",
+        "Most likely to say '5 minutes away' while still in the shower?",
+        "Unpopular Food Opinion: Share a dish everyone loves that you secretly hate!",
+        "Most likely to start a spontaneous 2 AM road trip to the beach?",
+        "Who at this table takes the longest to read the menu before ordering?",
+        "If everyone at this table started a restaurant together, who would go broke giving free food to friends?",
+        "Most likely to accidentally text the wrong group chat?"
+    ];
+
+    let activeGameMode = 'couples';
+    let promptIdx = 0;
+
+    function renderGamePrompt() {
+        const pill = document.getElementById('game-mode-pill');
+        const textEl = document.getElementById('game-prompt-text');
+        const list = activeGameMode === 'couples' ? couplePrompts : friendPrompts;
+        if (pill) {
+            if (activeGameMode === 'couples') {
+                pill.textContent = '❤️ Couples · This or That';
+                pill.style.background = 'rgba(244,63,94,0.15)';
+                pill.style.color = '#fb7185';
+            } else {
+                pill.textContent = '🍻 Friends · Party Prompts';
+                pill.style.background = 'rgba(168,85,247,0.15)';
+                pill.style.color = '#c084fc';
+            }
+        }
+        if (textEl) {
+            textEl.textContent = list[promptIdx % list.length];
+        }
+    }
+
+    // Tic-Tac-Toe State
+    let tttBoard = Array(9).fill('');
+    let tttTurn = 'X';
+    let tttOver = false;
+    const winLines = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+
+    function checkTttWinner() {
+        for (const [a,b,c] of winLines) {
+            if (tttBoard[a] && tttBoard[a] === tttBoard[b] && tttBoard[a] === tttBoard[c]) return tttBoard[a];
+        }
+        return tttBoard.every(x => x) ? 'DRAW' : null;
+    }
+
+    function renderTttBoard() {
+        const boardEl = document.getElementById('ttt-board');
+        const statusEl = document.getElementById('ttt-status');
+        if (!boardEl || !statusEl) return;
+
+        const winner = checkTttWinner();
+        if (winner === 'DRAW') {
+            statusEl.textContent = "It's a Draw! 🤝";
+            tttOver = true;
+        } else if (winner) {
+            statusEl.textContent = `Player ${winner} Wins! 🏆`;
+            tttOver = true;
+        } else {
+            statusEl.textContent = `Player ${tttTurn}'s Turn`;
+        }
+
+        boardEl.innerHTML = '';
+        tttBoard.forEach((cell, idx) => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.textContent = cell;
+            btn.style.cssText = `height:64px; border-radius:10px; border:1px solid rgba(255,255,255,0.18); background:rgba(255,255,255,0.06); color:${cell === 'X' ? '#fbbf24' : '#38bdf8'}; font-size:1.5rem; font-weight:800; cursor:pointer;`;
+            btn.addEventListener('click', () => {
+                if (tttOver || tttBoard[idx]) return;
+                tttBoard[idx] = tttTurn;
+                tttTurn = tttTurn === 'X' ? 'O' : 'X';
+                renderTttBoard();
+            });
+            boardEl.appendChild(btn);
+        });
+    }
+
+    document.querySelectorAll('.game-tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.game-tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            activeGameMode = btn.getAttribute('data-game');
+
+            const promptPanel = document.getElementById('game-prompt-panel');
+            const tttPanel = document.getElementById('game-ttt-panel');
+            if (activeGameMode === 'ttt') {
+                if (promptPanel) promptPanel.style.display = 'none';
+                if (tttPanel) tttPanel.style.display = 'block';
+                renderTttBoard();
+            } else {
+                if (promptPanel) promptPanel.style.display = 'block';
+                if (tttPanel) tttPanel.style.display = 'none';
+                promptIdx = Math.floor(Math.random() * 10);
+                renderGamePrompt();
+            }
+        });
+    });
+
+    const nextPromptBtn = document.getElementById('btn-next-prompt');
+    if (nextPromptBtn) {
+        nextPromptBtn.addEventListener('click', () => {
+            promptIdx++;
+            renderGamePrompt();
+        });
+    }
+
+    const tttResetBtn = document.getElementById('btn-ttt-reset');
+    if (tttResetBtn) {
+        tttResetBtn.addEventListener('click', () => {
+            tttBoard = Array(9).fill('');
+            tttTurn = 'X';
+            tttOver = false;
+            renderTttBoard();
+        });
+    }
+
+    renderGamePrompt();
 });

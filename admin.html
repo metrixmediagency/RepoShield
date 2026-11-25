@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -699,9 +699,10 @@
                         <thead>
                             <tr>
                                 <th>Venue Trade Name</th>
+                                <th>Active Plan Tier</th>
                                 <th>Manager Email</th>
                                 <th>Floor WhatsApp Alert</th>
-                                <th>Onboarded</th>
+                                <th>Closed By / Status</th>
                                 <th>Support Actions</th>
                             </tr>
                         </thead>
@@ -850,8 +851,40 @@
                 </div>
             </div>
 
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div class="form-group">
+                    <label>Subscription Tier (Upgrade / Downgrade)</label>
+                    <div class="form-input-wrap">
+                        <i class="fa-solid fa-layer-group"></i>
+                        <select id="overrideTier" class="form-control" style="padding-left: 38px;">
+                            <option value="starter">Tier 1 — Starter</option>
+                            <option value="growth">Tier 2 — Growth</option>
+                            <option value="pro">Tier 3 — Pro (D2C)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Account Status</label>
+                    <div class="form-input-wrap">
+                        <i class="fa-solid fa-shield-check"></i>
+                        <select id="overrideStatus" class="form-control" style="padding-left: 38px;">
+                            <option value="active">Active</option>
+                            <option value="suspended">Suspended / Unpaid</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Owner Cockpit Password</label>
+                <div class="form-input-wrap">
+                    <i class="fa-solid fa-key"></i>
+                    <input type="text" id="overridePassword" class="form-control" placeholder="metrix123">
+                </div>
+            </div>
+
             <button type="button" class="gate-btn" onclick="saveEmergencyOverride()">
-                <i class="fa-solid fa-floppy-disk"></i> Save &amp; Push to Dining Tables
+                <i class="fa-solid fa-floppy-disk"></i> Save &amp; Push to Cloud Tables
             </button>
         </div>
     </div>
@@ -886,6 +919,18 @@
                     <div class="form-input-wrap">
                         <i class="fa-brands fa-whatsapp" style="color: #25d366;"></i>
                         <input type="tel" id="nvPhone" class="form-control" placeholder="+971 50 123 4567" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Select Plan Tier</label>
+                    <div class="form-input-wrap">
+                        <i class="fa-solid fa-layer-group"></i>
+                        <select id="nvTier" class="form-control" style="padding-left: 38px;">
+                            <option value="starter">Tier 1 — Starter</option>
+                            <option value="growth">Tier 2 — Growth</option>
+                            <option value="pro">Tier 3 — Pro (D2C)</option>
+                        </select>
                     </div>
                 </div>
 
@@ -1010,41 +1055,86 @@
         }
 
         // ==========================================
-        // VENUES SUPPORT & IMPERSONATION LOGIC
+        // VENUES SUPPORT, CLOUD SYNC & TIER CONTROL
         // ==========================================
-        function getRegisteredVenues() {
-            return JSON.parse(localStorage.getItem('metrix_registered_venues')) || [];
+        let masterCloudVenues = [];
+
+        function getTierBadgeHtml(tier) {
+            const t = (tier || 'starter').toLowerCase();
+            if (t === 'pro') return `<span style="background:rgba(16,185,129,0.16); color:#10b981; border:1px solid rgba(16,185,129,0.4); padding:4px 9px; border-radius:6px; font-size:0.75rem; font-weight:700;">Tier 3 · Pro</span>`;
+            if (t === 'growth') return `<span style="background:rgba(56,189,248,0.16); color:#38bdf8; border:1px solid rgba(56,189,248,0.4); padding:4px 9px; border-radius:6px; font-size:0.75rem; font-weight:700;">Tier 2 · Growth</span>`;
+            return `<span style="background:rgba(212,175,55,0.16); color:#d4af37; border:1px solid rgba(212,175,55,0.4); padding:4px 9px; border-radius:6px; font-size:0.75rem; font-weight:700;">Tier 1 · Starter</span>`;
         }
 
-        function renderVenuesTable() {
-            const venues = getRegisteredVenues();
+        async function renderVenuesTable() {
             const tbody = document.getElementById('venueTableBody');
             const empty = document.getElementById('venueEmptyState');
             tbody.innerHTML = '';
 
-            document.getElementById('metricVenuesCount').textContent = venues.length;
+            // 1. Pull Cloud Venues (campaigns table)
+            let cloudList = [];
+            if (window.MetrixCloud) {
+                cloudList = await window.MetrixCloud.listVenues();
+            }
 
-            if (venues.length === 0) {
+            // 2. Merge with legacy localStorage venues if any aren't in cloud yet
+            const localVenues = JSON.parse(localStorage.getItem('metrix_registered_venues')) || [];
+            const mergedMap = new Map();
+
+            cloudList.forEach(c => {
+                mergedMap.set(c.id, {
+                    ...c,
+                    venueName: c.name,
+                    phone: c.whatsapp || '-',
+                    isCloud: true
+                });
+            });
+
+            localVenues.forEach(v => {
+                if (!mergedMap.has(v.id)) {
+                    const settings = JSON.parse(localStorage.getItem(`metrix_settings_${v.id}`)) || {};
+                    mergedMap.set(v.id, {
+                        id: v.id,
+                        name: v.venueName,
+                        venueName: v.venueName,
+                        email: v.email,
+                        phone: settings.wa || v.phone || '-',
+                        whatsapp: settings.wa || v.phone || '',
+                        gmbUrl: settings.gmb || '',
+                        menuUrl: settings.menu || '',
+                        ownerPassword: v.password || 'metrix123',
+                        tier: v.tier || 'starter',
+                        status: 'active',
+                        referredBy: 'local',
+                        isCloud: false
+                    });
+                }
+            });
+
+            masterCloudVenues = Array.from(mergedMap.values());
+            document.getElementById('metricVenuesCount').textContent = masterCloudVenues.length;
+
+            if (masterCloudVenues.length === 0) {
                 empty.style.display = 'block';
                 return;
             }
             empty.style.display = 'none';
 
-            venues.forEach(v => {
-                // Fetch saved settings for this venue
-                const settings = JSON.parse(localStorage.getItem(`metrix_settings_${v.id}`)) || {};
-                const waNumber = settings.wa || v.phone || '-';
-                const createdDate = v.created_at ? new Date(v.created_at).toLocaleDateString() : 'Active';
+            masterCloudVenues.forEach(v => {
+                const waNumber = v.whatsapp || v.phone || '-';
+                const repBadge = v.referredBy ? `Rep: ${v.referredBy}` : 'Direct';
+                const statusColor = v.status === 'suspended' ? '#ef4444' : '#10b981';
 
                 const row = document.createElement('tr');
                 row.className = 'venue-row';
                 row.innerHTML = `
                     <td>
                         <strong style="color: #fff; font-size: 0.95rem;">${v.venueName}</strong>
-                        <div style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono);">${v.id}</div>
+                        <div style="font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono);">ID: ${v.id}</div>
                     </td>
+                    <td>${getTierBadgeHtml(v.tier)}</td>
                     <td>
-                        <span style="color: var(--text-muted);">${v.email}</span>
+                        <span style="color: var(--text-muted);">${v.email || '—'}</span>
                     </td>
                     <td>
                         <a href="https://wa.me/${waNumber.replace(/[^0-9]/g, '')}" target="_blank" style="color: #38bdf8; text-decoration: none; font-family: var(--font-mono); font-size: 0.85rem;">
@@ -1052,18 +1142,19 @@
                         </a>
                     </td>
                     <td>
-                        <span style="font-size: 0.8rem; color: var(--text-muted);">${createdDate}</span>
+                        <span style="font-size: 0.78rem; color: ${statusColor}; font-weight: 700; text-transform: uppercase;">${v.status || 'active'}</span>
+                        <div style="font-size: 0.72rem; color: var(--text-muted);">${repBadge}</div>
                     </td>
                     <td>
                         <div class="action-group">
-                            <a href="/dashboard.html?impersonate_venue=${encodeURIComponent(v.venueName)}" target="_blank" class="btn-impersonate" title="Log in as Venue">
-                                <i class="fa-solid fa-eye"></i> Launch Cockpit
+                            <a href="/dashboard.html?impersonate_venue=${encodeURIComponent(v.venueName)}&venue_id=${encodeURIComponent(v.id)}" target="_blank" class="btn-impersonate" title="Log in as Venue">
+                                <i class="fa-solid fa-eye"></i> Cockpit
                             </a>
-                            <button class="btn-action-icon" onclick="openOverrideModal('${v.id}')" title="Emergency Settings Override">
+                            <button class="btn-action-icon" onclick="openOverrideModal('${v.id}')" title="Manage Tier & Settings Override">
                                 <i class="fa-solid fa-sliders" style="color: var(--gold-primary);"></i>
                             </button>
-                            <a href="/flyer.html" target="_blank" class="btn-action-icon" title="Print Standees">
-                                <i class="fa-solid fa-print"></i>
+                            <a href="/live.html?id=${encodeURIComponent(v.id)}" target="_blank" class="btn-action-icon" title="Open Guest Standee Link">
+                                <i class="fa-solid fa-mobile-screen"></i>
                             </a>
                             <button class="btn-action-icon" onclick="deleteVenue('${v.id}')" title="Remove Venue" style="color: #ef4444;">
                                 <i class="fa-solid fa-trash"></i>
@@ -1083,46 +1174,68 @@
         }
 
         function openOverrideModal(venueId) {
-            const venues = getRegisteredVenues();
-            const venue = venues.find(v => v.id === venueId);
+            const venue = masterCloudVenues.find(v => v.id === venueId);
             if (!venue) return;
 
-            const settings = JSON.parse(localStorage.getItem(`metrix_settings_${venue.id}`)) || {};
-
             document.getElementById('overrideVenueId').value = venue.id;
-            document.getElementById('overrideModalTitle').textContent = `Override Settings: ${venue.venueName}`;
-            document.getElementById('overrideBizName').value = settings.biz || venue.venueName;
-            document.getElementById('overrideWhatsapp').value = settings.wa || venue.phone || '';
-            document.getElementById('overrideGoogleReview').value = settings.gmb || '';
-            document.getElementById('overrideMenuUrl').value = settings.menu || '';
+            document.getElementById('overrideModalTitle').textContent = `Manage Venue & Tier: ${venue.venueName}`;
+            document.getElementById('overrideBizName').value = venue.venueName || venue.name || '';
+            document.getElementById('overrideWhatsapp').value = venue.whatsapp || venue.phone || '';
+            document.getElementById('overrideGoogleReview').value = venue.gmbUrl || venue.destination || '';
+            document.getElementById('overrideMenuUrl').value = venue.menuUrl || '';
+            document.getElementById('overrideTier').value = venue.tier || 'starter';
+            document.getElementById('overrideStatus').value = venue.status || 'active';
+            document.getElementById('overridePassword').value = venue.ownerPassword || 'metrix123';
 
             document.getElementById('overrideModal').classList.add('active');
         }
 
-        function saveEmergencyOverride() {
+        async function saveEmergencyOverride() {
             const venueId = document.getElementById('overrideVenueId').value;
+            const existing = masterCloudVenues.find(v => v.id === venueId) || { id: venueId };
             const biz = document.getElementById('overrideBizName').value.trim();
             const wa = document.getElementById('overrideWhatsapp').value.trim();
             const gmb = document.getElementById('overrideGoogleReview').value.trim();
             const menu = document.getElementById('overrideMenuUrl').value.trim();
+            const tier = document.getElementById('overrideTier').value;
+            const status = document.getElementById('overrideStatus').value;
+            const ownerPassword = document.getElementById('overridePassword').value.trim() || 'metrix123';
 
-            localStorage.setItem(`metrix_settings_${venueId}`, JSON.stringify({
-                biz, wa, gmb, menu
-            }));
+            const updated = {
+                ...existing,
+                id: venueId,
+                name: biz,
+                whatsapp: wa,
+                gmbUrl: gmb,
+                destination: gmb,
+                menuUrl: menu,
+                tier,
+                plan: tier,
+                status,
+                ownerPassword
+            };
+
+            if (window.MetrixCloud) {
+                await window.MetrixCloud.upsertVenueConfig(updated);
+            }
+            localStorage.setItem(`metrix_settings_${venueId}`, JSON.stringify({ biz, wa, gmb, menu }));
 
             closeModal('overrideModal');
-            renderVenuesTable();
-            showToast("Emergency settings updated & live on client tables!");
+            await renderVenuesTable();
+            showToast(`Cloud updated! ${biz} is now on Tier: ${tier.toUpperCase()}`);
         }
 
-        function deleteVenue(venueId) {
+        async function deleteVenue(venueId) {
             if (confirm("Are you sure you want to remove this venue from Master Operations?")) {
-                let venues = getRegisteredVenues();
+                if (window.supabaseClient) {
+                    await window.supabaseClient.from('campaigns').delete().eq('id', venueId);
+                }
+                let venues = JSON.parse(localStorage.getItem('metrix_registered_venues')) || [];
                 venues = venues.filter(v => v.id !== venueId);
                 localStorage.setItem('metrix_registered_venues', JSON.stringify(venues));
                 localStorage.removeItem(`metrix_settings_${venueId}`);
-                renderVenuesTable();
-                showToast("Venue removed from Master Console.");
+                await renderVenuesTable();
+                showToast("Venue removed from Cloud & Master Console.");
             }
         }
 
@@ -1130,33 +1243,35 @@
             document.getElementById('newVenueModal').classList.add('active');
         }
 
-        function submitDirectVenue() {
+        async function submitDirectVenue() {
             const venueName = document.getElementById('nvName').value.trim();
             const email = document.getElementById('nvEmail').value.trim().toLowerCase();
             const phone = document.getElementById('nvPhone').value.trim();
-            const password = document.getElementById('nvPass').value.trim();
+            const tier = document.getElementById('nvTier').value || 'starter';
+            const password = document.getElementById('nvPass').value.trim() || 'metrix123';
 
-            let venues = getRegisteredVenues();
-            if (venues.some(v => v.email === email)) {
-                alert("A venue with this email already exists.");
-                return;
-            }
-
+            const id = Date.now().toString();
             const newVenue = {
-                id: `venue_${Date.now()}`,
-                venueName,
+                id,
+                name: venueName,
+                category: 'dining',
                 email,
-                phone,
-                password,
-                created_at: new Date().toISOString()
+                whatsapp: phone,
+                ownerPassword: password,
+                tier,
+                plan: tier,
+                status: 'active',
+                referredBy: 'founder',
+                ntfyTopic: 'metrix-' + venueName.toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 12) + '-' + id.slice(-4)
             };
 
-            venues.unshift(newVenue);
-            localStorage.setItem('metrix_registered_venues', JSON.stringify(venues));
+            if (window.MetrixCloud) {
+                await window.MetrixCloud.upsertVenueConfig(newVenue);
+            }
 
             closeModal('newVenueModal');
-            renderVenuesTable();
-            showToast(`Venue "${venueName}" provisioned successfully!`);
+            await renderVenuesTable();
+            showToast(`Venue "${venueName}" provisioned on Cloud (${tier.toUpperCase()})!`);
         }
 
         // ==========================================
@@ -1302,7 +1417,7 @@
 
                 if (response.ok) {
                     const data = await response.json();
-                    masterTelemetryList = data || [];
+                    masterTelemetryList = (data || []).filter(item => !(item.client_message || '').startsWith('[ALERT_RESOLVED:'));
                     document.getElementById('metricDinersCount').textContent = masterTelemetryList.length;
 
                     if (masterTelemetryList.length === 0) {
@@ -1317,8 +1432,12 @@
                         const dob = item.client_dob || item.dob || 'Not provided';
                         const venue = item.business_name || 'Unknown Venue';
                         const rating = item.rating || 5;
+                        const msg = item.client_message || '';
                         const date = item.submitted_at ? new Date(item.submitted_at).toLocaleString() : 'Recent';
-                        const status = rating >= 4 ? 'VIP Club 🥂' : 'Floor Feedback 📋';
+                        let status = 'VIP Club \u{1F942}';
+                        if (msg.includes('[FLOOR_SHIELD]')) status = 'Floor Shield \u{1F6A8}';
+                        else if (msg.includes('[TABLE_CALL]') || msg.includes('Request:')) status = 'Table Call \u{1F6CE}';
+                        else if (rating < 4) status = 'Floor Feedback';
 
                         const row = document.createElement('tr');
                         row.innerHTML = `
