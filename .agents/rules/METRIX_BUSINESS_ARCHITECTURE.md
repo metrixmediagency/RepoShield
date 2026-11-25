@@ -19,7 +19,9 @@ The frontend infrastructure allows the user to generate, preview, and download c
 * **`flyer.html`**: The physical print asset generator. Strictly sized for 100mm x 155mm acrylic standees. It utilizes a resilient `@media print` layout that rotates the vertical standees -90 degrees and stacks them vertically on standard A4 portrait paper to completely bypass printer hardware clipping.
 * **`assets_generator.html`**: The 12-carousel direct-response design studio. Generates uncompressed 1080p slide carousels across the 4 psychological funnel stages (Attention/Problem, Future Imagination, Threshold Engineering, Action/CTA) with copy-pasteable marketing captions.
 * **`demo.html`**: The live interactive simulation sandbox. Allows clients to test both positive (VIP handshake) and negative (instant manager WhatsApp alert) feedback flows.
-* **`dashboard.html`**: The authenticated Client Venue Cockpit & VIP Vault. Allows individual venue operators (e.g., Cafe Noir) to manage tabletop operational settings (floor WhatsApp alert routing, Google review URL, digital menu URL), monitor real-time seated diner engagement, view and export live captured VIP databases via CSV, and launch table standee vector generation. Enforces strict single-venue tenant isolation with zero access to partner infrastructure.
+* **`dashboard.html`**: The authenticated Client Venue Cockpit & VIP Vault. Allows individual venue operators (e.g., Cafe Noir) to manage tabletop operational settings (floor WhatsApp alert routing, Google review URL, digital menu URL, Guest Wi-Fi & VIP-Gated lock, custom VIP offer copy, Visual Menu photos, and 8 instant feature toggles), monitor real-time seated diner engagement via Live Floor Radar, view live deduplicated VIP databases with New vs Repeat visit tags (NO bulk CSV export for venue accounts), and launch table standee vector generation. Enforces strict single-venue tenant isolation with zero access to partner infrastructure.
+* **`menu.html`**: Dedicated visual food & drink menu gallery showcase supporting dashboard-uploaded dish photos (`__METRIX_MENU_GALLERY__`) and instant fallback visual dishes.
+* **`api/whatsapp-alert.js`**: Strict server-side Vercel serverless route bridging Table Service and Floor Shield alerts via Meta WhatsApp Cloud API (`v21.0`). Resolves target staff WhatsApp numbers strictly from Supabase by unique `venueId` (supporting up to 3 comma-separated numbers per venue).
 * **`partner.html`**: The authenticated Authorized Partner Portfolio Hub. Designed for growth agencies, marketing partners, and regional distributors (e.g., Blurb Goa, GrowthGravy). Enables rapid onboarding of new dining venues, table provisioning, standalone Client Dashboard link distribution, and multi-venue portfolio tracking under strict, cryptographically segregated partner accounts.
 * **`studio.html`**: The F&B & Dining Tabletop Demo Studio. Enables agency partners or the founder to configure and preview customized in-store tabletop companions strictly tailored for Dining & F&B venues (Cocktail & Tapas Bar, Fine Dining & Bistro, Specialty Cafe & Roastery, High-Energy Pub & Lounge, Heritage & Coastal Kitchen) in 15 seconds. Features 1-click Panjim F&B presets (Miguel's, Soho, Praça Prazeres, The Caravela Cafe, Miski Bar & Kitchen), real-time interactive mobile phone mockup simulator, ready-to-send WhatsApp pitch message generator with 1-tap clipboard copying, and direct links to print standees (`flyer.html`).
 * **`admin.html`**: The Sovereign Master Operations Console (God-Mode HQ). Gated behind the Founder Master Passkey (`metrix2026`). Empowers executive support with: (1) 1-click "Log In As" client impersonation into `dashboard.html` and partner impersonation into `partner.html`, (2) live emergency floor overrides for WhatsApp routing and Google review URLs, (3) global Supabase VIP guest telemetry across all venues, and (4) instant direct provisioning for venues and partner orgs. Sales team features will be integrated here in future phases.
@@ -185,7 +187,7 @@ The engineering department provides an in-house, 100% browser-based direct-respo
 ## 13. Multi-Tenant SaaS Architecture & Separation Layer (Client Cockpit vs. Partner Hub)
 To transform METRIX into a production-grade B2B SaaS platform that supports both direct restaurant accounts and white-label agency partnerships, a strict separation and authentication layer is enforced:
 * **Strict Role & Portal Division:**
-  - **Client Dashboard (`dashboard.html`):** The isolated operational cockpit for venue owners and managers. Enables self-service updating of floor WhatsApp alert numbers, Google review URLs, and digital menus. Displays real captured VIP diner data queried directly from the Supabase `feedback` table (with 1-click CSV export). Absolutely no agency/portfolio management tools or visibility into other venues.
+  - **Client Dashboard (`dashboard.html`):** The isolated operational cockpit for venue owners and managers. Enables self-service updating of floor WhatsApp alert numbers, Google review URLs, Wi-Fi settings, visual menu photos, custom VIP offer headlines, and tabletop feature toggles. Displays real captured VIP diner data queried directly from the Supabase `feedback` table (deduplicated by WhatsApp number with `New` vs `Repeat` visit tags; bulk CSV guest export is permanently disabled for venue accounts). Absolutely no agency/portfolio management tools or visibility into other venues.
   - **Partner Hub (`partner.html`):** The multi-venue command center for growth agencies and regional partners. Enables rapid onboarding of new client venues, tabletop capacity allocation, and generation of dedicated Client Dashboard onboarding links via the **"Copy Client Link"** action.
   - **Internal Sales Monolith (`sales.html`):** **Strictly Preserved & Untouched**. Remains the private internal control room for sales rep demo generation and direct campaign configuration.
 * **Cryptographic Tenant Isolation (The "GrowthGravy vs. Blurb" Rule):**
@@ -210,6 +212,42 @@ To transform METRIX into a production-grade B2B SaaS platform that supports both
     4. Frontend executes `supabaseClient.auth.updateUser({ password: newPassword })`, updates local account records, clears the hash, and redirects to clean Sign In.
 * **Public Navigation Exposure:**
   - `index.html` navigation incorporates direct header links: **`Client Login`** (`/dashboard.html`) and **`Partner Hub`** (`/partner.html`) across both desktop and mobile viewports.
+
+## 14. Locked 5-Door Architecture, Tier 1 Final Spec & WhatsApp API Activation Runbook
+
+### A. Locked 5-Door System Hierarchy
+1. **`sales.html` (All Sales & Client Onboarding):** Sole door for pitching, selecting Tier (`starter` / `growth` / `pro`), and instant cloud provisioning (`window.MetrixCloud`).
+2. **`partner.html` (Marketing Agencies Only):** Strictly for agency partners managing their own client portfolios.
+3. **`dashboard.html` (Restaurant Owners / Floor Team):** Isolated single-venue cockpit featuring Live Floor Radar, deduplicated VIP Vault (no bulk CSV export), Visual Menu photo uploader, Guest Wi-Fi controls, custom VIP offer copy, 8 instant feature toggles, and locked Tier 2/3 upgrade previews.
+4. **`admin.html` (Founder Superior Control HQ):** Global venue management, Tier upgrades/downgrades, suspension controls, and emergency setting/feature overrides (no extra Tab 4).
+5. **`portal.html` + `menu.html` (Seated Diner Experience):** Mobile-locked (`Portal v6.3`, `CSS v4.0` zero horizontal overflow) tabletop companion.
+
+### B. Tier 1 — Final Production Capture & Tabletop Rules (LOCKED)
+- **VIP Club Offer & Overrides:** Default copy is **Option 1**: *"Claim Free Birthday & VIP Perks 🎁"* / *"Get complimentary birthday treats & secret chef offers"* (safe high-converting lure without obligating free food on the spot). Owners/Admin can customize `vipOffer` & `vipSub` via `dashboard.html` / `admin.html` (`supabase_config.js`).
+- **Low-Friction Smart Capture Form:** Auto-selects `🇮🇳 +91` in India (`🇦🇪 +971` in Dubai) with full A–Z country list below; strict Indian (`^[6-9]\d{9}$`) & anti-junk validator; optional 2-tap **Birthday (Day + Month)** + expandable optional **`💍 + Add Anniversary Date` (Day + Month)**; optional discovery source.
+- **Repeat Guest Detection & Anti-Screenshot Pass:** Same-phone `localStorage` memory greets returning diners (`Welcome Back, <Name>! ✓`), while live Supabase WhatsApp matching detects cross-device repeats (`Visit #2+`) and deduplicates `dashboard.html` VIP rows (`🆕 NEW VIP` vs `🔁 REPEAT · X Visits`). Success screen prints a **Live Verified Pass** (`Business · Table · Name` + ticking seconds clock).
+- **Clean Table Service & Escalation:** Contains strictly service tiles (`Water Refill`, `Call Waiter`, `Request Bill`, `Special Note`) plus `Call Manager` and `Complaint` (no `Food Delay` / `Food Issue` / `Wrong Item` clutter).
+- **Wi-Fi & Feature Toggles:** Includes `Free Wi-Fi` alongside `Browse Menu` (`menu.html`), defaulting to **VIP-Gated Wi-Fi Lock** (`wifiGate: true`) to prevent non-customers outside from reading the password. All 8 tabletop features toggle ON/OFF per venue in cloud config.
+
+### C. How to Activate Live WhatsApp Table Alerts (`api/whatsapp-alert.js`)
+Zero per-client SIM cards needed: **one central METRIX sender number** serves all onboarded restaurants forever.
+1. **Pick 1 Dedicated SIM for METRIX Bot (`From`):** Use a fresh SIM or spare number where you can deactivate the regular WhatsApp/WhatsApp Business mobile app (Meta Cloud API numbers cannot remain active inside the phone app; after the 1-time OTP, the SIM does not need to stay inside your daily phone—only keep validity recharged).
+2. **Meta Developer Setup (`developers.facebook.com`):**
+   - Create/open your Meta App ➔ Add **WhatsApp** product ➔ Link your dedicated METRIX number under **API Setup / Phone Numbers** and verify via 1-time SMS/call OTP.
+   - Generate a **Permanent System User Access Token** (`whatsapp_business_messaging` permission) and copy your **Phone Number ID**.
+3. **Create Approved Utility Template (`Message Templates`):**
+   - Name: `metrix_table_alert` | Category: `Utility` | Language: `en`
+   - Body (3 parameters): `🛎️ *{{1}}* — {{2}}` / `Request: {{3}}`
+     - `{{1}}` = Venue Name (prefixed `URGENT · ` for Floor Shield)
+     - `{{2}}` = Table Label (e.g., `Table 04`)
+     - `{{3}}` = Service Call or Complaint (+ Guest phone if entered)
+4. **Configure Vercel Environment Variables (`vercel.com` Project Settings ➔ Environment Variables):**
+   - `WHATSAPP_PHONE_NUMBER_ID` = `<your Meta Phone Number ID>`
+   - `WHATSAPP_ACCESS_TOKEN` = `<your permanent Meta System User Token>`
+   - Optional overrides: `WHATSAPP_TEMPLATE_SERVICE`, `WHATSAPP_TEMPLATE_SHIELD`, `WHATSAPP_TEMPLATE_LANG` (defaults `metrix_table_alert` / `en`), or set `WHATSAPP_USE_TEXT=true` only while testing inside an open 24h Meta test session.
+   - *(Optional security hardening: `SUPABASE_SERVICE_ROLE_KEY` if RLS restricts anonymous reads later.)*
+5. **Redeploy & Test:** Redeploy once in Vercel, ensure each venue’s `#cfgWhatsapp` in `dashboard.html` is saved (supports up to 3 comma-separated staff numbers, e.g., Manager + Counter), and click **`Test WA`** right beside the WhatsApp field in `dashboard.html`.
+
 
 
 

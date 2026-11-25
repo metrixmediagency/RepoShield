@@ -1,7 +1,7 @@
 # METRIX — Master 3-Tier Product Architecture Blueprint
 
-> **Status:** Architectural Skeleton (Locked before code implementation)  
-> **Rule:** Build and verify step-by-step in order: **Shared Foundation ➔ Tier 1 ➔ Tier 2 ➔ Tier 3**.
+> **Status:** Tier 1 Built & Locked (`✅`) | Tier 2 Next | Tier 3 Planned  
+> **Rule:** Build and verify step-by-step in order: **Shared Foundation (`✅`) ➔ Tier 1 (`✅`) ➔ Tier 2 ➔ Tier 3**.
 
 ---
 
@@ -29,15 +29,15 @@ All screens (`portal.html`, `dashboard.html`, `admin.html`, `partner.html`, `liv
 
 Every physical standee points to `live.html?id=<VENUE_ID>&table=<TABLE_NO>`, which loads `portal.html`. `portal.html` dynamically displays only the modules enabled for that venue's active tier:
 
-### 🔴 Tier 1 — Starter (Always Active)
+### 🔴 Tier 1 — Starter (`✅ BUILT & LOCKED`)
 | Slot | Module Name | What It Does |
 | :--- | :--- | :--- |
-| **1.1** | **Header & Table Identity** | Metallic venue name, logo/icon, and `Table 04` badge. |
-| **1.2** | **Join VIP Dining Club 🥂** | Captures Name, WhatsApp, Date of Birth, Discovery Source. |
-| **1.3** | **Call Table Service 🛎️** | 1-tap request tiles (`Water Refill`, `Call Waiter`, `Request Bill`, `Extra Cutlery`). |
-| **1.4** | **Private Floor Shield 🛡️** | Prominent *"Need Help or Issue with Order? Alert Manager Privately"* card (100% non-gating, instant escalation). |
-| **1.5** | **Table Arcade ("Play While You Wait" 🎮)** | Zero-lag 1-phone Pass-and-Play games: **Couples Mode** (*This or That / Icebreakers*) & **Friends Mode** (*Who's Most Likely To / Tic-Tac-Toe*) with VIP reward prompt. |
-| **1.6** | **Browse Menu 📖** | Opens venue's live synced menu URL. Automatically hidden if no menu URL is configured (never falls back to Google Maps). |
+| **1.1** | **Header & Table Identity** | Metallic venue name, logo/icon, and `Table 04` badge (`portal.css v4.0` zero sideways wobble). |
+| **1.2** | **Claim Free Birthday & VIP Perks 🎁** | Safe default Option 1 headline + owner-customizable `vipOffer`/`vipSub`; auto `+91`/`+971` + global codes, anti-junk WhatsApp validator, optional Day+Month Birthday & expandable Anniversary, same-phone `Welcome Back` + live cloud Repeat matching (`Visit #2+`), and ticking Live Verification Pass. |
+| **1.3** | **Call Table Service 🛎️** | Clean tiles (`Water Refill`, `Call Waiter`, `Request Bill`, `Special Note`, `Call Manager`, `Complaint`) routing to Live Floor Radar and `/api/whatsapp-alert.js` (Meta WhatsApp Cloud API ready). |
+| **1.4** | **Private Complaint Box 🛡️** | Clean 1-screen escalation (`Complaint Box` + optional WhatsApp) flagged red as urgent Floor Shield without confusing extra sub-buttons. |
+| **1.5** | **Table Arcade ("Play While You Wait" 🎮)** | Pass-and-play **Couples**, **Friends**, and **Tic-Tac-Toe** with VIP CTA. |
+| **1.6** | **Visual Menu (`menu.html`) & VIP-Gated Wi-Fi 📶** | Opens dashboard-uploaded food photo gallery (`__METRIX_MENU_GALLERY__`) / fallback dishes alongside `Free Wi-Fi` (protected by VIP check-in lock by default). All 8 features toggle ON/OFF per venue. |
 
 *(Public Google Maps review link is intentionally moved out of the pre-meal table screen and triggered cleanly post-meal).*
 
@@ -61,8 +61,8 @@ Every physical standee points to `live.html?id=<VENUE_ID>&table=<TABLE_NO>`, whi
 | Tab | Name | Core Capabilities |
 | :--- | :--- | :--- |
 | **Tab 1** | **Live Floor Radar 📡** | Real-time polling/push stream of `[TABLE_CALL]` and urgent red `[FLOOR_SHIELD]` alerts, elapsed wait timer, loud service bell chime toggle, **"Mark Attended"** button, and 1-tap phone push setup (`ntfy.sh` / Telegram / Webhook). |
-| **Tab 2** | **VIP Guest Vault 🥂** | Strictly clean list of verified `[VIP_OPTIN]` diners (Name, WhatsApp link, DOB, Source), search filter, 1-click CSV export. |
-| **Tab 3** | **Venue Settings & Cloud Sync ⚙️** | Edits and saves Venue Name, Floor WhatsApp, Google Review URL, Menu URL, and Alert Push channel directly to Supabase `campaigns` so standees update instantaneously. |
+| **Tab 2** | **VIP Guest Vault 🥂** | Deduplicated list of verified VIP diners by WhatsApp number (`🆕 NEW VIP` vs `🔁 REPEAT · X Visits`, Birthday & Anniversary display, search filter; NO bulk guest CSV download for clients). |
+| **Tab 3** | **Venue Settings, Visual Menu & Feature Controls ⚙️** | Saves Venue Name, Floor WhatsApp (`Test WA` button), Google Review URL, Menu URL, Visual Menu Photo Uploader, Guest Wi-Fi (SSID/Password), Custom VIP Offer Copy, and 8 tabletop feature toggles directly to Supabase `campaigns`. |
 | **Tab 4** | **Tabletop Print Station 🖨️** | Batch Table QR selector (`Table 01` – `Table 25`) wired to `live.html?id=...&table=...` + `flyer.html` launch. |
 
 ### 🟡 Tier 2 — Growth Tabs *(Shows interactive upgrade lock screen on Tier 1)*
