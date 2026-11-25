@@ -851,11 +851,6 @@
                         <h2><i class="fa-solid fa-id-card-clip" style="color: var(--gold-primary);"></i> VIP Guest Database Vault</h2>
                         <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Verified guest names, WhatsApp numbers, and birthdays captured from your dining tables.</p>
                     </div>
-                    <div>
-                        <button class="btn-gold" onclick="exportVIPCSV()">
-                            <i class="fa-solid fa-download"></i> 1-Click Export CSV
-                        </button>
-                    </div>
                 </div>
 
                 <div class="empty-state" id="vipEmptyState">
@@ -1903,27 +1898,6 @@
             }
 
             showToast("Cloud settings saved & live across all dining tables!");
-        }
-
-        function exportVIPCSV() {
-            if (!realVIPList || realVIPList.length === 0) {
-                showToast("No VIP diners captured yet to export.");
-                return;
-            }
-            let csv = "Diner Name,WhatsApp Number,Date of Birth,Date Captured,Privilege Status\n";
-            realVIPList.forEach(v => {
-                csv += `"${v.name}","${v.phone}","${v.dob}","${v.date}","${v.status}"\n`;
-            });
-            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-            const link = document.createElement("a");
-            const url = URL.createObjectURL(blob);
-            link.setAttribute("href", url);
-            link.setAttribute("download", `METRIX_VIP_Diners_${currentUser.venueName.replace(/\s+/g, '_')}.csv`);
-            link.style.visibility = 'hidden';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            showToast("VIP Database exported to CSV successfully!");
         }
 
         function showAlert(msg) {
