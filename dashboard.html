@@ -1660,6 +1660,7 @@
 
                 const nextAlerts = [];
                 const nextVIPs = [];
+                const vipMap = new Map();
 
                 rows.forEach(item => {
                     const msg = item.client_message || '';
@@ -1687,14 +1688,35 @@
                             });
                         }
                     } else if (cPhone && cPhone.replace(/\D/g, '').length >= 7) {
-                        nextVIPs.push({
-                            name: cName || 'VIP Guest',
-                            phone: cPhone,
-                            dob: item.client_dob || item.dob || 'Not provided',
-                            date: item.submitted_at ? new Date(item.submitted_at).toLocaleDateString() : (item.created_at ? new Date(item.created_at).toLocaleDateString() : 'Recent'),
-                            status: 'VIP Club 🥂'
-                        });
+                        const rawDigits = cPhone.replace(/\D/g, '');
+                        const phoneKey = rawDigits.length >= 10 ? rawDigits.slice(-10) : rawDigits;
+                        const existingVip = vipMap.get(phoneKey);
+                        const dobVal = (item.client_dob || item.dob || '').trim();
+                        const visitDate = item.submitted_at ? new Date(item.submitted_at).toLocaleDateString() : (item.created_at ? new Date(item.created_at).toLocaleDateString() : 'Recent');
+
+                        if (existingVip) {
+                            existingVip.visits += 1;
+                            if ((!existingVip.dob || existingVip.dob === 'Not provided') && dobVal) {
+                                existingVip.dob = dobVal;
+                            }
+                        } else {
+                            vipMap.set(phoneKey, {
+                                name: cName || 'VIP Guest',
+                                phone: cPhone,
+                                dob: dobVal || 'Not provided',
+                                date: visitDate,
+                                visits: 1
+                            });
+                        }
                     }
+                });
+
+                vipMap.forEach(v => {
+                    nextVIPs.push({
+                        ...v,
+                        isRepeat: v.visits > 1,
+                        status: v.visits > 1 ? `🔁 REPEAT · ${v.visits} Visits` : '🆕 NEW VIP'
+                    });
                 });
 
                 let hasNewAlert = false;
@@ -1844,7 +1866,7 @@
                     <td><a href="https://wa.me/${item.phone.replace(/[^0-9]/g, '')}" target="_blank" style="color: #38bdf8; text-decoration: none; font-family: var(--font-mono); font-size: 0.85rem;"><i class="fa-brands fa-whatsapp" style="color: #25d366; margin-right: 4px;"></i>${item.phone}</a></td>
                     <td><span style="font-family: var(--font-mono); font-size: 0.85rem;">${item.dob}</span></td>
                     <td><span style="font-size: 0.8rem; color: var(--text-muted);">${item.date}</span></td>
-                    <td><span style="font-weight: 700; color: #10b981;">${item.status}</span></td>
+                    <td><span style="font-weight: 700; color: ${item.isRepeat ? '#f59e0b' : '#10b981'};">${item.status}</span></td>
                 `;
                 tbody.appendChild(row);
             });

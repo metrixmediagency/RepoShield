@@ -460,8 +460,9 @@
 
         if (saved && saved.name) {
             const firstName = saved.name.split(/\s+/)[0];
+            const visitText = (saved.visits && saved.visits > 1) ? ` · Visit #${saved.visits}` : '';
             if (vat) vat.textContent = `Welcome Back, ${firstName}! ✓`;
-            if (vas) vas.textContent = `VIP Active (${saved.phone || 'Saved'}) · Tap to show live pass`;
+            if (vas) vas.textContent = `VIP Active (${saved.phone || 'Saved'}${visitText}) · Tap to view pass`;
         } else {
             const titleText = (vipOffer && vipOffer.trim()) ? vipOffer.trim() : currentProfile.vip.title;
             const subText = (vipSub && vipSub.trim()) ? vipSub.trim() : currentProfile.vip.sub;
@@ -995,10 +996,47 @@
         });
     }
 
+    async function lookupCloudVipHistory(formattedPhone) {
+        const SUPABASE_URL = window.SUPABASE_URL || "";
+        const SUPABASE_KEY = window.SUPABASE_ANON_KEY || "";
+        const digits = String(formattedPhone || '').replace(/\D/g, '');
+        const matchDigits = digits.length >= 10 ? digits.slice(-10) : digits;
+        if (!SUPABASE_URL || !SUPABASE_KEY || !matchDigits || !bizName || bizName === 'Our Business') {
+            return { visits: 0, previousDob: '' };
+        }
+        const ctrl = new AbortController();
+        const timer = setTimeout(() => ctrl.abort(), 1200);
+        try {
+            const res = await fetch(`${SUPABASE_URL}/rest/v1/feedback?business_name=ilike.*${encodeURIComponent(bizName)}*&client_phone=ilike.*${encodeURIComponent(matchDigits)}*&select=id,client_dob,client_message&order=created_at.desc&limit=50`, {
+                headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` },
+                signal: ctrl.signal
+            });
+            clearTimeout(timer);
+            if (!res.ok) return { visits: 0, previousDob: '' };
+            const rows = await res.json();
+            if (!Array.isArray(rows)) return { visits: 0, previousDob: '' };
+            const vipRows = rows.filter(r => {
+                const m = r.client_message || '';
+                return !m.includes('[FLOOR_SHIELD]') && !m.includes('[TABLE_CALL]') && !m.startsWith('[ALERT_RESOLVED:');
+            });
+            const prevDobRow = vipRows.find(r => r.client_dob && r.client_dob.trim());
+            return {
+                visits: vipRows.length,
+                previousDob: prevDobRow ? prevDobRow.client_dob.trim() : ''
+            };
+        } catch (e) {
+            clearTimeout(timer);
+            return { visits: 0, previousDob: '' };
+        }
+    }
+
     const vipForm = document.getElementById('vip-form');
     if (vipForm) {
-        vipForm.addEventListener('submit', (e) => {
+        vipForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            const submitBtn = document.getElementById('btn-submit-vip');
+            if (submitBtn && submitBtn.dataset.busy === '1') return;
+
             const name = document.getElementById('vip-name').value.trim();
             const rawPhone = document.getElementById('vip-phone').value.trim();
             const codeVal = countrySelect ? countrySelect.value : '+91';
@@ -1014,6 +1052,20 @@
             }
             const phone = phoneCheck.formatted;
 
+            if (submitBtn) {
+                submitBtn.dataset.busy = '1';
+                submitBtn.disabled = true;
+            }
+
+            const history = await lookupCloudVipHistory(phone);
+            const visitCount = history.visits + 1;
+            const isRepeat = history.visits > 0;
+
+            if (submitBtn) {
+                submitBtn.dataset.busy = '0';
+                submitBtn.disabled = false;
+            }
+
             const dobDay = (document.getElementById('vip-dob-day')?.value || '').trim();
             const dobMonth = (document.getElementById('vip-dob-month')?.value || '').trim();
             const bdayStr = (dobDay && dobMonth) ? `${dobDay} ${dobMonth}` : (dobMonth || '');
@@ -1022,14 +1074,17 @@
             const annivMonth = (document.getElementById('vip-anniv-month')?.value || '').trim();
             const annivStr = (annivDay && annivMonth) ? `${annivDay} ${annivMonth}` : (annivMonth || '');
 
-            const dob = (bdayStr && annivStr)
+            let dob = (bdayStr && annivStr)
                 ? `${bdayStr} · Anniv: ${annivStr}`
                 : (annivStr ? `Anniv: ${annivStr}` : bdayStr);
+            if (!dob && history.previousDob) dob = history.previousDob;
+
             const sourceEl = document.getElementById('vip-source');
             const sourceVal = sourceEl ? sourceEl.value : '';
 
             const tableTag = tableParam ? ` (${tableParam})` : '';
             const sourceTag = sourceVal ? ` [Source: ${sourceVal}]` : '';
+            const repeatTag = isRepeat ? ` [REPEAT_VISIT #${visitCount}]` : ' [VIP_OPTIN]';
 
             dispatchData({
                 id: Date.now().toString(),
@@ -1040,13 +1095,13 @@
                 clientPhone: phone,
                 clientDOB: dob,
                 clientSource: sourceVal,
-                clientMessage: `${currentProfile.name} VIP Loyalty Club Opt-In${tableTag}${sourceTag}`,
+                clientMessage: `${currentProfile.name} VIP Loyalty Club Opt-In${tableTag}${sourceTag}${repeatTag}`,
                 submittedAt: new Date().toLocaleString()
             });
 
             try {
                 localStorage.setItem(`metrix_vip_unlocked_${venueIdParam || bizName}`, '1');
-                localStorage.setItem(getVipStorageKey(), JSON.stringify({ name, phone, dob, savedAt: Date.now() }));
+                localStorage.setItem(getVipStorageKey(), JSON.stringify({ name, phone, dob, visits: visitCount, savedAt: Date.now() }));
             } catch (err) {}
             applyVipCopy();
 
@@ -1059,8 +1114,13 @@
             // Display Success Screen with Live Timestamped Pass
             const titleEl = document.getElementById('success-title');
             const msgEl = document.getElementById('success-message');
-            if (titleEl) titleEl.textContent = currentProfile.vip.successTitle;
-            if (msgEl) msgEl.textContent = currentProfile.vip.successMsg(name);
+            if (isRepeat) {
+                if (titleEl) titleEl.textContent = `Welcome Back, ${name.split(/\s+/)[0]}! (Visit #${visitCount}) 🥂`;
+                if (msgEl) msgEl.textContent = `Great to see you again! Your repeat VIP visit (#${visitCount}) is logged on our system.`;
+            } else {
+                if (titleEl) titleEl.textContent = currentProfile.vip.successTitle;
+                if (msgEl) msgEl.textContent = currentProfile.vip.successMsg(name);
+            }
             showVipLivePass(name, phone, false);
 
             showScreen(successScreen);
