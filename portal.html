@@ -326,7 +326,21 @@
                 </div>
                 <h3 id="success-title">Confirmed!</h3>
                 <p id="success-message">Your request has been received. Our floor staff will attend to your table shortly.</p>
-                <button type="button" class="submit-btn" id="btn-back-to-hub" style="margin-top: 20px;">
+
+                <div id="vip-live-pass" style="display: none; width: 100%; background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.35); border-radius: 14px; padding: 13px 14px; text-align: center;">
+                    <div style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.7px; text-transform: uppercase; color: #34d399; margin-bottom: 5px;">
+                        <span style="width: 8px; height: 8px; border-radius: 50%; background: #10b981; display: inline-block; box-shadow: 0 0 8px #10b981;"></span>
+                        LIVE VERIFIED PASS · SHOW SERVER
+                    </div>
+                    <div id="vip-pass-meta" style="font-size: 0.9rem; font-weight: 700; color: #f8fafc; line-height: 1.4;"></div>
+                    <div id="vip-pass-clock" style="font-size: 0.82rem; font-weight: 700; color: #34d399; margin-top: 4px; font-variant-numeric: tabular-nums;"></div>
+                    <div id="vip-pass-offer" style="font-size: 0.78rem; color: #d4af37; margin-top: 5px; font-weight: 600;"></div>
+                </div>
+                <button type="button" id="btn-edit-vip-profile" style="display: none; background: transparent; border: none; color: #94a3b8; font-size: 0.76rem; text-decoration: underline; cursor: pointer; margin-top: -6px;">
+                    Switch guest / update number
+                </button>
+
+                <button type="button" class="submit-btn" id="btn-back-to-hub" style="margin-top: 12px;">
                     Back to Table Options <i class="fa-solid fa-house"></i>
                 </button>
                 <div class="footer-brand" style="margin-top: 25px;">
@@ -337,6 +351,6 @@
     </div>
 
     <script src="supabase_config.js"></script>
-    <script src="portal.js?v=5.9"></script>
+    <script src="portal.js?v=6.0"></script>
 </body>
 </html>

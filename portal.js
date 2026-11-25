@@ -441,14 +441,34 @@
         categoryIcon.className = currentProfile.tableIcon;
     }
 
-    // Hub Screen Action Card 1: VIP Club
+    // Hub Screen Action Card 1: VIP Club & Returning Guest Recognition
+    function getVipStorageKey() {
+        return `metrix_vip_profile_${venueIdParam || bizName}`;
+    }
+
+    function getSavedVipProfile() {
+        try {
+            const raw = localStorage.getItem(getVipStorageKey());
+            return raw ? JSON.parse(raw) : null;
+        } catch (e) { return null; }
+    }
+
     function applyVipCopy() {
-        const titleText = (vipOffer && vipOffer.trim()) ? vipOffer.trim() : currentProfile.vip.title;
-        const subText = (vipSub && vipSub.trim()) ? vipSub.trim() : currentProfile.vip.sub;
+        const saved = getSavedVipProfile();
         const vat = document.getElementById('vip-action-title');
-        if (vat) vat.textContent = titleText;
         const vas = document.getElementById('vip-action-sub');
-        if (vas) vas.textContent = subText;
+
+        if (saved && saved.name) {
+            const firstName = saved.name.split(/\s+/)[0];
+            if (vat) vat.textContent = `Welcome Back, ${firstName}! ✓`;
+            if (vas) vas.textContent = `VIP Active (${saved.phone || 'Saved'}) · Tap to show live pass`;
+        } else {
+            const titleText = (vipOffer && vipOffer.trim()) ? vipOffer.trim() : currentProfile.vip.title;
+            const subText = (vipSub && vipSub.trim()) ? vipSub.trim() : currentProfile.vip.sub;
+            if (vat) vat.textContent = titleText;
+            if (vas) vas.textContent = subText;
+        }
+
         const vst = document.getElementById('vip-screen-title');
         if (vst) vst.textContent = (vipOffer && vipOffer.trim()) ? vipOffer.trim() : currentProfile.vip.screenTitle;
         const vss = document.getElementById('vip-screen-sub');
@@ -649,7 +669,7 @@
     const wifiBackBtn = document.getElementById('wifi-back-to-hub');
     if (wifiBackBtn) wifiBackBtn.addEventListener('click', () => showScreen(hubScreen));
     const wifiToVipBtn = document.getElementById('btn-wifi-to-vip');
-    if (wifiToVipBtn) wifiToVipBtn.addEventListener('click', () => showScreen(vipScreen));
+    if (wifiToVipBtn) wifiToVipBtn.addEventListener('click', openVipEntry);
     const copyWifiBtn = document.getElementById('btn-copy-wifi');
     if (copyWifiBtn) {
         copyWifiBtn.addEventListener('click', () => {
@@ -664,8 +684,72 @@
         });
     }
 
+    let vipClockTimer = null;
+
+    function hideVipLivePass() {
+        if (vipClockTimer) {
+            clearInterval(vipClockTimer);
+            vipClockTimer = null;
+        }
+        const passBox = document.getElementById('vip-live-pass');
+        const editBtn = document.getElementById('btn-edit-vip-profile');
+        if (passBox) passBox.style.display = 'none';
+        if (editBtn) editBtn.style.display = 'none';
+    }
+
+    function showVipLivePass(guestName, guestPhone, showSwitchBtn = false) {
+        const passBox = document.getElementById('vip-live-pass');
+        const metaEl = document.getElementById('vip-pass-meta');
+        const clockEl = document.getElementById('vip-pass-clock');
+        const offerEl = document.getElementById('vip-pass-offer');
+        const editBtn = document.getElementById('btn-edit-vip-profile');
+
+        const tableTag = tableParam || 'Dine-In';
+        if (metaEl) metaEl.textContent = `${bizName} · ${tableTag} · ${guestName}`;
+        if (offerEl) {
+            const activeOfferText = (vipOffer && vipOffer.trim()) ? vipOffer.trim() : currentProfile.vip.title;
+            offerEl.textContent = `${activeOfferText}${guestPhone ? ' · ' + guestPhone : ''}`;
+        }
+
+        const updateClock = () => {
+            if (!clockEl) return;
+            const now = new Date();
+            const dStr = now.toLocaleDateString('en-IN', { day: '2-digit', month: 'short' });
+            const tStr = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+            clockEl.textContent = `${dStr} · ${tStr}`;
+        };
+        updateClock();
+        if (vipClockTimer) clearInterval(vipClockTimer);
+        vipClockTimer = setInterval(updateClock, 1000);
+
+        if (passBox) passBox.style.display = 'block';
+        if (editBtn) editBtn.style.display = showSwitchBtn ? 'inline-block' : 'none';
+    }
+
+    function openVipEntry() {
+        const saved = getSavedVipProfile();
+        if (saved && saved.name) {
+            const titleEl = document.getElementById('success-title');
+            const msgEl = document.getElementById('success-message');
+            if (titleEl) titleEl.textContent = `Welcome Back, ${saved.name.split(/\s+/)[0]}! 🥂`;
+            if (msgEl) msgEl.textContent = `Your VIP pass is already active on this phone. Show this live screen to our floor team anytime.`;
+            showVipLivePass(saved.name, saved.phone || '', true);
+            showScreen(successScreen);
+            return;
+        }
+        showScreen(vipScreen);
+    }
+
+    const editVipProfileBtn = document.getElementById('btn-edit-vip-profile');
+    if (editVipProfileBtn) {
+        editVipProfileBtn.addEventListener('click', () => {
+            hideVipLivePass();
+            showScreen(vipScreen);
+        });
+    }
+
     const btnOpenVip = document.getElementById('btn-open-vip');
-    if (btnOpenVip) btnOpenVip.addEventListener('click', () => showScreen(vipScreen));
+    if (btnOpenVip) btnOpenVip.addEventListener('click', openVipEntry);
 
     const btnOpenService = document.getElementById('btn-open-service');
     if (btnOpenService) btnOpenService.addEventListener('click', () => showScreen(serviceScreen));
@@ -677,7 +761,7 @@
     if (btnOpenGames) btnOpenGames.addEventListener('click', () => showScreen(gamesScreen));
 
     const btnGamesToVip = document.getElementById('btn-games-to-vip');
-    if (btnGamesToVip) btnGamesToVip.addEventListener('click', () => showScreen(vipScreen));
+    if (btnGamesToVip) btnGamesToVip.addEventListener('click', openVipEntry);
 
     const vipBack = document.getElementById('vip-back-to-hub');
     if (vipBack) vipBack.addEventListener('click', () => { pendingWifiUnlock = false; showScreen(hubScreen); });
@@ -692,26 +776,11 @@
     if (gamesBack) gamesBack.addEventListener('click', () => showScreen(hubScreen));
 
     const backToHub = document.getElementById('btn-back-to-hub');
-    if (backToHub) backToHub.addEventListener('click', () => showScreen(hubScreen));
+    if (backToHub) backToHub.addEventListener('click', () => { hideVipLivePass(); showScreen(hubScreen); });
 
     // ----------------------------------------------------
-    // 6. Formatting Helpers (DOB & Phone)
+    // 6. Formatting Helper (Phone)
     // ----------------------------------------------------
-    function formatDOB(e) {
-        if (e.inputType === 'deleteContentBackward') return;
-        let input = e.target.value.replace(/\D/g, '').substring(0, 8);
-        if (input.length > 4) {
-            e.target.value = input.substring(0, 2) + '/' + input.substring(2, 4) + '/' + input.substring(4, 8);
-        } else if (input.length > 2) {
-            e.target.value = input.substring(0, 2) + '/' + input.substring(2, 4);
-        } else {
-            e.target.value = input;
-        }
-    }
-
-    const vipDob = document.getElementById('vip-dob');
-    if (vipDob) vipDob.addEventListener('input', formatDOB);
-
     function formatPhone(e) {
         let input = e.target.value.replace(/\D/g, '');
         e.target.value = input.substring(0, 15);
@@ -957,7 +1026,9 @@
 
             try {
                 localStorage.setItem(`metrix_vip_unlocked_${venueIdParam || bizName}`, '1');
+                localStorage.setItem(getVipStorageKey(), JSON.stringify({ name, phone, dob, savedAt: Date.now() }));
             } catch (err) {}
+            applyVipCopy();
 
             if (pendingWifiUnlock) {
                 pendingWifiUnlock = false;
@@ -965,12 +1036,13 @@
                 return;
             }
 
-            // Display Success Screen
+            // Display Success Screen with Live Timestamped Pass
             const titleEl = document.getElementById('success-title');
             const msgEl = document.getElementById('success-message');
             if (titleEl) titleEl.textContent = currentProfile.vip.successTitle;
             if (msgEl) msgEl.textContent = currentProfile.vip.successMsg(name);
-            
+            showVipLivePass(name, phone, false);
+
             showScreen(successScreen);
         });
     }
@@ -1004,6 +1076,7 @@
             msgEl.textContent = currentProfile.service.alertMsg(requestType, destination);
         }
         
+        hideVipLivePass();
         showScreen(successScreen);
     }
 
@@ -1085,6 +1158,7 @@
         const msgEl = document.getElementById('success-message');
         if (titleEl) titleEl.textContent = "Manager Alerted Immediately 🛡️";
         if (msgEl) msgEl.textContent = `Our floor manager has been notified privately about "${issueText}". Someone is coming over right now to make it right.`;
+        hideVipLivePass();
         showScreen(successScreen);
     }
 
