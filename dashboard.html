@@ -896,11 +896,12 @@
                     <div class="form-grid">
                         <div class="form-group">
                             <label><i class="fa-brands fa-whatsapp" style="color: #25d366;"></i> Floor Staff WhatsApp Alert Number</label>
-                            <div class="form-input-wrap">
+                            <div class="form-input-wrap" style="gap: 8px;">
                                 <i class="fa-brands fa-whatsapp" style="color: #25d366;"></i>
-                                <input type="tel" id="cfgWhatsapp" class="form-control" placeholder="+91 98765 43210 or +971 50 123 4567" required>
+                                <input type="text" id="cfgWhatsapp" class="form-control" placeholder="+91 98765 43210 or comma-separated (up to 3)" required>
+                                <button type="button" class="btn-outline" onclick="sendTestWhatsApp()" style="white-space:nowrap;">Test WA</button>
                             </div>
-                            <p class="form-help">Seated diner table calls are instantly dispatched to this phone in &lt;3 seconds.</p>
+                            <p class="form-help">Table service &amp; complaint alerts dispatch to this WhatsApp automatically (comma-separate up to 3 staff numbers, Save first before testing).</p>
                         </div>
 
                         <div class="form-group">
@@ -1821,6 +1822,31 @@
             activeAlertsList = activeAlertsList.filter(a => a.key !== alertKey);
             renderLiveRadar(activeAlertsList);
             showToast('Table request marked attended!');
+        }
+
+        async function sendTestWhatsApp() {
+            if (!currentUser) return;
+            try {
+                const res = await fetch('/api/whatsapp-alert', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        venueId: currentUser.id,
+                        venueName: currentUser.venueName,
+                        table: 'Table 04 (Test)',
+                        alertType: 'service',
+                        message: 'Water Refill — Live Test Alert'
+                    })
+                });
+                const data = await res.json().catch(() => ({}));
+                if (data.ok) {
+                    showToast('WhatsApp test alert sent successfully!');
+                } else {
+                    alert(data.message || data.error || 'Could not send WhatsApp alert.');
+                }
+            } catch (e) {
+                alert('WhatsApp API test error: ' + e.message);
+            }
         }
 
         async function sendTestPush() {

@@ -848,6 +848,22 @@
                 body: payload.pushBody || payload.clientMessage
             }).catch(err => console.warn("Push alert:", err));
         }
+
+        // Official Meta WhatsApp Cloud API Backend Route (/api/whatsapp-alert)
+        if (payload.waAlert && (venueIdParam || (bizName && bizName !== 'Our Business'))) {
+            fetch('/api/whatsapp-alert', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    venueId: venueIdParam || '',
+                    venueName: bizName,
+                    table: payload.waAlert.table || 'Table Guest',
+                    alertType: payload.waAlert.alertType || 'service',
+                    message: payload.waAlert.message || '',
+                    guestPhone: payload.waAlert.guestPhone || ''
+                })
+            }).catch(err => console.warn("WhatsApp route sync:", err));
+        }
     }
 
     // ----------------------------------------------------
@@ -1145,7 +1161,12 @@
             submittedAt: new Date().toLocaleString(),
             pushTitle: `${bizName} · ${tableLabel}`,
             pushBody: `Service Call: ${requestType}`,
-            pushUrgent: false
+            pushUrgent: false,
+            waAlert: {
+                table: tableLabel,
+                alertType: 'service',
+                message: requestType
+            }
         });
 
         const titleEl = document.getElementById('success-title');
@@ -1231,7 +1252,13 @@
             submittedAt: new Date().toLocaleString(),
             pushTitle: `🚨 URGENT FLOOR SHIELD · ${tableLabel}`,
             pushBody: issueText,
-            pushUrgent: true
+            pushUrgent: true,
+            waAlert: {
+                table: tableLabel,
+                alertType: 'shield',
+                message: issueText,
+                guestPhone: guestPhone || ''
+            }
         });
 
         const titleEl = document.getElementById('success-title');
