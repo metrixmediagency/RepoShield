@@ -983,6 +983,18 @@
         return { ok: true, formatted };
     }
 
+    const toggleAnnivBtn = document.getElementById('btn-toggle-anniv');
+    const annivFieldsWrap = document.getElementById('anniv-fields-wrap');
+    if (toggleAnnivBtn && annivFieldsWrap) {
+        toggleAnnivBtn.addEventListener('click', () => {
+            const isHidden = annivFieldsWrap.style.display === 'none';
+            annivFieldsWrap.style.display = isHidden ? 'flex' : 'none';
+            toggleAnnivBtn.innerHTML = isHidden
+                ? '<span>💍 Hide Anniversary Date</span>'
+                : '<span>💍 + Add Anniversary Date <span style="opacity:0.75; font-weight:400;">(Optional — Couple Specials)</span></span>';
+        });
+    }
+
     const vipForm = document.getElementById('vip-form');
     if (vipForm) {
         vipForm.addEventListener('submit', (e) => {
@@ -1004,7 +1016,15 @@
 
             const dobDay = (document.getElementById('vip-dob-day')?.value || '').trim();
             const dobMonth = (document.getElementById('vip-dob-month')?.value || '').trim();
-            const dob = (dobDay && dobMonth) ? `${dobDay} ${dobMonth}` : (dobMonth || '');
+            const bdayStr = (dobDay && dobMonth) ? `${dobDay} ${dobMonth}` : (dobMonth || '');
+
+            const annivDay = (document.getElementById('vip-anniv-day')?.value || '').trim();
+            const annivMonth = (document.getElementById('vip-anniv-month')?.value || '').trim();
+            const annivStr = (annivDay && annivMonth) ? `${annivDay} ${annivMonth}` : (annivMonth || '');
+
+            const dob = (bdayStr && annivStr)
+                ? `${bdayStr} · Anniv: ${annivStr}`
+                : (annivStr ? `Anniv: ${annivStr}` : bdayStr);
             const sourceEl = document.getElementById('vip-source');
             const sourceVal = sourceEl ? sourceEl.value : '';
 
