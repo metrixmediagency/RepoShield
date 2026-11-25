@@ -18,6 +18,17 @@
     const font = urlParams.get('font') || 'Outfit';
     let webhookUrl = urlParams.get('webhook') || '';
     let ntfyTopic = urlParams.get('ntfy') || '';
+    let wifiSsid = urlParams.get('wifiSsid') || '';
+    let wifiPass = urlParams.get('wifiPass') || '';
+    let venueFeatures = {
+        vip: true,
+        service: true,
+        games: true,
+        menu: true,
+        wifi: true,
+        callManager: true,
+        complaint: true
+    };
     let activeTier = 'starter';
     const rawTable = urlParams.get('table') || '';
 
@@ -472,11 +483,33 @@
             const useVisualMenu = window._hasUploadedMenuGallery || !hasRealMenu;
             menuLink.href = useVisualMenu ? visualMenuHref : menuUrl;
             if (useVisualMenu) menuLink.removeAttribute('target'); else menuLink.setAttribute('target', '_blank');
-            menuLink.style.display = 'flex';
-            if (quickWrap) quickWrap.style.display = 'grid';
+            menuLink.style.display = venueFeatures.menu !== false ? 'flex' : 'none';
             if (menuText) menuText.textContent = currentProfile.links.menuText;
             if (menuIcon) menuIcon.className = currentProfile.links.menuIcon;
         }
+
+        const wifiBtn = document.getElementById('hub-wifi-btn');
+        if (wifiBtn) {
+            wifiBtn.style.display = venueFeatures.wifi !== false ? 'flex' : 'none';
+        }
+        if (quickWrap) {
+            const showAny = (venueFeatures.menu !== false) || (venueFeatures.wifi !== false);
+            quickWrap.style.display = showAny ? 'flex' : 'none';
+        }
+
+        const btnVip = document.getElementById('btn-open-vip');
+        if (btnVip) btnVip.style.display = venueFeatures.vip !== false ? 'flex' : 'none';
+
+        const btnSvc = document.getElementById('btn-open-service');
+        if (btnSvc) btnSvc.style.display = venueFeatures.service !== false ? 'flex' : 'none';
+
+        const btnGames = document.getElementById('btn-open-games');
+        if (btnGames) btnGames.style.display = venueFeatures.games !== false ? 'flex' : 'none';
+
+        const ssidEl = document.getElementById('wifi-ssid-display');
+        const passEl = document.getElementById('wifi-pass-display');
+        if (ssidEl) ssidEl.textContent = wifiSsid || `${bizName.replace(/\s+/g, '_')}_Guest`;
+        if (passEl) passEl.textContent = wifiPass || 'Welcome@Guest';
     }
     refreshQuickLinks();
 
@@ -494,7 +527,11 @@
                 if (cfg.menuUrl) menuUrl = cfg.menuUrl;
                 if (cfg.ntfyTopic) ntfyTopic = cfg.ntfyTopic;
                 if (cfg.alertWebhook) webhookUrl = cfg.alertWebhook;
+                if (cfg.wifiSsid) wifiSsid = cfg.wifiSsid;
+                if (cfg.wifiPass) wifiPass = cfg.wifiPass;
+                if (cfg.features) venueFeatures = { ...venueFeatures, ...cfg.features };
                 if (cfg.tier) activeTier = cfg.tier;
+                if (typeof renderServiceTiles === 'function') renderServiceTiles();
             }
             if (window.SUPABASE_URL && window.SUPABASE_ANON_KEY && bizName && bizName !== 'Our Business') {
                 fetch(`${window.SUPABASE_URL}/rest/v1/feedback?business_name=ilike.*${encodeURIComponent(bizName)}*&client_name=eq.__METRIX_MENU_GALLERY__&order=created_at.desc&limit=1`, {
@@ -558,14 +595,35 @@
     const serviceScreen = document.getElementById('service-screen');
     const shieldScreen = document.getElementById('shield-screen');
     const gamesScreen = document.getElementById('games-screen');
+    const wifiScreen = document.getElementById('wifi-screen');
     const successScreen = document.getElementById('success-screen');
     const customServiceForm = document.getElementById('custom-service-form');
 
     function showScreen(screen) {
-        [hubScreen, vipScreen, serviceScreen, shieldScreen, gamesScreen, successScreen].forEach(s => {
+        [hubScreen, vipScreen, serviceScreen, shieldScreen, gamesScreen, wifiScreen, successScreen].forEach(s => {
             if (s) s.style.display = 'none';
         });
         if (screen) screen.style.display = 'flex';
+    }
+
+    const hubWifiBtn = document.getElementById('hub-wifi-btn');
+    if (hubWifiBtn) hubWifiBtn.addEventListener('click', () => showScreen(wifiScreen));
+    const wifiBackBtn = document.getElementById('wifi-back-to-hub');
+    if (wifiBackBtn) wifiBackBtn.addEventListener('click', () => showScreen(hubScreen));
+    const wifiToVipBtn = document.getElementById('btn-wifi-to-vip');
+    if (wifiToVipBtn) wifiToVipBtn.addEventListener('click', () => showScreen(vipScreen));
+    const copyWifiBtn = document.getElementById('btn-copy-wifi');
+    if (copyWifiBtn) {
+        copyWifiBtn.addEventListener('click', () => {
+            const pw = document.getElementById('wifi-pass-display')?.textContent || '';
+            const txtEl = document.getElementById('copy-wifi-text');
+            if (navigator.clipboard && pw) {
+                navigator.clipboard.writeText(pw).then(() => {
+                    if (txtEl) txtEl.textContent = 'Password Copied!';
+                    setTimeout(() => { if (txtEl) txtEl.textContent = 'Copy Password'; }, 2000);
+                });
+            }
+        });
     }
 
     const btnOpenVip = document.getElementById('btn-open-vip');
@@ -755,11 +813,15 @@
         showScreen(successScreen);
     }
 
-    // Populate Dynamic Service Grid
+    // Populate Dynamic Service Grid (respects Feature Toggles)
     const serviceGrid = document.getElementById('service-grid');
-    if (serviceGrid && currentProfile.service.tiles) {
+    function renderServiceTiles() {
+        if (!serviceGrid || !currentProfile.service.tiles) return;
         serviceGrid.innerHTML = '';
         currentProfile.service.tiles.forEach((tile) => {
+            if (tile.isUrgent && venueFeatures.callManager === false) return;
+            if (tile.isComplaint && venueFeatures.complaint === false) return;
+
             const btn = document.createElement('button');
             btn.type = 'button';
             btn.className = 'service-tile';
@@ -791,6 +853,7 @@
             serviceGrid.appendChild(btn);
         });
     }
+    renderServiceTiles();
 
     // Custom Note Form Handler
     if (customServiceForm) {

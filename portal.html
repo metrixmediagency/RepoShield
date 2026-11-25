@@ -77,10 +77,14 @@
                         <i class="fa-brands fa-google" id="hub-gmb-icon" style="color: #ea4335;"></i>
                         <span id="hub-gmb-text">Review on Google</span>
                     </a>
-                    <a href="#" id="hub-menu-link" class="hub-link-btn" target="_blank" rel="noopener noreferrer" style="grid-column: 1 / -1;">
+                    <a href="#" id="hub-menu-link" class="hub-link-btn" target="_blank" rel="noopener noreferrer">
                         <i class="fa-solid fa-utensils" id="hub-menu-icon" style="color: #d4af37;"></i>
                         <span id="hub-menu-text">Browse Menu</span>
                     </a>
+                    <button type="button" id="hub-wifi-btn" class="hub-link-btn" style="cursor: pointer;">
+                        <i class="fa-solid fa-wifi" style="color: #38bdf8;"></i>
+                        <span>Free Wi-Fi</span>
+                    </button>
                 </div>
             </div>
 
@@ -234,6 +238,34 @@
                 </button>
             </div>
 
+            <!-- Guest Wi-Fi Screen -->
+            <div class="service-screen" id="wifi-screen" style="display: none;">
+                <div class="screen-header">
+                    <button class="back-btn" id="wifi-back-to-hub" aria-label="Go back"><i class="fa-solid fa-arrow-left"></i></button>
+                    <h3>Free Guest Wi-Fi 📶</h3>
+                </div>
+                <p class="feedback-subtitle">Connect instantly to our complimentary high-speed dining Wi-Fi:</p>
+
+                <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(56,189,248,0.28); border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 12px;">
+                    <div>
+                        <div style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.8px; color: #94a3b8; margin-bottom: 4px;">Network Name (SSID)</div>
+                        <div id="wifi-ssid-display" style="font-size: 1.05rem; font-weight: 700; color: #f8fafc;">Guest_WiFi_5G</div>
+                    </div>
+                    <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 12px;">
+                        <div style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.8px; color: #94a3b8; margin-bottom: 4px;">Wi-Fi Password</div>
+                        <div id="wifi-pass-display" style="font-size: 1.15rem; font-weight: 800; color: #38bdf8; letter-spacing: 0.5px;">Welcome123</div>
+                    </div>
+                    <button type="button" id="btn-copy-wifi" class="submit-btn" style="margin-top: 4px;">
+                        <span id="copy-wifi-text">Copy Password</span> <i class="fa-solid fa-copy"></i>
+                    </button>
+                </div>
+
+                <button type="button" id="btn-wifi-to-vip" class="hub-link-btn" style="margin-top: 6px; width: 100%; justify-content: center; border-color: rgba(212,175,55,0.4);">
+                    <i class="fa-solid fa-crown" style="color: #d4af37;"></i>
+                    <span>While online, Join VIP Dining Club 🥂</span>
+                </button>
+            </div>
+
             <!-- Success Screen -->
             <div class="success-screen" id="success-screen" style="display: none;">
                 <div class="success-checkmark">
@@ -257,6 +289,6 @@
     </div>
 
     <script src="supabase_config.js"></script>
-    <script src="portal.js?v=5.3"></script>
+    <script src="portal.js?v=5.4"></script>
 </body>
 </html>

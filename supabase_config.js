@@ -42,6 +42,17 @@ function packCampaignMeta(c) {
         menuUrl: c.menuUrl || '',
         ntfyTopic: c.ntfyTopic || '',
         alertWebhook: c.alertWebhook || '',
+        wifiSsid: c.wifiSsid || '',
+        wifiPass: c.wifiPass || '',
+        features: {
+            vip: c.features?.vip !== false,
+            service: c.features?.service !== false,
+            games: c.features?.games !== false,
+            menu: c.features?.menu !== false,
+            wifi: c.features?.wifi !== false,
+            callManager: c.features?.callManager !== false,
+            complaint: c.features?.complaint !== false
+        },
         // Tier 2 Loyalty Ready
         stampGoal: c.stampGoal || 8,
         stampReward: c.stampReward || 'Complimentary Dessert / Coffee',
@@ -99,6 +110,17 @@ function unpackCampaignRow(c) {
         menuUrl: meta.menuUrl || '',
         ntfyTopic: meta.ntfyTopic || '',
         alertWebhook: meta.alertWebhook || '',
+        wifiSsid: meta.wifiSsid || '',
+        wifiPass: meta.wifiPass || '',
+        features: {
+            vip: meta.features?.vip !== false,
+            service: meta.features?.service !== false,
+            games: meta.features?.games !== false,
+            menu: meta.features?.menu !== false,
+            wifi: meta.features?.wifi !== false,
+            callManager: meta.features?.callManager !== false,
+            complaint: meta.features?.complaint !== false
+        },
         stampGoal: meta.stampGoal || 8,
         stampReward: meta.stampReward || 'Complimentary Dessert / Coffee',
         stampPin: meta.stampPin || '1234',

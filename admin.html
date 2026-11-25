@@ -883,6 +883,30 @@
                 </div>
             </div>
 
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div class="form-group">
+                    <label>Guest Wi-Fi Name (SSID)</label>
+                    <input type="text" id="overrideWifiSsid" class="form-control" style="padding-left: 12px;" placeholder="Guest_WiFi">
+                </div>
+                <div class="form-group">
+                    <label>Guest Wi-Fi Password</label>
+                    <input type="text" id="overrideWifiPass" class="form-control" style="padding-left: 12px;" placeholder="Welcome123">
+                </div>
+            </div>
+
+            <div style="background:#080c14; border:1px solid var(--border-subtle); border-radius:10px; padding:12px; margin-bottom:16px;">
+                <div style="font-size:0.75rem; font-weight:800; color:var(--gold-primary); text-transform:uppercase; margin-bottom:8px;">Active Features (Check to Enable)</div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:0.8rem; color:#e2e8f0;">
+                    <label style="display:flex; gap:6px; align-items:center;"><input type="checkbox" id="ovFtVip" checked> VIP Club</label>
+                    <label style="display:flex; gap:6px; align-items:center;"><input type="checkbox" id="ovFtService" checked> Table Service</label>
+                    <label style="display:flex; gap:6px; align-items:center;"><input type="checkbox" id="ovFtGames" checked> Table Games</label>
+                    <label style="display:flex; gap:6px; align-items:center;"><input type="checkbox" id="ovFtMenu" checked> Browse Menu</label>
+                    <label style="display:flex; gap:6px; align-items:center;"><input type="checkbox" id="ovFtWifi" checked> Free Wi-Fi</label>
+                    <label style="display:flex; gap:6px; align-items:center;"><input type="checkbox" id="ovFtCallManager" checked> Call Manager</label>
+                    <label style="display:flex; gap:6px; align-items:center;"><input type="checkbox" id="ovFtComplaint" checked> Complaint Box</label>
+                </div>
+            </div>
+
             <button type="button" class="gate-btn" onclick="saveEmergencyOverride()">
                 <i class="fa-solid fa-floppy-disk"></i> Save &amp; Push to Cloud Tables
             </button>
@@ -1186,6 +1210,16 @@
             document.getElementById('overrideTier').value = venue.tier || 'starter';
             document.getElementById('overrideStatus').value = venue.status || 'active';
             document.getElementById('overridePassword').value = venue.ownerPassword || 'metrix123';
+            document.getElementById('overrideWifiSsid').value = venue.wifiSsid || '';
+            document.getElementById('overrideWifiPass').value = venue.wifiPass || '';
+            const ft = venue.features || {};
+            document.getElementById('ovFtVip').checked = ft.vip !== false;
+            document.getElementById('ovFtService').checked = ft.service !== false;
+            document.getElementById('ovFtGames').checked = ft.games !== false;
+            document.getElementById('ovFtMenu').checked = ft.menu !== false;
+            document.getElementById('ovFtWifi').checked = ft.wifi !== false;
+            document.getElementById('ovFtCallManager').checked = ft.callManager !== false;
+            document.getElementById('ovFtComplaint').checked = ft.complaint !== false;
 
             document.getElementById('overrideModal').classList.add('active');
         }
@@ -1200,6 +1234,17 @@
             const tier = document.getElementById('overrideTier').value;
             const status = document.getElementById('overrideStatus').value;
             const ownerPassword = document.getElementById('overridePassword').value.trim() || 'metrix123';
+            const wifiSsid = document.getElementById('overrideWifiSsid').value.trim();
+            const wifiPass = document.getElementById('overrideWifiPass').value.trim();
+            const features = {
+                vip: document.getElementById('ovFtVip').checked,
+                service: document.getElementById('ovFtService').checked,
+                games: document.getElementById('ovFtGames').checked,
+                menu: document.getElementById('ovFtMenu').checked,
+                wifi: document.getElementById('ovFtWifi').checked,
+                callManager: document.getElementById('ovFtCallManager').checked,
+                complaint: document.getElementById('ovFtComplaint').checked
+            };
 
             const updated = {
                 ...existing,
@@ -1212,7 +1257,10 @@
                 tier,
                 plan: tier,
                 status,
-                ownerPassword
+                ownerPassword,
+                wifiSsid,
+                wifiPass,
+                features
             };
 
             if (window.MetrixCloud) {

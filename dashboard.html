@@ -953,6 +953,54 @@
                             </div>
                             <p class="form-help">Optional JSON webhook (Make.com / Zapier / Google Apps Script) triggered on every VIP &amp; service alert.</p>
                         </div>
+
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-wifi" style="color: #38bdf8;"></i> Guest Wi-Fi Network Name (SSID)</label>
+                            <div class="form-input-wrap">
+                                <i class="fa-solid fa-wifi" style="color: #38bdf8;"></i>
+                                <input type="text" id="cfgWifiSsid" class="form-control" placeholder="e.g. PeepKitchen_Guest_5G">
+                            </div>
+                            <p class="form-help">Shown when diners tap "Free Wi-Fi" beside Browse Menu.</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-lock" style="color: #38bdf8;"></i> Guest Wi-Fi Password</label>
+                            <div class="form-input-wrap">
+                                <i class="fa-solid fa-key" style="color: #38bdf8;"></i>
+                                <input type="text" id="cfgWifiPass" class="form-control" placeholder="e.g. Welcome@2026">
+                            </div>
+                            <p class="form-help">Guests can 1-tap copy this password right from their table.</p>
+                        </div>
+                    </div>
+
+                    <!-- FEATURE CONTROL TOGGLES -->
+                    <div style="background: #080c14; border: 1px solid var(--border-subtle); border-radius: 12px; padding: 16px 18px; margin-top: 14px;">
+                        <div style="font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; color: var(--gold-primary); margin-bottom: 10px;">
+                            <i class="fa-solid fa-toggle-on"></i> Tabletop Feature Controls (Turn Any Feature ON / OFF Instantly)
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(195px, 1fr)); gap: 10px; font-size: 0.85rem;">
+                            <label style="display:flex; align-items:center; gap:8px; cursor:pointer; background:#0d131f; padding:8px 10px; border-radius:8px; border:1px solid var(--border-subtle);">
+                                <input type="checkbox" id="ftVip" checked> <span>VIP Dining Club</span>
+                            </label>
+                            <label style="display:flex; align-items:center; gap:8px; cursor:pointer; background:#0d131f; padding:8px 10px; border-radius:8px; border:1px solid var(--border-subtle);">
+                                <input type="checkbox" id="ftService" checked> <span>Call Table Service</span>
+                            </label>
+                            <label style="display:flex; align-items:center; gap:8px; cursor:pointer; background:#0d131f; padding:8px 10px; border-radius:8px; border:1px solid var(--border-subtle);">
+                                <input type="checkbox" id="ftGames" checked> <span>Play While You Wait</span>
+                            </label>
+                            <label style="display:flex; align-items:center; gap:8px; cursor:pointer; background:#0d131f; padding:8px 10px; border-radius:8px; border:1px solid var(--border-subtle);">
+                                <input type="checkbox" id="ftMenu" checked> <span>Browse Menu</span>
+                            </label>
+                            <label style="display:flex; align-items:center; gap:8px; cursor:pointer; background:#0d131f; padding:8px 10px; border-radius:8px; border:1px solid var(--border-subtle);">
+                                <input type="checkbox" id="ftWifi" checked> <span>Free Guest Wi-Fi</span>
+                            </label>
+                            <label style="display:flex; align-items:center; gap:8px; cursor:pointer; background:#0d131f; padding:8px 10px; border-radius:8px; border:1px solid var(--border-subtle);">
+                                <input type="checkbox" id="ftCallManager" checked> <span>Call Manager Tile</span>
+                            </label>
+                            <label style="display:flex; align-items:center; gap:8px; cursor:pointer; background:#0d131f; padding:8px 10px; border-radius:8px; border:1px solid var(--border-subtle);">
+                                <input type="checkbox" id="ftComplaint" checked> <span>Complaint Box Tile</span>
+                            </label>
+                        </div>
                     </div>
 
                     <div style="display: flex; justify-content: flex-end; margin-top: 15px;">
@@ -1517,6 +1565,17 @@
             document.getElementById('cfgMenuUrl').value = cfg.menuUrl || savedSettings.menu || '';
             document.getElementById('cfgNtfyTopic').value = cfg.ntfyTopic || savedSettings.ntfyTopic || ('metrix-' + user.venueName.toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 12) + '-' + String(user.id).slice(-4));
             document.getElementById('cfgWebhook').value = cfg.alertWebhook || savedSettings.webhook || '';
+            document.getElementById('cfgWifiSsid').value = cfg.wifiSsid || savedSettings.wifiSsid || '';
+            document.getElementById('cfgWifiPass').value = cfg.wifiPass || savedSettings.wifiPass || '';
+
+            const ft = cfg.features || savedSettings.features || {};
+            document.getElementById('ftVip').checked = ft.vip !== false;
+            document.getElementById('ftService').checked = ft.service !== false;
+            document.getElementById('ftGames').checked = ft.games !== false;
+            document.getElementById('ftMenu').checked = ft.menu !== false;
+            document.getElementById('ftWifi').checked = ft.wifi !== false;
+            document.getElementById('ftCallManager').checked = ft.callManager !== false;
+            document.getElementById('ftComplaint').checked = ft.complaint !== false;
 
             applyTierUI(cfg.tier || user.tier || 'starter');
 
@@ -1796,9 +1855,20 @@
             const biz = document.getElementById('cfgBizName').value.trim();
             const ntfyTopic = document.getElementById('cfgNtfyTopic').value.trim();
             const webhook = document.getElementById('cfgWebhook').value.trim();
+            const wifiSsid = document.getElementById('cfgWifiSsid').value.trim();
+            const wifiPass = document.getElementById('cfgWifiPass').value.trim();
+            const features = {
+                vip: document.getElementById('ftVip').checked,
+                service: document.getElementById('ftService').checked,
+                games: document.getElementById('ftGames').checked,
+                menu: document.getElementById('ftMenu').checked,
+                wifi: document.getElementById('ftWifi').checked,
+                callManager: document.getElementById('ftCallManager').checked,
+                complaint: document.getElementById('ftComplaint').checked
+            };
 
             localStorage.setItem(`metrix_settings_${currentUser.id}`, JSON.stringify({
-                wa, gmb, menu, biz, ntfyTopic, webhook
+                wa, gmb, menu, biz, ntfyTopic, webhook, wifiSsid, wifiPass, features
             }));
 
             if (window.MetrixCloud) {
@@ -1814,6 +1884,9 @@
                     menuUrl: menu,
                     ntfyTopic,
                     alertWebhook: webhook,
+                    wifiSsid,
+                    wifiPass,
+                    features,
                     tier: existing.tier || currentUser.tier || 'starter'
                 });
                 if (res?.data) {
