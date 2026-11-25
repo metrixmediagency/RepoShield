@@ -1,0 +1,425 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Menu | METRIX</title>
+    <link rel="icon" type="image/jpeg" href="/metrix_logo.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #070a0f;
+            --bg-card: #0f172a;
+            --primary: #d4af37;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            padding-bottom: 92px;
+        }
+        .menu-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(7, 10, 15, 0.92);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .back-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .venue-title-wrap {
+            text-align: center;
+            flex: 1;
+        }
+        .venue-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #d4af37 0%, #fef08a 50%, #b45309 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.3px;
+        }
+        .venue-sub {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-top: 2px;
+        }
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 18px 16px;
+        }
+        .status-banner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(212, 175, 55, 0.08);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            border-radius: 12px;
+            padding: 10px 14px;
+            margin-bottom: 18px;
+            font-size: 0.8rem;
+            color: #fde68a;
+        }
+        .gallery-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        .menu-photo-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.5);
+        }
+        .menu-photo-card img {
+            width: 100%;
+            display: block;
+            height: auto;
+            max-height: 540px;
+            object-fit: cover;
+            cursor: zoom-in;
+        }
+        .menu-photo-meta {
+            padding: 14px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .menu-photo-meta h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+        .menu-photo-meta p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.45;
+        }
+        .price-pill {
+            background: rgba(212, 175, 55, 0.14);
+            color: #fbbf24;
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            font-weight: 800;
+            font-size: 0.88rem;
+            padding: 5px 10px;
+            border-radius: 8px;
+            white-space: nowrap;
+        }
+        .bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(7, 10, 15, 0.95);
+            backdrop-filter: blur(14px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px 16px;
+            display: flex;
+            justify-content: center;
+            z-index: 60;
+        }
+        .bottom-inner {
+            max-width: 680px;
+            width: 100%;
+            display: flex;
+            gap: 10px;
+        }
+        .btn-gold {
+            flex: 1;
+            background: linear-gradient(135deg, #d4af37 0%, #fef08a 50%, #b45309 100%);
+            color: #070a0f;
+            border: none;
+            border-radius: 12px;
+            padding: 13px 16px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn-dark {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 13px 16px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.94);
+            z-index: 200;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+        .lightbox img {
+            max-width: 100%;
+            max-height: 92vh;
+            border-radius: 10px;
+        }
+        .toast {
+            position: fixed;
+            top: 72px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #10b981;
+            color: #070a0f;
+            font-weight: 800;
+            font-size: 0.85rem;
+            padding: 10px 18px;
+            border-radius: 10px;
+            display: none;
+            z-index: 150;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="menu-header">
+        <button type="button" class="back-pill" onclick="goBackToPortal()">
+            <i class="fa-solid fa-arrow-left"></i> Table
+        </button>
+        <div class="venue-title-wrap">
+            <div class="venue-title" id="menuVenueName">Digital Menu</div>
+            <div class="venue-sub" id="menuTableSub">Chef's Selections &amp; Specials</div>
+        </div>
+        <div style="width: 64px;"></div>
+    </header>
+
+    <div class="toast" id="menuToast"><i class="fa-solid fa-bell-concierge"></i> Waiter alerted to your table!</div>
+
+    <main class="container">
+        <div class="status-banner" id="menuModeBanner" style="display: none;">
+            <span><i class="fa-solid fa-sparkles"></i> Visual Sample Menu — Upload your own food &amp; menu photos in Dashboard.</span>
+        </div>
+
+        <div class="gallery-grid" id="menuGallery">
+            <div style="text-align:center; padding: 60px 20px; color: var(--text-muted);">
+                <i class="fa-solid fa-spinner fa-spin" style="font-size: 1.6rem; color: var(--primary); margin-bottom: 10px;"></i>
+                <p>Loading menu photos...</p>
+            </div>
+        </div>
+    </main>
+
+    <div class="bottom-bar">
+        <div class="bottom-inner">
+            <button type="button" class="btn-dark" onclick="goBackToPortal()">
+                <i class="fa-solid fa-crown" style="color: var(--primary);"></i> VIP Club
+            </button>
+            <button type="button" class="btn-gold" onclick="callWaiterFromMenu()">
+                <i class="fa-solid fa-bell-concierge"></i> Ready to Order? Call Waiter
+            </button>
+        </div>
+    </div>
+
+    <div class="lightbox" id="menuLightbox" onclick="this.style.display='none'">
+        <img id="lightboxImg" src="" alt="Menu Zoom">
+    </div>
+
+    <script src="supabase_config.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const venueId = urlParams.get('id') || '';
+        let venueName = urlParams.get('name') || 'Our Kitchen';
+        const tableParam = urlParams.get('table') || '';
+        const accent = urlParams.get('flyerAccent') || '#d4af37';
+
+        document.documentElement.style.setProperty('--primary', accent);
+        document.getElementById('menuVenueName').textContent = venueName;
+        if (tableParam) document.getElementById('menuTableSub').textContent = `${tableParam} · Curated Menu`;
+
+        const defaultShowcase = [
+            {
+                img: '/menu_dish_1.jpg',
+                title: 'Chef\'s Signature Coastal Seafood Platter',
+                desc: 'Sizzling butter-garlic prawns and freshly grilled coastal catch served with herbs & lemon.',
+                price: '₹650'
+            },
+            {
+                img: '/menu_dish_2.jpg',
+                title: 'Artisan Spiced Starters & Warm Flatbread',
+                desc: 'Crisp house-spiced starters paired with roasted garlic oil and toasted sesame glaze.',
+                price: '₹390'
+            },
+            {
+                img: '/menu_drink_1.jpg',
+                title: 'Signature Sunset Passion Craft Cocktail',
+                desc: 'Fresh passionfruit reduction, mint sprig & sparkling botanicals served over clear ice.',
+                price: '₹320'
+            }
+        ];
+
+        function openLightbox(src) {
+            document.getElementById('lightboxImg').src = src;
+            document.getElementById('menuLightbox').style.display = 'flex';
+        }
+
+        function renderGallery(items, isSample) {
+            const container = document.getElementById('menuGallery');
+            const banner = document.getElementById('menuModeBanner');
+            if (banner) banner.style.display = isSample ? 'flex' : 'none';
+
+            container.innerHTML = '';
+            items.forEach((item, idx) => {
+                const src = typeof item === 'string' ? item : (item.dataUrl || item.img || item.url);
+                const title = (typeof item === 'object' && item.title) ? item.title : `Menu Page ${idx + 1}`;
+                const desc = (typeof item === 'object' && item.desc) ? item.desc : 'Tap image to zoom in for clear viewing.';
+                const price = (typeof item === 'object' && item.price) ? item.price : '';
+
+                const card = document.createElement('div');
+                card.className = 'menu-photo-card';
+                card.innerHTML = `
+                    <img src="${src}" alt="${title}" onclick="openLightbox(this.src)" loading="lazy">
+                    <div class="menu-photo-meta">
+                        <div>
+                            <h3>${title}</h3>
+                            <p>${desc}</p>
+                        </div>
+                        ${price ? `<span class="price-pill">${price}</span>` : ''}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        async function loadVenueMenu() {
+            let ntfyTopic = '';
+            try {
+                if (window.MetrixCloud && (venueId || (venueName && venueName !== 'Our Kitchen'))) {
+                    const cfg = await window.MetrixCloud.getVenueConfig({ id: venueId || undefined, name: venueId ? undefined : venueName });
+                    if (cfg) {
+                        if (cfg.name) {
+                            venueName = cfg.name;
+                            document.getElementById('menuVenueName').textContent = venueName;
+                        }
+                        if (cfg.ntfyTopic) ntfyTopic = cfg.ntfyTopic;
+                        window._venueNtfy = ntfyTopic;
+                    }
+                }
+
+                // Fetch uploaded visual menu gallery from Supabase feedback store
+                const SUPABASE_URL = window.SUPABASE_URL || "";
+                const SUPABASE_KEY = window.SUPABASE_ANON_KEY || "";
+                if (SUPABASE_URL && SUPABASE_KEY && venueName) {
+                    const res = await fetch(`${SUPABASE_URL}/rest/v1/feedback?business_name=ilike.*${encodeURIComponent(venueName)}*&client_name=eq.__METRIX_MENU_GALLERY__&order=created_at.desc&limit=1`, {
+                        headers: {
+                            'apikey': SUPABASE_KEY,
+                            'Authorization': `Bearer ${SUPABASE_KEY}`
+                        }
+                    });
+                    if (res.ok) {
+                        const rows = await res.json();
+                        if (rows && rows.length > 0 && rows[0].client_message) {
+                            const parsed = JSON.parse(rows[0].client_message);
+                            if (Array.isArray(parsed) && parsed.length > 0) {
+                                renderGallery(parsed, false);
+                                return;
+                            }
+                        }
+                    }
+                }
+            } catch (err) {
+                console.warn('Menu cloud load:', err);
+            }
+
+            // Fallback to appetizing visual photography showcase
+            renderGallery(defaultShowcase, true);
+        }
+
+        function goBackToPortal() {
+            const params = new URLSearchParams(window.location.search);
+            window.location.href = `/portal.html?${params.toString()}`;
+        }
+
+        function callWaiterFromMenu() {
+            const tableLabel = tableParam || 'Table Guest';
+            const SUPABASE_URL = window.SUPABASE_URL || "";
+            const SUPABASE_KEY = window.SUPABASE_ANON_KEY || "";
+
+            if (SUPABASE_URL && SUPABASE_KEY) {
+                fetch(`${SUPABASE_URL}/rest/v1/feedback`, {
+                    method: 'POST',
+                    headers: {
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${SUPABASE_KEY}`,
+                        'Content-Type': 'application/json',
+                        'Prefer': 'return=minimal'
+                    },
+                    body: JSON.stringify({
+                        business_name: venueName,
+                        business_email: 'menu@metrixmedia.agency',
+                        rating: 5,
+                        client_name: tableParam ? `Seated Guest (${tableParam})` : "Seated Guest",
+                        client_phone: tableLabel,
+                        client_dob: "",
+                        client_message: `[TABLE_CALL] [${tableLabel}] Ready to Order (Call Waiter from Menu)`,
+                        submitted_at: new Date().toISOString()
+                    })
+                }).catch(() => {});
+            }
+
+            if (window._venueNtfy) {
+                fetch(`https://ntfy.sh/${encodeURIComponent(window._venueNtfy)}`, {
+                    method: 'POST',
+                    headers: { 'Title': `${venueName} · ${tableLabel}`, 'Priority': 'high', 'Tags': 'bell' },
+                    body: 'Ready to Order — Call Waiter (from Digital Menu)'
+                }).catch(() => {});
+            }
+
+            const toast = document.getElementById('menuToast');
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 3500);
+        }
+
+        loadVenueMenu();
+    </script>
+</body>
+</html>

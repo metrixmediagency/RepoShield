@@ -1417,7 +1417,7 @@
 
                 if (response.ok) {
                     const data = await response.json();
-                    masterTelemetryList = (data || []).filter(item => !(item.client_message || '').startsWith('[ALERT_RESOLVED:'));
+                    masterTelemetryList = (data || []).filter(item => item.client_name !== '__METRIX_MENU_GALLERY__' && !(item.client_message || '').startsWith('[ALERT_RESOLVED:'));
                     document.getElementById('metricDinersCount').textContent = masterTelemetryList.length;
 
                     if (masterTelemetryList.length === 0) {

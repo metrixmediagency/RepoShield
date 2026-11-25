@@ -214,7 +214,7 @@
                     { label: "Stylist Consult", icon: "fa-solid fa-headset", request: "Stylist Consultation & Assistance" },
                     { label: "Special Note", icon: "fa-solid fa-message", isCustom: true },
                     { label: "Call Manager", icon: "fa-solid fa-user-tie", request: "Urgent: Call Floor Manager", isUrgent: true },
-                    { label: "Complaint Box", icon: "fa-solid fa-shield-halved", isComplaint: true }
+                    { label: "Complaint", icon: "fa-solid fa-shield-halved", isComplaint: true }
                 ]
             },
             links: {
@@ -261,7 +261,7 @@
                     { label: "Request Bill", icon: "fa-solid fa-receipt", request: "Request Bill & Payment" },
                     { label: "Special Note", icon: "fa-solid fa-message", isCustom: true },
                     { label: "Call Manager", icon: "fa-solid fa-user-tie", request: "Urgent: Call Floor Manager", isUrgent: true },
-                    { label: "Complaint Box", icon: "fa-solid fa-shield-halved", isComplaint: true }
+                    { label: "Complaint", icon: "fa-solid fa-shield-halved", isComplaint: true }
                 ]
             },
             links: {
@@ -462,8 +462,16 @@
 
         if (menuLink) {
             const hasRealMenu = Boolean(menuUrl && menuUrl.trim() && menuUrl !== 'https://maps.google.com');
-            menuLink.href = hasRealMenu ? menuUrl : '#';
-            if (hasRealMenu) menuLink.setAttribute('target', '_blank'); else menuLink.removeAttribute('target');
+            const p = new URLSearchParams();
+            if (venueIdParam) p.set('id', venueIdParam);
+            if (bizName) p.set('name', bizName);
+            if (rawTable) p.set('table', rawTable);
+            if (effectiveAccent) p.set('flyerAccent', effectiveAccent);
+            const visualMenuHref = `/menu.html?${p.toString()}`;
+
+            const useVisualMenu = window._hasUploadedMenuGallery || !hasRealMenu;
+            menuLink.href = useVisualMenu ? visualMenuHref : menuUrl;
+            if (useVisualMenu) menuLink.removeAttribute('target'); else menuLink.setAttribute('target', '_blank');
             menuLink.style.display = 'flex';
             if (quickWrap) quickWrap.style.display = 'grid';
             if (menuText) menuText.textContent = currentProfile.links.menuText;
@@ -472,22 +480,35 @@
     }
     refreshQuickLinks();
 
-    // Hydrate live Cloud Settings from Supabase (so menuUrl, push topic, & tier stay synced)
+    // Hydrate live Cloud Settings & Visual Menu Gallery check from Supabase
     if (window.MetrixCloud && (venueIdParam || (bizName && bizName !== 'Our Business'))) {
         window.MetrixCloud.getVenueConfig({ id: venueIdParam || undefined, name: venueIdParam ? undefined : bizName }).then(cfg => {
-            if (!cfg) return;
-            if (cfg.name) {
-                bizName = cfg.name;
-                const el = document.getElementById('business-name');
-                if (el) el.textContent = bizName;
+            if (cfg) {
+                if (cfg.name) {
+                    bizName = cfg.name;
+                    const el = document.getElementById('business-name');
+                    if (el) el.textContent = bizName;
+                }
+                if (cfg.email) bizEmail = cfg.email;
+                if (cfg.gmbUrl) gmbUrl = cfg.gmbUrl;
+                if (cfg.menuUrl) menuUrl = cfg.menuUrl;
+                if (cfg.ntfyTopic) ntfyTopic = cfg.ntfyTopic;
+                if (cfg.alertWebhook) webhookUrl = cfg.alertWebhook;
+                if (cfg.tier) activeTier = cfg.tier;
             }
-            if (cfg.email) bizEmail = cfg.email;
-            if (cfg.gmbUrl) gmbUrl = cfg.gmbUrl;
-            if (cfg.menuUrl) menuUrl = cfg.menuUrl;
-            if (cfg.ntfyTopic) ntfyTopic = cfg.ntfyTopic;
-            if (cfg.alertWebhook) webhookUrl = cfg.alertWebhook;
-            if (cfg.tier) activeTier = cfg.tier;
-            refreshQuickLinks();
+            if (window.SUPABASE_URL && window.SUPABASE_ANON_KEY && bizName && bizName !== 'Our Business') {
+                fetch(`${window.SUPABASE_URL}/rest/v1/feedback?business_name=ilike.*${encodeURIComponent(bizName)}*&client_name=eq.__METRIX_MENU_GALLERY__&order=created_at.desc&limit=1`, {
+                    headers: { 'apikey': window.SUPABASE_ANON_KEY, 'Authorization': `Bearer ${window.SUPABASE_ANON_KEY}` }
+                }).then(r => r.ok ? r.json() : []).then(rows => {
+                    if (rows && rows.length > 0 && rows[0].client_message) {
+                        const arr = JSON.parse(rows[0].client_message);
+                        if (Array.isArray(arr) && arr.length > 0) window._hasUploadedMenuGallery = true;
+                    }
+                    refreshQuickLinks();
+                }).catch(() => refreshQuickLinks());
+            } else {
+                refreshQuickLinks();
+            }
         }).catch(() => {});
     }
 
@@ -537,31 +558,15 @@
     const serviceScreen = document.getElementById('service-screen');
     const shieldScreen = document.getElementById('shield-screen');
     const gamesScreen = document.getElementById('games-screen');
-    const sampleMenuScreen = document.getElementById('sample-menu-screen');
     const successScreen = document.getElementById('success-screen');
     const customServiceForm = document.getElementById('custom-service-form');
 
     function showScreen(screen) {
-        [hubScreen, vipScreen, serviceScreen, shieldScreen, gamesScreen, sampleMenuScreen, successScreen].forEach(s => {
+        [hubScreen, vipScreen, serviceScreen, shieldScreen, gamesScreen, successScreen].forEach(s => {
             if (s) s.style.display = 'none';
         });
         if (screen) screen.style.display = 'flex';
     }
-
-    const menuLinkEl = document.getElementById('hub-menu-link');
-    if (menuLinkEl) {
-        menuLinkEl.addEventListener('click', (e) => {
-            const hasRealMenu = Boolean(menuUrl && menuUrl.trim() && menuUrl !== 'https://maps.google.com');
-            if (!hasRealMenu) {
-                e.preventDefault();
-                showScreen(sampleMenuScreen);
-            }
-        });
-    }
-    const menuBackBtn = document.getElementById('menu-back-to-hub');
-    if (menuBackBtn) menuBackBtn.addEventListener('click', () => showScreen(hubScreen));
-    const menuToServiceBtn = document.getElementById('btn-menu-to-service');
-    if (menuToServiceBtn) menuToServiceBtn.addEventListener('click', () => showScreen(serviceScreen));
 
     const btnOpenVip = document.getElementById('btn-open-vip');
     if (btnOpenVip) btnOpenVip.addEventListener('click', () => showScreen(vipScreen));

@@ -171,44 +171,25 @@
                 </form>
             </div>
 
-            <!-- Private Floor Shield Screen -->
+            <!-- Private Complaint Box Screen -->
             <div class="service-screen" id="shield-screen" style="display: none;">
                 <div class="screen-header">
                     <button class="back-btn" id="shield-back-to-hub" aria-label="Go back"><i class="fa-solid fa-arrow-left"></i></button>
-                    <h3>Private Manager Alert 🛡️</h3>
+                    <h3>Complaint Box 🛡️</h3>
                 </div>
-                <p class="feedback-subtitle">Something not right at your table? Tap below or send a quick private note directly to floor management so we can fix it right now:</p>
-
-                <div class="service-grid" id="shield-grid" style="margin-bottom: 12px;">
-                    <button type="button" class="service-tile shield-quick-btn" data-issue="Food Delay / Waiting Long">
-                        <i class="fa-solid fa-clock" style="color: #fbbf24;"></i>
-                        <span>Food Delayed</span>
-                    </button>
-                    <button type="button" class="service-tile shield-quick-btn" data-issue="Food Temperature / Taste Issue">
-                        <i class="fa-solid fa-temperature-low" style="color: #f87171;"></i>
-                        <span>Food Issue</span>
-                    </button>
-                    <button type="button" class="service-tile shield-quick-btn" data-issue="Wrong / Missing Item">
-                        <i class="fa-solid fa-triangle-exclamation" style="color: #fbbf24;"></i>
-                        <span>Wrong Item</span>
-                    </button>
-                    <button type="button" class="service-tile shield-quick-btn" data-issue="Speak to Floor Manager Now">
-                        <i class="fa-solid fa-user-tie" style="color: #60a5fa;"></i>
-                        <span>Call Manager</span>
-                    </button>
-                </div>
+                <p class="feedback-subtitle">Share any feedback or issue privately with floor management so we can resolve it right away:</p>
 
                 <form id="shield-form" class="feedback-form">
                     <div class="form-group">
-                        <label for="shield-message">Private Note to Management</label>
-                        <textarea id="shield-message" rows="3" placeholder="Tell us what happened so we can make it right immediately..." required></textarea>
+                        <label for="shield-message">Your Complaint / Feedback</label>
+                        <textarea id="shield-message" rows="4" placeholder="Tell us how we can make things right at your table..." required></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="shield-phone">Your WhatsApp (Optional — for instant follow-up)</label>
+                        <label for="shield-phone">Your WhatsApp (Optional — for follow-up)</label>
                         <input type="tel" id="shield-phone" placeholder="e.g. 9876543210">
                     </div>
                     <button type="submit" class="submit-btn" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #090d16;">
-                        <span>Alert Floor Manager Now</span> <i class="fa-solid fa-bolt"></i>
+                        <span>Submit Complaint Privately</span> <i class="fa-solid fa-paper-plane"></i>
                     </button>
                 </form>
             </div>
@@ -253,38 +234,6 @@
                 </button>
             </div>
 
-            <!-- Built-in Sample Menu Screen (Fallback when no external Menu URL is linked yet) -->
-            <div class="service-screen" id="sample-menu-screen" style="display: none;">
-                <div class="screen-header">
-                    <button class="back-btn" id="menu-back-to-hub" aria-label="Go back"><i class="fa-solid fa-arrow-left"></i></button>
-                    <h3>Digital Menu Preview 📖</h3>
-                </div>
-                <p class="feedback-subtitle" style="margin-bottom: 6px;">Sample interactive menu preview. Link your own PDF, Drive, or website menu anytime inside Venue Settings.</p>
-                <div style="display: flex; flex-direction: column; gap: 10px; max-height: 290px; overflow-y: auto; padding-right: 4px;">
-                    <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 12px;">
-                        <div style="display:flex; justify-content:space-between; font-weight:700; color:#f8fafc; font-size:0.9rem;">
-                            <span>⭐ Chef's Signature Coastal Platter</span><span style="color:#d4af37;">₹650</span>
-                        </div>
-                        <p style="font-size:0.78rem; color:#94a3b8; margin-top:4px;">Fresh catch marinated in house spices, served with warm butter garlic herbs.</p>
-                    </div>
-                    <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 12px;">
-                        <div style="display:flex; justify-content:space-between; font-weight:700; color:#f8fafc; font-size:0.9rem;">
-                            <span>🔥 Truffle Crispy Lotus Stem</span><span style="color:#d4af37;">₹380</span>
-                        </div>
-                        <p style="font-size:0.78rem; color:#94a3b8; margin-top:4px;">Sweet-chilli glaze, toasted sesame &amp; roasted garlic crunch.</p>
-                    </div>
-                    <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 12px;">
-                        <div style="display:flex; justify-content:space-between; font-weight:700; color:#f8fafc; font-size:0.9rem;">
-                            <span>🍹 Sunset Passion Spritz</span><span style="color:#d4af37;">₹290</span>
-                        </div>
-                        <p style="font-size:0.78rem; color:#94a3b8; margin-top:4px;">Fresh passionfruit reduction, mint sprig &amp; sparkling botanicals.</p>
-                    </div>
-                </div>
-                <button type="button" id="btn-menu-to-service" class="submit-btn" style="margin-top: 8px;">
-                    <span>Ready to Order? Call Waiter</span> <i class="fa-solid fa-bell-concierge"></i>
-                </button>
-            </div>
-
             <!-- Success Screen -->
             <div class="success-screen" id="success-screen" style="display: none;">
                 <div class="success-checkmark">
@@ -308,6 +257,6 @@
     </div>
 
     <script src="supabase_config.js"></script>
-    <script src="portal.js?v=5.2"></script>
+    <script src="portal.js?v=5.3"></script>
 </body>
 </html>

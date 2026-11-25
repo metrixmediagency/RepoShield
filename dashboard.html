@@ -961,6 +961,34 @@
                         </button>
                     </div>
                 </form>
+
+                <!-- VISUAL FOOD & MENU PHOTO UPLOADER -->
+                <div style="border-top: 1px solid var(--border-subtle); margin-top: 28px; padding-top: 24px;">
+                    <div class="panel-head" style="margin-bottom: 14px;">
+                        <div>
+                            <h2 style="font-size: 1.15rem;"><i class="fa-solid fa-images" style="color: var(--gold-primary);"></i> Visual Food &amp; Menu Photo Gallery</h2>
+                            <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 4px;">Upload appetizing food photos or printed menu pages (auto-compressed). Opens when guests tap "Browse Menu".</p>
+                        </div>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <button type="button" class="btn-outline" onclick="openVisualMenuPreview()">
+                                <i class="fa-solid fa-eye"></i> Preview Menu Page
+                            </button>
+                            <button type="button" class="btn-gold" id="btnSaveMenuGallery" onclick="saveVisualMenuToCloud()">
+                                <i class="fa-solid fa-cloud-arrow-up"></i> Save Photos to Menu
+                            </button>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 16px;">
+                        <label for="menuPhotoInput" class="btn-outline" style="cursor: pointer; border-color: var(--gold-primary); color: var(--gold-primary);">
+                            <i class="fa-solid fa-plus"></i> Upload Food / Menu Images
+                        </label>
+                        <input type="file" id="menuPhotoInput" accept="image/*" multiple style="display: none;" onchange="handleMenuImageUpload(event)">
+                        <span style="font-size: 0.78rem; color: var(--text-muted);" id="menuGalleryCount">0 photos uploaded (showing curated sample menu until you upload)</span>
+                    </div>
+
+                    <div id="menuGalleryEditorGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px;"></div>
+                </div>
             </div>
         </div>
 
@@ -1062,7 +1090,8 @@
         let seenAlertKeys = new Set();
         let radarSoundEnabled = true;
         let radarPollInterval = null;
-        let isFirstRadarLoad = true;
+        let loadVisualMenuGallery();
+            isFirstRadarLoad = true;
 
         function playServiceBellChime() {
             if (!radarSoundEnabled) return;
@@ -1495,6 +1524,7 @@
             if (tblInput) tblInput.addEventListener('input', updateTableGeneratorLink);
             updateTableGeneratorLink();
 
+            loadVisualMenuGallery();
             isFirstRadarLoad = true;
             fetchVenueActivity(false);
             if (radarPollInterval) clearInterval(radarPollInterval);
@@ -1557,7 +1587,7 @@
                     const cPhone = item.client_phone || item.customer_phone || '';
                     const alertKey = item.id ? String(item.id) : `${item.created_at || item.submitted_at}_${cName}_${msg}`;
 
-                    if (msg.startsWith('[ALERT_RESOLVED:') || msg.includes('[STAMP_CHECKIN]') || msg.includes('[D2C_ORDER]')) {
+                    if (cName === '__METRIX_MENU_GALLERY__' || msg.startsWith('[ALERT_RESOLVED:') || msg.includes('[STAMP_CHECKIN]') || msg.includes('[D2C_ORDER]')) {
                         return;
                     }
 
@@ -1836,6 +1866,145 @@
 
         function hideAlert() {
             document.getElementById('authAlertBox').style.display = 'none';
+        }
+
+                let uploadedMenuGallery = [];
+
+        function openVisualMenuPreview() {
+            if (!currentUser) return;
+            window.open(`/menu.html?id=${encodeURIComponent(currentUser.id)}&name=${encodeURIComponent(currentUser.venueName)}&table=Table%2004`, '_blank');
+        }
+
+        async function loadVisualMenuGallery() {
+            if (!currentUser) return;
+            const SUPABASE_URL = window.SUPABASE_URL || "";
+            const SUPABASE_KEY = window.SUPABASE_ANON_KEY || "";
+            if (!SUPABASE_URL || !SUPABASE_KEY) return;
+            try {
+                const res = await fetch(`${SUPABASE_URL}/rest/v1/feedback?business_name=ilike.*${encodeURIComponent(currentUser.venueName)}*&client_name=eq.__METRIX_MENU_GALLERY__&order=created_at.desc&limit=1`, {
+                    headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+                });
+                if (res.ok) {
+                    const rows = await res.json();
+                    if (rows && rows.length > 0 && rows[0].client_message) {
+                        const parsed = JSON.parse(rows[0].client_message);
+                        if (Array.isArray(parsed)) {
+                            uploadedMenuGallery = parsed;
+                            renderMenuGalleryEditor();
+                        }
+                    }
+                }
+            } catch (e) { console.warn('Load menu gallery:', e); }
+        }
+
+        function compressImageToDataUrl(file, maxWidth = 900, quality = 0.76) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        let w = img.width;
+                        let h = img.height;
+                        if (w > maxWidth) {
+                            h = Math.round((h * maxWidth) / w);
+                            w = maxWidth;
+                        }
+                        const canvas = document.createElement('canvas');
+                        canvas.width = w;
+                        canvas.height = h;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, w, h);
+                        resolve(canvas.toDataURL('image/jpeg', quality));
+                    };
+                    img.onerror = reject;
+                    img.src = ev.target.result;
+                };
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+
+        async function handleMenuImageUpload(e) {
+            const files = Array.from(e.target.files || []);
+            if (!files.length) return;
+            showToast(`Compressing ${files.length} image(s)...`);
+            for (const f of files) {
+                if (uploadedMenuGallery.length >= 10) break;
+                try {
+                    const dataUrl = await compressImageToDataUrl(f);
+                    const cleanName = f.name.replace(/\.[^.]+$/, '').replace(/[_-]+/g, ' ');
+                    uploadedMenuGallery.push({ dataUrl, title: cleanName || 'Chef Special', desc: '', price: '' });
+                } catch (err) { console.warn('Compression failed:', err); }
+            }
+            e.target.value = '';
+            renderMenuGalleryEditor();
+            showToast('Photos ready! Click "Save Photos to Menu" to publish.');
+        }
+
+        function renderMenuGalleryEditor() {
+            const grid = document.getElementById('menuGalleryEditorGrid');
+            const countEl = document.getElementById('menuGalleryCount');
+            if (countEl) {
+                countEl.textContent = uploadedMenuGallery.length > 0
+                    ? `${uploadedMenuGallery.length} photo(s) active on your guest menu page`
+                    : '0 photos uploaded (showing curated sample menu until you upload)';
+            }
+            if (!grid) return;
+            grid.innerHTML = '';
+            uploadedMenuGallery.forEach((item, idx) => {
+                const card = document.createElement('div');
+                card.style.cssText = 'background:#090e17; border:1px solid var(--border-subtle); border-radius:10px; overflow:hidden; display:flex; flex-direction:column;';
+                card.innerHTML = `
+                    <div style="position:relative; height:140px; overflow:hidden;">
+                        <img src="${item.dataUrl}" style="width:100%; height:100%; object-fit:cover; display:block;">
+                        <button type="button" onclick="removeMenuPhoto(${idx})" style="position:absolute; top:8px; right:8px; background:rgba(239,68,68,0.9); color:#fff; border:none; width:26px; height:26px; border-radius:50%; cursor:pointer; font-weight:800;">&times;</button>
+                    </div>
+                    <div style="padding:10px; display:flex; flex-direction:column; gap:6px;">
+                        <input type="text" value="${(item.title || '').replace(/"/g, '&quot;')}" onchange="uploadedMenuGallery[${idx}].title = this.value" placeholder="Dish / Menu Page Title" style="background:#0d131f; border:1px solid var(--border-subtle); color:#fff; padding:6px 8px; border-radius:6px; font-size:0.8rem;">
+                        <input type="text" value="${(item.price || '').replace(/"/g, '&quot;')}" onchange="uploadedMenuGallery[${idx}].price = this.value" placeholder="Price (optional, e.g. \u20B9450)" style="background:#0d131f; border:1px solid var(--border-subtle); color:#fbbf24; padding:6px 8px; border-radius:6px; font-size:0.8rem;">
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function removeMenuPhoto(idx) {
+            uploadedMenuGallery.splice(idx, 1);
+            renderMenuGalleryEditor();
+        }
+
+        async function saveVisualMenuToCloud() {
+            if (!currentUser) return;
+            const btn = document.getElementById('btnSaveMenuGallery');
+            const SUPABASE_URL = window.SUPABASE_URL || "";
+            const SUPABASE_KEY = window.SUPABASE_ANON_KEY || "";
+            if (!SUPABASE_URL || !SUPABASE_KEY) return;
+            if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...'; }
+            try {
+                await fetch(`${SUPABASE_URL}/rest/v1/feedback`, {
+                    method: 'POST',
+                    headers: {
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${SUPABASE_KEY}`,
+                        'Content-Type': 'application/json',
+                        'Prefer': 'return=minimal'
+                    },
+                    body: JSON.stringify({
+                        business_name: currentUser.venueName,
+                        business_email: currentUser.email,
+                        rating: 5,
+                        client_name: '__METRIX_MENU_GALLERY__',
+                        client_phone: 'System',
+                        client_message: JSON.stringify(uploadedMenuGallery),
+                        submitted_at: new Date().toISOString()
+                    })
+                });
+                showToast('Visual Food Menu published live to tables!');
+            } catch (err) {
+                alert('Failed to save visual menu: ' + err.message);
+            } finally {
+                if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Save Photos to Menu'; }
+            }
         }
 
         function showToast(msg) {
