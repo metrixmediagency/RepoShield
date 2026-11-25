@@ -443,7 +443,7 @@
     const serviceActionIcon = document.getElementById('service-action-icon');
     if (serviceActionIcon) serviceActionIcon.className = currentProfile.service.icon;
 
-    // Quick Links (Menu only on pre-meal table screen; hidden if not configured)
+    // Quick Links (Always visible! Opens real menuUrl if configured, or built-in sample menu preview)
     function refreshQuickLinks() {
         const quickWrap = document.getElementById('hub-quick-links');
         const gmbLink = document.getElementById('hub-gmb-link');
@@ -457,16 +457,13 @@
         }
 
         if (menuLink) {
-            if (menuUrl && menuUrl.trim() && menuUrl !== 'https://maps.google.com') {
-                menuLink.href = menuUrl;
-                menuLink.style.display = 'flex';
-                if (quickWrap) quickWrap.style.display = 'grid';
-                if (menuText) menuText.textContent = currentProfile.links.menuText;
-                if (menuIcon) menuIcon.className = currentProfile.links.menuIcon;
-            } else {
-                menuLink.style.display = 'none';
-                if (quickWrap) quickWrap.style.display = 'none';
-            }
+            const hasRealMenu = Boolean(menuUrl && menuUrl.trim() && menuUrl !== 'https://maps.google.com');
+            menuLink.href = hasRealMenu ? menuUrl : '#';
+            if (hasRealMenu) menuLink.setAttribute('target', '_blank'); else menuLink.removeAttribute('target');
+            menuLink.style.display = 'flex';
+            if (quickWrap) quickWrap.style.display = 'grid';
+            if (menuText) menuText.textContent = currentProfile.links.menuText;
+            if (menuIcon) menuIcon.className = currentProfile.links.menuIcon;
         }
     }
     refreshQuickLinks();
@@ -536,15 +533,31 @@
     const serviceScreen = document.getElementById('service-screen');
     const shieldScreen = document.getElementById('shield-screen');
     const gamesScreen = document.getElementById('games-screen');
+    const sampleMenuScreen = document.getElementById('sample-menu-screen');
     const successScreen = document.getElementById('success-screen');
     const customServiceForm = document.getElementById('custom-service-form');
 
     function showScreen(screen) {
-        [hubScreen, vipScreen, serviceScreen, shieldScreen, gamesScreen, successScreen].forEach(s => {
+        [hubScreen, vipScreen, serviceScreen, shieldScreen, gamesScreen, sampleMenuScreen, successScreen].forEach(s => {
             if (s) s.style.display = 'none';
         });
         if (screen) screen.style.display = 'flex';
     }
+
+    const menuLinkEl = document.getElementById('hub-menu-link');
+    if (menuLinkEl) {
+        menuLinkEl.addEventListener('click', (e) => {
+            const hasRealMenu = Boolean(menuUrl && menuUrl.trim() && menuUrl !== 'https://maps.google.com');
+            if (!hasRealMenu) {
+                e.preventDefault();
+                showScreen(sampleMenuScreen);
+            }
+        });
+    }
+    const menuBackBtn = document.getElementById('menu-back-to-hub');
+    if (menuBackBtn) menuBackBtn.addEventListener('click', () => showScreen(hubScreen));
+    const menuToServiceBtn = document.getElementById('btn-menu-to-service');
+    if (menuToServiceBtn) menuToServiceBtn.addEventListener('click', () => showScreen(serviceScreen));
 
     const btnOpenVip = document.getElementById('btn-open-vip');
     if (btnOpenVip) btnOpenVip.addEventListener('click', () => showScreen(vipScreen));
