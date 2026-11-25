@@ -20,6 +20,8 @@
     let ntfyTopic = urlParams.get('ntfy') || '';
     let wifiSsid = urlParams.get('wifiSsid') || '';
     let wifiPass = urlParams.get('wifiPass') || '';
+    let vipOffer = urlParams.get('vipOffer') || '';
+    let vipSub = urlParams.get('vipSub') || '';
     let venueFeatures = {
         vip: true,
         service: true,
@@ -239,15 +241,15 @@
 
         dining: {
             name: "High-AOV Dining & Bar",
-            tagline: "Welcome! Tap below to join our VIP Dining Club, request table service, or browse our menu.",
+            tagline: "Welcome! Tap below to claim free birthday & VIP perks, request table service, or browse our menu.",
             tablePrefix: "Table",
             tableIcon: "fa-solid fa-chair",
             vip: {
-                title: "Join VIP Dining Club 🥂",
-                sub: "Unlock complimentary perks & birthday gifts",
+                title: "Claim Free Birthday & VIP Perks 🎁",
+                sub: "Get complimentary birthday treats & secret chef offers",
                 icon: "fa-solid fa-crown",
-                screenTitle: "Unlock VIP Privileges 🥂",
-                screenSub: "Join our guest list to receive exclusive dining privileges, chef welcome treats, and birthday celebration perks.",
+                screenTitle: "Claim Free Birthday & VIP Perks 🎁",
+                screenSub: "Get complimentary birthday treats & secret chef offers sent straight to your WhatsApp.",
                 dobLabel: "Date of Birth (For Birthday Treats)",
                 submitText: "Claim VIP Privileges",
                 submitIcon: "fa-solid fa-gift",
@@ -440,11 +442,19 @@
     }
 
     // Hub Screen Action Card 1: VIP Club
-    const vipActionTitle = document.getElementById('vip-action-title');
-    if (vipActionTitle) vipActionTitle.textContent = currentProfile.vip.title;
-
-    const vipActionSub = document.getElementById('vip-action-sub');
-    if (vipActionSub) vipActionSub.textContent = currentProfile.vip.sub;
+    function applyVipCopy() {
+        const titleText = (vipOffer && vipOffer.trim()) ? vipOffer.trim() : currentProfile.vip.title;
+        const subText = (vipSub && vipSub.trim()) ? vipSub.trim() : currentProfile.vip.sub;
+        const vat = document.getElementById('vip-action-title');
+        if (vat) vat.textContent = titleText;
+        const vas = document.getElementById('vip-action-sub');
+        if (vas) vas.textContent = subText;
+        const vst = document.getElementById('vip-screen-title');
+        if (vst) vst.textContent = (vipOffer && vipOffer.trim()) ? vipOffer.trim() : currentProfile.vip.screenTitle;
+        const vss = document.getElementById('vip-screen-sub');
+        if (vss) vss.textContent = (vipSub && vipSub.trim()) ? vipSub.trim() : currentProfile.vip.screenSub;
+    }
+    applyVipCopy();
 
     const vipActionIcon = document.getElementById('vip-action-icon');
     if (vipActionIcon) vipActionIcon.className = currentProfile.vip.icon;
@@ -530,8 +540,11 @@
                 if (cfg.alertWebhook) webhookUrl = cfg.alertWebhook;
                 if (cfg.wifiSsid) wifiSsid = cfg.wifiSsid;
                 if (cfg.wifiPass) wifiPass = cfg.wifiPass;
+                if (typeof cfg.vipOffer === 'string' && cfg.vipOffer.trim()) vipOffer = cfg.vipOffer.trim();
+                if (typeof cfg.vipSub === 'string' && cfg.vipSub.trim()) vipSub = cfg.vipSub.trim();
                 if (cfg.features) venueFeatures = { ...venueFeatures, ...cfg.features };
                 if (cfg.tier) activeTier = cfg.tier;
+                applyVipCopy();
                 if (typeof renderServiceTiles === 'function') renderServiceTiles();
             }
             if (window.SUPABASE_URL && window.SUPABASE_ANON_KEY && bizName && bizName !== 'Our Business') {
@@ -550,12 +563,8 @@
         }).catch(() => {});
     }
 
-    // VIP Screen Content
-    const vipScreenTitle = document.getElementById('vip-screen-title');
-    if (vipScreenTitle) vipScreenTitle.textContent = currentProfile.vip.screenTitle;
-
-    const vipScreenSub = document.getElementById('vip-screen-sub');
-    if (vipScreenSub) vipScreenSub.textContent = currentProfile.vip.screenSub;
+    // VIP Screen Content (synced via applyVipCopy)
+    applyVipCopy();
 
     const vipDobLabel = document.getElementById('vip-dob-label');
     if (vipDobLabel) vipDobLabel.textContent = currentProfile.vip.dobLabel;

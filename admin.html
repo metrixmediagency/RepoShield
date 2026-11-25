@@ -894,6 +894,17 @@
                 </div>
             </div>
 
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div class="form-group">
+                    <label>VIP Card Headline / Offer</label>
+                    <input type="text" id="overrideVipOffer" class="form-control" style="padding-left: 12px;" placeholder="Claim Free Birthday &amp; VIP Perks 🎁">
+                </div>
+                <div class="form-group">
+                    <label>VIP Offer Subtitle</label>
+                    <input type="text" id="overrideVipSub" class="form-control" style="padding-left: 12px;" placeholder="Get complimentary birthday treats &amp; secret chef offers">
+                </div>
+            </div>
+
             <div style="background:#080c14; border:1px solid var(--border-subtle); border-radius:10px; padding:12px; margin-bottom:16px;">
                 <div style="font-size:0.75rem; font-weight:800; color:var(--gold-primary); text-transform:uppercase; margin-bottom:8px;">Active Features (Check to Enable)</div>
                 <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:0.8rem; color:#e2e8f0;">
@@ -1213,6 +1224,8 @@
             document.getElementById('overridePassword').value = venue.ownerPassword || 'metrix123';
             document.getElementById('overrideWifiSsid').value = venue.wifiSsid || '';
             document.getElementById('overrideWifiPass').value = venue.wifiPass || '';
+            document.getElementById('overrideVipOffer').value = venue.vipOffer || '';
+            document.getElementById('overrideVipSub').value = venue.vipSub || '';
             const ft = venue.features || {};
             document.getElementById('ovFtVip').checked = ft.vip !== false;
             document.getElementById('ovFtService').checked = ft.service !== false;
@@ -1238,6 +1251,8 @@
             const ownerPassword = document.getElementById('overridePassword').value.trim() || 'metrix123';
             const wifiSsid = document.getElementById('overrideWifiSsid').value.trim();
             const wifiPass = document.getElementById('overrideWifiPass').value.trim();
+            const vipOffer = document.getElementById('overrideVipOffer').value.trim();
+            const vipSub = document.getElementById('overrideVipSub').value.trim();
             const features = {
                 vip: document.getElementById('ovFtVip').checked,
                 service: document.getElementById('ovFtService').checked,
@@ -1263,6 +1278,8 @@
                 ownerPassword,
                 wifiSsid,
                 wifiPass,
+                vipOffer,
+                vipSub,
                 features
             };
 

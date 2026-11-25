@@ -968,6 +968,26 @@
                         </div>
                     </div>
 
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-top: 10px;">
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-gift" style="color: var(--gold-primary);"></i> VIP Card Headline / Offer</label>
+                            <div class="form-input-wrap">
+                                <i class="fa-solid fa-crown" style="color: var(--gold-primary);"></i>
+                                <input type="text" id="cfgVipOffer" class="form-control" placeholder="Claim Free Birthday &amp; VIP Perks 🎁">
+                            </div>
+                            <p class="form-help">Leave blank for the safe default, or enter your own offer (e.g. "Get a Free Welcome Mocktail 🍹").</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-sparkles" style="color: var(--gold-primary);"></i> VIP Offer Subtitle</label>
+                            <div class="form-input-wrap">
+                                <i class="fa-solid fa-align-left" style="color: var(--gold-primary);"></i>
+                                <input type="text" id="cfgVipSub" class="form-control" placeholder="Get complimentary birthday treats &amp; secret chef offers">
+                            </div>
+                            <p class="form-help">Short promise displayed under the VIP card headline on guest phones.</p>
+                        </div>
+                    </div>
+
                     <!-- FEATURE CONTROL TOGGLES -->
                     <div style="background: #080c14; border: 1px solid var(--border-subtle); border-radius: 12px; padding: 16px 18px; margin-top: 14px;">
                         <div style="font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; color: var(--gold-primary); margin-bottom: 10px;">
@@ -1565,6 +1585,8 @@
             document.getElementById('cfgWebhook').value = cfg.alertWebhook || savedSettings.webhook || '';
             document.getElementById('cfgWifiSsid').value = cfg.wifiSsid || savedSettings.wifiSsid || '';
             document.getElementById('cfgWifiPass').value = cfg.wifiPass || savedSettings.wifiPass || '';
+            document.getElementById('cfgVipOffer').value = cfg.vipOffer || savedSettings.vipOffer || '';
+            document.getElementById('cfgVipSub').value = cfg.vipSub || savedSettings.vipSub || '';
 
             const ft = cfg.features || savedSettings.features || {};
             document.getElementById('ftVip').checked = ft.vip !== false;
@@ -1856,6 +1878,8 @@
             const webhook = document.getElementById('cfgWebhook').value.trim();
             const wifiSsid = document.getElementById('cfgWifiSsid').value.trim();
             const wifiPass = document.getElementById('cfgWifiPass').value.trim();
+            const vipOffer = document.getElementById('cfgVipOffer').value.trim();
+            const vipSub = document.getElementById('cfgVipSub').value.trim();
             const features = {
                 vip: document.getElementById('ftVip').checked,
                 service: document.getElementById('ftService').checked,
@@ -1868,7 +1892,7 @@
             };
 
             localStorage.setItem(`metrix_settings_${currentUser.id}`, JSON.stringify({
-                wa, gmb, menu, biz, ntfyTopic, webhook, wifiSsid, wifiPass, features
+                wa, gmb, menu, biz, ntfyTopic, webhook, wifiSsid, wifiPass, vipOffer, vipSub, features
             }));
 
             if (window.MetrixCloud) {
@@ -1886,6 +1910,8 @@
                     alertWebhook: webhook,
                     wifiSsid,
                     wifiPass,
+                    vipOffer,
+                    vipSub,
                     features,
                     tier: existing.tier || currentUser.tier || 'starter'
                 });

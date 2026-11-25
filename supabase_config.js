@@ -44,6 +44,8 @@ function packCampaignMeta(c) {
         alertWebhook: c.alertWebhook || '',
         wifiSsid: c.wifiSsid || '',
         wifiPass: c.wifiPass || '',
+        vipOffer: c.vipOffer || '',
+        vipSub: c.vipSub || '',
         features: {
             vip: c.features?.vip !== false,
             service: c.features?.service !== false,
@@ -113,6 +115,8 @@ function unpackCampaignRow(c) {
         alertWebhook: meta.alertWebhook || '',
         wifiSsid: meta.wifiSsid || '',
         wifiPass: meta.wifiPass || '',
+        vipOffer: meta.vipOffer || '',
+        vipSub: meta.vipSub || '',
         features: {
             vip: meta.features?.vip !== false,
             service: meta.features?.service !== false,
