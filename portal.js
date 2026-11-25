@@ -212,7 +212,9 @@
                     { label: "Products Used Today", icon: "fa-solid fa-pump-soap", request: "Products Used in Treatment Today" },
                     { label: "4-Week Rebooking", icon: "fa-solid fa-calendar-check", request: "Book Next Session (4-Week Recall)" },
                     { label: "Stylist Consult", icon: "fa-solid fa-headset", request: "Stylist Consultation & Assistance" },
-                    { label: "Special Note", icon: "fa-solid fa-message", isCustom: true }
+                    { label: "Special Note", icon: "fa-solid fa-message", isCustom: true },
+                    { label: "Call Manager", icon: "fa-solid fa-user-tie", request: "Urgent: Call Floor Manager", isUrgent: true },
+                    { label: "Complaint Box", icon: "fa-solid fa-shield-halved", isComplaint: true }
                 ]
             },
             links: {
@@ -257,7 +259,9 @@
                     { label: "Water Refill", icon: "fa-solid fa-bottle-water", request: "Water Refill" },
                     { label: "Call Waiter", icon: "fa-solid fa-hand", request: "Call Waiter" },
                     { label: "Request Bill", icon: "fa-solid fa-receipt", request: "Request Bill & Payment" },
-                    { label: "Special Note", icon: "fa-solid fa-message", isCustom: true }
+                    { label: "Special Note", icon: "fa-solid fa-message", isCustom: true },
+                    { label: "Call Manager", icon: "fa-solid fa-user-tie", request: "Urgent: Call Floor Manager", isUrgent: true },
+                    { label: "Complaint Box", icon: "fa-solid fa-shield-halved", isComplaint: true }
                 ]
             },
             links: {
@@ -581,7 +585,7 @@
     if (serviceBack) serviceBack.addEventListener('click', () => showScreen(hubScreen));
 
     const shieldBack = document.getElementById('shield-back-to-hub');
-    if (shieldBack) shieldBack.addEventListener('click', () => showScreen(hubScreen));
+    if (shieldBack) shieldBack.addEventListener('click', () => showScreen(serviceScreen));
 
     const gamesBack = document.getElementById('games-back-to-hub');
     if (gamesBack) gamesBack.addEventListener('click', () => showScreen(hubScreen));
@@ -769,6 +773,12 @@
                         }
                     }
                 });
+            } else if (tile.isComplaint) {
+                btn.style.borderColor = 'rgba(245, 158, 11, 0.4)';
+                btn.addEventListener('click', () => showScreen(shieldScreen));
+            } else if (tile.isUrgent) {
+                btn.style.borderColor = 'rgba(239, 68, 68, 0.45)';
+                btn.addEventListener('click', () => triggerFloorShieldAlert(tile.request));
             } else {
                 btn.addEventListener('click', () => triggerServiceRequest(tile.request));
             }
