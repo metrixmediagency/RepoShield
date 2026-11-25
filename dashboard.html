@@ -994,6 +994,9 @@
                             <label style="display:flex; align-items:center; gap:8px; cursor:pointer; background:#0d131f; padding:8px 10px; border-radius:8px; border:1px solid var(--border-subtle);">
                                 <input type="checkbox" id="ftWifi" checked> <span>Free Guest Wi-Fi</span>
                             </label>
+                            <label style="display:flex; align-items:center; gap:8px; cursor:pointer; background:#0d131f; padding:8px 10px; border-radius:8px; border:1px solid rgba(212,175,55,0.35);">
+                                <input type="checkbox" id="ftWifiGate"> <span>VIP-Gated Wi-Fi Lock</span>
+                            </label>
                             <label style="display:flex; align-items:center; gap:8px; cursor:pointer; background:#0d131f; padding:8px 10px; border-radius:8px; border:1px solid var(--border-subtle);">
                                 <input type="checkbox" id="ftCallManager" checked> <span>Call Manager Tile</span>
                             </label>
@@ -1574,6 +1577,7 @@
             document.getElementById('ftGames').checked = ft.games !== false;
             document.getElementById('ftMenu').checked = ft.menu !== false;
             document.getElementById('ftWifi').checked = ft.wifi !== false;
+            document.getElementById('ftWifiGate').checked = Boolean(ft.wifiGate);
             document.getElementById('ftCallManager').checked = ft.callManager !== false;
             document.getElementById('ftComplaint').checked = ft.complaint !== false;
 
@@ -1863,6 +1867,7 @@
                 games: document.getElementById('ftGames').checked,
                 menu: document.getElementById('ftMenu').checked,
                 wifi: document.getElementById('ftWifi').checked,
+                wifiGate: document.getElementById('ftWifiGate').checked,
                 callManager: document.getElementById('ftCallManager').checked,
                 complaint: document.getElementById('ftComplaint').checked
             };

@@ -50,6 +50,7 @@ function packCampaignMeta(c) {
             games: c.features?.games !== false,
             menu: c.features?.menu !== false,
             wifi: c.features?.wifi !== false,
+            wifiGate: Boolean(c.features?.wifiGate),
             callManager: c.features?.callManager !== false,
             complaint: c.features?.complaint !== false
         },
@@ -118,6 +119,7 @@ function unpackCampaignRow(c) {
             games: meta.features?.games !== false,
             menu: meta.features?.menu !== false,
             wifi: meta.features?.wifi !== false,
+            wifiGate: Boolean(meta.features?.wifiGate),
             callManager: meta.features?.callManager !== false,
             complaint: meta.features?.complaint !== false
         },

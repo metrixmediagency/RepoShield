@@ -26,6 +26,7 @@
         games: true,
         menu: true,
         wifi: true,
+        wifiGate: false,
         callManager: true,
         complaint: true
     };
@@ -606,8 +607,36 @@
         if (screen) screen.style.display = 'flex';
     }
 
+    let pendingWifiUnlock = false;
+
+    function isWifiUnlocked() {
+        if (!venueFeatures.wifiGate) return true;
+        try {
+            return localStorage.getItem(`metrix_vip_unlocked_${venueIdParam || bizName}`) === '1';
+        } catch (e) { return false; }
+    }
+
+    function openWifiScreen() {
+        const lockedBox = document.getElementById('wifi-locked-box');
+        const unlockedBox = document.getElementById('wifi-unlocked-box');
+        const vipCta = document.getElementById('btn-wifi-to-vip');
+        const unlocked = isWifiUnlocked();
+
+        if (lockedBox) lockedBox.style.display = unlocked ? 'none' : 'flex';
+        if (unlockedBox) unlockedBox.style.display = unlocked ? 'flex' : 'none';
+        if (vipCta) vipCta.style.display = unlocked ? 'flex' : 'none';
+        showScreen(wifiScreen);
+    }
+
     const hubWifiBtn = document.getElementById('hub-wifi-btn');
-    if (hubWifiBtn) hubWifiBtn.addEventListener('click', () => showScreen(wifiScreen));
+    if (hubWifiBtn) hubWifiBtn.addEventListener('click', openWifiScreen);
+    const unlockWifiVipBtn = document.getElementById('btn-unlock-wifi-vip');
+    if (unlockWifiVipBtn) {
+        unlockWifiVipBtn.addEventListener('click', () => {
+            pendingWifiUnlock = true;
+            showScreen(vipScreen);
+        });
+    }
     const wifiBackBtn = document.getElementById('wifi-back-to-hub');
     if (wifiBackBtn) wifiBackBtn.addEventListener('click', () => showScreen(hubScreen));
     const wifiToVipBtn = document.getElementById('btn-wifi-to-vip');
@@ -642,7 +671,7 @@
     if (btnGamesToVip) btnGamesToVip.addEventListener('click', () => showScreen(vipScreen));
 
     const vipBack = document.getElementById('vip-back-to-hub');
-    if (vipBack) vipBack.addEventListener('click', () => showScreen(hubScreen));
+    if (vipBack) vipBack.addEventListener('click', () => { pendingWifiUnlock = false; showScreen(hubScreen); });
 
     const serviceBack = document.getElementById('service-back-to-hub');
     if (serviceBack) serviceBack.addEventListener('click', () => showScreen(hubScreen));
@@ -770,6 +799,16 @@
                 clientMessage: `${currentProfile.name} VIP Loyalty Club Opt-In${tableTag}${sourceTag}`,
                 submittedAt: new Date().toLocaleString()
             });
+
+            try {
+                localStorage.setItem(`metrix_vip_unlocked_${venueIdParam || bizName}`, '1');
+            } catch (err) {}
+
+            if (pendingWifiUnlock) {
+                pendingWifiUnlock = false;
+                openWifiScreen();
+                return;
+            }
 
             // Display Success Screen
             const titleEl = document.getElementById('success-title');
