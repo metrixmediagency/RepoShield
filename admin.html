@@ -902,7 +902,7 @@
                     <label style="display:flex; gap:6px; align-items:center;"><input type="checkbox" id="ovFtGames" checked> Table Games</label>
                     <label style="display:flex; gap:6px; align-items:center;"><input type="checkbox" id="ovFtMenu" checked> Browse Menu</label>
                     <label style="display:flex; gap:6px; align-items:center;"><input type="checkbox" id="ovFtWifi" checked> Free Wi-Fi</label>
-                    <label style="display:flex; gap:6px; align-items:center;"><input type="checkbox" id="ovFtWifiGate"> VIP-Gated Wi-Fi</label>
+                    <label style="display:flex; gap:6px; align-items:center;"><input type="checkbox" id="ovFtWifiGate" checked> VIP-Gated Wi-Fi</label>
                     <label style="display:flex; gap:6px; align-items:center;"><input type="checkbox" id="ovFtCallManager" checked> Call Manager</label>
                     <label style="display:flex; gap:6px; align-items:center;"><input type="checkbox" id="ovFtComplaint" checked> Complaint Box</label>
                 </div>
@@ -1219,7 +1219,7 @@
             document.getElementById('ovFtGames').checked = ft.games !== false;
             document.getElementById('ovFtMenu').checked = ft.menu !== false;
             document.getElementById('ovFtWifi').checked = ft.wifi !== false;
-            document.getElementById('ovFtWifiGate').checked = Boolean(ft.wifiGate);
+            document.getElementById('ovFtWifiGate').checked = ft.wifiGate !== false;
             document.getElementById('ovFtCallManager').checked = ft.callManager !== false;
             document.getElementById('ovFtComplaint').checked = ft.complaint !== false;
 

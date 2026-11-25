@@ -26,7 +26,7 @@
         games: true,
         menu: true,
         wifi: true,
-        wifiGate: false,
+        wifiGate: true,
         callManager: true,
         complaint: true
     };
