@@ -3,434 +3,589 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>METRIX — Executive Venue Briefing (In-Store Tabletop Companion)</title>
+    <title>METRIX — Visual Product Overview</title>
+    <link rel="icon" type="image/jpeg" href="/metrix_logo.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap');
-        
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-dark: #070a0f;
+            --bg-card: #0f172a;
+            --gold: #d4af37;
+            --gold-soft: rgba(212, 175, 55, 0.14);
+            --gold-border: rgba(212, 175, 55, 0.35);
+            --text-dark: #0f172a;
+            --text-muted: #475569;
         }
-
         body {
-            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: #f8fafc;
-            color: #0f172a;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #e2e8f0;
+            color: var(--text-dark);
+            padding: 18px 14px 40px;
             line-height: 1.45;
-            padding: 24px;
         }
-
-        .sheet {
-            max-width: 840px;
-            margin: 0 auto;
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 36px 44px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-        }
-
-        .header {
+        .topbar {
+            max-width: 920px;
+            margin: 0 auto 12px;
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-            border-bottom: 2px solid #0f172a;
-            padding-bottom: 16px;
-            margin-bottom: 20px;
+            align-items: center;
+            gap: 10px;
+        }
+        .topbar-note {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #475569;
+        }
+        .btn-pdf {
+            background: #070a0f;
+            color: #f3e5ab;
+            border: 1px solid var(--gold);
+            padding: 9px 16px;
+            border-radius: 99px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+        }
+        .brochure {
+            max-width: 920px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(7, 10, 15, 0.14);
         }
 
-        .brand-title {
-            font-size: 24px;
+        /* HERO DARK SHOWCASE */
+        .hero {
+            background: radial-gradient(circle at top right, #1e293b 0%, #070a0f 65%);
+            color: #f8fafc;
+            padding: 32px 34px;
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 26px;
+            align-items: center;
+            border-bottom: 3px solid var(--gold);
+        }
+        .brand-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+        .brand-row img {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            border: 1px solid var(--gold-border);
+            object-fit: cover;
+        }
+        .brand-name {
+            font-family: 'Outfit', sans-serif;
             font-weight: 800;
             letter-spacing: 2px;
-            color: #0f172a;
-            text-transform: uppercase;
+            font-size: 1.05rem;
+            color: #f3e5ab;
         }
-
-        .brand-subtitle {
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            color: #64748b;
-            text-transform: uppercase;
-            margin-top: 2px;
-        }
-
-        .meta-badge {
-            text-align: right;
-            font-size: 11px;
-            color: #475569;
-            line-height: 1.45;
-        }
-
-        .meta-badge strong {
-            color: #0f172a;
-        }
-
-        .tag-pill {
-            display: inline-block;
-            background: #0f172a;
-            color: #f59e0b;
-            font-size: 10px;
+        .pill-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(212, 175, 55, 0.14);
+            border: 1px solid var(--gold-border);
+            color: #f3e5ab;
+            font-size: 0.72rem;
             font-weight: 700;
-            padding: 3px 8px;
-            border-radius: 4px;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.6px;
             text-transform: uppercase;
-            margin-bottom: 5px;
+            padding: 5px 11px;
+            border-radius: 99px;
+            margin-bottom: 12px;
         }
-
-        h2 {
-            font-size: 12.5px;
+        .hero h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.95rem;
             font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #0f172a;
-            margin-bottom: 8px;
+            line-height: 1.18;
+            margin-bottom: 12px;
+            color: #ffffff;
+        }
+        .hero h1 span {
+            background: linear-gradient(135deg, #fce588, #d4af37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-sub {
+            font-size: 0.9rem;
+            color: #cbd5e1;
+            margin-bottom: 18px;
+            max-width: 440px;
+        }
+        .hero-pills {
             display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .mini-chip {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 10px;
+            padding: 7px 11px;
+            font-size: 0.76rem;
+            font-weight: 600;
+            color: #f1f5f9;
+            display: inline-flex;
             align-items: center;
             gap: 6px;
         }
+        .mini-chip i { color: var(--gold); }
 
-        p {
-            font-size: 11.5px;
-            color: #334155;
-            margin-bottom: 14px;
-            line-height: 1.5;
+        .hero-visual {
+            position: relative;
         }
+        .hero-photo {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            border-radius: 16px;
+            border: 1.5px solid var(--gold-border);
+            box-shadow: 0 18px 36px rgba(0,0,0,0.45);
+            display: block;
+        }
+        .photo-caption {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+            background: rgba(7, 10, 15, 0.86);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--gold-border);
+            border-radius: 10px;
+            padding: 7px 10px;
+            font-size: 0.72rem;
+            color: #f8fafc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .photo-caption span { color: #f3e5ab; font-weight: 700; }
 
-        .feature-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 12px;
+        /* SECTION WRAPPER */
+        .sec {
+            padding: 26px 34px;
+        }
+        .sec-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.18rem;
+            font-weight: 800;
+            color: #070a0f;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .sec-sub {
+            font-size: 0.82rem;
+            color: var(--text-muted);
             margin-bottom: 18px;
         }
 
-        .feature-card {
+        /* 3 VISUAL FLOW CARDS */
+        .flow-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+        .flow-card {
             background: #f8fafc;
             border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 16px;
+            position: relative;
+        }
+        .flow-num {
+            width: 30px;
+            height: 30px;
             border-radius: 8px;
-            padding: 12px 14px;
-            border-top: 3px solid #0f172a;
+            background: #070a0f;
+            color: var(--gold);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
         }
-
-        .feature-card h3 {
-            font-size: 11.5px;
+        .flow-card h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.96rem;
             font-weight: 700;
-            color: #0f172a;
             margin-bottom: 4px;
-        }
-
-        .feature-card p {
-            font-size: 10.5px;
-            color: #64748b;
-            margin: 0;
-            line-height: 1.35;
-        }
-
-        .comparison-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 11px;
-            margin-bottom: 18px;
-        }
-
-        .comparison-table th {
-            text-align: left;
-            background: #0f172a;
-            color: #ffffff;
-            padding: 8px 12px;
-            font-weight: 700;
-            font-size: 10px;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-
-        .comparison-table th:first-child { border-top-left-radius: 6px; }
-        .comparison-table th:last-child { border-top-right-radius: 6px; }
-
-        .comparison-table td {
-            padding: 7px 12px;
-            border-bottom: 1px solid #e2e8f0;
-            color: #334155;
-        }
-
-        .comparison-table tr:last-child td {
-            border-bottom: 2px solid #0f172a;
-        }
-
-        .comparison-table td.highlight {
-            font-weight: 700;
             color: #0f172a;
-            background: #f1f5f9;
         }
-
-        .roi-box {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            background: #f8fafc;
-            border-left: 4px solid #f59e0b;
-            padding: 12px 16px;
-            border-radius: 0 8px 8px 0;
-            margin-bottom: 18px;
-        }
-
-        .roi-item strong {
-            display: block;
-            font-size: 11.5px;
-            color: #0f172a;
-            margin-bottom: 2px;
-        }
-
-        .roi-item span {
-            font-size: 10.5px;
+        .flow-card p {
+            font-size: 0.79rem;
             color: #475569;
         }
 
-        .pilot-steps {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
+        /* PHONE SCREEN VISUAL SHOWCASE */
+        .showcase-band {
+            background: #f1f5f9;
+            padding: 26px 34px;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
         }
-
-        .step {
-            flex: 1;
-            background: #ffffff;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            padding: 10px;
-            font-size: 10.5px;
-            border-top: 2px solid #f59e0b;
-        }
-
-        .step strong {
-            display: block;
-            color: #0f172a;
-            font-size: 11px;
-            margin-bottom: 3px;
-        }
-
-        .step span {
-            color: #64748b;
-            line-height: 1.35;
-            display: block;
-        }
-
-        .cta-banner {
-            background: #0f172a;
-            color: #ffffff;
-            padding: 14px 18px;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
+        .mockup-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.25fr;
+            gap: 22px;
             align-items: center;
-            margin-bottom: 18px;
+        }
+        .phone-frame {
+            background: #090d16;
+            border: 2px solid var(--gold);
+            border-radius: 22px;
+            padding: 14px;
+            color: #f8fafc;
+            box-shadow: 0 16px 34px rgba(7, 10, 15, 0.2);
+        }
+        .phone-top {
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            margin-bottom: 10px;
+        }
+        .phone-venue {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: #f3e5ab;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .phone-table {
+            display: inline-block;
+            margin-top: 4px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            background: rgba(212,175,55,0.16);
+            color: #f3e5ab;
+            padding: 2px 8px;
+            border-radius: 99px;
+        }
+        .phone-tile {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 9px 10px;
+            margin-bottom: 7px;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+        .phone-tile i {
+            width: 28px;
+            height: 28px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+        .phone-tile strong { display: block; font-size: 0.76rem; color: #fff; }
+        .phone-tile span { display: block; font-size: 0.65rem; color: #94a3b8; }
+        .phone-row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 7px;
+            margin-top: 4px;
+        }
+        .phone-btn {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 8px;
+            padding: 7px;
+            text-align: center;
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: #e2e8f0;
         }
 
-        .cta-text strong {
-            display: block;
-            font-size: 12px;
-            color: #f59e0b;
+        .benefits-stack {
+            display: grid;
+            gap: 10px;
+        }
+        .ben-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid var(--gold);
+            border-radius: 12px;
+            padding: 12px 14px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .ben-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 9px;
+            background: #070a0f;
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+        .ben-card h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
             margin-bottom: 2px;
         }
-
-        .cta-text span {
-            font-size: 10.5px;
-            color: #cbd5e1;
+        .ben-card p {
+            font-size: 0.78rem;
+            color: #475569;
         }
 
-        .cta-btn {
-            background: #f59e0b;
-            color: #0f172a;
-            font-size: 11px;
-            font-weight: 700;
-            padding: 8px 14px;
-            border-radius: 6px;
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            white-space: nowrap;
-        }
-
-        .footer {
+        /* CTA BAR */
+        .cta-footer {
+            background: #070a0f;
+            color: #ffffff;
+            padding: 22px 34px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-top: 1px solid #e2e8f0;
-            padding-top: 14px;
-            font-size: 10px;
-            color: #64748b;
+            gap: 16px;
+        }
+        .cta-footer h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #f3e5ab;
+            margin-bottom: 3px;
+        }
+        .cta-footer p {
+            font-size: 0.78rem;
+            color: #cbd5e1;
+        }
+        .btn-demo {
+            background: linear-gradient(135deg, #fce588, #d4af37);
+            color: #070a0f;
+            text-decoration: none;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 0.85rem;
+            padding: 11px 20px;
+            border-radius: 10px;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+        }
+        .legal-bar {
+            background: #040609;
+            color: #94a3b8;
+            font-size: 0.7rem;
+            padding: 10px 34px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
-        .footer strong {
-            color: #0f172a;
+        @media (max-width: 720px) {
+            body { padding: 10px 8px 30px; }
+            .hero, .mockup-grid, .flow-grid { grid-template-columns: 1fr; }
+            .hero, .sec, .showcase-band, .cta-footer, .legal-bar { padding: 20px 18px; }
+            .cta-footer { flex-direction: column; text-align: center; }
+            .hero h1 { font-size: 1.55rem; }
         }
-
         @media print {
-            body { 
-                padding: 0; 
-                background: #fff; 
+            body { padding: 0; background: #fff; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            .no-print { display: none !important; }
+            .brochure { box-shadow: none; border-radius: 0; max-width: 100%; }
+            .hero, .phone-frame, .cta-footer, .legal-bar, .flow-num, .ben-icon {
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
             }
-            .no-print { display: none !important; }
-            .sheet { 
-                border: none; 
-                box-shadow: none; 
-                padding: 10px; 
-                max-width: 100%;
-            }
-            .cta-banner {
-                background: #0f172a !important;
-                color: #ffffff !important;
-                -webkit-print-color-adjust: exact !important;
-            }
-        }
-
-        @media (max-width: 680px) {
-            .sheet { padding: 20px 16px; }
-            .header { flex-direction: column; gap: 12px; }
-            .meta-badge { text-align: left; }
-            .feature-grid { grid-template-columns: 1fr; }
-            .roi-box { grid-template-columns: 1fr; }
-            .pilot-steps { flex-direction: column; }
-            .cta-banner { flex-direction: column; gap: 10px; text-align: center; }
         }
     </style>
 </head>
 <body>
 
-<div class="no-print" style="max-width: 840px; margin: 0 auto 12px; display: flex; justify-content: flex-end;">
-    <button onclick="window.print()" style="background: #0f172a; color: #f59e0b; border: none; padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 12px; cursor: pointer;">
-        Save / Download 1-Page PDF
+<div class="topbar no-print">
+    <div class="topbar-note">METRIX Tabletop Companion · Visual Brief</div>
+    <button class="btn-pdf" onclick="window.print()">
+        <i class="fa-solid fa-file-arrow-down"></i> Save as 1-Page PDF
     </button>
 </div>
 
-<div class="sheet">
-    <div class="header">
+<div class="brochure">
+    <!-- 1. VISUAL HERO -->
+    <div class="hero">
         <div>
-            <div class="tag-pill" id="briefTag">Product Briefing · Not a Marketing Agency</div>
-            <div class="brand-title">METRIX</div>
-            <div class="brand-subtitle">In-Store Guest Data &amp; Tabletop Companion Software</div>
+            <div class="brand-row">
+                <img src="/metrix_logo.jpg" alt="METRIX">
+                <div class="brand-name">METRIX</div>
+            </div>
+            <div class="pill-badge">
+                <i class="fa-solid fa-microchip"></i> In-Store Hospitality Software · Not a Marketing Agency
+            </div>
+            <h1>Turn Every Table Into <span>Repeat Guests &amp; 5-Star Protection</span></h1>
+            <p class="hero-sub">
+                Built for <strong id="briefTarget" style="color:#fff;">Independent Cafes &amp; Restaurants</strong>.
+                Works independently on your tables alongside your existing marketing &amp; operations team—zero apps to download.
+            </p>
+            <div class="hero-pills">
+                <div class="mini-chip"><i class="fa-solid fa-database"></i> Own Guest WhatsApps</div>
+                <div class="mini-chip"><i class="fa-solid fa-bell-concierge"></i> 1-Tap Table Service</div>
+                <div class="mini-chip"><i class="fa-solid fa-shield-halved"></i> Private Complaint Shield</div>
+                <div class="mini-chip"><i class="fa-solid fa-wifi"></i> VIP-Locked Wi-Fi</div>
+            </div>
         </div>
-        <div class="meta-badge">
-            <strong>Prepared For:</strong> <span id="briefTarget">Independent Cafes &amp; Restaurants</span><br>
-            <strong>Platform:</strong> Cloud Tabletop Software (Zero App Download)<br>
-            <strong>Standard Fee:</strong> ₹3,500 / month (Zero Upfront · 7-Day Trial)
+
+        <div class="hero-visual">
+            <img class="hero-photo" src="/premium_standee_mockup.jpg" alt="METRIX Tabletop Standee">
+            <div class="photo-caption">
+                <div>100 × 155mm Acrylic Tabletop Unit</div>
+                <span>0 App Download</span>
+            </div>
         </div>
     </div>
 
-    <h2>1. How METRIX Helps <span id="briefVenueInline">Your Cafe</span> (Works Alongside Your Marketing Team)</h2>
-    <p>METRIX is <strong>not</strong> a digital marketing agency—we provide standalone <strong>in-store tabletop software &amp; luxury QR standees</strong> that run inside your cafe every day. While guests sit at tables, METRIX upgrades their dining experience and builds a private first-party guest list that <strong>you or your existing marketing team</strong> can use to drive repeat visits and higher revenue.</p>
+    <!-- 2. HOW IT WORKS IN 3 VISUAL STEPS -->
+    <div class="sec">
+        <div class="sec-title"><i class="fa-solid fa-bolt" style="color: var(--gold);"></i> How It Works On Your Tables</div>
+        <div class="sec-sub">Takes 5 minutes to place on tables · Zero POS changes · Works on any phone camera</div>
 
-    <div class="feature-grid">
-        <div class="feature-card">
-            <h3>🥂 Own Your Customer Data</h3>
-            <p>Every dine-in guest can unlock VIP Perks or Guest Wi-Fi in 2 seconds—saving verified Name, WhatsApp, Birthday &amp; Anniversary into your own database for repeat visits.</p>
-        </div>
-        <div class="feature-card">
-            <h3>⚡ Digital Table Service &amp; Menu</h3>
-            <p>Guests tap their table to call a waiter, ask for water/bill, view a visual photo menu, or unlock VIP-gated Wi-Fi—improving service speed with zero app downloads.</p>
-        </div>
-        <div class="feature-card">
-            <h3>🛡️ Google Rating Protection</h3>
-            <p>A private Complaint &amp; Call Manager option alerts your Live Floor Radar immediately so issues get fixed at the table <em>before</em> turning into 1-star Google reviews.</p>
+        <div class="flow-grid">
+            <div class="flow-card">
+                <div class="flow-num">1</div>
+                <h3>Guest Scans Standee</h3>
+                <p>Diners scan the matte-black QR card on their table—opens instantly inside their browser.</p>
+            </div>
+            <div class="flow-card">
+                <div class="flow-num">2</div>
+                <h3>Unlocks Perks or Wi-Fi</h3>
+                <p>Guests enter verified Name, WhatsApp &amp; Birthday/Anniversary—never leaking Wi-Fi passwords outside.</p>
+            </div>
+            <div class="flow-card">
+                <div class="flow-num">3</div>
+                <h3>Instant Service &amp; Data</h3>
+                <p>Floor staff receive live service calls &amp; private complaints while your database grows daily.</p>
+            </div>
         </div>
     </div>
 
-    <h2>2. Cafe Floor: Without METRIX vs. With METRIX</h2>
-    <table class="comparison-table">
-        <thead>
-            <tr>
-                <th>Cafe Operations</th>
-                <th>Without METRIX</th>
-                <th>With METRIX Tabletop Companion</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><strong>First-Party Customer Database</strong></td>
-                <td>Walk-in guests drink coffee &amp; leave with zero contact saved</td>
-                <td class="highlight">Captures 300–600 real WhatsApp, Birthday &amp; Anniversary contacts/month</td>
-            </tr>
-            <tr>
-                <td><strong>Guest Experience &amp; Table Service</strong></td>
-                <td>Laptop guests &amp; families wait or walk over for water, Wi-Fi, or bills</td>
-                <td class="highlight">1-tap Table Service, Visual Photo Menu &amp; VIP-locked Guest Wi-Fi</td>
-            </tr>
-            <tr>
-                <td><strong>Google Reviews &amp; Service Recovery</strong></td>
-                <td>Silent dissatisfaction turns into public 1-star Google reviews later</td>
-                <td class="highlight">Private 3-second floor escalation resolves issues while guests are seated</td>
-            </tr>
-            <tr>
-                <td><strong>Marketing Team Compatibility</strong></td>
-                <td>Marketers have zero in-store data to re-engage past diners</td>
-                <td class="highlight">Plugs alongside any agency/marketer; zero staff apps or POS changes</td>
-            </tr>
-        </tbody>
-    </table>
+    <!-- 3. PHONE SCREEN + KEY BENEFITS -->
+    <div class="showcase-band">
+        <div class="mockup-grid">
+            <!-- Phone Mockup -->
+            <div class="phone-frame">
+                <div class="phone-top">
+                    <div class="phone-venue" id="phoneVenueName">Your Cafe</div>
+                    <div class="phone-table">Table 02</div>
+                </div>
+                <div class="phone-tile" style="border-color: rgba(212,175,55,0.45);">
+                    <i class="fa-solid fa-crown" style="background: rgba(212,175,55,0.18); color: #d4af37;"></i>
+                    <div>
+                        <strong>Claim Free Birthday &amp; VIP Perks 🎁</strong>
+                        <span>Saves guest Name, WhatsApp &amp; Birthday</span>
+                    </div>
+                </div>
+                <div class="phone-tile">
+                    <i class="fa-solid fa-bell-concierge" style="background: rgba(56,189,248,0.18); color: #38bdf8;"></i>
+                    <div>
+                        <strong>Call Table Service 🛎️</strong>
+                        <span>Water · Waiter · Bill · Call Manager · Complaint</span>
+                    </div>
+                </div>
+                <div class="phone-tile">
+                    <i class="fa-solid fa-gamepad" style="background: rgba(168,85,247,0.18); color: #c084fc;"></i>
+                    <div>
+                        <strong>Play While You Wait 🎮</strong>
+                        <span>Keeps guests happy while kitchen cooks</span>
+                    </div>
+                </div>
+                <div class="phone-row-2">
+                    <div class="phone-btn"><i class="fa-solid fa-utensils" style="color:#d4af37;"></i> Photo Menu</div>
+                    <div class="phone-btn"><i class="fa-solid fa-wifi" style="color:#38bdf8;"></i> VIP Wi-Fi 🔒</div>
+                </div>
+            </div>
 
-    <h2>3. Simple Return on Investment</h2>
-    <div class="roi-box">
-        <div class="roi-item">
-            <strong>Higher Repeat Revenue:</strong>
-            <span>Re-inviting captured locals &amp; birthday/anniversary tables brings back high-margin direct footfall without paying aggregator commissions.</span>
-        </div>
-        <div class="roi-item">
-            <strong>Remote Visibility for Owners:</strong>
-            <span>Track real-time guest captures, repeat visits, and floor service alerts straight from your mobile cockpit anywhere.</span>
+            <!-- 4 Punchy Benefits -->
+            <div class="benefits-stack">
+                <div class="ben-card">
+                    <div class="ben-icon"><i class="fa-solid fa-users"></i></div>
+                    <div>
+                        <h4>1. Build Your Own Repeat Customer Database</h4>
+                        <p>Stop losing walk-in diners as strangers. Collect verified WhatsApps, birthdays &amp; anniversaries that <strong>you or your marketing team</strong> can re-invite for repeat revenue.</p>
+                    </div>
+                </div>
+                <div class="ben-card">
+                    <div class="ben-icon"><i class="fa-solid fa-star"></i></div>
+                    <div>
+                        <h4>2. Protect &amp; Lift Your Google Rating</h4>
+                        <p>Unhappy guests alert your management privately in 3 seconds from the table—fixing issues before they turn into public 1-star Google reviews.</p>
+                    </div>
+                </div>
+                <div class="ben-card">
+                    <div class="ben-icon"><i class="fa-solid fa-laptop"></i></div>
+                    <div>
+                        <h4>3. Remote Visibility From Anywhere</h4>
+                        <p>Monitor live guest captures, repeat visits, and service alerts straight from your mobile cockpit—even while managing the cafe remotely.</p>
+                    </div>
+                </div>
+                <div class="ben-card">
+                    <div class="ben-icon"><i class="fa-solid fa-lock"></i></div>
+                    <div>
+                        <h4>4. VIP-Locked Wi-Fi &amp; Visual Menu</h4>
+                        <p>Guests only unlock the Wi-Fi password after checking in cleanly—and browse mouth-watering dish photos right on their table.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <h2>4. Zero-Risk 7-Day Sample Setup</h2>
-    <div class="pilot-steps">
-        <div class="step">
-            <strong>1. Branded Setup</strong>
-            <span>We configure your menu photos, Wi-Fi lock, and table numbers within 24 hours.</span>
+    <!-- 4. INTERACTIVE DEMO CTA -->
+    <div class="cta-footer">
+        <div>
+            <h3>Test the Live Mobile Experience Prepared for <span id="briefVenueCta">Your Cafe</span></h3>
+            <p>Zero setup commitment · Sample tabletop standees available for a risk-free 7-day trial.</p>
         </div>
-        <div class="step">
-            <strong>2. 7-Day Free Trial</strong>
-            <span>Place matte-black tabletop standees on sample tables at zero upfront cost.</span>
-        </div>
-        <div class="step">
-            <strong>3. Review Real Data</strong>
-            <span>Check how many genuine customer numbers &amp; birthdays were captured in Week 1.</span>
-        </div>
-        <div class="step">
-            <strong>4. Keep Only If Useful</strong>
-            <span>Continue at ₹3,500/month only if your team loves the results—no lock-in contracts.</span>
-        </div>
+        <a id="briefDemoBtn" href="https://metrixmedia.agency/portal.html?name=Our+Cafe&category=dining&table=Table+02&flyerAccent=%23d4af37" target="_blank" class="btn-demo">
+            <i class="fa-solid fa-mobile-screen-button"></i> Try Live Phone Demo
+        </a>
     </div>
 
-    <div class="cta-banner">
-        <div class="cta-text">
-            <strong>Live Interactive Tabletop Demo Ready</strong>
-            <span>Test VIP Wi-Fi lock, Visual Menu, and 1-tap Table Service directly on your phone right now.</span>
-        </div>
-        <a id="briefDemoBtn" href="https://metrixmedia.agency/portal.html?name=Our+Cafe&category=dining&table=Table+02&flyerAccent=%23d4af37" class="cta-btn" target="_blank">Launch Live Demo</a>
-    </div>
-
-    <div class="footer">
+    <div class="legal-bar">
         <div><strong>METRIX Technologies</strong> (A ONEGRV Enterprise) · Hospitality Tabletop SaaS</div>
         <div>sunny@metrixmedia.agency · https://metrixmedia.agency</div>
     </div>
 </div>
 
 <script>
-    (function() {
+    (function () {
         const params = new URLSearchParams(window.location.search);
         const venue = (params.get('name') || '').trim();
         if (venue) {
-            document.title = `METRIX — Overview for ${venue}`;
+            document.title = `METRIX — Visual Overview for ${venue}`;
             document.getElementById('briefTarget').textContent = venue;
-            document.getElementById('briefVenueInline').textContent = venue;
+            document.getElementById('phoneVenueName').textContent = venue;
+            document.getElementById('briefVenueCta').textContent = venue;
             document.getElementById('briefDemoBtn').href = `https://metrixmedia.agency/portal.html?name=${encodeURIComponent(venue)}&category=dining&table=Table+02&flyerAccent=%23d4af37`;
         }
     })();
 </script>
-
 </body>
 </html>
