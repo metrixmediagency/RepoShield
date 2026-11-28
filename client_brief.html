@@ -403,7 +403,7 @@
             gap: 8px;
         }
 
-        @media (max-width: 720px) {
+        @media screen and (max-width: 720px) {
             body { padding: 10px 8px 30px; }
             .hero, .mockup-grid, .flow-grid { grid-template-columns: 1fr; }
             .hero, .sec, .showcase-band, .cta-footer, .legal-bar { padding: 20px 18px; }
@@ -411,10 +411,71 @@
             .hero h1 { font-size: 1.55rem; }
         }
         @media print {
-            body { padding: 0; background: #fff; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            @page {
+                size: A4 portrait;
+                margin: 6mm;
+            }
+            html, body {
+                width: 100%;
+                padding: 0 !important;
+                margin: 0 !important;
+                background: #ffffff !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
             .no-print { display: none !important; }
-            .brochure { box-shadow: none; border-radius: 0; max-width: 100%; }
-            .hero, .phone-frame, .cta-footer, .legal-bar, .flow-num, .ben-icon {
+            .brochure {
+                box-shadow: none !important;
+                border-radius: 12px !important;
+                border: 1px solid #cbd5e1 !important;
+                max-width: 100% !important;
+                width: 100% !important;
+                margin: 0 !important;
+            }
+            .hero {
+                grid-template-columns: 1.15fr 0.85fr !important;
+                padding: 18px 22px !important;
+                gap: 16px !important;
+                background: #070a0f !important;
+            }
+            .brand-row { margin-bottom: 8px !important; }
+            .pill-badge { margin-bottom: 8px !important; font-size: 9px !important; padding: 3px 9px !important; }
+            .hero h1 { font-size: 22px !important; margin-bottom: 8px !important; }
+            .hero h1 span {
+                background: none !important;
+                -webkit-background-clip: initial !important;
+                -webkit-text-fill-color: #f3e5ab !important;
+                color: #f3e5ab !important;
+            }
+            .hero-sub { font-size: 11px !important; margin-bottom: 10px !important; }
+            .mini-chip { padding: 4px 8px !important; font-size: 9.5px !important; }
+            .hero-photo { aspect-ratio: 16/11 !important; }
+            .photo-caption { backdrop-filter: none !important; background: rgba(7, 10, 15, 0.92) !important; font-size: 9px !important; padding: 5px 8px !important; }
+            .sec { padding: 14px 22px !important; }
+            .sec-title { font-size: 14px !important; }
+            .sec-sub { font-size: 10px !important; margin-bottom: 10px !important; }
+            .flow-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 10px !important; }
+            .flow-card { padding: 10px 12px !important; break-inside: avoid; }
+            .flow-num { width: 24px !important; height: 24px !important; font-size: 11px !important; margin-bottom: 6px !important; }
+            .flow-card h3 { font-size: 12px !important; }
+            .flow-card p { font-size: 10px !important; line-height: 1.3 !important; }
+            .showcase-band { padding: 14px 22px !important; }
+            .mockup-grid { grid-template-columns: 0.95fr 1.25fr !important; gap: 14px !important; break-inside: avoid; }
+            .phone-frame { padding: 10px !important; border-radius: 16px !important; }
+            .phone-tile { padding: 6px 8px !important; margin-bottom: 5px !important; }
+            .phone-tile strong { font-size: 10px !important; }
+            .phone-tile span { font-size: 8.5px !important; }
+            .benefits-stack { gap: 7px !important; }
+            .ben-card { padding: 8px 10px !important; gap: 9px !important; break-inside: avoid; }
+            .ben-icon { width: 26px !important; height: 26px !important; font-size: 11px !important; }
+            .ben-card h4 { font-size: 11px !important; }
+            .ben-card p { font-size: 9.8px !important; line-height: 1.3 !important; }
+            .cta-footer { padding: 14px 22px !important; flex-direction: row !important; text-align: left !important; break-inside: avoid; }
+            .cta-footer h3 { font-size: 13px !important; }
+            .cta-footer p { font-size: 10px !important; }
+            .btn-demo { padding: 8px 14px !important; font-size: 11px !important; }
+            .legal-bar { padding: 7px 22px !important; font-size: 9px !important; }
+            .hero, .phone-frame, .cta-footer, .legal-bar, .flow-num, .ben-icon, .mini-chip {
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
             }
