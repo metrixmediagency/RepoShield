@@ -275,6 +275,7 @@
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
             }
+            .no-print { display: none !important; }
             .sheet { 
                 border: none; 
                 box-shadow: none; 
@@ -301,116 +302,135 @@
 </head>
 <body>
 
+<div class="no-print" style="max-width: 840px; margin: 0 auto 12px; display: flex; justify-content: flex-end;">
+    <button onclick="window.print()" style="background: #0f172a; color: #f59e0b; border: none; padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 12px; cursor: pointer;">
+        Save / Download 1-Page PDF
+    </button>
+</div>
+
 <div class="sheet">
     <div class="header">
         <div>
-            <div class="tag-pill">Executive Dining &amp; Hospitality Briefing</div>
+            <div class="tag-pill" id="briefTag">Product Briefing · Not a Marketing Agency</div>
             <div class="brand-title">METRIX</div>
-            <div class="brand-subtitle">In-Store Tabletop Companion &amp; Guest Intelligence</div>
+            <div class="brand-subtitle">In-Store Guest Data &amp; Tabletop Companion Software</div>
         </div>
         <div class="meta-badge">
-            <strong>Target:</strong> Restaurant &amp; F&amp;B Operations<br>
-            <strong>Platform:</strong> Cloud Tabletop Companion<br>
-            <strong>Standard Fee:</strong> ₹3,500 / month (Zero Upfront · 7-Day Pilot)
+            <strong>Prepared For:</strong> <span id="briefTarget">Independent Cafes &amp; Restaurants</span><br>
+            <strong>Platform:</strong> Cloud Tabletop Software (Zero App Download)<br>
+            <strong>Standard Fee:</strong> ₹3,500 / month (Zero Upfront · 7-Day Trial)
         </div>
     </div>
 
-    <h2>1. The Restaurant Reality (Opening &amp; High-Footfall Operations)</h2>
-    <p>During peak dinner rushes and initial launch weeks, dining operations face two hidden profit drains: <strong>(1) delayed table service turning quietly into 1-star Google reviews</strong>, and <strong>(2) hundreds of paying diners walking out every night as anonymous strangers</strong> without leaving a contact number to ever invite them back.</p>
+    <h2>1. How METRIX Helps <span id="briefVenueInline">Your Cafe</span> (Works Alongside Your Marketing Team)</h2>
+    <p>METRIX is <strong>not</strong> a digital marketing agency—we provide standalone <strong>in-store tabletop software &amp; luxury QR standees</strong> that run inside your cafe every day. While guests sit at tables, METRIX upgrades their dining experience and builds a private first-party guest list that <strong>you or your existing marketing team</strong> can use to drive repeat visits and higher revenue.</p>
 
     <div class="feature-grid">
         <div class="feature-card">
-            <h3>🛡️ Opening &amp; Rush Shield</h3>
-            <p>Diners alert management in 3 seconds to cold food or delayed service—solving floor issues privately at the table before negative reviews hit Google.</p>
+            <h3>🥂 Own Your Customer Data</h3>
+            <p>Every dine-in guest can unlock VIP Perks or Guest Wi-Fi in 2 seconds—saving verified Name, WhatsApp, Birthday &amp; Anniversary into your own database for repeat visits.</p>
         </div>
         <div class="feature-card">
-            <h3>🥂 First-Party VIP Database</h3>
-            <p>Guests join your VIP Dining Club in &lt;3s. Captures verified Name, WhatsApp &amp; Birthday so you can invite them back for weekend specials.</p>
+            <h3>⚡ Digital Table Service &amp; Menu</h3>
+            <p>Guests tap their table to call a waiter, ask for water/bill, view a visual photo menu, or unlock VIP-gated Wi-Fi—improving service speed with zero app downloads.</p>
         </div>
         <div class="feature-card">
-            <h3>⚡ 1-Tap Table Service</h3>
-            <p>Diners tap to call server, request water, or ask for the bill. Zero staff app downloads; alerts route straight to management WhatsApp.</p>
+            <h3>🛡️ Google Rating Protection</h3>
+            <p>A private Complaint &amp; Call Manager option alerts your Live Floor Radar immediately so issues get fixed at the table <em>before</em> turning into 1-star Google reviews.</p>
         </div>
     </div>
 
-    <h2>2. Operational Comparison: Traditional Floor vs. METRIX</h2>
+    <h2>2. Cafe Floor: Without METRIX vs. With METRIX</h2>
     <table class="comparison-table">
         <thead>
             <tr>
-                <th>Operational Touchpoint</th>
-                <th>Traditional Floor Operations</th>
+                <th>Cafe Operations</th>
+                <th>Without METRIX</th>
                 <th>With METRIX Tabletop Companion</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td><strong>Delayed Service / Guest Dissatisfaction</strong></td>
-                <td>Guest leaves silently; posts 1-star Google review 3 hours later</td>
-                <td class="highlight">3-second private floor alert to manager WhatsApp; issue resolved at table</td>
+                <td><strong>First-Party Customer Database</strong></td>
+                <td>Walk-in guests drink coffee &amp; leave with zero contact saved</td>
+                <td class="highlight">Captures 300–600 real WhatsApp, Birthday &amp; Anniversary contacts/month</td>
             </tr>
             <tr>
-                <td><strong>Diner Contact &amp; Birthday Capture</strong></td>
-                <td>Zero data captured; diners walk out as anonymous strangers</td>
-                <td class="highlight">Captures 300–600 local diner WhatsApps &amp; birthdays every 30 days</td>
+                <td><strong>Guest Experience &amp; Table Service</strong></td>
+                <td>Laptop guests &amp; families wait or walk over for water, Wi-Fi, or bills</td>
+                <td class="highlight">1-tap Table Service, Visual Photo Menu &amp; VIP-locked Guest Wi-Fi</td>
             </tr>
             <tr>
-                <td><strong>Table Service Efficiency</strong></td>
-                <td>Guests wave hands or shout across a busy dining room</td>
-                <td class="highlight">1-tap service calling from phone; staff saves 30% running back &amp; forth</td>
+                <td><strong>Google Reviews &amp; Service Recovery</strong></td>
+                <td>Silent dissatisfaction turns into public 1-star Google reviews later</td>
+                <td class="highlight">Private 3-second floor escalation resolves issues while guests are seated</td>
             </tr>
             <tr>
-                <td><strong>Hardware &amp; System Integration</strong></td>
-                <td>Expensive tablets, complex POS setups &amp; staff training</td>
-                <td class="highlight">Runs 100% on cloud alongside Petpooja/Posist; zero staff apps required</td>
+                <td><strong>Marketing Team Compatibility</strong></td>
+                <td>Marketers have zero in-store data to re-engage past diners</td>
+                <td class="highlight">Plugs alongside any agency/marketer; zero staff apps or POS changes</td>
             </tr>
         </tbody>
     </table>
 
-    <h2>3. Return on Investment (The "2 Tables" Rule)</h2>
+    <h2>3. Simple Return on Investment</h2>
     <div class="roi-box">
         <div class="roi-item">
-            <strong>The Average Table Math:</strong>
-            <span>At ~₹1,500 average table bill, bringing back just <strong>TWO extra tables in a full month</strong> completely pays for the software.</span>
+            <strong>Higher Repeat Revenue:</strong>
+            <span>Re-inviting captured locals &amp; birthday/anniversary tables brings back high-margin direct footfall without paying aggregator commissions.</span>
         </div>
         <div class="roi-item">
-            <strong>The Birthday Advantage:</strong>
-            <span>Birthday tables bring 4 to 8 family members (₹4,000+ bills). Automated birthday invitations fill tables on slow weekday nights.</span>
+            <strong>Remote Visibility for Owners:</strong>
+            <span>Track real-time guest captures, repeat visits, and floor service alerts straight from your mobile cockpit anywhere.</span>
         </div>
     </div>
 
-    <h2>4. The 7-Day Zero-Risk Launch Pilot Protocol</h2>
+    <h2>4. Zero-Risk 7-Day Sample Setup</h2>
     <div class="pilot-steps">
         <div class="step">
-            <strong>1. Instant Setup</strong>
-            <span>METRIX configures custom branding, table numbers &amp; floor alert routing within 24 hours.</span>
+            <strong>1. Branded Setup</strong>
+            <span>We configure your menu photos, Wi-Fi lock, and table numbers within 24 hours.</span>
         </div>
         <div class="step">
-            <strong>2. Weekend Trial (Zero Fee)</strong>
-            <span>Deploy luxury standees across 5 tables for opening weekend at 100% zero upfront cost.</span>
+            <strong>2. 7-Day Free Trial</strong>
+            <span>Place matte-black tabletop standees on sample tables at zero upfront cost.</span>
         </div>
         <div class="step">
-            <strong>3. Live Data Review</strong>
-            <span>Review captured diner contacts, service alerts, and review shield data on Monday morning.</span>
+            <strong>3. Review Real Data</strong>
+            <span>Check how many genuine customer numbers &amp; birthdays were captured in Week 1.</span>
         </div>
         <div class="step">
-            <strong>4. Ongoing Partnership</strong>
-            <span>Continue on flat ₹3,500/month month-to-month plan only if your floor team loves the results.</span>
+            <strong>4. Keep Only If Useful</strong>
+            <span>Continue at ₹3,500/month only if your team loves the results—no lock-in contracts.</span>
         </div>
     </div>
 
     <div class="cta-banner">
         <div class="cta-text">
-            <strong>Live Interactive Tabletop Simulation Ready</strong>
-            <span>Test the 1-tap table service and VIP dining club directly on your phone right now.</span>
+            <strong>Live Interactive Tabletop Demo Ready</strong>
+            <span>Test VIP Wi-Fi lock, Visual Menu, and 1-tap Table Service directly on your phone right now.</span>
         </div>
-        <a href="https://metrixmedia.agency/portal.html?name=Coastal+Konkan+Kitchen&category=dining&table=Table+04&flyerAccent=%23f59e0b" class="cta-btn" target="_blank">Launch Live Demo</a>
+        <a id="briefDemoBtn" href="https://metrixmedia.agency/portal.html?name=Our+Cafe&category=dining&table=Table+02&flyerAccent=%23d4af37" class="cta-btn" target="_blank">Launch Live Demo</a>
     </div>
 
     <div class="footer">
-        <div><strong>METRIX Technologies</strong> (A ONEGRV Enterprise) · In-Store Hospitality Intelligence</div>
+        <div><strong>METRIX Technologies</strong> (A ONEGRV Enterprise) · Hospitality Tabletop SaaS</div>
         <div>sunny@metrixmedia.agency · https://metrixmedia.agency</div>
     </div>
 </div>
+
+<script>
+    (function() {
+        const params = new URLSearchParams(window.location.search);
+        const venue = (params.get('name') || '').trim();
+        if (venue) {
+            document.title = `METRIX — Overview for ${venue}`;
+            document.getElementById('briefTarget').textContent = venue;
+            document.getElementById('briefVenueInline').textContent = venue;
+            document.getElementById('briefDemoBtn').href = `https://metrixmedia.agency/portal.html?name=${encodeURIComponent(venue)}&category=dining&table=Table+02&flyerAccent=%23d4af37`;
+        }
+    })();
+</script>
 
 </body>
 </html>
