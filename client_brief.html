@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>METRIX — Visual Product Overview</title>
+    <title>METRIX — 5-Page Visual Deck</title>
     <link rel="icon" type="image/jpeg" href="metrix_logo.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,368 +15,416 @@
             --bg-dark: #070a0f;
             --bg-card: #0f172a;
             --gold: #d4af37;
-            --gold-soft: rgba(212, 175, 55, 0.14);
-            --gold-border: rgba(212, 175, 55, 0.35);
+            --gold-light: #f3e5ab;
+            --gold-border: rgba(212, 175, 55, 0.38);
             --text-dark: #0f172a;
             --text-muted: #475569;
         }
         body {
             font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #e2e8f0;
+            background: #cbd5e1;
             color: var(--text-dark);
-            padding: 18px 14px 40px;
-            line-height: 1.45;
+            padding: 18px 14px 50px;
+            line-height: 1.48;
         }
+
         .topbar {
-            max-width: 920px;
-            margin: 0 auto 12px;
+            max-width: 720px;
+            margin: 0 auto 14px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 10px;
+            flex-wrap: wrap;
         }
         .topbar-note {
-            font-size: 0.78rem;
-            font-weight: 600;
-            color: #475569;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #1e293b;
         }
         .btn-pdf {
             background: #070a0f;
-            color: #f3e5ab;
-            border: 1px solid var(--gold);
-            padding: 9px 16px;
+            color: var(--gold-light);
+            border: 1.5px solid var(--gold);
+            padding: 10px 18px;
             border-radius: 99px;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: 700;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
-            gap: 7px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+            gap: 8px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.16);
         }
-        .brochure {
-            max-width: 920px;
+
+        .deck {
+            max-width: 720px;
             margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+
+        .slide {
             background: #ffffff;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 20px 50px rgba(7, 10, 15, 0.14);
+            box-shadow: 0 18px 42px rgba(7, 10, 15, 0.14);
+            border: 1px solid #cbd5e1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .slide-dark {
+            background: radial-gradient(circle at top right, #1b2538 0%, #070a0f 65%);
+            color: #f8fafc;
+            border: 1.5px solid var(--gold-border);
+        }
+        .slide-body {
+            padding: 34px 32px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .slide-footer {
+            padding: 12px 32px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #64748b;
+        }
+        .slide-dark .slide-footer {
+            border-top-color: rgba(255,255,255,0.09);
+            color: #94a3b8;
+            background: rgba(0,0,0,0.28);
         }
 
-        /* HERO DARK SHOWCASE */
-        .hero {
-            background: radial-gradient(circle at top right, #1e293b 0%, #070a0f 65%);
-            color: #f8fafc;
-            padding: 32px 34px;
-            display: grid;
-            grid-template-columns: 1.15fr 0.85fr;
-            gap: 26px;
-            align-items: center;
-            border-bottom: 3px solid var(--gold);
-        }
+        /* PAGE 1: INTRO COVER */
         .brand-row {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 14px;
+            gap: 12px;
+            margin-bottom: 18px;
         }
         .brand-row img {
-            width: 34px;
-            height: 34px;
-            border-radius: 8px;
-            border: 1px solid var(--gold-border);
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            border: 1.5px solid var(--gold-border);
             object-fit: cover;
         }
         .brand-name {
             font-family: 'Outfit', sans-serif;
             font-weight: 800;
-            letter-spacing: 2px;
-            font-size: 1.05rem;
-            color: #f3e5ab;
+            letter-spacing: 2.5px;
+            font-size: 1.25rem;
+            color: var(--gold-light);
         }
         .pill-badge {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 7px;
+            align-self: flex-start;
             background: rgba(212, 175, 55, 0.14);
             border: 1px solid var(--gold-border);
-            color: #f3e5ab;
-            font-size: 0.72rem;
+            color: var(--gold-light);
+            font-size: 0.8rem;
             font-weight: 700;
             letter-spacing: 0.6px;
             text-transform: uppercase;
-            padding: 5px 11px;
+            padding: 6px 14px;
             border-radius: 99px;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
         }
-        .hero h1 {
+        .hero-title {
             font-family: 'Outfit', sans-serif;
-            font-size: 1.95rem;
+            font-size: 2.15rem;
             font-weight: 800;
-            line-height: 1.18;
-            margin-bottom: 12px;
+            line-height: 1.15;
             color: #ffffff;
+            margin-bottom: 14px;
         }
-        .hero h1 span {
-            background: linear-gradient(135deg, #fce588, #d4af37);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        .hero-title span { color: var(--gold-light); }
         .hero-sub {
-            font-size: 0.9rem;
+            font-size: 1rem;
             color: #cbd5e1;
-            margin-bottom: 18px;
-            max-width: 440px;
+            margin-bottom: 20px;
+            line-height: 1.55;
         }
-        .hero-pills {
+        .hero-photo-wrap {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1.5px solid var(--gold-border);
+            margin-bottom: 18px;
+        }
+        .hero-photo {
+            width: 100%;
+            height: 310px;
+            object-fit: cover;
+            display: block;
+        }
+        .photo-cap {
+            background: rgba(7, 10, 15, 0.9);
+            padding: 10px 14px;
             display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.82rem;
+            color: #f8fafc;
+            border-top: 1px solid var(--gold-border);
+        }
+        .photo-cap strong { color: var(--gold-light); }
+        .intro-chips {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
         }
         .mini-chip {
             background: rgba(255,255,255,0.06);
             border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 10px;
-            padding: 7px 11px;
-            font-size: 0.76rem;
+            border-radius: 12px;
+            padding: 11px 14px;
+            font-size: 0.88rem;
             font-weight: 600;
-            color: #f1f5f9;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .mini-chip i { color: var(--gold); }
-
-        .hero-visual {
-            position: relative;
-        }
-        .hero-photo {
-            width: 100%;
-            aspect-ratio: 4/3;
-            object-fit: cover;
-            border-radius: 16px;
-            border: 1.5px solid var(--gold-border);
-            box-shadow: 0 18px 36px rgba(0,0,0,0.45);
-            display: block;
-        }
-        .photo-caption {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            right: 10px;
-            background: rgba(7, 10, 15, 0.86);
-            backdrop-filter: blur(8px);
-            border: 1px solid var(--gold-border);
-            border-radius: 10px;
-            padding: 7px 10px;
-            font-size: 0.72rem;
             color: #f8fafc;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .photo-caption span { color: #f3e5ab; font-weight: 700; }
-
-        /* SECTION WRAPPER */
-        .sec {
-            padding: 26px 34px;
-        }
-        .sec-title {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.18rem;
-            font-weight: 800;
-            color: #070a0f;
-            margin-bottom: 4px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .sec-sub {
-            font-size: 0.82rem;
-            color: var(--text-muted);
-            margin-bottom: 18px;
-        }
-
-        /* 3 VISUAL FLOW CARDS */
-        .flow-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 14px;
-        }
-        .flow-card {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 14px;
-            padding: 16px;
-            position: relative;
-        }
-        .flow-num {
-            width: 30px;
-            height: 30px;
-            border-radius: 8px;
-            background: #070a0f;
-            color: var(--gold);
-            font-family: 'Outfit', sans-serif;
-            font-weight: 800;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 10px;
-        }
-        .flow-card h3 {
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.96rem;
-            font-weight: 700;
-            margin-bottom: 4px;
-            color: #0f172a;
-        }
-        .flow-card p {
-            font-size: 0.79rem;
-            color: #475569;
-        }
-
-        /* PHONE SCREEN VISUAL SHOWCASE */
-        .showcase-band {
-            background: #f1f5f9;
-            padding: 26px 34px;
-            border-top: 1px solid #e2e8f0;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        .mockup-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.25fr;
-            gap: 22px;
-            align-items: center;
-        }
-        .phone-frame {
-            background: #090d16;
-            border: 2px solid var(--gold);
-            border-radius: 22px;
-            padding: 14px;
-            color: #f8fafc;
-            box-shadow: 0 16px 34px rgba(7, 10, 15, 0.2);
-        }
-        .phone-top {
-            text-align: center;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            margin-bottom: 10px;
-        }
-        .phone-venue {
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 800;
-            color: #f3e5ab;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-        .phone-table {
-            display: inline-block;
-            margin-top: 4px;
-            font-size: 0.65rem;
-            font-weight: 700;
-            background: rgba(212,175,55,0.16);
-            color: #f3e5ab;
-            padding: 2px 8px;
-            border-radius: 99px;
-        }
-        .phone-tile {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 10px;
-            padding: 9px 10px;
-            margin-bottom: 7px;
             display: flex;
             align-items: center;
             gap: 9px;
         }
-        .phone-tile i {
-            width: 28px;
-            height: 28px;
-            border-radius: 7px;
+        .mini-chip i { color: var(--gold); font-size: 1rem; }
+
+        /* HEADERS FOR LIGHT SLIDES (PAGES 2, 3, 4) */
+        .page-kicker {
+            display: inline-block;
+            align-self: flex-start;
+            background: #070a0f;
+            color: var(--gold-light);
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.76rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 5px 12px;
+            border-radius: 99px;
+            margin-bottom: 12px;
+        }
+        .page-heading {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: #070a0f;
+            line-height: 1.2;
+            margin-bottom: 6px;
+        }
+        .page-lead {
+            font-size: 0.96rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        /* PAGE 2: 3 BIG STEP CARDS */
+        .steps-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .step-card {
+            background: #f8fafc;
+            border: 1.5px solid #e2e8f0;
+            border-left: 5px solid var(--gold);
+            border-radius: 16px;
+            padding: 20px 22px;
+            display: flex;
+            align-items: flex-start;
+            gap: 18px;
+        }
+        .step-num {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            background: #070a0f;
+            color: var(--gold-light);
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 800;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.8rem;
             flex-shrink: 0;
         }
-        .phone-tile strong { display: block; font-size: 0.76rem; color: #fff; }
-        .phone-tile span { display: block; font-size: 0.65rem; color: #94a3b8; }
-        .phone-row-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 7px;
-            margin-top: 4px;
+        .step-card h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.18rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 5px;
         }
-        .phone-btn {
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 8px;
-            padding: 7px;
-            text-align: center;
-            font-size: 0.68rem;
-            font-weight: 700;
-            color: #e2e8f0;
+        .step-card p {
+            font-size: 0.94rem;
+            color: #334155;
+            line-height: 1.5;
         }
 
-        .benefits-stack {
-            display: grid;
-            gap: 10px;
+        /* PAGE 3 & 4: 4 BIG FEATURE / BENEFIT CARDS */
+        .cards-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
         }
-        .ben-card {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-left: 4px solid var(--gold);
-            border-radius: 12px;
-            padding: 12px 14px;
+        .big-card {
+            background: #f8fafc;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 18px 20px;
             display: flex;
             align-items: flex-start;
-            gap: 12px;
+            gap: 16px;
         }
-        .ben-icon {
-            width: 34px;
-            height: 34px;
-            border-radius: 9px;
+        .big-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
             background: #070a0f;
             color: var(--gold);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.9rem;
+            font-size: 1.2rem;
             flex-shrink: 0;
         }
-        .ben-card h4 {
+        .big-card h3 {
             font-family: 'Outfit', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 700;
-            margin-bottom: 2px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 4px;
         }
-        .ben-card p {
-            font-size: 0.78rem;
-            color: #475569;
+        .big-card p {
+            font-size: 0.9rem;
+            color: #334155;
+            line-height: 1.48;
         }
 
-        /* CTA BAR */
-        .cta-footer {
-            background: #070a0f;
-            color: #ffffff;
-            padding: 22px 34px;
+        /* PAGE 5: ACTUAL PORTAL SCREENSHOT / MOCKUP + DEMO CTA */
+        .portal-showcase {
+            max-width: 390px;
+            width: 100%;
+            margin: 0 auto 20px;
+            background: rgba(15, 23, 42, 0.95);
+            border: 2px solid var(--gold);
+            border-radius: 26px;
+            padding: 20px 18px;
+            color: #f8fafc;
+            box-shadow: 0 22px 46px rgba(0, 0, 0, 0.5);
+        }
+        .ps-header {
+            text-align: center;
+            margin-bottom: 14px;
+        }
+        .ps-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.14);
+            border: 1.5px solid var(--gold);
+            color: var(--gold);
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            gap: 16px;
+            justify-content: center;
+            font-size: 1.25rem;
+            margin: 0 auto 8px;
         }
-        .cta-footer h3 {
+        .ps-biz {
             font-family: 'Outfit', sans-serif;
-            font-size: 1.05rem;
+            font-size: 1.15rem;
             font-weight: 800;
-            color: #f3e5ab;
-            margin-bottom: 3px;
+            color: var(--gold-light);
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
-        .cta-footer p {
+        .ps-badge {
+            display: inline-block;
+            margin-top: 5px;
+            padding: 3px 11px;
+            border-radius: 99px;
+            background: rgba(212, 175, 55, 0.16);
+            border: 1px solid var(--gold-border);
+            color: var(--gold-light);
+            font-size: 0.72rem;
+            font-weight: 700;
+        }
+        .ps-tagline {
+            font-size: 0.74rem;
+            color: #94a3b8;
+            margin-top: 6px;
+        }
+        .ps-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 14px;
+            padding: 11px 12px;
+            margin-bottom: 9px;
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+        .ps-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+            flex-shrink: 0;
+        }
+        .ps-text h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.86rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 2px;
+        }
+        .ps-text p {
+            font-size: 0.72rem;
+            color: #94a3b8;
+        }
+        .ps-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 9px;
+            margin-top: 4px;
+        }
+        .ps-pill-btn {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.14);
+            border-radius: 12px;
+            padding: 10px 8px;
+            text-align: center;
             font-size: 0.78rem;
-            color: #cbd5e1;
+            font-weight: 700;
+            color: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .ps-secure {
+            text-align: center;
+            font-size: 0.68rem;
+            color: #64748b;
+            margin-top: 12px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .cta-center {
+            text-align: center;
         }
         .btn-demo {
             background: linear-gradient(135deg, #fce588, #d4af37);
@@ -384,36 +432,34 @@
             text-decoration: none;
             font-family: 'Outfit', sans-serif;
             font-weight: 800;
-            font-size: 0.85rem;
-            padding: 11px 20px;
-            border-radius: 10px;
-            white-space: nowrap;
+            font-size: 1rem;
+            padding: 14px 26px;
+            border-radius: 12px;
             display: inline-flex;
             align-items: center;
-            gap: 7px;
+            gap: 9px;
+            box-shadow: 0 10px 26px rgba(212, 175, 55, 0.28);
         }
-        .legal-bar {
-            background: #040609;
-            color: #94a3b8;
-            font-size: 0.7rem;
-            padding: 10px 34px;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 8px;
+        .cta-note {
+            font-size: 0.84rem;
+            color: #cbd5e1;
+            margin-top: 10px;
         }
 
-        @media screen and (max-width: 720px) {
-            body { padding: 10px 8px 30px; }
-            .hero, .mockup-grid, .flow-grid { grid-template-columns: 1fr; }
-            .hero, .sec, .showcase-band, .cta-footer, .legal-bar { padding: 20px 18px; }
-            .cta-footer { flex-direction: column; text-align: center; }
-            .hero h1 { font-size: 1.55rem; }
+        @media screen and (max-width: 640px) {
+            body { padding: 10px 8px 36px; }
+            .slide-body { padding: 22px 18px; }
+            .slide-footer { padding: 10px 18px; font-size: 0.7rem; }
+            .hero-title { font-size: 1.65rem; }
+            .hero-photo { height: 220px; }
+            .intro-chips { grid-template-columns: 1fr; }
+            .page-heading { font-size: 1.4rem; }
         }
+
         @media print {
             @page {
                 size: A4 portrait;
-                margin: 9mm;
+                margin: 8mm;
             }
             html, body {
                 width: 100%;
@@ -424,80 +470,31 @@
                 print-color-adjust: exact !important;
             }
             .no-print { display: none !important; }
-            .brochure {
-                box-shadow: none !important;
-                border-radius: 12px !important;
-                border: 1px solid #cbd5e1 !important;
+            .deck {
                 max-width: 100% !important;
                 width: 100% !important;
+                gap: 0 !important;
+                display: block !important;
+            }
+            .slide {
+                height: 277mm !important;
+                max-height: 277mm !important;
+                overflow: hidden !important;
+                border-radius: 14px !important;
+                box-shadow: none !important;
                 margin: 0 !important;
+                page-break-after: always !important;
+                break-after: page !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
             }
-            /* PAGE 1: Big readable hero + photo + 3 steps stacked for mobile PDF viewing */
-            .hero {
-                grid-template-columns: 1fr !important;
-                padding: 24px 26px !important;
-                gap: 18px !important;
-                background: #070a0f !important;
+            .slide:last-child {
+                page-break-after: auto !important;
+                break-after: auto !important;
             }
-            .brand-row { margin-bottom: 10px !important; }
-            .brand-row img { width: 38px !important; height: 38px !important; }
-            .brand-name { font-size: 18px !important; }
-            .pill-badge { margin-bottom: 10px !important; font-size: 11px !important; padding: 5px 12px !important; }
-            .hero h1 { font-size: 27px !important; line-height: 1.18 !important; margin-bottom: 10px !important; }
-            .hero h1 span {
-                background: none !important;
-                -webkit-background-clip: initial !important;
-                -webkit-text-fill-color: #f3e5ab !important;
-                color: #f3e5ab !important;
-            }
-            .hero-sub { font-size: 14px !important; line-height: 1.45 !important; margin-bottom: 14px !important; max-width: 100% !important; }
-            .mini-chip { padding: 7px 12px !important; font-size: 12px !important; }
-            .hero-photo { width: 100% !important; max-height: 255px !important; aspect-ratio: auto !important; object-fit: cover !important; }
-            .photo-caption { backdrop-filter: none !important; background: rgba(7, 10, 15, 0.92) !important; font-size: 12px !important; padding: 8px 12px !important; }
-
-            .sec { padding: 20px 26px !important; }
-            .sec-title { font-size: 18px !important; }
-            .sec-sub { font-size: 13px !important; margin-bottom: 14px !important; }
-            .flow-grid { grid-template-columns: 1fr !important; gap: 10px !important; }
-            .flow-card {
-                padding: 13px 16px !important;
-                display: grid !important;
-                grid-template-columns: 36px 1fr !important;
-                column-gap: 12px !important;
-                align-items: center !important;
-                break-inside: avoid;
-            }
-            .flow-num { grid-row: span 2; width: 34px !important; height: 34px !important; font-size: 14px !important; margin-bottom: 0 !important; }
-            .flow-card h3 { font-size: 15px !important; margin-bottom: 2px !important; }
-            .flow-card p { font-size: 13px !important; line-height: 1.35 !important; }
-
-            /* PAGE 2: Phone preview + 4 spacious readable benefit cards + clickable CTA */
-            .showcase-band {
-                padding: 22px 26px !important;
-                page-break-before: always;
-                break-before: page;
-            }
-            .mockup-grid { grid-template-columns: 1fr !important; gap: 16px !important; }
-            .phone-frame { padding: 14px 16px !important; border-radius: 18px !important; break-inside: avoid; }
-            .phone-venue { font-size: 15px !important; }
-            .phone-table { font-size: 11px !important; padding: 3px 10px !important; }
-            .phone-tile { padding: 9px 12px !important; margin-bottom: 7px !important; }
-            .phone-tile strong { font-size: 13px !important; }
-            .phone-tile span { font-size: 11px !important; }
-            .phone-btn { padding: 9px !important; font-size: 12px !important; }
-
-            .benefits-stack { gap: 10px !important; }
-            .ben-card { padding: 12px 15px !important; gap: 12px !important; break-inside: avoid; }
-            .ben-icon { width: 34px !important; height: 34px !important; font-size: 14px !important; }
-            .ben-card h4 { font-size: 14.5px !important; margin-bottom: 3px !important; }
-            .ben-card p { font-size: 12.8px !important; line-height: 1.38 !important; }
-
-            .cta-footer { padding: 18px 26px !important; flex-direction: row !important; text-align: left !important; break-inside: avoid; }
-            .cta-footer h3 { font-size: 16px !important; }
-            .cta-footer p { font-size: 12.5px !important; }
-            .btn-demo { padding: 11px 18px !important; font-size: 13.5px !important; }
-            .legal-bar { padding: 10px 26px !important; font-size: 11px !important; }
-            .hero, .phone-frame, .cta-footer, .legal-bar, .flow-num, .ben-icon, .mini-chip {
+            .hero-photo { height: 295px !important; }
+            .slide, .slide-dark, .slide-footer, .pill-badge, .mini-chip, .photo-cap,
+            .page-kicker, .step-num, .big-icon, .portal-showcase, .ps-logo, .ps-icon, .ps-pill-btn, .btn-demo {
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
             }
@@ -507,154 +504,238 @@
 <body>
 
 <div class="topbar no-print">
-    <div class="topbar-note">METRIX Tabletop Companion · Visual Brief</div>
+    <div class="topbar-note">METRIX · 5-Page Mobile-Friendly Visual Deck</div>
     <button class="btn-pdf" onclick="window.print()">
-        <i class="fa-solid fa-file-arrow-down"></i> Save Mobile-Friendly PDF
+        <i class="fa-solid fa-file-arrow-down"></i> Save 5-Page Mobile PDF
     </button>
 </div>
 
-<div class="brochure">
-    <!-- 1. VISUAL HERO -->
-    <div class="hero">
-        <div>
+<div class="deck">
+
+    <!-- ==================== PAGE 1: INTRO ==================== -->
+    <section class="slide slide-dark">
+        <div class="slide-body">
             <div class="brand-row">
                 <img src="metrix_logo.jpg" alt="METRIX">
                 <div class="brand-name">METRIX</div>
             </div>
             <div class="pill-badge">
-                <i class="fa-solid fa-microchip"></i> In-Store Hospitality Software · Not a Marketing Agency
+                <i class="fa-solid fa-microchip"></i> Hospitality Tabletop Software · Not a Marketing Agency
             </div>
-            <h1>Turn Every Table Into <span>Repeat Guests &amp; 5-Star Protection</span></h1>
+            <h1 class="hero-title">Turn Every Table Into <span>Repeat Guests &amp; 5-Star Reviews</span></h1>
             <p class="hero-sub">
-                Built for <strong id="briefTarget" style="color:#fff;">Independent Cafes &amp; Restaurants</strong>.
-                Works independently on your tables alongside your existing marketing &amp; operations team—zero apps to download.
+                Prepared for <strong id="briefTarget" style="color:#ffffff;">Independent Cafes &amp; Restaurants</strong>.
+                An independent tabletop guest system that captures your diners, speeds up table service, and works smoothly alongside your marketing &amp; staff—zero apps required.
             </p>
-            <div class="hero-pills">
+
+            <div class="hero-photo-wrap">
+                <img class="hero-photo" src="premium_standee_mockup.jpg" alt="METRIX Matte Black Tabletop Standee">
+                <div class="photo-cap">
+                    <span>Luxury Matte-Black &amp; Gold Tabletop Unit</span>
+                    <strong>Zero App Download</strong>
+                </div>
+            </div>
+
+            <div class="intro-chips">
                 <div class="mini-chip"><i class="fa-solid fa-database"></i> Own Guest WhatsApps</div>
                 <div class="mini-chip"><i class="fa-solid fa-bell-concierge"></i> 1-Tap Table Service</div>
                 <div class="mini-chip"><i class="fa-solid fa-shield-halved"></i> Private Complaint Shield</div>
-                <div class="mini-chip"><i class="fa-solid fa-wifi"></i> VIP-Locked Wi-Fi</div>
+                <div class="mini-chip"><i class="fa-solid fa-wifi"></i> VIP-Locked Guest Wi-Fi</div>
             </div>
         </div>
-
-        <div class="hero-visual">
-            <img class="hero-photo" src="premium_standee_mockup.jpg" alt="METRIX Tabletop Standee">
-            <div class="photo-caption">
-                <div>100 × 155mm Acrylic Tabletop Unit</div>
-                <span>0 App Download</span>
-            </div>
+        <div class="slide-footer">
+            <span>METRIX Hospitality Systems (A ONEGRV Enterprise)</span>
+            <span>Page 1 of 5 · Intro</span>
         </div>
-    </div>
+    </section>
 
-    <!-- 2. HOW IT WORKS IN 3 VISUAL STEPS -->
-    <div class="sec">
-        <div class="sec-title"><i class="fa-solid fa-bolt" style="color: var(--gold);"></i> How It Works On Your Tables</div>
-        <div class="sec-sub">Takes 5 minutes to place on tables · Zero POS changes · Works on any phone camera</div>
+    <!-- ==================== PAGE 2: HOW IT WORKS ==================== -->
+    <section class="slide">
+        <div class="slide-body">
+            <span class="page-kicker">Simple 3-Step Floor Flow</span>
+            <h2 class="page-heading">How It Works On Your Tables</h2>
+            <p class="page-lead">Placed on tables in under 5 minutes · Zero POS software changes · Works on any phone camera.</p>
 
-        <div class="flow-grid">
-            <div class="flow-card">
-                <div class="flow-num">1</div>
-                <h3>Guest Scans Standee</h3>
-                <p>Diners scan the matte-black QR card on their table—opens instantly inside their browser.</p>
-            </div>
-            <div class="flow-card">
-                <div class="flow-num">2</div>
-                <h3>Unlocks Perks or Wi-Fi</h3>
-                <p>Guests enter verified Name, WhatsApp &amp; Birthday/Anniversary—never leaking Wi-Fi passwords outside.</p>
-            </div>
-            <div class="flow-card">
-                <div class="flow-num">3</div>
-                <h3>Instant Service &amp; Data</h3>
-                <p>Floor staff receive live service calls &amp; private complaints while your database grows daily.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- 3. PHONE SCREEN + KEY BENEFITS -->
-    <div class="showcase-band">
-        <div class="mockup-grid">
-            <!-- Phone Mockup -->
-            <div class="phone-frame">
-                <div class="phone-top">
-                    <div class="phone-venue" id="phoneVenueName">Your Cafe</div>
-                    <div class="phone-table">Table 02</div>
-                </div>
-                <div class="phone-tile" style="border-color: rgba(212,175,55,0.45);">
-                    <i class="fa-solid fa-crown" style="background: rgba(212,175,55,0.18); color: #d4af37;"></i>
+            <div class="steps-stack">
+                <div class="step-card">
+                    <div class="step-num">1</div>
                     <div>
-                        <strong>Claim Free Birthday &amp; VIP Perks 🎁</strong>
-                        <span>Saves guest Name, WhatsApp &amp; Birthday</span>
+                        <h3>Guest Scans Table Standee</h3>
+                        <p>Guests point their phone camera at the matte-black QR card on their table. It opens in 1 second inside Chrome or Safari—no Play Store or App Store downloads needed.</p>
                     </div>
                 </div>
-                <div class="phone-tile">
-                    <i class="fa-solid fa-bell-concierge" style="background: rgba(56,189,248,0.18); color: #38bdf8;"></i>
+                <div class="step-card">
+                    <div class="step-num">2</div>
                     <div>
-                        <strong>Call Table Service 🛎️</strong>
-                        <span>Water · Waiter · Bill · Call Manager · Complaint</span>
+                        <h3>Unlocks VIP Perks or Guest Wi-Fi</h3>
+                        <p>In 2 taps, diners enter their verified Name, WhatsApp number, Birthday &amp; Anniversary to unlock Guest Wi-Fi or birthday perks—stopping non-customers outside from stealing Wi-Fi.</p>
                     </div>
                 </div>
-                <div class="phone-tile">
-                    <i class="fa-solid fa-gamepad" style="background: rgba(168,85,247,0.18); color: #c084fc;"></i>
+                <div class="step-card">
+                    <div class="step-num">3</div>
                     <div>
-                        <strong>Play While You Wait 🎮</strong>
-                        <span>Keeps guests happy while kitchen cooks</span>
-                    </div>
-                </div>
-                <div class="phone-row-2">
-                    <div class="phone-btn"><i class="fa-solid fa-utensils" style="color:#d4af37;"></i> Photo Menu</div>
-                    <div class="phone-btn"><i class="fa-solid fa-wifi" style="color:#38bdf8;"></i> VIP Wi-Fi 🔒</div>
-                </div>
-            </div>
-
-            <!-- 4 Punchy Benefits -->
-            <div class="benefits-stack">
-                <div class="ben-card">
-                    <div class="ben-icon"><i class="fa-solid fa-users"></i></div>
-                    <div>
-                        <h4>1. Build Your Own Repeat Customer Database</h4>
-                        <p>Stop losing walk-in diners as strangers. Collect verified WhatsApps, birthdays &amp; anniversaries that <strong>you or your marketing team</strong> can re-invite for repeat revenue.</p>
-                    </div>
-                </div>
-                <div class="ben-card">
-                    <div class="ben-icon"><i class="fa-solid fa-star"></i></div>
-                    <div>
-                        <h4>2. Protect &amp; Lift Your Google Rating</h4>
-                        <p>Unhappy guests alert your management privately in 3 seconds from the table—fixing issues before they turn into public 1-star Google reviews.</p>
-                    </div>
-                </div>
-                <div class="ben-card">
-                    <div class="ben-icon"><i class="fa-solid fa-laptop"></i></div>
-                    <div>
-                        <h4>3. Remote Visibility From Anywhere</h4>
-                        <p>Monitor live guest captures, repeat visits, and service alerts straight from your mobile cockpit—even while managing the cafe remotely.</p>
-                    </div>
-                </div>
-                <div class="ben-card">
-                    <div class="ben-icon"><i class="fa-solid fa-lock"></i></div>
-                    <div>
-                        <h4>4. VIP-Locked Wi-Fi &amp; Visual Menu</h4>
-                        <p>Guests only unlock the Wi-Fi password after checking in cleanly—and browse mouth-watering dish photos right on their table.</p>
+                        <h3>Calls Service &amp; Protects Your Reviews</h3>
+                        <p>Diners request water, waiter, or the bill in 1 tap—or send a private complaint straight to your floor screen so issues are solved at the table before hitting Google.</p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- 4. INTERACTIVE DEMO CTA -->
-    <div class="cta-footer">
-        <div>
-            <h3>Test the Live Mobile Experience Prepared for <span id="briefVenueCta">Your Cafe</span></h3>
-            <p>Zero setup commitment · Sample tabletop standees available for a risk-free 7-day trial.</p>
+        <div class="slide-footer">
+            <span>METRIX Hospitality Systems</span>
+            <span>Page 2 of 5 · How It Works</span>
         </div>
-        <a id="briefDemoBtn" href="https://metrixmedia.agency/portal.html?name=Our+Cafe&category=dining&table=Table+02&flyerAccent=%23d4af37" target="_blank" class="btn-demo">
-            <i class="fa-solid fa-mobile-screen-button"></i> Try Live Phone Demo
-        </a>
-    </div>
+    </section>
 
-    <div class="legal-bar">
-        <div><strong>METRIX Technologies</strong> (A ONEGRV Enterprise) · Hospitality Tabletop SaaS</div>
-        <div>sunny@metrixmedia.agency · https://metrixmedia.agency</div>
-    </div>
+    <!-- ==================== PAGE 3: 4 CORE FEATURES ==================== -->
+    <section class="slide">
+        <div class="slide-body">
+            <span class="page-kicker">What’s Inside The System</span>
+            <h2 class="page-heading">4 Core Product Features</h2>
+            <p class="page-lead">Every feature can be turned ON or OFF in 1 click directly from your cafe dashboard.</p>
+
+            <div class="cards-stack">
+                <div class="big-card">
+                    <div class="big-icon"><i class="fa-solid fa-crown"></i></div>
+                    <div>
+                        <h3>1. Free Birthday &amp; VIP Data Capture</h3>
+                        <p>Collects real, validated WhatsApp numbers (with auto country code &amp; fake-number blocker), Birthdays, and optional Anniversaries—and automatically tags New vs. Repeat visits.</p>
+                    </div>
+                </div>
+                <div class="big-card">
+                    <div class="big-icon"><i class="fa-solid fa-wifi"></i></div>
+                    <div>
+                        <h3>2. VIP-Gated Guest Wi-Fi + Visual Food Menu</h3>
+                        <p>Guests only unlock the Wi-Fi password after entering their real Name &amp; WhatsApp. Right beside it, a visual photo gallery showcases your signature dishes &amp; drinks.</p>
+                    </div>
+                </div>
+                <div class="big-card">
+                    <div class="big-icon"><i class="fa-solid fa-bell-concierge"></i></div>
+                    <div>
+                        <h3>3. Instant Table Service &amp; Complaint Box</h3>
+                        <p>Clean buttons for Water Refill, Call Waiter, Request Bill, Special Note, Call Manager, and a private Complaint Box that flashes urgent alerts on your Live Floor Radar.</p>
+                    </div>
+                </div>
+                <div class="big-card">
+                    <div class="big-icon"><i class="fa-solid fa-gamepad"></i></div>
+                    <div>
+                        <h3>4. Play While You Wait (Table Arcade)</h3>
+                        <p>Built-in Couples icebreakers, Friends party cards, and Tic-Tac-Toe entertain guests while food is freshly prepared—reducing perceived kitchen wait times.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span>METRIX Hospitality Systems</span>
+            <span>Page 3 of 5 · Features</span>
+        </div>
+    </section>
+
+    <!-- ==================== PAGE 4: 4 BUSINESS BENEFITS ==================== -->
+    <section class="slide">
+        <div class="slide-body">
+            <span class="page-kicker">Why Cafes &amp; Owners Love It</span>
+            <h2 class="page-heading">4 Business Benefits For <span id="briefVenueInline">Your Cafe</span></h2>
+            <p class="page-lead">Designed to bring repeat tables, protect online ratings, and run effortlessly alongside your team.</p>
+
+            <div class="cards-stack">
+                <div class="big-card">
+                    <div class="big-icon"><i class="fa-solid fa-chart-line"></i></div>
+                    <div>
+                        <h3>1. Turn Walk-Ins Into Higher Repeat Revenue</h3>
+                        <p>Instead of letting paying guests leave anonymously, you build a verified database that you or your existing marketing team can invite back for slow weekdays &amp; birthday celebrations.</p>
+                    </div>
+                </div>
+                <div class="big-card">
+                    <div class="big-icon"><i class="fa-solid fa-star"></i></div>
+                    <div>
+                        <h3>2. Protect &amp; Grow Your Google Rating</h3>
+                        <p>Catch delayed orders or minor table complaints privately within 3 seconds while the customer is still seated—protecting the 5-star Google score every tourist checks before visiting.</p>
+                    </div>
+                </div>
+                <div class="big-card">
+                    <div class="big-icon"><i class="fa-solid fa-laptop"></i></div>
+                    <div>
+                        <h3>3. Live Remote Cockpit For Busy Owners</h3>
+                        <p>Track real-time table alerts, repeat guest visits, and captured contacts straight from your phone anywhere—giving remote owners total floor visibility without micromanaging.</p>
+                    </div>
+                </div>
+                <div class="big-card">
+                    <div class="big-icon"><i class="fa-solid fa-handshake"></i></div>
+                    <div>
+                        <h3>4. Complements Your Existing Marketing Team</h3>
+                        <p>We do not replace your social media or web person. METRIX works independently at the table level and feeds clean guest insights into whatever growth team you already have.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span>METRIX Hospitality Systems</span>
+            <span>Page 4 of 5 · Benefits</span>
+        </div>
+    </section>
+
+    <!-- ==================== PAGE 5: PORTAL SCREEN + DEMO CTA ==================== -->
+    <section class="slide slide-dark">
+        <div class="slide-body">
+            <div style="text-align: center; margin-bottom: 16px;">
+                <div class="pill-badge" style="margin-bottom: 10px;">
+                    <i class="fa-solid fa-mobile-screen"></i> Live Guest Screen Preview
+                </div>
+                <h2 style="font-family:'Outfit',sans-serif; font-size:1.55rem; font-weight:800; color:#fff;">What Guests See On Their Phone</h2>
+            </div>
+
+            <div class="portal-showcase">
+                <div class="ps-header">
+                    <div class="ps-logo"><i class="fa-solid fa-mug-hot"></i></div>
+                    <div class="ps-biz" id="phoneVenueName">Your Cafe</div>
+                    <div class="ps-badge"><i class="fa-solid fa-chair"></i> Table 02</div>
+                    <div class="ps-tagline">Tap below to claim free perks, call service, or unlock Wi-Fi.</div>
+                </div>
+
+                <div class="ps-card" style="border-color: rgba(212,175,55,0.45);">
+                    <div class="ps-icon" style="background: rgba(212,175,55,0.18); color: #d4af37;"><i class="fa-solid fa-crown"></i></div>
+                    <div class="ps-text">
+                        <h4>Claim Free Birthday &amp; VIP Perks 🎁</h4>
+                        <p>Get complimentary birthday treats &amp; chef offers</p>
+                    </div>
+                </div>
+
+                <div class="ps-card">
+                    <div class="ps-icon" style="background: rgba(56,189,248,0.16); color: #60a5fa;"><i class="fa-solid fa-bell-concierge"></i></div>
+                    <div class="ps-text">
+                        <h4>Call Table Service 🛎️</h4>
+                        <p>Water · Waiter · Bill · Manager · Private Complaint</p>
+                    </div>
+                </div>
+
+                <div class="ps-card">
+                    <div class="ps-icon" style="background: rgba(168,85,247,0.16); color: #c084fc;"><i class="fa-solid fa-gamepad"></i></div>
+                    <div class="ps-text">
+                        <h4>Play While You Wait 🎮</h4>
+                        <p>Couples icebreakers &amp; Friends party cards</p>
+                    </div>
+                </div>
+
+                <div class="ps-row">
+                    <div class="ps-pill-btn"><i class="fa-solid fa-utensils" style="color:#d4af37;"></i> Browse Menu</div>
+                    <div class="ps-pill-btn"><i class="fa-solid fa-wifi" style="color:#38bdf8;"></i> Free Wi-Fi 🔒</div>
+                </div>
+                <div class="ps-secure"><i class="fa-solid fa-shield-halved"></i> Secured by METRIX</div>
+            </div>
+
+            <div class="cta-center">
+                <a id="briefDemoBtn" href="https://metrixmedia.agency/portal.html?name=Our+Cafe&category=dining&table=Table+02&flyerAccent=%23d4af37" target="_blank" class="btn-demo">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Tap To Try Live Interactive Demo
+                </a>
+                <div class="cta-note">Ask us for a risk-free 7-day sample standee setup on your tables.</div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span>sunny@metrixmedia.agency · https://metrixmedia.agency</span>
+            <span>Page 5 of 5 · Portal Preview</span>
+        </div>
+    </section>
+
 </div>
 
 <script>
@@ -662,10 +743,10 @@
         const params = new URLSearchParams(window.location.search);
         const venue = (params.get('name') || '').trim();
         if (venue) {
-            document.title = `METRIX — Visual Overview for ${venue}`;
+            document.title = `METRIX — Visual Deck for ${venue}`;
             document.getElementById('briefTarget').textContent = venue;
+            document.getElementById('briefVenueInline').textContent = venue;
             document.getElementById('phoneVenueName').textContent = venue;
-            document.getElementById('briefVenueCta').textContent = venue;
             document.getElementById('briefDemoBtn').href = `https://metrixmedia.agency/portal.html?name=${encodeURIComponent(venue)}&category=dining&table=Table+02&flyerAccent=%23d4af37`;
         }
     })();
